@@ -1,7 +1,7 @@
 [versions]
 agp = "8.4.0-alpha07"
 kotlin = "1.9.20"
-revenuecat-android = "7.3.2"
+revenuecat-android = "7.5.2"
 revenuecat-ios = "4.31.6"
 
 [libraries]
