@@ -1,0 +1,16 @@
+[versions]
+agp = "8.4.0-alpha07"
+kotlin = "1.9.20"
+revenuecat-android = "7.3.2"
+revenuecat-ios = "4.31.6"
+
+[libraries]
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+revenuecat-android = { module = "com.revenuecat.purchases:purchases", version.ref = "revenuecat-android"}
+
+[plugins]
+adamko-dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version = "2.1.0" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+kotlin-dokka = { id = "org.jetbrains.dokka", version = "1.9.10" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
