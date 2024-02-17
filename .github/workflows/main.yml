@@ -74,3 +74,8 @@ jobs:
 
     - name: Generate Dokkatoo site
       run: ./gradlew dokkatooGenerate
+    - name: Upload GitHub Pages artifact
+      uses: actions/upload-pages-artifact@v3.0.1
+      with:
+        path: 'build/dokka/'
+            
