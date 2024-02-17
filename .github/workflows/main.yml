@@ -77,7 +77,7 @@ jobs:
     - name: Debug 1
       run: pwd
     - name: Debug 2
-      run: ls -lha
+      run: ls -lha build
     - name: Upload GitHub Pages artifact
       uses: actions/upload-pages-artifact@v3.0.1
       with:
