@@ -10,7 +10,7 @@
     {
       "customType": "regex",
       "fileMatch": ["\\.gradle(\\.kts)?$"],
-      "matchStrings": ["pod\\\\(\\\\\"(?<depName>.*?)\\\\\"\\\\)  *?{[\\\\s\\\\S]*?version *?= *?(?<currentValue>.*?)[\\\\s\\\\S]*?}"],
+      "matchStrings": ["pod\\\\(\\\\\"(<depName>)\\\\\"\\\\)  *?{[\\\\s\\\\S]*?version *?= *?(<currentValue>)[\\\\s\\\\S]*?}"],
       "datasourceTemplate": "pod"
     }
   ]
