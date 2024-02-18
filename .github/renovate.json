@@ -5,7 +5,13 @@
   "platform": "github",
   "branchPrefix": "renovate/",
   "onboarding": false,
-  "repositories": [
-    "JayShortway/kobankat"
+  "repositories": ["JayShortway/kobankat"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["\\.gradle(\\.kts)?$"],
+      "matchStrings": ["pod\\\\(\\\\\"(?<depName>.*?)\\\\\"\\\\)  *?{[\\\\s\\\\S]*?version *?= *?(?<currentValue>.*?)[\\\\s\\\\S]*?}"],
+      "datasourceTemplate": "pod"
+    }
   ]
 }
