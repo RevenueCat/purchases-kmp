@@ -15,5 +15,11 @@
       "datasourceTemplate": "pod",
       "versioningTemplate": "ruby"
     }
+  ],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["RevenueCat|purchases"],
+      "groupName": "RevenueCat"
+    }
   ]
 }
