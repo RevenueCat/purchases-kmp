@@ -4,8 +4,8 @@
   "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
   "platform": "github",
   "branchPrefix": "renovate/",
-  "onboarding": true,
-  "onboardingBranch": "renovate/onboarding",
-  "includeForks": true,
-  "repositories": []
+  "onboarding": false,
+  "repositories": [
+    "JayShortway/kobankat"
+  ]
 }
