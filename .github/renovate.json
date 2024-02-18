@@ -1,26 +1,11 @@
 {
-  "branchPrefix": "renovate/",
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "username": "renovate",
   "gitAuthor": "Renovate Bot <bot@renovateapp.com>",
-  "onboarding": false,
   "platform": "github",
+  "branchPrefix": "renovate/",
+  "onboarding": true,
+  "onboardingBranch": "renovate/onboarding",
   "includeForks": true,
-  "repositories": [
-    "renovatebot/github-action",
-  ],
-  "packageRules": [
-    {
-      "description": "lockFileMaintenance",
-      "matchUpdateTypes": [
-        "pin",
-        "digest",
-        "patch",
-        "minor",
-        "major",
-        "lockFileMaintenance"
-      ],
-      "dependencyDashboardApproval": false,
-      "stabilityDays": 0
-    }
-  ]
+  "repositories": []
 }
