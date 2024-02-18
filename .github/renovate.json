@@ -11,7 +11,7 @@
       "customType": "regex",
       "fileMatch": ["\\.versions\\.toml$"],
       "matchStrings": ["\\[versions\\][\\s\\S]*?revenuecat-ios *?= *?\"(?<currentValue>.*?)\"[\\s\\S]*?\\["],
-      "depNameTemplate": "RevenueCat"
+      "depNameTemplate": "RevenueCat",
       "datasourceTemplate": "pod",
       "versioningTemplate": "ruby"
     }
