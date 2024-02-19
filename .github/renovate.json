@@ -14,6 +14,13 @@
       "depNameTemplate": "RevenueCat",
       "datasourceTemplate": "pod",
       "versioningTemplate": "ruby"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["\\.podspec$"],
+      "matchStrings": ["spec\\.dependency *'(?<depName>.*?)', *'(?<currentValue>.*?)'"],
+      "datasourceTemplate": "pod",
+      "versioningTemplate": "ruby"
     }
   ],
   "packageRules": [
