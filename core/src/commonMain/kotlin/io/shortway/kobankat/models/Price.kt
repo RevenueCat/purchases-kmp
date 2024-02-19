@@ -1,5 +1,8 @@
 package io.shortway.kobankat.models
 
+/**
+ * Represents a monetary price.
+ */
 public expect class Price {
     /**
      * Formatted price of the item, including its currency sign. For example $3.00.

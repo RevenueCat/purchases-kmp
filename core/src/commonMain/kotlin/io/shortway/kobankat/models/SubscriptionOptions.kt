@@ -1,5 +1,8 @@
 package io.shortway.kobankat.models
 
+/**
+ * A collection of [SubscriptionOption]s.
+ */
 public expect class SubscriptionOptions  {
 
     /**

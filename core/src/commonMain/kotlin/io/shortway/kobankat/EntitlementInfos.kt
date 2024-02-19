@@ -1,8 +1,20 @@
 package io.shortway.kobankat
 
+/**
+ * This class contains all the entitlements associated to the user.
+ */
 public expect class EntitlementInfos
 
+/**
+ * Map of all EntitlementInfo [EntitlementInfo] objects (active and inactive) keyed by entitlement
+ * identifier.
+ */
 public expect val EntitlementInfos.all: Map<String, EntitlementInfo>
+
+/**
+ * If entitlement verification was enabled, the result of that verification. If not,
+ * [VerificationResult.NOT_REQUESTED].
+ */
 public expect val EntitlementInfos.verification: VerificationResult
 
 /**

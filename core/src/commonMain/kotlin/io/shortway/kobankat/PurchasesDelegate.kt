@@ -3,6 +3,10 @@ package io.shortway.kobankat
 import io.shortway.kobankat.models.StoreProduct
 import io.shortway.kobankat.models.StoreTransaction
 
+/**
+ * A listener interface responsible for handling promotional product purchases (App Store only) and
+ * changes to customer information.
+ */
 public interface PurchasesDelegate {
 
     /**

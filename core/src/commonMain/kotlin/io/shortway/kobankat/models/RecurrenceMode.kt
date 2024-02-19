@@ -30,6 +30,3 @@ public val RecurrenceMode.identifier: Int?
         RecurrenceMode.UNKNOWN -> null
         else -> error("Unknown RecurrenceMode: $this")
     }
-
-public fun Int?.toRecurrenceMode(): RecurrenceMode =
-    RecurrenceMode.entries.firstOrNull { it.identifier == this } ?: RecurrenceMode.UNKNOWN
