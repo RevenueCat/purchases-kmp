@@ -10,6 +10,7 @@ revenuecat-android = { module = "com.revenuecat.purchases:purchases", version.re
 
 [plugins]
 adamko-dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version = "2.1.0" }
+arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.5" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 kotlin-dokka = { id = "org.jetbrains.dokka", version = "1.9.10" }
