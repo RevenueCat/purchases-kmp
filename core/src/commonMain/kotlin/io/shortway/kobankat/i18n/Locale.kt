@@ -1,11 +1,24 @@
 package io.shortway.kobankat.i18n
 
-@Suppress("DataClassPrivateConstructor")
-public data class Locale private constructor(val languageCode: String, val countryCode: String) {
+/**
+ * Minimal representation of a locale.
+ */
+public class Locale private constructor(
+    public val languageCode: String,
+    public val countryCode: String
+) {
 
     public companion object {
         public val Default: Locale = defaultLocale()
 
+        /**
+         * Creates a new Locale instance.
+         *
+         * @param languageCode A 2-letter [ISO 639](https://en.wikipedia.org/wiki/ISO_639) language
+         * code.
+         * @param countryCode A 0, 2 or 3-letter
+         * [ISO 3166-1](https://en.wikipedia.org/wiki/ISO_3166-1) country code.
+         */
         public fun create(languageCode: String, countryCode: String): Locale =
             Locale(
                 languageCode = languageCode.lowercase(),

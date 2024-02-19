@@ -1,5 +1,8 @@
 package io.shortway.kobankat
 
+/**
+ * Configuration of the SDK.
+ */
 public data class PurchasesConfiguration(
     internal val apiKey: String,
     internal val appUserId: String,

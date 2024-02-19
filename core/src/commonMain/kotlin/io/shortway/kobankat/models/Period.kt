@@ -6,7 +6,14 @@ private const val DAYS_PER_YEAR = 365.0
 private const val MONTHS_PER_YEAR = 12.0
 private const val WEEKS_PER_MONTH = DAYS_PER_YEAR / MONTHS_PER_YEAR / DAYS_PER_WEEK
 
+/**
+ * Represents subscription or [PricingPhase] billing period.
+ */
 public expect class Period
+
+/**
+ * The unit of time a [Period] is denoted in.
+ */
 public expect enum class PeriodUnit {
     DAY,
     WEEK,

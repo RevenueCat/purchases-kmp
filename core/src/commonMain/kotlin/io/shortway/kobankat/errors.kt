@@ -18,6 +18,9 @@ public class PurchasesError(
     }
 }
 
+/**
+ * A predefined error type.
+ */
 public enum class PurchasesErrorCode(public val code: Int, public val description: String) {
     UnknownError(0, "Unknown error."),
     PurchaseCancelledError(1, "Purchase was cancelled."),

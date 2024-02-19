@@ -1,5 +1,8 @@
 package io.shortway.kobankat
 
+/**
+ * An exception wrapping a [PurchasesError].
+ */
 public open class PurchasesException(public val error: PurchasesError) : Exception() {
 
     public val code: PurchasesErrorCode

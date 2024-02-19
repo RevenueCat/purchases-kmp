@@ -1,5 +1,8 @@
 package io.shortway.kobankat.models
 
+/**
+ * Represents an in-app billing purchase.
+ */
 public expect class StoreTransaction
 
 /**
@@ -21,10 +24,3 @@ public expect val StoreTransaction.productIds: List<String>
  * Time the product was purchased, in milliseconds since the epoch.
  */
 public expect val StoreTransaction.purchaseTime: Long
-
-public enum class PurchaseType {
-    GOOGLE_PURCHASE,
-    GOOGLE_RESTORED_PURCHASE,
-    AMAZON_PURCHASE,
-    APP_STORE_PURCHASE,
-}

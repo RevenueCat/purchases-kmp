@@ -3,6 +3,9 @@ package io.shortway.kobankat.models
 import io.shortway.kobankat.ProductType
 import io.shortway.kobankat.i18n.Locale
 
+/**
+ * Represents an in-app product's or subscription's listing details.
+ */
 public expect class StoreProduct
 
 /**

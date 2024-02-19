@@ -1,10 +1,22 @@
 package io.shortway.kobankat
 
+import io.shortway.kobankat.PurchasesFactory.sharedInstance
 import io.shortway.kobankat.models.BillingFeature
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
 
+/**
+ * Factory of [Purchases]. Call `configure()` in each respective platform source set before
+ * accessing the singleton Purchases instance using [sharedInstance].
+ */
 public expect object PurchasesFactory {
+
+    /**
+     * Singleton instance of Purchases. `configure()` will set this. Will throw an exception if the
+     * shared instance has not been configured.
+     *
+     * @return A previously set singleton Purchases instance.
+     */
     public val sharedInstance: Purchases
 
     /**

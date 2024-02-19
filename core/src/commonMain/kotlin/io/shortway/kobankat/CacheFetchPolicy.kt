@@ -30,6 +30,9 @@ public expect enum class CacheFetchPolicy {
     ;
 
     public companion object {
+        /**
+         * Returns the default policy when no policy is provided.
+         */
         public fun default(): CacheFetchPolicy
     }
 }

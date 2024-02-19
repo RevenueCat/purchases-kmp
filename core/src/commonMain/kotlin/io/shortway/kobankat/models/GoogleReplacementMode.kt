@@ -2,6 +2,14 @@ package io.shortway.kobankat.models
 
 import io.shortway.kobankat.ReplacementMode
 
+/**
+ * Enum of possible replacement modes to be passed to a Play Store purchase.
+ * Ignored for Amazon and App Store purchases.
+ *
+ * See
+ * [developer.android.com](https://developer.android.com/google/play/billing/subscriptions#proration)
+ * for examples.
+ */
 public expect enum class GoogleReplacementMode: ReplacementMode {
     /**
      * Old subscription is cancelled, and new subscription takes effect immediately.
