@@ -51,7 +51,7 @@ output-reports:
   # - 'SarifOutputReport'
 
 comments:
-  active: false
+  active: true
   AbsentOrWrongFileLicense:
     active: false
     licenseTemplateFile: 'license.template'
