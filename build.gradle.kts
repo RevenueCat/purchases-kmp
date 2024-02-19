@@ -4,4 +4,5 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform).apply(false)
     alias(libs.plugins.kotlin.cocoapods).apply(false)
     alias(libs.plugins.adamko.dokkatoo.html).apply(false)
+    alias(libs.plugins.arturbosch.detekt).apply(false)
 }
