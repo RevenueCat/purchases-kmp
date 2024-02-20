@@ -2,7 +2,8 @@
 
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.MavenPublishPlugin
-import com.vanniktech.maven.publish.SonatypeHost
+import nmcp.NmcpExtension
+import nmcp.NmcpPlugin
 
 plugins {
     //trick: for the same plugin versions in all sub-modules
@@ -12,6 +13,7 @@ plugins {
     alias(libs.plugins.adamko.dokkatoo.html).apply(false)
     alias(libs.plugins.arturbosch.detekt).apply(false)
     alias(libs.plugins.vanniktech.mavenPublish).apply(false)
+    alias(libs.plugins.gradleup.nmcp).apply(false)
 }
 
 allprojects {
@@ -22,9 +24,22 @@ allprojects {
             "-" +
             rootProject.libs.versions.revenuecat.ios.get()
 
+    // Remove when https://github.com/vanniktech/gradle-maven-publish-plugin/issues/722 is fixed.
+    plugins.withType<NmcpPlugin> {
+        configure<NmcpExtension>() {
+            publishAllPublications {
+                username = System.getenv("ORG_GRADLE_PROJECT_mavenCentralUsername")
+                password = System.getenv("ORG_GRADLE_PROJECT_mavenCentralPassword")
+                publicationType = "AUTOMATIC"
+            }
+        }
+    }
+
     plugins.withType<MavenPublishPlugin> {
         configure<MavenPublishBaseExtension> {
-            publishToMavenCentral(SonatypeHost.DEFAULT, automaticRelease = true)
+            // Re-enable when https://github.com/vanniktech/gradle-maven-publish-plugin/issues/722
+            // is fixed.
+            // publishToMavenCentral(SonatypeHost.DEFAULT, automaticRelease = true)
             signAllPublications()
 
             coordinates(
