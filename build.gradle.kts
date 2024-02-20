@@ -24,13 +24,17 @@ allprojects {
             "-" +
             rootProject.libs.versions.revenuecat.ios.get()
 
-    // Remove when https://github.com/vanniktech/gradle-maven-publish-plugin/issues/722 is fixed.
-    plugins.withType<NmcpPlugin> {
-        configure<NmcpExtension>() {
-            publishAllPublications {
-                username = System.getenv("ORG_GRADLE_PROJECT_mavenCentralUsername")
-                password = System.getenv("ORG_GRADLE_PROJECT_mavenCentralPassword")
-                publicationType = "AUTOMATIC"
+    // NmcpPlugin publishes to a local repo when running assemble, meaning we need signing
+    // credentials for every assemble. This avoids that.  
+    if (gradle.startParameter.taskNames.contains("publishAllPublicationsToCentralPortal")) {
+        // Remove when https://github.com/vanniktech/gradle-maven-publish-plugin/issues/722 is fixed.
+        plugins.withType<NmcpPlugin> {
+            configure<NmcpExtension>() {
+                publishAllPublications {
+                    username = System.getenv("ORG_GRADLE_PROJECT_mavenCentralUsername")
+                    password = System.getenv("ORG_GRADLE_PROJECT_mavenCentralPassword")
+                    publicationType = "AUTOMATIC"
+                }
             }
         }
     }
