@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.adamko.dokkatoo.html)
     alias(libs.plugins.arturbosch.detekt)
+    alias(libs.plugins.vanniktech.mavenPublish)
 }
 
 kotlin {
@@ -28,6 +29,8 @@ kotlin {
                 jvmTarget = "1.8"
             }
         }
+
+        publishLibraryVariants("release")
     }
 
     listOf(
