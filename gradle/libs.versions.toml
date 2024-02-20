@@ -13,6 +13,5 @@ adamko-dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version = "2.1.0" }
 arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.5" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
-kotlin-dokka = { id = "org.jetbrains.dokka", version = "1.9.10" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.27.0" }
