@@ -1,18 +1,19 @@
 package io.shortway.kobankat
 
+import io.shortway.kobankat.PurchasesFactory.configure
 import io.shortway.kobankat.PurchasesFactory.sharedInstance
 import io.shortway.kobankat.models.BillingFeature
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
 
 /**
- * Factory of [Purchases]. Call `configure()` in each respective platform source set before
- * accessing the singleton Purchases instance using [sharedInstance].
+ * Factory of [Purchases]. Call [configure] once before accessing the singleton Purchases instance
+ * using [sharedInstance].
  */
 public expect object PurchasesFactory {
 
     /**
-     * Singleton instance of Purchases. `configure()` will set this. Will throw an exception if the
+     * Singleton instance of Purchases. [configure] will set this. Will throw an exception if the
      * shared instance has not been configured.
      *
      * @return A previously set singleton Purchases instance.
@@ -67,6 +68,15 @@ public expect object PurchasesFactory {
      */
     @JvmStatic
     public var forceUniversalAppStore: Boolean
+
+    /**
+     * Configures an instance of the SDK with the specified [configuration]. The instance will be
+     * set as a singleton. You should access the singleton instance using [sharedInstance].
+     *
+     * **Note:** on Android only, `PurchasesFactory.setApplication()` should be called in
+     * `Application.onCreate()`, before calling [configure].
+     */
+    public fun configure(configuration: PurchasesConfiguration): Purchases
 
     /**
      * Note: This method only works for the Google Play Store and App Store. There is no Amazon
