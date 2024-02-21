@@ -36,7 +36,7 @@ kotlin {
             implementation(compose.components.resources)
         }
         androidMain.dependencies {
-            implementation(libs.compose.ui.tooling.preview)
+            implementation(libs.androidx.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
         }
     }
@@ -72,7 +72,7 @@ android {
         targetCompatibility(libs.versions.java.get())
     }
     dependencies {
-        debugImplementation(libs.compose.ui.tooling)
+        debugImplementation(libs.androidx.compose.ui.tooling)
     }
 }
 

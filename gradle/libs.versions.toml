@@ -11,8 +11,8 @@ revenuecat-ios = "4.36.3"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.8.2" }
-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 revenuecat-android = { module = "com.revenuecat.purchases:purchases", version.ref = "revenuecat-android"}
 
