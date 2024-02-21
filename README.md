@@ -2,7 +2,7 @@
 ![GitHub Release](https://img.shields.io/github/v/release/JayShortway/kobankat) 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/JayShortway/kobankat/main.yml)
 
-KobanKat is an unofficial RevenueCat SDK for Kotlin Multiplatform, supporting Android and iOS. 
+KobanKat is an unofficial [RevenueCat](https://www.revenuecat.com/) SDK for Kotlin Multiplatform, supporting Android and iOS. 
 
 ## Coordinates
 KobanKat is published to Maven Central at the following coordinates:
