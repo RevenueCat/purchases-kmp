@@ -5,7 +5,6 @@ import io.shortway.kobankat.CustomerInfo
 import io.shortway.kobankat.Offerings
 import io.shortway.kobankat.Package
 import io.shortway.kobankat.Purchases
-import io.shortway.kobankat.PurchasesError
 import io.shortway.kobankat.PurchasesException
 import io.shortway.kobankat.PurchasesTransactionException
 import io.shortway.kobankat.appUserID
@@ -75,7 +74,7 @@ public data class SuccessfulLogin(
  * @throws PurchasesException in case of an error.
  */
 @Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.syncPurchases(): CustomerInfo = suspendCoroutine { continuation ->
+public suspend fun Purchases.awaitSyncPurchases(): CustomerInfo = suspendCoroutine { continuation ->
     syncPurchases(
         onError = { continuation.resumeWithException(PurchasesException(it)) },
         onSuccess = { continuation.resume(it) }
@@ -93,7 +92,7 @@ public suspend fun Purchases.syncPurchases(): CustomerInfo = suspendCoroutine { 
  * @throws PurchasesException in case of an error.
  */
 @Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.getOfferings(): Offerings = suspendCoroutine { continuation ->
+public suspend fun Purchases.awaitOfferings(): Offerings = suspendCoroutine { continuation ->
     getOfferings(
         onError = { continuation.resumeWithException(PurchasesException(it)) },
         onSuccess = { continuation.resume(it) }
@@ -106,7 +105,7 @@ public suspend fun Purchases.getOfferings(): Offerings = suspendCoroutine { cont
  * @throws PurchasesException in case of an error.
  */
 @Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.getProducts(
+public suspend fun Purchases.awaitGetProducts(
     productIds: List<String>
 ): List<StoreProduct> = suspendCoroutine { continuation ->
     getProducts(
@@ -117,13 +116,12 @@ public suspend fun Purchases.getProducts(
 }
 
 /**
- * App Store only. Use this method to fetch a [PromotionalOffer] to use with
- * [purchase].
+ * App Store only. Use this method to fetch a [PromotionalOffer] to use with [awaitPurchase].
  *
  * @throws PurchasesException in case of an error.
  */
 @Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.getPromotionalOffer(
+public suspend fun Purchases.awaitPromotionalOffer(
     discount: StoreProductDiscount,
     storeProduct: StoreProduct,
 ): PromotionalOffer = suspendCoroutine { continuation ->
@@ -163,7 +161,7 @@ public suspend fun Purchases.getPromotionalOffer(
  * @throws PurchasesException in case of an error.
  */
 @Throws(PurchasesTransactionException::class, CancellationException::class)
-public suspend fun Purchases.purchase(
+public suspend fun Purchases.awaitPurchase(
     storeProduct: StoreProduct,
     isPersonalizedPrice: Boolean? = null,
     oldProductId: String? = null,
@@ -214,7 +212,7 @@ public suspend fun Purchases.purchase(
  * @throws PurchasesException in case of an error.
  */
 @Throws(PurchasesTransactionException::class, CancellationException::class)
-public suspend fun Purchases.purchase(
+public suspend fun Purchases.awaitPurchase(
     packageToPurchase: Package,
     isPersonalizedPrice: Boolean? = null,
     oldProductId: String? = null,
@@ -254,7 +252,7 @@ public suspend fun Purchases.purchase(
  * @throws PurchasesException in case of an error.
  */
 @Throws(PurchasesTransactionException::class, CancellationException::class)
-public suspend fun Purchases.purchase(
+public suspend fun Purchases.awaitPurchase(
     subscriptionOption: SubscriptionOption,
     isPersonalizedPrice: Boolean? = null,
     oldProductId: String? = null,
@@ -287,10 +285,10 @@ public suspend fun Purchases.purchase(
  *
  * @throws PurchasesException in case of an error.
  *
- * @see [getPromotionalOffer]
+ * @see [awaitPromotionalOffer]
  */
 @Throws(PurchasesTransactionException::class, CancellationException::class)
-public suspend fun Purchases.purchase(
+public suspend fun Purchases.awaitPurchase(
     storeProduct: StoreProduct,
     promotionalOffer: PromotionalOffer,
 ): SuccessfulPurchase = suspendCoroutine { continuation ->
@@ -319,10 +317,10 @@ public suspend fun Purchases.purchase(
  *
  * @throws PurchasesException in case of an error.
  *
- * @see [getPromotionalOffer]
+ * @see [awaitPromotionalOffer]
  */
 @Throws(PurchasesTransactionException::class, CancellationException::class)
-public suspend fun Purchases.purchase(
+public suspend fun Purchases.awaitPurchase(
     packageToPurchase: Package,
     promotionalOffer: PromotionalOffer,
 ): SuccessfulPurchase = suspendCoroutine { continuation ->
@@ -353,7 +351,7 @@ public suspend fun Purchases.purchase(
  * @throws PurchasesException in case of an error.
  */
 @Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.restorePurchases(): CustomerInfo = suspendCoroutine { continuation ->
+public suspend fun Purchases.awaitRestore(): CustomerInfo = suspendCoroutine { continuation ->
     restorePurchases(
         onError = { continuation.resumeWithException(PurchasesException(it)) },
         onSuccess = { continuation.resume(it) },
@@ -368,7 +366,7 @@ public suspend fun Purchases.restorePurchases(): CustomerInfo = suspendCoroutine
  * @throws PurchasesException in case of an error.
  */
 @Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.logIn(
+public suspend fun Purchases.awaitLogIn(
     newAppUserID: String,
 ): SuccessfulLogin = suspendCoroutine { continuation ->
     logIn(
@@ -387,7 +385,7 @@ public suspend fun Purchases.logIn(
  * @throws PurchasesException in case of an error.
  */
 @Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.logOut(): CustomerInfo = suspendCoroutine { continuation ->
+public suspend fun Purchases.awaitLogOut(): CustomerInfo = suspendCoroutine { continuation ->
     logOut(
         onError = { continuation.resumeWithException(PurchasesException(it)) },
         onSuccess = { continuation.resume(it) },
@@ -402,7 +400,7 @@ public suspend fun Purchases.logOut(): CustomerInfo = suspendCoroutine { continu
  * @throws PurchasesException in case of an error.
  */
 @Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.getCustomerInfo(
+public suspend fun Purchases.awaitCustomerInfo(
     fetchPolicy: CacheFetchPolicy = CacheFetchPolicy.default(),
 ): CustomerInfo = suspendCoroutine { continuation ->
     getCustomerInfo(
