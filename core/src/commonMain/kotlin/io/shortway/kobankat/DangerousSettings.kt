@@ -10,5 +10,5 @@ public data class DangerousSettings(
      * purchase is completed in order to send it to the RevenueCat's backend. Auto syncing of
      * purchases is enabled by default.
      */
-    public val autoSyncPurchases: Boolean,
+    public val autoSyncPurchases: Boolean = true,
 )
