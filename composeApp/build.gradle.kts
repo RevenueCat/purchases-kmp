@@ -27,6 +27,13 @@ kotlin {
     }
 
     sourceSets {
+        all {
+            languageSettings.apply {
+                if (name.lowercase().startsWith("ios")) {
+                    optIn("kotlinx.cinterop.ExperimentalForeignApi")
+                }
+            }
+        }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -34,6 +41,7 @@ kotlin {
             implementation(compose.ui)
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
+            implementation(projects.core)
         }
         androidMain.dependencies {
             implementation(libs.androidx.compose.ui.tooling.preview)

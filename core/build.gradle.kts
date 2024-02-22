@@ -18,7 +18,6 @@ kotlin {
             compilerOptions.configure {
                 freeCompilerArgs.apply {
                     add("-Xexpect-actual-classes")
-                    add("-opt-in=kotlinx.cinterop.ExperimentalForeignApi")
                 }
             }
         }
@@ -34,18 +33,18 @@ kotlin {
         publishLibraryVariants("release")
     }
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "KobanKat"
-            isStatic = true
-        }
-    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
+        all {
+            languageSettings.apply {
+                if (name.lowercase().startsWith("ios")) {
+                    optIn("kotlinx.cinterop.ExperimentalForeignApi")
+                }
+            }
+        }
         commonMain.dependencies {
             //put your multiplatform dependencies here
         }
@@ -53,13 +52,18 @@ kotlin {
             implementation(libs.kotlin.test)
         }
         androidMain.dependencies {
-            implementation(libs.revenuecat.android)
+            api(libs.revenuecat.android)
         }
     }
 
     cocoapods {
         version = "1.0"
         ios.deploymentTarget = "11.0"
+
+        framework {
+            baseName = "KobanKat"
+            isStatic = true
+        }
 
         pod("RevenueCat") {
             version = libs.versions.revenuecat.ios.get()

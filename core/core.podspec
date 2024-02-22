@@ -6,15 +6,15 @@ Pod::Spec.new do |spec|
     spec.authors                  = ''
     spec.license                  = ''
     spec.summary                  = ''
-    spec.vendored_frameworks      = 'build/cocoapods/framework/core.framework'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/KobanKat.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '11.0'
     spec.dependency 'RevenueCat', '4.36.3'
                 
-    if !Dir.exist?('build/cocoapods/framework/core.framework') || Dir.empty?('build/cocoapods/framework/core.framework')
+    if !Dir.exist?('build/cocoapods/framework/KobanKat.framework') || Dir.empty?('build/cocoapods/framework/KobanKat.framework')
         raise "
 
-        Kotlin framework 'core' doesn't exist yet, so a proper Xcode project can't be generated.
+        Kotlin framework 'KobanKat' doesn't exist yet, so a proper Xcode project can't be generated.
         'pod install' should be executed after running ':generateDummyFramework' Gradle task:
 
             ./gradlew :core:generateDummyFramework
@@ -24,7 +24,7 @@ Pod::Spec.new do |spec|
                 
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':core',
-        'PRODUCT_MODULE_NAME' => 'core',
+        'PRODUCT_MODULE_NAME' => 'KobanKat',
     }
                 
     spec.script_phases = [
