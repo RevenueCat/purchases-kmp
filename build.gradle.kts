@@ -2,8 +2,10 @@
 
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.MavenPublishPlugin
+import io.gitlab.arturbosch.detekt.Detekt
 import nmcp.NmcpExtension
 import nmcp.NmcpPlugin
+import org.gradle.configurationcache.extensions.capitalized
 
 plugins {
     //trick: for the same plugin versions in all sub-modules
@@ -79,6 +81,30 @@ allprojects {
                 }
             }
         }
+
+        // Register a Detekt task for all published modules.
+        this@allprojects.projectDir
+            .resolve("src")
+            .listFiles { child -> child.isDirectory }
+            .orEmpty()
+            .also { sourceDirectories ->
+                this@allprojects.tasks.registerDetektTask(
+                    taskName = "detektAll",
+                    taskDescription = "Runs Detekt on all source sets.",
+                    reportName = "all",
+                    sourceDirs = files(sourceDirectories)
+                )
+
+                sourceDirectories.forEach { sourceDir ->
+                    val sourceSet = sourceDir.name
+                    this@allprojects.tasks.registerDetektTask(
+                        taskName = "detekt${sourceSet.capitalized()}",
+                        taskDescription = "Runs Detekt on the $sourceSet source set.",
+                        reportName = "$name${sourceSet.capitalized()}",
+                        sourceDirs = files(sourceDir)
+                    )
+                }
+            }
     }
 }
 
@@ -86,3 +112,19 @@ dependencies {
     dokkatoo(projects.core)
     dokkatoo(projects.result)
 }
+
+private fun TaskContainer.registerDetektTask(
+    taskName: String,
+    taskDescription: String,
+    reportName: String,
+    sourceDirs: ConfigurableFileCollection,
+) =
+    register<Detekt>(taskName) {
+        description = taskDescription
+        setSource(sourceDirs.map { it.resolve("kotlin") })
+        config = files("$rootDir/config/detekt/detekt.yml")
+        reports {
+            html.outputLocation = file("build/reports/detekt/$reportName.html")
+            xml.outputLocation = file("build/reports/detekt/$reportName.xml")
+        }
+    }
