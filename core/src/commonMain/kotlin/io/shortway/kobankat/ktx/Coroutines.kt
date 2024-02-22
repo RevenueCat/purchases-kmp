@@ -158,7 +158,7 @@ public suspend fun Purchases.awaitPromotionalOffer(
  * @param replacementMode Play Store only, ignored otherwise. The replacement mode to use when
  * upgrading from another product. This field is ignored, unless [oldProductId] is non-null.
  *
- * @throws PurchasesException in case of an error.
+ * @throws PurchasesTransactionException in case of an error.
  */
 @Throws(PurchasesTransactionException::class, CancellationException::class)
 public suspend fun Purchases.awaitPurchase(
@@ -209,7 +209,7 @@ public suspend fun Purchases.awaitPurchase(
  * @param replacementMode Play Store only, ignored otherwise. The replacement mode to use when
  * upgrading from another product. This field is ignored, unless [oldProductId] is non-null.
  *
- * @throws PurchasesException in case of an error.
+ * @throws PurchasesTransactionException in case of an error.
  */
 @Throws(PurchasesTransactionException::class, CancellationException::class)
 public suspend fun Purchases.awaitPurchase(
@@ -249,7 +249,7 @@ public suspend fun Purchases.awaitPurchase(
  * @param replacementMode Play Store only, ignored otherwise. The replacement mode to use when
  * upgrading from another product. This field is ignored, unless [oldProductId] is non-null.
  *
- * @throws PurchasesException in case of an error.
+ * @throws PurchasesTransactionException in case of an error.
  */
 @Throws(PurchasesTransactionException::class, CancellationException::class)
 public suspend fun Purchases.awaitPurchase(
@@ -283,7 +283,7 @@ public suspend fun Purchases.awaitPurchase(
  * @param promotionalOffer The [PromotionalOffer] to apply to this purchase.
  * [StoreTransaction] and updated [CustomerInfo].
  *
- * @throws PurchasesException in case of an error.
+ * @throws PurchasesTransactionException in case of an error.
  *
  * @see [awaitPromotionalOffer]
  */
@@ -315,7 +315,7 @@ public suspend fun Purchases.awaitPurchase(
  * @param promotionalOffer The [PromotionalOffer] to apply to this purchase.
  * [StoreTransaction] and updated [CustomerInfo].
  *
- * @throws PurchasesException in case of an error.
+ * @throws PurchasesTransactionException in case of an error.
  *
  * @see [awaitPromotionalOffer]
  */
