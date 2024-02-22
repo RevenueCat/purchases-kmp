@@ -18,7 +18,11 @@ See [Releases](../../releases) for the latest version. The versioning scheme is 
 * `Z` is the RevenueCat iOS version that is being tracked.
 
 ## Getting started
-To instantiate the SDK, call `PurchasesFactory.configure()` once on each respective platform. After this, you can access the SDK's singleton instance using `PurchasesFactory.sharedInstance`. This process is analogous to the [official SDK](https://www.revenuecat.com/docs/getting-started/configuring-sdk).
+To instantiate the SDK, do the following:
+1. On Android only, call `PurchasesFactory.setApplication()` in `Application.onCreate()`.
+2. In your common code, call `PurchasesFactory.configure()`. 
+  
+After this, you can access the SDK's singleton instance using `PurchasesFactory.sharedInstance`. This process is analogous to the [official SDK](https://www.revenuecat.com/docs/getting-started/configuring-sdk).
 
 ## Compatibility 
 KobanKat supports Android and iOS targets for now. Most types are aliased to the respective official SDK types, so add on libraries like the official Paywalls SDK are compatible with KobanKat. 
