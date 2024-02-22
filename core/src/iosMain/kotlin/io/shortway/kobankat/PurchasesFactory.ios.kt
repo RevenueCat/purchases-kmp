@@ -41,6 +41,11 @@ public actual object PurchasesFactory {
     public actual var forceUniversalAppStore: Boolean
         get() = Purchases.forceUniversalAppStore()
         set(value) = Purchases.setForceUniversalAppStore(value)
+
+    public actual fun configure(
+        configuration: PurchasesConfiguration
+    ): Purchases =
+        RCPurchases.configureWithConfiguration(configuration.toRCConfiguration())
     
     public actual fun canMakePayments(
         features: List<BillingFeature>,
@@ -49,11 +54,6 @@ public actual object PurchasesFactory {
         callback(Purchases.canMakePayments())
     }
 }
-
-public fun PurchasesFactory.configure(
-    configuration: PurchasesConfiguration
-): Purchases =
-    RCPurchases.configureWithConfiguration(configuration.toRCConfiguration())
 
 private fun PurchasesConfiguration.toRCConfiguration(): RCConfiguration =
     RCConfiguration.builderWithAPIKey(apiKey = apiKey)

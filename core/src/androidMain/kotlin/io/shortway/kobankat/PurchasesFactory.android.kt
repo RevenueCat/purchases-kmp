@@ -39,27 +39,40 @@ public actual object PurchasesFactory {
     @JvmStatic
     public actual var forceUniversalAppStore: Boolean = false
 
+    private var application: Application? = null
+
+    /**
+     * Call this once, in [Application.onCreate], before calling any other methods.
+     */
+    public fun setApplication(application: Application) {
+        check(this.application == null) {
+            "setApplication() should only be called once, in Application.onCreate()."
+        }
+        this.application = application
+        requireApplication().registerActivityLifecycleCallbacks(ActivityProvider)
+    }
+
+    public actual fun configure(
+        configuration: PurchasesConfiguration
+    ): Purchases =
+        Purchases.configure(configuration.toRcPurchasesConfiguration(requireApplication()))
+
     @JvmOverloads
     @JvmStatic
     public actual fun canMakePayments(
         features: List<BillingFeature>,
         callback: (Boolean) -> Unit,
     ): Unit = Purchases.canMakePayments(
-        context = ActivityProvider.current
-            ?: error(
-                "Make sure you call PurchasesFactory.configure(), " +
-                        "preferably in Application.onCreate()."
-            ),
+        context = requireApplication(),
         features = features
     ) { result -> callback(result) }
-}
 
-public fun PurchasesFactory.configure(
-    context: Context,
-    configuration: PurchasesConfiguration
-): Purchases {
-    (context.applicationContext as Application).registerActivityLifecycleCallbacks(ActivityProvider)
-    return Purchases.configure(configuration.toRcPurchasesConfiguration(context))
+    private fun requireApplication(): Application =
+        application
+            ?: error(
+                "Be sure to call setApplication() in Application.onCreate, " +
+                        "before calling any other methods."
+            )
 }
 
 private fun PurchasesConfiguration.toRcPurchasesConfiguration(context: Context): RcPurchasesConfiguration =
@@ -75,7 +88,7 @@ private fun DangerousSettings.toRcDangerousSettings(): RcDangerousSettings =
     RcDangerousSettings(autoSyncPurchases)
 
 private fun EntitlementVerificationMode.toRcEntitlementVerificationMode(): RcEntitlementVerificationMode =
-    when(this) {
+    when (this) {
         EntitlementVerificationMode.DISABLED -> RcEntitlementVerificationMode.DISABLED
         EntitlementVerificationMode.INFORMATIONAL -> RcEntitlementVerificationMode.INFORMATIONAL
     }
