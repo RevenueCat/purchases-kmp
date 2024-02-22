@@ -18,7 +18,6 @@ kotlin {
             compilerOptions.configure {
                 freeCompilerArgs.apply {
                     add("-Xexpect-actual-classes")
-                    add("-opt-in=kotlinx.cinterop.ExperimentalForeignApi")
                 }
             }
         }
@@ -27,25 +26,25 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = libs.versions.java.get()
             }
         }
 
         publishLibraryVariants("release")
     }
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "KobanKat"
-            isStatic = true
-        }
-    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
+        all {
+            languageSettings.apply {
+                if (name.lowercase().startsWith("ios")) {
+                    optIn("kotlinx.cinterop.ExperimentalForeignApi")
+                }
+            }
+        }
         commonMain.dependencies {
             //put your multiplatform dependencies here
         }
@@ -53,13 +52,18 @@ kotlin {
             implementation(libs.kotlin.test)
         }
         androidMain.dependencies {
-            implementation(libs.revenuecat.android)
+            api(libs.revenuecat.android)
         }
     }
 
     cocoapods {
         version = "1.0"
         ios.deploymentTarget = "11.0"
+
+        framework {
+            baseName = "KobanKat"
+            isStatic = true
+        }
 
         pod("RevenueCat") {
             version = libs.versions.revenuecat.ios.get()
@@ -70,13 +74,13 @@ kotlin {
 
 android {
     namespace = "io.shortway.kobankat"
-    compileSdk = 34
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = 21
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility(libs.versions.java.get())
+        targetCompatibility(libs.versions.java.get())
     }
 }
 
