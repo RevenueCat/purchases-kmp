@@ -5,6 +5,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
+            api(libs.arrow.core)
             implementation(projects.core)
         }
     }
