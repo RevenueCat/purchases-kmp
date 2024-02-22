@@ -20,7 +20,7 @@ plugins {
 
 allprojects {
     group = "io.shortway.kobankat"
-    version = "0.2.0" +
+    version = "0.3.0" +
             "-" +
             rootProject.libs.versions.revenuecat.android.get() +
             "-" +
