@@ -4,25 +4,65 @@
 
 KobanKat is an unofficial [RevenueCat](https://www.revenuecat.com/) SDK for Kotlin Multiplatform, supporting Android and iOS. 
 
-## Coordinates
-KobanKat is published to Maven Central at the following coordinates:
+## Getting started 
+
+### Adding the dependency
+KobanKat is available on Maven Central. Add KobanKat as a dependency to your `commonMain` source set by adding the following coordinates to your `build.gradle[.kts]` or `libs.versions.toml`:  
 ```
 io.shortway.kobankat:kobankat-core:<version>
 ```
-Add this as a dependency to your `commonMain` source set. 
+See [Releases](../../releases) for the latest version.  
 
-### Version
-See [Releases](../../releases) for the latest version. The versioning scheme is in the form `X-Y-Z`, where:
-* `X` is the KobanKat version.
-* `Y` is the RevenueCat Android version that is being tracked.
-* `Z` is the RevenueCat iOS version that is being tracked.
+You might also need to add this compiler flag in your `build.gradle[.kts]`:
+```kotlin
+kotlin {
+  // ...
+  sourceSets {
+    all {
+      languageSettings.apply {
+        if (name.lowercase().startsWith("ios")) {
+          optIn("kotlinx.cinterop.ExperimentalForeignApi")
+        }
+      }
+    }
+    // ...
+  }
+  // ...
+}
+```
 
-## Getting started
+Since KobanKat depends on the official RevenueCat SDKs, we need to tell Xcode about the iOS SDK. 
+1. Make sure you have [CocoaPods](https://cocoapods.org/) installed.
+2. `cd` into your `iosApp` folder (containing your `.xcodeproj` and/or `.xcworkspace` file(s)).
+3. Initialize CocoaPods:
+   ```shell
+   pod init
+   ```
+4. Open the newly created `Podfile` in your favorite text editor, and add the following line:
+   ```ruby
+   pod 'RevenueCat'
+   ```
+5. Save the file and run:
+   ```shell
+   pod install
+   ```
+6. If you didn't have an `.xcworkspace` file before, you'll have one now. Open it in Xcode, and your app should build. 
+
+### Initializing the SDK
 To instantiate the SDK, do the following:
 1. On Android only, call `PurchasesFactory.setApplication()` in `Application.onCreate()`.
 2. In your common code, call `PurchasesFactory.configure()`. 
   
 After this, you can access the SDK's singleton instance using `PurchasesFactory.sharedInstance`. This process is analogous to the [official SDK](https://www.revenuecat.com/docs/getting-started/configuring-sdk).
+
+### Sample
+An example implementation is provided in the `composeApp` and `iosApp` folders. 
+
+### Version
+The versioning scheme is in the form `X-Y-Z`, where:
+* `X` is the KobanKat version.
+* `Y` is the RevenueCat Android version that is being tracked.
+* `Z` is the RevenueCat iOS version that is being tracked.
 
 ## Compatibility 
 KobanKat supports Android and iOS targets for now. Most types are aliased to the respective official SDK types, so add on libraries like the official Paywalls SDK are compatible with KobanKat. 
