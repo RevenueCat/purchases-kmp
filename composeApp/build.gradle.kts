@@ -42,6 +42,7 @@ kotlin {
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
             implementation(projects.core)
+            implementation(projects.result)
         }
         androidMain.dependencies {
             implementation(libs.androidx.compose.ui.tooling.preview)
@@ -83,4 +84,3 @@ android {
         debugImplementation(libs.androidx.compose.ui.tooling)
     }
 }
-

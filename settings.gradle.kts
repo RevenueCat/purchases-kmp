@@ -2,6 +2,7 @@
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 pluginManagement {
+    includeBuild("build-logic")
     repositories {
         google()
         gradlePluginPortal()
@@ -18,4 +19,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "KobanKat"
 include(":core")
+include(":result")
 include(":composeApp")

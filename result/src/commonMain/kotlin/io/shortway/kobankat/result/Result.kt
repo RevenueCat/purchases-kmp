@@ -1,4 +1,4 @@
-package io.shortway.kobankat.ktx
+package io.shortway.kobankat.result
 
 import io.shortway.kobankat.CacheFetchPolicy
 import io.shortway.kobankat.CustomerInfo
@@ -12,6 +12,10 @@ import io.shortway.kobankat.getCustomerInfo
 import io.shortway.kobankat.getOfferings
 import io.shortway.kobankat.getProducts
 import io.shortway.kobankat.getPromotionalOffer
+import io.shortway.kobankat.ktx.SuccessfulLogin
+import io.shortway.kobankat.ktx.SuccessfulPurchase
+import io.shortway.kobankat.ktx.awaitPromotionalOffer
+import io.shortway.kobankat.ktx.awaitPurchase
 import io.shortway.kobankat.logIn
 import io.shortway.kobankat.logOut
 import io.shortway.kobankat.models.GoogleReplacementMode
@@ -23,42 +27,8 @@ import io.shortway.kobankat.models.SubscriptionOption
 import io.shortway.kobankat.purchase
 import io.shortway.kobankat.restorePurchases
 import io.shortway.kobankat.syncPurchases
-import kotlin.coroutines.cancellation.CancellationException
 import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
-
-/**
- * The result of a successful purchase operation. Used in coroutines.
- */
-public data class SuccessfulPurchase(
-    /**
-     * The [StoreTransaction] for this purchase.
-     */
-    val storeTransaction: StoreTransaction,
-
-    /**
-     * The updated [CustomerInfo] for this user after the purchase has been synced with
-     * RevenueCat's servers.
-     */
-    val customerInfo: CustomerInfo,
-)
-
-/**
- * The result of a successful login operation. Used in coroutines.
- */
-public data class SuccessfulLogin(
-    /**
-     * The [CustomerInfo] associated with the logged in user.
-     */
-    val customerInfo: CustomerInfo,
-
-    /**
-     * true if a new user has been registered in the backend,
-     * false if the user had already been registered.
-     */
-    val created: Boolean,
-)
 
 /**
  * This method will send all the purchases to the RevenueCat backend. Call this when using your own
@@ -71,15 +41,16 @@ public data class SuccessfulLogin(
  * **Warning:** This function could take a relatively long time to execute, depending on the amount
  * of purchases the user has. Consider that when waiting for this operation to complete.
  *
- * @throws PurchasesException in case of an error.
+ * @return A [Result] containing [CustomerInfo] if successful, and [PurchasesException] in case of
+ * a failure.
  */
-@Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.awaitSyncPurchases(): CustomerInfo = suspendCoroutine { continuation ->
-    syncPurchases(
-        onError = { continuation.resumeWithException(PurchasesException(it)) },
-        onSuccess = { continuation.resume(it) }
-    )
-}
+public suspend fun Purchases.awaitSyncPurchasesResult(): Result<CustomerInfo> =
+    suspendCoroutine { continuation ->
+        syncPurchases(
+            onError = { continuation.resume(Result.failure(PurchasesException(it))) },
+            onSuccess = { continuation.resume(Result.success(it)) }
+        )
+    }
 
 /**
  * Fetch the configured offerings for this users. Offerings allows you to configure your in-app
@@ -89,47 +60,48 @@ public suspend fun Purchases.awaitSyncPurchases(): CustomerInfo = suspendCorouti
  * Offerings will be fetched and cached on instantiation so that, by the time they are needed,
  * your prices are loaded for your purchase flow. Time is money.
  *
- * @throws PurchasesException in case of an error.
+ * @return A [Result] containing [Offerings] if successful, and [PurchasesException] in case of a
+ * failure.
  */
-@Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.awaitOfferings(): Offerings = suspendCoroutine { continuation ->
-    getOfferings(
-        onError = { continuation.resumeWithException(PurchasesException(it)) },
-        onSuccess = { continuation.resume(it) }
-    )
-}
+public suspend fun Purchases.awaitOfferingsResult(): Result<Offerings> =
+    suspendCoroutine { continuation ->
+        getOfferings(
+            onError = { continuation.resume(Result.failure(PurchasesException(it))) },
+            onSuccess = { continuation.resume(Result.success(it)) }
+        )
+    }
 
 /**
  * Gets the [StoreProduct]s for the given list of product ids for all product types.
  *
- * @throws PurchasesException in case of an error.
+ * @return A [Result] containing a list of [StoreProduct]s if successful, and [PurchasesException]
+ * in case of a failure.
  */
-@Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.awaitGetProducts(
+public suspend fun Purchases.awaitGetProductsResult(
     productIds: List<String>
-): List<StoreProduct> = suspendCoroutine { continuation ->
+): Result<List<StoreProduct>> = suspendCoroutine { continuation ->
     getProducts(
         productIds = productIds,
-        onError = { continuation.resumeWithException(PurchasesException(it)) },
-        onSuccess = { continuation.resume(it) }
+        onError = { continuation.resume(Result.failure(PurchasesException(it))) },
+        onSuccess = { continuation.resume(Result.success(it)) }
     )
 }
 
 /**
  * App Store only. Use this method to fetch a [PromotionalOffer] to use with [awaitPurchase].
  *
- * @throws PurchasesException in case of an error.
+ * @return A [Result] containing a [PromotionalOffer] if successful, and [PurchasesException] in
+ * case of a failure.
  */
-@Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.awaitPromotionalOffer(
+public suspend fun Purchases.awaitPromotionalOfferResult(
     discount: StoreProductDiscount,
     storeProduct: StoreProduct,
-): PromotionalOffer = suspendCoroutine { continuation ->
+): Result<PromotionalOffer> = suspendCoroutine { continuation ->
     getPromotionalOffer(
         discount = discount,
         storeProduct = storeProduct,
-        onError = { continuation.resumeWithException(PurchasesException(it)) },
-        onSuccess = { continuation.resume(it) }
+        onError = { continuation.resume(Result.failure(PurchasesException(it))) },
+        onSuccess = { continuation.resume(Result.success(it)) }
     )
 }
 
@@ -158,24 +130,22 @@ public suspend fun Purchases.awaitPromotionalOffer(
  * @param replacementMode Play Store only, ignored otherwise. The replacement mode to use when
  * upgrading from another product. This field is ignored, unless [oldProductId] is non-null.
  *
- * @throws PurchasesTransactionException in case of an error.
+ * @return A [Result] containing [SuccessfulPurchase] if successful, and
+ * [PurchasesTransactionException] in case of a failure.
  */
-@Throws(PurchasesTransactionException::class, CancellationException::class)
-public suspend fun Purchases.awaitPurchase(
+public suspend fun Purchases.awaitPurchaseResult(
     storeProduct: StoreProduct,
     isPersonalizedPrice: Boolean? = null,
     oldProductId: String? = null,
     replacementMode: GoogleReplacementMode = GoogleReplacementMode.WITHOUT_PRORATION,
-): SuccessfulPurchase = suspendCoroutine { continuation ->
+): Result<SuccessfulPurchase> = suspendCoroutine { continuation ->
     purchase(
         storeProduct = storeProduct,
         onError = { error, userCancelled ->
-            continuation.resumeWithException(
-                PurchasesTransactionException(error, userCancelled)
-            )
+            continuation.resume(Result.failure(PurchasesTransactionException(error, userCancelled)))
         },
         onSuccess = { storeTransaction, customerInfo ->
-            continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo))
+            continuation.resume(Result.success(SuccessfulPurchase(storeTransaction, customerInfo)))
         },
         isPersonalizedPrice = isPersonalizedPrice,
         oldProductId = oldProductId,
@@ -209,24 +179,22 @@ public suspend fun Purchases.awaitPurchase(
  * @param replacementMode Play Store only, ignored otherwise. The replacement mode to use when
  * upgrading from another product. This field is ignored, unless [oldProductId] is non-null.
  *
- * @throws PurchasesTransactionException in case of an error.
+ * @return A [Result] containing [SuccessfulPurchase] if successful, and
+ * [PurchasesTransactionException] in case of a failure.
  */
-@Throws(PurchasesTransactionException::class, CancellationException::class)
-public suspend fun Purchases.awaitPurchase(
+public suspend fun Purchases.awaitPurchaseResult(
     packageToPurchase: Package,
     isPersonalizedPrice: Boolean? = null,
     oldProductId: String? = null,
     replacementMode: GoogleReplacementMode = GoogleReplacementMode.WITHOUT_PRORATION,
-): SuccessfulPurchase = suspendCoroutine { continuation ->
+): Result<SuccessfulPurchase> = suspendCoroutine { continuation ->
     purchase(
         packageToPurchase = packageToPurchase,
         onError = { error, userCancelled ->
-            continuation.resumeWithException(
-                PurchasesTransactionException(error, userCancelled)
-            )
+            continuation.resume(Result.failure(PurchasesTransactionException(error, userCancelled)))
         },
         onSuccess = { storeTransaction, customerInfo ->
-            continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo))
+            continuation.resume(Result.success(SuccessfulPurchase(storeTransaction, customerInfo)))
         },
         isPersonalizedPrice = isPersonalizedPrice,
         oldProductId = oldProductId,
@@ -249,24 +217,22 @@ public suspend fun Purchases.awaitPurchase(
  * @param replacementMode Play Store only, ignored otherwise. The replacement mode to use when
  * upgrading from another product. This field is ignored, unless [oldProductId] is non-null.
  *
- * @throws PurchasesTransactionException in case of an error.
+ * @return A [Result] containing [SuccessfulPurchase] if successful, and
+ * [PurchasesTransactionException] in case of a failure.
  */
-@Throws(PurchasesTransactionException::class, CancellationException::class)
-public suspend fun Purchases.awaitPurchase(
+public suspend fun Purchases.awaitPurchaseResult(
     subscriptionOption: SubscriptionOption,
     isPersonalizedPrice: Boolean? = null,
     oldProductId: String? = null,
     replacementMode: GoogleReplacementMode = GoogleReplacementMode.WITHOUT_PRORATION,
-): SuccessfulPurchase = suspendCoroutine { continuation ->
+): Result<SuccessfulPurchase> = suspendCoroutine { continuation ->
     purchase(
         subscriptionOption = subscriptionOption,
         onError = { error, userCancelled ->
-            continuation.resumeWithException(
-                PurchasesTransactionException(error, userCancelled)
-            )
+            continuation.resume(Result.failure(PurchasesTransactionException(error, userCancelled)))
         },
         onSuccess = { storeTransaction, customerInfo ->
-            continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo))
+            continuation.resume(Result.success(SuccessfulPurchase(storeTransaction, customerInfo)))
         },
         isPersonalizedPrice = isPersonalizedPrice,
         oldProductId = oldProductId,
@@ -283,25 +249,23 @@ public suspend fun Purchases.awaitPurchase(
  * @param promotionalOffer The [PromotionalOffer] to apply to this purchase.
  * [StoreTransaction] and updated [CustomerInfo].
  *
- * @throws PurchasesTransactionException in case of an error.
+ * @return A [Result] containing [SuccessfulPurchase] if successful, and
+ * [PurchasesTransactionException] in case of a failure.
  *
  * @see [awaitPromotionalOffer]
  */
-@Throws(PurchasesTransactionException::class, CancellationException::class)
-public suspend fun Purchases.awaitPurchase(
+public suspend fun Purchases.awaitPurchaseResult(
     storeProduct: StoreProduct,
     promotionalOffer: PromotionalOffer,
-): SuccessfulPurchase = suspendCoroutine { continuation ->
+): Result<SuccessfulPurchase> = suspendCoroutine { continuation ->
     purchase(
         storeProduct = storeProduct,
         promotionalOffer = promotionalOffer,
         onError = { error, userCancelled ->
-            continuation.resumeWithException(
-                PurchasesTransactionException(error, userCancelled)
-            )
+            continuation.resume(Result.failure(PurchasesTransactionException(error, userCancelled)))
         },
         onSuccess = { storeTransaction, customerInfo ->
-            continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo))
+            continuation.resume(Result.success(SuccessfulPurchase(storeTransaction, customerInfo)))
         },
     )
 }
@@ -315,25 +279,23 @@ public suspend fun Purchases.awaitPurchase(
  * @param promotionalOffer The [PromotionalOffer] to apply to this purchase.
  * [StoreTransaction] and updated [CustomerInfo].
  *
- * @throws PurchasesTransactionException in case of an error.
+ * @return A [Result] containing [SuccessfulPurchase] if successful, and
+ * [PurchasesTransactionException] in case of a failure.
  *
  * @see [awaitPromotionalOffer]
  */
-@Throws(PurchasesTransactionException::class, CancellationException::class)
-public suspend fun Purchases.awaitPurchase(
+public suspend fun Purchases.awaitPurchaseResult(
     packageToPurchase: Package,
     promotionalOffer: PromotionalOffer,
-): SuccessfulPurchase = suspendCoroutine { continuation ->
+): Result<SuccessfulPurchase> = suspendCoroutine { continuation ->
     purchase(
         packageToPurchase = packageToPurchase,
         promotionalOffer = promotionalOffer,
         onError = { error, userCancelled ->
-            continuation.resumeWithException(
-                PurchasesTransactionException(error, userCancelled)
-            )
+            continuation.resume(Result.failure(PurchasesTransactionException(error, userCancelled)))
         },
         onSuccess = { storeTransaction, customerInfo ->
-            continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo))
+            continuation.resume(Result.success(SuccessfulPurchase(storeTransaction, customerInfo)))
         },
     )
 }
@@ -348,32 +310,33 @@ public suspend fun Purchases.awaitPurchase(
  * You shouldn't use this method if you have your own account system. In that case "restoration" is
  * provided by your app passing the same [appUserID] used to purchase originally.
  *
- * @throws PurchasesException in case of an error.
+ * @return A [Result] containing [CustomerInfo] if successful, and [PurchasesException] in case of
+ * a failure.
  */
-@Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.awaitRestore(): CustomerInfo = suspendCoroutine { continuation ->
-    restorePurchases(
-        onError = { continuation.resumeWithException(PurchasesException(it)) },
-        onSuccess = { continuation.resume(it) },
-    )
-}
+public suspend fun Purchases.awaitRestoreResult(): Result<CustomerInfo> =
+    suspendCoroutine { continuation ->
+        restorePurchases(
+            onError = { continuation.resume(Result.failure(PurchasesException(it))) },
+            onSuccess = { continuation.resume(Result.success(it)) },
+        )
+    }
 
 /**
  * This function will change the current [appUserID]. Typically this would be used after a log out
  * to identify a new user without calling `configure()`.
  * @param newAppUserID The new appUserID that should be linked to the currently user
  *
- * @throws PurchasesException in case of an error.
+ * @return A [Result] containing [CustomerInfo] if successful, and [PurchasesException] in case of
+ * a failure.
  */
-@Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.awaitLogIn(
+public suspend fun Purchases.awaitLogInResult(
     newAppUserID: String,
-): SuccessfulLogin = suspendCoroutine { continuation ->
+): Result<SuccessfulLogin> = suspendCoroutine { continuation ->
     logIn(
         newAppUserID = newAppUserID,
-        onError = { continuation.resumeWithException(PurchasesException(it)) },
+        onError = { continuation.resume(Result.failure(PurchasesException(it))) },
         onSuccess = { customerInfo, created ->
-            continuation.resume(SuccessfulLogin(customerInfo, created))
+            continuation.resume(Result.success(SuccessfulLogin(customerInfo, created)))
         },
     )
 }
@@ -382,30 +345,31 @@ public suspend fun Purchases.awaitLogIn(
  * Resets the Purchases client clearing the save [appUserID]. This will generate a random user
  * id and save it in the cache.
  *
- * @throws PurchasesException in case of an error.
+ * @return A [Result] containing [CustomerInfo] if successful, and [PurchasesException] in case of
+ * a failure.
  */
-@Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.awaitLogOut(): CustomerInfo = suspendCoroutine { continuation ->
-    logOut(
-        onError = { continuation.resumeWithException(PurchasesException(it)) },
-        onSuccess = { continuation.resume(it) },
-    )
-}
+public suspend fun Purchases.awaitLogOutResult(): Result<CustomerInfo> =
+    suspendCoroutine { continuation ->
+        logOut(
+            onError = { continuation.resume(Result.failure(PurchasesException(it))) },
+            onSuccess = { continuation.resume(Result.success(it)) },
+        )
+    }
 
 /**
  * Get the latest available customer info.
  *
  * @param fetchPolicy Specifies cache behavior for customer info retrieval.
  *
- * @throws PurchasesException in case of an error.
+ * @return A [Result] containing [CustomerInfo] if successful, and [PurchasesException] in case of
+ * a failure.
  */
-@Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.awaitCustomerInfo(
+public suspend fun Purchases.awaitCustomerInfoResult(
     fetchPolicy: CacheFetchPolicy = CacheFetchPolicy.default(),
-): CustomerInfo = suspendCoroutine { continuation ->
+): Result<CustomerInfo> = suspendCoroutine { continuation ->
     getCustomerInfo(
         fetchPolicy = fetchPolicy,
-        onError = { continuation.resumeWithException(PurchasesException(it)) },
-        onSuccess = { continuation.resume(it) },
+        onError = { continuation.resume(Result.failure(PurchasesException(it))) },
+        onSuccess = { continuation.resume(Result.success(it)) },
     )
 }
