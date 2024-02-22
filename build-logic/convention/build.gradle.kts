@@ -24,7 +24,7 @@ dependencies {
 gradlePlugin {
     plugins {
         register("Library") {
-            id = "kobankat.library"
+            id = "kobankat-library"
             implementationClass = "io.shortway.kobankat.buildlogic.plugin.LibraryConventionPlugin"
         }
     }

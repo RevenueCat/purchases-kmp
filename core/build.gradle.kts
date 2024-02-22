@@ -1,5 +1,5 @@
 plugins {
-    id("kobankat.library")
+    id("kobankat-library")
     alias(libs.plugins.kotlin.cocoapods)
 }
 
