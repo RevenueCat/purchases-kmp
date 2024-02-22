@@ -12,7 +12,7 @@ plugins {
     alias(libs.plugins.jetbrains.compose).apply(false)
     alias(libs.plugins.kotlin.multiplatform).apply(false)
     alias(libs.plugins.kotlin.cocoapods).apply(false)
-    alias(libs.plugins.adamko.dokkatoo.html).apply(false)
+    alias(libs.plugins.adamko.dokkatoo.html)
     alias(libs.plugins.arturbosch.detekt).apply(false)
     alias(libs.plugins.vanniktech.mavenPublish).apply(false)
     alias(libs.plugins.gradleup.nmcp).apply(false)
@@ -80,4 +80,9 @@ allprojects {
             }
         }
     }
+}
+
+dependencies {
+    dokkatoo(projects.core)
+    dokkatoo(projects.result)
 }

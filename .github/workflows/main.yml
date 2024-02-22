@@ -87,11 +87,11 @@ jobs:
       uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
 
     - name: Generate Dokkatoo site
-      run: ./gradlew dokkatooGenerate
+      run: ./gradlew :dokkatooGenerate
     - name: Upload GitHub Pages artifact
       uses: actions/upload-pages-artifact@v3.0.1
       with:
-        path: 'core/build/dokka/html'
+        path: 'build/dokka/html'
 
   deploy-api-reference:
     needs: generate-api-reference
