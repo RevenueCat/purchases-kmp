@@ -43,6 +43,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(projects.core)
             implementation(projects.result)
+            implementation(projects.either)
         }
         androidMain.dependencies {
             implementation(libs.androidx.compose.ui.tooling.preview)

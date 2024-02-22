@@ -5,11 +5,12 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
+            api(libs.arrow.core)
             implementation(projects.core)
         }
     }
 }
 
 android {
-    namespace = "io.shortway.kobankat.result"
+    namespace = "io.shortway.kobankat.either"
 }
