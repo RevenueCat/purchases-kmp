@@ -83,28 +83,30 @@ allprojects {
         }
 
         // Register a Detekt task for all published modules.
-        this@allprojects.projectDir
-            .resolve("src")
-            .listFiles { child -> child.isDirectory }
-            .orEmpty()
-            .also { sourceDirectories ->
-                this@allprojects.tasks.registerDetektTask(
-                    taskName = "detektAll",
-                    taskDescription = "Runs Detekt on all source sets.",
-                    reportName = "all",
-                    sourceDirs = files(sourceDirectories)
-                )
-
-                sourceDirectories.forEach { sourceDir ->
-                    val sourceSet = sourceDir.name
-                    this@allprojects.tasks.registerDetektTask(
-                        taskName = "detekt${sourceSet.capitalized()}",
-                        taskDescription = "Runs Detekt on the $sourceSet source set.",
-                        reportName = "$name${sourceSet.capitalized()}",
-                        sourceDirs = files(sourceDir)
+        with(this@allprojects) {
+            projectDir
+                .resolve("src")
+                .listFiles { child -> child.isDirectory }
+                .orEmpty()
+                .also { sourceDirectories ->
+                    tasks.registerDetektTask(
+                        taskName = "detektAll",
+                        taskDescription = "Runs Detekt on all source sets.",
+                        reportName = "all",
+                        sourceDirs = files(sourceDirectories)
                     )
+
+                    sourceDirectories.forEach { sourceDir ->
+                        val sourceSet = sourceDir.name
+                        tasks.registerDetektTask(
+                            taskName = "detekt${sourceSet.capitalized()}",
+                            taskDescription = "Runs Detekt on the $sourceSet source set.",
+                            reportName = "$name${sourceSet.capitalized()}",
+                            sourceDirs = files(sourceDir)
+                        )
+                    }
                 }
-            }
+        }
     }
 }
 
