@@ -2,7 +2,7 @@
 agp = "8.2.2"
 kotlin = "1.9.22"
 revenuecat-android = "7.5.2"
-revenuecat-ios = "4.36.3"
+revenuecat-ios = "4.37.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
