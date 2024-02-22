@@ -44,6 +44,7 @@ kotlin {
             implementation(projects.core)
             implementation(projects.result)
             implementation(projects.either)
+            implementation(projects.datetime)
         }
         androidMain.dependencies {
             implementation(libs.androidx.compose.ui.tooling.preview)
