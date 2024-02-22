@@ -1,3 +1,5 @@
+package io.shortway.kobankat.sample
+
 import io.shortway.kobankat.LogHandler
 
 class SimpleLogHandler(

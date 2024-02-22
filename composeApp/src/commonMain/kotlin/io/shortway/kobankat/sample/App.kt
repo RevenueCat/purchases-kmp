@@ -1,3 +1,5 @@
+package io.shortway.kobankat.sample
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
