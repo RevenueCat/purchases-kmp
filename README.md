@@ -10,9 +10,22 @@ An official RevenueCat Kotlin Multiplatform SDK could be so much better than Kob
 ## Getting started 
 
 ### Adding the dependency
-KobanKat is available on Maven Central. Add KobanKat as a dependency to your `commonMain` source set by adding the following coordinates to your `build.gradle[.kts]` or `libs.versions.toml`:  
-```
-io.shortway.kobankat:kobankat-core:<version>
+KobanKat is available on Maven Central. Add the following coordinates to your `build.gradle[.kts]` or `libs.versions.toml`, and then add KobanKat as a dependency to your `commonMain` source set.  
+```toml
+[versions]
+kobankat = "<version>"
+
+[libraries]
+shortway-kobankat-core = { module = "io.shortway.kobankat:kobankat-core", version.ref = "kobankat" }
+
+# Optional: adds suspending functions that return kotlin.Result to indicate success / failure.
+shortway-kobankat-result = { module = "io.shortway.kobankat:kobankat-result", version.ref = "kobankat" }
+
+# Optional: adds suspending functions that return Arrow's Either to indicate success / failure.
+shortway-kobankat-either = { module = "io.shortway.kobankat:kobankat-either", version.ref = "kobankat" }
+
+# Optional: adds extension properties representing timestamps as kotlinx-datetime Instants.
+shortway-kobankat-datetime = { module = "io.shortway.kobankat:kobankat-datetime", version.ref = "kobankat" }
 ```
 See [Releases](../../releases) for the latest version.  
 
