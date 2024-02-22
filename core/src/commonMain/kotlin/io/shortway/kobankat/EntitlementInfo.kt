@@ -78,7 +78,7 @@ public expect val EntitlementInfo.unsubscribeDetectedAtMillis: Long?
 /**
  * The date a billing issue was detected in millis since the Unix epoch. Can be `null` if there is
  * no billing issue or an issue has been resolved. Note: Entitlement may still be active even if
- * there is a billing issue. Check the `isActive` property.
+ * there is a billing issue. Check the [isActive] property.
  */
 public expect val EntitlementInfo.billingIssueDetectedAtMillis: Long?
 public expect val EntitlementInfo.ownershipType: OwnershipType
