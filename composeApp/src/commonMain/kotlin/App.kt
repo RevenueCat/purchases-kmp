@@ -1,37 +1,41 @@
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
+import io.shortway.kobankat.LogLevel
+import io.shortway.kobankat.PurchasesConfiguration
+import io.shortway.kobankat.PurchasesFactory
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun App() {
+    val logs = mutableStateListOf<String>()
+    LaunchedEffect(Unit) {
+        // In a real app, you'd probably have a class dedicated to app initialization logic.
+        PurchasesFactory.configure(
+            PurchasesConfiguration(
+                apiKey = "YOUR-REVENUECAT-API-KEY",
+            )
+        )
+        PurchasesFactory.logLevel = LogLevel.VERBOSE
+        PurchasesFactory.logHandler = SimpleLogHandler { logs.add(it) }
+    }
+
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        val greeting = remember { Greeting().greet() }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                Column(
-                    Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Image(painterResource("compose-multiplatform.xml"), null)
-                    Text("Compose: $greeting")
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+            LazyColumn {
+                items(logs) {
+                    Text(text = it)
                 }
             }
         }
