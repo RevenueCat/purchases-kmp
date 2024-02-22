@@ -18,4 +18,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "KobanKat"
 include(":core")
+include(":result")
 include(":composeApp")
