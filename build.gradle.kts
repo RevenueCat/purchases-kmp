@@ -112,6 +112,8 @@ allprojects {
 
 dependencies {
     dokkatoo(projects.core)
+    dokkatoo(projects.datetime)
+    dokkatoo(projects.either)
     dokkatoo(projects.result)
 }
 
