@@ -17,6 +17,13 @@ public expect val Offerings.current: Offering?
 public expect val Offerings.all: Map<String, Offering>
 
 /**
+ * Retrieves an specific offering by a placement identifier.
+ * For more info see https://www.revenuecat.com/docs/tools/targeting
+ * @param placementId Placement identifier
+ */
+public expect fun Offerings.getCurrentOfferingForPlacement(placementId: String): Offering?
+
+/**
  * Retrieves an specific offering by its identifier.
  * @param identifier Offering identifier
  */

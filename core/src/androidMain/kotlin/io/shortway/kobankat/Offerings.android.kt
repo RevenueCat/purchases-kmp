@@ -11,3 +11,6 @@ public actual val Offerings.current: Offering?
 
 public actual val Offerings.all: Map<String, Offering>
     get() = all
+
+public actual fun Offerings.getCurrentOfferingForPlacement(placementId: String): Offering? =
+    getCurrentOfferingForPlacement(placementId)
