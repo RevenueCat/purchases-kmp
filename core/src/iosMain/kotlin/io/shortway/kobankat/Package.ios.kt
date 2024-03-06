@@ -11,6 +11,7 @@ import cocoapods.RevenueCat.RCPackageTypeThreeMonth
 import cocoapods.RevenueCat.RCPackageTypeTwoMonth
 import cocoapods.RevenueCat.RCPackageTypeUnknown
 import cocoapods.RevenueCat.RCPackageTypeWeekly
+import cocoapods.RevenueCat.offeringIdentifier
 import io.shortway.kobankat.models.StoreProduct
 
 public actual typealias Package = RCPackage
