@@ -8,6 +8,7 @@ import io.shortway.kobankat.models.StoreProduct
  * @property identifier Unique identifier for this package. Can be one a predefined package type or a custom one.
  * @property packageType Package type for the product. Will be one of [PackageType].
  * @property product [StoreProduct] assigned to this package.
+ * @property presentedOfferingContext [PresentedOfferingContext] from which this package was obtained.
  * @property offeringIdentifier offering this package was returned from.
  */
 public expect class Package
@@ -15,6 +16,7 @@ public expect class Package
 public expect val Package.identifier: String
 public expect val Package.packageType: PackageType
 public expect val Package.product: StoreProduct
+public expect val Package.presentedOfferingContext: PresentedOfferingContext
 public expect val Package.offeringIdentifier: String
 
 /**

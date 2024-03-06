@@ -22,6 +22,8 @@ public actual val Package.packageType: PackageType
     get() = packageType().toPackageType()
 public actual val Package.product: StoreProduct
     get() = storeProduct()
+public actual val Package.presentedOfferingContext: PresentedOfferingContext
+    get() = presentedOfferingContext()
 public actual val Package.offeringIdentifier: String
     get() = offeringIdentifier()
 

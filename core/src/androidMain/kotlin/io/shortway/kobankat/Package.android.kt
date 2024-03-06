@@ -2,6 +2,7 @@
 
 package io.shortway.kobankat
 
+import com.revenuecat.purchases.PresentedOfferingContext
 import io.shortway.kobankat.models.StoreProduct
 import com.revenuecat.purchases.Package as RcPackage
 import com.revenuecat.purchases.PackageType as RcPackageType
@@ -14,8 +15,10 @@ public actual val Package.packageType: PackageType
     get() = packageType.toPackageType()
 public actual val Package.product: StoreProduct
     get() = StoreProduct(product)
+public actual val Package.presentedOfferingContext: PresentedOfferingContext
+    get() = presentedOfferingContext
 public actual val Package.offeringIdentifier: String
-    get() = offering
+    get() = presentedOfferingContext.offeringIdentifier
 
 internal fun RcPackageType.toPackageType(): PackageType =
     when (this) {
