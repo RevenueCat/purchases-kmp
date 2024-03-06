@@ -71,6 +71,14 @@ public actual fun Purchases.syncObserverModeAmazonPurchase(
     // No-op on iOS
 }
 
+public actual fun Purchases.syncAttributesAndOfferingsIfNeeded(
+    onError: (error: PurchasesError) -> Unit,
+    onSuccess: (offerings: Offerings) -> Unit,
+): Unit = syncAttributesAndOfferingsIfNeededWithCompletion { offerings, error ->
+    if (error != null) onError(error.toPurchasesErrorOrThrow())
+    else onSuccess(offerings ?: error("Expected a non-null RCOfferings"))
+}
+
 public actual fun Purchases.getOfferings(
     onError: (error: PurchasesError) -> Unit,
     onSuccess: (offerings: Offerings) -> Unit,

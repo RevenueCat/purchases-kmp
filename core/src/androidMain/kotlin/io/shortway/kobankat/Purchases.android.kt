@@ -10,6 +10,7 @@ import com.revenuecat.purchases.logInWith
 import com.revenuecat.purchases.logOutWith
 import com.revenuecat.purchases.purchaseWith
 import com.revenuecat.purchases.restorePurchasesWith
+import com.revenuecat.purchases.syncAttributesAndOfferingsIfNeededWith
 import com.revenuecat.purchases.syncPurchasesWith
 import io.shortway.kobankat.di.ActivityProvider
 import io.shortway.kobankat.di.currentOrThrow
@@ -64,6 +65,14 @@ public actual fun Purchases.syncObserverModeAmazonPurchase(
     amazonUserID = amazonUserID,
     isoCurrencyCode = isoCurrencyCode,
     price = price
+)
+
+public actual fun Purchases.syncAttributesAndOfferingsIfNeeded(
+    onError: (error: PurchasesError) -> Unit,
+    onSuccess: (offerings: Offerings) -> Unit,
+): Unit = syncAttributesAndOfferingsIfNeededWith(
+    onError = { error -> onError(error.toPurchasesError()) },
+    onSuccess = onSuccess
 )
 
 public actual fun Purchases.getOfferings(

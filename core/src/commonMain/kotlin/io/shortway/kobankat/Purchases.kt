@@ -2,12 +2,10 @@ package io.shortway.kobankat
 
 import io.shortway.kobankat.models.GoogleReplacementMode
 import io.shortway.kobankat.models.PromotionalOffer
-import io.shortway.kobankat.models.StoreMessageType
 import io.shortway.kobankat.models.StoreProduct
 import io.shortway.kobankat.models.StoreProductDiscount
 import io.shortway.kobankat.models.StoreTransaction
 import io.shortway.kobankat.models.SubscriptionOption
-import kotlin.jvm.JvmOverloads
 
 /**
  * Entry point for Purchases. This class can be instantiated using `PurchasesFactory.configure()`
@@ -85,6 +83,28 @@ public expect fun Purchases.syncObserverModeAmazonPurchase(
     amazonUserID: String,
     isoCurrencyCode: String?,
     price: Double?,
+)
+
+/**
+ * Syncs subscriber attributes and then fetches the configured offerings for this user. This method
+ * is intended to be called when using Targeting Rules with Custom Attributes. Any subscriber
+ * attributes should be set before calling this method to ensure the returned offerings are applied
+ * with the latest subscriber attributes.
+ *
+ * This method is rate limited to 5 calls per minute. It will log a warning and return offerings
+ * cache when reached.
+ *
+ * Refer to [the guide](https://www.revenuecat.com/docs/tools/targeting) for more targeting
+ * information.
+ * For more offerings information, see [getOfferings].
+ *
+ * @param [onError] Called when there was an error syncing attributes or fetching offerings. Will
+ * return the first error found syncing the purchases.
+ * @param [onSuccess] Called when all attributes are synced and offerings are fetched.
+ */
+public expect fun Purchases.syncAttributesAndOfferingsIfNeeded(
+    onError: (error: PurchasesError) -> Unit,
+    onSuccess: (offerings: Offerings) -> Unit,
 )
 
 /**
