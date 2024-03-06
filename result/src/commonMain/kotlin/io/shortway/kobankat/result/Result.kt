@@ -26,6 +26,7 @@ import io.shortway.kobankat.models.StoreTransaction
 import io.shortway.kobankat.models.SubscriptionOption
 import io.shortway.kobankat.purchase
 import io.shortway.kobankat.restorePurchases
+import io.shortway.kobankat.syncAttributesAndOfferingsIfNeeded
 import io.shortway.kobankat.syncPurchases
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -47,6 +48,32 @@ import kotlin.coroutines.suspendCoroutine
 public suspend fun Purchases.awaitSyncPurchasesResult(): Result<CustomerInfo> =
     suspendCoroutine { continuation ->
         syncPurchases(
+            onError = { continuation.resume(Result.failure(PurchasesException(it))) },
+            onSuccess = { continuation.resume(Result.success(it)) }
+        )
+    }
+
+/**
+ * Syncs subscriber attributes and then fetches the configured offerings for this user. This method
+ * is intended to be called when using Targeting Rules with Custom Attributes. Any subscriber
+ * attributes should be set before calling this method to ensure the returned offerings are applied
+ * with the latest subscriber attributes.
+ *
+ * This method is rate limited to 5 calls per minute. It will log a warning and return offerings
+ * cache when reached.
+ *
+ * Refer to [the guide](https://www.revenuecat.com/docs/tools/targeting) for more targeting
+ * information.
+ * For more offerings information, see [getOfferings].
+ *
+ * Coroutine friendly version of [Purchases.syncAttributesAndOfferingsIfNeeded].
+ *
+ * @return A [Result] containing [Offerings] if successful, and [PurchasesException] in case of a
+ * failure.
+ */
+public suspend fun Purchases.awaitSyncAttributesAndOfferingsIfNeededResult(): Result<Offerings> =
+    suspendCoroutine { continuation ->
+        syncAttributesAndOfferingsIfNeeded(
             onError = { continuation.resume(Result.failure(PurchasesException(it))) },
             onSuccess = { continuation.resume(Result.success(it)) }
         )
