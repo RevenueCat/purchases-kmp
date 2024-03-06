@@ -21,7 +21,7 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version 
 revenuecat-android = { module = "com.revenuecat.purchases:purchases", version.ref = "revenuecat-android"}
 
 [plugins]
-adamko-dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version = "2.1.0" }
+adamko-dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version = "2.2.0" }
 arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.5" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
