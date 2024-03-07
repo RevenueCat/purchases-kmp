@@ -6,8 +6,8 @@ android-targetSdk = "34"
 compose = "1.6.2"
 java = "1.8"
 kotlin = "1.9.22"
-revenuecat-android = "7.7.0"
-revenuecat-ios = "4.38.0"
+revenuecat-android = "7.7.1"
+revenuecat-ios = "4.38.1"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
