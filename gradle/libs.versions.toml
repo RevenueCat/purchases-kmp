@@ -5,7 +5,7 @@ android-minSdk = "21"
 android-targetSdk = "34"
 compose = "1.6.3"
 java = "1.8"
-kotlin = "1.9.22"
+kotlin = "1.9.23"
 revenuecat-android = "7.7.1"
 revenuecat-ios = "4.38.1"
 
