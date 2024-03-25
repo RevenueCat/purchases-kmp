@@ -22,7 +22,7 @@ revenuecat-android = { module = "com.revenuecat.purchases:purchases", version.re
 
 [plugins]
 adamko-dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version = "2.2.0" }
-arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.5" }
+arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.6" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 gradleup-nmcp = { id = "com.gradleup.nmcp", version = "0.0.4" }
