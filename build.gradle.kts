@@ -14,6 +14,7 @@ plugins {
     alias(libs.plugins.jetbrains.compose).apply(false)
     alias(libs.plugins.kotlin.multiplatform).apply(false)
     alias(libs.plugins.kotlin.cocoapods).apply(false)
+    alias(libs.plugins.kotlinx.binaryCompatibilityValidator)
     alias(libs.plugins.adamko.dokkatoo.html)
     alias(libs.plugins.arturbosch.detekt).apply(false)
     alias(libs.plugins.vanniktech.mavenPublish).apply(false)
@@ -108,6 +109,10 @@ allprojects {
                 }
         }
     }
+}
+
+apiValidation {
+    ignoredProjects.addAll(listOf("composeApp"))
 }
 
 dependencies {
