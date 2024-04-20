@@ -1,0 +1,34 @@
+public final class io/shortway/kobankat/either/EitherKt {
+	public static final fun awaitCustomerInfoEither (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun awaitCustomerInfoEither$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun awaitGetProductsEither (Lcom/revenuecat/purchases/Purchases;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitLogInEither (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitLogOutEither (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitOfferingsEither (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPromotionalOfferEither (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProductDiscount;Lio/shortway/kobankat/models/StoreProduct;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchaseEither (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Lio/shortway/kobankat/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchaseEither (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchaseEither (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchaseEither (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProduct;Lio/shortway/kobankat/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchaseEither (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun awaitPurchaseEither$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun awaitPurchaseEither$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun awaitPurchaseEither$default (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun awaitRestoreEither (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitSyncAttributesAndOfferingsIfNeededEither (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitSyncPurchasesEither (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class io/shortway/kobankat/either/FailedPurchase {
+	public fun <init> (Lio/shortway/kobankat/PurchasesError;Z)V
+	public final fun component1 ()Lio/shortway/kobankat/PurchasesError;
+	public final fun component2 ()Z
+	public final fun copy (Lio/shortway/kobankat/PurchasesError;Z)Lio/shortway/kobankat/either/FailedPurchase;
+	public static synthetic fun copy$default (Lio/shortway/kobankat/either/FailedPurchase;Lio/shortway/kobankat/PurchasesError;ZILjava/lang/Object;)Lio/shortway/kobankat/either/FailedPurchase;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Lio/shortway/kobankat/PurchasesError;
+	public final fun getUserCancelled ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
