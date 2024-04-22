@@ -64,9 +64,7 @@ public expect val Offering.weekly: Package?
 /**
  * Retrieves a specific package by identifier, use this to access custom package types configured
  * in the RevenueCat dashboard
- * @throws NoSuchElementException if there's no package with the specified identifier in the Offering.
  */
-@Throws(NoSuchElementException::class)
 @Suppress("MemberVisibilityCanBePrivate")
 public fun Offering.getPackage(identifier: String): Package? =
     availablePackages.firstOrNull { it.identifier == identifier }

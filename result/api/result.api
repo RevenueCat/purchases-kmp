@@ -1,0 +1,21 @@
+public final class io/shortway/kobankat/result/ResultKt {
+	public static final fun awaitCustomerInfoResult (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun awaitCustomerInfoResult$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun awaitGetProductsResult (Lcom/revenuecat/purchases/Purchases;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitLogInResult (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitLogOutResult (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitOfferingsResult (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPromotionalOfferResult (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProductDiscount;Lio/shortway/kobankat/models/StoreProduct;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchaseResult (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Lio/shortway/kobankat/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchaseResult (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchaseResult (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchaseResult (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProduct;Lio/shortway/kobankat/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchaseResult (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun awaitPurchaseResult$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun awaitPurchaseResult$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun awaitPurchaseResult$default (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun awaitRestoreResult (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitSyncAttributesAndOfferingsIfNeededResult (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitSyncPurchasesResult (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
