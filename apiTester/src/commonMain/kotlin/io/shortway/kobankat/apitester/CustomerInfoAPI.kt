@@ -17,7 +17,7 @@ import io.shortway.kobankat.datetime.requestInstant
 import io.shortway.kobankat.entitlements
 import io.shortway.kobankat.firstSeenMillis
 import io.shortway.kobankat.latestExpirationDateMillis
-import io.shortway.kobankat.managementURL
+import io.shortway.kobankat.managementUrlString
 import io.shortway.kobankat.models.Transaction
 import io.shortway.kobankat.nonSubscriptionTransactions
 import io.shortway.kobankat.originalAppUserId
@@ -41,7 +41,7 @@ private class CustomerInfoAPI {
             val fsm: Long = firstSeenMillis
             val fsi: Instant = firstSeenInstant
             val oaui: String = originalAppUserId
-            val mu: String? = managementURL
+            val mu: String? = managementUrlString
             val allExpirationMillisByProduct: Map<String, Long?> = allExpirationDateMillis
             val allExpirationInstantsByProduct: Map<String, Instant?> = allExpirationInstants
             val allPurchaseMillisByProduct: Map<String, Long?> = allPurchaseDateMillis
