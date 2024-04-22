@@ -17,8 +17,8 @@ public actual val PresentedOfferingContext.placementIdentifier: String?
 public actual val PresentedOfferingContext.targetingContext: PresentedOfferingTargetingContext?
     get() = targetingContext
 
-public actual val PresentedOfferingTargetingContext.revision: Long
-    get() = revision.toLong()
+public actual val PresentedOfferingTargetingContext.revision: Int
+    get() = revision
 
 public actual val PresentedOfferingTargetingContext.ruleId: String
     get() = ruleId
