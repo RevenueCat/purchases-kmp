@@ -13,7 +13,7 @@ public actual val Package.identifier: String
     get() = identifier
 public actual val Package.packageType: PackageType
     get() = packageType.toPackageType()
-public actual val Package.product: StoreProduct
+public actual val Package.storeProduct: StoreProduct
     get() = StoreProduct(product)
 public actual val Package.presentedOfferingContext: PresentedOfferingContext
     get() = presentedOfferingContext
