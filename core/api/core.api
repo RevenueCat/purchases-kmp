@@ -6,7 +6,7 @@ public final class io/shortway/kobankat/CustomerInfo_androidKt {
 	public static final fun getEntitlements (Lcom/revenuecat/purchases/CustomerInfo;)Lcom/revenuecat/purchases/EntitlementInfos;
 	public static final fun getFirstSeenMillis (Lcom/revenuecat/purchases/CustomerInfo;)J
 	public static final fun getLatestExpirationDateMillis (Lcom/revenuecat/purchases/CustomerInfo;)Ljava/lang/Long;
-	public static final fun getManagementURL (Lcom/revenuecat/purchases/CustomerInfo;)Ljava/lang/String;
+	public static final fun getManagementUrlString (Lcom/revenuecat/purchases/CustomerInfo;)Ljava/lang/String;
 	public static final fun getNonSubscriptionTransactions (Lcom/revenuecat/purchases/CustomerInfo;)Ljava/util/List;
 	public static final fun getOriginalAppUserId (Lcom/revenuecat/purchases/CustomerInfo;)Ljava/lang/String;
 	public static final fun getOriginalApplicationVersion (Lcom/revenuecat/purchases/CustomerInfo;)Ljava/lang/String;
