@@ -103,7 +103,7 @@ public final class io/shortway/kobankat/Package_androidKt {
 	public static final fun getOfferingIdentifier (Lcom/revenuecat/purchases/Package;)Ljava/lang/String;
 	public static final fun getPackageType (Lcom/revenuecat/purchases/Package;)Lcom/revenuecat/purchases/PackageType;
 	public static final fun getPresentedOfferingContext (Lcom/revenuecat/purchases/Package;)Lcom/revenuecat/purchases/PresentedOfferingContext;
-	public static final fun getProduct (Lcom/revenuecat/purchases/Package;)Lio/shortway/kobankat/models/StoreProduct;
+	public static final fun getStoreProduct (Lcom/revenuecat/purchases/Package;)Lio/shortway/kobankat/models/StoreProduct;
 }
 
 public final class io/shortway/kobankat/PresentedOfferingContext_androidKt {
