@@ -109,7 +109,7 @@ public final class io/shortway/kobankat/Package_androidKt {
 public final class io/shortway/kobankat/PresentedOfferingContext_androidKt {
 	public static final fun getOfferingIdentifier (Lcom/revenuecat/purchases/PresentedOfferingContext;)Ljava/lang/String;
 	public static final fun getPlacementIdentifier (Lcom/revenuecat/purchases/PresentedOfferingContext;)Ljava/lang/String;
-	public static final fun getRevision (Lcom/revenuecat/purchases/PresentedOfferingContext$TargetingContext;)J
+	public static final fun getRevision (Lcom/revenuecat/purchases/PresentedOfferingContext$TargetingContext;)I
 	public static final fun getRuleId (Lcom/revenuecat/purchases/PresentedOfferingContext$TargetingContext;)Ljava/lang/String;
 	public static final fun getTargetingContext (Lcom/revenuecat/purchases/PresentedOfferingContext;)Lcom/revenuecat/purchases/PresentedOfferingContext$TargetingContext;
 }
