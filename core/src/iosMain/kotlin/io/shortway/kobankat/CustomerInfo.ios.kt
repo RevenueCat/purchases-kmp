@@ -26,7 +26,7 @@ public actual val CustomerInfo.firstSeenMillis: Long
     get() = firstSeen().toEpochMilliseconds()
 public actual val CustomerInfo.latestExpirationDateMillis: Long?
     get() = latestExpirationDate()?.toEpochMilliseconds()
-public actual val CustomerInfo.managementURL: String?
+public actual val CustomerInfo.managementUrlString: String?
     get() = managementURL()?.absoluteString
 @Suppress("UNCHECKED_CAST")
 public actual val CustomerInfo.nonSubscriptionTransactions: List<Transaction>

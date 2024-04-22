@@ -18,6 +18,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "KobanKat"
+include(":apiTester")
 include(":core")
 include(":result")
 include(":either")

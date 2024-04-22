@@ -27,11 +27,8 @@ public expect val PresentedOfferingContext.targetingContext: PresentedOfferingTa
 
 /**
  * The revision of the targeting used to obtain this object.
- *
- * On Android, the theoretical upper limit of this value is [Int.MAX_VALUE]. On iOS, it's
- * [Long.MAX_VALUE].
  */
-public expect val PresentedOfferingTargetingContext.revision: Long
+public expect val PresentedOfferingTargetingContext.revision: Int
 
 /**
  * The rule id from the targeting used to obtain this object.
