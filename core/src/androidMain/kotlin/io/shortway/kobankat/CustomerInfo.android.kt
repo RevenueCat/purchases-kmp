@@ -21,7 +21,7 @@ public actual val CustomerInfo.firstSeenMillis: Long
     get() = firstSeen.time
 public actual val CustomerInfo.latestExpirationDateMillis: Long?
     get() = latestExpirationDate?.time
-public actual val CustomerInfo.managementURL: String?
+public actual val CustomerInfo.managementUrlString: String?
     get() = managementURL?.toString()
 public actual val CustomerInfo.nonSubscriptionTransactions: List<Transaction>
     get() = nonSubscriptionTransactions
