@@ -59,7 +59,7 @@ public expect val CustomerInfo.latestExpirationDateMillis: Long?
  * point there. If there are no active subscriptions it will be null. If there are multiple for
  * different platforms, it will point to the Play Store on Android, and to the App Store on iOS.
  */
-public expect val CustomerInfo.managementURL: String?
+public expect val CustomerInfo.managementUrlString: String?
 
 /**
  * List of all non subscription transactions. Use this to fetch the history of
