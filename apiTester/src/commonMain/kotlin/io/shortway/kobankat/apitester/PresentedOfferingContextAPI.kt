@@ -22,7 +22,7 @@ private class PresentedOfferingContextAPI {
 @Suppress("unused", "UNUSED_VARIABLE")
 private class TargetingContextAPI {
     fun check(targetingContext: PresentedOfferingTargetingContext) {
-        val revision: Long = targetingContext.revision
+        val revision: Int = targetingContext.revision
         val ruleID: String = targetingContext.ruleId
     }
 }
