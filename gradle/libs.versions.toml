@@ -29,4 +29,5 @@ gradleup-nmcp = { id = "com.gradleup.nmcp", version = "0.0.4" }
 jetbrains-compose = { id = "org.jetbrains.compose", version = "1.6.1" }
 kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinx-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.15.0-Beta.2" }
 vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.27.0" }

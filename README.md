@@ -4,9 +4,6 @@
 
 KobanKat is an unofficial [RevenueCat](https://www.revenuecat.com/) SDK for Kotlin Multiplatform, supporting Android and iOS. 
 
-## Hi RevenueCat team 👋  
-An official RevenueCat Kotlin Multiplatform SDK could be so much better than KobanKat, especially in terms of engineering efficiency. I'd love to work with you on this (or on any other RevenueCat SDK for that matter). Reach out to me at jay [at] shortway [dot] io, and let's talk! 
-
 ## Getting started 
 
 ### Adding the dependency
