@@ -60,6 +60,8 @@ public actual enum class Store {
     PROMOTIONAL,
     UNKNOWN_STORE,
     AMAZON,
+    RC_BILLING,
+    EXTERNAL,
 }
 
 public actual enum class PeriodType {
