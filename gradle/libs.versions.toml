@@ -26,7 +26,7 @@ arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.5" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 gradleup-nmcp = { id = "com.gradleup.nmcp", version = "0.0.4" }
-jetbrains-compose = { id = "org.jetbrains.compose", version = "1.6.1" }
+jetbrains-compose = { id = "org.jetbrains.compose", version = "1.6.2" }
 kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.15.0-Beta.2" }
