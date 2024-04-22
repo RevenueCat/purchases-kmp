@@ -8,7 +8,7 @@ import io.shortway.kobankat.models.StoreProduct
 import io.shortway.kobankat.offeringIdentifier
 import io.shortway.kobankat.packageType
 import io.shortway.kobankat.presentedOfferingContext
-import io.shortway.kobankat.product
+import io.shortway.kobankat.storeProduct
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class PackageAPI {
@@ -16,7 +16,7 @@ private class PackageAPI {
         with(p) {
             val identifier: String = identifier
             val packageType: PackageType = packageType
-            val product: StoreProduct = product
+            val product: StoreProduct = storeProduct
             val offering: String = offeringIdentifier
             val presentedOfferingContext: PresentedOfferingContext = presentedOfferingContext
         }
