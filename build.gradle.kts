@@ -112,7 +112,7 @@ allprojects {
 }
 
 apiValidation {
-    ignoredProjects.addAll(listOf("composeApp"))
+    ignoredProjects.addAll(listOf("apiTester", "composeApp"))
 }
 
 dependencies {
