@@ -1,6 +1,6 @@
 package io.shortway.kobankat.models
 
-import cocoapods.RevenueCat.RCStoreProductDiscount
+import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount
 
 public actual typealias StoreProductDiscount = RCStoreProductDiscount
 

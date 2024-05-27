@@ -1,6 +1,6 @@
 package io.shortway.kobankat.models
 
-import cocoapods.RevenueCat.RCNonSubscriptionTransaction
+import cocoapods.PurchasesHybridCommon.RCNonSubscriptionTransaction
 import io.shortway.kobankat.ktx.toEpochMilliseconds
 
 public actual typealias Transaction = RCNonSubscriptionTransaction

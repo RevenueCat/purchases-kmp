@@ -1,6 +1,6 @@
 package io.shortway.kobankat
 
-import cocoapods.RevenueCat.RCOffering
+import cocoapods.PurchasesHybridCommon.RCOffering
 import io.shortway.kobankat.ktx.mapEntries
 
 public actual typealias Offering = RCOffering

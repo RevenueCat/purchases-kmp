@@ -1,9 +1,9 @@
 package io.shortway.kobankat.models
 
-import cocoapods.RevenueCat.RCPaymentMode
-import cocoapods.RevenueCat.RCPaymentModeFreeTrial
-import cocoapods.RevenueCat.RCPaymentModePayAsYouGo
-import cocoapods.RevenueCat.RCPaymentModePayUpFront
+import cocoapods.PurchasesHybridCommon.RCPaymentMode
+import cocoapods.PurchasesHybridCommon.RCPaymentModeFreeTrial
+import cocoapods.PurchasesHybridCommon.RCPaymentModePayAsYouGo
+import cocoapods.PurchasesHybridCommon.RCPaymentModePayUpFront
 
 public actual enum class DiscountPaymentMode {
     FREE_TRIAL,

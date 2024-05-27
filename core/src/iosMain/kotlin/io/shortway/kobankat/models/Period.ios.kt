@@ -1,11 +1,11 @@
 package io.shortway.kobankat.models
 
-import cocoapods.RevenueCat.RCSubscriptionPeriod
-import cocoapods.RevenueCat.RCSubscriptionPeriodUnit
-import cocoapods.RevenueCat.RCSubscriptionPeriodUnitDay
-import cocoapods.RevenueCat.RCSubscriptionPeriodUnitMonth
-import cocoapods.RevenueCat.RCSubscriptionPeriodUnitWeek
-import cocoapods.RevenueCat.RCSubscriptionPeriodUnitYear
+import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriod
+import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnit
+import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnitDay
+import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnitMonth
+import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnitWeek
+import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnitYear
 
 public actual typealias Period = RCSubscriptionPeriod
 public actual enum class PeriodUnit {

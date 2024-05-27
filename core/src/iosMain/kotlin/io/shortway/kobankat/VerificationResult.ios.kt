@@ -1,10 +1,10 @@
 package io.shortway.kobankat
 
-import cocoapods.RevenueCat.RCVerificationResult
-import cocoapods.RevenueCat.RCVerificationResultFailed
-import cocoapods.RevenueCat.RCVerificationResultNotRequested
-import cocoapods.RevenueCat.RCVerificationResultVerified
-import cocoapods.RevenueCat.RCVerificationResultVerifiedOnDevice
+import cocoapods.PurchasesHybridCommon.RCVerificationResult
+import cocoapods.PurchasesHybridCommon.RCVerificationResultFailed
+import cocoapods.PurchasesHybridCommon.RCVerificationResultNotRequested
+import cocoapods.PurchasesHybridCommon.RCVerificationResultVerified
+import cocoapods.PurchasesHybridCommon.RCVerificationResultVerifiedOnDevice
 
 public actual enum class VerificationResult {
     NOT_REQUESTED,

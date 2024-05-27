@@ -2,10 +2,10 @@
 
 package io.shortway.kobankat.models
 
-import cocoapods.RevenueCat.RCStoreProduct
-import cocoapods.RevenueCat.pricePerMonth
-import cocoapods.RevenueCat.pricePerWeek
-import cocoapods.RevenueCat.pricePerYear
+import cocoapods.PurchasesHybridCommon.RCStoreProduct
+import cocoapods.PurchasesHybridCommon.pricePerMonth
+import cocoapods.PurchasesHybridCommon.pricePerWeek
+import cocoapods.PurchasesHybridCommon.pricePerYear
 import io.shortway.kobankat.ProductType
 import io.shortway.kobankat.i18n.Locale
 import io.shortway.kobankat.i18n.toNsLocale

@@ -1,9 +1,9 @@
 package io.shortway.kobankat.models
 
-import cocoapods.RevenueCat.RCStoreProduct
-import cocoapods.RevenueCat.RCStoreProductDiscount
-import cocoapods.RevenueCat.price
-import cocoapods.RevenueCat.priceLocale
+import cocoapods.PurchasesHybridCommon.RCStoreProduct
+import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount
+import cocoapods.PurchasesHybridCommon.price
+import cocoapods.PurchasesHybridCommon.priceLocale
 import platform.Foundation.NSDecimalNumber
 import platform.Foundation.currencyCode
 

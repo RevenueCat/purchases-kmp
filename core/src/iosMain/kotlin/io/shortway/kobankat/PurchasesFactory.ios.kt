@@ -2,13 +2,13 @@
 
 package io.shortway.kobankat
 
-import cocoapods.RevenueCat.RCConfiguration
-import cocoapods.RevenueCat.RCDangerousSettings
-import cocoapods.RevenueCat.RCEntitlementVerificationMode
-import cocoapods.RevenueCat.RCEntitlementVerificationModeDisabled
-import cocoapods.RevenueCat.RCEntitlementVerificationModeInformational
-import cocoapods.RevenueCat.RCPurchases
-import cocoapods.RevenueCat.configureWithConfiguration
+import cocoapods.PurchasesHybridCommon.RCConfiguration
+import cocoapods.PurchasesHybridCommon.RCDangerousSettings
+import cocoapods.PurchasesHybridCommon.RCEntitlementVerificationMode
+import cocoapods.PurchasesHybridCommon.RCEntitlementVerificationModeDisabled
+import cocoapods.PurchasesHybridCommon.RCEntitlementVerificationModeInformational
+import cocoapods.PurchasesHybridCommon.RCPurchases
+import cocoapods.PurchasesHybridCommon.configureWithConfiguration
 import io.shortway.kobankat.models.BillingFeature
 import platform.Foundation.NSURL
 

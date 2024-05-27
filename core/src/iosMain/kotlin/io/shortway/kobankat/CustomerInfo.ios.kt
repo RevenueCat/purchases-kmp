@@ -1,6 +1,6 @@
 package io.shortway.kobankat
 
-import cocoapods.RevenueCat.RCCustomerInfo
+import cocoapods.PurchasesHybridCommon.RCCustomerInfo
 import io.shortway.kobankat.ktx.toEpochMilliseconds
 import io.shortway.kobankat.models.Transaction
 

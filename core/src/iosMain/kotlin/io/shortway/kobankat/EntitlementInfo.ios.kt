@@ -1,22 +1,22 @@
 package io.shortway.kobankat
 
-import cocoapods.RevenueCat.RCAmazon
-import cocoapods.RevenueCat.RCAppStore
-import cocoapods.RevenueCat.RCEntitlementInfo
-import cocoapods.RevenueCat.RCIntro
-import cocoapods.RevenueCat.RCMacAppStore
-import cocoapods.RevenueCat.RCNormal
-import cocoapods.RevenueCat.RCPeriodType
-import cocoapods.RevenueCat.RCPlayStore
-import cocoapods.RevenueCat.RCPromotional
-import cocoapods.RevenueCat.RCPurchaseOwnershipType
-import cocoapods.RevenueCat.RCPurchaseOwnershipTypeFamilyShared
-import cocoapods.RevenueCat.RCPurchaseOwnershipTypePurchased
-import cocoapods.RevenueCat.RCPurchaseOwnershipTypeUnknown
-import cocoapods.RevenueCat.RCStore
-import cocoapods.RevenueCat.RCStripe
-import cocoapods.RevenueCat.RCTrial
-import cocoapods.RevenueCat.RCUnknownStore
+import cocoapods.PurchasesHybridCommon.RCAmazon
+import cocoapods.PurchasesHybridCommon.RCAppStore
+import cocoapods.PurchasesHybridCommon.RCEntitlementInfo
+import cocoapods.PurchasesHybridCommon.RCIntro
+import cocoapods.PurchasesHybridCommon.RCMacAppStore
+import cocoapods.PurchasesHybridCommon.RCNormal
+import cocoapods.PurchasesHybridCommon.RCPeriodType
+import cocoapods.PurchasesHybridCommon.RCPlayStore
+import cocoapods.PurchasesHybridCommon.RCPromotional
+import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipType
+import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypeFamilyShared
+import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypePurchased
+import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypeUnknown
+import cocoapods.PurchasesHybridCommon.RCStore
+import cocoapods.PurchasesHybridCommon.RCStripe
+import cocoapods.PurchasesHybridCommon.RCTrial
+import cocoapods.PurchasesHybridCommon.RCUnknownStore
 import io.shortway.kobankat.ktx.toEpochMilliseconds
 
 public actual typealias EntitlementInfo = RCEntitlementInfo

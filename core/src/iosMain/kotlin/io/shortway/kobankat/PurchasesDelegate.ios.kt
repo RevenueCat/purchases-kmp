@@ -2,11 +2,11 @@
 
 package io.shortway.kobankat
 
-import cocoapods.RevenueCat.RCCustomerInfo
-import cocoapods.RevenueCat.RCPurchases
-import cocoapods.RevenueCat.RCPurchasesDelegateProtocol
-import cocoapods.RevenueCat.RCStoreProduct
-import cocoapods.RevenueCat.RCStoreTransaction
+import cocoapods.PurchasesHybridCommon.RCCustomerInfo
+import cocoapods.PurchasesHybridCommon.RCPurchases
+import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
+import cocoapods.PurchasesHybridCommon.RCStoreProduct
+import cocoapods.PurchasesHybridCommon.RCStoreTransaction
 import platform.Foundation.NSError
 import platform.darwin.NSObject
 
