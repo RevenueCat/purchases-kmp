@@ -17,7 +17,6 @@ public expect val Package.identifier: String
 public expect val Package.packageType: PackageType
 public expect val Package.storeProduct: StoreProduct
 public expect val Package.presentedOfferingContext: PresentedOfferingContext
-public expect val Package.offeringIdentifier: String
 
 /**
  *  Enumeration of all possible Package types.

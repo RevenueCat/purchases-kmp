@@ -4,27 +4,6 @@ package io.shortway.kobankat
 
 import cocoapods.PurchasesHybridCommon.RCPurchases
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
-import cocoapods.PurchasesHybridCommon.setAd
-import cocoapods.PurchasesHybridCommon.setAdGroup
-import cocoapods.PurchasesHybridCommon.setAdjustID
-import cocoapods.PurchasesHybridCommon.setAirshipChannelID
-import cocoapods.PurchasesHybridCommon.setAppsflyerID
-import cocoapods.PurchasesHybridCommon.setAttributes
-import cocoapods.PurchasesHybridCommon.setCampaign
-import cocoapods.PurchasesHybridCommon.setCleverTapID
-import cocoapods.PurchasesHybridCommon.setCreative
-import cocoapods.PurchasesHybridCommon.setDisplayName
-import cocoapods.PurchasesHybridCommon.setEmail
-import cocoapods.PurchasesHybridCommon.setFBAnonymousID
-import cocoapods.PurchasesHybridCommon.setFirebaseAppInstanceID
-import cocoapods.PurchasesHybridCommon.setKeyword
-import cocoapods.PurchasesHybridCommon.setMediaSource
-import cocoapods.PurchasesHybridCommon.setMixpanelDistinctID
-import cocoapods.PurchasesHybridCommon.setMparticleID
-import cocoapods.PurchasesHybridCommon.setOnesignalID
-import cocoapods.PurchasesHybridCommon.setOnesignalUserID
-import cocoapods.PurchasesHybridCommon.setPhoneNumber
-import cocoapods.PurchasesHybridCommon.setPushTokenString
 import io.shortway.kobankat.models.GoogleReplacementMode
 import io.shortway.kobankat.models.PromotionalOffer
 import io.shortway.kobankat.models.StoreProduct
@@ -233,67 +212,67 @@ public actual fun Purchases.invalidateCustomerInfoCache(): Unit =
     invalidateCustomerInfoCache()
 
 public actual fun Purchases.setAttributes(attributes: Map<String, String?>): Unit =
-    attribution().setAttributes(attributes.mapKeys { (key, _) -> key })
+    setAttributes(attributes.mapKeys { (key, _) -> key })
 
 public actual fun Purchases.setEmail(email: String?): Unit =
-    attribution().setEmail(email)
+    setEmail(email)
 
 public actual fun Purchases.setPhoneNumber(phoneNumber: String?): Unit =
-    attribution().setPhoneNumber(phoneNumber)
+    setPhoneNumber(phoneNumber)
 
 public actual fun Purchases.setDisplayName(displayName: String?): Unit =
-    attribution().setDisplayName(displayName)
+    setDisplayName(displayName)
 
 public actual fun Purchases.setPushToken(fcmToken: String?): Unit =
-    attribution().setPushTokenString(fcmToken)
+    setPushTokenString(fcmToken)
 
 public actual fun Purchases.setMixpanelDistinctID(mixpanelDistinctID: String?): Unit =
-    attribution().setMixpanelDistinctID(mixpanelDistinctID)
+    setMixpanelDistinctID(mixpanelDistinctID)
 
 public actual fun Purchases.setOnesignalID(onesignalID: String?): Unit =
-    attribution().setOnesignalID(onesignalID)
+    setOnesignalID(onesignalID)
 
 public actual fun Purchases.setOnesignalUserID(onesignalUserID: String?): Unit =
-    attribution().setOnesignalUserID(onesignalUserID)
+    setOnesignalUserID(onesignalUserID)
 
 public actual fun Purchases.setAirshipChannelID(airshipChannelID: String?): Unit =
-    attribution().setAirshipChannelID(airshipChannelID)
+    setAirshipChannelID(airshipChannelID)
 
 public actual fun Purchases.setFirebaseAppInstanceID(firebaseAppInstanceID: String?): Unit =
-    attribution().setFirebaseAppInstanceID(firebaseAppInstanceID)
+    setFirebaseAppInstanceID(firebaseAppInstanceID)
 
 public actual fun Purchases.collectDeviceIdentifiers(): Unit =
     collectDeviceIdentifiers()
 
 public actual fun Purchases.setAdjustID(adjustID: String?): Unit =
-    attribution().setAdjustID(adjustID)
+    setAdjustID(adjustID)
 
 public actual fun Purchases.setAppsflyerID(appsflyerID: String?): Unit =
-    attribution().setAppsflyerID(appsflyerID)
+    setAppsflyerID(appsflyerID)
 
 public actual fun Purchases.setFBAnonymousID(fbAnonymousID: String?): Unit =
-    attribution().setFBAnonymousID(fbAnonymousID)
+    setFBAnonymousID(fbAnonymousID)
 
 public actual fun Purchases.setMparticleID(mparticleID: String?): Unit =
-    attribution().setMparticleID(mparticleID)
+    setMparticleID(mparticleID)
 
 public actual fun Purchases.setCleverTapID(cleverTapID: String?): Unit =
-    attribution().setCleverTapID(cleverTapID)
+    setCleverTapID(cleverTapID)
 
 public actual fun Purchases.setMediaSource(mediaSource: String?): Unit =
-    attribution().setMediaSource(mediaSource)
+    setMediaSource(mediaSource)
 
 public actual fun Purchases.setCampaign(campaign: String?): Unit =
-    attribution().setCampaign(campaign)
+    setCampaign(campaign)
 
 public actual fun Purchases.setAdGroup(adGroup: String?): Unit =
-    attribution().setAdGroup(adGroup)
+    setAdGroup(adGroup)
 
 public actual fun Purchases.setAd(ad: String?): Unit =
-    attribution().setAd(ad)
+    setAd(ad)
 
 public actual fun Purchases.setKeyword(keyword: String?): Unit =
-    attribution().setKeyword(keyword)
+    setKeyword(keyword)
 
 public actual fun Purchases.setCreative(creative: String?): Unit =
-    attribution().setCreative(creative)
+    setCreative(creative)

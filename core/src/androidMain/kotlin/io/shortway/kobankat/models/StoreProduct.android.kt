@@ -2,6 +2,7 @@
 
 package io.shortway.kobankat.models
 
+import io.shortway.kobankat.PresentedOfferingContext
 import io.shortway.kobankat.ProductType
 import io.shortway.kobankat.i18n.Locale
 import io.shortway.kobankat.i18n.toJvmLocale
@@ -31,8 +32,8 @@ public actual val StoreProduct.introductoryDiscount: StoreProductDiscount?
     get() = null
 public actual val StoreProduct.purchasingData: PurchasingData
     get() = purchasingData
-public actual val StoreProduct.presentedOfferingIdentifier: String?
-    get() = presentedOfferingIdentifier
+public actual val StoreProduct.presentedOfferingContext: PresentedOfferingContext?
+    get() = presentedOfferingContext
 
 public actual fun StoreProduct.pricePerWeek(locale: Locale): Price? =
     pricePerWeek(locale.toJvmLocale())

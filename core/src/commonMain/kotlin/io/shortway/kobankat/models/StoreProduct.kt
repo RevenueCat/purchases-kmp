@@ -1,5 +1,6 @@
 package io.shortway.kobankat.models
 
+import io.shortway.kobankat.PresentedOfferingContext
 import io.shortway.kobankat.ProductType
 import io.shortway.kobankat.i18n.Locale
 
@@ -86,7 +87,7 @@ public expect val StoreProduct.purchasingData: PurchasingData
  *
  * Null if not using RevenueCat offerings system, or if fetched directly via `Purchases.getProducts`
  */
-public expect val StoreProduct.presentedOfferingIdentifier: String?
+public expect val StoreProduct.presentedOfferingContext: PresentedOfferingContext?
 
 /**
  * Null for INAPP products. The price of the [StoreProduct] in the given locale in a weekly recurrence.

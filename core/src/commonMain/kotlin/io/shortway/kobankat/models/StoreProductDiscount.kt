@@ -8,7 +8,7 @@ public expect class StoreProductDiscount
 /**
  * The price of this product discount
  */
-public expect val StoreProductDiscount.price: Price
+public expect fun StoreProductDiscount.price(parentProduct: StoreProduct): Price
 
 /**
  * The number of periods the product discount is available. This is 1 for

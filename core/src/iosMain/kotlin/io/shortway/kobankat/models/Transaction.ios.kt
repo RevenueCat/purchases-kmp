@@ -1,9 +1,9 @@
 package io.shortway.kobankat.models
 
-import cocoapods.PurchasesHybridCommon.RCNonSubscriptionTransaction
+import cocoapods.PurchasesHybridCommon.RCStoreTransaction
 import io.shortway.kobankat.ktx.toEpochMilliseconds
 
-public actual typealias Transaction = RCNonSubscriptionTransaction
+public actual typealias Transaction = RCStoreTransaction
 
 public actual val Transaction.transactionIdentifier: String
     get() = transactionIdentifier()
