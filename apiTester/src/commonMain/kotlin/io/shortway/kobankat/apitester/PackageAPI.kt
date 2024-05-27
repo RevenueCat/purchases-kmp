@@ -5,7 +5,6 @@ import io.shortway.kobankat.PackageType
 import io.shortway.kobankat.PresentedOfferingContext
 import io.shortway.kobankat.identifier
 import io.shortway.kobankat.models.StoreProduct
-import io.shortway.kobankat.offeringIdentifier
 import io.shortway.kobankat.packageType
 import io.shortway.kobankat.presentedOfferingContext
 import io.shortway.kobankat.storeProduct
@@ -17,7 +16,6 @@ private class PackageAPI {
             val identifier: String = identifier
             val packageType: PackageType = packageType
             val product: StoreProduct = storeProduct
-            val offering: String = offeringIdentifier
             val presentedOfferingContext: PresentedOfferingContext = presentedOfferingContext
         }
     }

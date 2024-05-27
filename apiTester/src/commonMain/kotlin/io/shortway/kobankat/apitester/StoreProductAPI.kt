@@ -1,5 +1,6 @@
 package io.shortway.kobankat.apitester
 
+import io.shortway.kobankat.PresentedOfferingContext
 import io.shortway.kobankat.ProductType
 import io.shortway.kobankat.i18n.Locale
 import io.shortway.kobankat.models.Period
@@ -16,7 +17,7 @@ import io.shortway.kobankat.models.formattedPricePerMonth
 import io.shortway.kobankat.models.id
 import io.shortway.kobankat.models.introductoryDiscount
 import io.shortway.kobankat.models.period
-import io.shortway.kobankat.models.presentedOfferingIdentifier
+import io.shortway.kobankat.models.presentedOfferingContext
 import io.shortway.kobankat.models.price
 import io.shortway.kobankat.models.pricePerMonth
 import io.shortway.kobankat.models.pricePerWeek
@@ -50,7 +51,7 @@ private class StoreProductAPI {
             val discounts: List<StoreProductDiscount> = discounts
             val introDiscount: StoreProductDiscount? = introductoryDiscount
             val purchasingData: PurchasingData = purchasingData
-            val presentedOfferingIdentifier: String? = presentedOfferingIdentifier
+            val presentedOfferingContext: PresentedOfferingContext? = presentedOfferingContext
         }
     }
 
