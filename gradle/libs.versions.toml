@@ -5,7 +5,7 @@ android-minSdk = "21"
 android-targetSdk = "34"
 compose = "1.6.7"
 java = "1.8"
-kotlin = "1.9.23"
+kotlin = "1.9.24"
 revenuecat-common = "10.7.0"
 
 [libraries]
@@ -16,7 +16,7 @@ androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling
 arrow-core = { module = "io.arrow-kt:arrow-core", version = "1.2.4" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.5.0" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.0" }
 revenuecat-common = { module = "com.revenuecat.purchases:purchases-hybrid-common", version.ref = "revenuecat-common" }
 
 [plugins]
