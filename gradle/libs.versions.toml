@@ -1,5 +1,5 @@
 [versions]
-agp = "8.3.2"
+agp = "8.4.1"
 android-compileSdk = "34"
 android-minSdk = "21"
 android-targetSdk = "34"
@@ -11,7 +11,7 @@ revenuecat-ios = "4.41.0"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
-androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.8.2" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.9.0" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 arrow-core = { module = "io.arrow-kt:arrow-core", version = "1.2.4" }
@@ -26,7 +26,7 @@ arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.6" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 gradleup-nmcp = { id = "com.gradleup.nmcp", version = "0.0.4" }
-jetbrains-compose = { id = "org.jetbrains.compose", version = "1.6.2" }
+jetbrains-compose = { id = "org.jetbrains.compose", version = "1.6.10" }
 kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.15.0-Beta.2" }
