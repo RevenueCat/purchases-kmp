@@ -2,9 +2,9 @@
 
 package io.shortway.kobankat
 
-import android.app.Application
 import android.content.Context
 import io.shortway.kobankat.di.ActivityProvider
+import io.shortway.kobankat.di.requireApplication
 import io.shortway.kobankat.models.BillingFeature
 import java.net.URL
 import com.revenuecat.purchases.DangerousSettings as RcDangerousSettings
@@ -39,23 +39,12 @@ public actual object PurchasesFactory {
     @JvmStatic
     public actual var forceUniversalAppStore: Boolean = false
 
-    private var application: Application? = null
-
-    /**
-     * Call this once, in [Application.onCreate], before calling any other methods.
-     */
-    public fun setApplication(application: Application) {
-        check(this.application == null) {
-            "setApplication() should only be called once, in Application.onCreate()."
-        }
-        this.application = application
-        requireApplication().registerActivityLifecycleCallbacks(ActivityProvider)
-    }
-
     public actual fun configure(
         configuration: PurchasesConfiguration
     ): Purchases =
-        Purchases.configure(configuration.toRcPurchasesConfiguration(requireApplication()))
+        Purchases.configure(
+            configuration.toRcPurchasesConfiguration(ActivityProvider.requireApplication())
+        )
 
     @JvmOverloads
     @JvmStatic
@@ -63,16 +52,9 @@ public actual object PurchasesFactory {
         features: List<BillingFeature>,
         callback: (Boolean) -> Unit,
     ): Unit = Purchases.canMakePayments(
-        context = requireApplication(),
+        context = ActivityProvider.requireApplication(),
         features = features
     ) { result -> callback(result) }
-
-    private fun requireApplication(): Application =
-        application
-            ?: error(
-                "Be sure to call setApplication() in Application.onCreate, " +
-                        "before calling any other methods."
-            )
 }
 
 private fun PurchasesConfiguration.toRcPurchasesConfiguration(context: Context): RcPurchasesConfiguration =
