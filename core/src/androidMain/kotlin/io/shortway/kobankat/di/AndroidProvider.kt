@@ -1,15 +1,19 @@
 package io.shortway.kobankat.di
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import io.shortway.kobankat.di.ActivityProvider.application
+import io.shortway.kobankat.di.AndroidProvider.application
 
 /**
- * Provides references to the [Application] and current [Activity]. [application] should be set
- * once, in a ContentProvider or Initializer.
+ * Provides references to the Android framework objects: the [Application] and current [Activity].
+ * [application] should be set once, in a ContentProvider or Initializer.
+ *
+ * @see PurchasesInitializer
  */
-internal object ActivityProvider: Application.ActivityLifecycleCallbacks {
+@SuppressLint("StaticFieldLeak") // Not leaking, `current` is cleared appropriately.
+internal object AndroidProvider : Application.ActivityLifecycleCallbacks {
     var application: Application? = null
         set(value) {
             require(value != null) { "`application` should not be set to a null value." }
@@ -50,10 +54,10 @@ internal object ActivityProvider: Application.ActivityLifecycleCallbacks {
     }
 }
 
-internal fun ActivityProvider.requireApplication(): Application =
+internal fun AndroidProvider.requireApplication(): Application =
     application ?: error(
         "Purchases has no reference to the Application. This is a bug in the library."
     )
 
-internal fun ActivityProvider.currentOrThrow(): Activity =
+internal fun AndroidProvider.currentOrThrow(): Activity =
     current ?: error("There's no current Activity.")

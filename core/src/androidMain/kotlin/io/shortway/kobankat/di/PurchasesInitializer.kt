@@ -14,7 +14,7 @@ import androidx.startup.Initializer
 internal class PurchasesInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
-        ActivityProvider.application = context.applicationContext as Application
+        AndroidProvider.application = context.applicationContext as Application
     }
 
     override fun dependencies(): List<Class<out Initializer<*>>> = emptyList()

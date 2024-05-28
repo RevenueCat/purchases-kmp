@@ -3,7 +3,7 @@
 package io.shortway.kobankat
 
 import android.content.Context
-import io.shortway.kobankat.di.ActivityProvider
+import io.shortway.kobankat.di.AndroidProvider
 import io.shortway.kobankat.di.requireApplication
 import io.shortway.kobankat.models.BillingFeature
 import java.net.URL
@@ -43,7 +43,7 @@ public actual object PurchasesFactory {
         configuration: PurchasesConfiguration
     ): Purchases =
         Purchases.configure(
-            configuration.toRcPurchasesConfiguration(ActivityProvider.requireApplication())
+            configuration.toRcPurchasesConfiguration(AndroidProvider.requireApplication())
         )
 
     @JvmOverloads
@@ -52,7 +52,7 @@ public actual object PurchasesFactory {
         features: List<BillingFeature>,
         callback: (Boolean) -> Unit,
     ): Unit = Purchases.canMakePayments(
-        context = ActivityProvider.requireApplication(),
+        context = AndroidProvider.requireApplication(),
         features = features
     ) { result -> callback(result) }
 }
