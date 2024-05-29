@@ -46,12 +46,13 @@ public actual object PurchasesFactory {
                 apiKey = apiKey,
                 appUserID = appUserId,
                 observerMode = observerMode,
-                userDefaultsSuiteName = null,
+                userDefaultsSuiteName = userDefaultsSuiteName,
                 platformFlavor = "kmp", // FIXME revisit
                 platformFlavorVersion = "0.0.1", // FIXME revisit
-                usesStoreKit2IfAvailable = true, // FIXME deprecated in Flutter, but what value to pass here?
+                usesStoreKit2IfAvailable = false, // In Flutter it's deprecated & defaults to false.
                 dangerousSettings = configuration.dangerousSettings.toRCDangerousSettings(),
                 shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
+                verificationMode = verificationMode.name,
             )
         }
 
