@@ -14,7 +14,7 @@ import com.revenuecat.purchases.restorePurchasesWith
 import com.revenuecat.purchases.syncAttributesAndOfferingsIfNeededWith
 import com.revenuecat.purchases.syncPurchasesWith
 import io.shortway.kobankat.di.AndroidProvider
-import io.shortway.kobankat.di.currentOrThrow
+import io.shortway.kobankat.di.requireActivity
 import io.shortway.kobankat.models.GoogleReplacementMode
 import io.shortway.kobankat.models.PromotionalOffer
 import io.shortway.kobankat.models.StoreMessageType
@@ -114,7 +114,7 @@ public actual fun Purchases.purchase(
     replacementMode: GoogleReplacementMode,
 ): Unit = purchaseWith(
     purchaseParams = PurchaseParams.Builder(
-        AndroidProvider.currentOrThrow(),
+        AndroidProvider.requireActivity(),
         storeProduct
     ).apply {
         if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
@@ -134,7 +134,7 @@ public actual fun Purchases.purchase(
     replacementMode: GoogleReplacementMode,
 ): Unit = purchaseWith(
     purchaseParams = PurchaseParams.Builder(
-        AndroidProvider.currentOrThrow(),
+        AndroidProvider.requireActivity(),
         packageToPurchase
     ).apply {
         if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
@@ -154,7 +154,7 @@ public actual fun Purchases.purchase(
     replacementMode: GoogleReplacementMode,
 ): Unit = purchaseWith(
     purchaseParams = PurchaseParams.Builder(
-        AndroidProvider.currentOrThrow(),
+        AndroidProvider.requireActivity(),
         subscriptionOption
     ).apply {
         if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
@@ -227,7 +227,7 @@ public actual fun Purchases.getCustomerInfo(
 public actual fun Purchases.showInAppMessagesIfNeeded(
     messageTypes: List<StoreMessageType>,
 ): Unit = showInAppMessagesIfNeeded(
-    activity = AndroidProvider.currentOrThrow(),
+    activity = AndroidProvider.requireActivity(),
     inAppMessageTypes = messageTypes.mapNotNull { it.toInAppMessageTypeOrNull() }
 )
 

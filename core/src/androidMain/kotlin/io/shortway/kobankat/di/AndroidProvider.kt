@@ -12,7 +12,7 @@ import io.shortway.kobankat.di.AndroidProvider.application
  *
  * @see PurchasesInitializer
  */
-@SuppressLint("StaticFieldLeak") // Not leaking, `current` is cleared appropriately.
+@SuppressLint("StaticFieldLeak") // Not leaking, `currentActivity` is cleared appropriately.
 internal object AndroidProvider : Application.ActivityLifecycleCallbacks {
     var application: Application? = null
         set(value) {
@@ -22,27 +22,27 @@ internal object AndroidProvider : Application.ActivityLifecycleCallbacks {
             field = value
         }
 
-    var current: Activity? = null
+    var activity: Activity? = null
         private set
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-        current = activity
+        this.activity = activity
     }
 
     override fun onActivityStarted(activity: Activity) {
-        current = activity
+        this.activity = activity
     }
 
     override fun onActivityResumed(activity: Activity) {
-        current = activity
+        this.activity = activity
     }
 
     override fun onActivityPaused(activity: Activity) {
-        if (activity == current) current = null
+        if (activity == this.activity) this.activity = null
     }
 
     override fun onActivityStopped(activity: Activity) {
-        if (activity == current) current = null
+        if (activity == this.activity) this.activity = null
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
@@ -50,7 +50,7 @@ internal object AndroidProvider : Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityDestroyed(activity: Activity) {
-        if (activity == current) current = null
+        if (activity == this.activity) this.activity = null
     }
 }
 
@@ -59,5 +59,5 @@ internal fun AndroidProvider.requireApplication(): Application =
         "Purchases has no reference to the Application. This is a bug in the library."
     )
 
-internal fun AndroidProvider.currentOrThrow(): Activity =
-    current ?: error("There's no current Activity.")
+internal fun AndroidProvider.requireActivity(): Activity =
+    activity ?: error("There's no current Activity.")
