@@ -166,10 +166,9 @@ public class PurchasesConfiguration private constructor(
 @JvmSynthetic
 public fun PurchasesConfiguration(
     apiKey: String,
-    builder: PurchasesConfiguration.Builder.() -> Unit = { },
+    builder: Builder.() -> Unit = { },
 ): PurchasesConfiguration =
-    PurchasesConfiguration
-        .Builder(apiKey)
+    Builder(apiKey)
         .apply(builder)
         .build()
 
@@ -181,6 +180,6 @@ public fun PurchasesConfiguration(
 @JvmSynthetic
 public fun PurchasesFactory.configure(
     apiKey: String,
-    builder: PurchasesConfiguration.Builder.() -> Unit = { }
+    builder: Builder.() -> Unit = { }
 ): Purchases =
     configure(PurchasesConfiguration(apiKey, builder))
