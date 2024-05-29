@@ -72,9 +72,6 @@ public expect object PurchasesFactory {
     /**
      * Configures an instance of the SDK with the specified [configuration]. The instance will be
      * set as a singleton. You should access the singleton instance using [sharedInstance].
-     *
-     * **Note:** on Android only, `PurchasesFactory.setApplication()` should be called in
-     * `Application.onCreate()`, before calling [configure].
      */
     public fun configure(configuration: PurchasesConfiguration): Purchases
 
