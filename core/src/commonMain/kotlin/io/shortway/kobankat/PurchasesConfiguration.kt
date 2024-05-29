@@ -7,14 +7,14 @@ import kotlin.jvm.JvmSynthetic
  */
 public class PurchasesConfiguration private constructor(
     public val apiKey: String,
-    public val appUserId: String? = null,
-    public val observerMode: Boolean = false,
-    public val userDefaultsSuiteName: String? = null,
-    public val showInAppMessagesAutomatically: Boolean = true,
-    public val store: Store? = null,
-    public val diagnosticsEnabled: Boolean = false,
-    public val dangerousSettings: DangerousSettings = DangerousSettings(),
-    public val verificationMode: EntitlementVerificationMode = EntitlementVerificationMode.DISABLED,
+    public val appUserId: String?,
+    public val observerMode: Boolean,
+    public val userDefaultsSuiteName: String?,
+    public val showInAppMessagesAutomatically: Boolean,
+    public val store: Store?,
+    public val diagnosticsEnabled: Boolean,
+    public val dangerousSettings: DangerousSettings,
+    public val verificationMode: EntitlementVerificationMode,
 ) {
     override fun toString(): String =
         "PurchasesConfiguration(" +
@@ -89,7 +89,10 @@ public class PurchasesConfiguration private constructor(
             apiKey = apiKey,
             appUserId = appUserId,
             observerMode = observerMode,
+            userDefaultsSuiteName = userDefaultsSuiteName,
             showInAppMessagesAutomatically = showInAppMessagesAutomatically,
+            store = store,
+            diagnosticsEnabled = diagnosticsEnabled,
             dangerousSettings = dangerousSettings,
             verificationMode = verificationMode
         )
