@@ -15,6 +15,7 @@ import io.shortway.kobankat.PurchasesError
 import io.shortway.kobankat.PurchasesFactory
 import io.shortway.kobankat.appUserID
 import io.shortway.kobankat.close
+import io.shortway.kobankat.configure
 import io.shortway.kobankat.delegate
 import io.shortway.kobankat.either.FailedPurchase
 import io.shortway.kobankat.either.awaitGetProductsEither
@@ -243,16 +244,22 @@ private class PurchasesCommonAPI {
         PurchasesFactory.proxyURL = ""
         val url: String? = PurchasesFactory.proxyURL
 
-        val config: PurchasesConfiguration = PurchasesConfiguration(
-            apiKey = "",
-            appUserId = "",
-            observerMode = true,
-            showInAppMessagesAutomatically = true,
-            dangerousSettings = DangerousSettings(autoSyncPurchases = true),
-            verificationMode = EntitlementVerificationMode.INFORMATIONAL,
-        )
+        val config: PurchasesConfiguration = PurchasesConfiguration(apiKey = "") {
+            appUserId = ""
+            observerMode = true
+            showInAppMessagesAutomatically = true
+            dangerousSettings = DangerousSettings(autoSyncPurchases = true)
+            verificationMode = EntitlementVerificationMode.INFORMATIONAL
+        }
 
         val configuredInstance: Purchases = PurchasesFactory.configure(config)
+        val otherConfiguredInstance: Purchases = PurchasesFactory.configure(apiKey = "") {
+            appUserId = ""
+            observerMode = true
+            showInAppMessagesAutomatically = true
+            dangerousSettings = DangerousSettings(autoSyncPurchases = true)
+            verificationMode = EntitlementVerificationMode.INFORMATIONAL
+        }
         val instance: Purchases = PurchasesFactory.sharedInstance
     }
 
