@@ -2,6 +2,7 @@ package io.shortway.kobankat
 
 import io.shortway.kobankat.models.GoogleReplacementMode
 import io.shortway.kobankat.models.PromotionalOffer
+import io.shortway.kobankat.models.StoreMessageType
 import io.shortway.kobankat.models.StoreProduct
 import io.shortway.kobankat.models.StoreProductDiscount
 import io.shortway.kobankat.models.StoreTransaction
@@ -337,6 +338,21 @@ public expect fun Purchases.getCustomerInfo(
     fetchPolicy: CacheFetchPolicy = CacheFetchPolicy.default(),
     onError: (error: PurchasesError) -> Unit,
     onSuccess: (customerInfo: CustomerInfo) -> Unit,
+)
+
+/**
+ * Google Play and App Store only, no-op for Amazon.
+ * Displays the specified in-app message types to the user as a snackbar if there are any available
+ * to be shown.
+ * If [PurchasesConfiguration.showInAppMessagesAutomatically] is enabled, this will be done
+ * automatically.
+ *
+ * For more info:
+ * - [Google Play](https://rev.cat/googleplayinappmessaging)
+ * - [App Store](https://rev.cat/storekit-message)
+ */
+public expect fun Purchases.showInAppMessagesIfNeeded(
+    messageTypes: List<StoreMessageType> = listOf(StoreMessageType.BILLING_ISSUES),
 )
 
 /**

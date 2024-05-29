@@ -2,10 +2,13 @@
 
 package io.shortway.kobankat
 
+import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
 import cocoapods.PurchasesHybridCommon.RCPurchases
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
+import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
 import io.shortway.kobankat.models.GoogleReplacementMode
 import io.shortway.kobankat.models.PromotionalOffer
+import io.shortway.kobankat.models.StoreMessageType
 import io.shortway.kobankat.models.StoreProduct
 import io.shortway.kobankat.models.StoreProductDiscount
 import io.shortway.kobankat.models.StoreTransaction
@@ -207,6 +210,13 @@ public actual fun Purchases.getCustomerInfo(
     if (error != null) onError(error.toPurchasesErrorOrThrow())
     else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
 }
+
+public actual fun Purchases.showInAppMessagesIfNeeded(
+    messageTypes: List<StoreMessageType>,
+): Unit = RCCommonFunctionality.showStoreMessagesForTypes(
+    rawValues = messageTypes.mapTo(mutableSetOf()) { it.ordinal },
+    completion = { }
+)
 
 public actual fun Purchases.invalidateCustomerInfoCache(): Unit =
     invalidateCustomerInfoCache()
