@@ -38,7 +38,7 @@ public actual object PurchasesFactory {
     public actual fun configure(
         configuration: PurchasesConfiguration
     ): Purchases =
-        configuration.run {
+        with(configuration) {
             RCPurchases.configureWithAPIKey(
                 apiKey = apiKey,
                 appUserID = appUserId,
