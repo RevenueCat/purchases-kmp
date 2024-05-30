@@ -100,7 +100,6 @@ public final class io/shortway/kobankat/PackageKt {
 
 public final class io/shortway/kobankat/Package_androidKt {
 	public static final fun getIdentifier (Lcom/revenuecat/purchases/Package;)Ljava/lang/String;
-	public static final fun getOfferingIdentifier (Lcom/revenuecat/purchases/Package;)Ljava/lang/String;
 	public static final fun getPackageType (Lcom/revenuecat/purchases/Package;)Lcom/revenuecat/purchases/PackageType;
 	public static final fun getPresentedOfferingContext (Lcom/revenuecat/purchases/Package;)Lcom/revenuecat/purchases/PresentedOfferingContext;
 	public static final fun getStoreProduct (Lcom/revenuecat/purchases/Package;)Lio/shortway/kobankat/models/StoreProduct;
@@ -435,9 +434,9 @@ public final class io/shortway/kobankat/models/StoreProductDiscount_androidKt {
 	public static final fun getNumberOfPeriods (Lio/shortway/kobankat/models/StoreProductDiscount;)J
 	public static final fun getOfferIdentifier (Lio/shortway/kobankat/models/StoreProductDiscount;)Ljava/lang/String;
 	public static final fun getPaymentMode (Lio/shortway/kobankat/models/StoreProductDiscount;)Lio/shortway/kobankat/models/DiscountPaymentMode;
-	public static final fun getPrice (Lio/shortway/kobankat/models/StoreProductDiscount;)Lcom/revenuecat/purchases/models/Price;
 	public static final fun getSubscriptionPeriod (Lio/shortway/kobankat/models/StoreProductDiscount;)Lcom/revenuecat/purchases/models/Period;
 	public static final fun getType (Lio/shortway/kobankat/models/StoreProductDiscount;)Lio/shortway/kobankat/models/DiscountType;
+	public static final fun price (Lio/shortway/kobankat/models/StoreProductDiscount;Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/models/Price;
 }
 
 public final class io/shortway/kobankat/models/StoreProduct_androidKt {
@@ -449,7 +448,7 @@ public final class io/shortway/kobankat/models/StoreProduct_androidKt {
 	public static final fun getId (Lio/shortway/kobankat/models/StoreProduct;)Ljava/lang/String;
 	public static final fun getIntroductoryDiscount (Lio/shortway/kobankat/models/StoreProduct;)Lio/shortway/kobankat/models/StoreProductDiscount;
 	public static final fun getPeriod (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/models/Period;
-	public static final fun getPresentedOfferingIdentifier (Lio/shortway/kobankat/models/StoreProduct;)Ljava/lang/String;
+	public static final fun getPresentedOfferingContext (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/PresentedOfferingContext;
 	public static final fun getPrice (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/models/Price;
 	public static final fun getPurchasingData (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/models/PurchasingData;
 	public static final fun getSubscriptionOptions (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/models/SubscriptionOptions;
