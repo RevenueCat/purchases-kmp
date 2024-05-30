@@ -35,11 +35,6 @@ public expect object PurchasesFactory {
      */
     @JvmStatic
     public var logHandler: LogHandler
-    /**
-     * Current version of the Purchases SDK
-     */
-    @JvmStatic
-    public val frameworkVersion: String
 
     /**
      * Set this property to your proxy URL before configuring Purchases *only*
@@ -96,3 +91,10 @@ public expect object PurchasesFactory {
     )
 
 }
+
+/**
+ * Current version of the Purchases SDK
+ */
+@Suppress("UnusedReceiverParameter")
+public val PurchasesFactory.frameworkVersion: String
+    get() = BuildKonfig.revenuecatKmpVersion

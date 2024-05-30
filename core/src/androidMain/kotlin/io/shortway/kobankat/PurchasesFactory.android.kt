@@ -2,16 +2,14 @@
 
 package io.shortway.kobankat
 
-import android.content.Context
-import com.revenuecat.purchases.Store
+import com.revenuecat.purchases.common.PlatformInfo
 import io.shortway.kobankat.di.AndroidProvider
 import io.shortway.kobankat.di.requireApplication
 import io.shortway.kobankat.models.BillingFeature
 import java.net.URL
 import com.revenuecat.purchases.DangerousSettings as RcDangerousSettings
-import com.revenuecat.purchases.EntitlementVerificationMode as RcEntitlementVerificationMode
 import com.revenuecat.purchases.Purchases as RcPurchases
-import com.revenuecat.purchases.PurchasesConfiguration as RcPurchasesConfiguration
+import com.revenuecat.purchases.hybridcommon.configure as commonConfigure
 
 public actual object PurchasesFactory {
     public actual val sharedInstance: Purchases
@@ -22,9 +20,6 @@ public actual object PurchasesFactory {
 
     @JvmStatic
     public actual var logHandler: LogHandler by RcPurchases.Companion::logHandler
-
-    @JvmStatic
-    public actual val frameworkVersion: String by RcPurchases.Companion::frameworkVersion
 
     @JvmStatic
     public actual var proxyURL: String?
@@ -42,10 +37,27 @@ public actual object PurchasesFactory {
 
     public actual fun configure(
         configuration: PurchasesConfiguration
-    ): Purchases =
-        Purchases.configure(
-            configuration.toRcPurchasesConfiguration(AndroidProvider.requireApplication())
-        )
+    ): Purchases {
+        with(configuration) {
+            // Using the common configure() call allows us to pass PlatformInfo.
+            commonConfigure(
+                AndroidProvider.requireApplication(),
+                apiKey = apiKey,
+                appUserID = appUserId,
+                observerMode = observerMode,
+                platformInfo = PlatformInfo(
+                    flavor = BuildKonfig.platformFlavor,
+                    version = frameworkVersion,
+                ),
+                store = store ?: Store.PLAY_STORE,
+                dangerousSettings = dangerousSettings.toRcDangerousSettings(),
+                shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
+                verificationMode = verificationMode.name,
+            )
+        }
+
+        return sharedInstance
+    }
 
     @JvmOverloads
     @JvmStatic
@@ -58,22 +70,5 @@ public actual object PurchasesFactory {
     ) { result -> callback(result) }
 }
 
-private fun PurchasesConfiguration.toRcPurchasesConfiguration(context: Context): RcPurchasesConfiguration =
-    RcPurchasesConfiguration.Builder(context = context, apiKey = apiKey)
-        .appUserID(appUserId)
-        .observerMode(observerMode)
-        .showInAppMessagesAutomatically(showInAppMessagesAutomatically)
-        .dangerousSettings(dangerousSettings.toRcDangerousSettings())
-        .entitlementVerificationMode(verificationMode.toRcEntitlementVerificationMode())
-        .diagnosticsEnabled(diagnosticsEnabled)
-        .store(store ?: Store.PLAY_STORE)
-        .build()
-
 private fun DangerousSettings.toRcDangerousSettings(): RcDangerousSettings =
     RcDangerousSettings(autoSyncPurchases)
-
-private fun EntitlementVerificationMode.toRcEntitlementVerificationMode(): RcEntitlementVerificationMode =
-    when (this) {
-        EntitlementVerificationMode.DISABLED -> RcEntitlementVerificationMode.DISABLED
-        EntitlementVerificationMode.INFORMATIONAL -> RcEntitlementVerificationMode.INFORMATIONAL
-    }

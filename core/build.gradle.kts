@@ -41,6 +41,7 @@ buildkonfig {
     packageName = "io.shortway.kobankat"
 
     defaultConfigs {
+        buildConfigField(STRING, "platformFlavor", "kmp")
         buildConfigField(STRING, "revenuecatCommonVersion", libs.versions.revenuecat.common.get())
         buildConfigField(STRING, "revenuecatKmpVersion", libs.versions.revenuecat.kmp.get())
     }

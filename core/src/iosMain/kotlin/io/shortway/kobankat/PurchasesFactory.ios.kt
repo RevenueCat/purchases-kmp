@@ -20,9 +20,6 @@ public actual object PurchasesFactory {
         get() = Purchases.logHandler().toLogHandler()
         set(value) = Purchases.setLogHandler(value.toRcLogHandler())
 
-    public actual val frameworkVersion: String
-        get() = Purchases.frameworkVersion()
-
     public actual var proxyURL: String?
         get() = Purchases.proxyURL()?.absoluteString()
         set(value) = Purchases.setProxyURL(value?.let { NSURL(string = it) })
@@ -47,8 +44,8 @@ public actual object PurchasesFactory {
                 appUserID = appUserId,
                 observerMode = observerMode,
                 userDefaultsSuiteName = userDefaultsSuiteName,
-                platformFlavor = "kmp", // FIXME revisit
-                platformFlavorVersion = "0.0.1", // FIXME revisit
+                platformFlavor = BuildKonfig.platformFlavor,
+                platformFlavorVersion = frameworkVersion,
                 usesStoreKit2IfAvailable = false, // In Flutter it's deprecated & defaults to false.
                 dangerousSettings = configuration.dangerousSettings.toRCDangerousSettings(),
                 shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
