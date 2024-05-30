@@ -109,6 +109,11 @@ allprojects {
 
 apiValidation {
     ignoredProjects.addAll(listOf("apiTester", "composeApp"))
+
+    @OptIn(kotlinx.validation.ExperimentalBCVApi::class)
+    klib {
+        enabled = true
+    }
 }
 
 dependencies {

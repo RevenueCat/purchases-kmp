@@ -1,0 +1,32 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <io.shortway.kobankat:datetime>
+final val io.shortway.kobankat.datetime/allExpirationInstants // io.shortway.kobankat.datetime/allExpirationInstants|@cocoapods.PurchasesHybridCommon.RCCustomerInfo{}allExpirationInstants[0]
+    final fun (cocoapods.PurchasesHybridCommon/RCCustomerInfo).<get-allExpirationInstants>(): kotlin.collections/Map<kotlin/String, kotlinx.datetime/Instant?> // io.shortway.kobankat.datetime/allExpirationInstants.<get-allExpirationInstants>|<get-allExpirationInstants>@cocoapods.PurchasesHybridCommon.RCCustomerInfo(){}[0]
+final val io.shortway.kobankat.datetime/allPurchaseInstants // io.shortway.kobankat.datetime/allPurchaseInstants|@cocoapods.PurchasesHybridCommon.RCCustomerInfo{}allPurchaseInstants[0]
+    final fun (cocoapods.PurchasesHybridCommon/RCCustomerInfo).<get-allPurchaseInstants>(): kotlin.collections/Map<kotlin/String, kotlinx.datetime/Instant?> // io.shortway.kobankat.datetime/allPurchaseInstants.<get-allPurchaseInstants>|<get-allPurchaseInstants>@cocoapods.PurchasesHybridCommon.RCCustomerInfo(){}[0]
+final val io.shortway.kobankat.datetime/billingIssueDetectedAtInstant // io.shortway.kobankat.datetime/billingIssueDetectedAtInstant|@cocoapods.PurchasesHybridCommon.RCEntitlementInfo{}billingIssueDetectedAtInstant[0]
+    final fun (cocoapods.PurchasesHybridCommon/RCEntitlementInfo).<get-billingIssueDetectedAtInstant>(): kotlinx.datetime/Instant? // io.shortway.kobankat.datetime/billingIssueDetectedAtInstant.<get-billingIssueDetectedAtInstant>|<get-billingIssueDetectedAtInstant>@cocoapods.PurchasesHybridCommon.RCEntitlementInfo(){}[0]
+final val io.shortway.kobankat.datetime/expirationInstant // io.shortway.kobankat.datetime/expirationInstant|@cocoapods.PurchasesHybridCommon.RCEntitlementInfo{}expirationInstant[0]
+    final fun (cocoapods.PurchasesHybridCommon/RCEntitlementInfo).<get-expirationInstant>(): kotlinx.datetime/Instant? // io.shortway.kobankat.datetime/expirationInstant.<get-expirationInstant>|<get-expirationInstant>@cocoapods.PurchasesHybridCommon.RCEntitlementInfo(){}[0]
+final val io.shortway.kobankat.datetime/firstSeenInstant // io.shortway.kobankat.datetime/firstSeenInstant|@cocoapods.PurchasesHybridCommon.RCCustomerInfo{}firstSeenInstant[0]
+    final fun (cocoapods.PurchasesHybridCommon/RCCustomerInfo).<get-firstSeenInstant>(): kotlinx.datetime/Instant // io.shortway.kobankat.datetime/firstSeenInstant.<get-firstSeenInstant>|<get-firstSeenInstant>@cocoapods.PurchasesHybridCommon.RCCustomerInfo(){}[0]
+final val io.shortway.kobankat.datetime/latestExpirationInstant // io.shortway.kobankat.datetime/latestExpirationInstant|@cocoapods.PurchasesHybridCommon.RCCustomerInfo{}latestExpirationInstant[0]
+    final fun (cocoapods.PurchasesHybridCommon/RCCustomerInfo).<get-latestExpirationInstant>(): kotlinx.datetime/Instant? // io.shortway.kobankat.datetime/latestExpirationInstant.<get-latestExpirationInstant>|<get-latestExpirationInstant>@cocoapods.PurchasesHybridCommon.RCCustomerInfo(){}[0]
+final val io.shortway.kobankat.datetime/latestPurchaseInstant // io.shortway.kobankat.datetime/latestPurchaseInstant|@cocoapods.PurchasesHybridCommon.RCEntitlementInfo{}latestPurchaseInstant[0]
+    final fun (cocoapods.PurchasesHybridCommon/RCEntitlementInfo).<get-latestPurchaseInstant>(): kotlinx.datetime/Instant? // io.shortway.kobankat.datetime/latestPurchaseInstant.<get-latestPurchaseInstant>|<get-latestPurchaseInstant>@cocoapods.PurchasesHybridCommon.RCEntitlementInfo(){}[0]
+final val io.shortway.kobankat.datetime/originalPurchaseInstant // io.shortway.kobankat.datetime/originalPurchaseInstant|@cocoapods.PurchasesHybridCommon.RCCustomerInfo{}originalPurchaseInstant[0]
+    final fun (cocoapods.PurchasesHybridCommon/RCCustomerInfo).<get-originalPurchaseInstant>(): kotlinx.datetime/Instant? // io.shortway.kobankat.datetime/originalPurchaseInstant.<get-originalPurchaseInstant>|<get-originalPurchaseInstant>@cocoapods.PurchasesHybridCommon.RCCustomerInfo(){}[0]
+final val io.shortway.kobankat.datetime/originalPurchaseInstant // io.shortway.kobankat.datetime/originalPurchaseInstant|@cocoapods.PurchasesHybridCommon.RCEntitlementInfo{}originalPurchaseInstant[0]
+    final fun (cocoapods.PurchasesHybridCommon/RCEntitlementInfo).<get-originalPurchaseInstant>(): kotlinx.datetime/Instant? // io.shortway.kobankat.datetime/originalPurchaseInstant.<get-originalPurchaseInstant>|<get-originalPurchaseInstant>@cocoapods.PurchasesHybridCommon.RCEntitlementInfo(){}[0]
+final val io.shortway.kobankat.datetime/purchaseInstant // io.shortway.kobankat.datetime/purchaseInstant|@cocoapods.PurchasesHybridCommon.RCStoreTransaction{}purchaseInstant[0]
+    final fun (cocoapods.PurchasesHybridCommon/RCStoreTransaction).<get-purchaseInstant>(): kotlinx.datetime/Instant // io.shortway.kobankat.datetime/purchaseInstant.<get-purchaseInstant>|<get-purchaseInstant>@cocoapods.PurchasesHybridCommon.RCStoreTransaction(){}[0]
+final val io.shortway.kobankat.datetime/requestInstant // io.shortway.kobankat.datetime/requestInstant|@cocoapods.PurchasesHybridCommon.RCCustomerInfo{}requestInstant[0]
+    final fun (cocoapods.PurchasesHybridCommon/RCCustomerInfo).<get-requestInstant>(): kotlinx.datetime/Instant // io.shortway.kobankat.datetime/requestInstant.<get-requestInstant>|<get-requestInstant>@cocoapods.PurchasesHybridCommon.RCCustomerInfo(){}[0]
+final val io.shortway.kobankat.datetime/unsubscribeDetectedAtInstant // io.shortway.kobankat.datetime/unsubscribeDetectedAtInstant|@cocoapods.PurchasesHybridCommon.RCEntitlementInfo{}unsubscribeDetectedAtInstant[0]
+    final fun (cocoapods.PurchasesHybridCommon/RCEntitlementInfo).<get-unsubscribeDetectedAtInstant>(): kotlinx.datetime/Instant? // io.shortway.kobankat.datetime/unsubscribeDetectedAtInstant.<get-unsubscribeDetectedAtInstant>|<get-unsubscribeDetectedAtInstant>@cocoapods.PurchasesHybridCommon.RCEntitlementInfo(){}[0]
