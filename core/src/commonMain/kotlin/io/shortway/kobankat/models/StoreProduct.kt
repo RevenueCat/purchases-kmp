@@ -2,7 +2,6 @@ package io.shortway.kobankat.models
 
 import io.shortway.kobankat.PresentedOfferingContext
 import io.shortway.kobankat.ProductType
-import io.shortway.kobankat.i18n.Locale
 
 /**
  * Represents an in-app product's or subscription's listing details.
@@ -91,43 +90,3 @@ public expect val StoreProduct.purchasingData: PurchasingData
  * - if fetched directly via `Purchases.getProducts`
  */
 public expect val StoreProduct.presentedOfferingContext: PresentedOfferingContext?
-
-/**
- * Null for INAPP products. The price of the [StoreProduct] in the given locale in a weekly recurrence.
- * This means that, for example, if the period is monthly, the price will be divided by 4.
- * It uses a currency formatter to format the price in the given locale.
- * Note that this value may be an approximation.
- * For Google subscriptions, this value will use the basePlan to calculate the value.
- * @param locale Locale to use for formatting the price. Default is the system default locale.
- */
-public expect fun StoreProduct.pricePerWeek(locale: Locale = Locale.Default): Price?
-
-/**
- * Null for INAPP products. The price of the [StoreProduct] in the given locale in a monthly recurrence.
- * This means that, for example, if the period is annual, the price will be divided by 12.
- * It uses a currency formatter to format the price in the given locale.
- * Note that this value may be an approximation.
- * For Google subscriptions, this value will use the basePlan to calculate the value.
- * @param locale Locale to use for formatting the price. Default is the system default locale.
- */
-public expect fun StoreProduct.pricePerMonth(locale: Locale = Locale.Default): Price?
-
-/**
- * Null for INAPP products. The price of the [StoreProduct] in the given locale in a yearly recurrence.
- * This means that, for example, if the period is monthly, the price will be multiplied by 12.
- * It uses a currency formatter to format the price in the given locale.
- * Note that this value may be an approximation.
- * For Google subscriptions, this value will use the basePlan to calculate the value.
- * @param locale Locale to use for formatting the price. Default is the system default locale.
- */
-public expect fun StoreProduct.pricePerYear(locale: Locale = Locale.Default): Price?
-
-/**
- * Null for INAPP products. The price of the [StoreProduct] in the given locale in a monthly recurrence.
- * This means that, for example, if the period is annual, the price will be divided by 12.
- * It uses a currency formatter to format the price in the given locale.
- * Note that this value may be an approximation.
- * For Google subscriptions, this value will use the basePlan to calculate the value.
- * @param locale Locale to use for formatting the price. Default is the system default locale.
- */
-public expect fun StoreProduct.formattedPricePerMonth(locale: Locale = Locale.Default): String?
