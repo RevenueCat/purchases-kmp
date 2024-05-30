@@ -8,14 +8,16 @@ import com.revenuecat.purchases.getOfferingsWith
 import com.revenuecat.purchases.getProductsWith
 import com.revenuecat.purchases.logInWith
 import com.revenuecat.purchases.logOutWith
+import com.revenuecat.purchases.models.InAppMessageType
 import com.revenuecat.purchases.purchaseWith
 import com.revenuecat.purchases.restorePurchasesWith
 import com.revenuecat.purchases.syncAttributesAndOfferingsIfNeededWith
 import com.revenuecat.purchases.syncPurchasesWith
 import io.shortway.kobankat.di.AndroidProvider
-import io.shortway.kobankat.di.currentOrThrow
+import io.shortway.kobankat.di.requireActivity
 import io.shortway.kobankat.models.GoogleReplacementMode
 import io.shortway.kobankat.models.PromotionalOffer
+import io.shortway.kobankat.models.StoreMessageType
 import io.shortway.kobankat.models.StoreProduct
 import io.shortway.kobankat.models.StoreProductDiscount
 import io.shortway.kobankat.models.StoreTransaction
@@ -112,7 +114,7 @@ public actual fun Purchases.purchase(
     replacementMode: GoogleReplacementMode,
 ): Unit = purchaseWith(
     purchaseParams = PurchaseParams.Builder(
-        AndroidProvider.currentOrThrow(),
+        AndroidProvider.requireActivity(),
         storeProduct
     ).apply {
         if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
@@ -132,7 +134,7 @@ public actual fun Purchases.purchase(
     replacementMode: GoogleReplacementMode,
 ): Unit = purchaseWith(
     purchaseParams = PurchaseParams.Builder(
-        AndroidProvider.currentOrThrow(),
+        AndroidProvider.requireActivity(),
         packageToPurchase
     ).apply {
         if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
@@ -152,7 +154,7 @@ public actual fun Purchases.purchase(
     replacementMode: GoogleReplacementMode,
 ): Unit = purchaseWith(
     purchaseParams = PurchaseParams.Builder(
-        AndroidProvider.currentOrThrow(),
+        AndroidProvider.requireActivity(),
         subscriptionOption
     ).apply {
         if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
@@ -220,6 +222,13 @@ public actual fun Purchases.getCustomerInfo(
     fetchPolicy = fetchPolicy,
     onError = { onError(it.toPurchasesError()) },
     onSuccess = { onSuccess(it) }
+)
+
+public actual fun Purchases.showInAppMessagesIfNeeded(
+    messageTypes: List<StoreMessageType>,
+): Unit = showInAppMessagesIfNeeded(
+    activity = AndroidProvider.requireActivity(),
+    inAppMessageTypes = messageTypes.mapNotNull { it.toInAppMessageTypeOrNull() }
 )
 
 public actual fun Purchases.invalidateCustomerInfoCache(): Unit =
@@ -290,3 +299,10 @@ public actual fun Purchases.setKeyword(keyword: String?): Unit =
 
 public actual fun Purchases.setCreative(creative: String?): Unit =
     setCreative(creative)
+
+private fun StoreMessageType.toInAppMessageTypeOrNull(): InAppMessageType? =
+    when (this) {
+        StoreMessageType.BILLING_ISSUES -> InAppMessageType.BILLING_ISSUES
+        StoreMessageType.GENERIC,
+        StoreMessageType.PRICE_INCREASE_CONSENT -> null
+    }

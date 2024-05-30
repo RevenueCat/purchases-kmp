@@ -114,13 +114,56 @@ public final class io/shortway/kobankat/PresentedOfferingContext_androidKt {
 }
 
 public final class io/shortway/kobankat/PurchasesConfiguration {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZZLio/shortway/kobankat/DangerousSettings;Lio/shortway/kobankat/EntitlementVerificationMode;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZZLio/shortway/kobankat/DangerousSettings;Lio/shortway/kobankat/EntitlementVerificationMode;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;ZZLio/shortway/kobankat/DangerousSettings;Lio/shortway/kobankat/EntitlementVerificationMode;)Lio/shortway/kobankat/PurchasesConfiguration;
-	public static synthetic fun copy$default (Lio/shortway/kobankat/PurchasesConfiguration;Ljava/lang/String;Ljava/lang/String;ZZLio/shortway/kobankat/DangerousSettings;Lio/shortway/kobankat/EntitlementVerificationMode;ILjava/lang/Object;)Lio/shortway/kobankat/PurchasesConfiguration;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;ZLcom/revenuecat/purchases/Store;ZLio/shortway/kobankat/DangerousSettings;Lio/shortway/kobankat/EntitlementVerificationMode;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getApiKey ()Ljava/lang/String;
+	public final fun getAppUserId ()Ljava/lang/String;
+	public final fun getDangerousSettings ()Lio/shortway/kobankat/DangerousSettings;
+	public final fun getDiagnosticsEnabled ()Z
+	public final fun getObserverMode ()Z
+	public final fun getShowInAppMessagesAutomatically ()Z
+	public final fun getStore ()Lcom/revenuecat/purchases/Store;
+	public final fun getUserDefaultsSuiteName ()Ljava/lang/String;
+	public final fun getVerificationMode ()Lio/shortway/kobankat/EntitlementVerificationMode;
 	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/shortway/kobankat/PurchasesConfiguration$Builder {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun apiKey (Ljava/lang/String;)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
+	public final fun appUserId (Ljava/lang/String;)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
+	public final fun build ()Lio/shortway/kobankat/PurchasesConfiguration;
+	public final fun dangerousSettings (Lio/shortway/kobankat/DangerousSettings;)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
+	public final fun diagnosticsEnabled (Z)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
+	public final fun getApiKey ()Ljava/lang/String;
+	public final fun getAppUserId ()Ljava/lang/String;
+	public final fun getDangerousSettings ()Lio/shortway/kobankat/DangerousSettings;
+	public final fun getDiagnosticsEnabled ()Z
+	public final fun getObserverMode ()Z
+	public final fun getShowInAppMessagesAutomatically ()Z
+	public final fun getStore ()Lcom/revenuecat/purchases/Store;
+	public final fun getUserDefaultsSuiteName ()Ljava/lang/String;
+	public final fun getVerificationMode ()Lio/shortway/kobankat/EntitlementVerificationMode;
+	public final fun observerMode (Z)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
+	public final synthetic fun setApiKey (Ljava/lang/String;)V
+	public final synthetic fun setAppUserId (Ljava/lang/String;)V
+	public final synthetic fun setDangerousSettings (Lio/shortway/kobankat/DangerousSettings;)V
+	public final synthetic fun setDiagnosticsEnabled (Z)V
+	public final synthetic fun setObserverMode (Z)V
+	public final synthetic fun setShowInAppMessagesAutomatically (Z)V
+	public final synthetic fun setStore (Lcom/revenuecat/purchases/Store;)V
+	public final synthetic fun setUserDefaultsSuiteName (Ljava/lang/String;)V
+	public final synthetic fun setVerificationMode (Lio/shortway/kobankat/EntitlementVerificationMode;)V
+	public final fun showInAppMessagesAutomatically (Z)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
+	public final fun store (Lcom/revenuecat/purchases/Store;)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
+	public final fun userDefaultsSuiteName (Ljava/lang/String;)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
+	public final fun verificationMode (Lio/shortway/kobankat/EntitlementVerificationMode;)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
+}
+
+public final class io/shortway/kobankat/PurchasesConfigurationKt {
+	public static final synthetic fun PurchasesConfiguration (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lio/shortway/kobankat/PurchasesConfiguration;
+	public static synthetic fun PurchasesConfiguration$default (Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lio/shortway/kobankat/PurchasesConfiguration;
+	public static final synthetic fun configure (Lio/shortway/kobankat/PurchasesFactory;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/revenuecat/purchases/Purchases;
+	public static synthetic fun configure$default (Lio/shortway/kobankat/PurchasesFactory;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/Purchases;
 }
 
 public abstract interface class io/shortway/kobankat/PurchasesDelegate {
@@ -264,6 +307,8 @@ public final class io/shortway/kobankat/Purchases_androidKt {
 	public static final fun setOnesignalUserID (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
 	public static final fun setPhoneNumber (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
 	public static final fun setPushToken (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
+	public static final fun showInAppMessagesIfNeeded (Lcom/revenuecat/purchases/Purchases;Ljava/util/List;)V
+	public static synthetic fun showInAppMessagesIfNeeded$default (Lcom/revenuecat/purchases/Purchases;Ljava/util/List;ILjava/lang/Object;)V
 	public static final fun syncAttributesAndOfferingsIfNeeded (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public static final fun syncObserverModeAmazonPurchase (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;)V
 	public static final fun syncPurchases (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V

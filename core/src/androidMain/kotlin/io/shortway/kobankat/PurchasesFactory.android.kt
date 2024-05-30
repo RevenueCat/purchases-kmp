@@ -3,6 +3,7 @@
 package io.shortway.kobankat
 
 import android.content.Context
+import com.revenuecat.purchases.Store
 import io.shortway.kobankat.di.AndroidProvider
 import io.shortway.kobankat.di.requireApplication
 import io.shortway.kobankat.models.BillingFeature
@@ -64,6 +65,8 @@ private fun PurchasesConfiguration.toRcPurchasesConfiguration(context: Context):
         .showInAppMessagesAutomatically(showInAppMessagesAutomatically)
         .dangerousSettings(dangerousSettings.toRcDangerousSettings())
         .entitlementVerificationMode(verificationMode.toRcEntitlementVerificationMode())
+        .diagnosticsEnabled(diagnosticsEnabled)
+        .store(store ?: Store.PLAY_STORE)
         .build()
 
 private fun DangerousSettings.toRcDangerousSettings(): RcDangerousSettings =

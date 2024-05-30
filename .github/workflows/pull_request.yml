@@ -23,7 +23,7 @@ jobs:
         run: ./gradlew detektCommonMain
 
   validate-binary-compatibility:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     permissions:
       contents: read
     steps:
