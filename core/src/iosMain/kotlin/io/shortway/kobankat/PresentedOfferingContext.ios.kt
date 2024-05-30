@@ -1,7 +1,7 @@
 package io.shortway.kobankat
 
-import cocoapods.RevenueCat.RCPresentedOfferingContext
-import cocoapods.RevenueCat.RCTargetingContext
+import cocoapods.PurchasesHybridCommon.RCPresentedOfferingContext
+import cocoapods.PurchasesHybridCommon.RCTargetingContext
 
 public actual typealias PresentedOfferingContext = RCPresentedOfferingContext
 

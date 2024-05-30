@@ -2,42 +2,38 @@
 
 package io.shortway.kobankat
 
-import cocoapods.RevenueCat.RCConfiguration
-import cocoapods.RevenueCat.RCDangerousSettings
-import cocoapods.RevenueCat.RCEntitlementVerificationMode
-import cocoapods.RevenueCat.RCEntitlementVerificationModeDisabled
-import cocoapods.RevenueCat.RCEntitlementVerificationModeInformational
-import cocoapods.RevenueCat.RCPurchases
-import cocoapods.RevenueCat.configureWithConfiguration
+import cocoapods.PurchasesHybridCommon.RCDangerousSettings
+import cocoapods.PurchasesHybridCommon.RCPurchases
+import cocoapods.PurchasesHybridCommon.configureWithAPIKey
 import io.shortway.kobankat.models.BillingFeature
 import platform.Foundation.NSURL
 
 public actual object PurchasesFactory {
     public actual val sharedInstance: Purchases
         get() = Purchases.sharedPurchases()
-    
+
     public actual var logLevel: LogLevel
         get() = Purchases.logLevel().toLogLevel()
         set(value) = Purchases.setLogLevel(value.toRcLogLevel())
-    
+
     public actual var logHandler: LogHandler
         get() = Purchases.logHandler().toLogHandler()
         set(value) = Purchases.setLogHandler(value.toRcLogHandler())
-    
+
     public actual val frameworkVersion: String
         get() = Purchases.frameworkVersion()
-    
+
     public actual var proxyURL: String?
         get() = Purchases.proxyURL()?.absoluteString()
         set(value) = Purchases.setProxyURL(value?.let { NSURL(string = it) })
-    
+
     public actual val isConfigured: Boolean
         get() = Purchases.isConfigured()
 
     public actual var simulatesAskToBuyInSandbox: Boolean
         get() = Purchases.simulatesAskToBuyInSandbox()
         set(value) = Purchases.setSimulatesAskToBuyInSandbox(value)
-    
+
     public actual var forceUniversalAppStore: Boolean
         get() = Purchases.forceUniversalAppStore()
         set(value) = Purchases.setForceUniversalAppStore(value)
@@ -45,8 +41,20 @@ public actual object PurchasesFactory {
     public actual fun configure(
         configuration: PurchasesConfiguration
     ): Purchases =
-        RCPurchases.configureWithConfiguration(configuration.toRCConfiguration())
-    
+        configuration.run {
+            RCPurchases.configureWithAPIKey(
+                apiKey = apiKey,
+                appUserID = appUserId,
+                observerMode = observerMode,
+                userDefaultsSuiteName = null,
+                platformFlavor = "kmp", // FIXME revisit
+                platformFlavorVersion = "0.0.1", // FIXME revisit
+                usesStoreKit2IfAvailable = true,
+                dangerousSettings = configuration.dangerousSettings.toRCDangerousSettings(),
+                shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
+            )
+        }
+
     public actual fun canMakePayments(
         features: List<BillingFeature>,
         callback: (Boolean) -> Unit
@@ -55,20 +63,5 @@ public actual object PurchasesFactory {
     }
 }
 
-private fun PurchasesConfiguration.toRCConfiguration(): RCConfiguration =
-    RCConfiguration.builderWithAPIKey(apiKey = apiKey)
-        .withAppUserID(appUserId)
-        .withObserverMode(observerMode)
-        .withShowStoreMessagesAutomatically(showInAppMessagesAutomatically)
-        .withDangerousSettings(dangerousSettings.toRCDangerousSettings())
-        .withEntitlementVerificationMode(verificationMode.toRCEntitlementVerificationMode())
-        .build()
-
 private fun DangerousSettings.toRCDangerousSettings(): RCDangerousSettings =
     RCDangerousSettings(autoSyncPurchases)
-
-private fun EntitlementVerificationMode.toRCEntitlementVerificationMode(): RCEntitlementVerificationMode =
-    when(this) {
-        EntitlementVerificationMode.DISABLED -> RCEntitlementVerificationModeDisabled
-        EntitlementVerificationMode.INFORMATIONAL -> RCEntitlementVerificationModeInformational
-    }

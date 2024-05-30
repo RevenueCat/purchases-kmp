@@ -6,8 +6,7 @@ android-targetSdk = "34"
 compose = "1.6.7"
 java = "1.8"
 kotlin = "1.9.24"
-revenuecat-android = "7.9.0"
-revenuecat-ios = "4.41.0"
+revenuecat-common = "10.7.0"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -18,7 +17,7 @@ arrow-core = { module = "io.arrow-kt:arrow-core", version = "1.2.4" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.0" }
-revenuecat-android = { module = "com.revenuecat.purchases:purchases", version.ref = "revenuecat-android"}
+revenuecat-common = { module = "com.revenuecat.purchases:purchases-hybrid-common", version.ref = "revenuecat-common" }
 
 [plugins]
 adamko-dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version = "2.3.1" }

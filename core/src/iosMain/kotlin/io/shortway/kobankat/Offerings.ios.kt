@@ -1,7 +1,6 @@
 package io.shortway.kobankat
 
-import cocoapods.RevenueCat.RCOfferings
-import cocoapods.RevenueCat.currentOfferingForPlacement
+import cocoapods.PurchasesHybridCommon.RCOfferings
 import io.shortway.kobankat.ktx.mapEntries
 
 public actual typealias Offerings = RCOfferings
@@ -15,4 +14,4 @@ public actual val Offerings.all: Map<String, Offering>
     }
 
 public actual fun Offerings.getCurrentOfferingForPlacement(placementId: String): Offering? =
-    currentOfferingForPlacement(placementId)
+    TODO() // FIXME no public api available through ObjC in PHC?

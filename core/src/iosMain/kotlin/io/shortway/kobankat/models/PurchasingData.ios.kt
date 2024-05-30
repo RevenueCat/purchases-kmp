@@ -1,6 +1,6 @@
 package io.shortway.kobankat.models
 
-import cocoapods.RevenueCat.RCStoreProduct
+import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import io.shortway.kobankat.ProductType
 import io.shortway.kobankat.toProductType
 

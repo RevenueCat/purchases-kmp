@@ -1,7 +1,7 @@
 package io.shortway.kobankat
 
-import cocoapods.RevenueCat.RCEntitlementInfo
-import cocoapods.RevenueCat.RCEntitlementInfos
+import cocoapods.PurchasesHybridCommon.RCEntitlementInfo
+import cocoapods.PurchasesHybridCommon.RCEntitlementInfos
 import io.shortway.kobankat.ktx.mapEntries
 
 public actual typealias EntitlementInfos = RCEntitlementInfos

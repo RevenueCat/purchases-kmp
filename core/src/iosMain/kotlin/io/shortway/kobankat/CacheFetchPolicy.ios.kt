@@ -1,10 +1,10 @@
 package io.shortway.kobankat
 
-import cocoapods.RevenueCat.RCCacheFetchPolicy
-import cocoapods.RevenueCat.RCCacheFetchPolicyCachedOrFetched
-import cocoapods.RevenueCat.RCCacheFetchPolicyFetchCurrent
-import cocoapods.RevenueCat.RCCacheFetchPolicyFromCacheOnly
-import cocoapods.RevenueCat.RCCacheFetchPolicyNotStaleCachedOrFetched
+import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicy
+import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicyCachedOrFetched
+import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicyFetchCurrent
+import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicyFromCacheOnly
+import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicyNotStaleCachedOrFetched
 
 public actual enum class CacheFetchPolicy {
     CACHE_ONLY,

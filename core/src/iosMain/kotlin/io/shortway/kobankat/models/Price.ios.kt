@@ -1,11 +1,11 @@
 package io.shortway.kobankat.models
 
-import cocoapods.RevenueCat.RCStoreProduct
-import cocoapods.RevenueCat.RCStoreProductDiscount
-import cocoapods.RevenueCat.price
-import cocoapods.RevenueCat.priceLocale
+import cocoapods.PurchasesHybridCommon.RCStoreProduct
+import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount
 import platform.Foundation.NSDecimalNumber
-import platform.Foundation.currencyCode
+import platform.Foundation.NSNumberFormatter
+import platform.Foundation.decimalValue
+import platform.Foundation.numberWithDouble
 
 public actual data class Price(
     actual val formatted: String,
@@ -16,7 +16,7 @@ public actual data class Price(
         formatted: String,
         amountDecimal: NSDecimalNumber,
         currencyCode: String,
-    ): this(
+    ) : this(
         formatted = formatted,
         amountMicros = amountDecimal.decimalNumberByMultiplyingByPowerOf10(6).longValue,
         currencyCode = currencyCode,
@@ -24,21 +24,37 @@ public actual data class Price(
 }
 
 internal fun RCStoreProduct.toPrice(): Price =
-    Price(
-        formatted = localizedPriceString(),
-        amountDecimal = price(),
-        currencyCode = currencyCodeOrUsd(),
-    )
+    localizedPriceString().let { localizedPrice ->
+        Price(
+            formatted = localizedPrice,
+            amountDecimal = priceFormatter().amountDecimalOrDefault(
+                localizedPrice = localizedPrice,
+                defaultValue = "0.0"
+            ),
+            currencyCode = currencyCodeOrUsd(),
+        )
+    }
 
 internal fun RCStoreProduct.currencyCodeOrUsd(): String =
-    currencyCode() ?: priceLocale().currencyCode() ?: "USD"
+    currencyCode() ?: priceFormatter()?.currencyCode() ?: "USD" // FIXME revisit
 
-internal fun RCStoreProductDiscount.toPrice(): Price =
-    Price(
-        formatted = localizedPriceString(),
-        amountDecimal = price(),
-        currencyCode = currencyCodeOrUsd(),
-    )
+internal fun RCStoreProductDiscount.toPrice(formatter: NSNumberFormatter?): Price =
+    localizedPriceString().let { localizedPrice ->
+        Price(
+            formatted = localizedPrice,
+            amountDecimal = formatter.amountDecimalOrDefault(
+                localizedPrice = localizedPrice,
+                defaultValue = "0.0"
+            ),
+            currencyCode = currencyCodeOrUsd(),
+        )
+    }
+
 
 internal fun RCStoreProductDiscount.currencyCodeOrUsd(): String =
-    currencyCode() ?: "USD"
+    currencyCode() ?: "USD" // FIXME revisit
+
+private fun NSNumberFormatter?.amountDecimalOrDefault(localizedPrice: String, defaultValue: String): NSDecimalNumber =
+    this?.numberFromString(localizedPrice)
+        ?.let { it as NSDecimalNumber }
+        ?: NSDecimalNumber.decimalNumberWithString(defaultValue)

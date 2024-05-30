@@ -1,11 +1,12 @@
 package io.shortway.kobankat.models
 
-import cocoapods.RevenueCat.RCStoreProductDiscount
+import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount
 
 public actual typealias StoreProductDiscount = RCStoreProductDiscount
 
-public actual val StoreProductDiscount.price: Price
-    get() = toPrice()
+// FIXME create non-aliased class like on Android, and remove the parentProduct parameter.
+public actual fun StoreProductDiscount.price(parentProduct: StoreProduct): Price =
+    toPrice(parentProduct.priceFormatter())
 
 public actual val StoreProductDiscount.numberOfPeriods: Long
     get() = numberOfPeriods()

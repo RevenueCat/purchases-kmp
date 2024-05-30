@@ -11,8 +11,8 @@ public actual class StoreProductDiscount private constructor(
     public val type: DiscountType,
 )
 
-public actual val StoreProductDiscount.price: Price
-    get() = price
+public actual fun StoreProductDiscount.price(parentProduct: StoreProduct): Price =
+    price
 
 public actual val StoreProductDiscount.numberOfPeriods: Long
     get() = numberOfPeriods

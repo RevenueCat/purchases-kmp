@@ -9,7 +9,7 @@ kotlin {
             implementation(libs.kotlin.test)
         }
         androidMain.dependencies {
-            api(libs.revenuecat.android)
+            api(libs.revenuecat.common)
         }
     }
 
@@ -22,8 +22,8 @@ kotlin {
             isStatic = true
         }
 
-        pod("RevenueCat") {
-            version = libs.versions.revenuecat.ios.get()
+        pod("PurchasesHybridCommon") {
+            version = libs.versions.revenuecat.common.get()
             extraOpts += listOf("-compiler-option", "-fmodules")
         }
     }

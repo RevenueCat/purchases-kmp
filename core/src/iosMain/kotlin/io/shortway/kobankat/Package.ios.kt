@@ -1,17 +1,16 @@
 package io.shortway.kobankat
 
-import cocoapods.RevenueCat.RCPackage
-import cocoapods.RevenueCat.RCPackageType
-import cocoapods.RevenueCat.RCPackageTypeAnnual
-import cocoapods.RevenueCat.RCPackageTypeCustom
-import cocoapods.RevenueCat.RCPackageTypeLifetime
-import cocoapods.RevenueCat.RCPackageTypeMonthly
-import cocoapods.RevenueCat.RCPackageTypeSixMonth
-import cocoapods.RevenueCat.RCPackageTypeThreeMonth
-import cocoapods.RevenueCat.RCPackageTypeTwoMonth
-import cocoapods.RevenueCat.RCPackageTypeUnknown
-import cocoapods.RevenueCat.RCPackageTypeWeekly
-import cocoapods.RevenueCat.offeringIdentifier
+import cocoapods.PurchasesHybridCommon.RCPackage
+import cocoapods.PurchasesHybridCommon.RCPackageType
+import cocoapods.PurchasesHybridCommon.RCPackageTypeAnnual
+import cocoapods.PurchasesHybridCommon.RCPackageTypeCustom
+import cocoapods.PurchasesHybridCommon.RCPackageTypeLifetime
+import cocoapods.PurchasesHybridCommon.RCPackageTypeMonthly
+import cocoapods.PurchasesHybridCommon.RCPackageTypeSixMonth
+import cocoapods.PurchasesHybridCommon.RCPackageTypeThreeMonth
+import cocoapods.PurchasesHybridCommon.RCPackageTypeTwoMonth
+import cocoapods.PurchasesHybridCommon.RCPackageTypeUnknown
+import cocoapods.PurchasesHybridCommon.RCPackageTypeWeekly
 import io.shortway.kobankat.models.StoreProduct
 
 public actual typealias Package = RCPackage
@@ -24,8 +23,6 @@ public actual val Package.storeProduct: StoreProduct
     get() = storeProduct()
 public actual val Package.presentedOfferingContext: PresentedOfferingContext
     get() = presentedOfferingContext()
-public actual val Package.offeringIdentifier: String
-    get() = offeringIdentifier()
 
 internal fun RCPackageType.toPackageType(): PackageType =
     when (this) {

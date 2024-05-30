@@ -1,10 +1,10 @@
 package io.shortway.kobankat
 
-import cocoapods.RevenueCat.RCStoreProductType
-import cocoapods.RevenueCat.RCStoreProductTypeAutoRenewableSubscription
-import cocoapods.RevenueCat.RCStoreProductTypeConsumable
-import cocoapods.RevenueCat.RCStoreProductTypeNonConsumable
-import cocoapods.RevenueCat.RCStoreProductTypeNonRenewableSubscription
+import cocoapods.PurchasesHybridCommon.RCStoreProductType
+import cocoapods.PurchasesHybridCommon.RCStoreProductTypeAutoRenewableSubscription
+import cocoapods.PurchasesHybridCommon.RCStoreProductTypeConsumable
+import cocoapods.PurchasesHybridCommon.RCStoreProductTypeNonConsumable
+import cocoapods.PurchasesHybridCommon.RCStoreProductTypeNonRenewableSubscription
 
 public actual enum class ProductType {
     SUBS,
@@ -20,4 +20,3 @@ internal fun RCStoreProductType.toProductType(): ProductType =
         RCStoreProductTypeNonConsumable-> ProductType.INAPP
         else -> error("Unexpected RCStoreProductType: $this")
     }
-

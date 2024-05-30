@@ -17,8 +17,6 @@ public actual val Package.storeProduct: StoreProduct
     get() = StoreProduct(product)
 public actual val Package.presentedOfferingContext: PresentedOfferingContext
     get() = presentedOfferingContext
-public actual val Package.offeringIdentifier: String
-    get() = presentedOfferingContext.offeringIdentifier
 
 internal fun RcPackageType.toPackageType(): PackageType =
     when (this) {

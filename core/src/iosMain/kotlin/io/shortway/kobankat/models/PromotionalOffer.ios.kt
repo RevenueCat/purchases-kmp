@@ -1,6 +1,6 @@
 package io.shortway.kobankat.models
 
-import cocoapods.RevenueCat.RCPromotionalOffer
+import cocoapods.PurchasesHybridCommon.RCPromotionalOffer
 
 public actual typealias PromotionalOffer = RCPromotionalOffer
 

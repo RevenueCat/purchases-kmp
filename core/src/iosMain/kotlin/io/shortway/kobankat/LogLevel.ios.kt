@@ -1,11 +1,11 @@
 package io.shortway.kobankat
 
-import cocoapods.RevenueCat.RCLogLevel
-import cocoapods.RevenueCat.RCLogLevelDebug
-import cocoapods.RevenueCat.RCLogLevelError
-import cocoapods.RevenueCat.RCLogLevelInfo
-import cocoapods.RevenueCat.RCLogLevelVerbose
-import cocoapods.RevenueCat.RCLogLevelWarn
+import cocoapods.PurchasesHybridCommon.RCLogLevel
+import cocoapods.PurchasesHybridCommon.RCLogLevelDebug
+import cocoapods.PurchasesHybridCommon.RCLogLevelError
+import cocoapods.PurchasesHybridCommon.RCLogLevelInfo
+import cocoapods.PurchasesHybridCommon.RCLogLevelVerbose
+import cocoapods.PurchasesHybridCommon.RCLogLevelWarn
 
 public actual enum class LogLevel {
     VERBOSE,

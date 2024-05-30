@@ -1,8 +1,8 @@
 package io.shortway.kobankat.models
 
-import cocoapods.RevenueCat.RCDiscountType
-import cocoapods.RevenueCat.RCDiscountTypeIntroductory
-import cocoapods.RevenueCat.RCDiscountTypePromotional
+import cocoapods.PurchasesHybridCommon.RCDiscountType
+import cocoapods.PurchasesHybridCommon.RCDiscountTypeIntroductory
+import cocoapods.PurchasesHybridCommon.RCDiscountTypePromotional
 
 public actual enum class DiscountType {
     INTRODUCTORY,
