@@ -1,6 +1,9 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+
 plugins {
     id("kobankat-library")
     alias(libs.plugins.kotlin.cocoapods)
+    alias(libs.plugins.codingfeline.buildkonfig)
 }
 
 kotlin {
@@ -32,4 +35,13 @@ kotlin {
 
 android {
     namespace = "io.shortway.kobankat"
+}
+
+buildkonfig {
+    packageName = "io.shortway.kobankat"
+
+    defaultConfigs {
+        buildConfigField(STRING, "revenuecatCommonVersion", libs.versions.revenuecat.common.get())
+        buildConfigField(STRING, "revenuecatKmpVersion", libs.versions.revenuecat.kmp.get())
+    }
 }

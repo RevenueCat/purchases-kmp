@@ -23,7 +23,7 @@ plugins {
 
 allprojects {
     group = "io.shortway.kobankat"
-    version = "0.5.0-" + rootProject.libs.versions.revenuecat.common.get()
+    version = rootProject.libs.versions.revenuecat.kmp.get()
 
     // NmcpPlugin publishes to a local repo when running assemble, meaning we need signing
     // credentials for every assemble. This avoids that.
