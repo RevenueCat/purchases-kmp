@@ -204,7 +204,6 @@ public final class io/shortway/kobankat/PurchasesFactory {
 	public final fun getSharedInstance ()Lcom/revenuecat/purchases/Purchases;
 	public static final fun getSimulatesAskToBuyInSandbox ()Z
 	public static final fun isConfigured ()Z
-	public final fun setApplication (Landroid/app/Application;)V
 	public static final fun setForceUniversalAppStore (Z)V
 	public static final fun setLogHandler (Lcom/revenuecat/purchases/LogHandler;)V
 	public static final fun setLogLevel (Lcom/revenuecat/purchases/LogLevel;)V

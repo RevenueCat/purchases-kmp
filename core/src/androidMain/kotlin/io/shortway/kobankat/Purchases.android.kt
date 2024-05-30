@@ -12,7 +12,7 @@ import com.revenuecat.purchases.purchaseWith
 import com.revenuecat.purchases.restorePurchasesWith
 import com.revenuecat.purchases.syncAttributesAndOfferingsIfNeededWith
 import com.revenuecat.purchases.syncPurchasesWith
-import io.shortway.kobankat.di.ActivityProvider
+import io.shortway.kobankat.di.AndroidProvider
 import io.shortway.kobankat.di.currentOrThrow
 import io.shortway.kobankat.models.GoogleReplacementMode
 import io.shortway.kobankat.models.PromotionalOffer
@@ -112,7 +112,7 @@ public actual fun Purchases.purchase(
     replacementMode: GoogleReplacementMode,
 ): Unit = purchaseWith(
     purchaseParams = PurchaseParams.Builder(
-        ActivityProvider.currentOrThrow(),
+        AndroidProvider.currentOrThrow(),
         storeProduct
     ).apply {
         if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
@@ -132,7 +132,7 @@ public actual fun Purchases.purchase(
     replacementMode: GoogleReplacementMode,
 ): Unit = purchaseWith(
     purchaseParams = PurchaseParams.Builder(
-        ActivityProvider.currentOrThrow(),
+        AndroidProvider.currentOrThrow(),
         packageToPurchase
     ).apply {
         if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
@@ -152,7 +152,7 @@ public actual fun Purchases.purchase(
     replacementMode: GoogleReplacementMode,
 ): Unit = purchaseWith(
     purchaseParams = PurchaseParams.Builder(
-        ActivityProvider.currentOrThrow(),
+        AndroidProvider.currentOrThrow(),
         subscriptionOption
     ).apply {
         if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
