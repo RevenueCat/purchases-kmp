@@ -37,8 +37,10 @@ public actual object PurchasesFactory {
 
     public actual fun configure(
         configuration: PurchasesConfiguration
-    ): Purchases =
-        with(configuration) {
+    ): Purchases {
+        // TODO Enable this in SDK-3301 checkCommonVersion()
+
+        return with(configuration) {
             RCPurchases.configureWithAPIKey(
                 apiKey = apiKey,
                 appUserID = appUserId,
@@ -52,12 +54,22 @@ public actual object PurchasesFactory {
                 verificationMode = verificationMode.name,
             )
         }
+    }
 
     public actual fun canMakePayments(
         features: List<BillingFeature>,
         callback: (Boolean) -> Unit
     ) {
         callback(Purchases.canMakePayments())
+    }
+
+    private fun checkCommonVersion() {
+        val expected = BuildKonfig.revenuecatCommonVersion
+        val actual = Purchases.frameworkVersion()
+        check(actual == expected) {
+            "Unexpected version of PurchasesHybridCommon ('$actual'). Make sure to use " +
+                    "'$expected' exactly."
+        }
     }
 }
 
