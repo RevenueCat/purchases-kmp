@@ -160,7 +160,7 @@ public class PurchasesConfiguration private constructor(
 }
 
 /**
- * Holds parameters to initialize the SDK. Create an instance of this class using the [Builder] and
+ * Holds parameters to initialize the SDK. Create an instance of this class using the [builder] and
  * pass it to [PurchasesFactory.configure].
  */
 @JvmSynthetic
