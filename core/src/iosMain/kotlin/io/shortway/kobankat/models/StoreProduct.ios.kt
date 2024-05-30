@@ -8,9 +8,7 @@ import io.shortway.kobankat.ProductType
 import io.shortway.kobankat.i18n.Locale
 import io.shortway.kobankat.i18n.toNsLocale
 import io.shortway.kobankat.toProductType
-import kotlinx.cinterop.convert
 import platform.Foundation.NSDecimalNumber
-import platform.Foundation.NSNumber
 
 private const val DAYS_PER_WEEK = 7
 private const val DAYS_PER_MONTH = 32
@@ -44,7 +42,7 @@ public actual val StoreProduct.introductoryDiscount: StoreProductDiscount?
 public actual val StoreProduct.purchasingData: PurchasingData
     get() = toPurchasingData()
 public actual val StoreProduct.presentedOfferingContext: PresentedOfferingContext?
-    get() = null // FIXME No public API through ObjC in PHC?
+    get() = null
 
 public actual fun StoreProduct.pricePerWeek(locale: Locale): Price? =
     period?.let { period ->
