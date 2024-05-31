@@ -29,7 +29,7 @@ fun App() {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            var showPaywallAsFooter = remember { false }
+            var showPaywallAsFooter by remember { mutableStateOf(false) }
             var paywallOffering: Offering? by remember { mutableStateOf(null) }
 
             if (paywallOffering == null) MainScreen(
