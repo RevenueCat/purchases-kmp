@@ -20,7 +20,6 @@ import objcnames.classes.RCOffering
 @Composable
 public actual fun PaywallFooter(
     options: PaywallOptions,
-    condensed: Boolean,
     mainContent: @Composable ((PaddingValues) -> Unit)?,
 ) {
     val paywallComposable = @Composable {

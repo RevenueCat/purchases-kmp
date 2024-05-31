@@ -9,6 +9,5 @@ import androidx.compose.runtime.Composable
 @Composable
 public expect fun PaywallFooter(
     options: PaywallOptions,
-    condensed: Boolean = false,
     mainContent: @Composable ((PaddingValues) -> Unit)? = null,
 )

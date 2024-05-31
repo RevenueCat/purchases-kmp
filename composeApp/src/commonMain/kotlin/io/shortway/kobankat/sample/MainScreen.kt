@@ -36,7 +36,7 @@ import io.shortway.kobankat.identifier
 
 @Composable
 fun MainScreen(
-    onShowPaywallClick: (Offering) -> Unit,
+    onShowPaywallClick: (offering: Offering, footer: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -72,13 +72,13 @@ fun MainScreen(
         } else {
             Spacer(modifier = Modifier.size(16.dp))
             Text(
-                text = "Offerings",
+                text = "Paywalls",
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.h6,
             )
 
-            OfferingsSection(
+            PaywallsSection(
                 onShowPaywallClick = onShowPaywallClick,
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -117,8 +117,8 @@ private fun ConfigurationSettings(
 }
 
 @Composable
-private fun OfferingsSection(
-    onShowPaywallClick: (Offering) -> Unit,
+private fun PaywallsSection(
+    onShowPaywallClick: (offering: Offering, footer: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var offeringsState: OfferingsState by remember { mutableStateOf(OfferingsState.Loading) }
@@ -152,8 +152,12 @@ private fun OfferingsSection(
                             text = "${if (isCurrent) "\uD83D\uDC49" else ""} $id",
                             modifier = Modifier.weight(1f),
                         )
-                        Button(onClick = { onShowPaywallClick(offering) }) {
-                            Text("Paywall")
+                        Button(onClick = { onShowPaywallClick(offering, true) }) {
+                            Text("Footer")
+                        }
+                        Spacer(modifier = Modifier.size(4.dp))
+                        Button(onClick = { onShowPaywallClick(offering, false) }) {
+                            Text("Fullscreen")
                         }
                     }
                 }
