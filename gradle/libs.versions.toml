@@ -5,7 +5,7 @@ android-minSdk = "21"
 android-targetSdk = "34"
 compose = "1.6.7"
 java = "1.8"
-kotlin = "1.9.24"
+kotlin = "2.0.0"
 revenuecat-common = "10.7.0"
 revenuecat-kmp = "0.5.0-SNAPSHOT"
 
