@@ -3,6 +3,7 @@ import org.jetbrains.compose.ExperimentalComposeLibrary
 plugins {
     id("kobankat-library")
     alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.kotlin.cocoapods)
 }
 
 kotlin {
@@ -14,14 +15,21 @@ kotlin {
             implementation(compose.ui)
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
-            implementation(projects.core)
-            implementation(projects.result)
-            implementation(projects.either)
-            implementation(projects.datetime)
         }
         androidMain.dependencies {
             implementation(libs.androidx.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.revenuecat.commonUi)
+        }
+    }
+
+    cocoapods {
+        version = "1.0"
+        ios.deploymentTarget = "11.0"
+
+        pod("PurchasesHybridCommonUI") {
+            version = libs.versions.revenuecat.common.get()
+            extraOpts += listOf("-compiler-option", "-fmodules")
         }
     }
 }

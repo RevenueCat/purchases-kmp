@@ -20,6 +20,7 @@ kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", ve
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.0" }
 revenuecat-common = { module = "com.revenuecat.purchases:purchases-hybrid-common", version.ref = "revenuecat-common" }
+revenuecat-commonUi = { module = "com.revenuecat.purchases:purchases-hybrid-common-ui", version.ref = "revenuecat-common" }
 
 [plugins]
 adamko-dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version = "2.3.1" }
