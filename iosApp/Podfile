@@ -7,4 +7,5 @@ target 'iosApp' do
 
   # Pods for iosApp
   pod 'RevenueCat'
+  pod 'RevenueCatUI'
 end
