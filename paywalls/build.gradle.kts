@@ -36,6 +36,9 @@ android {
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
+    defaultConfig {
+        minSdk = 24
+    }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false

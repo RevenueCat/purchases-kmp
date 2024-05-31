@@ -45,6 +45,7 @@ kotlin {
             implementation(projects.result)
             implementation(projects.either)
             implementation(projects.datetime)
+            implementation(projects.paywalls)
         }
         androidMain.dependencies {
             implementation(libs.androidx.compose.ui.tooling.preview)
@@ -63,7 +64,7 @@ android {
 
     defaultConfig {
         applicationId = "io.shortway.kobankat.sample"
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        minSdk = 24
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
