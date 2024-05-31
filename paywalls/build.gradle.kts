@@ -1,35 +1,12 @@
 import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.android.library)
+    id("kobankat-library")
     alias(libs.plugins.jetbrains.compose)
 }
 
 kotlin {
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = libs.versions.java.get()
-            }
-        }
-    }
-
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-    }
-
     sourceSets {
-        all {
-            languageSettings.apply {
-                if (name.lowercase().startsWith("ios")) {
-                    optIn("kotlinx.cinterop.ExperimentalForeignApi")
-                }
-            }
-        }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -50,17 +27,12 @@ kotlin {
 }
 
 android {
-    namespace = "io.shortway.kobankat.ui"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    namespace = "io.shortway.kobankat.ui.revenuecatui"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -70,10 +42,6 @@ android {
         getByName("release") {
             isMinifyEnabled = false
         }
-    }
-    compileOptions {
-        sourceCompatibility(libs.versions.java.get())
-        targetCompatibility(libs.versions.java.get())
     }
     dependencies {
         debugImplementation(libs.androidx.compose.ui.tooling)
