@@ -16,7 +16,7 @@ public actual fun PaywallFooter(
     mainContent: @Composable ((PaddingValues) -> Unit)?,
 ): Unit =
     RcPaywallFooter(
-        options = options.toRcPaywallOptions(),
+        options = options.toAndroidPaywallOptions(),
         condensed = condensed,
         mainContent = mainContent
     )

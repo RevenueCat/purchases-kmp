@@ -7,4 +7,4 @@ import com.revenuecat.purchases.ui.revenuecatui.Paywall as RcPaywall
 @OptIn(ExperimentalPreviewRevenueCatUIPurchasesAPI::class)
 @Composable
 public actual fun Paywall(options: PaywallOptions): Unit =
-    RcPaywall(options.toRcPaywallOptions())
+    RcPaywall(options.toAndroidPaywallOptions())
