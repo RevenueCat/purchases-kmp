@@ -49,7 +49,7 @@ public actual object PurchasesFactory {
                 platformFlavor = BuildKonfig.platformFlavor,
                 platformFlavorVersion = frameworkVersion,
                 usesStoreKit2IfAvailable = false, // In Flutter it's deprecated & defaults to false.
-                dangerousSettings = configuration.dangerousSettings.toRCDangerousSettings(),
+                dangerousSettings = dangerousSettings.toRCDangerousSettings(),
                 shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
                 verificationMode = verificationMode.name,
             )
