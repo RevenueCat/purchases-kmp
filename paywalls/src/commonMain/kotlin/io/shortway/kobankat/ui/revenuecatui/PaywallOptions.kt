@@ -12,6 +12,11 @@ public class PaywallOptions private constructor(
      */
     public val offering: Offering?,
     /**
+     * Whether to display a close button on the paywall screen. Only available when using
+     * [Paywall]. Ignored when using [PaywallFooter]. Defaults to false.
+     */
+    public val shouldDisplayDismissButton: Boolean,
+    /**
      * Optional listener, called for various purchase and restore events.
      */
     public val listener: PaywallListener?,
@@ -24,6 +29,7 @@ public class PaywallOptions private constructor(
     override fun toString(): String =
         "PaywallOptions(" +
                 "offering=$offering, " +
+                "shouldDisplayDismissButton=$shouldDisplayDismissButton, " +
                 "listener=$listener, " +
                 "dismissRequest=$dismissRequest" +
                 ")"
@@ -44,6 +50,12 @@ public class PaywallOptions private constructor(
         public var offering: Offering? = null
 
         /**
+         * Whether to display a close button on the paywall screen. Only available when using
+         * [Paywall]. Ignored when using [PaywallFooter]. Defaults to false.
+         */
+        public var shouldDisplayDismissButton: Boolean = false
+
+        /**
          * Optional listener, called for various purchase and restore events.
          */
         public var listener: PaywallListener? = null
@@ -53,6 +65,7 @@ public class PaywallOptions private constructor(
          */
         public fun build(): PaywallOptions = PaywallOptions(
             offering = offering,
+            shouldDisplayDismissButton = shouldDisplayDismissButton,
             listener = listener,
             dismissRequest = dismissRequest,
         )
