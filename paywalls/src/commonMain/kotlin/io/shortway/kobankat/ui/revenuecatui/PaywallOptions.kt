@@ -1,6 +1,5 @@
 package io.shortway.kobankat.ui.revenuecatui
 
-import io.shortway.kobankat.CustomerInfo
 import io.shortway.kobankat.Offering
 import kotlin.jvm.JvmSynthetic
 
@@ -13,10 +12,9 @@ public class PaywallOptions private constructor(
      */
     public val offering: Offering?,
     /**
-     * Optional listener. Called when a restore has been completed. This may be called even if no
-     * entitlements have been granted.
+     * Optional listener, called for various purchase and restore events.
      */
-    public val onRestoreCompleted: (customerInfo: CustomerInfo) -> Unit,
+    public val listener: PaywallListener?,
     /**
      * Dismiss the paywall, i.e. remove the view, navigate to another screen, etc. Will be called
      * when the close button is pressed (if enabled) or when a purchase succeeds.
@@ -26,7 +24,7 @@ public class PaywallOptions private constructor(
     override fun toString(): String =
         "PaywallOptions(" +
                 "offering=$offering, " +
-                "onRestoreCompleted=$onRestoreCompleted, " +
+                "listener=$listener, " +
                 "dismissRequest=$dismissRequest" +
                 ")"
 
@@ -46,18 +44,17 @@ public class PaywallOptions private constructor(
         public var offering: Offering? = null
 
         /**
-         * Optional listener. Called when a restore has been completed. This may be called even if
-         * no entitlements have been granted.
+         * Optional listener, called for various purchase and restore events.
          */
-        public var onRestoreCompleted: (customerInfo: CustomerInfo) -> Unit = { }
+        public var listener: PaywallListener? = null
 
         /**
          * Creates a [PaywallOptions] instance with the specified properties.
          */
         public fun build(): PaywallOptions = PaywallOptions(
             offering = offering,
-            onRestoreCompleted = onRestoreCompleted,
-            dismissRequest = dismissRequest
+            listener = listener,
+            dismissRequest = dismissRequest,
         )
     }
 
