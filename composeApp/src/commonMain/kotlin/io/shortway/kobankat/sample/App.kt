@@ -41,6 +41,7 @@ fun App() {
             ) else {
                 val options = PaywallOptions(dismissRequest = { paywallOffering = null }) {
                     offering = paywallOffering
+                    shouldDisplayDismissButton = true
                 }
 
                 if (showPaywallAsFooter) PaywallFooter(options) { contentPadding ->
