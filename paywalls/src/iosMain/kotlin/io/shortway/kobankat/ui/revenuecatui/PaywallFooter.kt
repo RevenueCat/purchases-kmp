@@ -9,10 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.interop.UIKitView
 import androidx.compose.ui.unit.dp
-import cocoapods.PurchasesHybridCommonUI.RCPaywallFooterViewController
-import objcnames.classes.RCOffering
 
 /**
  * A Paywall footer.
@@ -23,17 +20,9 @@ public actual fun PaywallFooter(
     mainContent: @Composable ((PaddingValues) -> Unit)?,
 ) {
     val paywallComposable = @Composable {
-        UIKitView(
+        UIKitPaywall(
+            options = options,
             modifier = Modifier.fillMaxWidth().wrapContentHeight(),
-            factory = {
-                RCPaywallFooterViewController(
-                    offering = options.offering as RCOffering,
-                    displayCloseButton = false,
-                    shouldBlockTouchEvents = false,
-                    dismissRequestedHandler = { options.dismissRequest() }
-                ).apply { setDelegate(PaywallViewControllerDelegate(options.onRestoreCompleted)) }
-                    .view
-            }
         )
     }
 
