@@ -13,6 +13,7 @@ import com.revenuecat.purchases.ui.revenuecatui.PaywallOptions as AndroidPaywall
 internal fun PaywallOptions.toAndroidPaywallOptions(): AndroidPaywallOptions =
     AndroidPaywallOptions.Builder(dismissRequest)
         .setOffering(offering)
+        .setShouldDisplayDismissButton(shouldDisplayDismissButton)
         .setListener(listener?.toAndroidPaywallListener())
         .build()
 
