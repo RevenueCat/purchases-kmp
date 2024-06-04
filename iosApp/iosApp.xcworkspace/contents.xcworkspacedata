@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "container:"
+      name = "core">
+      <FileRef
+         location = "group:../core/src/commonMain">
+      </FileRef>
+      <FileRef
+         location = "group:../core/src/iosMain">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
+      name = "paywalls">
+      <FileRef
+         location = "group:../paywalls/src/commonMain">
+      </FileRef>
+      <FileRef
+         location = "group:../paywalls/src/iosMain">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:iosApp.xcodeproj">
    </FileRef>
