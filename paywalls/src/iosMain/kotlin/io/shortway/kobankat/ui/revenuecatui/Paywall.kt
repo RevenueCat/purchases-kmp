@@ -8,5 +8,6 @@ import androidx.compose.ui.Modifier
 public actual fun Paywall(options: PaywallOptions): Unit =
     UIKitPaywall(
         options = options,
+        footer = false,
         modifier = Modifier.fillMaxSize()
     )

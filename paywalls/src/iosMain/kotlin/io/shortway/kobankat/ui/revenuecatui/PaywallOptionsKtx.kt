@@ -6,18 +6,26 @@ import io.shortway.kobankat.CustomerInfo
 import io.shortway.kobankat.Package
 import io.shortway.kobankat.models.StoreTransaction
 import io.shortway.kobankat.toPurchasesErrorOrThrow
+import kotlinx.cinterop.CValue
 import kotlinx.cinterop.ObjCSignatureOverride
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.pointed
 import objcnames.classes.RCCustomerInfo
 import objcnames.classes.RCPackage
 import objcnames.classes.RCStoreTransaction
+import platform.CoreGraphics.CGSize
 import platform.Foundation.NSError
 import platform.darwin.NSObject
 
-internal fun PaywallListener.toIosPaywallDelegate(): RCPaywallViewControllerDelegateProtocol =
-    PaywallListenerWrapper(this)
+internal fun PaywallListener.toIosPaywallDelegate(
+    onHeightChange: (Int) -> Unit
+): RCPaywallViewControllerDelegateProtocol =
+    PaywallListenerWrapper(this, onHeightChange)
 
-private class PaywallListenerWrapper(private val listener: PaywallListener) :
-    RCPaywallViewControllerDelegateProtocol,
+private class PaywallListenerWrapper(
+    private val listener: PaywallListener,
+    private val onHeightChange: (Int) -> Unit
+) : RCPaywallViewControllerDelegateProtocol,
     NSObject() {
 
     @Suppress("CAST_NEVER_SUCCEEDS")
@@ -63,4 +71,12 @@ private class PaywallListenerWrapper(private val listener: PaywallListener) :
     ) = listener.onRestoreError(didFailRestoringWithError.toPurchasesErrorOrThrow())
 
 
+    override fun paywallViewController(
+        controller: RCPaywallViewController,
+        didChangeSizeTo: CValue<CGSize>
+    ) {
+        var height: Int? = null
+        memScoped { height = didChangeSizeTo.ptr.pointed.height.toInt() }
+        onHeightChange(height!!)
+    }
 }
