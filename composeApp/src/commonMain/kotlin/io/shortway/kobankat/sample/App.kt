@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -46,6 +47,7 @@ fun App() {
 
                 if (showPaywallAsFooter) PaywallFooter(options) { contentPadding ->
                     CustomPaywallContent(
+                        onBackClick = { paywallOffering = null },
                         modifier = Modifier
                             .fillMaxSize()
                             .background(Color.Magenta)
@@ -60,7 +62,10 @@ fun App() {
 }
 
 @Composable
-private fun CustomPaywallContent(modifier: Modifier = Modifier) {
+private fun CustomPaywallContent(
+    onBackClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
@@ -71,5 +76,8 @@ private fun CustomPaywallContent(modifier: Modifier = Modifier) {
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.h4,
         )
+        Button(onClick = onBackClick) {
+            Text("Go back")
+        }
     }
 }
