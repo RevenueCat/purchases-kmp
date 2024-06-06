@@ -18,8 +18,8 @@ internal fun UIKitPaywall(
     // Keeping references to avoid them being deallocated.
     val dismissRequestedHandler: (RCPaywallViewController?) -> Unit =
         remember(options.dismissRequest) { { options.dismissRequest() } }
-    val delegate = remember(options.listener) {
-        options.listener?.toIosPaywallDelegate(onHeightChange)
+    val delegate = remember(options.listener, onHeightChange) {
+        IosPaywallDelegate(options.listener, onHeightChange)
     }
     // We remember this wrapper so we can keep a reference to RCPaywallViewController, even during
     // recompositions. RCPaywallViewController itself is not yet instantiated here.
