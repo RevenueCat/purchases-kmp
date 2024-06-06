@@ -3,7 +3,7 @@ package io.shortway.kobankat.ui.revenuecatui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.interop.UIKitView
+import androidx.compose.ui.interop.UIKitViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallFooterViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
 import objcnames.classes.RCOffering
@@ -24,7 +24,7 @@ internal fun UIKitPaywall(
     // We remember this wrapper so we can keep a reference to RCPaywallViewController, even during
     // recompositions. RCPaywallViewController itself is not yet instantiated here.
     val viewControllerWrapper = remember { ViewControllerWrapper(null) }
-    UIKitView(
+    UIKitViewController(
         modifier = modifier,
         factory = {
             val viewController = if (footer) RCPaywallFooterViewController(
@@ -39,9 +39,9 @@ internal fun UIKitPaywall(
                 dismissRequestedHandler = dismissRequestedHandler,
             )
 
-            viewController.apply { setDelegate(delegate) }
+            viewController
+                .apply { setDelegate(delegate) }
                 .also { viewControllerWrapper.value = it }
-                .view
         },
     )
 }
