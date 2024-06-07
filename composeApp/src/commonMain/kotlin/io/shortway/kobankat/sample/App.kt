@@ -1,87 +1,83 @@
 package io.shortway.kobankat.sample
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.unit.dp
-import io.shortway.kobankat.LogLevel
-import io.shortway.kobankat.PurchasesConfiguration
-import io.shortway.kobankat.PurchasesFactory
+import androidx.compose.ui.text.style.TextAlign
+import io.shortway.kobankat.Offering
+import io.shortway.kobankat.ui.revenuecatui.Paywall
+import io.shortway.kobankat.ui.revenuecatui.PaywallFooter
+import io.shortway.kobankat.ui.revenuecatui.PaywallOptions
 
 @Composable
 fun App() {
-    val logs = remember { mutableStateListOf<String>() }
-    LaunchedEffect(Unit) {
-        // In a real app, you'd probably have a class dedicated to app initialization logic.
-        PurchasesFactory.configure(
-            PurchasesConfiguration(
-                apiKey = "YOUR-REVENUECAT-API-KEY",
-            )
-        )
-        PurchasesFactory.logLevel = LogLevel.VERBOSE
-        PurchasesFactory.logHandler = SimpleLogHandler { logs.add(it) }
-    }
-
     MaterialTheme {
         Column(
             modifier = Modifier
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "KobanKat logs",
-                modifier = Modifier.padding(all = 16.dp),
-                style = MaterialTheme.typography.h4
-            )
+            var showPaywallAsFooter by remember { mutableStateOf(false) }
+            var paywallOffering: Offering? by remember { mutableStateOf(null) }
 
-            LogView(
-                logs = logs,
-                modifier = Modifier
-                    .weight(1f)
-                    .background(Color.LightGray),
-            )
+            if (paywallOffering == null) MainScreen(
+                onShowPaywallClick = { offering, footer ->
+                    showPaywallAsFooter = footer
+                    paywallOffering = offering
+                },
+                modifier = Modifier.fillMaxSize()
+            ) else {
+                val options = PaywallOptions(dismissRequest = { paywallOffering = null }) {
+                    offering = paywallOffering
+                    shouldDisplayDismissButton = true
+                }
+
+                if (showPaywallAsFooter) PaywallFooter(options) { contentPadding ->
+                    CustomPaywallContent(
+                        onBackClick = { paywallOffering = null },
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color.Magenta)
+                            .padding(contentPadding),
+                    )
+                }
+                else Paywall(options)
+            }
+
         }
     }
 }
 
 @Composable
-private fun LogView(
-    logs: SnapshotStateList<String>,
+private fun CustomPaywallContent(
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val listState = rememberLazyListState()
-    LaunchedEffect(logs.size) {
-        listState.animateScrollToItem(index = logs.lastIndex.coerceAtLeast(0))
-    }
-
-    LazyColumn(
+    Column(
         modifier = modifier,
-        state = listState,
-        contentPadding = PaddingValues(all = 16.dp)
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        items(logs) {
-            Text(
-                text = it,
-                modifier = Modifier.padding(vertical = 4.dp),
-                fontFamily = FontFamily.Monospace,
-                style = MaterialTheme.typography.caption
-            )
+        Text(
+            text = "Custom paywall content!",
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.h4,
+        )
+        Button(onClick = onBackClick) {
+            Text("Go back")
         }
     }
 }

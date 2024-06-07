@@ -3,7 +3,7 @@ package io.shortway.kobankat
 import com.revenuecat.purchases.PurchasesError as RcPurchasesError
 import com.revenuecat.purchases.PurchasesErrorCode as RcPurchasesErrorCode
 
-internal fun RcPurchasesError.toPurchasesError(): PurchasesError =
+public fun RcPurchasesError.toPurchasesError(): PurchasesError =
     PurchasesError(
         code = code.toPurchasesErrorCode(),
         underlyingErrorMessage = underlyingErrorMessage
