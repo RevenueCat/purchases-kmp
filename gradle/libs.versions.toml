@@ -5,7 +5,7 @@ android-minSdk = "21"
 android-targetSdk = "34"
 compose = "1.6.7"
 java = "1.8"
-kotlin = "1.9.24"
+kotlin = "2.0.0"
 revenuecat-common = "10.7.0"
 revenuecat-kmp = "0.5.0-SNAPSHOT"
 
@@ -20,6 +20,7 @@ kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", ve
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.0" }
 revenuecat-common = { module = "com.revenuecat.purchases:purchases-hybrid-common", version.ref = "revenuecat-common" }
+revenuecat-commonUi = { module = "com.revenuecat.purchases:purchases-hybrid-common-ui", version.ref = "revenuecat-common" }
 
 [plugins]
 adamko-dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version = "2.3.1" }
@@ -27,6 +28,7 @@ arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.6" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 codingfeline-buildkonfig = { id = "com.codingfeline.buildkonfig", version = "0.15.1" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 gradleup-nmcp = { id = "com.gradleup.nmcp", version = "0.0.4" }
 jetbrains-compose = { id = "org.jetbrains.compose", version = "1.6.10" }
 kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }

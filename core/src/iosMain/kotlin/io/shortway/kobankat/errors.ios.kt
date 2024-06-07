@@ -3,8 +3,7 @@ package io.shortway.kobankat
 import platform.Foundation.NSError
 
 
-
-internal fun NSError.toPurchasesErrorOrThrow(): PurchasesError =
+public fun NSError.toPurchasesErrorOrThrow(): PurchasesError =
     PurchasesError(
         code = code().toPurchasesErrorCode(),
         underlyingErrorMessage = localizedDescription(),
