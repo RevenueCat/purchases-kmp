@@ -63,6 +63,10 @@ public final class io/shortway/kobankat/EntitlementVerificationMode : java/lang/
 	public static fun values ()[Lio/shortway/kobankat/EntitlementVerificationMode;
 }
 
+public final class io/shortway/kobankat/Errors_androidKt {
+	public static final fun toPurchasesError (Lcom/revenuecat/purchases/PurchasesError;)Lio/shortway/kobankat/PurchasesError;
+}
+
 public final class io/shortway/kobankat/OfferingKt {
 	public static final fun get (Lcom/revenuecat/purchases/Offering;Ljava/lang/String;)Lcom/revenuecat/purchases/Package;
 	public static final fun getMetadataString (Lcom/revenuecat/purchases/Offering;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
@@ -240,7 +244,6 @@ public final class io/shortway/kobankat/PurchasesFactory {
 	public static synthetic fun canMakePayments$default (Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 	public final fun configure (Lio/shortway/kobankat/PurchasesConfiguration;)Lcom/revenuecat/purchases/Purchases;
 	public static final fun getForceUniversalAppStore ()Z
-	public static final fun getFrameworkVersion ()Ljava/lang/String;
 	public static final fun getLogHandler ()Lcom/revenuecat/purchases/LogHandler;
 	public static final fun getLogLevel ()Lcom/revenuecat/purchases/LogLevel;
 	public static final fun getProxyURL ()Ljava/lang/String;
@@ -252,6 +255,10 @@ public final class io/shortway/kobankat/PurchasesFactory {
 	public static final fun setLogLevel (Lcom/revenuecat/purchases/LogLevel;)V
 	public static final fun setProxyURL (Ljava/lang/String;)V
 	public static final fun setSimulatesAskToBuyInSandbox (Z)V
+}
+
+public final class io/shortway/kobankat/PurchasesFactoryKt {
+	public static final fun getFrameworkVersion (Lio/shortway/kobankat/PurchasesFactory;)Ljava/lang/String;
 }
 
 public final class io/shortway/kobankat/PurchasesTransactionException : io/shortway/kobankat/PurchasesException {
@@ -484,8 +491,6 @@ public final class io/shortway/kobankat/models/StoreProductDiscount_androidKt {
 }
 
 public final class io/shortway/kobankat/models/StoreProduct_androidKt {
-	public static final fun formattedPricePerMonth (Lio/shortway/kobankat/models/StoreProduct;Lio/shortway/kobankat/i18n/Locale;)Ljava/lang/String;
-	public static synthetic fun formattedPricePerMonth$default (Lio/shortway/kobankat/models/StoreProduct;Lio/shortway/kobankat/i18n/Locale;ILjava/lang/Object;)Ljava/lang/String;
 	public static final fun getDefaultOption (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/models/SubscriptionOption;
 	public static final fun getDescription (Lio/shortway/kobankat/models/StoreProduct;)Ljava/lang/String;
 	public static final fun getDiscounts (Lio/shortway/kobankat/models/StoreProduct;)Ljava/util/List;
@@ -498,12 +503,6 @@ public final class io/shortway/kobankat/models/StoreProduct_androidKt {
 	public static final fun getSubscriptionOptions (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/models/SubscriptionOptions;
 	public static final fun getTitle (Lio/shortway/kobankat/models/StoreProduct;)Ljava/lang/String;
 	public static final fun getType (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/ProductType;
-	public static final fun pricePerMonth (Lio/shortway/kobankat/models/StoreProduct;Lio/shortway/kobankat/i18n/Locale;)Lcom/revenuecat/purchases/models/Price;
-	public static synthetic fun pricePerMonth$default (Lio/shortway/kobankat/models/StoreProduct;Lio/shortway/kobankat/i18n/Locale;ILjava/lang/Object;)Lcom/revenuecat/purchases/models/Price;
-	public static final fun pricePerWeek (Lio/shortway/kobankat/models/StoreProduct;Lio/shortway/kobankat/i18n/Locale;)Lcom/revenuecat/purchases/models/Price;
-	public static synthetic fun pricePerWeek$default (Lio/shortway/kobankat/models/StoreProduct;Lio/shortway/kobankat/i18n/Locale;ILjava/lang/Object;)Lcom/revenuecat/purchases/models/Price;
-	public static final fun pricePerYear (Lio/shortway/kobankat/models/StoreProduct;Lio/shortway/kobankat/i18n/Locale;)Lcom/revenuecat/purchases/models/Price;
-	public static synthetic fun pricePerYear$default (Lio/shortway/kobankat/models/StoreProduct;Lio/shortway/kobankat/i18n/Locale;ILjava/lang/Object;)Lcom/revenuecat/purchases/models/Price;
 }
 
 public final class io/shortway/kobankat/models/StoreTransaction_androidKt {
