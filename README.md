@@ -1,8 +1,11 @@
-# KobanKat
+<h3 align="center">😻 In-App Subscriptions Made Easy 😻</h3>  
+  
 ![GitHub Release](https://img.shields.io/github/v/release/JayShortway/kobankat) 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/JayShortway/kobankat/main.yml)
 
-KobanKat is an unofficial [RevenueCat](https://www.revenuecat.com/) SDK for Kotlin Multiplatform, supporting Android and iOS. 
+## Note   
+ 
+This is the official [RevenueCat](https://www.revenuecat.com/) SDK for Kotlin Multiplatform, supporting Android and iOS. It started out as an independent project named 'KobanKat' by [@JayShortway](https://github.com/JayShortway). We're currently in the process of migrating everything over. This README will be updated as we go. For now, the below instructions are still valid. 
 
 ## Getting started 
 
@@ -66,7 +69,7 @@ To instantiate the SDK, do the following:
 1. On Android only, call `PurchasesFactory.setApplication()` in `Application.onCreate()`.
 2. In your common code, call `PurchasesFactory.configure()`. 
   
-After this, you can access the SDK's singleton instance using `PurchasesFactory.sharedInstance`. This process is analogous to the [official SDK](https://www.revenuecat.com/docs/getting-started/configuring-sdk).
+After this, you can access the SDK's singleton instance using `PurchasesFactory.sharedInstance`. This process is analogous to the [other SDKs](https://www.revenuecat.com/docs/getting-started/configuring-sdk).
 
 ### Sample
 An example implementation is provided in the `composeApp` and `iosApp` folders. 
@@ -81,7 +84,7 @@ The versioning scheme is in the form `X-Y-Z`, where:
 KobanKat supports Android and iOS targets for now. Most types are aliased to the respective official SDK types, so add on libraries like the official Paywalls SDK are compatible with KobanKat. 
 
 ## Public API
-KobanKat's public API is intended to stay as close as possible to RevenueCat's official Android, iOS and hybrid SDKs. This means it should be a near drop-in replacement. The namespace has changed from `com.revenuecat.purchases` to `io.shortway.kobankat`. The full API reference is available [here](https://jayshortway.github.io/kobankat/). 
+KobanKat's public API is intended to stay as close as possible to RevenueCat's Android, iOS and other hybrid SDKs. This means it should be a near drop-in replacement. The namespace has changed from `com.revenuecat.purchases` to `io.shortway.kobankat`. The full API reference is available [here](https://revenuecat.github.io/purchases-kmp/). 
 
 ## What's with the name?
 The name, _KobanKat_, is an homage to the original revenue cat: [Meowth](https://bulbapedia.bulbagarden.net/wiki/Meowth_(Pok%C3%A9mon)). 😸 This Pokémon is is attracted to round and shiny objects, can even generate revenue at will with its Pay Day move, and has a gold coin embedded in its forehead. This coin is a so-called [_koban_](https://en.wikipedia.org/wiki/Koban_(coin)) coin, and that's where the name of this library comes from. ("Cat" has to be spelled with a 'K' of course. It's a Kotlin library after all.)
