@@ -1,7 +1,7 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 
 plugins {
-    id("kobankat-library")
+    id("revenuecat-library")
     alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.codingfeline.buildkonfig)
 }
