@@ -14,6 +14,9 @@ import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.PurchasesError
 import com.revenuecat.purchases.kmp.PurchasesFactory
 import com.revenuecat.purchases.kmp.appUserID
+import com.revenuecat.purchases.kmp.awaitGetProductsResult
+import com.revenuecat.purchases.kmp.awaitOfferingsResult
+import com.revenuecat.purchases.kmp.awaitPurchaseResult
 import com.revenuecat.purchases.kmp.close
 import com.revenuecat.purchases.kmp.configure
 import com.revenuecat.purchases.kmp.delegate
@@ -34,9 +37,6 @@ import io.shortway.kobankat.either.FailedPurchase
 import io.shortway.kobankat.either.awaitGetProductsEither
 import io.shortway.kobankat.either.awaitOfferingsEither
 import io.shortway.kobankat.either.awaitPurchaseEither
-import io.shortway.kobankat.result.awaitGetProductsResult
-import io.shortway.kobankat.result.awaitOfferingsResult
-import io.shortway.kobankat.result.awaitPurchaseResult
 
 @Suppress("unused", "UNUSED_VARIABLE", "UNUSED_ANONYMOUS_PARAMETER", "RedundantExplicitType")
 private class PurchasesCommonAPI {

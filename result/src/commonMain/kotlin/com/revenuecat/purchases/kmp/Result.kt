@@ -1,33 +1,15 @@
-package io.shortway.kobankat.result
+package com.revenuecat.purchases.kmp
 
-import com.revenuecat.purchases.kmp.CacheFetchPolicy
-import com.revenuecat.purchases.kmp.CustomerInfo
-import com.revenuecat.purchases.kmp.Offerings
-import com.revenuecat.purchases.kmp.Package
-import com.revenuecat.purchases.kmp.Purchases
-import com.revenuecat.purchases.kmp.PurchasesException
-import com.revenuecat.purchases.kmp.PurchasesTransactionException
-import com.revenuecat.purchases.kmp.appUserID
-import com.revenuecat.purchases.kmp.getCustomerInfo
-import com.revenuecat.purchases.kmp.getOfferings
-import com.revenuecat.purchases.kmp.getProducts
-import com.revenuecat.purchases.kmp.getPromotionalOffer
 import com.revenuecat.purchases.kmp.ktx.SuccessfulLogin
 import com.revenuecat.purchases.kmp.ktx.SuccessfulPurchase
 import com.revenuecat.purchases.kmp.ktx.awaitPromotionalOffer
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
-import com.revenuecat.purchases.kmp.logIn
-import com.revenuecat.purchases.kmp.logOut
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
-import com.revenuecat.purchases.kmp.purchase
-import com.revenuecat.purchases.kmp.restorePurchases
-import com.revenuecat.purchases.kmp.syncAttributesAndOfferingsIfNeeded
-import com.revenuecat.purchases.kmp.syncPurchases
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
