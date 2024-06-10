@@ -5,7 +5,9 @@
   "platform": "github",
   "branchPrefix": "renovate/",
   "onboarding": false,
-  "repositories": ["JayShortway/kobankat"],
+  "repositories": [
+    "RevenueCat/purchases-kmp"
+  ],
   "customManagers": [
     {
       "customType": "regex",
@@ -25,7 +27,9 @@
   ],
   "packageRules": [
     {
-      "matchPackagePatterns": ["RevenueCat|purchases"],
+      "matchPackagePatterns": [
+        "[Rr]evenue[Cc]at|[Pp]urchases"
+      ],
       "groupName": "RevenueCat"
     }
   ]
