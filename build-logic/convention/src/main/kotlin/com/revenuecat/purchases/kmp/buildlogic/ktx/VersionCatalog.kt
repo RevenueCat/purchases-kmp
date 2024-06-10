@@ -1,4 +1,4 @@
-package io.shortway.kobankat.buildlogic.ktx
+package com.revenuecat.purchases.kmp.buildlogic.ktx
 
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionConstraint

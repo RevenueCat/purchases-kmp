@@ -1,7 +1,7 @@
-package io.shortway.kobankat.buildlogic.plugin
+package com.revenuecat.purchases.kmp.buildlogic.plugin
 
 import com.android.build.gradle.LibraryExtension
-import io.shortway.kobankat.buildlogic.ktx.getVersion
+import com.revenuecat.purchases.kmp.buildlogic.ktx.getVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
