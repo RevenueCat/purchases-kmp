@@ -1,4 +1,4 @@
-package io.shortway.kobankat.sample
+package com.revenuecat.purchases.kmp.sample
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

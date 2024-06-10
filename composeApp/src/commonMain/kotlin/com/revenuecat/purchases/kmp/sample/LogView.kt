@@ -1,4 +1,4 @@
-package io.shortway.kobankat.sample
+package com.revenuecat.purchases.kmp.sample
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
