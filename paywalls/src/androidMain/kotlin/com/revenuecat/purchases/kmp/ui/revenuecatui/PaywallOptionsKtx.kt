@@ -1,4 +1,4 @@
-package io.shortway.kobankat.ui.revenuecatui
+package com.revenuecat.purchases.kmp.ui.revenuecatui
 
 import com.revenuecat.purchases.CustomerInfo
 import com.revenuecat.purchases.Package

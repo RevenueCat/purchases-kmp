@@ -18,9 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import com.revenuecat.purchases.kmp.Offering
-import io.shortway.kobankat.ui.revenuecatui.Paywall
-import io.shortway.kobankat.ui.revenuecatui.PaywallFooter
-import io.shortway.kobankat.ui.revenuecatui.PaywallOptions
+import com.revenuecat.purchases.kmp.ui.revenuecatui.Paywall
+import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallFooter
+import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallOptions
 
 @Composable
 fun App() {

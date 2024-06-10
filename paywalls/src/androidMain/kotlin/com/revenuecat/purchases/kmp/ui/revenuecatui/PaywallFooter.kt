@@ -1,4 +1,4 @@
-package io.shortway.kobankat.ui.revenuecatui
+package com.revenuecat.purchases.kmp.ui.revenuecatui
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable

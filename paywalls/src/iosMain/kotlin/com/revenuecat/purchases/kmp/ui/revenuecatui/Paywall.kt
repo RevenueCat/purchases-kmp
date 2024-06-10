@@ -1,4 +1,4 @@
-package io.shortway.kobankat.ui.revenuecatui
+package com.revenuecat.purchases.kmp.ui.revenuecatui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable

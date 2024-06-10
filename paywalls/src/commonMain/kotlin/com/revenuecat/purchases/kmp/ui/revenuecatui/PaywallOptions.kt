@@ -1,4 +1,4 @@
-package io.shortway.kobankat.ui.revenuecatui
+package com.revenuecat.purchases.kmp.ui.revenuecatui
 
 import io.shortway.kobankat.Offering
 import kotlin.jvm.JvmSynthetic
