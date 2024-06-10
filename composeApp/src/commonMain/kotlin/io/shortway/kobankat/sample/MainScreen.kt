@@ -30,9 +30,9 @@ import com.revenuecat.purchases.kmp.Offerings
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import com.revenuecat.purchases.kmp.PurchasesFactory
 import com.revenuecat.purchases.kmp.all
+import com.revenuecat.purchases.kmp.awaitOfferingsEither
 import com.revenuecat.purchases.kmp.current
 import com.revenuecat.purchases.kmp.identifier
-import io.shortway.kobankat.either.awaitOfferingsEither
 
 @Composable
 fun MainScreen(

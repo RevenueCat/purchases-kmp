@@ -4,6 +4,7 @@ import arrow.core.Either
 import com.revenuecat.purchases.kmp.CustomerInfo
 import com.revenuecat.purchases.kmp.DangerousSettings
 import com.revenuecat.purchases.kmp.EntitlementVerificationMode
+import com.revenuecat.purchases.kmp.FailedPurchase
 import com.revenuecat.purchases.kmp.LogHandler
 import com.revenuecat.purchases.kmp.LogLevel
 import com.revenuecat.purchases.kmp.Offerings
@@ -14,8 +15,11 @@ import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.PurchasesError
 import com.revenuecat.purchases.kmp.PurchasesFactory
 import com.revenuecat.purchases.kmp.appUserID
+import com.revenuecat.purchases.kmp.awaitGetProductsEither
 import com.revenuecat.purchases.kmp.awaitGetProductsResult
+import com.revenuecat.purchases.kmp.awaitOfferingsEither
 import com.revenuecat.purchases.kmp.awaitOfferingsResult
+import com.revenuecat.purchases.kmp.awaitPurchaseEither
 import com.revenuecat.purchases.kmp.awaitPurchaseResult
 import com.revenuecat.purchases.kmp.close
 import com.revenuecat.purchases.kmp.configure
@@ -33,10 +37,6 @@ import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.purchase
 import com.revenuecat.purchases.kmp.restorePurchases
-import io.shortway.kobankat.either.FailedPurchase
-import io.shortway.kobankat.either.awaitGetProductsEither
-import io.shortway.kobankat.either.awaitOfferingsEither
-import io.shortway.kobankat.either.awaitPurchaseEither
 
 @Suppress("unused", "UNUSED_VARIABLE", "UNUSED_ANONYMOUS_PARAMETER", "RedundantExplicitType")
 private class PurchasesCommonAPI {
