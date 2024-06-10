@@ -4,7 +4,6 @@ import arrow.core.Either
 import com.revenuecat.purchases.kmp.CustomerInfo
 import com.revenuecat.purchases.kmp.DangerousSettings
 import com.revenuecat.purchases.kmp.EntitlementVerificationMode
-import com.revenuecat.purchases.kmp.FailedPurchase
 import com.revenuecat.purchases.kmp.LogHandler
 import com.revenuecat.purchases.kmp.LogLevel
 import com.revenuecat.purchases.kmp.Offerings
@@ -15,15 +14,16 @@ import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.PurchasesError
 import com.revenuecat.purchases.kmp.PurchasesFactory
 import com.revenuecat.purchases.kmp.appUserID
-import com.revenuecat.purchases.kmp.awaitGetProductsEither
 import com.revenuecat.purchases.kmp.awaitGetProductsResult
-import com.revenuecat.purchases.kmp.awaitOfferingsEither
 import com.revenuecat.purchases.kmp.awaitOfferingsResult
-import com.revenuecat.purchases.kmp.awaitPurchaseEither
 import com.revenuecat.purchases.kmp.awaitPurchaseResult
 import com.revenuecat.purchases.kmp.close
 import com.revenuecat.purchases.kmp.configure
 import com.revenuecat.purchases.kmp.delegate
+import com.revenuecat.purchases.kmp.either.FailedPurchase
+import com.revenuecat.purchases.kmp.either.awaitGetProductsEither
+import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
+import com.revenuecat.purchases.kmp.either.awaitPurchaseEither
 import com.revenuecat.purchases.kmp.getOfferings
 import com.revenuecat.purchases.kmp.getProducts
 import com.revenuecat.purchases.kmp.ktx.SuccessfulPurchase
