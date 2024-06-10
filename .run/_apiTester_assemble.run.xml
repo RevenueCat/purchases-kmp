@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-    <configuration default="false" name="kobankat [detektCommonMain]" type="GradleRunConfiguration"
+    <configuration default="false" name=":apiTester:assemble" type="GradleRunConfiguration"
         factoryName="Gradle">
         <ExternalSystemSettings>
             <option name="executionName" />
@@ -11,7 +11,7 @@
             </option>
             <option name="taskNames">
                 <list>
-                    <option value="detektCommonMain" />
+                    <option value=":apiTester:assemble" />
                 </list>
             </option>
             <option name="vmOptions" />
