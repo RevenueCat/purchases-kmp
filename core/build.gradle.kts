@@ -22,7 +22,7 @@ kotlin {
         ios.deploymentTarget = "11.0"
 
         framework {
-            baseName = "KobanKat"
+            baseName = "Purchases"
             isStatic = true
         }
 
