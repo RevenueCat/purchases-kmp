@@ -3,9 +3,9 @@ package com.revenuecat.purchases.kmp.ui.revenuecatui
 import com.revenuecat.purchases.CustomerInfo
 import com.revenuecat.purchases.Package
 import com.revenuecat.purchases.PurchasesError
+import com.revenuecat.purchases.kmp.toPurchasesError
 import com.revenuecat.purchases.models.StoreTransaction
 import com.revenuecat.purchases.ui.revenuecatui.ExperimentalPreviewRevenueCatUIPurchasesAPI
-import io.shortway.kobankat.toPurchasesError
 import com.revenuecat.purchases.ui.revenuecatui.PaywallListener as AndroidPaywallListener
 import com.revenuecat.purchases.ui.revenuecatui.PaywallOptions as AndroidPaywallOptions
 

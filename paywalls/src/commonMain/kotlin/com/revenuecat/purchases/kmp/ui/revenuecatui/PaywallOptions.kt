@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.ui.revenuecatui
 
-import io.shortway.kobankat.Offering
+import com.revenuecat.purchases.kmp.Offering
 import kotlin.jvm.JvmSynthetic
 
 /**

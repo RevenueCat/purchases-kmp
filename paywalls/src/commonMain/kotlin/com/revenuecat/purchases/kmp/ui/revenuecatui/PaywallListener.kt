@@ -1,9 +1,9 @@
 package com.revenuecat.purchases.kmp.ui.revenuecatui
 
-import io.shortway.kobankat.CustomerInfo
-import io.shortway.kobankat.Package
-import io.shortway.kobankat.PurchasesError
-import io.shortway.kobankat.models.StoreTransaction
+import com.revenuecat.purchases.kmp.CustomerInfo
+import com.revenuecat.purchases.kmp.Package
+import com.revenuecat.purchases.kmp.PurchasesError
+import com.revenuecat.purchases.kmp.models.StoreTransaction
 
 /**
  * Provide an implementation of this interface to [PaywallOptions] to listen for Paywall events.
