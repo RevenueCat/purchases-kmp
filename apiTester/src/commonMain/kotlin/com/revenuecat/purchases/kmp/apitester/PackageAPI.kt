@@ -1,4 +1,4 @@
-package io.shortway.kobankat.apitester
+package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.Package
 import com.revenuecat.purchases.kmp.PackageType

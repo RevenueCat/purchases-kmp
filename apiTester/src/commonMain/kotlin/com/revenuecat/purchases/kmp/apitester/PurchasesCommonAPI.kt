@@ -1,4 +1,4 @@
-package io.shortway.kobankat.apitester
+package com.revenuecat.purchases.kmp.apitester
 
 import arrow.core.Either
 import com.revenuecat.purchases.kmp.CustomerInfo

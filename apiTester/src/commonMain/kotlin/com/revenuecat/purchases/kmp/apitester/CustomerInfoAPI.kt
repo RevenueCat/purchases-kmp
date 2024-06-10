@@ -1,6 +1,6 @@
 @file:Suppress("unused", "UNUSED_VARIABLE")
 
-package io.shortway.kobankat.apitester
+package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.CustomerInfo
 import com.revenuecat.purchases.kmp.EntitlementInfos

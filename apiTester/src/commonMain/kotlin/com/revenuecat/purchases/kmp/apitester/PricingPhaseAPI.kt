@@ -1,4 +1,4 @@
-package io.shortway.kobankat.apitester
+package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.models.OfferPaymentMode
 import com.revenuecat.purchases.kmp.models.Period
