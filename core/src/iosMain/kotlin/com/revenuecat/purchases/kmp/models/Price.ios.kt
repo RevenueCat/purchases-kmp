@@ -23,7 +23,7 @@ public actual data class Price(
 
 internal fun RCStoreProduct.toPrice(): Price =
     localizedPriceString().let { localizedPrice ->
-        com.revenuecat.purchases.kmp.models.Price(
+        Price(
             formatted = localizedPrice,
             amountDecimal = priceFormatter().amountDecimalOrDefault(
                 localizedPrice = localizedPrice,
@@ -38,7 +38,7 @@ internal fun RCStoreProduct.currencyCodeOrUsd(): String =
 
 internal fun RCStoreProductDiscount.toPrice(formatter: NSNumberFormatter?): Price =
     localizedPriceString().let { localizedPrice ->
-        com.revenuecat.purchases.kmp.models.Price(
+        Price(
             formatted = localizedPrice,
             amountDecimal = formatter.amountDecimalOrDefault(
                 localizedPrice = localizedPrice,

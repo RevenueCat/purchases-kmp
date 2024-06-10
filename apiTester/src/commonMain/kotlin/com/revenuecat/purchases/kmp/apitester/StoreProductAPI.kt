@@ -2,7 +2,6 @@ package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.ProductType
-import com.revenuecat.purchases.kmp.i18n.Locale
 import com.revenuecat.purchases.kmp.models.Period
 import com.revenuecat.purchases.kmp.models.Price
 import com.revenuecat.purchases.kmp.models.PurchasingData
@@ -26,7 +25,6 @@ import com.revenuecat.purchases.kmp.models.type
 @Suppress("unused", "UNUSED_VARIABLE", "LongMethod")
 private class StoreProductAPI {
     fun check(product: StoreProduct) {
-        val locale = Locale.Default
         with(product) {
             val storeProductId: String = id
             val type: ProductType = type
