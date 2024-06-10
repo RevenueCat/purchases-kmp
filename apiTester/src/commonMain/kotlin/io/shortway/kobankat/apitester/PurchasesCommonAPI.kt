@@ -14,9 +14,6 @@ import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.PurchasesError
 import com.revenuecat.purchases.kmp.PurchasesFactory
 import com.revenuecat.purchases.kmp.appUserID
-import com.revenuecat.purchases.kmp.awaitGetProductsResult
-import com.revenuecat.purchases.kmp.awaitOfferingsResult
-import com.revenuecat.purchases.kmp.awaitPurchaseResult
 import com.revenuecat.purchases.kmp.close
 import com.revenuecat.purchases.kmp.configure
 import com.revenuecat.purchases.kmp.delegate
@@ -37,6 +34,9 @@ import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.purchase
 import com.revenuecat.purchases.kmp.restorePurchases
+import com.revenuecat.purchases.kmp.result.awaitGetProductsResult
+import com.revenuecat.purchases.kmp.result.awaitOfferingsResult
+import com.revenuecat.purchases.kmp.result.awaitPurchaseResult
 
 @Suppress("unused", "UNUSED_VARIABLE", "UNUSED_ANONYMOUS_PARAMETER", "RedundantExplicitType")
 private class PurchasesCommonAPI {
