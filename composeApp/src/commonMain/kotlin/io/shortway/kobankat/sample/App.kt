@@ -17,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import io.shortway.kobankat.Offering
+import com.revenuecat.purchases.kmp.Offering
 import io.shortway.kobankat.ui.revenuecatui.Paywall
 import io.shortway.kobankat.ui.revenuecatui.PaywallFooter
 import io.shortway.kobankat.ui.revenuecatui.PaywallOptions

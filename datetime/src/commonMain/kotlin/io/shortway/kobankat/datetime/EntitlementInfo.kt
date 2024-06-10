@@ -1,14 +1,14 @@
 package io.shortway.kobankat.datetime
 
-import io.shortway.kobankat.EntitlementInfo
-import io.shortway.kobankat.PeriodType
-import io.shortway.kobankat.billingIssueDetectedAtMillis
-import io.shortway.kobankat.expirationDateMillis
-import io.shortway.kobankat.isActive
-import io.shortway.kobankat.latestPurchaseDateMillis
-import io.shortway.kobankat.originalPurchaseDateMillis
-import io.shortway.kobankat.periodType
-import io.shortway.kobankat.unsubscribeDetectedAtMillis
+import com.revenuecat.purchases.kmp.EntitlementInfo
+import com.revenuecat.purchases.kmp.PeriodType
+import com.revenuecat.purchases.kmp.billingIssueDetectedAtMillis
+import com.revenuecat.purchases.kmp.expirationDateMillis
+import com.revenuecat.purchases.kmp.isActive
+import com.revenuecat.purchases.kmp.latestPurchaseDateMillis
+import com.revenuecat.purchases.kmp.originalPurchaseDateMillis
+import com.revenuecat.purchases.kmp.periodType
+import com.revenuecat.purchases.kmp.unsubscribeDetectedAtMillis
 import kotlinx.datetime.Instant
 
 

@@ -1,12 +1,12 @@
 package io.shortway.kobankat.apitester
 
-import io.shortway.kobankat.PresentedOfferingContext
-import io.shortway.kobankat.PresentedOfferingTargetingContext
-import io.shortway.kobankat.offeringIdentifier
-import io.shortway.kobankat.placementIdentifier
-import io.shortway.kobankat.revision
-import io.shortway.kobankat.ruleId
-import io.shortway.kobankat.targetingContext
+import com.revenuecat.purchases.kmp.PresentedOfferingContext
+import com.revenuecat.purchases.kmp.PresentedOfferingTargetingContext
+import com.revenuecat.purchases.kmp.offeringIdentifier
+import com.revenuecat.purchases.kmp.placementIdentifier
+import com.revenuecat.purchases.kmp.revision
+import com.revenuecat.purchases.kmp.ruleId
+import com.revenuecat.purchases.kmp.targetingContext
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class PresentedOfferingContextAPI {

@@ -1,7 +1,7 @@
 package io.shortway.kobankat.apitester
 
-import io.shortway.kobankat.VerificationResult
-import io.shortway.kobankat.isVerified
+import com.revenuecat.purchases.kmp.VerificationResult
+import com.revenuecat.purchases.kmp.isVerified
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class VerificationResultAPI {

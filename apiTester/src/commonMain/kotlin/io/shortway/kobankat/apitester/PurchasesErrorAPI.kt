@@ -1,7 +1,7 @@
 package io.shortway.kobankat.apitester
 
-import io.shortway.kobankat.PurchasesError
-import io.shortway.kobankat.PurchasesErrorCode
+import com.revenuecat.purchases.kmp.PurchasesError
+import com.revenuecat.purchases.kmp.PurchasesErrorCode
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class PurchasesErrorAPI {

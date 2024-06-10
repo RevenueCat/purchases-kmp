@@ -1,12 +1,12 @@
 package io.shortway.kobankat.apitester
 
-import io.shortway.kobankat.EntitlementInfo
-import io.shortway.kobankat.EntitlementInfos
-import io.shortway.kobankat.VerificationResult
-import io.shortway.kobankat.active
-import io.shortway.kobankat.all
-import io.shortway.kobankat.get
-import io.shortway.kobankat.verification
+import com.revenuecat.purchases.kmp.EntitlementInfo
+import com.revenuecat.purchases.kmp.EntitlementInfos
+import com.revenuecat.purchases.kmp.VerificationResult
+import com.revenuecat.purchases.kmp.active
+import com.revenuecat.purchases.kmp.all
+import com.revenuecat.purchases.kmp.get
+import com.revenuecat.purchases.kmp.verification
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class EntitlementInfosAPI {

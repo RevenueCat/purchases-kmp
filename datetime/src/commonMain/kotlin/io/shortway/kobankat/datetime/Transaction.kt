@@ -1,7 +1,7 @@
 package io.shortway.kobankat.datetime
 
-import io.shortway.kobankat.models.Transaction
-import io.shortway.kobankat.models.purchaseDateMillis
+import com.revenuecat.purchases.kmp.models.Transaction
+import com.revenuecat.purchases.kmp.models.purchaseDateMillis
 import kotlinx.datetime.Instant
 
 /**

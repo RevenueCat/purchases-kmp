@@ -1,12 +1,12 @@
 package io.shortway.kobankat.apitester
 
-import io.shortway.kobankat.Offering
-import io.shortway.kobankat.Offerings
-import io.shortway.kobankat.all
-import io.shortway.kobankat.current
-import io.shortway.kobankat.get
-import io.shortway.kobankat.getCurrentOfferingForPlacement
-import io.shortway.kobankat.getOffering
+import com.revenuecat.purchases.kmp.Offering
+import com.revenuecat.purchases.kmp.Offerings
+import com.revenuecat.purchases.kmp.all
+import com.revenuecat.purchases.kmp.current
+import com.revenuecat.purchases.kmp.get
+import com.revenuecat.purchases.kmp.getCurrentOfferingForPlacement
+import com.revenuecat.purchases.kmp.getOffering
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class OfferingsAPI {

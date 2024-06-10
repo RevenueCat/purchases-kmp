@@ -1,13 +1,13 @@
 package io.shortway.kobankat.apitester
 
-import io.shortway.kobankat.Package
-import io.shortway.kobankat.PackageType
-import io.shortway.kobankat.PresentedOfferingContext
-import io.shortway.kobankat.identifier
-import io.shortway.kobankat.models.StoreProduct
-import io.shortway.kobankat.packageType
-import io.shortway.kobankat.presentedOfferingContext
-import io.shortway.kobankat.storeProduct
+import com.revenuecat.purchases.kmp.Package
+import com.revenuecat.purchases.kmp.PackageType
+import com.revenuecat.purchases.kmp.PresentedOfferingContext
+import com.revenuecat.purchases.kmp.identifier
+import com.revenuecat.purchases.kmp.models.StoreProduct
+import com.revenuecat.purchases.kmp.packageType
+import com.revenuecat.purchases.kmp.presentedOfferingContext
+import com.revenuecat.purchases.kmp.storeProduct
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class PackageAPI {

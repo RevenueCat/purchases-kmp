@@ -2,27 +2,27 @@
 
 package io.shortway.kobankat.apitester
 
-import io.shortway.kobankat.CustomerInfo
-import io.shortway.kobankat.EntitlementInfos
-import io.shortway.kobankat.activeSubscriptions
-import io.shortway.kobankat.allExpirationDateMillis
-import io.shortway.kobankat.allPurchaseDateMillis
-import io.shortway.kobankat.allPurchasedProductIdentifiers
+import com.revenuecat.purchases.kmp.CustomerInfo
+import com.revenuecat.purchases.kmp.EntitlementInfos
+import com.revenuecat.purchases.kmp.activeSubscriptions
+import com.revenuecat.purchases.kmp.allExpirationDateMillis
+import com.revenuecat.purchases.kmp.allPurchaseDateMillis
+import com.revenuecat.purchases.kmp.allPurchasedProductIdentifiers
+import com.revenuecat.purchases.kmp.entitlements
+import com.revenuecat.purchases.kmp.firstSeenMillis
+import com.revenuecat.purchases.kmp.latestExpirationDateMillis
+import com.revenuecat.purchases.kmp.managementUrlString
+import com.revenuecat.purchases.kmp.models.Transaction
+import com.revenuecat.purchases.kmp.nonSubscriptionTransactions
+import com.revenuecat.purchases.kmp.originalAppUserId
+import com.revenuecat.purchases.kmp.originalPurchaseDateMillis
+import com.revenuecat.purchases.kmp.requestDateMillis
 import io.shortway.kobankat.datetime.allExpirationInstants
 import io.shortway.kobankat.datetime.allPurchaseInstants
 import io.shortway.kobankat.datetime.firstSeenInstant
 import io.shortway.kobankat.datetime.latestExpirationInstant
 import io.shortway.kobankat.datetime.originalPurchaseInstant
 import io.shortway.kobankat.datetime.requestInstant
-import io.shortway.kobankat.entitlements
-import io.shortway.kobankat.firstSeenMillis
-import io.shortway.kobankat.latestExpirationDateMillis
-import io.shortway.kobankat.managementUrlString
-import io.shortway.kobankat.models.Transaction
-import io.shortway.kobankat.nonSubscriptionTransactions
-import io.shortway.kobankat.originalAppUserId
-import io.shortway.kobankat.originalPurchaseDateMillis
-import io.shortway.kobankat.requestDateMillis
 import kotlinx.datetime.Instant
 
 private class CustomerInfoAPI {

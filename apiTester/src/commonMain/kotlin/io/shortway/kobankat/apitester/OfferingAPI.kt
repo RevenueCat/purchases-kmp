@@ -1,21 +1,21 @@
 package io.shortway.kobankat.apitester
 
-import io.shortway.kobankat.Offering
-import io.shortway.kobankat.Package
-import io.shortway.kobankat.annual
-import io.shortway.kobankat.availablePackages
-import io.shortway.kobankat.get
-import io.shortway.kobankat.getMetadataString
-import io.shortway.kobankat.getPackage
-import io.shortway.kobankat.identifier
-import io.shortway.kobankat.lifetime
-import io.shortway.kobankat.metadata
-import io.shortway.kobankat.monthly
-import io.shortway.kobankat.serverDescription
-import io.shortway.kobankat.sixMonth
-import io.shortway.kobankat.threeMonth
-import io.shortway.kobankat.twoMonth
-import io.shortway.kobankat.weekly
+import com.revenuecat.purchases.kmp.Offering
+import com.revenuecat.purchases.kmp.Package
+import com.revenuecat.purchases.kmp.annual
+import com.revenuecat.purchases.kmp.availablePackages
+import com.revenuecat.purchases.kmp.get
+import com.revenuecat.purchases.kmp.getMetadataString
+import com.revenuecat.purchases.kmp.getPackage
+import com.revenuecat.purchases.kmp.identifier
+import com.revenuecat.purchases.kmp.lifetime
+import com.revenuecat.purchases.kmp.metadata
+import com.revenuecat.purchases.kmp.monthly
+import com.revenuecat.purchases.kmp.serverDescription
+import com.revenuecat.purchases.kmp.sixMonth
+import com.revenuecat.purchases.kmp.threeMonth
+import com.revenuecat.purchases.kmp.twoMonth
+import com.revenuecat.purchases.kmp.weekly
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class OfferingAPI {

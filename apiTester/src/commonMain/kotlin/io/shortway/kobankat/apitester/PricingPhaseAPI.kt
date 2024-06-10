@@ -1,10 +1,10 @@
 package io.shortway.kobankat.apitester
 
-import io.shortway.kobankat.models.OfferPaymentMode
-import io.shortway.kobankat.models.Period
-import io.shortway.kobankat.models.Price
-import io.shortway.kobankat.models.PricingPhase
-import io.shortway.kobankat.models.RecurrenceMode
+import com.revenuecat.purchases.kmp.models.OfferPaymentMode
+import com.revenuecat.purchases.kmp.models.Period
+import com.revenuecat.purchases.kmp.models.Price
+import com.revenuecat.purchases.kmp.models.PricingPhase
+import com.revenuecat.purchases.kmp.models.RecurrenceMode
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class PricingPhaseAPI {

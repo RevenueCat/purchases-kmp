@@ -1,6 +1,6 @@
 package io.shortway.kobankat.apitester
 
-import io.shortway.kobankat.EntitlementVerificationMode
+import com.revenuecat.purchases.kmp.EntitlementVerificationMode
 
 @Suppress("unused")
 private class EntitlementVerificationModeAPI {

@@ -1,27 +1,27 @@
 package io.shortway.kobankat.apitester
 
-import io.shortway.kobankat.PresentedOfferingContext
-import io.shortway.kobankat.ProductType
-import io.shortway.kobankat.i18n.Locale
-import io.shortway.kobankat.models.Period
-import io.shortway.kobankat.models.Price
-import io.shortway.kobankat.models.PurchasingData
-import io.shortway.kobankat.models.StoreProduct
-import io.shortway.kobankat.models.StoreProductDiscount
-import io.shortway.kobankat.models.SubscriptionOption
-import io.shortway.kobankat.models.SubscriptionOptions
-import io.shortway.kobankat.models.defaultOption
-import io.shortway.kobankat.models.description
-import io.shortway.kobankat.models.discounts
-import io.shortway.kobankat.models.id
-import io.shortway.kobankat.models.introductoryDiscount
-import io.shortway.kobankat.models.period
-import io.shortway.kobankat.models.presentedOfferingContext
-import io.shortway.kobankat.models.price
-import io.shortway.kobankat.models.purchasingData
-import io.shortway.kobankat.models.subscriptionOptions
-import io.shortway.kobankat.models.title
-import io.shortway.kobankat.models.type
+import com.revenuecat.purchases.kmp.PresentedOfferingContext
+import com.revenuecat.purchases.kmp.ProductType
+import com.revenuecat.purchases.kmp.i18n.Locale
+import com.revenuecat.purchases.kmp.models.Period
+import com.revenuecat.purchases.kmp.models.Price
+import com.revenuecat.purchases.kmp.models.PurchasingData
+import com.revenuecat.purchases.kmp.models.StoreProduct
+import com.revenuecat.purchases.kmp.models.StoreProductDiscount
+import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.SubscriptionOptions
+import com.revenuecat.purchases.kmp.models.defaultOption
+import com.revenuecat.purchases.kmp.models.description
+import com.revenuecat.purchases.kmp.models.discounts
+import com.revenuecat.purchases.kmp.models.id
+import com.revenuecat.purchases.kmp.models.introductoryDiscount
+import com.revenuecat.purchases.kmp.models.period
+import com.revenuecat.purchases.kmp.models.presentedOfferingContext
+import com.revenuecat.purchases.kmp.models.price
+import com.revenuecat.purchases.kmp.models.purchasingData
+import com.revenuecat.purchases.kmp.models.subscriptionOptions
+import com.revenuecat.purchases.kmp.models.title
+import com.revenuecat.purchases.kmp.models.type
 
 @Suppress("unused", "UNUSED_VARIABLE", "LongMethod")
 private class StoreProductAPI {

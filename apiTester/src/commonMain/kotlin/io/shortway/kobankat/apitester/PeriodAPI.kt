@@ -1,10 +1,10 @@
 package io.shortway.kobankat.apitester
 
-import io.shortway.kobankat.models.Period
-import io.shortway.kobankat.models.PeriodUnit
-import io.shortway.kobankat.models.unit
-import io.shortway.kobankat.models.value
-import io.shortway.kobankat.models.valueInMonths
+import com.revenuecat.purchases.kmp.models.Period
+import com.revenuecat.purchases.kmp.models.PeriodUnit
+import com.revenuecat.purchases.kmp.models.unit
+import com.revenuecat.purchases.kmp.models.value
+import com.revenuecat.purchases.kmp.models.valueInMonths
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class PeriodAPI {

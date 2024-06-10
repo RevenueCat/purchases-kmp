@@ -1,6 +1,6 @@
 package io.shortway.kobankat.sample
 
-import io.shortway.kobankat.LogHandler
+import com.revenuecat.purchases.kmp.LogHandler
 
 class SimpleLogHandler(
     private val log: (message: String) -> Unit

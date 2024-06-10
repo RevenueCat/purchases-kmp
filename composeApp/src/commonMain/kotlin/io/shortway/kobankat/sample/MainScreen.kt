@@ -25,14 +25,14 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import arrow.core.Either
-import io.shortway.kobankat.Offering
-import io.shortway.kobankat.Offerings
-import io.shortway.kobankat.PurchasesConfiguration
-import io.shortway.kobankat.PurchasesFactory
-import io.shortway.kobankat.all
-import io.shortway.kobankat.current
+import com.revenuecat.purchases.kmp.Offering
+import com.revenuecat.purchases.kmp.Offerings
+import com.revenuecat.purchases.kmp.PurchasesConfiguration
+import com.revenuecat.purchases.kmp.PurchasesFactory
+import com.revenuecat.purchases.kmp.all
+import com.revenuecat.purchases.kmp.current
+import com.revenuecat.purchases.kmp.identifier
 import io.shortway.kobankat.either.awaitOfferingsEither
-import io.shortway.kobankat.identifier
 
 @Composable
 fun MainScreen(

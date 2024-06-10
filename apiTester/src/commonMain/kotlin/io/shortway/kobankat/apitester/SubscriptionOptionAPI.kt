@@ -1,9 +1,9 @@
 package io.shortway.kobankat.apitester
 
-import io.shortway.kobankat.models.PricingPhase
-import io.shortway.kobankat.models.SubscriptionOption
-import io.shortway.kobankat.models.isBasePlan
-import io.shortway.kobankat.models.isPrepaid
+import com.revenuecat.purchases.kmp.models.PricingPhase
+import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.isBasePlan
+import com.revenuecat.purchases.kmp.models.isPrepaid
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class SubscriptionOptionAPI {

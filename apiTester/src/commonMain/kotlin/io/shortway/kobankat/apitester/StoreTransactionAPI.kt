@@ -1,9 +1,9 @@
 package io.shortway.kobankat.apitester
 
-import io.shortway.kobankat.models.StoreTransaction
-import io.shortway.kobankat.models.productIds
-import io.shortway.kobankat.models.purchaseTime
-import io.shortway.kobankat.models.transactionId
+import com.revenuecat.purchases.kmp.models.StoreTransaction
+import com.revenuecat.purchases.kmp.models.productIds
+import com.revenuecat.purchases.kmp.models.purchaseTime
+import com.revenuecat.purchases.kmp.models.transactionId
 
 @Suppress("unused", "UNUSED_VARIABLE", "LongMethod")
 private class StoreTransactionAPI {
