@@ -1,10 +1,10 @@
 package io.shortway.kobankat.apitester
 
+import com.revenuecat.purchases.kmp.datetime.purchaseInstant
 import com.revenuecat.purchases.kmp.models.Transaction
 import com.revenuecat.purchases.kmp.models.productIdentifier
 import com.revenuecat.purchases.kmp.models.purchaseDateMillis
 import com.revenuecat.purchases.kmp.models.transactionIdentifier
-import io.shortway.kobankat.datetime.purchaseInstant
 import kotlinx.datetime.Instant
 
 @Suppress("unused", "UNUSED_VARIABLE")

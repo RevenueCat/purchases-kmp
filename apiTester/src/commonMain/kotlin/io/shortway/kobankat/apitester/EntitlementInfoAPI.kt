@@ -6,6 +6,11 @@ import com.revenuecat.purchases.kmp.PeriodType
 import com.revenuecat.purchases.kmp.Store
 import com.revenuecat.purchases.kmp.VerificationResult
 import com.revenuecat.purchases.kmp.billingIssueDetectedAtMillis
+import com.revenuecat.purchases.kmp.datetime.billingIssueDetectedAtInstant
+import com.revenuecat.purchases.kmp.datetime.expirationInstant
+import com.revenuecat.purchases.kmp.datetime.latestPurchaseInstant
+import com.revenuecat.purchases.kmp.datetime.originalPurchaseInstant
+import com.revenuecat.purchases.kmp.datetime.unsubscribeDetectedAtInstant
 import com.revenuecat.purchases.kmp.expirationDateMillis
 import com.revenuecat.purchases.kmp.identifier
 import com.revenuecat.purchases.kmp.isActive
@@ -20,11 +25,6 @@ import com.revenuecat.purchases.kmp.store
 import com.revenuecat.purchases.kmp.unsubscribeDetectedAtMillis
 import com.revenuecat.purchases.kmp.verification
 import com.revenuecat.purchases.kmp.willRenew
-import io.shortway.kobankat.datetime.billingIssueDetectedAtInstant
-import io.shortway.kobankat.datetime.expirationInstant
-import io.shortway.kobankat.datetime.latestPurchaseInstant
-import io.shortway.kobankat.datetime.originalPurchaseInstant
-import io.shortway.kobankat.datetime.unsubscribeDetectedAtInstant
 import kotlinx.datetime.Instant
 
 @Suppress("unused", "UNUSED_VARIABLE")

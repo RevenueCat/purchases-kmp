@@ -8,6 +8,12 @@ import com.revenuecat.purchases.kmp.activeSubscriptions
 import com.revenuecat.purchases.kmp.allExpirationDateMillis
 import com.revenuecat.purchases.kmp.allPurchaseDateMillis
 import com.revenuecat.purchases.kmp.allPurchasedProductIdentifiers
+import com.revenuecat.purchases.kmp.datetime.allExpirationInstants
+import com.revenuecat.purchases.kmp.datetime.allPurchaseInstants
+import com.revenuecat.purchases.kmp.datetime.firstSeenInstant
+import com.revenuecat.purchases.kmp.datetime.latestExpirationInstant
+import com.revenuecat.purchases.kmp.datetime.originalPurchaseInstant
+import com.revenuecat.purchases.kmp.datetime.requestInstant
 import com.revenuecat.purchases.kmp.entitlements
 import com.revenuecat.purchases.kmp.firstSeenMillis
 import com.revenuecat.purchases.kmp.latestExpirationDateMillis
@@ -17,12 +23,6 @@ import com.revenuecat.purchases.kmp.nonSubscriptionTransactions
 import com.revenuecat.purchases.kmp.originalAppUserId
 import com.revenuecat.purchases.kmp.originalPurchaseDateMillis
 import com.revenuecat.purchases.kmp.requestDateMillis
-import io.shortway.kobankat.datetime.allExpirationInstants
-import io.shortway.kobankat.datetime.allPurchaseInstants
-import io.shortway.kobankat.datetime.firstSeenInstant
-import io.shortway.kobankat.datetime.latestExpirationInstant
-import io.shortway.kobankat.datetime.originalPurchaseInstant
-import io.shortway.kobankat.datetime.requestInstant
 import kotlinx.datetime.Instant
 
 private class CustomerInfoAPI {

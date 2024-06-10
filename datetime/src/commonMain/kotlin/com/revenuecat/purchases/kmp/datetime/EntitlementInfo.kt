@@ -1,4 +1,4 @@
-package io.shortway.kobankat.datetime
+package com.revenuecat.purchases.kmp.datetime
 
 import com.revenuecat.purchases.kmp.EntitlementInfo
 import com.revenuecat.purchases.kmp.PeriodType
