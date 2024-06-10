@@ -50,7 +50,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.purchases.revenuecat.kmp.apitester"
+    namespace = "com.revenuecat.purchases.kmp.apitester"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()

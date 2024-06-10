@@ -12,5 +12,5 @@ kotlin {
 }
 
 android {
-    namespace = "com.purchases.revenuecat.kmp.either"
+    namespace = "com.revenuecat.purchases.kmp.either"
 }

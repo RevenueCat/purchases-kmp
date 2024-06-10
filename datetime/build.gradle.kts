@@ -12,5 +12,5 @@ kotlin {
 }
 
 android {
-    namespace = "com.purchases.revenuecat.kmp.datetime"
+    namespace = "com.revenuecat.purchases.kmp.datetime"
 }

@@ -56,7 +56,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.purchases.revenuecat.kmp.sample"
+    namespace = "com.revenuecat.purchases.kmp.sample"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
