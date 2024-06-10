@@ -6,7 +6,6 @@ import com.revenuecat.purchases.common.PlatformInfo
 import com.revenuecat.purchases.kmp.di.AndroidProvider
 import com.revenuecat.purchases.kmp.di.requireApplication
 import com.revenuecat.purchases.kmp.models.BillingFeature
-import io.shortway.kobankat.BuildKonfig
 import java.net.URL
 import com.revenuecat.purchases.DangerousSettings as RcDangerousSettings
 import com.revenuecat.purchases.Purchases as RcPurchases

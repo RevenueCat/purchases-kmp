@@ -31,7 +31,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.shortway.kobankat.ui.revenuecatui"
+    namespace = "com.purchases.revenuecat.kmp.ui.revenuecatui"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")

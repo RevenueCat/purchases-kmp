@@ -12,5 +12,5 @@ kotlin {
 }
 
 android {
-    namespace = "io.shortway.kobankat.datetime"
+    namespace = "com.purchases.revenuecat.kmp.datetime"
 }

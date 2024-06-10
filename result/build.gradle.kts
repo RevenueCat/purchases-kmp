@@ -11,5 +11,5 @@ kotlin {
 }
 
 android {
-    namespace = "io.shortway.kobankat.result"
+    namespace = "com.purchases.revenuecat.kmp.result"
 }

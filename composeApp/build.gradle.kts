@@ -56,7 +56,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.shortway.kobankat.sample"
+    namespace = "com.purchases.revenuecat.kmp.sample"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")

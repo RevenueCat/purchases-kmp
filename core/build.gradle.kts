@@ -34,11 +34,11 @@ kotlin {
 }
 
 android {
-    namespace = "io.shortway.kobankat"
+    namespace = "com.revenuecat.purchases.kmp"
 }
 
 buildkonfig {
-    packageName = "io.shortway.kobankat"
+    packageName = "com.revenuecat.purchases.kmp"
 
     defaultConfigs {
         buildConfigField(STRING, "platformFlavor", "kmp")

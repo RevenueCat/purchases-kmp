@@ -3,7 +3,6 @@ package com.revenuecat.purchases.kmp
 import com.revenuecat.purchases.kmp.PurchasesFactory.configure
 import com.revenuecat.purchases.kmp.PurchasesFactory.sharedInstance
 import com.revenuecat.purchases.kmp.models.BillingFeature
-import io.shortway.kobankat.BuildKonfig
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
 

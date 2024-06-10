@@ -6,7 +6,6 @@ import cocoapods.PurchasesHybridCommon.RCDangerousSettings
 import cocoapods.PurchasesHybridCommon.RCPurchases
 import cocoapods.PurchasesHybridCommon.configureWithAPIKey
 import com.revenuecat.purchases.kmp.models.BillingFeature
-import io.shortway.kobankat.BuildKonfig
 import platform.Foundation.NSURL
 
 public actual object PurchasesFactory {

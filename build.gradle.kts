@@ -23,7 +23,7 @@ plugins {
 }
 
 allprojects {
-    group = "io.shortway.kobankat"
+    group = "" // FIXME Check publishing
     version = rootProject.libs.versions.revenuecat.kmp.get()
 
     // NmcpPlugin publishes to a local repo when running assemble, meaning we need signing
