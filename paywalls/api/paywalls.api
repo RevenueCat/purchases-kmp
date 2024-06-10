@@ -1,57 +1,57 @@
-public final class io/shortway/kobankat/ui/revenuecatui/PaywallFooterKt {
-	public static final fun PaywallFooter (Lio/shortway/kobankat/ui/revenuecatui/PaywallOptions;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
+public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallFooterKt {
+	public static final fun PaywallFooter (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallOptions;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
 }
 
-public final class io/shortway/kobankat/ui/revenuecatui/PaywallKt {
-	public static final fun Paywall (Lio/shortway/kobankat/ui/revenuecatui/PaywallOptions;Landroidx/compose/runtime/Composer;I)V
+public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallKt {
+	public static final fun Paywall (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallOptions;Landroidx/compose/runtime/Composer;I)V
 }
 
-public abstract interface class io/shortway/kobankat/ui/revenuecatui/PaywallListener {
+public abstract interface class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener {
 	public abstract fun onPurchaseCancelled ()V
 	public abstract fun onPurchaseCompleted (Lcom/revenuecat/purchases/CustomerInfo;Lcom/revenuecat/purchases/models/StoreTransaction;)V
-	public abstract fun onPurchaseError (Lio/shortway/kobankat/PurchasesError;)V
+	public abstract fun onPurchaseError (Lcom/revenuecat/purchases/kmp/PurchasesError;)V
 	public abstract fun onPurchaseStarted (Lcom/revenuecat/purchases/Package;)V
 	public abstract fun onRestoreCompleted (Lcom/revenuecat/purchases/CustomerInfo;)V
-	public abstract fun onRestoreError (Lio/shortway/kobankat/PurchasesError;)V
+	public abstract fun onRestoreError (Lcom/revenuecat/purchases/kmp/PurchasesError;)V
 	public abstract fun onRestoreStarted ()V
 }
 
-public final class io/shortway/kobankat/ui/revenuecatui/PaywallListener$DefaultImpls {
-	public static fun onPurchaseCancelled (Lio/shortway/kobankat/ui/revenuecatui/PaywallListener;)V
-	public static fun onPurchaseCompleted (Lio/shortway/kobankat/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/CustomerInfo;Lcom/revenuecat/purchases/models/StoreTransaction;)V
-	public static fun onPurchaseError (Lio/shortway/kobankat/ui/revenuecatui/PaywallListener;Lio/shortway/kobankat/PurchasesError;)V
-	public static fun onPurchaseStarted (Lio/shortway/kobankat/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/Package;)V
-	public static fun onRestoreCompleted (Lio/shortway/kobankat/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/CustomerInfo;)V
-	public static fun onRestoreError (Lio/shortway/kobankat/ui/revenuecatui/PaywallListener;Lio/shortway/kobankat/PurchasesError;)V
-	public static fun onRestoreStarted (Lio/shortway/kobankat/ui/revenuecatui/PaywallListener;)V
+public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener$DefaultImpls {
+	public static fun onPurchaseCancelled (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;)V
+	public static fun onPurchaseCompleted (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/CustomerInfo;Lcom/revenuecat/purchases/models/StoreTransaction;)V
+	public static fun onPurchaseError (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/kmp/PurchasesError;)V
+	public static fun onPurchaseStarted (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/Package;)V
+	public static fun onRestoreCompleted (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/CustomerInfo;)V
+	public static fun onRestoreError (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/kmp/PurchasesError;)V
+	public static fun onRestoreStarted (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;)V
 }
 
-public final class io/shortway/kobankat/ui/revenuecatui/PaywallOptions {
+public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallOptions {
 	public static final field $stable I
-	public synthetic fun <init> (Lcom/revenuecat/purchases/Offering;ZLio/shortway/kobankat/ui/revenuecatui/PaywallListener;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Lcom/revenuecat/purchases/Offering;ZLcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getDismissRequest ()Lkotlin/jvm/functions/Function0;
-	public final fun getListener ()Lio/shortway/kobankat/ui/revenuecatui/PaywallListener;
+	public final fun getListener ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;
 	public final fun getOffering ()Lcom/revenuecat/purchases/Offering;
 	public final fun getShouldDisplayDismissButton ()Z
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/shortway/kobankat/ui/revenuecatui/PaywallOptions$Builder {
+public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallOptions$Builder {
 	public static final field $stable I
 	public fun <init> (Lkotlin/jvm/functions/Function0;)V
-	public final fun build ()Lio/shortway/kobankat/ui/revenuecatui/PaywallOptions;
+	public final fun build ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallOptions;
 	public final fun getDismissRequest ()Lkotlin/jvm/functions/Function0;
-	public final fun getListener ()Lio/shortway/kobankat/ui/revenuecatui/PaywallListener;
+	public final fun getListener ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;
 	public final fun getOffering ()Lcom/revenuecat/purchases/Offering;
 	public final fun getShouldDisplayDismissButton ()Z
 	public final fun setDismissRequest (Lkotlin/jvm/functions/Function0;)V
-	public final fun setListener (Lio/shortway/kobankat/ui/revenuecatui/PaywallListener;)V
+	public final fun setListener (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;)V
 	public final fun setOffering (Lcom/revenuecat/purchases/Offering;)V
 	public final fun setShouldDisplayDismissButton (Z)V
 }
 
-public final class io/shortway/kobankat/ui/revenuecatui/PaywallOptionsKt {
-	public static final synthetic fun PaywallOptions (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;)Lio/shortway/kobankat/ui/revenuecatui/PaywallOptions;
-	public static synthetic fun PaywallOptions$default (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lio/shortway/kobankat/ui/revenuecatui/PaywallOptions;
+public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallOptionsKt {
+	public static final synthetic fun PaywallOptions (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;)Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallOptions;
+	public static synthetic fun PaywallOptions$default (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallOptions;
 }
 
