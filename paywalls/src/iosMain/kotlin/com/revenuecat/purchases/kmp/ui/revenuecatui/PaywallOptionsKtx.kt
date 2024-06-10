@@ -2,10 +2,10 @@ package com.revenuecat.purchases.kmp.ui.revenuecatui
 
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewControllerDelegateProtocol
-import io.shortway.kobankat.CustomerInfo
-import io.shortway.kobankat.Package
-import io.shortway.kobankat.models.StoreTransaction
-import io.shortway.kobankat.toPurchasesErrorOrThrow
+import com.revenuecat.purchases.kmp.CustomerInfo
+import com.revenuecat.purchases.kmp.Package
+import com.revenuecat.purchases.kmp.models.StoreTransaction
+import com.revenuecat.purchases.kmp.toPurchasesErrorOrThrow
 import kotlinx.cinterop.CValue
 import kotlinx.cinterop.ObjCSignatureOverride
 import kotlinx.cinterop.memScoped
