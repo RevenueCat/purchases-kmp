@@ -13,7 +13,6 @@ commands:
       build-tools-version:
         description: The build tools version to install, e.g. "34.0.0".
         type: string
-        default: "<<parameters.platform-version>>.0.0"
     steps:
       - run:
           name: Install Android SDK commandline tools
@@ -63,6 +62,7 @@ jobs:
     steps:
       - install-android-sdk-on-macos:
           platform-version: "34"
+          build-tools-version: "34.0.0"
       - checkout
       - android/restore-gradle-cache
       - run:
