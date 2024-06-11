@@ -8,8 +8,12 @@ commands:
     description: Install the Android SDK on macOS
     parameters:
       platform-version:
-        description: The platform version to install, e.g. '34'.
-        type: integer
+        description: The platform version to install, e.g. "34".
+        type: string
+      build-tools-version:
+        description: The build tools version to install, e.g. "34.0.0".
+        type: string
+        default: "<<parameters.platform-version>>.0.0"
     steps:
       - run:
           name: Install Android SDK commandline tools
@@ -24,7 +28,7 @@ commands:
       - android/accept-licenses
       - run:
           name: Install Android SDK
-          command: sdkmanager "platform-tools" "platforms;android-<<parameters.platform-version>>" "build-tools;34.0.0"
+          command: sdkmanager "platform-tools" "platforms;android-<<parameters.platform-version>>" "build-tools;<<parameters.build-tools-version>>"
 
 executors:
   jdk17:
@@ -58,7 +62,7 @@ jobs:
     executor: xcode15
     steps:
       - install-android-sdk-on-macos:
-          platform-version: 34
+          platform-version: "34"
       - checkout
       - android/restore-gradle-cache
       - run:
