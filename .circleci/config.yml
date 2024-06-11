@@ -49,6 +49,10 @@ jobs:
       - android/accept-licenses
       - run:
           command: sdkmanager "platform-tools" "platforms;android-34"
+      - run:
+          command: echo $ANDROID_HOME
+      - run:
+          command: ls -lha $ANDROID_HOME
       - checkout
       - android/restore-gradle-cache
       - run:
