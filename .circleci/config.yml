@@ -47,7 +47,7 @@ jobs:
       - android/save-gradle-cache
       - run:
           name: Collect Detekt HTML reports
-          command: mv build/reports/detekt/*.html artifacts/detekt/
+          command: mkdir -p artifacts/detekt && mv build/reports/detekt/*.html artifacts/detekt/
       - store_artifacts:
           path: artifacts/detekt
           destination: detekt
