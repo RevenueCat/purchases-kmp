@@ -10,8 +10,6 @@ executors:
     resource_class: macos.m1.medium.gen1
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
-      # This is where sdkmanager installs the Android SDK.
-      ANDROID_HOME: $HOME/Library/Android/sdk
 
 orbs:
   android: circleci/android@2.5.0
@@ -49,6 +47,10 @@ jobs:
       - android/accept-licenses
       - run:
           command: sdkmanager "platform-tools" "platforms;android-34"
+      - run:
+          command: |
+            echo 'export ANDROID_HOME="$HOME/Library/Android/sdk"' >> "$BASH_ENV"
+            echo 'export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"' >> "$BASH_ENV"
       - run:
           command: echo $ANDROID_HOME
       - run:
