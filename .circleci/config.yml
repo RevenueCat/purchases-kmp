@@ -45,6 +45,8 @@ jobs:
           name: Run Detekt on commonMain
           command: ./gradlew detektCommonMain
       - android/save-gradle-cache
+      - store_artifacts:
+          path: build/reports
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
