@@ -39,7 +39,9 @@ jobs:
       - run:
           command: java -version
       - run:
-          command: /usr/libexec/java_home
+          command: /usr/libexec/java_home -V
+      - run:
+          command: echo $JAVA_HOME
       - run:
           command: brew install --cask android-commandlinetools
       - checkout
