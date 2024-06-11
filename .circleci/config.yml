@@ -53,7 +53,7 @@ jobs:
           command: sdkmanager --list
       - run:
           command: |
-            echo 'export ANDROID_HOME="$HOME/Library/Android/sdk"' >> "$BASH_ENV"
+            echo 'export ANDROID_HOME="$HOMEBREW_PREFIX/share/android-commandlinetools"' >> "$BASH_ENV"
             echo 'export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"' >> "$BASH_ENV"
       - run:
           command: echo $ANDROID_HOME
