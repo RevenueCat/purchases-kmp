@@ -1,19 +1,12 @@
 version: 2.1
 
-aliases:
-  android-executor: &android-executor
-    executor:
-      name: android/android-docker
-      resource-class: large
-      tag: 2024.04.1
-    environment:
-      JVM_OPTS: -Xmx6g
-      GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
-
 executors:
   jdk:
     docker:
       - image: cimg/openjdk:17.0
+    environment:
+      JVM_OPTS: -Xmx6g
+      GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
 
 orbs:
   android: circleci/android@2.5.0
