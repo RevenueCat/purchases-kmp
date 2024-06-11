@@ -44,6 +44,9 @@ jobs:
           command: echo $JAVA_HOME
       - run:
           command: brew install --cask android-commandlinetools
+      - run:
+          command: sdkmanager "platform-tools" "platforms;android-34"
+      - android/accept-licences
       - checkout
       - android/restore-gradle-cache
       - run:
