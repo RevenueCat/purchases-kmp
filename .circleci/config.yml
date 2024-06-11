@@ -1,5 +1,25 @@
 version: 2.1
 
+orbs:
+  android: circleci/android@2.5.0
+
+commands:
+  install-android-sdk-on-macos:
+    description: Install the Android SDK on macOS
+    steps:
+      - run:
+          name: Install the Android SDK commandline tools
+          command: brew install --cask android-commandlinetools
+      - run:
+          name: Set the Android SDK environment variables
+          command: |
+            echo 'export ANDROID_HOME="$HOMEBREW_PREFIX/share/android-commandlinetools"' >> "$BASH_ENV"
+            echo 'export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"' >> "$BASH_ENV"
+      - android/accept-licenses
+      - run:
+          name: Install Android platform 34
+          command: sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+
 executors:
   jdk17:
     docker:
@@ -10,9 +30,6 @@ executors:
     resource_class: macos.m1.medium.gen1
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
-
-orbs:
-  android: circleci/android@2.5.0
 
 jobs:
   detekt:
@@ -34,35 +51,7 @@ jobs:
   validate-binary-compatibility:
     executor: xcode15
     steps:
-      - run:
-          command: which -a java
-      - run:
-          command: java -version
-      - run:
-          command: /usr/libexec/java_home -V
-      - run:
-          command: echo $JAVA_HOME
-      - run:
-          command: brew install --cask android-commandlinetools
-      - android/accept-licenses
-      - run:
-          command: sdkmanager "platform-tools" "platforms;android-34"
-      - run:
-          command: which -a sdkmanager
-      - run:
-          command: sdkmanager --list
-      - run:
-          command: |
-            echo 'export ANDROID_HOME="$HOMEBREW_PREFIX/share/android-commandlinetools"' >> "$BASH_ENV"
-            echo 'export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"' >> "$BASH_ENV"
-      - run:
-          command: echo $ANDROID_HOME
-      - run:
-          command: echo "$HOMEBREW_PREFIX/share/android-commandlinetools"
-      - run:
-          command: ls -lha "$HOMEBREW_PREFIX/share/android-commandlinetools"
-      - run:
-          command: ls -lha $ANDROID_HOME
+      - install-android-sdk-on-macos
       - checkout
       - android/restore-gradle-cache
       - run:
