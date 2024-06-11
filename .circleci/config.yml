@@ -18,8 +18,6 @@ commands:
           name: Install Android SDK commandline tools
           command: brew install --cask android-commandlinetools
       - run:
-          command: sdkmanager --list
-      - run:
           name: Set Android SDK environment variables
           command: |
             echo 'export ANDROID_HOME="$HOMEBREW_PREFIX/share/android-commandlinetools"' >> "$BASH_ENV"
