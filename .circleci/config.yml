@@ -4,6 +4,9 @@ executors:
   jdk:
     docker:
       - image: cimg/openjdk:17.0
+  xcode15:
+    macos:
+      xcode: 15.4.0
 
 orbs:
   android: circleci/android@2.5.0
@@ -46,6 +49,17 @@ jobs:
       - store_artifacts:
           path: artifacts/detekt
           destination: detekt
+  validate-binary-compatibility:
+    executor: xcode15
+    steps:
+      - checkout
+      - install-sdkman
+      - android/restore-gradle-cache
+      - run:
+          name: Validate binary compatibility
+          command: ./gradlew apiCheck
+      - android/save-gradle-cache
+
 
 workflows:
   build-test-deploy:
