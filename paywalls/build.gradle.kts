@@ -1,5 +1,5 @@
 plugins {
-    id("kobankat-library")
+    id("revenuecat-library")
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.cocoapods)
@@ -31,7 +31,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.shortway.kobankat.ui.revenuecatui"
+    namespace = "com.revenuecat.purchases.kmp.ui.revenuecatui"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")

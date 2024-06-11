@@ -56,7 +56,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.shortway.kobankat.sample"
+    namespace = "com.revenuecat.purchases.kmp.sample"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -64,7 +64,7 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "io.shortway.kobankat.sample"
+        applicationId = "com.revenuecat.purchases_sample"
         minSdk = 24
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1

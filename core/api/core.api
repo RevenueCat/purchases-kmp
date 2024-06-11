@@ -1,4 +1,4 @@
-public final class io/shortway/kobankat/CustomerInfo_androidKt {
+public final class com/revenuecat/purchases/kmp/CustomerInfo_androidKt {
 	public static final fun getActiveSubscriptions (Lcom/revenuecat/purchases/CustomerInfo;)Ljava/util/Set;
 	public static final fun getAllExpirationDateMillis (Lcom/revenuecat/purchases/CustomerInfo;)Ljava/util/Map;
 	public static final fun getAllPurchaseDateMillis (Lcom/revenuecat/purchases/CustomerInfo;)Ljava/util/Map;
@@ -14,20 +14,20 @@ public final class io/shortway/kobankat/CustomerInfo_androidKt {
 	public static final fun getRequestDateMillis (Lcom/revenuecat/purchases/CustomerInfo;)J
 }
 
-public final class io/shortway/kobankat/DangerousSettings {
+public final class com/revenuecat/purchases/kmp/DangerousSettings {
 	public fun <init> ()V
 	public fun <init> (Z)V
 	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Z
-	public final fun copy (Z)Lio/shortway/kobankat/DangerousSettings;
-	public static synthetic fun copy$default (Lio/shortway/kobankat/DangerousSettings;ZILjava/lang/Object;)Lio/shortway/kobankat/DangerousSettings;
+	public final fun copy (Z)Lcom/revenuecat/purchases/kmp/DangerousSettings;
+	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/DangerousSettings;ZILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/DangerousSettings;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAutoSyncPurchases ()Z
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/shortway/kobankat/EntitlementInfo_androidKt {
+public final class com/revenuecat/purchases/kmp/EntitlementInfo_androidKt {
 	public static final fun getBillingIssueDetectedAtMillis (Lcom/revenuecat/purchases/EntitlementInfo;)Ljava/lang/Long;
 	public static final fun getExpirationDateMillis (Lcom/revenuecat/purchases/EntitlementInfo;)Ljava/lang/Long;
 	public static final fun getIdentifier (Lcom/revenuecat/purchases/EntitlementInfo;)Ljava/lang/String;
@@ -45,35 +45,35 @@ public final class io/shortway/kobankat/EntitlementInfo_androidKt {
 	public static final fun isSandbox (Lcom/revenuecat/purchases/EntitlementInfo;)Z
 }
 
-public final class io/shortway/kobankat/EntitlementInfosKt {
+public final class com/revenuecat/purchases/kmp/EntitlementInfosKt {
 	public static final fun get (Lcom/revenuecat/purchases/EntitlementInfos;Ljava/lang/String;)Lcom/revenuecat/purchases/EntitlementInfo;
 	public static final fun getActive (Lcom/revenuecat/purchases/EntitlementInfos;)Ljava/util/Map;
 }
 
-public final class io/shortway/kobankat/EntitlementInfos_androidKt {
+public final class com/revenuecat/purchases/kmp/EntitlementInfos_androidKt {
 	public static final fun getAll (Lcom/revenuecat/purchases/EntitlementInfos;)Ljava/util/Map;
 	public static final fun getVerification (Lcom/revenuecat/purchases/EntitlementInfos;)Lcom/revenuecat/purchases/VerificationResult;
 }
 
-public final class io/shortway/kobankat/EntitlementVerificationMode : java/lang/Enum {
-	public static final field DISABLED Lio/shortway/kobankat/EntitlementVerificationMode;
-	public static final field INFORMATIONAL Lio/shortway/kobankat/EntitlementVerificationMode;
+public final class com/revenuecat/purchases/kmp/EntitlementVerificationMode : java/lang/Enum {
+	public static final field DISABLED Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
+	public static final field INFORMATIONAL Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lio/shortway/kobankat/EntitlementVerificationMode;
-	public static fun values ()[Lio/shortway/kobankat/EntitlementVerificationMode;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
 }
 
-public final class io/shortway/kobankat/Errors_androidKt {
-	public static final fun toPurchasesError (Lcom/revenuecat/purchases/PurchasesError;)Lio/shortway/kobankat/PurchasesError;
+public final class com/revenuecat/purchases/kmp/Errors_androidKt {
+	public static final fun toPurchasesError (Lcom/revenuecat/purchases/PurchasesError;)Lcom/revenuecat/purchases/kmp/PurchasesError;
 }
 
-public final class io/shortway/kobankat/OfferingKt {
+public final class com/revenuecat/purchases/kmp/OfferingKt {
 	public static final fun get (Lcom/revenuecat/purchases/Offering;Ljava/lang/String;)Lcom/revenuecat/purchases/Package;
 	public static final fun getMetadataString (Lcom/revenuecat/purchases/Offering;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public static final fun getPackage (Lcom/revenuecat/purchases/Offering;Ljava/lang/String;)Lcom/revenuecat/purchases/Package;
 }
 
-public final class io/shortway/kobankat/Offering_androidKt {
+public final class com/revenuecat/purchases/kmp/Offering_androidKt {
 	public static final fun getAnnual (Lcom/revenuecat/purchases/Offering;)Lcom/revenuecat/purchases/Package;
 	public static final fun getAvailablePackages (Lcom/revenuecat/purchases/Offering;)Ljava/util/List;
 	public static final fun getIdentifier (Lcom/revenuecat/purchases/Offering;)Ljava/lang/String;
@@ -87,29 +87,29 @@ public final class io/shortway/kobankat/Offering_androidKt {
 	public static final fun getWeekly (Lcom/revenuecat/purchases/Offering;)Lcom/revenuecat/purchases/Package;
 }
 
-public final class io/shortway/kobankat/OfferingsKt {
+public final class com/revenuecat/purchases/kmp/OfferingsKt {
 	public static final fun get (Lcom/revenuecat/purchases/Offerings;Ljava/lang/String;)Lcom/revenuecat/purchases/Offering;
 	public static final fun getOffering (Lcom/revenuecat/purchases/Offerings;Ljava/lang/String;)Lcom/revenuecat/purchases/Offering;
 }
 
-public final class io/shortway/kobankat/Offerings_androidKt {
+public final class com/revenuecat/purchases/kmp/Offerings_androidKt {
 	public static final fun getAll (Lcom/revenuecat/purchases/Offerings;)Ljava/util/Map;
 	public static final fun getCurrent (Lcom/revenuecat/purchases/Offerings;)Lcom/revenuecat/purchases/Offering;
 	public static final fun getCurrentOfferingForPlacement (Lcom/revenuecat/purchases/Offerings;Ljava/lang/String;)Lcom/revenuecat/purchases/Offering;
 }
 
-public final class io/shortway/kobankat/PackageKt {
+public final class com/revenuecat/purchases/kmp/PackageKt {
 	public static final fun getIdentifier (Lcom/revenuecat/purchases/PackageType;)Ljava/lang/String;
 }
 
-public final class io/shortway/kobankat/Package_androidKt {
+public final class com/revenuecat/purchases/kmp/Package_androidKt {
 	public static final fun getIdentifier (Lcom/revenuecat/purchases/Package;)Ljava/lang/String;
 	public static final fun getPackageType (Lcom/revenuecat/purchases/Package;)Lcom/revenuecat/purchases/PackageType;
 	public static final fun getPresentedOfferingContext (Lcom/revenuecat/purchases/Package;)Lcom/revenuecat/purchases/PresentedOfferingContext;
-	public static final fun getStoreProduct (Lcom/revenuecat/purchases/Package;)Lio/shortway/kobankat/models/StoreProduct;
+	public static final fun getStoreProduct (Lcom/revenuecat/purchases/Package;)Lcom/revenuecat/purchases/kmp/models/StoreProduct;
 }
 
-public final class io/shortway/kobankat/PresentedOfferingContext_androidKt {
+public final class com/revenuecat/purchases/kmp/PresentedOfferingContext_androidKt {
 	public static final fun getOfferingIdentifier (Lcom/revenuecat/purchases/PresentedOfferingContext;)Ljava/lang/String;
 	public static final fun getPlacementIdentifier (Lcom/revenuecat/purchases/PresentedOfferingContext;)Ljava/lang/String;
 	public static final fun getRevision (Lcom/revenuecat/purchases/PresentedOfferingContext$TargetingContext;)I
@@ -117,132 +117,132 @@ public final class io/shortway/kobankat/PresentedOfferingContext_androidKt {
 	public static final fun getTargetingContext (Lcom/revenuecat/purchases/PresentedOfferingContext;)Lcom/revenuecat/purchases/PresentedOfferingContext$TargetingContext;
 }
 
-public final class io/shortway/kobankat/PurchasesConfiguration {
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;ZLcom/revenuecat/purchases/Store;ZLio/shortway/kobankat/DangerousSettings;Lio/shortway/kobankat/EntitlementVerificationMode;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+public final class com/revenuecat/purchases/kmp/PurchasesConfiguration {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;ZLcom/revenuecat/purchases/Store;ZLcom/revenuecat/purchases/kmp/DangerousSettings;Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getApiKey ()Ljava/lang/String;
 	public final fun getAppUserId ()Ljava/lang/String;
-	public final fun getDangerousSettings ()Lio/shortway/kobankat/DangerousSettings;
+	public final fun getDangerousSettings ()Lcom/revenuecat/purchases/kmp/DangerousSettings;
 	public final fun getDiagnosticsEnabled ()Z
 	public final fun getObserverMode ()Z
 	public final fun getShowInAppMessagesAutomatically ()Z
 	public final fun getStore ()Lcom/revenuecat/purchases/Store;
 	public final fun getUserDefaultsSuiteName ()Ljava/lang/String;
-	public final fun getVerificationMode ()Lio/shortway/kobankat/EntitlementVerificationMode;
+	public final fun getVerificationMode ()Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/shortway/kobankat/PurchasesConfiguration$Builder {
+public final class com/revenuecat/purchases/kmp/PurchasesConfiguration$Builder {
 	public fun <init> (Ljava/lang/String;)V
-	public final fun apiKey (Ljava/lang/String;)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
-	public final fun appUserId (Ljava/lang/String;)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
-	public final fun build ()Lio/shortway/kobankat/PurchasesConfiguration;
-	public final fun dangerousSettings (Lio/shortway/kobankat/DangerousSettings;)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
-	public final fun diagnosticsEnabled (Z)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
+	public final fun apiKey (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun appUserId (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun build ()Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;
+	public final fun dangerousSettings (Lcom/revenuecat/purchases/kmp/DangerousSettings;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun diagnosticsEnabled (Z)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
 	public final fun getApiKey ()Ljava/lang/String;
 	public final fun getAppUserId ()Ljava/lang/String;
-	public final fun getDangerousSettings ()Lio/shortway/kobankat/DangerousSettings;
+	public final fun getDangerousSettings ()Lcom/revenuecat/purchases/kmp/DangerousSettings;
 	public final fun getDiagnosticsEnabled ()Z
 	public final fun getObserverMode ()Z
 	public final fun getShowInAppMessagesAutomatically ()Z
 	public final fun getStore ()Lcom/revenuecat/purchases/Store;
 	public final fun getUserDefaultsSuiteName ()Ljava/lang/String;
-	public final fun getVerificationMode ()Lio/shortway/kobankat/EntitlementVerificationMode;
-	public final fun observerMode (Z)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
+	public final fun getVerificationMode ()Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
+	public final fun observerMode (Z)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
 	public final synthetic fun setApiKey (Ljava/lang/String;)V
 	public final synthetic fun setAppUserId (Ljava/lang/String;)V
-	public final synthetic fun setDangerousSettings (Lio/shortway/kobankat/DangerousSettings;)V
+	public final synthetic fun setDangerousSettings (Lcom/revenuecat/purchases/kmp/DangerousSettings;)V
 	public final synthetic fun setDiagnosticsEnabled (Z)V
 	public final synthetic fun setObserverMode (Z)V
 	public final synthetic fun setShowInAppMessagesAutomatically (Z)V
 	public final synthetic fun setStore (Lcom/revenuecat/purchases/Store;)V
 	public final synthetic fun setUserDefaultsSuiteName (Ljava/lang/String;)V
-	public final synthetic fun setVerificationMode (Lio/shortway/kobankat/EntitlementVerificationMode;)V
-	public final fun showInAppMessagesAutomatically (Z)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
-	public final fun store (Lcom/revenuecat/purchases/Store;)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
-	public final fun userDefaultsSuiteName (Ljava/lang/String;)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
-	public final fun verificationMode (Lio/shortway/kobankat/EntitlementVerificationMode;)Lio/shortway/kobankat/PurchasesConfiguration$Builder;
+	public final synthetic fun setVerificationMode (Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;)V
+	public final fun showInAppMessagesAutomatically (Z)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun store (Lcom/revenuecat/purchases/Store;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun userDefaultsSuiteName (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun verificationMode (Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
 }
 
-public final class io/shortway/kobankat/PurchasesConfigurationKt {
-	public static final synthetic fun PurchasesConfiguration (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lio/shortway/kobankat/PurchasesConfiguration;
-	public static synthetic fun PurchasesConfiguration$default (Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lio/shortway/kobankat/PurchasesConfiguration;
-	public static final synthetic fun configure (Lio/shortway/kobankat/PurchasesFactory;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/revenuecat/purchases/Purchases;
-	public static synthetic fun configure$default (Lio/shortway/kobankat/PurchasesFactory;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/Purchases;
+public final class com/revenuecat/purchases/kmp/PurchasesConfigurationKt {
+	public static final synthetic fun PurchasesConfiguration (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;
+	public static synthetic fun PurchasesConfiguration$default (Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;
+	public static final synthetic fun configure (Lcom/revenuecat/purchases/kmp/PurchasesFactory;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/revenuecat/purchases/Purchases;
+	public static synthetic fun configure$default (Lcom/revenuecat/purchases/kmp/PurchasesFactory;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/Purchases;
 }
 
-public abstract interface class io/shortway/kobankat/PurchasesDelegate {
+public abstract interface class com/revenuecat/purchases/kmp/PurchasesDelegate {
 	public abstract fun onCustomerInfoUpdated (Lcom/revenuecat/purchases/CustomerInfo;)V
-	public abstract fun onPurchasePromoProduct (Lio/shortway/kobankat/models/StoreProduct;Lkotlin/jvm/functions/Function2;)V
+	public abstract fun onPurchasePromoProduct (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;)V
 }
 
-public final class io/shortway/kobankat/PurchasesError {
-	public fun <init> (Lio/shortway/kobankat/PurchasesErrorCode;Ljava/lang/String;)V
-	public synthetic fun <init> (Lio/shortway/kobankat/PurchasesErrorCode;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getCode ()Lio/shortway/kobankat/PurchasesErrorCode;
+public final class com/revenuecat/purchases/kmp/PurchasesError {
+	public fun <init> (Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;Ljava/lang/String;)V
+	public synthetic fun <init> (Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getCode ()Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
 	public final fun getMessage ()Ljava/lang/String;
 	public final fun getUnderlyingErrorMessage ()Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/shortway/kobankat/PurchasesErrorCode : java/lang/Enum {
-	public static final field ApiEndpointBlocked Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field BeginRefundRequestError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field ConfigurationError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field CustomerInfoError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field EmptySubscriberAttributesError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field FeatureNotAvailableInCustomEntitlementsComputationMode Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field IneligibleError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field InsufficientPermissionsError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field InvalidAppUserIdError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field InvalidAppleSubscriptionKeyError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field InvalidCredentialsError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field InvalidPromotionalOfferError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field InvalidReceiptError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field InvalidSubscriberAttributesError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field LogOutWithAnonymousUserError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field MissingReceiptFileError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field NetworkError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field OfflineConnectionError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field OperationAlreadyInProgressError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field PaymentPendingError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field ProductAlreadyPurchasedError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field ProductDiscountMissingIdentifierError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field ProductDiscountMissingSubscriptionGroupIdentifierError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field ProductNotAvailableForPurchaseError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field ProductRequestTimedOut Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field PurchaseCancelledError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field PurchaseInvalidError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field PurchaseNotAllowedError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field ReceiptAlreadyInUseError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field ReceiptInUseByOtherSubscriberError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field SignatureVerificationError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field StoreProblemError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field SystemInfoError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field UnexpectedBackendResponseError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field UnknownBackendError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field UnknownError Lio/shortway/kobankat/PurchasesErrorCode;
-	public static final field UnsupportedError Lio/shortway/kobankat/PurchasesErrorCode;
+public final class com/revenuecat/purchases/kmp/PurchasesErrorCode : java/lang/Enum {
+	public static final field ApiEndpointBlocked Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field BeginRefundRequestError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field ConfigurationError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field CustomerInfoError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field EmptySubscriberAttributesError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field FeatureNotAvailableInCustomEntitlementsComputationMode Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field IneligibleError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field InsufficientPermissionsError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field InvalidAppUserIdError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field InvalidAppleSubscriptionKeyError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field InvalidCredentialsError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field InvalidPromotionalOfferError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field InvalidReceiptError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field InvalidSubscriberAttributesError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field LogOutWithAnonymousUserError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field MissingReceiptFileError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field NetworkError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field OfflineConnectionError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field OperationAlreadyInProgressError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field PaymentPendingError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field ProductAlreadyPurchasedError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field ProductDiscountMissingIdentifierError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field ProductDiscountMissingSubscriptionGroupIdentifierError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field ProductNotAvailableForPurchaseError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field ProductRequestTimedOut Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field PurchaseCancelledError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field PurchaseInvalidError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field PurchaseNotAllowedError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field ReceiptAlreadyInUseError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field ReceiptInUseByOtherSubscriberError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field SignatureVerificationError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field StoreProblemError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field SystemInfoError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field UnexpectedBackendResponseError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field UnknownBackendError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field UnknownError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static final field UnsupportedError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
 	public final fun getCode ()I
 	public final fun getDescription ()Ljava/lang/String;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lio/shortway/kobankat/PurchasesErrorCode;
-	public static fun values ()[Lio/shortway/kobankat/PurchasesErrorCode;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
 }
 
-public class io/shortway/kobankat/PurchasesException : java/lang/Exception {
-	public fun <init> (Lio/shortway/kobankat/PurchasesError;)V
-	public final fun getCode ()Lio/shortway/kobankat/PurchasesErrorCode;
-	public final fun getError ()Lio/shortway/kobankat/PurchasesError;
+public class com/revenuecat/purchases/kmp/PurchasesException : java/lang/Exception {
+	public fun <init> (Lcom/revenuecat/purchases/kmp/PurchasesError;)V
+	public final fun getCode ()Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
+	public final fun getError ()Lcom/revenuecat/purchases/kmp/PurchasesError;
 	public fun getMessage ()Ljava/lang/String;
 	public final fun getUnderlyingErrorMessage ()Ljava/lang/String;
 }
 
-public final class io/shortway/kobankat/PurchasesFactory {
-	public static final field INSTANCE Lio/shortway/kobankat/PurchasesFactory;
+public final class com/revenuecat/purchases/kmp/PurchasesFactory {
+	public static final field INSTANCE Lcom/revenuecat/purchases/kmp/PurchasesFactory;
 	public static final fun canMakePayments (Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
 	public static final fun canMakePayments (Lkotlin/jvm/functions/Function1;)V
 	public static synthetic fun canMakePayments$default (Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
-	public final fun configure (Lio/shortway/kobankat/PurchasesConfiguration;)Lcom/revenuecat/purchases/Purchases;
+	public final fun configure (Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;)Lcom/revenuecat/purchases/Purchases;
 	public static final fun getForceUniversalAppStore ()Z
 	public static final fun getLogHandler ()Lcom/revenuecat/purchases/LogHandler;
 	public static final fun getLogLevel ()Lcom/revenuecat/purchases/LogLevel;
@@ -257,39 +257,39 @@ public final class io/shortway/kobankat/PurchasesFactory {
 	public static final fun setSimulatesAskToBuyInSandbox (Z)V
 }
 
-public final class io/shortway/kobankat/PurchasesFactoryKt {
-	public static final fun getFrameworkVersion (Lio/shortway/kobankat/PurchasesFactory;)Ljava/lang/String;
+public final class com/revenuecat/purchases/kmp/PurchasesFactoryKt {
+	public static final fun getFrameworkVersion (Lcom/revenuecat/purchases/kmp/PurchasesFactory;)Ljava/lang/String;
 }
 
-public final class io/shortway/kobankat/PurchasesTransactionException : io/shortway/kobankat/PurchasesException {
-	public fun <init> (Lio/shortway/kobankat/PurchasesError;Z)V
+public final class com/revenuecat/purchases/kmp/PurchasesTransactionException : com/revenuecat/purchases/kmp/PurchasesException {
+	public fun <init> (Lcom/revenuecat/purchases/kmp/PurchasesError;Z)V
 	public final fun getUserCancelled ()Z
 }
 
-public final class io/shortway/kobankat/Purchases_androidKt {
+public final class com/revenuecat/purchases/kmp/Purchases_androidKt {
 	public static final fun close (Lcom/revenuecat/purchases/Purchases;)V
 	public static final fun collectDeviceIdentifiers (Lcom/revenuecat/purchases/Purchases;)V
 	public static final fun getAppUserID (Lcom/revenuecat/purchases/Purchases;)Ljava/lang/String;
 	public static final fun getCustomerInfo (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public static synthetic fun getCustomerInfo$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
-	public static final fun getDelegate (Lcom/revenuecat/purchases/Purchases;)Lio/shortway/kobankat/PurchasesDelegate;
+	public static final fun getDelegate (Lcom/revenuecat/purchases/Purchases;)Lcom/revenuecat/purchases/kmp/PurchasesDelegate;
 	public static final fun getFinishTransactions (Lcom/revenuecat/purchases/Purchases;)Z
 	public static final fun getOfferings (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public static final fun getProducts (Lcom/revenuecat/purchases/Purchases;Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
-	public static final fun getPromotionalOffer (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProductDiscount;Lio/shortway/kobankat/models/StoreProduct;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public static final fun getPromotionalOffer (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public static final fun getStore (Lcom/revenuecat/purchases/Purchases;)Lcom/revenuecat/purchases/Store;
 	public static final fun invalidateCustomerInfoCache (Lcom/revenuecat/purchases/Purchases;)V
 	public static final fun isAnonymous (Lcom/revenuecat/purchases/Purchases;)Z
 	public static final fun logIn (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
 	public static final fun logOut (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
-	public static final fun purchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Lio/shortway/kobankat/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
+	public static final fun purchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
 	public static final fun purchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;)V
+	public static final fun purchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
+	public static final fun purchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;)V
 	public static final fun purchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;)V
-	public static final fun purchase (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProduct;Lio/shortway/kobankat/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
-	public static final fun purchase (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProduct;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;)V
 	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;ILjava/lang/Object;)V
+	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;ILjava/lang/Object;)V
 	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;ILjava/lang/Object;)V
-	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProduct;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;ILjava/lang/Object;)V
 	public static final fun restorePurchases (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public static final fun setAd (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
 	public static final fun setAdGroup (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
@@ -300,7 +300,7 @@ public final class io/shortway/kobankat/Purchases_androidKt {
 	public static final fun setCampaign (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
 	public static final fun setCleverTapID (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
 	public static final fun setCreative (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setDelegate (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/PurchasesDelegate;)V
+	public static final fun setDelegate (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/PurchasesDelegate;)V
 	public static final fun setDisplayName (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
 	public static final fun setEmail (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
 	public static final fun setFBAnonymousID (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
@@ -321,60 +321,60 @@ public final class io/shortway/kobankat/Purchases_androidKt {
 	public static final fun syncPurchases (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 }
 
-public final class io/shortway/kobankat/UpdatedCustomerInfoDelegate : io/shortway/kobankat/PurchasesDelegate {
+public final class com/revenuecat/purchases/kmp/UpdatedCustomerInfoDelegate : com/revenuecat/purchases/kmp/PurchasesDelegate {
 	public fun <init> (Lkotlin/jvm/functions/Function1;)V
 	public fun onCustomerInfoUpdated (Lcom/revenuecat/purchases/CustomerInfo;)V
-	public fun onPurchasePromoProduct (Lio/shortway/kobankat/models/StoreProduct;Lkotlin/jvm/functions/Function2;)V
+	public fun onPurchasePromoProduct (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;)V
 }
 
-public final class io/shortway/kobankat/VerificationResultKt {
+public final class com/revenuecat/purchases/kmp/VerificationResultKt {
 	public static final fun isVerified (Lcom/revenuecat/purchases/VerificationResult;)Z
 }
 
-public final class io/shortway/kobankat/i18n/Locale {
-	public static final field Companion Lio/shortway/kobankat/i18n/Locale$Companion;
+public final class com/revenuecat/purchases/kmp/i18n/Locale {
+	public static final field Companion Lcom/revenuecat/purchases/kmp/i18n/Locale$Companion;
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getCountryCode ()Ljava/lang/String;
 	public final fun getLanguageCode ()Ljava/lang/String;
 }
 
-public final class io/shortway/kobankat/i18n/Locale$Companion {
-	public final fun create (Ljava/lang/String;Ljava/lang/String;)Lio/shortway/kobankat/i18n/Locale;
-	public final fun getDefault ()Lio/shortway/kobankat/i18n/Locale;
+public final class com/revenuecat/purchases/kmp/i18n/Locale$Companion {
+	public final fun create (Ljava/lang/String;Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/i18n/Locale;
+	public final fun getDefault ()Lcom/revenuecat/purchases/kmp/i18n/Locale;
 }
 
-public final class io/shortway/kobankat/i18n/Locale_androidKt {
-	public static final fun toJvmLocale (Lio/shortway/kobankat/i18n/Locale;)Ljava/util/Locale;
-	public static final fun toLocale (Ljava/util/Locale;)Lio/shortway/kobankat/i18n/Locale;
+public final class com/revenuecat/purchases/kmp/i18n/Locale_androidKt {
+	public static final fun toJvmLocale (Lcom/revenuecat/purchases/kmp/i18n/Locale;)Ljava/util/Locale;
+	public static final fun toLocale (Ljava/util/Locale;)Lcom/revenuecat/purchases/kmp/i18n/Locale;
 }
 
-public final class io/shortway/kobankat/ktx/CoroutinesKt {
+public final class com/revenuecat/purchases/kmp/ktx/CoroutinesKt {
 	public static final fun awaitCustomerInfo (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun awaitCustomerInfo$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun awaitGetProducts (Lcom/revenuecat/purchases/Purchases;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitLogIn (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitLogOut (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitOfferings (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitPromotionalOffer (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProductDiscount;Lio/shortway/kobankat/models/StoreProduct;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitPurchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Lio/shortway/kobankat/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPromotionalOffer (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPurchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPurchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitPurchase (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProduct;Lio/shortway/kobankat/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitPurchase (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/Purchases;Lio/shortway/kobankat/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun awaitRestore (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitSyncAttributesAndOfferingsIfNeeded (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitSyncPurchases (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public final class io/shortway/kobankat/ktx/SuccessfulLogin {
+public final class com/revenuecat/purchases/kmp/ktx/SuccessfulLogin {
 	public fun <init> (Lcom/revenuecat/purchases/CustomerInfo;Z)V
 	public final fun component1 ()Lcom/revenuecat/purchases/CustomerInfo;
 	public final fun component2 ()Z
-	public final fun copy (Lcom/revenuecat/purchases/CustomerInfo;Z)Lio/shortway/kobankat/ktx/SuccessfulLogin;
-	public static synthetic fun copy$default (Lio/shortway/kobankat/ktx/SuccessfulLogin;Lcom/revenuecat/purchases/CustomerInfo;ZILjava/lang/Object;)Lio/shortway/kobankat/ktx/SuccessfulLogin;
+	public final fun copy (Lcom/revenuecat/purchases/CustomerInfo;Z)Lcom/revenuecat/purchases/kmp/ktx/SuccessfulLogin;
+	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/ktx/SuccessfulLogin;Lcom/revenuecat/purchases/CustomerInfo;ZILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/ktx/SuccessfulLogin;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCreated ()Z
 	public final fun getCustomerInfo ()Lcom/revenuecat/purchases/CustomerInfo;
@@ -382,12 +382,12 @@ public final class io/shortway/kobankat/ktx/SuccessfulLogin {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/shortway/kobankat/ktx/SuccessfulPurchase {
+public final class com/revenuecat/purchases/kmp/ktx/SuccessfulPurchase {
 	public fun <init> (Lcom/revenuecat/purchases/models/StoreTransaction;Lcom/revenuecat/purchases/CustomerInfo;)V
 	public final fun component1 ()Lcom/revenuecat/purchases/models/StoreTransaction;
 	public final fun component2 ()Lcom/revenuecat/purchases/CustomerInfo;
-	public final fun copy (Lcom/revenuecat/purchases/models/StoreTransaction;Lcom/revenuecat/purchases/CustomerInfo;)Lio/shortway/kobankat/ktx/SuccessfulPurchase;
-	public static synthetic fun copy$default (Lio/shortway/kobankat/ktx/SuccessfulPurchase;Lcom/revenuecat/purchases/models/StoreTransaction;Lcom/revenuecat/purchases/CustomerInfo;ILjava/lang/Object;)Lio/shortway/kobankat/ktx/SuccessfulPurchase;
+	public final fun copy (Lcom/revenuecat/purchases/models/StoreTransaction;Lcom/revenuecat/purchases/CustomerInfo;)Lcom/revenuecat/purchases/kmp/ktx/SuccessfulPurchase;
+	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/ktx/SuccessfulPurchase;Lcom/revenuecat/purchases/models/StoreTransaction;Lcom/revenuecat/purchases/CustomerInfo;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/ktx/SuccessfulPurchase;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCustomerInfo ()Lcom/revenuecat/purchases/CustomerInfo;
 	public final fun getStoreTransaction ()Lcom/revenuecat/purchases/models/StoreTransaction;
@@ -395,61 +395,61 @@ public final class io/shortway/kobankat/ktx/SuccessfulPurchase {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class io/shortway/kobankat/models/BillingFeatureKt {
+public final class com/revenuecat/purchases/kmp/models/BillingFeatureKt {
 	public static final fun getPlayBillingClientName (Lcom/revenuecat/purchases/models/BillingFeature;)Ljava/lang/String;
 }
 
-public final class io/shortway/kobankat/models/DiscountPaymentMode : java/lang/Enum {
-	public static final field FREE_TRIAL Lio/shortway/kobankat/models/DiscountPaymentMode;
-	public static final field PAY_AS_YOU_GO Lio/shortway/kobankat/models/DiscountPaymentMode;
-	public static final field PAY_UP_FRONT Lio/shortway/kobankat/models/DiscountPaymentMode;
+public final class com/revenuecat/purchases/kmp/models/DiscountPaymentMode : java/lang/Enum {
+	public static final field FREE_TRIAL Lcom/revenuecat/purchases/kmp/models/DiscountPaymentMode;
+	public static final field PAY_AS_YOU_GO Lcom/revenuecat/purchases/kmp/models/DiscountPaymentMode;
+	public static final field PAY_UP_FRONT Lcom/revenuecat/purchases/kmp/models/DiscountPaymentMode;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lio/shortway/kobankat/models/DiscountPaymentMode;
-	public static fun values ()[Lio/shortway/kobankat/models/DiscountPaymentMode;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/DiscountPaymentMode;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/DiscountPaymentMode;
 }
 
-public final class io/shortway/kobankat/models/DiscountType : java/lang/Enum {
-	public static final field INTRODUCTORY Lio/shortway/kobankat/models/DiscountType;
-	public static final field PROMOTIONAL Lio/shortway/kobankat/models/DiscountType;
+public final class com/revenuecat/purchases/kmp/models/DiscountType : java/lang/Enum {
+	public static final field INTRODUCTORY Lcom/revenuecat/purchases/kmp/models/DiscountType;
+	public static final field PROMOTIONAL Lcom/revenuecat/purchases/kmp/models/DiscountType;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lio/shortway/kobankat/models/DiscountType;
-	public static fun values ()[Lio/shortway/kobankat/models/DiscountType;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/DiscountType;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/DiscountType;
 }
 
-public final class io/shortway/kobankat/models/GoogleReplacementModeKt {
+public final class com/revenuecat/purchases/kmp/models/GoogleReplacementModeKt {
 	public static final fun getPlayBillingClientMode (Lcom/revenuecat/purchases/models/GoogleReplacementMode;)I
 }
 
-public final class io/shortway/kobankat/models/PeriodKt {
+public final class com/revenuecat/purchases/kmp/models/PeriodKt {
 	public static final fun getValueInMonths (Lcom/revenuecat/purchases/models/Period;)D
 }
 
-public final class io/shortway/kobankat/models/Period_androidKt {
+public final class com/revenuecat/purchases/kmp/models/Period_androidKt {
 	public static final fun getUnit (Lcom/revenuecat/purchases/models/Period;)Lcom/revenuecat/purchases/models/Period$Unit;
 	public static final fun getValue (Lcom/revenuecat/purchases/models/Period;)I
 }
 
-public final class io/shortway/kobankat/models/PromotionalOffer {
+public final class com/revenuecat/purchases/kmp/models/PromotionalOffer {
 }
 
-public final class io/shortway/kobankat/models/PromotionalOffer_androidKt {
-	public static final fun getDiscount (Lio/shortway/kobankat/models/PromotionalOffer;)Lio/shortway/kobankat/models/StoreProductDiscount;
+public final class com/revenuecat/purchases/kmp/models/PromotionalOffer_androidKt {
+	public static final fun getDiscount (Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;)Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;
 }
 
-public final class io/shortway/kobankat/models/RecurrenceModeKt {
+public final class com/revenuecat/purchases/kmp/models/RecurrenceModeKt {
 	public static final fun getIdentifier (Lcom/revenuecat/purchases/models/RecurrenceMode;)Ljava/lang/Integer;
 }
 
-public final class io/shortway/kobankat/models/StoreMessageType : java/lang/Enum {
-	public static final field BILLING_ISSUES Lio/shortway/kobankat/models/StoreMessageType;
-	public static final field GENERIC Lio/shortway/kobankat/models/StoreMessageType;
-	public static final field PRICE_INCREASE_CONSENT Lio/shortway/kobankat/models/StoreMessageType;
+public final class com/revenuecat/purchases/kmp/models/StoreMessageType : java/lang/Enum {
+	public static final field BILLING_ISSUES Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
+	public static final field GENERIC Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
+	public static final field PRICE_INCREASE_CONSENT Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lio/shortway/kobankat/models/StoreMessageType;
-	public static fun values ()[Lio/shortway/kobankat/models/StoreMessageType;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
 }
 
-public final class io/shortway/kobankat/models/StoreProduct : com/revenuecat/purchases/models/StoreProduct {
+public final class com/revenuecat/purchases/kmp/models/StoreProduct : com/revenuecat/purchases/models/StoreProduct {
 	public fun <init> (Lcom/revenuecat/purchases/models/StoreProduct;)V
 	public fun copyWithOfferingId (Ljava/lang/String;)Lcom/revenuecat/purchases/models/StoreProduct;
 	public fun copyWithPresentedOfferingContext (Lcom/revenuecat/purchases/PresentedOfferingContext;)Lcom/revenuecat/purchases/models/StoreProduct;
@@ -472,46 +472,46 @@ public final class io/shortway/kobankat/models/StoreProduct : com/revenuecat/pur
 	public fun pricePerYear (Ljava/util/Locale;)Lcom/revenuecat/purchases/models/Price;
 }
 
-public final class io/shortway/kobankat/models/StoreProductDiscount {
+public final class com/revenuecat/purchases/kmp/models/StoreProductDiscount {
 	public final fun getNumberOfPeriods ()J
 	public final fun getOfferIdentifier ()Ljava/lang/String;
-	public final fun getPaymentMode ()Lio/shortway/kobankat/models/DiscountPaymentMode;
+	public final fun getPaymentMode ()Lcom/revenuecat/purchases/kmp/models/DiscountPaymentMode;
 	public final fun getPrice ()Lcom/revenuecat/purchases/models/Price;
 	public final fun getSubscriptionPeriod ()Lcom/revenuecat/purchases/models/Period;
-	public final fun getType ()Lio/shortway/kobankat/models/DiscountType;
+	public final fun getType ()Lcom/revenuecat/purchases/kmp/models/DiscountType;
 }
 
-public final class io/shortway/kobankat/models/StoreProductDiscount_androidKt {
-	public static final fun getNumberOfPeriods (Lio/shortway/kobankat/models/StoreProductDiscount;)J
-	public static final fun getOfferIdentifier (Lio/shortway/kobankat/models/StoreProductDiscount;)Ljava/lang/String;
-	public static final fun getPaymentMode (Lio/shortway/kobankat/models/StoreProductDiscount;)Lio/shortway/kobankat/models/DiscountPaymentMode;
-	public static final fun getSubscriptionPeriod (Lio/shortway/kobankat/models/StoreProductDiscount;)Lcom/revenuecat/purchases/models/Period;
-	public static final fun getType (Lio/shortway/kobankat/models/StoreProductDiscount;)Lio/shortway/kobankat/models/DiscountType;
-	public static final fun price (Lio/shortway/kobankat/models/StoreProductDiscount;Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/models/Price;
+public final class com/revenuecat/purchases/kmp/models/StoreProductDiscount_androidKt {
+	public static final fun getNumberOfPeriods (Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;)J
+	public static final fun getOfferIdentifier (Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;)Ljava/lang/String;
+	public static final fun getPaymentMode (Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;)Lcom/revenuecat/purchases/kmp/models/DiscountPaymentMode;
+	public static final fun getSubscriptionPeriod (Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;)Lcom/revenuecat/purchases/models/Period;
+	public static final fun getType (Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;)Lcom/revenuecat/purchases/kmp/models/DiscountType;
+	public static final fun price (Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/models/Price;
 }
 
-public final class io/shortway/kobankat/models/StoreProduct_androidKt {
-	public static final fun getDefaultOption (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/models/SubscriptionOption;
-	public static final fun getDescription (Lio/shortway/kobankat/models/StoreProduct;)Ljava/lang/String;
-	public static final fun getDiscounts (Lio/shortway/kobankat/models/StoreProduct;)Ljava/util/List;
-	public static final fun getId (Lio/shortway/kobankat/models/StoreProduct;)Ljava/lang/String;
-	public static final fun getIntroductoryDiscount (Lio/shortway/kobankat/models/StoreProduct;)Lio/shortway/kobankat/models/StoreProductDiscount;
-	public static final fun getPeriod (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/models/Period;
-	public static final fun getPresentedOfferingContext (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/PresentedOfferingContext;
-	public static final fun getPrice (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/models/Price;
-	public static final fun getPurchasingData (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/models/PurchasingData;
-	public static final fun getSubscriptionOptions (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/models/SubscriptionOptions;
-	public static final fun getTitle (Lio/shortway/kobankat/models/StoreProduct;)Ljava/lang/String;
-	public static final fun getType (Lio/shortway/kobankat/models/StoreProduct;)Lcom/revenuecat/purchases/ProductType;
+public final class com/revenuecat/purchases/kmp/models/StoreProduct_androidKt {
+	public static final fun getDefaultOption (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/models/SubscriptionOption;
+	public static final fun getDescription (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Ljava/lang/String;
+	public static final fun getDiscounts (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Ljava/util/List;
+	public static final fun getId (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Ljava/lang/String;
+	public static final fun getIntroductoryDiscount (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;
+	public static final fun getPeriod (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/models/Period;
+	public static final fun getPresentedOfferingContext (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/PresentedOfferingContext;
+	public static final fun getPrice (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/models/Price;
+	public static final fun getPurchasingData (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/models/PurchasingData;
+	public static final fun getSubscriptionOptions (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/models/SubscriptionOptions;
+	public static final fun getTitle (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Ljava/lang/String;
+	public static final fun getType (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/ProductType;
 }
 
-public final class io/shortway/kobankat/models/StoreTransaction_androidKt {
+public final class com/revenuecat/purchases/kmp/models/StoreTransaction_androidKt {
 	public static final fun getProductIds (Lcom/revenuecat/purchases/models/StoreTransaction;)Ljava/util/List;
 	public static final fun getPurchaseTime (Lcom/revenuecat/purchases/models/StoreTransaction;)J
 	public static final fun getTransactionId (Lcom/revenuecat/purchases/models/StoreTransaction;)Ljava/lang/String;
 }
 
-public final class io/shortway/kobankat/models/SubscriptionOptionKt {
+public final class com/revenuecat/purchases/kmp/models/SubscriptionOptionKt {
 	public static final fun getBillingPeriod (Lcom/revenuecat/purchases/models/SubscriptionOption;)Lcom/revenuecat/purchases/models/Period;
 	public static final fun getFreePhase (Lcom/revenuecat/purchases/models/SubscriptionOption;)Lcom/revenuecat/purchases/models/PricingPhase;
 	public static final fun getFullPricePhase (Lcom/revenuecat/purchases/models/SubscriptionOption;)Lcom/revenuecat/purchases/models/PricingPhase;
@@ -520,7 +520,7 @@ public final class io/shortway/kobankat/models/SubscriptionOptionKt {
 	public static final fun isPrepaid (Lcom/revenuecat/purchases/models/SubscriptionOption;)Z
 }
 
-public final class io/shortway/kobankat/models/Transaction_androidKt {
+public final class com/revenuecat/purchases/kmp/models/Transaction_androidKt {
 	public static final fun getProductIdentifier (Lcom/revenuecat/purchases/models/Transaction;)Ljava/lang/String;
 	public static final fun getPurchaseDateMillis (Lcom/revenuecat/purchases/models/Transaction;)J
 	public static final fun getTransactionIdentifier (Lcom/revenuecat/purchases/models/Transaction;)Ljava/lang/String;

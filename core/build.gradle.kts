@@ -1,7 +1,7 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 
 plugins {
-    id("kobankat-library")
+    id("revenuecat-library")
     alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.codingfeline.buildkonfig)
 }
@@ -22,7 +22,7 @@ kotlin {
         ios.deploymentTarget = "11.0"
 
         framework {
-            baseName = "KobanKat"
+            baseName = "Purchases"
             isStatic = true
         }
 
@@ -34,11 +34,11 @@ kotlin {
 }
 
 android {
-    namespace = "io.shortway.kobankat"
+    namespace = "com.revenuecat.purchases.kmp"
 }
 
 buildkonfig {
-    packageName = "io.shortway.kobankat"
+    packageName = "com.revenuecat.purchases.kmp"
 
     defaultConfigs {
         buildConfigField(STRING, "platformFlavor", "kmp")

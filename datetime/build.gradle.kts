@@ -1,5 +1,5 @@
 plugins {
-    id("kobankat-library")
+    id("revenuecat-library")
 }
 
 kotlin {
@@ -12,5 +12,5 @@ kotlin {
 }
 
 android {
-    namespace = "io.shortway.kobankat.datetime"
+    namespace = "com.revenuecat.purchases.kmp.datetime"
 }

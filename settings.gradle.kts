@@ -17,7 +17,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "KobanKat"
+rootProject.name = "purchases-kmp"
 include(":apiTester")
 include(":core")
 include(":result")

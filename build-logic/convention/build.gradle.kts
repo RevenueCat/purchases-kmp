@@ -4,7 +4,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "io.shortway.kobankat.buildlogic"
+group = "com.revenuecat.purchases.kmp.buildlogic"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -24,8 +24,9 @@ dependencies {
 gradlePlugin {
     plugins {
         register("Library") {
-            id = "kobankat-library"
-            implementationClass = "io.shortway.kobankat.buildlogic.plugin.LibraryConventionPlugin"
+            id = "revenuecat-library"
+            implementationClass =
+                "com.revenuecat.purchases.kmp.buildlogic.plugin.LibraryConventionPlugin"
         }
     }
 }

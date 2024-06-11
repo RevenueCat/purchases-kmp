@@ -1,4 +1,4 @@
-public final class io/shortway/kobankat/datetime/CustomerInfoKt {
+public final class com/revenuecat/purchases/kmp/datetime/CustomerInfoKt {
 	public static final fun getAllExpirationInstants (Lcom/revenuecat/purchases/CustomerInfo;)Ljava/util/Map;
 	public static final fun getAllPurchaseInstants (Lcom/revenuecat/purchases/CustomerInfo;)Ljava/util/Map;
 	public static final fun getFirstSeenInstant (Lcom/revenuecat/purchases/CustomerInfo;)Lkotlinx/datetime/Instant;
@@ -7,7 +7,7 @@ public final class io/shortway/kobankat/datetime/CustomerInfoKt {
 	public static final fun getRequestInstant (Lcom/revenuecat/purchases/CustomerInfo;)Lkotlinx/datetime/Instant;
 }
 
-public final class io/shortway/kobankat/datetime/EntitlementInfoKt {
+public final class com/revenuecat/purchases/kmp/datetime/EntitlementInfoKt {
 	public static final fun getBillingIssueDetectedAtInstant (Lcom/revenuecat/purchases/EntitlementInfo;)Lkotlinx/datetime/Instant;
 	public static final fun getExpirationInstant (Lcom/revenuecat/purchases/EntitlementInfo;)Lkotlinx/datetime/Instant;
 	public static final fun getLatestPurchaseInstant (Lcom/revenuecat/purchases/EntitlementInfo;)Lkotlinx/datetime/Instant;
@@ -15,7 +15,7 @@ public final class io/shortway/kobankat/datetime/EntitlementInfoKt {
 	public static final fun getUnsubscribeDetectedAtInstant (Lcom/revenuecat/purchases/EntitlementInfo;)Lkotlinx/datetime/Instant;
 }
 
-public final class io/shortway/kobankat/datetime/TransactionKt {
+public final class com/revenuecat/purchases/kmp/datetime/TransactionKt {
 	public static final fun getPurchaseInstant (Lcom/revenuecat/purchases/models/Transaction;)Lkotlinx/datetime/Instant;
 }
 
