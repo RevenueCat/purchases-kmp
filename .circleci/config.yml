@@ -48,11 +48,19 @@ jobs:
       - run:
           command: sdkmanager "platform-tools" "platforms;android-34"
       - run:
+          command: which -a sdkmanager
+      - run:
+          command: sdkmanager --list
+      - run:
           command: |
             echo 'export ANDROID_HOME="$HOME/Library/Android/sdk"' >> "$BASH_ENV"
             echo 'export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"' >> "$BASH_ENV"
       - run:
           command: echo $ANDROID_HOME
+      - run:
+          command: echo "$HOMEBREW_PREFIX/share/android-commandlinetools"
+      - run:
+          command: ls -lha "$HOMEBREW_PREFIX/share/android-commandlinetools"
       - run:
           command: ls -lha $ANDROID_HOME
       - checkout
