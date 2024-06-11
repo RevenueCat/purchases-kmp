@@ -1,9 +1,9 @@
 version: 2.1
 
 executors:
-  docker-base:
+  jdk17:
     docker:
-      - image: cimg/base:2024.06
+      - image: cimg/openjdk:17.0
   xcode15:
     macos:
       xcode: 15.4.0
@@ -34,7 +34,7 @@ commands:
 
 jobs:
   detekt:
-    executor: docker-base
+    executor: jdk17
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
