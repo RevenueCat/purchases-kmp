@@ -68,3 +68,4 @@ workflows:
         equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
       - detekt
+      - validate-binary-compatibility
