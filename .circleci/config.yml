@@ -12,33 +12,12 @@ executors:
 orbs:
   android: circleci/android@2.5.0
 
-commands:
-  install-sdkman:
-    description: Install SDKMAN
-    steps:
-      - run:
-          name: Installing SDKMAN
-          command: |
-            if curl -s "https://get.sdkman.io?rcupdate=false" | bash; then
-              echo -e '\nsource "$HOME/.sdkman/bin/sdkman-init.sh"' >> $BASH_ENV
-              source $BASH_ENV
-            else
-              echo "Error installing SDKMAN, continuing with default Java" >&2
-            fi
-      - run:
-          name: Setup Java environment
-          command: |
-            if ! sdk env install; then
-              echo "Error installing Java SDK through SDKMAN, continuing with default Java" >&2
-            fi
-
 jobs:
   detekt:
     executor: jdk17
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
-      - install-sdkman
       - android/restore-gradle-cache
       - run:
           name: Run Detekt on commonMain
@@ -54,7 +33,6 @@ jobs:
     executor: xcode15
     steps:
       - checkout
-      - install-sdkman
       - android/restore-gradle-cache
       - run:
           name: Validate binary compatibility
