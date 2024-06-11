@@ -36,7 +36,7 @@ commands:
 jobs:
   detekt:
     <<: *android-executor
-    shell: /bin/bash --login set -euo pipefail
+    shell: /bin/bash --login -euo pipefail
     steps:
       - checkout
       - install-sdkman
