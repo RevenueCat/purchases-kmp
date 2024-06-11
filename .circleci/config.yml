@@ -46,7 +46,8 @@ jobs:
           command: ./gradlew detektCommonMain
       - android/save-gradle-cache
       - store_artifacts:
-          path: build/reports
+          path: build/reports/detekt/*.html
+          destination: detekt
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
