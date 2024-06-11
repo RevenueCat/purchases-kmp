@@ -8,6 +8,8 @@ executors:
     macos:
       xcode: 15.4.0
     resource_class: macos.m1.medium.gen1
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
 
 orbs:
   android: circleci/android@2.5.0
@@ -32,6 +34,14 @@ jobs:
   validate-binary-compatibility:
     executor: xcode15
     steps:
+      - run:
+          command: which -a java
+      - run:
+          command: java -version
+      - run:
+          command: /usr/libexec/java_home
+      - run:
+          command: brew install --cask android-commandlinetools
       - checkout
       - android/restore-gradle-cache
       - run:
