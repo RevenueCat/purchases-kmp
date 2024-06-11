@@ -48,8 +48,6 @@ jobs:
       - store_artifacts:
           path: build/reports/detekt
           destination: detekt
-      - store_test_results:
-          path: build/reports/detekt
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
