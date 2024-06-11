@@ -45,8 +45,11 @@ jobs:
           name: Run Detekt on commonMain
           command: ./gradlew detektCommonMain
       - android/save-gradle-cache
+      - run:
+          name: Collect Detekt HTML reports
+          command: mv build/reports/detekt/*.html artifacts/detekt/
       - store_artifacts:
-          path: build/reports/detekt
+          path: artifacts/detekt
           destination: detekt
 
 # Orchestrate jobs using workflows
