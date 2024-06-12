@@ -70,7 +70,7 @@ workflows:
     # On all pushes to main, except when it's a scheduled pipeline.
     when:
       and:
-        - equal: [ main, << pipeline.git.branch >> ]
+        #- equal: [ main, << pipeline.git.branch >> ]
         - not:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
