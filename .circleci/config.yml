@@ -32,7 +32,7 @@ commands:
               echo "$version is not a SNAPSHOT version. Exiting..."
               exit 1
             else
-              echo "$version is a SNAPSHOT version. Continuing..."
+              echo "$version is a SNAPSHOT version. Proceeding..."
             fi
 
 executors:
