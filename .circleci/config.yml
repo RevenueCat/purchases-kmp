@@ -19,11 +19,23 @@ commands:
       - run:
           name: Install Android SDK platform tools
           command: sdkmanager "platform-tools"
+  require-snapshot-version:
+    description: Check that the current version is a SNAPSHOT version
+    steps:
+      - run:
+          name: Check that the current version is a SNAPSHOT version
+          command: |
+            set -euo pipefail
+            file_path="gradle/libs.versions.toml"
+            version=$(grep 'revenuecat-kmp = ' "$file_path" | awk -F ' = ' '{print $2}' | tr -d '"')
+            if [[ ! "$version" =~ -SNAPSHOT$ ]]; then
+              echo "$version is not a SNAPSHOT version. Exiting..."
+              exit 1
+            else
+              echo "$version is a SNAPSHOT version. Continuing..."
+            fi
 
 executors:
-  jdk17:
-    docker:
-      - image: cimg/openjdk:17.0
   xcode15:
     macos:
       xcode: 15.4.0
@@ -32,39 +44,12 @@ executors:
       HOMEBREW_NO_AUTO_UPDATE: 1
 
 jobs:
-  detekt:
-    executor: jdk17
-    shell: /bin/bash --login -o pipefail
-    steps:
-      - checkout
-      - android/restore-gradle-cache
-      - run:
-          name: Run Detekt on commonMain
-          command: ./gradlew detektCommonMain
-      - android/save-gradle-cache
-      - run:
-          name: Collect Detekt HTML reports
-          command: mkdir -p artifacts/detekt && mv build/reports/detekt/*.html artifacts/detekt/
-      - store_artifacts:
-          path: artifacts/detekt
-          destination: detekt
-
-  validate-binary-compatibility:
-    executor: xcode15
-    steps:
-      - install-android-sdk-on-macos
-      - checkout
-      - android/restore-gradle-cache
-      - run:
-          name: Validate binary compatibility
-          command: ./gradlew apiCheck
-      - android/save-gradle-cache
-
   deploy-snapshot:
     executor: xcode15
     steps:
-      - install-android-sdk-on-macos
       - checkout
+      - require-snapshot-version
+      - install-android-sdk-on-macos
       - android/restore-gradle-cache
       - android/restore-build-cache
       - run:
@@ -81,12 +66,13 @@ jobs:
       - android/save-build-cache
 
 workflows:
-  build-test-deploy:
+  on-main:
+    # On all pushes to main, except when it's a scheduled pipeline.
     when:
-      not:
-        equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+      and:
+        - equal: [ main, << pipeline.git.branch >> ]
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
-      - detekt
-      - validate-binary-compatibility
       - deploy-snapshot:
           context: maven-central-publishing
