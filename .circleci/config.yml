@@ -28,7 +28,7 @@ commands:
             set -euo pipefail
             file_path="gradle/libs.versions.toml"
             version=$(grep 'revenuecat-kmp = ' "$file_path" | awk -F ' = ' '{print $2}' | tr -d '"')
-            if [[ ! "$version" =~ -SNAPSHOT$ ]]; then
+            if [[ "$version" =~ -SNAPSHOT$ ]]; then
               echo "$version is not a SNAPSHOT version. Exiting..."
               exit 1
             else
