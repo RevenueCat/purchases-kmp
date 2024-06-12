@@ -23,9 +23,9 @@ commands:
             echo 'export ANDROID_HOME="$HOMEBREW_PREFIX/share/android-commandlinetools"' >> "$BASH_ENV"
             echo 'export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"' >> "$BASH_ENV"
       - android/accept-licenses
-      - run:
-          name: Install Android SDK
-          command: sdkmanager "platform-tools" "platforms;android-<<parameters.platform-version>>" "build-tools;<<parameters.build-tools-version>>"
+#      - run:
+#          name: Install Android SDK
+#          command: sdkmanager "platform-tools" "platforms;android-<<parameters.platform-version>>" "build-tools;<<parameters.build-tools-version>>"
 
 executors:
   jdk17:
@@ -55,6 +55,7 @@ jobs:
       - store_artifacts:
           path: artifacts/detekt
           destination: detekt
+
   validate-binary-compatibility:
     executor: xcode15
     steps:
@@ -68,6 +69,26 @@ jobs:
           command: ./gradlew apiCheck
       - android/save-gradle-cache
 
+#  deploy-snapshot:
+#    executor: xcode15
+#    steps:
+#      - install-android-sdk-on-macos:
+#          platform-version: "34"
+#          build-tools-version: "34.0.0"
+#      - checkout
+#      - android/restore-gradle-cache:
+#      - android/restore-build-cache:
+#      - prepare-signing-key
+#      - run:
+#        name: Publish snapshot to Maven Central
+#        command: ./gradlew publishAllPublicationsToCentralPortal --no-configuration-cache
+#        env:
+#          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.RC_SONATYPE_CENTRAL_USERNAME }}
+#          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.RC_SONATYPE_CENTRAL_PASSWORD }}
+#          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.RC_ARTIFACT_SIGNING_PRIVATE_KEY }}
+#          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.RC_ARTIFACT_SIGNING_PRIVATE_KEY_PASSWORD }}
+#      - android/save-gradle-cache:
+#      - android/save-build-cache:
 
 workflows:
   build-test-deploy:
