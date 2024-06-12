@@ -25,7 +25,6 @@ class LibraryConventionPlugin : Plugin<Project> {
             apply("dev.adamko.dokkatoo-html")
             apply("io.gitlab.arturbosch.detekt")
             apply("com.vanniktech.maven.publish")
-            apply("com.gradleup.nmcp")
         }
 
         extensions.configure<KotlinMultiplatformExtension> {
