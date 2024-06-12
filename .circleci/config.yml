@@ -62,7 +62,7 @@ jobs:
 
   deploy-snapshot:
     executor: xcode15
-    shell: /bin/bash --login -euo pipefail
+    #shell: /bin/bash --login -euo pipefail
     steps:
       - install-android-sdk-on-macos
       - checkout
