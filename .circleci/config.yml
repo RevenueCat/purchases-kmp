@@ -52,7 +52,7 @@ jobs:
   validate-binary-compatibility:
     executor: xcode15
     steps:
-      - install-android-sdk-on-macos:
+      - install-android-sdk-on-macos
       - checkout
       - android/restore-gradle-cache
       - run:
@@ -63,7 +63,7 @@ jobs:
 #  deploy-snapshot:
 #    executor: xcode15
 #    steps:
-#      - install-android-sdk-on-macos:
+#      - install-android-sdk-on-macos
 #      - checkout
 #      - android/restore-gradle-cache:
 #      - android/restore-build-cache:
