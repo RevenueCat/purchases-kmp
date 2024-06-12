@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <result>
+// Library unique name: <com.revenuecat.purchases:result>
 final suspend fun (cocoapods.PurchasesHybridCommon/RCPurchases).com.revenuecat.purchases.kmp.result/awaitCustomerInfoResult(com.revenuecat.purchases.kmp/CacheFetchPolicy = ...): kotlin/Result<cocoapods.PurchasesHybridCommon/RCCustomerInfo> // com.revenuecat.purchases.kmp.result/awaitCustomerInfoResult|awaitCustomerInfoResult@cocoapods.PurchasesHybridCommon.RCPurchases(com.revenuecat.purchases.kmp.CacheFetchPolicy){}[0]
 final suspend fun (cocoapods.PurchasesHybridCommon/RCPurchases).com.revenuecat.purchases.kmp.result/awaitGetProductsResult(kotlin.collections/List<kotlin/String>): kotlin/Result<kotlin.collections/List<cocoapods.PurchasesHybridCommon/RCStoreProduct>> // com.revenuecat.purchases.kmp.result/awaitGetProductsResult|awaitGetProductsResult@cocoapods.PurchasesHybridCommon.RCPurchases(kotlin.collections.List<kotlin.String>){}[0]
 final suspend fun (cocoapods.PurchasesHybridCommon/RCPurchases).com.revenuecat.purchases.kmp.result/awaitLogInResult(kotlin/String): kotlin/Result<com.revenuecat.purchases.kmp.ktx/SuccessfulLogin> // com.revenuecat.purchases.kmp.result/awaitLogInResult|awaitLogInResult@cocoapods.PurchasesHybridCommon.RCPurchases(kotlin.String){}[0]
