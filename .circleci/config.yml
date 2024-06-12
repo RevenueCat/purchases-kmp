@@ -78,6 +78,8 @@ jobs:
       - run:
           command: printenv
       - run:
+          command: echo $ORG_GRADLE_PROJECT_mavenCentralUsername
+      - run:
           name: Publish snapshot to Maven Central
           command: ./gradlew publishAllPublicationsToCentralPortal --no-configuration-cache
       - android/save-gradle-cache
