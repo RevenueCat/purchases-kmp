@@ -62,7 +62,6 @@ jobs:
 
   deploy-snapshot:
     executor: xcode15
-    #shell: /bin/bash --login -euo pipefail
     steps:
       - install-android-sdk-on-macos
       - checkout
@@ -76,12 +75,8 @@ jobs:
             echo 'export ORG_GRADLE_PROJECT_signingInMemoryKey="$SIGNING_GPG_IN_MEMORY"' >> "$BASH_ENV"
             echo 'export ORG_GRADLE_PROJECT_signingInMemoryKeyPassword="$GPG_SIGNING_KEY_PW_NEW"' >> "$BASH_ENV"
       - run:
-          command: printenv
-      - run:
-          command: echo $ORG_GRADLE_PROJECT_mavenCentralUsername
-      - run:
           name: Publish snapshot to Maven Central
-          command: ./gradlew publishAllPublicationsToCentralPortal --no-configuration-cache
+          command: ./gradlew publishAllPublicationsToMavenCentralRepository
       - android/save-gradle-cache
       - android/save-build-cache
 
