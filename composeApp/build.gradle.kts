@@ -46,7 +46,7 @@ kotlin {
             implementation(projects.result)
             implementation(projects.either)
             implementation(projects.datetime)
-            implementation(projects.paywalls)
+            implementation(projects.revenuecatui)
         }
         androidMain.dependencies {
             implementation(libs.androidx.compose.ui.tooling.preview)

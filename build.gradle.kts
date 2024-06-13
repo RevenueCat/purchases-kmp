@@ -29,11 +29,11 @@ allprojects {
             publishToMavenCentral(SonatypeHost.DEFAULT, automaticRelease = true)
             signAllPublications()
 
-            // We override the artifact ID of :paywalls for consistency with the other SDKs. We
+            // We override the artifact ID of :revenuecatui for consistency with the other SDKs. We
             // could not name our Gradle module :ui, because this somehow conflicts with compose.ui
             // in the iosMain source set. We can retry this at a later time.
             val artifactIdSuffix = when (project.name) {
-                "paywalls" -> "ui"
+                "revenuecatui" -> "ui"
                 else -> project.name
             }
 

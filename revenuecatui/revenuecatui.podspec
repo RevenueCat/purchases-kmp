@@ -1,23 +1,23 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'paywalls'
+    spec.name                     = 'revenuecatui'
     spec.version                  = '1.0'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
     spec.license                  = ''
     spec.summary                  = ''
-    spec.vendored_frameworks      = 'build/cocoapods/framework/paywalls.framework'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/revenuecatui.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target    = '11.0'
     spec.dependency 'PurchasesHybridCommonUI', '10.7.0'
                 
-    if !Dir.exist?('build/cocoapods/framework/paywalls.framework') || Dir.empty?('build/cocoapods/framework/paywalls.framework')
+    if !Dir.exist?('build/cocoapods/framework/revenuecatui.framework') || Dir.empty?('build/cocoapods/framework/revenuecatui.framework')
         raise "
 
-        Kotlin framework 'paywalls' doesn't exist yet, so a proper Xcode project can't be generated.
+        Kotlin framework 'revenuecatui' doesn't exist yet, so a proper Xcode project can't be generated.
         'pod install' should be executed after running ':generateDummyFramework' Gradle task:
 
-            ./gradlew :paywalls:generateDummyFramework
+            ./gradlew :revenuecatui:generateDummyFramework
 
         Alternatively, proper pod installation is performed during Gradle sync in the IDE (if Podfile location is set)"
     end
@@ -27,13 +27,13 @@ Pod::Spec.new do |spec|
     }
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':paywalls',
-        'PRODUCT_MODULE_NAME' => 'paywalls',
+        'KOTLIN_PROJECT_PATH' => ':revenuecatui',
+        'PRODUCT_MODULE_NAME' => 'revenuecatui',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build paywalls',
+            :name => 'Build revenuecatui',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT
@@ -43,7 +43,7 @@ Pod::Spec.new do |spec|
                 fi
                 set -ev
                 REPO_ROOT="$PODS_TARGET_SRCROOT"
-                "$REPO_ROOT/../gradlew" -p "$REPO_ROOT" $KOTLIN_PROJECT_PATH:syncFramework \
+                "$REPO_ROOT/../../../../../private/var/folders/yn/pnltd2vn1ddg1rg28xx0_3c00000gn/T/wrap11311loc/gradlew" -p "$REPO_ROOT" $KOTLIN_PROJECT_PATH:syncFramework \
                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME \
                     -Pkotlin.native.cocoapods.archs="$ARCHS" \
                     -Pkotlin.native.cocoapods.configuration="$CONFIGURATION"
