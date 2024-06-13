@@ -41,6 +41,8 @@ executors:
       xcode: 15.4.0
     resource_class: macos.m1.medium.gen1
     environment:
+      # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
+      # freshly installed.
       HOMEBREW_NO_AUTO_UPDATE: 1
 
 jobs:
