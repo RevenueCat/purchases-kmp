@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <either>
+// Library unique name: <com.revenuecat.purchases:either>
 final class com.revenuecat.purchases.kmp.either/FailedPurchase { // com.revenuecat.purchases.kmp.either/FailedPurchase|null[0]
     constructor <init>(com.revenuecat.purchases.kmp/PurchasesError, kotlin/Boolean) // com.revenuecat.purchases.kmp.either/FailedPurchase.<init>|<init>(com.revenuecat.purchases.kmp.PurchasesError;kotlin.Boolean){}[0]
     final fun component1(): com.revenuecat.purchases.kmp/PurchasesError // com.revenuecat.purchases.kmp.either/FailedPurchase.component1|component1(){}[0]

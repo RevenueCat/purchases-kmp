@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <paywalls>
+// Library unique name: <com.revenuecat.purchases:paywalls>
 abstract interface com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallListener { // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallListener|null[0]
     open fun onPurchaseCancelled() // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallListener.onPurchaseCancelled|onPurchaseCancelled(){}[0]
     open fun onPurchaseCompleted(cocoapods.PurchasesHybridCommon/RCCustomerInfo, cocoapods.PurchasesHybridCommon/RCStoreTransaction) // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallListener.onPurchaseCompleted|onPurchaseCompleted(cocoapods.PurchasesHybridCommon.RCCustomerInfo;cocoapods.PurchasesHybridCommon.RCStoreTransaction){}[0]

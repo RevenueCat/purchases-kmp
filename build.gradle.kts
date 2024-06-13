@@ -2,9 +2,8 @@
 
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.MavenPublishPlugin
+import com.vanniktech.maven.publish.SonatypeHost
 import io.gitlab.arturbosch.detekt.Detekt
-import nmcp.NmcpExtension
-import nmcp.NmcpPlugin
 import org.gradle.configurationcache.extensions.capitalized
 
 plugins {
@@ -19,45 +18,27 @@ plugins {
     alias(libs.plugins.adamko.dokkatoo.html)
     alias(libs.plugins.arturbosch.detekt).apply(false)
     alias(libs.plugins.vanniktech.mavenPublish).apply(false)
-    alias(libs.plugins.gradleup.nmcp).apply(false)
 }
 
 allprojects {
-    group = "" // FIXME Check publishing
+    group = "com.revenuecat.purchases"
     version = rootProject.libs.versions.revenuecat.kmp.get()
-
-    // NmcpPlugin publishes to a local repo when running assemble, meaning we need signing
-    // credentials for every assemble. This avoids that.
-    if (gradle.startParameter.taskNames.contains("publishAllPublicationsToCentralPortal")) {
-        // Remove when https://github.com/vanniktech/gradle-maven-publish-plugin/issues/722 is fixed.
-        plugins.withType<NmcpPlugin> {
-            configure<NmcpExtension>() {
-                publishAllPublications {
-                    username = System.getenv("ORG_GRADLE_PROJECT_mavenCentralUsername")
-                    password = System.getenv("ORG_GRADLE_PROJECT_mavenCentralPassword")
-                    publicationType = "AUTOMATIC"
-                }
-            }
-        }
-    }
 
     plugins.withType<MavenPublishPlugin> {
         configure<MavenPublishBaseExtension> {
-            // Re-enable when https://github.com/vanniktech/gradle-maven-publish-plugin/issues/722
-            // is fixed.
-            // publishToMavenCentral(SonatypeHost.DEFAULT, automaticRelease = true)
+            publishToMavenCentral(SonatypeHost.DEFAULT, automaticRelease = true)
             signAllPublications()
 
             coordinates(
                 groupId = group.toString(),
-                artifactId = "kobankat-${project.name}",
+                artifactId = "purchases-kmp-${project.name}",
                 version = version.toString()
             )
             pom {
-                name.set("KobanKat (${project.name})")
-                description.set("RevenueCat SDK for Kotlin Multiplatform")
+                name.set("purchases-kmp-(${project.name})")
+                description.set("Mobile subscriptions in hours, not months.")
                 inceptionYear.set("2024")
-                url.set("https://github.com/JayShortway/kobankat")
+                url.set("https://github.com/RevenueCat/purchases-kmp")
                 licenses {
                     license {
                         name.set("The MIT License (MIT)")
@@ -67,15 +48,15 @@ allprojects {
                 }
                 developers {
                     developer {
-                        id.set("JayShortway")
-                        name.set("Jay Shortway")
-                        url.set("https://github.com/JayShortway")
+                        id.set("revenuecat")
+                        name.set("RevenueCat, Inc.")
+                        url.set("https://www.revenuecat.com/")
                     }
                 }
                 scm {
-                    url.set("https://github.com/JayShortway/kobankat")
-                    connection.set("scm:git:https://github.com/JayShortway/kobankat.git")
-                    developerConnection.set("scm:git:ssh://git@github.com/JayShortway/kobankat.git")
+                    url.set("https://github.com/RevenueCat/purchases-kmp")
+                    connection.set("scm:git:git://github.com/RevenueCat/purchases-kmp.git")
+                    developerConnection.set("scm:git:ssh://git@github.com/RevenueCat/purchases-kmp.git")
                 }
             }
         }
