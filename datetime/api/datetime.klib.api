@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <datetime>
+// Library unique name: <com.revenuecat.purchases:datetime>
 final val com.revenuecat.purchases.kmp.datetime/allExpirationInstants // com.revenuecat.purchases.kmp.datetime/allExpirationInstants|@cocoapods.PurchasesHybridCommon.RCCustomerInfo{}allExpirationInstants[0]
     final fun (cocoapods.PurchasesHybridCommon/RCCustomerInfo).<get-allExpirationInstants>(): kotlin.collections/Map<kotlin/String, kotlinx.datetime/Instant?> // com.revenuecat.purchases.kmp.datetime/allExpirationInstants.<get-allExpirationInstants>|<get-allExpirationInstants>@cocoapods.PurchasesHybridCommon.RCCustomerInfo(){}[0]
 final val com.revenuecat.purchases.kmp.datetime/allPurchaseInstants // com.revenuecat.purchases.kmp.datetime/allPurchaseInstants|@cocoapods.PurchasesHybridCommon.RCCustomerInfo{}allPurchaseInstants[0]

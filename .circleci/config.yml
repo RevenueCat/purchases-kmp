@@ -1,0 +1,80 @@
+version: 2.1
+
+orbs:
+  android: circleci/android@2.5.0
+
+commands:
+  install-android-sdk-on-macos:
+    description: Install the Android SDK on macOS
+    steps:
+      - run:
+          name: Install Android SDK commandline tools
+          command: brew install --cask android-commandlinetools
+      - run:
+          name: Set Android SDK environment variables
+          command: |
+            echo 'export ANDROID_HOME="$HOMEBREW_PREFIX/share/android-commandlinetools"' >> "$BASH_ENV"
+            echo 'export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"' >> "$BASH_ENV"
+      - android/accept-licenses
+      - run:
+          name: Install Android SDK platform tools
+          command: sdkmanager "platform-tools"
+  require-snapshot-version:
+    description: Check that the current version is a SNAPSHOT version
+    steps:
+      - run:
+          name: Check that the current version is a SNAPSHOT version
+          command: |
+            set -euo pipefail
+            file_path="gradle/libs.versions.toml"
+            version=$(grep 'revenuecat-kmp = ' "$file_path" | awk -F ' = ' '{print $2}' | tr -d '"')
+            if [[ ! "$version" =~ -SNAPSHOT$ ]]; then
+              echo "$version is not a SNAPSHOT version. Exiting..."
+              exit 1
+            else
+              echo "$version is a SNAPSHOT version. Proceeding..."
+            fi
+
+executors:
+  xcode15:
+    macos:
+      xcode: 15.4.0
+    resource_class: macos.m1.medium.gen1
+    environment:
+      # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
+      # freshly installed.
+      HOMEBREW_NO_AUTO_UPDATE: 1
+
+jobs:
+  deploy-snapshot:
+    executor: xcode15
+    steps:
+      - checkout
+      - require-snapshot-version
+      - install-android-sdk-on-macos
+      - android/restore-gradle-cache
+      - android/restore-build-cache
+      - run:
+          name: Set environment variables for publishing
+          command: |
+            echo 'export ORG_GRADLE_PROJECT_mavenCentralUsername="$SONATYPE_NEXUS_TOKEN_USERNAME"' >> "$BASH_ENV"
+            echo 'export ORG_GRADLE_PROJECT_mavenCentralPassword="$SONATYPE_NEXUS_TOKEN_PASSWORD"' >> "$BASH_ENV"
+            echo 'export ORG_GRADLE_PROJECT_signingInMemoryKey="$SIGNING_GPG_IN_MEMORY"' >> "$BASH_ENV"
+            echo 'export ORG_GRADLE_PROJECT_signingInMemoryKeyPassword="$GPG_SIGNING_KEY_PW_NEW"' >> "$BASH_ENV"
+      - run:
+          name: Publish snapshot to Maven Central
+          command: ./gradlew publishAllPublicationsToMavenCentralRepository
+      - android/save-gradle-cache
+      - android/save-build-cache
+
+workflows:
+  on-main:
+    # On all pushes to main, except when it's a scheduled pipeline.
+    when:
+      and:
+        - equal: [ main, << pipeline.git.branch >> ]
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+    jobs:
+      - deploy-snapshot:
+          context: maven-central-publishing

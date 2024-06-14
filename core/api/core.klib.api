@@ -5,7 +5,7 @@
 // - Show manifest properties: true
 // - Show declarations: true
 
-// Library unique name: <core>
+// Library unique name: <com.revenuecat.purchases:core>
 abstract interface com.revenuecat.purchases.kmp.models/PurchasingData { // com.revenuecat.purchases.kmp.models/PurchasingData|null[0]
     abstract val productId // com.revenuecat.purchases.kmp.models/PurchasingData.productId|{}productId[0]
         abstract fun <get-productId>(): kotlin/String // com.revenuecat.purchases.kmp.models/PurchasingData.productId.<get-productId>|<get-productId>(){}[0]
