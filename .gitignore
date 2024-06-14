@@ -11,3 +11,7 @@ xcuserdata
 Pods
 .kotlin
 !.run
+
+# Fastlane
+fastlane/report.xml
+fastlane/.env
