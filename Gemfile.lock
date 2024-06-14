@@ -1,6 +1,5 @@
-GIT
-  remote: https://github.com/RevenueCat/fastlane-plugin-revenuecat_internal
-  revision: 5f55466a2a8308cddb0c9f08bc4f3bc4c06a6549
+PATH
+  remote: /Users/joop/Development/fastlane-plugin-revenuecat_internal
   specs:
     fastlane-plugin-revenuecat_internal (0.1.0)
       rest-client
