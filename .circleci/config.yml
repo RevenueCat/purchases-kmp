@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   android: circleci/android@2.5.0
+  revenuecat: revenuecat/sdks-common-config@3.0.0
 
 commands:
   install-android-sdk-on-macos:
@@ -68,6 +69,11 @@ jobs:
       - android/save-build-cache
 
 workflows:
+  danger:
+    jobs:
+      - revenuecat/danger:
+          context: danger-bot
+
   on-main:
     # On all pushes to main, except when it's a scheduled pipeline.
     when:
