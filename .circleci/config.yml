@@ -111,7 +111,9 @@ workflows:
       equal: [ upgrade-hybrid-common, << pipeline.parameters.action >> ]
     jobs:
       - update-purchases-hybrid-common-version:
-          context: git-user-ops
+          context:
+            - git-user-ops
+            - github-bot-public
 
   on-main:
     # On all pushes to main, except when it's a scheduled pipeline.
