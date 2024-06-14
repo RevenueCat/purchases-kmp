@@ -29,8 +29,8 @@ lane :update_hybrid_common do |options|
   UI.message("ℹ️  Setting Purchases Hybrid Common version: #{new_phc_version}")
   files_to_update = {
     "gradle/libs.versions.toml" => ["revenuecat-common = \"(.*)\""],
-    "core/core.podspec" => ["spec.dependency 'PurchasesHybridCommon', \"(.*)\""],
-    "revenuecatui/revenuecatui.podspec" => ["spec.dependency 'PurchasesHybridCommonUI', \"(.*)\""],
+    "core/core.podspec" => ["spec.dependency 'PurchasesHybridCommon', '(.*)'"],
+    "revenuecatui/revenuecatui.podspec" => ["spec.dependency 'PurchasesHybridCommonUI', '(.*)'"],
   }
 
   if dry_run
