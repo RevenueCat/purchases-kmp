@@ -65,7 +65,6 @@ jobs:
   update-purchases-hybrid-common-version:
     description: "Opens a PR updating the purchases-hybrid-common dependency to the latest version."
     executor: ruby3
-    shell: /bin/bash --login -uo pipefail
     steps:
       - checkout
       - revenuecat/install-gem-unix-dependencies:
