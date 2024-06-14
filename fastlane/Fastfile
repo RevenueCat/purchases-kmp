@@ -9,3 +9,64 @@
 #
 #     https://docs.fastlane.tools/plugins/available-plugins
 #
+
+REPO_NAME = "purchases-kmp"
+
+desc "Update purchases-hybrid-common dependency"
+lane :update_hybrid_common do |options|
+  if options[:dry_run]
+    dry_run = true
+  end
+  if options[:version]
+    new_phc_version = options[:version]
+  else
+    UI.user_error!("Missing `version` argument")
+  end
+
+  current_phc_version = get_phc_version
+
+  UI.message("ℹ️  Current Purchases Hybrid Common version: #{current_phc_version}")
+  UI.message("ℹ️  Setting Purchases Hybrid Common version: #{new_phc_version}")
+  files_to_update = {
+    "gradle/libs.versions.toml" => ["revenuecat-common = \"(.*)\""],
+    "core/core.podspec" => ["spec.dependency 'PurchasesHybridCommon', \"(.*)\""],
+    "revenuecatui/revenuecatui.podspec" => ["spec.dependency 'PurchasesHybridCommonUI', \"(.*)\""],
+  }
+
+  if dry_run
+    UI.message("ℹ️  Nothing more to do, dry_run: true")
+    next
+  end
+
+  bump_phc_version(
+    repo_name: REPO_NAME,
+    files_to_update: files_to_update,
+    current_version: current_phc_version,
+    next_version: new_phc_version,
+    open_pr: options[:open_pr] || false,
+    automatic_release: options[:automatic_release] || false
+  )
+end
+
+def get_phc_version
+  android_phc_version = File.read("../gradle/libs.versions.toml")
+    .match("revenuecat-common = \"(.*)\"")
+    .captures[0]
+  UI.user_error!("Android PHC version not found.") if android_phc_version.nil?
+  
+  ios_phc_version = File.read("../core/core.podspec")
+    .match("spec.dependency 'PurchasesHybridCommon', '(.*)'")
+    .captures[0]
+  UI.user_error!("iOS PHC version not found.") if ios_phc_version.nil?
+
+  ios_phc_ui_version = File.read("../revenuecatui/revenuecatui.podspec")
+    .match("spec.dependency 'PurchasesHybridCommonUI', '(.*)'")
+    .captures[0]
+  UI.user_error!("iOS PHC UI version not found.") if ios_phc_ui_version.nil?
+  
+  versions_mismatch_error = "Found multiple PHC (UI) versions. Please make sure to use only 1."
+  versions_match = android_phc_version == ios_phc_version && ios_phc_version == ios_phc_ui_version
+  UI.user_error!(versions_mismatch_error) unless versions_match
+  
+  android_phc_version
+  end
