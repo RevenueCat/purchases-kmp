@@ -39,7 +39,7 @@ commands:
 parameters:
   action:
     type: enum
-    enum: [ build, upgrade-hybrid-common ]
+    enum: [ build, upgrade-hybrid-common, bump ]
     default: build
   automatic:
     type: boolean
@@ -124,3 +124,15 @@ workflows:
     jobs:
       - deploy-snapshot:
           context: maven-central-publishing
+
+  release-train:
+    when:
+      or:
+        - and:
+            - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+            - equal: [ "release-train", << pipeline.schedule.name >> ]
+        # The release-train can be manually triggered by passing the 
+        # "action" parameter with value "bump".
+        - equal: [ bump, << pipeline.parameters.action >> ]
+    jobs:
+      - revenuecat/automatic-bump
