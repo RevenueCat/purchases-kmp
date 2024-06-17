@@ -115,3 +115,9 @@ def get_phc_version
   
   android_phc_version
   end
+
+  def current_version_number
+    File.read("../gradle/libs.versions.toml")
+      .match("revenuecat-kmp = \"(.*)\"")
+      .captures[0]
+  end
