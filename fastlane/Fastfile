@@ -34,7 +34,7 @@ lane :bump do |options|
     is_prerelease: options[:is_prerelease]
   )
   update_hybrids_versions_file(
-    versions_file_path: versions_path,
+    versions_file_path: PATH_VERSIONS,
     new_sdk_version: current_version_number,
     hybrid_common_version: phc_version
   )
