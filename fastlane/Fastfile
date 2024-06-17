@@ -11,15 +11,18 @@
 #
 
 REPO_NAME = "purchases-kmp"
+PATH_CHANGELOG_LATEST = './CHANGELOG-LATEST.md'
+PATH_CHANGELOG = './CHANGELOG.md'
+PATH_VERSIONS = './VERSIONS.md'
 
 desc "Bumps version, edits changelog, and creates pull request"
 lane :bump do |options|
   phc_version = get_phc_version
   bump_version_update_changelog_create_pr(
     current_version: current_version_number,
-    changelog_latest_path: changelog_latest_path,
-    changelog_path: changelog_path,
-    files_to_update: files_with_version_number,
+    changelog_latest_path: PATH_CHANGELOG_LATEST,
+    changelog_path: PATH_CHANGELOG,
+    files_to_update: { './gradle/libs.versions.toml' => ["revenuecat-kmp = \"{x}\""] },
     files_to_update_without_prerelease_modifiers: {},
     repo_name: REPO_NAME,
     github_rate_limit: options[:github_rate_limit],
@@ -27,7 +30,7 @@ lane :bump do |options|
     next_version: options[:next_version],
     automatic_release: options[:automatic_release],
     hybrid_common_version: phc_version,
-    versions_file_path: versions_path,
+    versions_file_path: PATH_VERSIONS,
     is_prerelease: options[:is_prerelease]
   )
   update_hybrids_versions_file(
