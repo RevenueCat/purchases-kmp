@@ -96,6 +96,15 @@ lane :update_hybrid_common do |options|
   )
 end
 
+desc "Tags the current branch with the current version number"
+lane :tag_current_branch do |options|
+  version_number = current_version_number
+  check_no_git_tag_exists(version_number)
+
+  add_git_tag(tag: version_number)
+  push_git_tags(tag: version_number)
+end
+
 def get_phc_version
   android_phc_version = File.read("../gradle/libs.versions.toml")
     .match("revenuecat-common = \"(.*)\"")
@@ -123,4 +132,10 @@ def get_phc_version
     File.read("../gradle/libs.versions.toml")
       .match("revenuecat-kmp = \"(.*)\"")
       .captures[0]
+  end
+
+  def check_no_git_tag_exists(version_number)
+    if git_tag_exists(tag: version_number, remote: true, remote_name: 'origin')
+      raise "git tag with version #{version_number} already exists!"
+    end
   end
