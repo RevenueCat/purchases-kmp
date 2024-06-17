@@ -79,10 +79,11 @@ jobs:
             open_pr:true \
             automatic_release:<< pipeline.parameters.automatic >>
   publish:
+    description: "Publishes a release, either SNAPSHOT or final."
     executor: xcode15
     parameters:
       snapshot:
-        description: Whether to publish a SNAPSHOT version. Will publish a release if set to false.
+        description: Whether to publish a SNAPSHOT version. Will publish a final release if set to false.
         type: boolean
     steps:
       - checkout
@@ -109,6 +110,17 @@ jobs:
                 command: ./gradlew publishAllPublicationsToMavenCentralRepository
       - android/save-gradle-cache
       - android/save-build-cache
+  create-github-release:
+    description: "Creates a GitHub release for the current version"
+    executor: ruby3
+    steps:
+      - checkout
+      - revenuecat/install-gem-unix-dependencies:
+          cache-version: v1
+      - revenuecat/trust-github-key
+      - run:
+          name: "Create a GitHub release for the current version"
+          command: bundle exec fastlane github_release_current_version
 
 workflows:
   danger:
@@ -172,3 +184,5 @@ workflows:
       - publish:
           snapshot: false
           context: maven-central-publishing
+      - create-github-release:
+          context: github-bot-public

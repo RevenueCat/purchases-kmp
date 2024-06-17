@@ -105,6 +105,22 @@ lane :tag_current_branch do |options|
   push_git_tags(tag: version_number)
 end
 
+desc "Creates a GitHub release for the current version"
+lane :github_release_current_version do |options|
+  github_release(version: current_version_number)
+end
+
+desc "Creates a GitHub release"
+lane :github_release do |options|
+  create_github_release(
+    version: options[:version],
+    repo_name: REPO_NAME,
+    github_api_token: ENV["GITHUB_TOKEN"],
+    changelog_latest_path: PATH_CHANGELOG_LATEST,
+    upload_assets: []
+  )
+end
+
 def get_phc_version
   android_phc_version = File.read("../gradle/libs.versions.toml")
     .match("revenuecat-common = \"(.*)\"")
