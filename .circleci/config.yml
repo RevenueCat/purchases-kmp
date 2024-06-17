@@ -36,7 +36,22 @@ commands:
               echo "$version is a SNAPSHOT version. Proceeding..."
             fi
 
+parameters:
+  action:
+    type: enum
+    enum: [ build, upgrade-hybrid-common ]
+    default: build
+  automatic:
+    type: boolean
+    default: false
+  version:
+    type: string
+    default: ''
+
 executors:
+  ruby3:
+    docker:
+      - image: cimg/ruby:3.3.0
   xcode15:
     macos:
       xcode: 15.4.0
@@ -47,6 +62,22 @@ executors:
       HOMEBREW_NO_AUTO_UPDATE: 1
 
 jobs:
+  update-purchases-hybrid-common-version:
+    description: "Opens a PR updating the purchases-hybrid-common dependency to the latest version."
+    executor: ruby3
+    steps:
+      - checkout
+      - revenuecat/install-gem-unix-dependencies:
+          cache-version: v1
+      - revenuecat/trust-github-key
+      - revenuecat/setup-git-credentials
+      - run:
+          name: Update purchases-hybrid-common to << pipeline.parameters.version >>
+          command: |
+            bundle exec fastlane update_hybrid_common \
+            version:<< pipeline.parameters.version >> \
+            open_pr:true \
+            automatic_release:<< pipeline.parameters.automatic >>
   deploy-snapshot:
     executor: xcode15
     steps:
@@ -73,6 +104,15 @@ workflows:
     jobs:
       - revenuecat/danger:
           context: danger-bot
+
+  on-action-upgrade-hybrid-common:
+    when:
+      equal: [ upgrade-hybrid-common, << pipeline.parameters.action >> ]
+    jobs:
+      - update-purchases-hybrid-common-version:
+          context:
+            - git-user-ops
+            - github-bot-public
 
   on-main:
     # On all pushes to main, except when it's a scheduled pipeline.

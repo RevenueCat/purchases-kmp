@@ -15,3 +15,7 @@ Pods
 # Fastlane
 fastlane/report.xml
 fastlane/.env
+
+# CircleCI
+vendor/
+.bundle/
