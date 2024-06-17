@@ -12,6 +12,51 @@
 
 REPO_NAME = "purchases-kmp"
 
+desc "Bumps version, edits changelog, and creates pull request"
+lane :bump do |options|
+  phc_version = get_phc_version
+  bump_version_update_changelog_create_pr(
+    current_version: current_version_number,
+    changelog_latest_path: changelog_latest_path,
+    changelog_path: changelog_path,
+    files_to_update: files_with_version_number,
+    files_to_update_without_prerelease_modifiers: {},
+    repo_name: REPO_NAME,
+    github_rate_limit: options[:github_rate_limit],
+    editor: options[:editor],
+    next_version: options[:next_version],
+    automatic_release: options[:automatic_release],
+    hybrid_common_version: phc_version,
+    versions_file_path: versions_path,
+    is_prerelease: options[:is_prerelease]
+  )
+  update_hybrids_versions_file(
+    versions_file_path: versions_path,
+    new_sdk_version: current_version_number,
+    hybrid_common_version: phc_version
+  )
+  commit_current_changes(commit_message: 'Updates VERSIONS.md')
+  push_to_git_remote(set_upstream: true)
+end
+
+desc "Automatically bumps version, edits changelog, and creates pull request"
+lane :automatic_bump do |options|
+  next_version, type_of_bump = determine_next_version_using_labels(
+    repo_name: REPO_NAME,
+    github_rate_limit: options[:github_rate_limit]
+  )
+  options[:next_version] = next_version
+  options[:automatic_release] = true
+  if type_of_bump == :skip
+    UI.message('Skipping automatic bump since the next version doesn\'t include public facing changes')
+    next
+  elsif type_of_bump == :major
+    UI.message('Skipping automatic bump since the next version is a major release')
+    next
+  end
+  bump(options)
+end
+
 desc "Update purchases-hybrid-common dependency"
 lane :update_hybrid_common do |options|
   if options[:dry_run]
