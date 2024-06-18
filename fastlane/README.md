@@ -28,7 +28,7 @@ Bumps version, edits changelog, and creates pull request
 [bundle exec] fastlane automatic_bump
 ```
 
-Automatically bumps version, edits changelog, and creates pull request
+Automatically determines next version, bumps it, edits changelog, and creates pull request
 
 ### update_hybrid_common
 
@@ -37,6 +37,46 @@ Automatically bumps version, edits changelog, and creates pull request
 ```
 
 Update purchases-hybrid-common dependency
+
+### tag_current_branch
+
+```sh
+[bundle exec] fastlane tag_current_branch
+```
+
+Tags the current branch with the current version number
+
+### publish_if_snapshot
+
+```sh
+[bundle exec] fastlane publish_if_snapshot
+```
+
+Publish the SDK if the current version is a SNAPSHOT version
+
+### publish_if_release
+
+```sh
+[bundle exec] fastlane publish_if_release
+```
+
+Publish the SDK if the current version is a release version
+
+### github_release_current_version
+
+```sh
+[bundle exec] fastlane github_release_current_version
+```
+
+Creates a GitHub release for the current version
+
+### github_release
+
+```sh
+[bundle exec] fastlane github_release
+```
+
+Creates a GitHub release
 
 ----
 
