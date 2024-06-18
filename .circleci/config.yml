@@ -20,6 +20,7 @@ commands:
       - run:
           name: Install Android SDK platform tools
           command: sdkmanager "platform-tools"
+
   require-snapshot-version:
     description: Check that the current version is a SNAPSHOT version
     steps:
@@ -78,6 +79,7 @@ jobs:
             version:<< pipeline.parameters.version >> \
             open_pr:true \
             automatic_release:<< pipeline.parameters.automatic >>
+
   publish:
     description: "Publishes a release, either SNAPSHOT or final."
     executor: xcode15
@@ -110,6 +112,7 @@ jobs:
                 command: ./gradlew publishAllPublicationsToMavenCentralRepository
       - android/save-gradle-cache
       - android/save-build-cache
+
   create-github-release:
     description: "Creates a GitHub release for the current version"
     executor: ruby3
@@ -138,7 +141,6 @@ workflows:
             - github-bot-public
 
   on-main-branch:
-    # On all pushes to main, except when it's a scheduled pipeline.
     when:
       and:
         - equal: [ main, << pipeline.git.branch >> ]
@@ -149,18 +151,26 @@ workflows:
           snapshot: true
           context: maven-central-publishing
 
+  # The release train starts with the release-train workflow, which is automatically 
+  # triggered every week, but can also be triggered manually by passing the "action" 
+  # parameter with a value of "bump".
+  # This workflow will create a new release branch and open a PR for it. This new 
+  # release branch triggers the next workflow: on-release-branch.
   release-train:
     when:
       or:
         - and:
             - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
             - equal: [ "release-train", << pipeline.schedule.name >> ]
-        # The release-train can be manually triggered by passing the 
-        # "action" parameter with value "bump".
         - equal: [ bump, << pipeline.parameters.action >> ]
     jobs:
       - revenuecat/automatic-bump
 
+  # The second stage of the release train starts a hold job, which is a job that
+  # needs to be manually approved on the CircleCI web app. This ensures there's 
+  # always a human in the loop. After the hold job is approved, the current release
+  # branch is tagged with the version number. This new release tag triggers the next
+  # workflow: on-release-tag.
   on-release-branch:
     when:
       and:
@@ -174,6 +184,9 @@ workflows:
           requires:
             - hold
 
+  # The third and last stage of the release train actually publishes the release
+  # to Maven Central and creates a GitHub release for it. The release train has
+  # now completed its journey.
   on-release-tag:
     when:
       and:
