@@ -11,6 +11,54 @@
 #
 
 REPO_NAME = "purchases-kmp"
+PATH_CHANGELOG_LATEST = './CHANGELOG-LATEST.md'
+PATH_CHANGELOG = './CHANGELOG.md'
+PATH_VERSIONS = './VERSIONS.md'
+
+desc "Bumps version, edits changelog, and creates pull request"
+lane :bump do |options|
+  phc_version = get_phc_version
+  bump_version_update_changelog_create_pr(
+    current_version: current_version_number,
+    changelog_latest_path: PATH_CHANGELOG_LATEST,
+    changelog_path: PATH_CHANGELOG,
+    files_to_update: { './gradle/libs.versions.toml' => ["revenuecat-kmp = \"{x}\""] },
+    files_to_update_without_prerelease_modifiers: {},
+    repo_name: REPO_NAME,
+    github_rate_limit: options[:github_rate_limit],
+    editor: options[:editor],
+    next_version: options[:next_version],
+    automatic_release: options[:automatic_release],
+    hybrid_common_version: phc_version,
+    versions_file_path: PATH_VERSIONS,
+    is_prerelease: options[:is_prerelease]
+  )
+  update_hybrids_versions_file(
+    versions_file_path: PATH_VERSIONS,
+    new_sdk_version: current_version_number,
+    hybrid_common_version: phc_version
+  )
+  commit_current_changes(commit_message: 'Updates VERSIONS.md')
+  push_to_git_remote(set_upstream: true)
+end
+
+desc "Automatically determines next version, bumps it, edits changelog, and creates pull request"
+lane :automatic_bump do |options|
+  next_version, type_of_bump = determine_next_version_using_labels(
+    repo_name: REPO_NAME,
+    github_rate_limit: options[:github_rate_limit]
+  )
+  options[:next_version] = next_version
+  options[:automatic_release] = true
+  if type_of_bump == :skip
+    UI.message('Skipping automatic bump since the next version doesn\'t include public facing changes')
+    next
+  elsif type_of_bump == :major
+    UI.message('Skipping automatic bump since the next version is a major release')
+    next
+  end
+  bump(options)
+end
 
 desc "Update purchases-hybrid-common dependency"
 lane :update_hybrid_common do |options|
@@ -48,6 +96,31 @@ lane :update_hybrid_common do |options|
   )
 end
 
+desc "Tags the current branch with the current version number"
+lane :tag_current_branch do |options|
+  version_number = current_version_number
+  check_no_git_tag_exists(version_number)
+
+  add_git_tag(tag: version_number)
+  push_git_tags(tag: version_number)
+end
+
+desc "Creates a GitHub release for the current version"
+lane :github_release_current_version do |options|
+  github_release(version: current_version_number)
+end
+
+desc "Creates a GitHub release"
+lane :github_release do |options|
+  create_github_release(
+    version: options[:version],
+    repo_name: REPO_NAME,
+    github_api_token: ENV["GITHUB_TOKEN"],
+    changelog_latest_path: PATH_CHANGELOG_LATEST,
+    upload_assets: []
+  )
+end
+
 def get_phc_version
   android_phc_version = File.read("../gradle/libs.versions.toml")
     .match("revenuecat-common = \"(.*)\"")
@@ -69,4 +142,16 @@ def get_phc_version
   UI.user_error!(versions_mismatch_error) unless versions_match
   
   android_phc_version
+  end
+
+  def current_version_number
+    File.read("../gradle/libs.versions.toml")
+      .match("revenuecat-kmp = \"(.*)\"")
+      .captures[0]
+  end
+
+  def check_no_git_tag_exists(version_number)
+    if git_tag_exists(tag: version_number, remote: true, remote_name: 'origin')
+      raise "git tag with version #{version_number} already exists!"
+    end
   end

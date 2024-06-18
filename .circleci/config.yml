@@ -20,6 +20,7 @@ commands:
       - run:
           name: Install Android SDK platform tools
           command: sdkmanager "platform-tools"
+
   require-snapshot-version:
     description: Check that the current version is a SNAPSHOT version
     steps:
@@ -39,7 +40,7 @@ commands:
 parameters:
   action:
     type: enum
-    enum: [ build, upgrade-hybrid-common ]
+    enum: [ build, upgrade-hybrid-common, bump ]
     default: build
   automatic:
     type: boolean
@@ -78,11 +79,20 @@ jobs:
             version:<< pipeline.parameters.version >> \
             open_pr:true \
             automatic_release:<< pipeline.parameters.automatic >>
-  deploy-snapshot:
+
+  publish:
+    description: "Publishes a release, either SNAPSHOT or final."
     executor: xcode15
+    parameters:
+      snapshot:
+        description: Whether to publish a SNAPSHOT version. Will publish a final release if set to false.
+        type: boolean
     steps:
       - checkout
-      - require-snapshot-version
+      - when:
+          condition: << parameters.snapshot >>
+          steps:
+            - require-snapshot-version
       - install-android-sdk-on-macos
       - android/restore-gradle-cache
       - android/restore-build-cache
@@ -93,11 +103,27 @@ jobs:
             echo 'export ORG_GRADLE_PROJECT_mavenCentralPassword="$SONATYPE_NEXUS_TOKEN_PASSWORD"' >> "$BASH_ENV"
             echo 'export ORG_GRADLE_PROJECT_signingInMemoryKey="$SIGNING_GPG_IN_MEMORY"' >> "$BASH_ENV"
             echo 'export ORG_GRADLE_PROJECT_signingInMemoryKeyPassword="$GPG_SIGNING_KEY_PW_NEW"' >> "$BASH_ENV"
-      - run:
-          name: Publish snapshot to Maven Central
-          command: ./gradlew publishAllPublicationsToMavenCentralRepository
+      # TODO Remove this condition to allow releasing non-SNAPSHOT versions. 
+      - when:
+          condition: << parameters.snapshot >>
+          steps:
+            - run:
+                name: Publish to Maven Central
+                command: ./gradlew publishAllPublicationsToMavenCentralRepository
       - android/save-gradle-cache
       - android/save-build-cache
+
+  create-github-release:
+    description: "Creates a GitHub release for the current version"
+    executor: ruby3
+    steps:
+      - checkout
+      - revenuecat/install-gem-unix-dependencies:
+          cache-version: v1
+      - revenuecat/trust-github-key
+      - run:
+          name: "Create a GitHub release for the current version"
+          command: bundle exec fastlane github_release_current_version
 
 workflows:
   danger:
@@ -114,13 +140,62 @@ workflows:
             - git-user-ops
             - github-bot-public
 
-  on-main:
-    # On all pushes to main, except when it's a scheduled pipeline.
+  on-main-branch:
     when:
       and:
         - equal: [ main, << pipeline.git.branch >> ]
         - not:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
-      - deploy-snapshot:
+      - publish:
+          snapshot: true
           context: maven-central-publishing
+
+  # The release train starts with the release-train workflow, which is automatically 
+  # triggered every week, but can also be triggered manually by passing the "action" 
+  # parameter with a value of "bump".
+  # This workflow will create a new release branch and open a PR for it. This new 
+  # release branch triggers the next workflow: on-release-branch.
+  release-train:
+    when:
+      or:
+        - and:
+            - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+            - equal: [ "release-train", << pipeline.schedule.name >> ]
+        - equal: [ bump, << pipeline.parameters.action >> ]
+    jobs:
+      - revenuecat/automatic-bump
+
+  # The second stage of the release train starts a hold job, which is a job that
+  # needs to be manually approved on the CircleCI web app. This ensures there's 
+  # always a human in the loop. After the hold job is approved, the current release
+  # branch is tagged with the version number. This new release tag triggers the next
+  # workflow: on-release-tag.
+  on-release-branch:
+    when:
+      and:
+        - matches: { pattern: "^release/.+$", value: << pipeline.git.branch >> }
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+    jobs:
+      - hold:
+          type: approval
+      - revenuecat/tag-current-branch:
+          requires:
+            - hold
+
+  # The third and last stage of the release train actually publishes the release
+  # to Maven Central and creates a GitHub release for it. The release train has
+  # now completed its journey.
+  on-release-tag:
+    when:
+      and:
+        - matches: { pattern: "^[0-9]+\\.[0-9]+\\.[0-9]+(?!.*-SNAPSHOT).*$", value: << pipeline.git.tag >> }
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+    jobs:
+      - publish:
+          snapshot: false
+          context: maven-central-publishing
+      - create-github-release:
+          context: github-bot-public

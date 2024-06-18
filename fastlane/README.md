@@ -14,6 +14,22 @@ _fastlane_](https://docs.fastlane.tools/#installing-fastlane)
 
 # Available Actions
 
+### bump
+
+```sh
+[bundle exec] fastlane bump
+```
+
+Bumps version, edits changelog, and creates pull request
+
+### automatic_bump
+
+```sh
+[bundle exec] fastlane automatic_bump
+```
+
+Automatically bumps version, edits changelog, and creates pull request
+
 ### update_hybrid_common
 
 ```sh
