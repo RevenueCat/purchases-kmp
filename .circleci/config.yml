@@ -67,6 +67,19 @@ jobs:
             open_pr:true \
             automatic_release:<< pipeline.parameters.automatic >>
 
+  prepare-next-snapshot-version:
+    description: "Opens a PR updating the SDK version to the next minor, appending -SNAPSHOT."
+    executor: ruby3
+    steps:
+      - checkout
+      - revenuecat/install-gem-unix-dependencies:
+          cache-version: v1
+      - revenuecat/trust-github-key
+      - revenuecat/setup-git-credentials
+      - run:
+          name: Prepare next SNAPSHOT version
+          command: bundle exec fastlane prepare_next_snapshot_version
+
   detekt:
     executor: jdk17
     steps:
@@ -180,6 +193,10 @@ workflows:
         - not:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
+      - prepare-next-snapshot-version:
+          context:
+            - git-user-ops
+            - github-bot-public
       - publish:
           snapshot: true
           context: maven-central-publishing
