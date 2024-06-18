@@ -14,7 +14,7 @@ REPO_NAME = "purchases-kmp"
 PATH_CHANGELOG_LATEST = './CHANGELOG-LATEST.md'
 PATH_CHANGELOG = './CHANGELOG.md'
 PATH_VERSIONS = './VERSIONS.md'
-FILE_WITH_SDK_VERSION = { './gradle/libs.versions.toml' => ["revenuecat-kmp = \"{x}\""] }
+FILES_WITH_SDK_VERSION = { './gradle/libs.versions.toml' => ["revenuecat-kmp = \"{x}\""] }
 
 desc "Bumps version, edits changelog, and creates pull request"
 lane :bump do |options|
@@ -23,7 +23,7 @@ lane :bump do |options|
     current_version: current_version_number,
     changelog_latest_path: PATH_CHANGELOG_LATEST,
     changelog_path: PATH_CHANGELOG,
-    files_to_update: FILE_WITH_SDK_VERSION,
+    files_to_update: FILES_WITH_SDK_VERSION,
     files_to_update_without_prerelease_modifiers: {},
     repo_name: REPO_NAME,
     github_rate_limit: options[:github_rate_limit],
@@ -103,7 +103,7 @@ lane :prepare_next_snapshot_version do |options|
     current_version: current_version_number,
     repo_name: REPO_NAME,
     github_pr_token: ENV["GITHUB_PULL_REQUEST_API_TOKEN"],
-    files_to_update: FILE_WITH_SDK_VERSION
+    files_to_update: FILES_WITH_SDK_VERSION
   )
 end
 
