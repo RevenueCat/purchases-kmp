@@ -53,7 +53,7 @@ public actual class Purchases(private val iosPurchases: IosPurchases) {
         public actual fun configure(
             configuration: PurchasesConfiguration
         ): Purchases {
-            // TODO Enable this in SDK-3301 checkCommonVersion()
+            checkCommonVersion()
 
             return with(configuration) {
                 IosPurchases.configureWithAPIKey(
@@ -82,7 +82,7 @@ public actual class Purchases(private val iosPurchases: IosPurchases) {
 
         private fun checkCommonVersion() {
             val expected = BuildKonfig.revenuecatCommonVersion
-            val actual = IosPurchases.frameworkVersion()
+            val actual = RCCommonFunctionality.hybridCommonVersion()
             check(actual == expected) {
                 "Unexpected version of PurchasesHybridCommon ('$actual'). Make sure to use " +
                         "'$expected' exactly."
