@@ -3,7 +3,7 @@ package com.revenuecat.purchases.kmp
 /**
  * Interface that allows handling logs manually.
  *
- * @see PurchasesFactory.logHandler
+ * @see Purchases.logHandler
  */
 public expect interface LogHandler {
     /**

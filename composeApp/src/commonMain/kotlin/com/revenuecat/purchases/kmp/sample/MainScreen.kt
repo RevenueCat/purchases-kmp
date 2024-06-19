@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.dp
 import arrow.core.Either
 import com.revenuecat.purchases.kmp.Offering
 import com.revenuecat.purchases.kmp.Offerings
+import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
-import com.revenuecat.purchases.kmp.PurchasesFactory
 import com.revenuecat.purchases.kmp.all
 import com.revenuecat.purchases.kmp.current
 import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
@@ -49,7 +49,7 @@ fun MainScreen(
             style = MaterialTheme.typography.h6,
         )
 
-        var isConfigured by remember { mutableStateOf(PurchasesFactory.isConfigured) }
+        var isConfigured by remember { mutableStateOf(Purchases.isConfigured) }
         var configuration by remember { mutableStateOf(Configuration(apiKey = "", userId = "")) }
         ConfigurationSettings(
             configuration = configuration,
@@ -61,8 +61,8 @@ fun MainScreen(
             Spacer(modifier = Modifier.size(8.dp))
             Button(
                 onClick = {
-                    PurchasesFactory.configure(configuration.toPurchasesConfiguration())
-                    isConfigured = PurchasesFactory.isConfigured
+                    Purchases.configure(configuration.toPurchasesConfiguration())
+                    isConfigured = Purchases.isConfigured
                 },
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 enabled = configuration.userId.isNotBlank() && configuration.apiKey.isNotBlank(),
@@ -124,7 +124,7 @@ private fun PaywallsSection(
     var offeringsState: OfferingsState by remember { mutableStateOf(OfferingsState.Loading) }
     LaunchedEffect(Unit) {
         offeringsState =
-            when (val offerings = PurchasesFactory.sharedInstance.awaitOfferingsEither()) {
+            when (val offerings = Purchases.sharedInstance.awaitOfferingsEither()) {
                 is Either.Left -> OfferingsState.Error
                 is Either.Right -> OfferingsState.Loaded(offerings.value)
             }
