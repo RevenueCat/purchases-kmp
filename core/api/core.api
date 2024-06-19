@@ -117,6 +117,95 @@ public final class com/revenuecat/purchases/kmp/PresentedOfferingContext_android
 	public static final fun getTargetingContext (Lcom/revenuecat/purchases/PresentedOfferingContext;)Lcom/revenuecat/purchases/PresentedOfferingContext$TargetingContext;
 }
 
+public final class com/revenuecat/purchases/kmp/Purchases {
+	public static final field Companion Lcom/revenuecat/purchases/kmp/Purchases$Companion;
+	public synthetic fun <init> (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public static final fun canMakePayments (Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
+	public static final fun canMakePayments (Lkotlin/jvm/functions/Function1;)V
+	public final fun close ()V
+	public final fun collectDeviceIdentifiers ()V
+	public final fun getAppUserID ()Ljava/lang/String;
+	public final fun getCustomerInfo (Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun getCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public final fun getDelegate ()Lcom/revenuecat/purchases/kmp/PurchasesDelegate;
+	public final fun getFinishTransactions ()Z
+	public static final fun getForceUniversalAppStore ()Z
+	public static final fun getLogHandler ()Lcom/revenuecat/purchases/LogHandler;
+	public static final fun getLogLevel ()Lcom/revenuecat/purchases/LogLevel;
+	public final fun getOfferings (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public final fun getProducts (Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public final fun getPromotionalOffer (Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public static final fun getProxyURL ()Ljava/lang/String;
+	public static final fun getSimulatesAskToBuyInSandbox ()Z
+	public final fun getStore ()Lcom/revenuecat/purchases/Store;
+	public final fun invalidateCustomerInfoCache ()V
+	public final fun isAnonymous ()Z
+	public static final fun isConfigured ()Z
+	public final fun logIn (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
+	public final fun logOut (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public final fun purchase (Lcom/revenuecat/purchases/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
+	public final fun purchase (Lcom/revenuecat/purchases/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;)V
+	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
+	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;)V
+	public final fun purchase (Lcom/revenuecat/purchases/models/SubscriptionOption;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;)V
+	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;ILjava/lang/Object;)V
+	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;ILjava/lang/Object;)V
+	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;ILjava/lang/Object;)V
+	public final fun restorePurchases (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public final fun setAd (Ljava/lang/String;)V
+	public final fun setAdGroup (Ljava/lang/String;)V
+	public final fun setAdjustID (Ljava/lang/String;)V
+	public final fun setAirshipChannelID (Ljava/lang/String;)V
+	public final fun setAppsflyerID (Ljava/lang/String;)V
+	public final fun setAttributes (Ljava/util/Map;)V
+	public final fun setCampaign (Ljava/lang/String;)V
+	public final fun setCleverTapID (Ljava/lang/String;)V
+	public final fun setCreative (Ljava/lang/String;)V
+	public final fun setDelegate (Lcom/revenuecat/purchases/kmp/PurchasesDelegate;)V
+	public final fun setDisplayName (Ljava/lang/String;)V
+	public final fun setEmail (Ljava/lang/String;)V
+	public final fun setFBAnonymousID (Ljava/lang/String;)V
+	public final fun setFinishTransactions (Z)V
+	public final fun setFirebaseAppInstanceID (Ljava/lang/String;)V
+	public static final fun setForceUniversalAppStore (Z)V
+	public final fun setKeyword (Ljava/lang/String;)V
+	public static final fun setLogHandler (Lcom/revenuecat/purchases/LogHandler;)V
+	public static final fun setLogLevel (Lcom/revenuecat/purchases/LogLevel;)V
+	public final fun setMediaSource (Ljava/lang/String;)V
+	public final fun setMixpanelDistinctID (Ljava/lang/String;)V
+	public final fun setMparticleID (Ljava/lang/String;)V
+	public final fun setOnesignalID (Ljava/lang/String;)V
+	public final fun setOnesignalUserID (Ljava/lang/String;)V
+	public final fun setPhoneNumber (Ljava/lang/String;)V
+	public static final fun setProxyURL (Ljava/lang/String;)V
+	public final fun setPushToken (Ljava/lang/String;)V
+	public static final fun setSimulatesAskToBuyInSandbox (Z)V
+	public final fun showInAppMessagesIfNeeded (Ljava/util/List;)V
+	public static synthetic fun showInAppMessagesIfNeeded$default (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/util/List;ILjava/lang/Object;)V
+	public final fun syncAttributesAndOfferingsIfNeeded (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public final fun syncObserverModeAmazonPurchase (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;)V
+	public final fun syncPurchases (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class com/revenuecat/purchases/kmp/Purchases$Companion {
+	public final fun canMakePayments (Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
+	public final fun canMakePayments (Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun canMakePayments$default (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public final fun configure (Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;)Lcom/revenuecat/purchases/kmp/Purchases;
+	public final fun getForceUniversalAppStore ()Z
+	public final fun getLogHandler ()Lcom/revenuecat/purchases/LogHandler;
+	public final fun getLogLevel ()Lcom/revenuecat/purchases/LogLevel;
+	public final fun getProxyURL ()Ljava/lang/String;
+	public final fun getSharedInstance ()Lcom/revenuecat/purchases/kmp/Purchases;
+	public final fun getSimulatesAskToBuyInSandbox ()Z
+	public final fun isConfigured ()Z
+	public final fun setForceUniversalAppStore (Z)V
+	public final fun setLogHandler (Lcom/revenuecat/purchases/LogHandler;)V
+	public final fun setLogLevel (Lcom/revenuecat/purchases/LogLevel;)V
+	public final fun setProxyURL (Ljava/lang/String;)V
+	public final fun setSimulatesAskToBuyInSandbox (Z)V
+}
+
 public final class com/revenuecat/purchases/kmp/PurchasesConfiguration {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZLjava/lang/String;ZLcom/revenuecat/purchases/Store;ZLcom/revenuecat/purchases/kmp/DangerousSettings;Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getApiKey ()Ljava/lang/String;
@@ -166,8 +255,8 @@ public final class com/revenuecat/purchases/kmp/PurchasesConfiguration$Builder {
 public final class com/revenuecat/purchases/kmp/PurchasesConfigurationKt {
 	public static final synthetic fun PurchasesConfiguration (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;
 	public static synthetic fun PurchasesConfiguration$default (Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;
-	public static final synthetic fun configure (Lcom/revenuecat/purchases/kmp/PurchasesFactory;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/revenuecat/purchases/Purchases;
-	public static synthetic fun configure$default (Lcom/revenuecat/purchases/kmp/PurchasesFactory;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/Purchases;
+	public static final synthetic fun configure (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/revenuecat/purchases/kmp/Purchases;
+	public static synthetic fun configure$default (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/Purchases;
 }
 
 public abstract interface class com/revenuecat/purchases/kmp/PurchasesDelegate {
@@ -237,88 +326,13 @@ public class com/revenuecat/purchases/kmp/PurchasesException : java/lang/Excepti
 	public final fun getUnderlyingErrorMessage ()Ljava/lang/String;
 }
 
-public final class com/revenuecat/purchases/kmp/PurchasesFactory {
-	public static final field INSTANCE Lcom/revenuecat/purchases/kmp/PurchasesFactory;
-	public static final fun canMakePayments (Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
-	public static final fun canMakePayments (Lkotlin/jvm/functions/Function1;)V
-	public static synthetic fun canMakePayments$default (Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
-	public final fun configure (Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;)Lcom/revenuecat/purchases/Purchases;
-	public static final fun getForceUniversalAppStore ()Z
-	public static final fun getLogHandler ()Lcom/revenuecat/purchases/LogHandler;
-	public static final fun getLogLevel ()Lcom/revenuecat/purchases/LogLevel;
-	public static final fun getProxyURL ()Ljava/lang/String;
-	public final fun getSharedInstance ()Lcom/revenuecat/purchases/Purchases;
-	public static final fun getSimulatesAskToBuyInSandbox ()Z
-	public static final fun isConfigured ()Z
-	public static final fun setForceUniversalAppStore (Z)V
-	public static final fun setLogHandler (Lcom/revenuecat/purchases/LogHandler;)V
-	public static final fun setLogLevel (Lcom/revenuecat/purchases/LogLevel;)V
-	public static final fun setProxyURL (Ljava/lang/String;)V
-	public static final fun setSimulatesAskToBuyInSandbox (Z)V
-}
-
-public final class com/revenuecat/purchases/kmp/PurchasesFactoryKt {
-	public static final fun getFrameworkVersion (Lcom/revenuecat/purchases/kmp/PurchasesFactory;)Ljava/lang/String;
+public final class com/revenuecat/purchases/kmp/PurchasesKt {
+	public static final fun getFrameworkVersion (Lcom/revenuecat/purchases/kmp/Purchases$Companion;)Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/PurchasesTransactionException : com/revenuecat/purchases/kmp/PurchasesException {
 	public fun <init> (Lcom/revenuecat/purchases/kmp/PurchasesError;Z)V
 	public final fun getUserCancelled ()Z
-}
-
-public final class com/revenuecat/purchases/kmp/Purchases_androidKt {
-	public static final fun close (Lcom/revenuecat/purchases/Purchases;)V
-	public static final fun collectDeviceIdentifiers (Lcom/revenuecat/purchases/Purchases;)V
-	public static final fun getAppUserID (Lcom/revenuecat/purchases/Purchases;)Ljava/lang/String;
-	public static final fun getCustomerInfo (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
-	public static synthetic fun getCustomerInfo$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
-	public static final fun getDelegate (Lcom/revenuecat/purchases/Purchases;)Lcom/revenuecat/purchases/kmp/PurchasesDelegate;
-	public static final fun getFinishTransactions (Lcom/revenuecat/purchases/Purchases;)Z
-	public static final fun getOfferings (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
-	public static final fun getProducts (Lcom/revenuecat/purchases/Purchases;Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
-	public static final fun getPromotionalOffer (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
-	public static final fun getStore (Lcom/revenuecat/purchases/Purchases;)Lcom/revenuecat/purchases/Store;
-	public static final fun invalidateCustomerInfoCache (Lcom/revenuecat/purchases/Purchases;)V
-	public static final fun isAnonymous (Lcom/revenuecat/purchases/Purchases;)Z
-	public static final fun logIn (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
-	public static final fun logOut (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
-	public static final fun purchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
-	public static final fun purchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;)V
-	public static final fun purchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
-	public static final fun purchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;)V
-	public static final fun purchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;)V
-	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;ILjava/lang/Object;)V
-	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;ILjava/lang/Object;)V
-	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;ILjava/lang/Object;)V
-	public static final fun restorePurchases (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
-	public static final fun setAd (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setAdGroup (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setAdjustID (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setAirshipChannelID (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setAppsflyerID (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setAttributes (Lcom/revenuecat/purchases/Purchases;Ljava/util/Map;)V
-	public static final fun setCampaign (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setCleverTapID (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setCreative (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setDelegate (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/PurchasesDelegate;)V
-	public static final fun setDisplayName (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setEmail (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setFBAnonymousID (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setFinishTransactions (Lcom/revenuecat/purchases/Purchases;Z)V
-	public static final fun setFirebaseAppInstanceID (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setKeyword (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setMediaSource (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setMixpanelDistinctID (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setMparticleID (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setOnesignalID (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setOnesignalUserID (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setPhoneNumber (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun setPushToken (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;)V
-	public static final fun showInAppMessagesIfNeeded (Lcom/revenuecat/purchases/Purchases;Ljava/util/List;)V
-	public static synthetic fun showInAppMessagesIfNeeded$default (Lcom/revenuecat/purchases/Purchases;Ljava/util/List;ILjava/lang/Object;)V
-	public static final fun syncAttributesAndOfferingsIfNeeded (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
-	public static final fun syncObserverModeAmazonPurchase (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;)V
-	public static final fun syncPurchases (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 }
 
 public final class com/revenuecat/purchases/kmp/UpdatedCustomerInfoDelegate : com/revenuecat/purchases/kmp/PurchasesDelegate {
@@ -349,24 +363,24 @@ public final class com/revenuecat/purchases/kmp/i18n/Locale_androidKt {
 }
 
 public final class com/revenuecat/purchases/kmp/ktx/CoroutinesKt {
-	public static final fun awaitCustomerInfo (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun awaitCustomerInfo$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static final fun awaitGetProducts (Lcom/revenuecat/purchases/Purchases;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitLogIn (Lcom/revenuecat/purchases/Purchases;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitLogOut (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitOfferings (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitPromotionalOffer (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitPurchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitPurchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitPurchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitPurchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitPurchase (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static final fun awaitRestore (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitSyncAttributesAndOfferingsIfNeeded (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitSyncPurchases (Lcom/revenuecat/purchases/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitCustomerInfo (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun awaitCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun awaitGetProducts (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitLogIn (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitLogOut (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitOfferings (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPromotionalOffer (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/models/SubscriptionOption;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun awaitRestore (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitSyncAttributesAndOfferingsIfNeeded (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitSyncPurchases (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/revenuecat/purchases/kmp/ktx/SuccessfulLogin {
