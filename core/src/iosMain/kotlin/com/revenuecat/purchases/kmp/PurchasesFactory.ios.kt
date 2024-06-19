@@ -2,6 +2,7 @@
 
 package com.revenuecat.purchases.kmp
 
+import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
 import cocoapods.PurchasesHybridCommon.RCDangerousSettings
 import cocoapods.PurchasesHybridCommon.RCPurchases
 import cocoapods.PurchasesHybridCommon.configureWithAPIKey
@@ -38,7 +39,7 @@ public actual object PurchasesFactory {
     public actual fun configure(
         configuration: PurchasesConfiguration
     ): Purchases {
-        // TODO Enable this in SDK-3301 checkCommonVersion()
+        checkCommonVersion()
 
         return with(configuration) {
             RCPurchases.configureWithAPIKey(
@@ -65,7 +66,7 @@ public actual object PurchasesFactory {
 
     private fun checkCommonVersion() {
         val expected = BuildKonfig.revenuecatCommonVersion
-        val actual = Purchases.frameworkVersion()
+        val actual = RCCommonFunctionality.hybridCommonVersion()
         check(actual == expected) {
             "Unexpected version of PurchasesHybridCommon ('$actual'). Make sure to use " +
                     "'$expected' exactly."
