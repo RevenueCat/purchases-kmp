@@ -1,5 +1,3 @@
-@file:Suppress("ACTUAL_ANNOTATIONS_NOT_MATCH_EXPECT")
-
 package com.revenuecat.purchases.kmp
 
 import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
@@ -21,7 +19,7 @@ import platform.Foundation.NSURL
 import cocoapods.PurchasesHybridCommon.RCDangerousSettings as IosDangerousSettings
 import cocoapods.PurchasesHybridCommon.RCPurchases as IosPurchases
 
-public actual class Purchases(private val iosPurchases: IosPurchases) {
+public actual class Purchases private constructor(private val iosPurchases: IosPurchases) {
     public actual companion object {
         private var _sharedInstance: Purchases? = null
         public actual val sharedInstance: Purchases
@@ -31,9 +29,14 @@ public actual class Purchases(private val iosPurchases: IosPurchases) {
             get() = IosPurchases.logLevel().toLogLevel()
             set(value) = IosPurchases.setLogLevel(value.toRcLogLevel())
 
+        private var _logHandler: LogHandler? = null
         public actual var logHandler: LogHandler
-            get() = IosPurchases.logHandler().toLogHandler()
-            set(value) = IosPurchases.setLogHandler(value.toRcLogHandler())
+            get() = _logHandler
+                ?: IosPurchases.logHandler().toLogHandler().also { _logHandler = it }
+            set(value) {
+                _logHandler = value
+                IosPurchases.setLogHandler(value.toRcLogHandler())
+            }
 
         public actual var proxyURL: String?
             get() = IosPurchases.proxyURL()?.absoluteString()

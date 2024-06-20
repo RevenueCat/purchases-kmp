@@ -33,6 +33,8 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual companion object {
 
         private var _sharedInstance: Purchases? = null
+
+        @JvmStatic
         public actual val sharedInstance: Purchases
             get() = _sharedInstance ?: throw UninitializedPropertyAccessException(
                 ConfigureStrings.NO_SINGLETON_INSTANCE
@@ -60,6 +62,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         @JvmStatic
         public actual var forceUniversalAppStore: Boolean = false
 
+        @JvmStatic
         public actual fun configure(configuration: PurchasesConfiguration): Purchases {
             with(configuration) {
                 // Using the common configure() call allows us to pass PlatformInfo.
@@ -82,7 +85,6 @@ public actual class Purchases private constructor(private val androidPurchases: 
             return Purchases(AndroidPurchases.sharedInstance).also { _sharedInstance = it }
         }
 
-        @JvmOverloads
         @JvmStatic
         public actual fun canMakePayments(
             features: List<BillingFeature>,

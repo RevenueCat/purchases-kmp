@@ -136,7 +136,6 @@ final class com.revenuecat.purchases.kmp/DangerousSettings { // com.revenuecat.p
         final fun <get-autoSyncPurchases>(): kotlin/Boolean // com.revenuecat.purchases.kmp/DangerousSettings.autoSyncPurchases.<get-autoSyncPurchases>|<get-autoSyncPurchases>(){}[0]
 }
 final class com.revenuecat.purchases.kmp/Purchases { // com.revenuecat.purchases.kmp/Purchases|null[0]
-    constructor <init>(cocoapods.PurchasesHybridCommon/RCPurchases) // com.revenuecat.purchases.kmp/Purchases.<init>|<init>(cocoapods.PurchasesHybridCommon.RCPurchases){}[0]
     final fun close() // com.revenuecat.purchases.kmp/Purchases.close|close(){}[0]
     final fun collectDeviceIdentifiers() // com.revenuecat.purchases.kmp/Purchases.collectDeviceIdentifiers|collectDeviceIdentifiers(){}[0]
     final fun getCustomerInfo(com.revenuecat.purchases.kmp/CacheFetchPolicy = ..., kotlin/Function1<com.revenuecat.purchases.kmp/PurchasesError, kotlin/Unit>, kotlin/Function1<cocoapods.PurchasesHybridCommon/RCCustomerInfo, kotlin/Unit>) // com.revenuecat.purchases.kmp/Purchases.getCustomerInfo|getCustomerInfo(com.revenuecat.purchases.kmp.CacheFetchPolicy;kotlin.Function1<com.revenuecat.purchases.kmp.PurchasesError,kotlin.Unit>;kotlin.Function1<cocoapods.PurchasesHybridCommon.RCCustomerInfo,kotlin.Unit>){}[0]
