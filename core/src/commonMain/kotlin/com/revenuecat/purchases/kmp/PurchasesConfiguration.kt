@@ -1,12 +1,11 @@
 package com.revenuecat.purchases.kmp
 
 import com.revenuecat.purchases.kmp.PurchasesConfiguration.Builder
-import com.revenuecat.purchases.kmp.PurchasesFactory.sharedInstance
 import kotlin.jvm.JvmSynthetic
 
 /**
  * Holds parameters to initialize the SDK. Create an instance of this class using the [Builder] and
- * pass it to [PurchasesFactory.configure].
+ * pass it to [Purchases.configure].
  */
 public class PurchasesConfiguration private constructor(
     public val apiKey: String,
@@ -161,7 +160,7 @@ public class PurchasesConfiguration private constructor(
 
 /**
  * Holds parameters to initialize the SDK. Create an instance of this class using the [builder] and
- * pass it to [PurchasesFactory.configure].
+ * pass it to [Purchases.configure].
  */
 @JvmSynthetic
 public fun PurchasesConfiguration(
@@ -175,10 +174,10 @@ public fun PurchasesConfiguration(
 /**
  * Configures an instance of the SDK with the specified [configuration builder][builder]. The
  * instance will be set as a singleton. You should access the singleton instance using
- * [sharedInstance].
+ * [sharedInstance][Purchases.sharedInstance].
  */
 @JvmSynthetic
-public fun PurchasesFactory.configure(
+public fun Purchases.Companion.configure(
     apiKey: String,
     builder: Builder.() -> Unit = { }
 ): Purchases =

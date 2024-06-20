@@ -9,26 +9,16 @@ import com.revenuecat.purchases.kmp.Offerings
 import com.revenuecat.purchases.kmp.Package
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesError
-import com.revenuecat.purchases.kmp.getCustomerInfo
-import com.revenuecat.purchases.kmp.getOfferings
-import com.revenuecat.purchases.kmp.getProducts
-import com.revenuecat.purchases.kmp.getPromotionalOffer
 import com.revenuecat.purchases.kmp.ktx.SuccessfulLogin
 import com.revenuecat.purchases.kmp.ktx.SuccessfulPurchase
 import com.revenuecat.purchases.kmp.ktx.awaitPromotionalOffer
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
-import com.revenuecat.purchases.kmp.logIn
-import com.revenuecat.purchases.kmp.logOut
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
-import com.revenuecat.purchases.kmp.purchase
-import com.revenuecat.purchases.kmp.restorePurchases
-import com.revenuecat.purchases.kmp.syncAttributesAndOfferingsIfNeeded
-import com.revenuecat.purchases.kmp.syncPurchases
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -79,7 +69,7 @@ public suspend fun Purchases.awaitSyncPurchasesEither(): Either<PurchasesError, 
  *
  * Refer to [the guide](https://www.revenuecat.com/docs/tools/targeting) for more targeting
  * information.
- * For more offerings information, see [getOfferings].
+ * For more offerings information, see [Purchases.getOfferings].
  *
  * Coroutine friendly version of [Purchases.syncAttributesAndOfferingsIfNeeded].
  *
@@ -345,12 +335,14 @@ public suspend fun Purchases.awaitPurchaseEither(
 /**
  * Restores purchases made with the current Store account for the current user. This method will
  * post all purchases associated with the current Store account to RevenueCat and become associated
- * with the current [appUserID]. If the receipt token is being used by an existing user, the current
- * [appUserID] will be aliased together with the [appUserID] of the existing user. Going forward,
- * either [appUserID] will be able to reference the same user.
+ * with the current [appUserID][Purchases.appUserID]. If the receipt token is being used by an
+ * existing user, the current [appUserID][Purchases.appUserID] will be aliased together with the
+ * [appUserID][Purchases.appUserID] of the existing user. Going forward, either
+ * [appUserID][Purchases.appUserID] will be able to reference the same user.
  *
  * You shouldn't use this method if you have your own account system. In that case "restoration" is
- * provided by your app passing the same [appUserID] used to purchase originally.
+ * provided by your app passing the same [appUserID][Purchases.appUserID] used to purchase
+ * originally.
  *
  * @return An [Either.Right] containing [CustomerInfo] if successful, an [Either.Left] containing a
  * [PurchasesError] in case of a failure.
@@ -364,8 +356,8 @@ public suspend fun Purchases.awaitRestoreEither(): Either<PurchasesError, Custom
     }
 
 /**
- * This function will change the current [appUserID]. Typically this would be used after a log out
- * to identify a new user without calling `configure()`.
+ * This function will change the current [appUserID][Purchases.appUserID]. Typically this would be
+ * used after a log out to identify a new user without calling [Purchases.configure].
  * @param newAppUserID The new appUserID that should be linked to the currently user
  *
  * @return An [Either.Right] containing [CustomerInfo] if successful, an [Either.Left] containing a
@@ -384,8 +376,8 @@ public suspend fun Purchases.awaitLogInEither(
 }
 
 /**
- * Resets the Purchases client clearing the save [appUserID]. This will generate a random user
- * id and save it in the cache.
+ * Resets the Purchases client clearing the save [appUserID][Purchases.appUserID]. This will
+ * generate a random user id and save it in the cache.
  *
  * @return An [Either.Right] containing [CustomerInfo] if successful, an [Either.Left] containing a
  * [PurchasesError] in case of a failure.
