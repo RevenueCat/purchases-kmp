@@ -216,11 +216,11 @@ workflows:
     jobs:
       - revenuecat/automatic-bump
 
-  # The second stage of the release train runs tests and then starts a hold job, which
-  # is a job that needs to be manually approved on the CircleCI web app. This ensures
-  # there's always a human in the loop. After the hold job is approved, the current
-  # release branch is tagged with the version number. This new release tag triggers
-  # the next workflow: on-release-tag.
+  # The second stage of the release train starts a hold job, which is a job that
+  # needs to be manually approved on the CircleCI web app. This ensures there's 
+  # always a human in the loop. After the hold job is approved, the current release
+  # branch is tagged with the version number. This new release tag triggers the next
+  # workflow: on-release-tag.
   on-release-branch:
     when:
       and:
