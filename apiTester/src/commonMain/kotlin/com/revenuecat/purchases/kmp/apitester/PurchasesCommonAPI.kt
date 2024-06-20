@@ -9,6 +9,7 @@ import com.revenuecat.purchases.kmp.LogLevel
 import com.revenuecat.purchases.kmp.Offerings
 import com.revenuecat.purchases.kmp.Package
 import com.revenuecat.purchases.kmp.Purchases
+import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.MY_APP
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.PurchasesError
@@ -238,7 +239,7 @@ private class PurchasesCommonAPI {
 
         val config: PurchasesConfiguration = PurchasesConfiguration(apiKey = "") {
             appUserId = ""
-            observerMode = true
+            purchasesAreCompletedBy = MY_APP
             showInAppMessagesAutomatically = true
             dangerousSettings = DangerousSettings(autoSyncPurchases = true)
             verificationMode = EntitlementVerificationMode.INFORMATIONAL
@@ -247,7 +248,7 @@ private class PurchasesCommonAPI {
         val configuredInstance: Purchases = Purchases.configure(config)
         val otherConfiguredInstance: Purchases = Purchases.configure(apiKey = "") {
             appUserId = ""
-            observerMode = true
+            purchasesAreCompletedBy = MY_APP
             showInAppMessagesAutomatically = true
             dangerousSettings = DangerousSettings(autoSyncPurchases = true)
             verificationMode = EntitlementVerificationMode.INFORMATIONAL
