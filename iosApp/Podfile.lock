@@ -1,8 +1,8 @@
 PODS:
-  - PurchasesHybridCommon (10.9.0):
+  - PurchasesHybridCommon (10.10.0):
     - RevenueCat (= 4.43.0)
-  - PurchasesHybridCommonUI (10.9.0):
-    - PurchasesHybridCommon (= 10.9.0)
+  - PurchasesHybridCommonUI (10.10.0):
+    - PurchasesHybridCommon (= 10.10.0)
     - RevenueCatUI (= 4.43.0)
   - RevenueCat (4.43.0)
   - RevenueCatUI (4.43.0):
@@ -20,8 +20,8 @@ SPEC REPOS:
     - RevenueCatUI
 
 SPEC CHECKSUMS:
-  PurchasesHybridCommon: 0e157d11d04fdfdd434b5c6d05acb58fd1cc9db8
-  PurchasesHybridCommonUI: 3541d756f566e7de74e43195135fc71f98a3e19d
+  PurchasesHybridCommon: dcc722da673612ae05e9cec1e4d8d45847ab0f40
+  PurchasesHybridCommonUI: bfa7c7f1d8ed8f96fdc1e2a53746c75cd69ffad9
   RevenueCat: f7b90c52f4b7e322bc9e7adaf734030523534b06
   RevenueCatUI: 1d945ac4cd70052c092e467588f545281b1ca8c3
 
