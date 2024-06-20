@@ -34,6 +34,9 @@ parameters:
     default: ''
 
 executors:
+  jdk17:
+    docker:
+      - image: cimg/openjdk:17.0
   ruby3:
     docker:
       - image: cimg/ruby:3.3.0
@@ -63,6 +66,58 @@ jobs:
             version:<< pipeline.parameters.version >> \
             open_pr:true \
             automatic_release:<< pipeline.parameters.automatic >>
+
+  detekt:
+    executor: jdk17
+    steps:
+      - checkout
+      - android/restore-gradle-cache
+      - run:
+          name: Run Detekt on commonMain
+          command: ./gradlew detektCommonMain
+      - android/save-gradle-cache
+      - run:
+          name: Collect Detekt HTML reports
+          command: mkdir -p artifacts/detekt && mv build/reports/detekt/*.html artifacts/detekt/
+      - store_artifacts:
+          path: artifacts/detekt
+          destination: detekt
+
+  validate-binary-compatibility:
+    executor: xcode15
+    steps:
+      - install-android-sdk-on-macos
+      - checkout
+      - android/restore-gradle-cache
+      - run:
+          name: Validate binary compatibility
+          command: ./gradlew apiCheck
+      - android/save-gradle-cache
+
+  test-public-api:
+    executor: xcode15
+    steps:
+      - install-android-sdk-on-macos
+      - checkout
+      - android/restore-gradle-cache
+      - run:
+          name: Test public API
+          command: ./gradlew :apiTester:assemble
+      - android/save-gradle-cache
+
+  build:
+    executor: xcode15
+    steps:
+      - install-android-sdk-on-macos
+      - checkout
+      - android/restore-gradle-cache
+      - run:
+          name: Build libraries
+          command: ./gradlew assemble -x :composeApp:assemble
+      - run:
+          name: Build sample
+          command: ./gradlew :composeApp:assembleDebug
+      - android/save-gradle-cache
 
   publish:
     description: "Publishes the SDK, either a SNAPSHOT or release version."
@@ -144,11 +199,11 @@ workflows:
     jobs:
       - revenuecat/automatic-bump
 
-  # The second stage of the release train starts a hold job, which is a job that
-  # needs to be manually approved on the CircleCI web app. This ensures there's 
-  # always a human in the loop. After the hold job is approved, the current release
-  # branch is tagged with the version number. This new release tag triggers the next
-  # workflow: on-release-tag.
+  # The second stage of the release train runs tests and then starts a hold job, which
+  # is a job that needs to be manually approved on the CircleCI web app. This ensures
+  # there's always a human in the loop. After the hold job is approved, the current
+  # release branch is tagged with the version number. This new release tag triggers
+  # the next workflow: on-release-tag.
   on-release-branch:
     when:
       and:
@@ -156,8 +211,18 @@ workflows:
         - not:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
+      - detekt
+      - validate-binary-compatibility
+      - test-public-api
+      - build:
+          requires:
+            - detekt
+            - validate-binary-compatibility
+            - test-public-api
       - hold:
           type: approval
+          requires:
+            - build
       - revenuecat/tag-current-branch:
           requires:
             - hold
