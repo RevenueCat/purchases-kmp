@@ -8,7 +8,6 @@ import com.revenuecat.purchases.kmp.firstSeenMillis
 import com.revenuecat.purchases.kmp.latestExpirationDateMillis
 import com.revenuecat.purchases.kmp.originalPurchaseDateMillis
 import com.revenuecat.purchases.kmp.requestDateMillis
-import com.revenuecat.purchases.kmp.restorePurchases
 import kotlinx.datetime.Instant
 
 /**

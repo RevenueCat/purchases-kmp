@@ -12,17 +12,11 @@ import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.PurchasesError
-import com.revenuecat.purchases.kmp.PurchasesFactory
-import com.revenuecat.purchases.kmp.appUserID
-import com.revenuecat.purchases.kmp.close
 import com.revenuecat.purchases.kmp.configure
-import com.revenuecat.purchases.kmp.delegate
 import com.revenuecat.purchases.kmp.either.FailedPurchase
 import com.revenuecat.purchases.kmp.either.awaitGetProductsEither
 import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
 import com.revenuecat.purchases.kmp.either.awaitPurchaseEither
-import com.revenuecat.purchases.kmp.getOfferings
-import com.revenuecat.purchases.kmp.getProducts
 import com.revenuecat.purchases.kmp.ktx.SuccessfulPurchase
 import com.revenuecat.purchases.kmp.ktx.awaitGetProducts
 import com.revenuecat.purchases.kmp.ktx.awaitOfferings
@@ -32,8 +26,6 @@ import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
-import com.revenuecat.purchases.kmp.purchase
-import com.revenuecat.purchases.kmp.restorePurchases
 import com.revenuecat.purchases.kmp.result.awaitGetProductsResult
 import com.revenuecat.purchases.kmp.result.awaitOfferingsResult
 import com.revenuecat.purchases.kmp.result.awaitPurchaseResult
@@ -234,15 +226,15 @@ private class PurchasesCommonAPI {
     @Suppress("ForbiddenComment")
     fun checkConfiguration() {
         val features: List<BillingFeature> = ArrayList()
-        val configured: Boolean = PurchasesFactory.isConfigured
+        val configured: Boolean = Purchases.isConfigured
 
-        PurchasesFactory.canMakePayments(features) { _: Boolean -> }
+        Purchases.canMakePayments(features) { _: Boolean -> }
 
-        PurchasesFactory.logLevel = LogLevel.INFO
-        val logLevel: LogLevel = PurchasesFactory.logLevel
+        Purchases.logLevel = LogLevel.INFO
+        val logLevel: LogLevel = Purchases.logLevel
 
-        PurchasesFactory.proxyURL = ""
-        val url: String? = PurchasesFactory.proxyURL
+        Purchases.proxyURL = ""
+        val url: String? = Purchases.proxyURL
 
         val config: PurchasesConfiguration = PurchasesConfiguration(apiKey = "") {
             appUserId = ""
@@ -252,25 +244,25 @@ private class PurchasesCommonAPI {
             verificationMode = EntitlementVerificationMode.INFORMATIONAL
         }
 
-        val configuredInstance: Purchases = PurchasesFactory.configure(config)
-        val otherConfiguredInstance: Purchases = PurchasesFactory.configure(apiKey = "") {
+        val configuredInstance: Purchases = Purchases.configure(config)
+        val otherConfiguredInstance: Purchases = Purchases.configure(apiKey = "") {
             appUserId = ""
             observerMode = true
             showInAppMessagesAutomatically = true
             dangerousSettings = DangerousSettings(autoSyncPurchases = true)
             verificationMode = EntitlementVerificationMode.INFORMATIONAL
         }
-        val instance: Purchases = PurchasesFactory.sharedInstance
+        val instance: Purchases = Purchases.sharedInstance
     }
 
     fun checkLogHandler() {
-        PurchasesFactory.logHandler = object : LogHandler {
+        Purchases.logHandler = object : LogHandler {
             override fun v(tag: String, msg: String) {}
             override fun d(tag: String, msg: String) {}
             override fun i(tag: String, msg: String) {}
             override fun w(tag: String, msg: String) {}
             override fun e(tag: String, msg: String, throwable: Throwable?) {}
         }
-        val handler = PurchasesFactory.logHandler
+        val handler = Purchases.logHandler
     }
 }
