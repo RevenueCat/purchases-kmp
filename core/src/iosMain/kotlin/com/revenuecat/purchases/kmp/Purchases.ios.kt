@@ -1,5 +1,3 @@
-@file:Suppress("ACTUAL_ANNOTATIONS_NOT_MATCH_EXPECT")
-
 package com.revenuecat.purchases.kmp
 
 import cocoapods.PurchasesHybridCommon.RCCommonFunctionality

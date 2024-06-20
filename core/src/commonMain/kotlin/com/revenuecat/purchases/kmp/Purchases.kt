@@ -8,8 +8,6 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
-import kotlin.jvm.JvmOverloads
-import kotlin.jvm.JvmStatic
 
 /**
  * Entry point for Purchases. This class can be instantiated using [Purchases.configure]. This
@@ -34,7 +32,6 @@ public expect class Purchases {
          * Configure log level. Useful for debugging issues with the lovely team @RevenueCat
          * By default, LogLevel.DEBUG in debug builds, and LogLevel.INFO in release builds.
          */
-        @JvmStatic
         public var logLevel: LogLevel
 
         /**
@@ -43,27 +40,23 @@ public expect class Purchases {
          * By default, this sends info, warning, and error messages.
          * If you wish to receive Debug level messages, see [logLevel].
          */
-        @JvmStatic
         public var logHandler: LogHandler
 
         /**
          * Set this property to your proxy URL before configuring Purchases *only*
          * if you've received a proxy key value from your RevenueCat contact.
          */
-        @JvmStatic
         public var proxyURL: String?
 
         /**
          * True if `configure` has been called and [sharedInstance] is set
          */
-        @JvmStatic
         public val isConfigured: Boolean
 
         /**
          * App Store only. Set this property to true only when testing the ask-to-buy / SCA
          * purchases flow. More information [available here](https://rev.cat/ask-to-buy).
          */
-        @JvmStatic
         public var simulatesAskToBuyInSandbox: Boolean
 
         /**
@@ -71,7 +64,6 @@ public expect class Purchases {
          * app from the Legacy Mac App Store into the Universal Store, and you’ve configured your
          * RevenueCat app accordingly. Contact RevenueCat support before using this.
          */
-        @JvmStatic
         public var forceUniversalAppStore: Boolean
 
         /**
@@ -93,8 +85,6 @@ public expect class Purchases {
          * feature support will be checked.
          * @param callback Callback that will be notified when the check is complete.
          */
-        @JvmStatic
-        @JvmOverloads
         public fun canMakePayments(
             features: List<BillingFeature> = listOf(),
             callback: (Boolean) -> Unit,
