@@ -121,9 +121,9 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public static final field Companion Lcom/revenuecat/purchases/kmp/Purchases$Companion;
 	public synthetic fun <init> (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public static final fun canMakePayments (Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
-	public static final fun canMakePayments (Lkotlin/jvm/functions/Function1;)V
 	public final fun close ()V
 	public final fun collectDeviceIdentifiers ()V
+	public static final fun configure (Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;)Lcom/revenuecat/purchases/kmp/Purchases;
 	public final fun getAppUserID ()Ljava/lang/String;
 	public final fun getCustomerInfo (Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public static synthetic fun getCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
@@ -136,6 +136,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun getProducts (Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun getPromotionalOffer (Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public static final fun getProxyURL ()Ljava/lang/String;
+	public static final fun getSharedInstance ()Lcom/revenuecat/purchases/kmp/Purchases;
 	public static final fun getSimulatesAskToBuyInSandbox ()Z
 	public final fun getStore ()Lcom/revenuecat/purchases/Store;
 	public final fun invalidateCustomerInfoCache ()V
@@ -189,7 +190,6 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 
 public final class com/revenuecat/purchases/kmp/Purchases$Companion {
 	public final fun canMakePayments (Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
-	public final fun canMakePayments (Lkotlin/jvm/functions/Function1;)V
 	public static synthetic fun canMakePayments$default (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 	public final fun configure (Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;)Lcom/revenuecat/purchases/kmp/Purchases;
 	public final fun getForceUniversalAppStore ()Z
