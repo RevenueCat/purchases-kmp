@@ -105,6 +105,26 @@ lane :tag_current_branch do |options|
   push_git_tags(tag: version_number)
 end
 
+desc "Publish the SDK if the current version is a SNAPSHOT version"
+lane :publish_if_snapshot do |options|
+  version = current_version_number
+  if version.end_with?("-SNAPSHOT")
+    publish
+  else
+    UI.user_error!("The current version '#{version}' is not a SNAPSHOT version.")
+  end
+end
+
+desc "Publish the SDK if the current version is a release version"
+lane :publish_if_release do |options|
+  version = current_version_number
+  if version.end_with?("-SNAPSHOT")
+    UI.user_error!("The current version '#{version}' is a SNAPSHOT version.")
+  else
+    publish
+  end
+end
+
 desc "Creates a GitHub release for the current version"
 lane :github_release_current_version do |options|
   github_release(version: current_version_number)
@@ -155,3 +175,24 @@ def get_phc_version
       raise "git tag with version #{version_number} already exists!"
     end
   end
+
+# Publishes the SDK. If the current version is a SNAPSHOT version, it will be published
+# to Sonatype's snapshots repository, otherwise it will be published to Maven Central.
+#
+# This requires the following environment variables to be set:
+# - SONATYPE_NEXUS_TOKEN_USERNAME
+# - SONATYPE_NEXUS_TOKEN_PASSWORD
+# - SIGNING_GPG_IN_MEMORY
+# - GPG_SIGNING_KEY_PW_NEW
+#
+# These are set on CircleCI by providing the maven-central-publishing context when
+# running the publish job.
+def publish
+  version = current_version_number
+  UI.verbose("Publishing #{version}")
+  ENV["ORG_GRADLE_PROJECT_mavenCentralUsername"] = ENV["SONATYPE_NEXUS_TOKEN_USERNAME"]
+  ENV["ORG_GRADLE_PROJECT_mavenCentralPassword"] = ENV["SONATYPE_NEXUS_TOKEN_PASSWORD"]
+  ENV["ORG_GRADLE_PROJECT_signingInMemoryKey"] = ENV["SIGNING_GPG_IN_MEMORY"]
+  ENV["ORG_GRADLE_PROJECT_signingInMemoryKeyPassword"] = ENV["GPG_SIGNING_KEY_PW_NEW"]
+  gradle(task: "publishAllPublicationsToMavenCentralRepository")
+end

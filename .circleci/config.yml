@@ -21,22 +21,6 @@ commands:
           name: Install Android SDK platform tools
           command: sdkmanager "platform-tools"
 
-  require-snapshot-version:
-    description: Check that the current version is a SNAPSHOT version
-    steps:
-      - run:
-          name: Check that the current version is a SNAPSHOT version
-          command: |
-            set -euo pipefail
-            file_path="gradle/libs.versions.toml"
-            version=$(grep 'revenuecat-kmp = ' "$file_path" | awk -F ' = ' '{print $2}' | tr -d '"')
-            if [[ ! "$version" =~ -SNAPSHOT$ ]]; then
-              echo "$version is not a SNAPSHOT version. Exiting..."
-              exit 1
-            else
-              echo "$version is a SNAPSHOT version. Proceeding..."
-            fi
-
 parameters:
   action:
     type: enum
@@ -81,7 +65,7 @@ jobs:
             automatic_release:<< pipeline.parameters.automatic >>
 
   publish:
-    description: "Publishes a release, either SNAPSHOT or final."
+    description: "Publishes the SDK, either a SNAPSHOT or release version."
     executor: xcode15
     parameters:
       snapshot:
@@ -89,27 +73,21 @@ jobs:
         type: boolean
     steps:
       - checkout
-      - when:
-          condition: << parameters.snapshot >>
-          steps:
-            - require-snapshot-version
       - install-android-sdk-on-macos
       - android/restore-gradle-cache
       - android/restore-build-cache
-      - run:
-          name: Set environment variables for publishing
-          command: |
-            echo 'export ORG_GRADLE_PROJECT_mavenCentralUsername="$SONATYPE_NEXUS_TOKEN_USERNAME"' >> "$BASH_ENV"
-            echo 'export ORG_GRADLE_PROJECT_mavenCentralPassword="$SONATYPE_NEXUS_TOKEN_PASSWORD"' >> "$BASH_ENV"
-            echo 'export ORG_GRADLE_PROJECT_signingInMemoryKey="$SIGNING_GPG_IN_MEMORY"' >> "$BASH_ENV"
-            echo 'export ORG_GRADLE_PROJECT_signingInMemoryKeyPassword="$GPG_SIGNING_KEY_PW_NEW"' >> "$BASH_ENV"
-      # TODO Remove this condition to allow releasing non-SNAPSHOT versions. 
       - when:
           condition: << parameters.snapshot >>
           steps:
             - run:
-                name: Publish to Maven Central
-                command: ./gradlew publishAllPublicationsToMavenCentralRepository
+                name: "Publish snapshot to Sonatype's snapshots repository"
+                command: bundle exec fastlane publish_if_snapshot
+      - unless:
+          condition: << parameters.snapshot >>
+          steps:
+            - run:
+                name: "Publish release to Maven Central"
+                command: bundle exec fastlane publish_if_release
       - android/save-gradle-cache
       - android/save-build-cache
 
