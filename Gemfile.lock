@@ -212,6 +212,7 @@ GEM
     plist (3.7.1)
     public_suffix (5.0.5)
     rake (13.2.1)
+    rb-readline (0.5.5)
     rchardet (1.8.0)
     representable (3.2.0)
       declarative (< 0.1.0)
@@ -271,6 +272,7 @@ DEPENDENCIES
   danger
   fastlane
   fastlane-plugin-revenuecat_internal!
+  rb-readline
 
 BUNDLED WITH
    2.3.26

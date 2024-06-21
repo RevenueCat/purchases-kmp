@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem 'danger'
+gem 'rb-readline'
 gem 'fastlane'
 
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
