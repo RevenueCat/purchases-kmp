@@ -196,17 +196,6 @@ workflows:
             - git-user-ops
             - github-bot-public
 
-  debug-delete-this:
-    when:
-      and:
-        - equal: [ fix-snapshot-publishing, << pipeline.git.branch >> ]
-        - not:
-            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-    jobs:
-      - publish:
-          snapshot: true
-          context: maven-central-publishing
-
   on-main-branch:
     when:
       and:
