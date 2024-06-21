@@ -142,6 +142,8 @@ jobs:
     steps:
       - checkout
       - install-android-sdk-on-macos
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
       - android/restore-gradle-cache
       - android/restore-build-cache
       - when:
@@ -185,6 +187,17 @@ workflows:
           context:
             - git-user-ops
             - github-bot-public
+
+  debug-delete-this:
+    when:
+      and:
+        - equal: [ fix-snapshot-publishing, << pipeline.git.branch >> ]
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+    jobs:
+      - publish:
+          snapshot: true
+          context: maven-central-publishing
 
   on-main-branch:
     when:
