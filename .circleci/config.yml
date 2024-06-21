@@ -21,6 +21,13 @@ commands:
           name: Install Android SDK platform tools
           command: sdkmanager "platform-tools"
 
+  install-cocoapods-on-macos:
+    steps:
+      - run:
+          name: Install CocoaPods
+          command: bundle exec pod install --repo-update
+          working_directory: iosApp
+
 parameters:
   action:
     type: enum
@@ -142,6 +149,9 @@ jobs:
     steps:
       - checkout
       - install-android-sdk-on-macos
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - install-cocoapods-on-macos
       - android/restore-gradle-cache
       - android/restore-build-cache
       - when:
