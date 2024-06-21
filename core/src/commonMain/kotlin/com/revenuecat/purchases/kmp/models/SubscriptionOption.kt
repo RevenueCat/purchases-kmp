@@ -1,5 +1,7 @@
 package com.revenuecat.purchases.kmp.models
 
+import com.revenuecat.purchases.kmp.PresentedOfferingContext
+
 /**
  * Play Store only. A purchase-able entity for a subscription product.
  */
@@ -25,11 +27,12 @@ public expect interface SubscriptionOption {
     public val tags: List<String>
 
     /**
-     * The offering ID this `SubscriptionOption` was returned from.
+     * The context from which this subscription option was obtained.
      *
-     * Null if not using RevenueCat offerings system, or if fetched directly via `Purchases.getProducts`
+     * Null if not using RevenueCat offerings system, if fetched directly via
+     * `Purchases.getProducts`, or on restores/syncs.
      */
-    public val presentedOfferingIdentifier: String?
+    public val presentedOfferingContext: PresentedOfferingContext?
 
     public val purchasingData: PurchasingData
 }
