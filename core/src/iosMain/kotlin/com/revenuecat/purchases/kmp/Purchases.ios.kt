@@ -6,6 +6,8 @@ import cocoapods.PurchasesHybridCommon.configureWithAPIKey
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
 import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
+import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.MY_APP
+import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.REVENUECAT
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
@@ -62,7 +64,10 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 IosPurchases.configureWithAPIKey(
                     apiKey = apiKey,
                     appUserID = appUserId,
-                    observerMode = observerMode,
+                    observerMode = when (configuration.purchasesAreCompletedBy) {
+                        REVENUECAT -> false
+                        MY_APP -> true
+                    },
                     userDefaultsSuiteName = userDefaultsSuiteName,
                     platformFlavor = BuildKonfig.platformFlavor,
                     platformFlavorVersion = frameworkVersion,
@@ -96,10 +101,18 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             IosDangerousSettings(autoSyncPurchases)
     }
 
-    public actual var finishTransactions: Boolean
-        get() = iosPurchases.finishTransactions()
+    public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy
+        get() = when (iosPurchases.finishTransactions()) {
+            true -> REVENUECAT
+            false -> MY_APP
+        }
         set(value) {
-            iosPurchases.setFinishTransactions(value)
+            iosPurchases.setFinishTransactions(
+                when (value) {
+                    REVENUECAT -> true
+                    MY_APP -> false
+                }
+            )
         }
 
     public actual val appUserID: String
@@ -123,7 +136,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
     }
 
-    public actual fun syncObserverModeAmazonPurchase(
+    public actual fun syncAmazonPurchase(
         productID: String,
         receiptID: String,
         amazonUserID: String,
