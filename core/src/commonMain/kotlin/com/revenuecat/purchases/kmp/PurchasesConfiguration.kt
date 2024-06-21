@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp
 
+import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.REVENUECAT
 import com.revenuecat.purchases.kmp.PurchasesConfiguration.Builder
 import kotlin.jvm.JvmSynthetic
 
@@ -10,7 +11,7 @@ import kotlin.jvm.JvmSynthetic
 public class PurchasesConfiguration private constructor(
     public val apiKey: String,
     public val appUserId: String?,
-    public val observerMode: Boolean,
+    public val purchasesAreCompletedBy: PurchasesAreCompletedBy,
     public val userDefaultsSuiteName: String?,
     public val showInAppMessagesAutomatically: Boolean,
     public val store: Store?,
@@ -22,7 +23,7 @@ public class PurchasesConfiguration private constructor(
         "PurchasesConfiguration(" +
                 "apiKey=$apiKey, " +
                 "appUserId=$appUserId, " +
-                "observerMode=$observerMode, " +
+                "purchasesAreCompletedBy=$purchasesAreCompletedBy, " +
                 "userDefaultsSuiteName=$userDefaultsSuiteName, " +
                 "showInAppMessagesAutomatically=$showInAppMessagesAutomatically, " +
                 "store=$store, " +
@@ -42,7 +43,7 @@ public class PurchasesConfiguration private constructor(
         public var appUserId: String? = null
 
         @set:JvmSynthetic
-        public var observerMode: Boolean = false
+        public var purchasesAreCompletedBy: PurchasesAreCompletedBy = REVENUECAT
 
         @set:JvmSynthetic
         public var userDefaultsSuiteName: String? = null
@@ -76,12 +77,23 @@ public class PurchasesConfiguration private constructor(
             apply { this.appUserId = appUserId }
 
         /**
-         * An optional boolean. Set this to TRUE if you have your own IAP implementation and
-         * want to use only RevenueCat's backend. Default is FALSE. If you are on Android and setting this to TRUE,
-         * you will have to acknowledge the purchases yourself.
+         * An optional setting. Set this to [MY_APP][PurchasesAreCompletedBy.MY_APP] if you have
+         * your own IAP
+         * implementation and want to use only RevenueCat's backend. Default is
+         * [REVENUECAT][PurchasesAreCompletedBy.REVENUECAT]. If you are on Android and setting this
+         * to [MY_APP][PurchasesAreCompletedBy.MY_APP], you will have to acknowledge the purchases
+         * yourself.
+         *
+         * **Note:** failing to acknowledge a purchase within 3 days will lead to Google Play
+         * automatically issuing a refund to the user.
+         *
+         * For more info, see
+         * [revenuecat.com](https://www.revenuecat.com/docs/migrating-to-revenuecat/sdk-or-not/finishing-transactions)
+         * and [developer.android.com](https://developer.android.com/google/play/billing/integrate#process).
          */
-        public fun observerMode(observerMode: Boolean): Builder =
-            apply { this.observerMode = observerMode }
+        public fun purchasesAreCompletedBy(
+            purchasesAreCompletedBy: PurchasesAreCompletedBy
+        ): Builder = apply { this.purchasesAreCompletedBy = purchasesAreCompletedBy }
 
         /**
          * iOS-only, will be ignored for Android. Set this if you would like the RevenueCat SDK to
@@ -147,7 +159,7 @@ public class PurchasesConfiguration private constructor(
         public fun build(): PurchasesConfiguration = PurchasesConfiguration(
             apiKey = apiKey,
             appUserId = appUserId,
-            observerMode = observerMode,
+            purchasesAreCompletedBy = purchasesAreCompletedBy,
             userDefaultsSuiteName = userDefaultsSuiteName,
             showInAppMessagesAutomatically = showInAppMessagesAutomatically,
             store = store,

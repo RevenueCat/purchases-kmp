@@ -5,6 +5,8 @@ import com.revenuecat.purchases.common.PlatformInfo
 import com.revenuecat.purchases.getCustomerInfoWith
 import com.revenuecat.purchases.getOfferingsWith
 import com.revenuecat.purchases.getProductsWith
+import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.MY_APP
+import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.REVENUECAT
 import com.revenuecat.purchases.kmp.di.AndroidProvider
 import com.revenuecat.purchases.kmp.di.requireActivity
 import com.revenuecat.purchases.kmp.di.requireApplication
@@ -67,10 +69,13 @@ public actual class Purchases private constructor(private val androidPurchases: 
             with(configuration) {
                 // Using the common configure() call allows us to pass PlatformInfo.
                 commonConfigure(
-                    AndroidProvider.requireApplication(),
+                    context = AndroidProvider.requireApplication(),
                     apiKey = apiKey,
                     appUserID = appUserId,
-                    observerMode = observerMode,
+                    observerMode = when (configuration.purchasesAreCompletedBy) {
+                        REVENUECAT -> false
+                        MY_APP -> true
+                    },
                     platformInfo = PlatformInfo(
                         flavor = BuildKonfig.platformFlavor,
                         version = frameworkVersion,
@@ -98,8 +103,17 @@ public actual class Purchases private constructor(private val androidPurchases: 
             AndroidDangerousSettings(autoSyncPurchases)
     }
 
-
-    public actual var finishTransactions: Boolean by androidPurchases::finishTransactions
+    public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy
+        get() = when (androidPurchases.finishTransactions) {
+            true -> REVENUECAT
+            false -> MY_APP
+        }
+        set(value) {
+            androidPurchases.finishTransactions = when (value) {
+                REVENUECAT -> true
+                MY_APP -> false
+            }
+        }
 
     public actual val appUserID: String by androidPurchases::appUserID
 
@@ -121,7 +135,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onSuccess = { onSuccess(it) },
     )
 
-    public actual fun syncObserverModeAmazonPurchase(
+    public actual fun syncAmazonPurchase(
         productID: String,
         receiptID: String,
         amazonUserID: String,

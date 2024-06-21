@@ -1,5 +1,7 @@
 package com.revenuecat.purchases.kmp
 
+import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.MY_APP
+import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.REVENUECAT
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
@@ -92,10 +94,10 @@ public expect class Purchases {
     }
 
     /**
-     * Default to TRUE, set this to FALSE if you are consuming and acknowledging transactions
-     * outside of the Purchases SDK.
+     * Default to [REVENUECAT], set this to [MY_APP] if you are consuming and acknowledging
+     * transactions outside of the Purchases SDK.
      */
-    public var finishTransactions: Boolean
+    public var purchasesAreCompletedBy: PurchasesAreCompletedBy
 
     /**
      * The passed in or generated app user ID.
@@ -137,8 +139,9 @@ public expect class Purchases {
     )
 
     /**
-     * This method will send a purchase to the RevenueCat backend. This function should only be
-     * called if you are in Amazon observer mode or performing a client side migration of your
+     * This method will send an Amazon purchase to the RevenueCat backend. This function should
+     * only be called if you have set [purchasesAreCompletedBy] to
+     * [MY_APP][PurchasesAreCompletedBy.MY_APP] or when performing a client side migration of your
      * current users to RevenueCat.
      *
      * The receipt IDs are cached if successfully posted so they are not posted more than once.
@@ -150,7 +153,7 @@ public expect class Purchases {
      * @param [isoCurrencyCode] Product's currency code in ISO 4217 format.
      * @param [price] Product's price.
      */
-    public fun syncObserverModeAmazonPurchase(
+    public fun syncAmazonPurchase(
         productID: String,
         receiptID: String,
         amazonUserID: String,
