@@ -27,6 +27,17 @@ public expect interface SubscriptionOption {
     public val tags: List<String>
 
     /**
+     * The offering ID this `SubscriptionOption` was returned from.
+     *
+     * Null if not using RevenueCat offerings system, or if fetched directly via `Purchases.getProducts`
+     */
+    @Deprecated(
+        "Use presentedOfferingContext instead",
+        ReplaceWith("presentedOfferingContext.offeringIdentifier"),
+    )
+    public val presentedOfferingIdentifier: String?
+
+    /**
      * The context from which this subscription option was obtained.
      *
      * Null if not using RevenueCat offerings system, if fetched directly via
