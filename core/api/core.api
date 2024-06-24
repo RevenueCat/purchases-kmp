@@ -514,10 +514,10 @@ public final class com/revenuecat/purchases/kmp/models/StoreProductDiscount_andr
 
 public final class com/revenuecat/purchases/kmp/models/StoreProduct_androidKt {
 	public static final fun getDefaultOption (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/models/SubscriptionOption;
-	public static final fun getDescription (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Ljava/lang/String;
 	public static final fun getDiscounts (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Ljava/util/List;
 	public static final fun getId (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Ljava/lang/String;
 	public static final fun getIntroductoryDiscount (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;
+	public static final fun getLocalizedDescription (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Ljava/lang/String;
 	public static final fun getPeriod (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/models/Period;
 	public static final fun getPresentedOfferingContext (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/PresentedOfferingContext;
 	public static final fun getPrice (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/models/Price;

@@ -17,7 +17,7 @@ public actual val StoreProduct.price: Price
     get() = toPrice()
 public actual val StoreProduct.title: String
     get() = localizedTitle()
-public actual val StoreProduct.description: String?
+public actual val StoreProduct.localizedDescription: String?
     get() = localizedDescription()
 public actual val StoreProduct.period: Period?
     get() = subscriptionPeriod()

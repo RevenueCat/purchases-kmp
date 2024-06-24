@@ -16,7 +16,7 @@ public actual val StoreProduct.price: Price
     get() = price
 public actual val StoreProduct.title: String
     get() = title
-public actual val StoreProduct.description: String?
+public actual val StoreProduct.localizedDescription: String?
     get() = description
 public actual val StoreProduct.period: Period?
     get() = period

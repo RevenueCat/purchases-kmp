@@ -54,5 +54,5 @@ internal fun RCStoreProductDiscount.currencyCodeOrUsd(): String =
 
 private fun NSNumberFormatter?.amountDecimalOrDefault(localizedPrice: String, defaultValue: String): NSDecimalNumber =
     this?.numberFromString(localizedPrice)
-        ?.let { it as NSDecimalNumber }
+        ?.let { NSDecimalNumber.decimalNumberWithString(it.stringValue) }
         ?: NSDecimalNumber.decimalNumberWithString(defaultValue)

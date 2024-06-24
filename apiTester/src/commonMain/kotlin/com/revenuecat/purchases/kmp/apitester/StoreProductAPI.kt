@@ -10,10 +10,10 @@ import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.SubscriptionOptions
 import com.revenuecat.purchases.kmp.models.defaultOption
-import com.revenuecat.purchases.kmp.models.description
 import com.revenuecat.purchases.kmp.models.discounts
 import com.revenuecat.purchases.kmp.models.id
 import com.revenuecat.purchases.kmp.models.introductoryDiscount
+import com.revenuecat.purchases.kmp.models.localizedDescription
 import com.revenuecat.purchases.kmp.models.period
 import com.revenuecat.purchases.kmp.models.presentedOfferingContext
 import com.revenuecat.purchases.kmp.models.price
@@ -30,7 +30,7 @@ private class StoreProductAPI {
             val type: ProductType = type
             val price: Price = price
             val title: String = title
-            val description: String? = description
+            val description: String? = localizedDescription
             val period: Period? = period
             val subscriptionOptions: SubscriptionOptions? = subscriptionOptions
             val defaultOption: SubscriptionOption? = defaultOption
