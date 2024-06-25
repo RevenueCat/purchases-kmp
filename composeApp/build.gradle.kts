@@ -48,7 +48,7 @@ kotlin {
             implementation(projects.revenuecatui)
         }
         androidMain.dependencies {
-            implementation(libs.androidx.compose.ui.tooling.preview)
+            implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
         }
     }
@@ -84,6 +84,6 @@ android {
         targetCompatibility(libs.versions.java.get())
     }
     dependencies {
-        debugImplementation(libs.androidx.compose.ui.tooling)
+        debugImplementation(compose.uiTooling)
     }
 }

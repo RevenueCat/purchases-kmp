@@ -13,7 +13,7 @@ kotlin {
             implementation(compose.ui)
         }
         androidMain.dependencies {
-            implementation(libs.androidx.compose.ui.tooling.preview)
+            implementation(compose.preview)
             implementation(libs.revenuecat.commonUi)
         }
     }
@@ -45,6 +45,6 @@ android {
         }
     }
     dependencies {
-        debugImplementation(libs.androidx.compose.ui.tooling)
+        debugImplementation(compose.uiTooling)
     }
 }
