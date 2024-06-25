@@ -12,13 +12,13 @@ public enum class StoreMessageType {
     BILLING_ISSUES,
 
     /**
-     * App Store only. Generic store messages.
-     */
-    GENERIC,
-
-    /**
      * App Store only. Message shown when there is a price increase in a subscription that requires
      * consent.
      */
     PRICE_INCREASE_CONSENT,
+
+    /**
+     * App Store only. Generic store messages.
+     */
+    GENERIC,
 }
