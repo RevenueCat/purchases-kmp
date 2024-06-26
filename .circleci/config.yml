@@ -253,6 +253,7 @@ workflows:
       - revenuecat/tag-current-branch:
           requires:
             - hold
+          context: git-user-ops
 
   # The third and last stage of the release train actually publishes the release
   # to Maven Central and creates a GitHub release for it. The release train has
