@@ -1,17 +1,27 @@
 ## 1.0.0-beta.1
 ### Breaking Changes
+
+* Changes package to com.revenuecat (#80) via JayShortway (@JayShortway)
 * Fix iOS StoreProduct description & price (#108) via JayShortway (@JayShortway)
 * Uses PurchasesAreCompletedBy (#105) via JayShortway (@JayShortway)
-* Remove PurchasesFactory (#103) via JayShortway (@JayShortway)
+* PurchasesConfiguration binary compatibility (#72) via JayShortway (@JayShortway)
+* Removes PurchasesFactory (#103) via JayShortway (@JayShortway)
+* configuration consistency (#71) via JayShortway (@JayShortway)
+* Removes StoreProduct.pricePer*() functions, as they are not available in PHC, nor in e.g.
+  Flutter & React Native. via JayShortway (@JayShortway)
 ### New Features
 * Adds ProductCategory to StoreProduct (#114) via JayShortway (@JayShortway)
+* Checks PHC version at configure() time on iOS (#104) via JayShortway (@JayShortway)
 ### Bugfixes
 * Fixes Compose<->K2 compilation error (#111) via JayShortway (@JayShortway)
 * Fixes the Transaction type (#113) via JayShortway (@JayShortway)
 * Fixes showInAppMessagesIfNeeded() on iOS (#110) via JayShortway (@JayShortway)
 ### Dependency Updates
 * Consolidates Compose versions (#112) via JayShortway (@JayShortway)
-* Checks PHC version at configure() time on iOS (#104) via JayShortway (@JayShortway)
+* Update dependency org.jetbrains.kotlinx:kotlinx-datetime to v0.6.0 (#66) via JayShortway (
+  @JayShortway)
+* Update agp to v8.4.1 (#68) via JayShortway (@JayShortway)
+* Update agp to v8.4.0 (#62) via JayShortway (@JayShortway)
 ### Other Changes
 * Adds .aiexclude (#109) via JayShortway (@JayShortway)
 * Fixes snapshot publishing (#107) via JayShortway (@JayShortway)
@@ -24,27 +34,13 @@
 * Adds the Danger bot. (#87) via JayShortway (@JayShortway)
 * Corrects the artifactId of the :paywalls module. (#86) via JayShortway (@JayShortway)
 * Adds snapshot publishing (#83) via JayShortway (@JayShortway)
-* Changes package to com.revenuecat (#80) via JayShortway (@JayShortway)
 * Adds note on migration to README.md (#79) via JayShortway (@JayShortway)
 * Update README.md (#78) via JayShortway (@JayShortway)
 * Adds Paywalls (#77) via JayShortway (@JayShortway)
 * Adds issue and PR templates. via JayShortway (@JayShortway)
-* Removes StoreProduct.pricePer*() functions, as they are not available in PHC, nor in e.g. Flutter & React Native. via JayShortway (@JayShortway)
 * Fixes docs for StoreProduct.presentedOfferingContext. via JayShortway (@JayShortway)
 * Adds a currently-disabled check for the PHC version on iOS. via JayShortway (@JayShortway)
 * Minor consistency update. via JayShortway (@JayShortway)
 * PlatformInfo is properly passed on Android and iOS. via JayShortway (@JayShortway)
-* SDK version is now just '0.5.0', without any versions of platform RC SDKs. via JayShortway (@JayShortway)
-* SDK3448 PurchasesConfiguration binary compatibility (#72) via JayShortway (@JayShortway)
 * Adds klib abi validation. via JayShortway (@JayShortway)
-* SDK-3448 configuration consistency (#71) via JayShortway (@JayShortway)
-* SDK-3450 poc for using phc (#70) via JayShortway (@JayShortway)
-* Update dependency org.jetbrains.kotlinx:kotlinx-datetime to v0.6.0 (#66) via JayShortway (@JayShortway)
-* Update kotlin to v1.9.24 (#64) via JayShortway (@JayShortway)
-* Update agp to v8.4.1 (#68) via JayShortway (@JayShortway)
-* Update plugin jetbrains-compose to v1.6.10 (#67) via JayShortway (@JayShortway)
-* Update agp to v8.4.0 (#62) via JayShortway (@JayShortway)
-* Update dependency androidx.activity:activity-compose to v1.9.0 (#61) via JayShortway (@JayShortway)
-* Update compose to v1.6.7 (#63) via JayShortway (@JayShortway)
-* Prepares the next development version. via JayShortway (@JayShortway)
-
+* Now depends on PurchasesHybridCommon (#70) via JayShortway (@JayShortway)
