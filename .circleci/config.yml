@@ -1,3 +1,19 @@
+aliases:
+  # Uses the same regex as release-tags-job
+  release-tags-workflow: &release-tags-workflow
+    when:
+      and:
+        - matches: { pattern: "^[0-9]+\\.[0-9]+\\.[0-9]+(?!.*-SNAPSHOT).*$", value: << pipeline.git.tag >> }
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+  # Uses the same regex as release-tags-workflow
+  release-tags-job: &release-tags-job
+    filters:
+      tags:
+        only: /^[0-9]+\.[0-9]+\.[0-9]+(?!.*-SNAPSHOT).*$/
+      branches:
+        ignore: /.*/
+
 version: 2.1
 
 orbs:
@@ -259,14 +275,12 @@ workflows:
   # to Maven Central and creates a GitHub release for it. The release train has
   # now completed its journey.
   on-release-tag:
-    when:
-      and:
-        - matches: { pattern: "^[0-9]+\\.[0-9]+\\.[0-9]+(?!.*-SNAPSHOT).*$", value: << pipeline.git.tag >> }
-        - not:
-            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+    <<: *release-tags-workflow
     jobs:
       - publish:
           snapshot: false
           context: maven-central-publishing
+          <<: *release-tags-job
       - create-github-release:
           context: github-bot-public
+          <<: *release-tags-job
