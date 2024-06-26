@@ -451,6 +451,14 @@ public final class com/revenuecat/purchases/kmp/models/Period_androidKt {
 	public static final fun getValue (Lcom/revenuecat/purchases/models/Period;)I
 }
 
+public final class com/revenuecat/purchases/kmp/models/ProductCategory : java/lang/Enum {
+	public static final field NON_SUBSCRIPTION Lcom/revenuecat/purchases/kmp/models/ProductCategory;
+	public static final field SUBSCRIPTION Lcom/revenuecat/purchases/kmp/models/ProductCategory;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/ProductCategory;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/ProductCategory;
+}
+
 public final class com/revenuecat/purchases/kmp/models/PromotionalOffer {
 }
 
@@ -513,6 +521,7 @@ public final class com/revenuecat/purchases/kmp/models/StoreProductDiscount_andr
 }
 
 public final class com/revenuecat/purchases/kmp/models/StoreProduct_androidKt {
+	public static final fun getCategory (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/kmp/models/ProductCategory;
 	public static final fun getDefaultOption (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/models/SubscriptionOption;
 	public static final fun getDiscounts (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Ljava/util/List;
 	public static final fun getId (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Ljava/lang/String;
