@@ -43,7 +43,7 @@ public expect val StoreProduct.title: String
 /**
  * The description of the product.
  */
-public expect val StoreProduct.description: String?
+public expect val StoreProduct.localizedDescription: String?
 
 /**
  * Subscription period.

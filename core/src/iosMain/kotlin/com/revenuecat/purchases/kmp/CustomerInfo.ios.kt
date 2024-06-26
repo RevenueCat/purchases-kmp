@@ -3,6 +3,8 @@ package com.revenuecat.purchases.kmp
 import cocoapods.PurchasesHybridCommon.RCCustomerInfo
 import com.revenuecat.purchases.kmp.ktx.toEpochMilliseconds
 import com.revenuecat.purchases.kmp.models.Transaction
+import platform.Foundation.dictionaryWithValuesForKeys
+import platform.darwin.NSObject
 
 public actual typealias CustomerInfo = RCCustomerInfo
 
@@ -28,9 +30,14 @@ public actual val CustomerInfo.latestExpirationDateMillis: Long?
     get() = latestExpirationDate()?.toEpochMilliseconds()
 public actual val CustomerInfo.managementUrlString: String?
     get() = managementURL()?.absoluteString
-@Suppress("UNCHECKED_CAST")
 public actual val CustomerInfo.nonSubscriptionTransactions: List<Transaction>
-    get() = nonSubscriptions() as List<Transaction>
+    get() = nonSubscriptions().map {
+        val map = (it as NSObject)
+            .dictionaryWithValuesForKeys(
+                listOf("transactionIdentifier", "productIdentifier", "purchaseDate")
+            ).mapKeys { (key, _) -> key as String }
+        Transaction(map)
+    }
 public actual val CustomerInfo.originalAppUserId: String
     get() = originalAppUserId()
 public actual val CustomerInfo.originalApplicationVersion: String?

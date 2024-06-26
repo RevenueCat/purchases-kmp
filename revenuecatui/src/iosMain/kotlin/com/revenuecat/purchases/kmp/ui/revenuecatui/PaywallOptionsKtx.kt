@@ -7,7 +7,6 @@ import com.revenuecat.purchases.kmp.Package
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.toPurchasesErrorOrThrow
 import kotlinx.cinterop.CValue
-import kotlinx.cinterop.ObjCSignatureOverride
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import objcnames.classes.RCCustomerInfo
@@ -44,7 +43,6 @@ internal class IosPaywallDelegate(
     }
 
     @Suppress("CONFLICTING_OVERLOADS", "PARAMETER_NAME_CHANGED_ON_OVERRIDE")
-    @ObjCSignatureOverride
     override fun paywallViewController(
         controller: RCPaywallViewController,
         didFailPurchasingWithError: NSError
@@ -69,7 +67,6 @@ internal class IosPaywallDelegate(
     }
 
     @Suppress("CONFLICTING_OVERLOADS", "PARAMETER_NAME_CHANGED_ON_OVERRIDE")
-    @ObjCSignatureOverride
     override fun paywallViewController(
         controller: RCPaywallViewController,
         didFailRestoringWithError: NSError

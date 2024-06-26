@@ -311,7 +311,13 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun showInAppMessagesIfNeeded(
         messageTypes: List<StoreMessageType>,
     ): Unit = RCCommonFunctionality.showStoreMessagesForTypes(
-        rawValues = messageTypes.mapTo(mutableSetOf()) { it.ordinal },
+        rawValues = messageTypes.mapTo(mutableSetOf()) { type ->
+            when (type) {
+                StoreMessageType.BILLING_ISSUES -> 0
+                StoreMessageType.PRICE_INCREASE_CONSENT -> 1
+                StoreMessageType.GENERIC -> 2
+            }
+        },
         completion = { }
     )
 
