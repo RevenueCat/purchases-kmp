@@ -38,6 +38,14 @@ Automatically determines next version, bumps it, edits changelog, and creates pu
 
 Update purchases-hybrid-common dependency
 
+### prepare_next_snapshot_version
+
+```sh
+[bundle exec] fastlane prepare_next_snapshot_version
+```
+
+Opens a PR updating the SDK version to the next minor, appending -SNAPSHOT.
+
 ### tag_current_branch
 
 ```sh
