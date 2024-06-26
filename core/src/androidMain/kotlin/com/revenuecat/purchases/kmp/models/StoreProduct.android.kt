@@ -12,6 +12,8 @@ public actual val StoreProduct.id: String
     get() = id
 public actual val StoreProduct.type: ProductType
     get() = type
+public actual val StoreProduct.category: ProductCategory?
+    get() = type.toProductCategoryOrNull()
 public actual val StoreProduct.price: Price
     get() = price
 public actual val StoreProduct.title: String

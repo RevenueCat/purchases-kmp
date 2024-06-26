@@ -13,6 +13,8 @@ public actual val StoreProduct.id: String
     get() = productIdentifier()
 public actual val StoreProduct.type: ProductType
     get() = productType().toProductType()
+public actual val StoreProduct.category: ProductCategory?
+    get() = productCategory().toProductCategory()
 public actual val StoreProduct.price: Price
     get() = toPrice()
 public actual val StoreProduct.title: String
