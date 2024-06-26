@@ -1,5 +1,3 @@
-import org.jetbrains.compose.ExperimentalComposeLibrary
-
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.application)
@@ -39,8 +37,8 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.ui)
-            @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
             implementation(projects.core)
             implementation(projects.result)
             implementation(projects.either)
@@ -48,7 +46,6 @@ kotlin {
             implementation(projects.revenuecatui)
         }
         androidMain.dependencies {
-            implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
         }
     }
@@ -82,8 +79,5 @@ android {
     compileOptions {
         sourceCompatibility(libs.versions.java.get())
         targetCompatibility(libs.versions.java.get())
-    }
-    dependencies {
-        debugImplementation(compose.uiTooling)
     }
 }
