@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
     spec.vendored_frameworks      = 'build/cocoapods/framework/revenuecatui.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '11.0'
-    spec.dependency 'PurchasesHybridCommonUI', '10.7.0'
+    spec.dependency 'PurchasesHybridCommonUI', '10.10.0'
                 
     if !Dir.exist?('build/cocoapods/framework/revenuecatui.framework') || Dir.empty?('build/cocoapods/framework/revenuecatui.framework')
         raise "
@@ -21,7 +21,7 @@ Pod::Spec.new do |spec|
 
         Alternatively, proper pod installation is performed during Gradle sync in the IDE (if Podfile location is set)"
     end
-                
+
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':revenuecatui',
         'PRODUCT_MODULE_NAME' => 'revenuecatui',
