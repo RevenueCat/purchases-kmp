@@ -11,9 +11,9 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.ui)
+            implementation(compose.components.uiToolingPreview)
         }
         androidMain.dependencies {
-            implementation(libs.androidx.compose.ui.tooling.preview)
             implementation(libs.revenuecat.commonUi)
         }
     }
@@ -43,8 +43,5 @@ android {
         getByName("release") {
             isMinifyEnabled = false
         }
-    }
-    dependencies {
-        debugImplementation(libs.androidx.compose.ui.tooling)
     }
 }
