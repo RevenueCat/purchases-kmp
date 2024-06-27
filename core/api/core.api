@@ -95,7 +95,6 @@ public final class com/revenuecat/purchases/kmp/OfferingsKt {
 public final class com/revenuecat/purchases/kmp/Offerings_androidKt {
 	public static final fun getAll (Lcom/revenuecat/purchases/Offerings;)Ljava/util/Map;
 	public static final fun getCurrent (Lcom/revenuecat/purchases/Offerings;)Lcom/revenuecat/purchases/Offering;
-	public static final fun getCurrentOfferingForPlacement (Lcom/revenuecat/purchases/Offerings;Ljava/lang/String;)Lcom/revenuecat/purchases/Offering;
 }
 
 public final class com/revenuecat/purchases/kmp/PackageKt {
