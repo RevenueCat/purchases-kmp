@@ -205,5 +205,8 @@ def publish
   ENV["ORG_GRADLE_PROJECT_mavenCentralPassword"] = ENV["SONATYPE_NEXUS_TOKEN_PASSWORD"]
   ENV["ORG_GRADLE_PROJECT_signingInMemoryKey"] = ENV["SIGNING_GPG_IN_MEMORY"]
   ENV["ORG_GRADLE_PROJECT_signingInMemoryKeyPassword"] = ENV["GPG_SIGNING_KEY_PW_NEW"]
-  gradle(task: "publishAllPublicationsToMavenCentralRepository")
+  gradle(
+    task: "publishAllPublicationsToMavenCentralRepository",
+    flags: "--no-configuration-cache"
+  )
 end
