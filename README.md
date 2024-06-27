@@ -3,88 +3,46 @@
 ![GitHub Release](https://img.shields.io/github/v/release/JayShortway/kobankat) 
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/JayShortway/kobankat/main.yml)
 
-## Note   
- 
-This is the official [RevenueCat](https://www.revenuecat.com/) SDK for Kotlin Multiplatform, supporting Android and iOS. It started out as an independent project named 'KobanKat' by [@JayShortway](https://github.com/JayShortway). We're currently in the process of migrating everything over. This README will be updated as we go. For now, the below instructions are still valid. 
+RevenueCat is a powerful, reliable, and free to use in-app purchase server with cross-platform support. Our open-source framework provides a backend and a wrapper around StoreKit and Google Play Billing to make implementing in-app purchases and subscriptions easy. 
 
-## Getting started 
+Whether you are building a new app or already have millions of customers, you can use RevenueCat to:
 
-### Adding the dependency
-KobanKat is available on Maven Central. Add the following coordinates to your `build.gradle[.kts]` or `libs.versions.toml`, and then add KobanKat as a dependency to your `commonMain` source set.  
-```toml
-[versions]
-kobankat = "<version>"
+  * Fetch products, make purchases, and check subscription status with our [native SDKs](https://docs.revenuecat.com/docs/installation). 
+  * Host and [configure products](https://docs.revenuecat.com/docs/entitlements) remotely from our dashboard. 
+  * Analyze the most important metrics for your app business [in one place](https://docs.revenuecat.com/docs/charts).
+  * See customer transaction histories, chart lifetime value, and [grant promotional subscriptions](https://docs.revenuecat.com/docs/customers).
+  * Get notified of real-time events through [webhooks](https://docs.revenuecat.com/docs/webhooks).
+  * Send enriched purchase events to analytics and attribution tools with our easy integrations.
 
-[libraries]
-shortway-kobankat-core = { module = "io.shortway.kobankat:kobankat-core", version.ref = "kobankat" }
+Sign up to [get started for free](https://app.revenuecat.com/signup).
 
-# Optional: adds suspending functions that return kotlin.Result to indicate success / failure.
-shortway-kobankat-result = { module = "io.shortway.kobankat:kobankat-result", version.ref = "kobankat" }
+## Purchases
 
-# Optional: adds suspending functions that return Arrow's Either to indicate success / failure.
-shortway-kobankat-either = { module = "io.shortway.kobankat:kobankat-either", version.ref = "kobankat" }
+*Purchases* is the client for the [RevenueCat](https://www.revenuecat.com/) subscription and purchase tracking system. It is an open source framework that provides a wrapper around `BillingClient`, `StoreKit` and the RevenueCat backend to make implementing in-app subscriptions in Kotlin Multiplatform easy - receipt validation and status tracking included!
 
-# Optional: adds extension properties representing timestamps as kotlinx-datetime Instants.
-shortway-kobankat-datetime = { module = "io.shortway.kobankat:kobankat-datetime", version.ref = "kobankat" }
-```
-See [Releases](../../releases) for the latest version.  
+## RevenueCat SDK Features
+|   | RevenueCat |
+| --- | --- |
+✅ | Server-side receipt validation
+➡️ | [Webhooks](https://docs.revenuecat.com/docs/webhooks) - enhanced server-to-server communication with events for purchases, renewals, cancellations, and more
+📱 | Android and iOS support
+🎯 | Subscription status tracking - know whether a user is subscribed whether they're on iOS, Android or web
+📊 | Analytics - automatic calculation of metrics like conversion, mrr, and churn
+📝 | [Online documentation](https://docs.revenuecat.com/docs) and [SDK Reference](https://revenuecat.github.io/purchases-kmp/) up to date
+🔀 | [Integrations](https://www.revenuecat.com/integrations) - over a dozen integrations to easily send purchase data where you need it
+💯 | Well maintained - [frequent releases](https://github.com/RevenueCat/purchases-kmp/releases)
+📮 | Great support - [Contact us](https://revenuecat.com/support)
 
-You might also need to add this compiler flag in your `build.gradle[.kts]`:
-```kotlin
-kotlin {
-  // ...
-  sourceSets {
-    all {
-      languageSettings.apply {
-        if (name.lowercase().startsWith("ios")) {
-          optIn("kotlinx.cinterop.ExperimentalForeignApi")
-        }
-      }
-    }
-    // ...
-  }
-  // ...
-}
-```
+## Getting Started
+For more detailed information, you can view our complete documentation at [docs.revenuecat.com](https://docs.revenuecat.com/docs).
 
-Since KobanKat depends on the official RevenueCat SDKs, we need to tell Xcode about the iOS SDK. 
-1. Make sure you have [CocoaPods](https://cocoapods.org/) installed.
-2. `cd` into your `iosApp` folder (containing your `.xcodeproj` and/or `.xcworkspace` file(s)).
-3. Initialize CocoaPods:
-   ```shell
-   pod init
-   ```
-4. Open the newly created `Podfile` in your favorite text editor, and add the following line:
-   ```ruby
-   pod 'RevenueCat'
-   ```
-5. Save the file and run:
-   ```shell
-   pod install
-   ```
-6. If you didn't have an `.xcworkspace` file before, you'll have one now. Open it in Xcode, and your app should build. 
+Please follow the [Quickstart Guide](https://docs.revenuecat.com/docs/) for more information on how to install the SDK.
 
-### Initializing the SDK
-To instantiate the SDK, do the following:
-1. On Android only, call `PurchasesFactory.setApplication()` in `Application.onCreate()`.
-2. In your common code, call `PurchasesFactory.configure()`. 
-  
-After this, you can access the SDK's singleton instance using `PurchasesFactory.sharedInstance`. This process is analogous to the [other SDKs](https://www.revenuecat.com/docs/getting-started/configuring-sdk).
+## Requirements
+- Java 8+
+- Kotlin 1.9.0+
+- Android 5.0+ (API level 21+)
+- iOS 11.0+ 
 
-### Sample
-An example implementation is provided in the `composeApp` and `iosApp` folders. 
-
-### Version
-The versioning scheme is in the form `X-Y-Z`, where:
-* `X` is the KobanKat version.
-* `Y` is the RevenueCat Android version that is being tracked.
-* `Z` is the RevenueCat iOS version that is being tracked.
-
-## Compatibility 
-KobanKat supports Android and iOS targets for now. Most types are aliased to the respective official SDK types, so add on libraries like the official Paywalls SDK are compatible with KobanKat. 
-
-## Public API
-KobanKat's public API is intended to stay as close as possible to RevenueCat's Android, iOS and other hybrid SDKs. This means it should be a near drop-in replacement. The namespace has changed from `com.revenuecat.purchases` to `io.shortway.kobankat`. The full API reference is available [here](https://revenuecat.github.io/purchases-kmp/). 
-
-## What's with the name?
-The name, _KobanKat_, is an homage to the original revenue cat: [Meowth](https://bulbapedia.bulbagarden.net/wiki/Meowth_(Pok%C3%A9mon)). 😸 This Pokémon is is attracted to round and shiny objects, can even generate revenue at will with its Pay Day move, and has a gold coin embedded in its forehead. This coin is a so-called [_koban_](https://en.wikipedia.org/wiki/Koban_(coin)) coin, and that's where the name of this library comes from. ("Cat" has to be spelled with a 'K' of course. It's a Kotlin library after all.)
+## SDK Reference
+Our full SDK reference [can be found here](https://revenuecat.github.io/purchases-kmp/).
