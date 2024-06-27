@@ -24,7 +24,7 @@ Sign up to [get started for free](https://app.revenuecat.com/signup).
 
 This SDK started out as an independent project named _KobanKat_, built
 by [@JayShortway](https://github.com/JayShortway). If you're currently using KobanKat, check out
-our [migration guide](TODO!!!)
+our [migration guide](./migrations/KobanKat-MIGRATION.md)
 
 ## RevenueCat SDK Features
 |   | RevenueCat |
