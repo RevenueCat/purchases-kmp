@@ -6,7 +6,7 @@ android-targetSdk = "34"
 java = "1.8"
 kotlin = "1.9.23"
 revenuecat-common = "10.10.0"
-revenuecat-kmp = "1.0.0-beta.1"
+revenuecat-kmp = "1.0.0-SNAPSHOT"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
