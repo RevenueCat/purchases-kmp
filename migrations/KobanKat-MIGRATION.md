@@ -17,6 +17,15 @@ The Maven coordinates of the SDK have changed.
 | N/A                 | `purchases-kmp-ui`       |
 
 
+As an example, if you were using  
+```
+io.shortway.kobankat:kobankat-core:<version>
+```
+you need to move to  
+```
+com.revenuecat.purchases:purchases-kmp-core:<version>
+```
+
 ## Linked iOS framework
 The linked iOS framework has changed. This has been linked to your iOS project, e.g. in  your `Podfile`, and should be updated.
 
