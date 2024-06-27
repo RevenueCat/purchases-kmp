@@ -20,6 +20,12 @@ Sign up to [get started for free](https://app.revenuecat.com/signup).
 
 *Purchases* is the client for the [RevenueCat](https://www.revenuecat.com/) subscription and purchase tracking system. It is an open source framework that provides a wrapper around `BillingClient`, `StoreKit` and the RevenueCat backend to make implementing in-app subscriptions in Kotlin Multiplatform easy - receipt validation and status tracking included!
 
+## Migrating from KobanKat
+
+This SDK started out as an independent project named _KobanKat_, built
+by [@JayShortway](https://github.com/JayShortway). If you're currently using KobanKat, check out
+our [migration guide](./migrations/KobanKat-MIGRATION.md)
+
 ## RevenueCat SDK Features
 |   | RevenueCat |
 | --- | --- |
