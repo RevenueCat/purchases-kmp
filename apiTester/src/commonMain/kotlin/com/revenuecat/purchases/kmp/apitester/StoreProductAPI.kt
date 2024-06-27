@@ -4,11 +4,13 @@ import com.revenuecat.purchases.kmp.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.ProductType
 import com.revenuecat.purchases.kmp.models.Period
 import com.revenuecat.purchases.kmp.models.Price
+import com.revenuecat.purchases.kmp.models.ProductCategory
 import com.revenuecat.purchases.kmp.models.PurchasingData
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.SubscriptionOptions
+import com.revenuecat.purchases.kmp.models.category
 import com.revenuecat.purchases.kmp.models.defaultOption
 import com.revenuecat.purchases.kmp.models.discounts
 import com.revenuecat.purchases.kmp.models.id
@@ -28,6 +30,7 @@ private class StoreProductAPI {
         with(product) {
             val storeProductId: String = id
             val type: ProductType = type
+            val category: ProductCategory? = category
             val price: Price = price
             val title: String = title
             val description: String? = localizedDescription

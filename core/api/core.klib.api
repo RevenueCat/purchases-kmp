@@ -345,6 +345,14 @@ final enum class com.revenuecat.purchases.kmp.models/PeriodUnit : kotlin/Enum<co
     final val entries // com.revenuecat.purchases.kmp.models/PeriodUnit.entries|#static{}entries[0]
         final fun <get-entries>(): kotlin.enums/EnumEntries<com.revenuecat.purchases.kmp.models/PeriodUnit> // com.revenuecat.purchases.kmp.models/PeriodUnit.entries.<get-entries>|<get-entries>#static(){}[0]
 }
+final enum class com.revenuecat.purchases.kmp.models/ProductCategory : kotlin/Enum<com.revenuecat.purchases.kmp.models/ProductCategory> { // com.revenuecat.purchases.kmp.models/ProductCategory|null[0]
+    enum entry NON_SUBSCRIPTION // com.revenuecat.purchases.kmp.models/ProductCategory.NON_SUBSCRIPTION|null[0]
+    enum entry SUBSCRIPTION // com.revenuecat.purchases.kmp.models/ProductCategory.SUBSCRIPTION|null[0]
+    final fun valueOf(kotlin/String): com.revenuecat.purchases.kmp.models/ProductCategory // com.revenuecat.purchases.kmp.models/ProductCategory.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<com.revenuecat.purchases.kmp.models/ProductCategory> // com.revenuecat.purchases.kmp.models/ProductCategory.values|values#static(){}[0]
+    final val entries // com.revenuecat.purchases.kmp.models/ProductCategory.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<com.revenuecat.purchases.kmp.models/ProductCategory> // com.revenuecat.purchases.kmp.models/ProductCategory.entries.<get-entries>|<get-entries>#static(){}[0]
+}
 final enum class com.revenuecat.purchases.kmp.models/RecurrenceMode : kotlin/Enum<com.revenuecat.purchases.kmp.models/RecurrenceMode> { // com.revenuecat.purchases.kmp.models/RecurrenceMode|null[0]
     enum entry FINITE_RECURRING // com.revenuecat.purchases.kmp.models/RecurrenceMode.FINITE_RECURRING|null[0]
     enum entry INFINITE_RECURRING // com.revenuecat.purchases.kmp.models/RecurrenceMode.INFINITE_RECURRING|null[0]
@@ -547,6 +555,8 @@ final suspend fun (com.revenuecat.purchases.kmp/Purchases).com.revenuecat.purcha
 final suspend fun (com.revenuecat.purchases.kmp/Purchases).com.revenuecat.purchases.kmp.ktx/awaitSyncPurchases(): cocoapods.PurchasesHybridCommon/RCCustomerInfo // com.revenuecat.purchases.kmp.ktx/awaitSyncPurchases|awaitSyncPurchases@com.revenuecat.purchases.kmp.Purchases(){}[0]
 final val com.revenuecat.purchases.kmp.models/billingPeriod // com.revenuecat.purchases.kmp.models/billingPeriod|@com.revenuecat.purchases.kmp.models.SubscriptionOption{}billingPeriod[0]
     final fun (com.revenuecat.purchases.kmp.models/SubscriptionOption).<get-billingPeriod>(): cocoapods.PurchasesHybridCommon/RCSubscriptionPeriod? // com.revenuecat.purchases.kmp.models/billingPeriod.<get-billingPeriod>|<get-billingPeriod>@com.revenuecat.purchases.kmp.models.SubscriptionOption(){}[0]
+final val com.revenuecat.purchases.kmp.models/category // com.revenuecat.purchases.kmp.models/category|@cocoapods.PurchasesHybridCommon.RCStoreProduct{}category[0]
+    final fun (cocoapods.PurchasesHybridCommon/RCStoreProduct).<get-category>(): com.revenuecat.purchases.kmp.models/ProductCategory? // com.revenuecat.purchases.kmp.models/category.<get-category>|<get-category>@cocoapods.PurchasesHybridCommon.RCStoreProduct(){}[0]
 final val com.revenuecat.purchases.kmp.models/defaultOption // com.revenuecat.purchases.kmp.models/defaultOption|@cocoapods.PurchasesHybridCommon.RCStoreProduct{}defaultOption[0]
     final fun (cocoapods.PurchasesHybridCommon/RCStoreProduct).<get-defaultOption>(): com.revenuecat.purchases.kmp.models/SubscriptionOption? // com.revenuecat.purchases.kmp.models/defaultOption.<get-defaultOption>|<get-defaultOption>@cocoapods.PurchasesHybridCommon.RCStoreProduct(){}[0]
 final val com.revenuecat.purchases.kmp.models/discount // com.revenuecat.purchases.kmp.models/discount|@cocoapods.PurchasesHybridCommon.RCPromotionalOffer{}discount[0]

@@ -23,6 +23,12 @@ public expect val StoreProduct.id: String
 public expect val StoreProduct.type: ProductType
 
 /**
+ * Category of product. One of [ProductCategory]. Is never null on iOS, but will be null on Android
+ * if the [type] is [ProductType.UNKNOWN].
+ */
+public expect val StoreProduct.category: ProductCategory?
+
+/**
  * Price information for a non-subscription product.
  * Base plan price for a Google subscription.
  * Term price for an Amazon subscription.
