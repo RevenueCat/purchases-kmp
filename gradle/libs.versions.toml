@@ -5,7 +5,7 @@ android-minSdk = "21"
 android-targetSdk = "34"
 java = "1.8"
 kotlin = "1.9.23"
-revenuecat-common = "10.10.0"
+revenuecat-common = "11.1.1"
 revenuecat-kmp = "1.0.0-SNAPSHOT"
 
 [libraries]
