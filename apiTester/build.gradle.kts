@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
+    alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -41,9 +43,13 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(compose.ui)
             implementation(projects.core)
             implementation(projects.datetime)
             implementation(projects.either)
+            implementation(projects.revenuecatui)
             implementation(projects.result)
         }
     }

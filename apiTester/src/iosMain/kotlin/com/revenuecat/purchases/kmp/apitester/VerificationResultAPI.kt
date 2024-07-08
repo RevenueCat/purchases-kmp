@@ -7,6 +7,15 @@ import com.revenuecat.purchases.kmp.isVerified
 private class VerificationResultAPI {
 
     fun check(verificationResult: VerificationResult) {
+        when (verificationResult) {
+            VerificationResult.VERIFIED_ON_DEVICE,
+            VerificationResult.NOT_REQUESTED,
+            VerificationResult.VERIFIED,
+            VerificationResult.FAILED,
+            -> {
+            }
+        }.exhaustive
+
         val isVerified: Boolean = verificationResult.isVerified
     }
 }

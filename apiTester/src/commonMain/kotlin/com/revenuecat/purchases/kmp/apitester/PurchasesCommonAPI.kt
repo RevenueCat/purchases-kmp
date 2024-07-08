@@ -13,6 +13,7 @@ import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.MY_APP
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.PurchasesError
+import com.revenuecat.purchases.kmp.Store
 import com.revenuecat.purchases.kmp.configure
 import com.revenuecat.purchases.kmp.either.FailedPurchase
 import com.revenuecat.purchases.kmp.either.awaitGetProductsEither
@@ -240,7 +241,10 @@ private class PurchasesCommonAPI {
         val config: PurchasesConfiguration = PurchasesConfiguration(apiKey = "") {
             appUserId = ""
             purchasesAreCompletedBy = MY_APP
+            userDefaultsSuiteName = ""
             showInAppMessagesAutomatically = true
+            store = Store.PLAY_STORE
+            diagnosticsEnabled = true
             dangerousSettings = DangerousSettings(autoSyncPurchases = true)
             verificationMode = EntitlementVerificationMode.INFORMATIONAL
         }
@@ -249,7 +253,10 @@ private class PurchasesCommonAPI {
         val otherConfiguredInstance: Purchases = Purchases.configure(apiKey = "") {
             appUserId = ""
             purchasesAreCompletedBy = MY_APP
+            userDefaultsSuiteName = ""
             showInAppMessagesAutomatically = true
+            store = Store.PLAY_STORE
+            diagnosticsEnabled = true
             dangerousSettings = DangerousSettings(autoSyncPurchases = true)
             verificationMode = EntitlementVerificationMode.INFORMATIONAL
         }
