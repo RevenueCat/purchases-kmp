@@ -6,8 +6,6 @@ import cocoapods.PurchasesHybridCommon.configureWithAPIKey
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
 import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.MY_APP
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.REVENUECAT
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
@@ -99,17 +97,9 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     }
 
     public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy
-        get() = when (iosPurchases.finishTransactions()) {
-            true -> REVENUECAT
-            false -> MY_APP
-        }
+        get() = iosPurchases.purchasesAreCompletedBy().toPurchasesAreCompletedBy()
         set(value) {
-            iosPurchases.setFinishTransactions(
-                when (value) {
-                    REVENUECAT -> true
-                    MY_APP -> false
-                }
-            )
+            iosPurchases.setPurchasesAreCompletedBy(value.toRCPurchasesAreCompletedBy())
         }
 
     public actual val appUserID: String

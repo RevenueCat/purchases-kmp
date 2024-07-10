@@ -1,8 +1,6 @@
 package com.revenuecat.purchases.kmp
 
 import com.revenuecat.purchases.PurchaseParams
-import com.revenuecat.purchases.PurchasesAreCompletedBy.MY_APP
-import com.revenuecat.purchases.PurchasesAreCompletedBy.REVENUECAT
 import com.revenuecat.purchases.common.PlatformInfo
 import com.revenuecat.purchases.getCustomerInfoWith
 import com.revenuecat.purchases.getOfferingsWith
@@ -100,17 +98,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
             AndroidDangerousSettings(autoSyncPurchases)
     }
 
-    public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy
-        get() = when (androidPurchases.finishTransactions) {
-            true -> REVENUECAT
-            false -> MY_APP
-        }
-        set(value) {
-            androidPurchases.finishTransactions = when (value) {
-                REVENUECAT -> true
-                MY_APP -> false
-            }
-        }
+    public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy by androidPurchases::purchasesAreCompletedBy
 
     public actual val appUserID: String by androidPurchases::appUserID
 
@@ -138,7 +126,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         amazonUserID: String,
         isoCurrencyCode: String?,
         price: Double?,
-    ): Unit = androidPurchases.syncObserverModeAmazonPurchase(
+    ): Unit = androidPurchases.syncAmazonPurchase(
         productID = productID,
         receiptID = receiptID,
         amazonUserID = amazonUserID,
