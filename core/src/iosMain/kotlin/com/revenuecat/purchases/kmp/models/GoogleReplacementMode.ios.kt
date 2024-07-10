@@ -7,4 +7,5 @@ public actual enum class GoogleReplacementMode: ReplacementMode {
     WITH_TIME_PRORATION,
     CHARGE_FULL_PRICE,
     CHARGE_PRORATED_PRICE,
+    DEFERRED,
 }
