@@ -16,12 +16,12 @@
    </Group>
    <Group
       location = "container:"
-      name = "paywalls">
+      name = "revenuecatui">
       <FileRef
-         location = "group:../paywalls/src/commonMain">
+         location = "group:../revenuecatui/src/commonMain">
       </FileRef>
       <FileRef
-         location = "group:../paywalls/src/iosMain">
+         location = "group:../revenuecatui/src/iosMain">
       </FileRef>
    </Group>
    <FileRef
