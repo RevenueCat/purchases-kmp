@@ -1,12 +1,12 @@
 package com.revenuecat.purchases.kmp
 
 import com.revenuecat.purchases.PurchaseParams
+import com.revenuecat.purchases.PurchasesAreCompletedBy.MY_APP
+import com.revenuecat.purchases.PurchasesAreCompletedBy.REVENUECAT
 import com.revenuecat.purchases.common.PlatformInfo
 import com.revenuecat.purchases.getCustomerInfoWith
 import com.revenuecat.purchases.getOfferingsWith
 import com.revenuecat.purchases.getProductsWith
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.MY_APP
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.REVENUECAT
 import com.revenuecat.purchases.kmp.di.AndroidProvider
 import com.revenuecat.purchases.kmp.di.requireActivity
 import com.revenuecat.purchases.kmp.di.requireApplication
@@ -72,10 +72,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
                     context = AndroidProvider.requireApplication(),
                     apiKey = apiKey,
                     appUserID = appUserId,
-                    observerMode = when (configuration.purchasesAreCompletedBy) {
-                        REVENUECAT -> false
-                        MY_APP -> true
-                    },
+                    purchasesAreCompletedBy = purchasesAreCompletedBy,
                     platformInfo = PlatformInfo(
                         flavor = BuildKonfig.platformFlavor,
                         version = frameworkVersion,

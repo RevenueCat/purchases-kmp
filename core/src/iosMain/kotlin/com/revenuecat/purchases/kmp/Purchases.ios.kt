@@ -64,10 +64,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 IosPurchases.configureWithAPIKey(
                     apiKey = apiKey,
                     appUserID = appUserId,
-                    observerMode = when (configuration.purchasesAreCompletedBy) {
-                        REVENUECAT -> false
-                        MY_APP -> true
-                    },
+                    purchasesAreCompletedBy = purchasesAreCompletedBy.toRCPurchasesAreCompletedBy(),
                     userDefaultsSuiteName = userDefaultsSuiteName,
                     platformFlavor = BuildKonfig.platformFlavor,
                     platformFlavorVersion = frameworkVersion,
