@@ -320,6 +320,7 @@ final enum class com.revenuecat.purchases.kmp.models/DiscountType : kotlin/Enum<
 final enum class com.revenuecat.purchases.kmp.models/GoogleReplacementMode : com.revenuecat.purchases.kmp/ReplacementMode, kotlin/Enum<com.revenuecat.purchases.kmp.models/GoogleReplacementMode> { // com.revenuecat.purchases.kmp.models/GoogleReplacementMode|null[0]
     enum entry CHARGE_FULL_PRICE // com.revenuecat.purchases.kmp.models/GoogleReplacementMode.CHARGE_FULL_PRICE|null[0]
     enum entry CHARGE_PRORATED_PRICE // com.revenuecat.purchases.kmp.models/GoogleReplacementMode.CHARGE_PRORATED_PRICE|null[0]
+    enum entry DEFERRED // com.revenuecat.purchases.kmp.models/GoogleReplacementMode.DEFERRED|null[0]
     enum entry WITHOUT_PRORATION // com.revenuecat.purchases.kmp.models/GoogleReplacementMode.WITHOUT_PRORATION|null[0]
     enum entry WITH_TIME_PRORATION // com.revenuecat.purchases.kmp.models/GoogleReplacementMode.WITH_TIME_PRORATION|null[0]
     final fun valueOf(kotlin/String): com.revenuecat.purchases.kmp.models/GoogleReplacementMode // com.revenuecat.purchases.kmp.models/GoogleReplacementMode.valueOf|valueOf#static(kotlin.String){}[0]

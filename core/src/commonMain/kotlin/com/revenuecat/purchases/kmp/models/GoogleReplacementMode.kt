@@ -53,6 +53,14 @@ public expect enum class GoogleReplacementMode: ReplacementMode {
      * On May 1st, Samwise is charged $36 for his new subscription tier and another $36 on May 1 of each year following.
      */
     CHARGE_PRORATED_PRICE,
+
+    /**
+     * Replacement takes effect when the old plan expires, and the new price will be charged at the same time.
+     *
+     * Example: Samwise's Tier 1 subscription continues until it expires on April 30. On May 1st, the
+     * Tier 2 subscription takes effect, and Samwise is charged $36 for his new subscription tier.
+     */
+    DEFERRED;
 }
 
 public val GoogleReplacementMode.playBillingClientMode: Int
@@ -61,5 +69,6 @@ public val GoogleReplacementMode.playBillingClientMode: Int
         GoogleReplacementMode.WITH_TIME_PRORATION -> 1
         GoogleReplacementMode.CHARGE_FULL_PRICE -> 5
         GoogleReplacementMode.CHARGE_PRORATED_PRICE -> 2
+        GoogleReplacementMode.DEFERRED -> 6
         else -> error("Unexpected GoogleReplacementMode: $this")
     }

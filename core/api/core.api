@@ -134,7 +134,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun getProducts (Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun getPromotionalOffer (Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public static final fun getProxyURL ()Ljava/lang/String;
-	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;
+	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/PurchasesAreCompletedBy;
 	public static final fun getSharedInstance ()Lcom/revenuecat/purchases/kmp/Purchases;
 	public static final fun getSimulatesAskToBuyInSandbox ()Z
 	public final fun getStore ()Lcom/revenuecat/purchases/Store;
@@ -177,7 +177,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun setOnesignalUserID (Ljava/lang/String;)V
 	public final fun setPhoneNumber (Ljava/lang/String;)V
 	public static final fun setProxyURL (Ljava/lang/String;)V
-	public final fun setPurchasesAreCompletedBy (Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;)V
+	public final fun setPurchasesAreCompletedBy (Lcom/revenuecat/purchases/PurchasesAreCompletedBy;)V
 	public final fun setPushToken (Ljava/lang/String;)V
 	public static final fun setSimulatesAskToBuyInSandbox (Z)V
 	public final fun showInAppMessagesIfNeeded (Ljava/util/List;)V
@@ -205,21 +205,13 @@ public final class com/revenuecat/purchases/kmp/Purchases$Companion {
 	public final fun setSimulatesAskToBuyInSandbox (Z)V
 }
 
-public final class com/revenuecat/purchases/kmp/PurchasesAreCompletedBy : java/lang/Enum {
-	public static final field MY_APP Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;
-	public static final field REVENUECAT Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;
-}
-
 public final class com/revenuecat/purchases/kmp/PurchasesConfiguration {
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;Ljava/lang/String;ZLcom/revenuecat/purchases/Store;ZLcom/revenuecat/purchases/kmp/DangerousSettings;Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/PurchasesAreCompletedBy;Ljava/lang/String;ZLcom/revenuecat/purchases/Store;ZLcom/revenuecat/purchases/kmp/DangerousSettings;Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getApiKey ()Ljava/lang/String;
 	public final fun getAppUserId ()Ljava/lang/String;
 	public final fun getDangerousSettings ()Lcom/revenuecat/purchases/kmp/DangerousSettings;
 	public final fun getDiagnosticsEnabled ()Z
-	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;
+	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/PurchasesAreCompletedBy;
 	public final fun getShowInAppMessagesAutomatically ()Z
 	public final fun getStore ()Lcom/revenuecat/purchases/Store;
 	public final fun getUserDefaultsSuiteName ()Ljava/lang/String;
@@ -238,17 +230,17 @@ public final class com/revenuecat/purchases/kmp/PurchasesConfiguration$Builder {
 	public final fun getAppUserId ()Ljava/lang/String;
 	public final fun getDangerousSettings ()Lcom/revenuecat/purchases/kmp/DangerousSettings;
 	public final fun getDiagnosticsEnabled ()Z
-	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;
+	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/PurchasesAreCompletedBy;
 	public final fun getShowInAppMessagesAutomatically ()Z
 	public final fun getStore ()Lcom/revenuecat/purchases/Store;
 	public final fun getUserDefaultsSuiteName ()Ljava/lang/String;
 	public final fun getVerificationMode ()Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
-	public final fun purchasesAreCompletedBy (Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun purchasesAreCompletedBy (Lcom/revenuecat/purchases/PurchasesAreCompletedBy;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
 	public final synthetic fun setApiKey (Ljava/lang/String;)V
 	public final synthetic fun setAppUserId (Ljava/lang/String;)V
 	public final synthetic fun setDangerousSettings (Lcom/revenuecat/purchases/kmp/DangerousSettings;)V
 	public final synthetic fun setDiagnosticsEnabled (Z)V
-	public final synthetic fun setPurchasesAreCompletedBy (Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;)V
+	public final synthetic fun setPurchasesAreCompletedBy (Lcom/revenuecat/purchases/PurchasesAreCompletedBy;)V
 	public final synthetic fun setShowInAppMessagesAutomatically (Z)V
 	public final synthetic fun setStore (Lcom/revenuecat/purchases/Store;)V
 	public final synthetic fun setUserDefaultsSuiteName (Ljava/lang/String;)V
