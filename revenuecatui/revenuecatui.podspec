@@ -21,7 +21,7 @@ Pod::Spec.new do |spec|
 
         Alternatively, proper pod installation is performed during Gradle sync in the IDE (if Podfile location is set)"
     end
-
+                
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':revenuecatui',
         'PRODUCT_MODULE_NAME' => 'revenuecatui',
