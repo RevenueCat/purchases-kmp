@@ -36,7 +36,7 @@ import com.revenuecat.purchases.kmp.identifier
 
 @Composable
 fun MainScreen(
-    onShowPaywallClick: (offering: Offering, footer: Boolean) -> Unit,
+    onShowPaywallClick: (offering: Offering?, footer: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -118,7 +118,7 @@ private fun ConfigurationSettings(
 
 @Composable
 private fun PaywallsSection(
-    onShowPaywallClick: (offering: Offering, footer: Boolean) -> Unit,
+    onShowPaywallClick: (offering: Offering?, footer: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var offeringsState: OfferingsState by remember { mutableStateOf(OfferingsState.Loading) }
@@ -135,6 +135,22 @@ private fun PaywallsSection(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(
+                text = "Current offering",
+                modifier = Modifier.weight(1f),
+            )
+            Button(onClick = { onShowPaywallClick(null, true) }) {
+                Text("Footer")
+            }
+            Spacer(modifier = Modifier.size(4.dp))
+            Button(onClick = { onShowPaywallClick(null, false) }) {
+                Text("Fullscreen")
+            }
+        }
 
         when (val currentOfferingsState = offeringsState) {
             is OfferingsState.Loading -> CircularProgressIndicator()

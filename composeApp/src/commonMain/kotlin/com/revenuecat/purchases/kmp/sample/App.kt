@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import com.revenuecat.purchases.kmp.Offering
 import com.revenuecat.purchases.kmp.ui.revenuecatui.Paywall
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallFooter
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallOptions
@@ -30,33 +29,42 @@ fun App() {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            var showPaywallAsFooter by remember { mutableStateOf(false) }
-            var paywallOffering: Offering? by remember { mutableStateOf(null) }
+            var screen by remember { mutableStateOf<Screen>(Screen.Main) }
 
-            if (paywallOffering == null) MainScreen(
-                onShowPaywallClick = { offering, footer ->
-                    showPaywallAsFooter = footer
-                    paywallOffering = offering
-                },
-                modifier = Modifier.fillMaxSize()
-            ) else {
-                val options = PaywallOptions(dismissRequest = { paywallOffering = null }) {
-                    offering = paywallOffering
-                    shouldDisplayDismissButton = true
+            when (val currentScreen = screen) {
+                is Screen.Main -> MainScreen(
+                    onShowPaywallClick = { offering, footer ->
+                        screen =
+                            if (footer) Screen.PaywallFooter(offering)
+                            else Screen.Paywall(offering)
+                    },
+                    modifier = Modifier.fillMaxSize()
+                )
+
+                is Screen.Paywall -> {
+                    val options = PaywallOptions(dismissRequest = { screen = Screen.Main }) {
+                        offering = currentScreen.offering
+                        shouldDisplayDismissButton = true
+                    }
+                    Paywall(options)
                 }
 
-                if (showPaywallAsFooter) PaywallFooter(options) { contentPadding ->
-                    CustomPaywallContent(
-                        onBackClick = { paywallOffering = null },
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(Color.Magenta)
-                            .padding(contentPadding),
-                    )
+                is Screen.PaywallFooter -> {
+                    val options = PaywallOptions(dismissRequest = { screen = Screen.Main }) {
+                        offering = currentScreen.offering
+                        shouldDisplayDismissButton = true
+                    }
+                    PaywallFooter(options) { contentPadding ->
+                        CustomPaywallContent(
+                            onBackClick = { screen = Screen.Main },
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color.Magenta)
+                                .padding(contentPadding),
+                        )
+                    }
                 }
-                else Paywall(options)
             }
-
         }
     }
 }
