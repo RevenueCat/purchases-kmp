@@ -56,7 +56,25 @@ internal object AndroidProvider : Application.ActivityLifecycleCallbacks {
 
 internal fun AndroidProvider.requireApplication(): Application =
     application ?: error(
-        "Purchases has no reference to the Application. This is a bug in the library."
+        "Purchases has no reference to the Application. Please make sure the merged " +
+                "AndroidManifest.xml contains the InitializationProvider element like below, " +
+                "with at least the PurchasesInitializer child. This should normally happen " +
+                "automatically." +
+                "\n\n" +
+                """
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:exported="false"
+            android:authorities="${'$'}{applicationId}.androidx-startup">
+        
+            <meta-data
+                android:name="com.revenuecat.purchases.kmp.di.PurchasesInitializer"
+                android:value="androidx.startup" />
+        
+        </provider>
+        """.trimIndent() +
+                "\n\n" +
+                "Stack trace:"
     )
 
 internal fun AndroidProvider.requireActivity(): Activity =
