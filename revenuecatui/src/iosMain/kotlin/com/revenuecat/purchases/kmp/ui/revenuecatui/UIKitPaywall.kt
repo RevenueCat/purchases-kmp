@@ -28,12 +28,12 @@ internal fun UIKitPaywall(
         modifier = modifier,
         factory = {
             val viewController = if (footer) RCPaywallFooterViewController(
-                offering = options.offering as RCOffering,
+                offering = options.offering as RCOffering?,
                 displayCloseButton = options.shouldDisplayDismissButton,
                 shouldBlockTouchEvents = false,
                 dismissRequestedHandler = dismissRequestedHandler,
             ) else RCPaywallViewController(
-                offering = options.offering as RCOffering,
+                offering = options.offering as RCOffering?,
                 displayCloseButton = options.shouldDisplayDismissButton,
                 shouldBlockTouchEvents = false,
                 dismissRequestedHandler = dismissRequestedHandler,

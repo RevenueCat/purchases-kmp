@@ -80,6 +80,7 @@ lane :update_hybrid_common do |options|
     "gradle/libs.versions.toml" => ["revenuecat-common = \"{x}\""],
     "core/core.podspec" => ["spec.dependency 'PurchasesHybridCommon', '{x}'"],
     "revenuecatui/revenuecatui.podspec" => ["spec.dependency 'PurchasesHybridCommonUI', '{x}'"],
+    "iosApp/Podfile" => ["  pod 'PurchasesHybridCommon', '{x}'", "  pod 'PurchasesHybridCommonUI', '{x}'"],
   }
 
   if dry_run
