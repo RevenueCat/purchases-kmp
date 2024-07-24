@@ -19,6 +19,9 @@ import com.revenuecat.purchases.kmp.models.localizedDescription
 import com.revenuecat.purchases.kmp.models.period
 import com.revenuecat.purchases.kmp.models.presentedOfferingContext
 import com.revenuecat.purchases.kmp.models.price
+import com.revenuecat.purchases.kmp.models.pricePerMonth
+import com.revenuecat.purchases.kmp.models.pricePerWeek
+import com.revenuecat.purchases.kmp.models.pricePerYear
 import com.revenuecat.purchases.kmp.models.purchasingData
 import com.revenuecat.purchases.kmp.models.subscriptionOptions
 import com.revenuecat.purchases.kmp.models.title
@@ -41,6 +44,9 @@ private class StoreProductAPI {
             val introDiscount: StoreProductDiscount? = introductoryDiscount
             val purchasingData: PurchasingData = purchasingData
             val presentedOfferingContext: PresentedOfferingContext? = presentedOfferingContext
+            val pricePerWeek: Price? = pricePerWeek()
+            val pricePerMonth: Price? = pricePerMonth()
+            val pricePerYear: Price? = pricePerYear()
         }
     }
 
