@@ -21,6 +21,24 @@ public actual data class Price(
     )
 }
 
+/**
+ * Returns a non-null Price only if all provided arguments are non-null.
+ */
+internal fun priceOrNull(
+    currencyCode: String,
+    formatted: String?,
+    amountDecimal: NSDecimalNumber?
+): Price? =
+    formatted?.let {
+        amountDecimal?.let {
+            Price(
+                formatted = formatted,
+                amountDecimal = amountDecimal,
+                currencyCode = currencyCode,
+            )
+        }
+    }
+
 internal fun RCStoreProduct.toPrice(): Price =
     localizedPriceString().let { localizedPrice ->
         Price(
