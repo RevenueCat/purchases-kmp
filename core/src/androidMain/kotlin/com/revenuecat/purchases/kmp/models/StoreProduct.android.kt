@@ -34,3 +34,11 @@ public actual val StoreProduct.purchasingData: PurchasingData
     get() = purchasingData
 public actual val StoreProduct.presentedOfferingContext: PresentedOfferingContext?
     get() = presentedOfferingContext
+public actual fun StoreProduct.pricePerWeek(): Price? =
+    pricePerWeek()
+
+public actual fun StoreProduct.pricePerMonth(): Price? =
+    pricePerMonth()
+
+public actual fun StoreProduct.pricePerYear(): Price? =
+    pricePerYear()
