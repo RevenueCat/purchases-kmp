@@ -207,6 +207,9 @@ def publish
   ENV["ORG_GRADLE_PROJECT_mavenCentralPassword"] = ENV["SONATYPE_NEXUS_TOKEN_PASSWORD"]
   ENV["ORG_GRADLE_PROJECT_signingInMemoryKey"] = ENV["SIGNING_GPG_IN_MEMORY"]
   ENV["ORG_GRADLE_PROJECT_signingInMemoryKeyPassword"] = ENV["GPG_SIGNING_KEY_PW_NEW"]
+  # Sonatype has a tendency to timeout. Default is 1 minute. This sets it to 5.
+  # https://vanniktech.github.io/gradle-maven-publish-plugin/central/#timeouts
+  ENV["SONATYPE_CONNECT_TIMEOUT_SECONDS"] = "300"
   gradle(
     task: "publishAllPublicationsToMavenCentralRepository",
     flags: "--no-configuration-cache"
