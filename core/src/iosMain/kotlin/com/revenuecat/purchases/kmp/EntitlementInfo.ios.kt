@@ -9,7 +9,6 @@ import cocoapods.PurchasesHybridCommon.RCNormal
 import cocoapods.PurchasesHybridCommon.RCPeriodType
 import cocoapods.PurchasesHybridCommon.RCPlayStore
 import cocoapods.PurchasesHybridCommon.RCPromotional
-import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipType
 import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypeFamilyShared
 import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypePurchased
 import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypeUnknown
@@ -18,6 +17,7 @@ import cocoapods.PurchasesHybridCommon.RCStripe
 import cocoapods.PurchasesHybridCommon.RCTrial
 import cocoapods.PurchasesHybridCommon.RCUnknownStore
 import com.revenuecat.purchases.kmp.ktx.toEpochMilliseconds
+import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipType as IosOwnershipType
 
 public actual typealias EntitlementInfo = RCEntitlementInfo
 
@@ -70,12 +70,6 @@ public actual enum class PeriodType {
     TRIAL,
 }
 
-public actual enum class OwnershipType {
-    PURCHASED,
-    FAMILY_SHARED,
-    UNKNOWN,
-}
-
 internal fun RCStore.toStore(): Store =
     when (this) {
         RCAppStore -> Store.APP_STORE
@@ -96,10 +90,10 @@ internal fun RCPeriodType.toPeriodType(): PeriodType =
         else -> error("Unknown RCPeriodType: $this")
     }
 
-internal fun RCPurchaseOwnershipType.toOwnershipType(): OwnershipType =
+internal fun IosOwnershipType.toOwnershipType(): OwnershipType =
     when (this) {
         RCPurchaseOwnershipTypePurchased -> OwnershipType.PURCHASED
         RCPurchaseOwnershipTypeFamilyShared -> OwnershipType.FAMILY_SHARED
         RCPurchaseOwnershipTypeUnknown -> OwnershipType.UNKNOWN
-        else -> error("Unknown RCPurchaseOwnershipType: $this")
+        else -> error("Unknown IosOwnershipType: $this")
     }

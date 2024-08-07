@@ -3,7 +3,7 @@
 package com.revenuecat.purchases.kmp
 
 import com.revenuecat.purchases.EntitlementInfo as RcEntitlementInfo
-import com.revenuecat.purchases.OwnershipType as RcOwnershipType
+import com.revenuecat.purchases.OwnershipType as AndroidOwnershipType
 import com.revenuecat.purchases.PeriodType as RcPeriodType
 import com.revenuecat.purchases.Store as RcStore
 
@@ -36,10 +36,17 @@ public actual val EntitlementInfo.unsubscribeDetectedAtMillis: Long?
 public actual val EntitlementInfo.billingIssueDetectedAtMillis: Long?
     get() = billingIssueDetectedAt?.time
 public actual val EntitlementInfo.ownershipType: OwnershipType
-    get() = ownershipType
+    get() = ownershipType.toOwnershipType()
 public actual val EntitlementInfo.verification: VerificationResult
     get() = verification
 
 public actual typealias Store = RcStore
 public actual typealias PeriodType = RcPeriodType
-public actual typealias OwnershipType = RcOwnershipType
+
+internal fun AndroidOwnershipType.toOwnershipType(): OwnershipType =
+    when (this) {
+        AndroidOwnershipType.PURCHASED -> OwnershipType.PURCHASED
+        AndroidOwnershipType.FAMILY_SHARED -> OwnershipType.FAMILY_SHARED
+        AndroidOwnershipType.UNKNOWN -> OwnershipType.UNKNOWN
+
+    }

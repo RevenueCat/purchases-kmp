@@ -162,7 +162,7 @@ public expect enum class PeriodType {
 /**
  * Enum of supported ownership types for an entitlement.
  */
-public expect enum class OwnershipType {
+public enum class OwnershipType {
     /**
      * The purchase was made directly by this user.
      */

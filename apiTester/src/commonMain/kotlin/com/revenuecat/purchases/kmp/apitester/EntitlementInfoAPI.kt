@@ -1,7 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.EntitlementInfo
-import com.revenuecat.purchases.kmp.OwnershipType
 import com.revenuecat.purchases.kmp.PeriodType
 import com.revenuecat.purchases.kmp.Store
 import com.revenuecat.purchases.kmp.VerificationResult
@@ -17,7 +16,6 @@ import com.revenuecat.purchases.kmp.isActive
 import com.revenuecat.purchases.kmp.isSandbox
 import com.revenuecat.purchases.kmp.latestPurchaseDateMillis
 import com.revenuecat.purchases.kmp.originalPurchaseDateMillis
-import com.revenuecat.purchases.kmp.ownershipType
 import com.revenuecat.purchases.kmp.periodType
 import com.revenuecat.purchases.kmp.productIdentifier
 import com.revenuecat.purchases.kmp.productPlanIdentifier
@@ -49,7 +47,8 @@ private class EntitlementInfoAPI {
             val unsubscribeDetectedAtInstant: Instant? = unsubscribeDetectedAtInstant
             val billingIssueDetectedAt: Long? = billingIssueDetectedAtMillis
             val billingIssueDetectedAtInstant: Instant? = billingIssueDetectedAtInstant
-            val ownershipType: OwnershipType = ownershipType
+            // FIXME re-enable in SDK-3530
+            //  val ownershipType: OwnershipType = ownershipType
             val verification: VerificationResult = verification
         }
     }
