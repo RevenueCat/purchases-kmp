@@ -287,7 +287,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
     ): Unit = androidPurchases.getCustomerInfoWith(
-        fetchPolicy = fetchPolicy,
+        fetchPolicy = fetchPolicy.toAndroidCacheFetchPolicy(),
         onError = { onError(it.toPurchasesError()) },
         onSuccess = { onSuccess(it) }
     )

@@ -3,7 +3,7 @@ package com.revenuecat.purchases.kmp
 /**
  * Specifies behavior for a caching API.
  */
-public expect enum class CacheFetchPolicy {
+public enum class CacheFetchPolicy {
     /**
      * Returns values from the cache, or throws an error if not available. It won't initiate a fetch.
      */
@@ -33,6 +33,6 @@ public expect enum class CacheFetchPolicy {
         /**
          * Returns the default policy when no policy is provided.
          */
-        public fun default(): CacheFetchPolicy
+        public fun default(): CacheFetchPolicy = CACHED_OR_FETCHED
     }
 }

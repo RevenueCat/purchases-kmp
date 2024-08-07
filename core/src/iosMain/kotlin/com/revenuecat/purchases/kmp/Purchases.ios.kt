@@ -289,7 +289,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
     ): Unit = iosPurchases.getCustomerInfoWithFetchPolicy(
-        fetchPolicy.toRCCacheFetchPolicy()
+        fetchPolicy.toIosCacheFetchPolicy()
     ) { customerInfo, error ->
         if (error != null) onError(error.toPurchasesErrorOrThrow())
         else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
