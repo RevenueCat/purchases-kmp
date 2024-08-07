@@ -1,31 +1,23 @@
 package com.revenuecat.purchases.kmp
 
-import cocoapods.PurchasesHybridCommon.RCLogLevel
 import cocoapods.PurchasesHybridCommon.RCLogLevelDebug
 import cocoapods.PurchasesHybridCommon.RCLogLevelError
 import cocoapods.PurchasesHybridCommon.RCLogLevelInfo
 import cocoapods.PurchasesHybridCommon.RCLogLevelVerbose
 import cocoapods.PurchasesHybridCommon.RCLogLevelWarn
+import cocoapods.PurchasesHybridCommon.RCLogLevel as IosLogLevel
 
-public actual enum class LogLevel {
-    VERBOSE,
-    DEBUG,
-    INFO,
-    WARN,
-    ERROR,
-}
-
-internal fun RCLogLevel.toLogLevel(): LogLevel =
+internal fun IosLogLevel.toLogLevel(): LogLevel =
     when (this) {
         RCLogLevelVerbose -> LogLevel.VERBOSE
         RCLogLevelDebug -> LogLevel.DEBUG
         RCLogLevelInfo -> LogLevel.INFO
         RCLogLevelWarn -> LogLevel.WARN
         RCLogLevelError -> LogLevel.ERROR
-        else -> error("Unexpected RCLogLevel: $this")
+        else -> error("Unexpected IosLogLevel: $this")
     }
 
-internal fun LogLevel.toRcLogLevel(): RCLogLevel =
+internal fun LogLevel.toRcLogLevel(): IosLogLevel =
     when (this) {
         LogLevel.VERBOSE -> RCLogLevelVerbose
         LogLevel.DEBUG -> RCLogLevelDebug

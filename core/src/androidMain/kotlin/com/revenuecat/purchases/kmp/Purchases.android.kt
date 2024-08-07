@@ -41,7 +41,11 @@ public actual class Purchases private constructor(private val androidPurchases: 
             )
 
         @JvmStatic
-        public actual var logLevel: LogLevel by AndroidPurchases.Companion::logLevel
+        public actual var logLevel: LogLevel
+            get() = AndroidPurchases.Companion.logLevel.toLogLevel()
+            set(value) {
+                AndroidPurchases.Companion.logLevel = value.toAndroidLogLevel()
+            }
 
         @JvmStatic
         public actual var logHandler: LogHandler by AndroidPurchases.Companion::logHandler
