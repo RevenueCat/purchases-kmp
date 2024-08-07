@@ -92,7 +92,7 @@ public expect val EntitlementInfo.verification: VerificationResult
 /**
  * Enum of supported stores
  */
-public expect enum class Store {
+public enum class Store {
     /**
      * For entitlements granted via Apple App Store.
      */

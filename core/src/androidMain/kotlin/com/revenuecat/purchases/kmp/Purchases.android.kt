@@ -79,7 +79,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
                         flavor = BuildKonfig.platformFlavor,
                         version = frameworkVersion,
                     ),
-                    store = store ?: Store.PLAY_STORE,
+                    store = (store ?: Store.PLAY_STORE).toAndroidStore(),
                     dangerousSettings = dangerousSettings.toAndroidDangerousSettings(),
                     shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
                     verificationMode = verificationMode.name,
@@ -118,7 +118,8 @@ public actual class Purchases private constructor(private val androidPurchases: 
 
     public actual val isAnonymous: Boolean by androidPurchases::isAnonymous
 
-    public actual val store: Store by androidPurchases::store
+    public actual val store: Store
+        get() = androidPurchases.store.toStore()
 
     public actual fun syncPurchases(
         onError: (error: PurchasesError) -> Unit,

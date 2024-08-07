@@ -1,7 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.EntitlementInfo
-import com.revenuecat.purchases.kmp.Store
 import com.revenuecat.purchases.kmp.VerificationResult
 import com.revenuecat.purchases.kmp.billingIssueDetectedAtMillis
 import com.revenuecat.purchases.kmp.datetime.billingIssueDetectedAtInstant
@@ -17,7 +16,6 @@ import com.revenuecat.purchases.kmp.latestPurchaseDateMillis
 import com.revenuecat.purchases.kmp.originalPurchaseDateMillis
 import com.revenuecat.purchases.kmp.productIdentifier
 import com.revenuecat.purchases.kmp.productPlanIdentifier
-import com.revenuecat.purchases.kmp.store
 import com.revenuecat.purchases.kmp.unsubscribeDetectedAtMillis
 import com.revenuecat.purchases.kmp.verification
 import com.revenuecat.purchases.kmp.willRenew
@@ -38,7 +36,8 @@ private class EntitlementInfoAPI {
             val originalPurchaseInstant: Instant? = originalPurchaseInstant
             val expirationDate: Long? = expirationDateMillis
             val expirationInstant: Instant? = expirationInstant
-            val store: Store = store
+            // FIXME re-enable in SDK-3530
+            //  val store: Store = store
             val productIdentifier: String = productIdentifier
             val productPlanIdentifier: String? = productPlanIdentifier
             val sandbox: Boolean = isSandbox
