@@ -62,7 +62,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 IosPurchases.configureWithAPIKey(
                     apiKey = apiKey,
                     appUserID = appUserId,
-                    purchasesAreCompletedBy = purchasesAreCompletedBy.toRCPurchasesAreCompletedBy(),
+                    purchasesAreCompletedBy = purchasesAreCompletedBy.toIosPurchasesAreCompletedBy(),
                     userDefaultsSuiteName = userDefaultsSuiteName,
                     platformFlavor = BuildKonfig.platformFlavor,
                     platformFlavorVersion = frameworkVersion,
@@ -99,7 +99,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy
         get() = iosPurchases.purchasesAreCompletedBy().toPurchasesAreCompletedBy()
         set(value) {
-            iosPurchases.setPurchasesAreCompletedBy(value.toRCPurchasesAreCompletedBy())
+            iosPurchases.setPurchasesAreCompletedBy(value.toIosPurchasesAreCompletedBy())
         }
 
     public actual val appUserID: String
