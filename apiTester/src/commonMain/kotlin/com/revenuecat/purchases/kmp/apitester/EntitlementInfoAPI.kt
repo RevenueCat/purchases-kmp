@@ -1,7 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.EntitlementInfo
-import com.revenuecat.purchases.kmp.PeriodType
 import com.revenuecat.purchases.kmp.Store
 import com.revenuecat.purchases.kmp.VerificationResult
 import com.revenuecat.purchases.kmp.billingIssueDetectedAtMillis
@@ -16,7 +15,6 @@ import com.revenuecat.purchases.kmp.isActive
 import com.revenuecat.purchases.kmp.isSandbox
 import com.revenuecat.purchases.kmp.latestPurchaseDateMillis
 import com.revenuecat.purchases.kmp.originalPurchaseDateMillis
-import com.revenuecat.purchases.kmp.periodType
 import com.revenuecat.purchases.kmp.productIdentifier
 import com.revenuecat.purchases.kmp.productPlanIdentifier
 import com.revenuecat.purchases.kmp.store
@@ -32,7 +30,8 @@ private class EntitlementInfoAPI {
             val identifier: String = identifier
             val active: Boolean = isActive
             val willRenew: Boolean = willRenew
-            val periodType: PeriodType = periodType
+            // FIXME re-enable in SDK-3530
+            //  val periodType: PeriodType = periodType
             val latestPurchaseDate: Long? = latestPurchaseDateMillis
             val latestPurchaseInstant: Instant? = latestPurchaseInstant
             val originalPurchaseDate: Long? = originalPurchaseDateMillis

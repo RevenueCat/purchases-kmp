@@ -6,7 +6,6 @@ import cocoapods.PurchasesHybridCommon.RCEntitlementInfo
 import cocoapods.PurchasesHybridCommon.RCIntro
 import cocoapods.PurchasesHybridCommon.RCMacAppStore
 import cocoapods.PurchasesHybridCommon.RCNormal
-import cocoapods.PurchasesHybridCommon.RCPeriodType
 import cocoapods.PurchasesHybridCommon.RCPlayStore
 import cocoapods.PurchasesHybridCommon.RCPromotional
 import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypeFamilyShared
@@ -17,6 +16,7 @@ import cocoapods.PurchasesHybridCommon.RCStripe
 import cocoapods.PurchasesHybridCommon.RCTrial
 import cocoapods.PurchasesHybridCommon.RCUnknownStore
 import com.revenuecat.purchases.kmp.ktx.toEpochMilliseconds
+import cocoapods.PurchasesHybridCommon.RCPeriodType as IosPeriodType
 import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipType as IosOwnershipType
 
 public actual typealias EntitlementInfo = RCEntitlementInfo
@@ -64,12 +64,6 @@ public actual enum class Store {
     EXTERNAL,
 }
 
-public actual enum class PeriodType {
-    NORMAL,
-    INTRO,
-    TRIAL,
-}
-
 internal fun RCStore.toStore(): Store =
     when (this) {
         RCAppStore -> Store.APP_STORE
@@ -82,12 +76,12 @@ internal fun RCStore.toStore(): Store =
         else -> error("Unknown RCStore: $this")
     }
 
-internal fun RCPeriodType.toPeriodType(): PeriodType =
+internal fun IosPeriodType.toPeriodType(): PeriodType =
     when (this) {
         RCNormal -> PeriodType.NORMAL
         RCIntro -> PeriodType.INTRO
         RCTrial -> PeriodType.TRIAL
-        else -> error("Unknown RCPeriodType: $this")
+        else -> error("Unknown IosPeriodType: $this")
     }
 
 internal fun IosOwnershipType.toOwnershipType(): OwnershipType =

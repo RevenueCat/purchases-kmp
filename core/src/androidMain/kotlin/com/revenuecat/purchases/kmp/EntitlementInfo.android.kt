@@ -4,7 +4,7 @@ package com.revenuecat.purchases.kmp
 
 import com.revenuecat.purchases.EntitlementInfo as RcEntitlementInfo
 import com.revenuecat.purchases.OwnershipType as AndroidOwnershipType
-import com.revenuecat.purchases.PeriodType as RcPeriodType
+import com.revenuecat.purchases.PeriodType as AndroidPeriodType
 import com.revenuecat.purchases.Store as RcStore
 
 public actual typealias EntitlementInfo = RcEntitlementInfo
@@ -16,7 +16,7 @@ public actual val EntitlementInfo.isActive: Boolean
 public actual val EntitlementInfo.willRenew: Boolean
     get() = willRenew
 public actual val EntitlementInfo.periodType: PeriodType
-    get() = periodType
+    get() = periodType.toPeriodType()
 public actual val EntitlementInfo.latestPurchaseDateMillis: Long?
     get() = latestPurchaseDate.time
 public actual val EntitlementInfo.originalPurchaseDateMillis: Long?
@@ -41,7 +41,13 @@ public actual val EntitlementInfo.verification: VerificationResult
     get() = verification
 
 public actual typealias Store = RcStore
-public actual typealias PeriodType = RcPeriodType
+
+internal fun AndroidPeriodType.toPeriodType(): PeriodType =
+    when (this) {
+        AndroidPeriodType.NORMAL -> PeriodType.NORMAL
+        AndroidPeriodType.INTRO -> PeriodType.INTRO
+        AndroidPeriodType.TRIAL -> PeriodType.TRIAL
+    }
 
 internal fun AndroidOwnershipType.toOwnershipType(): OwnershipType =
     when (this) {

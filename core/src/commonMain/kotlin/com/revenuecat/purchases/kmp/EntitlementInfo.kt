@@ -142,7 +142,7 @@ public expect enum class Store {
 /**
  * Enum of supported period types for an entitlement.
  */
-public expect enum class PeriodType {
+public enum class PeriodType {
     /**
      * If the entitlement is not under an introductory or trial period.
      */
