@@ -3,7 +3,7 @@ package com.revenuecat.purchases.kmp
 /**
  * Modes for completing the purchase process.
  */
-public expect enum class PurchasesAreCompletedBy {
+public enum class PurchasesAreCompletedBy {
     /**
      * RevenueCat will automatically acknowledge verified purchases. No action is required by you.
      */
