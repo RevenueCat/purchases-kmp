@@ -6,13 +6,19 @@ import cocoapods.PurchasesHybridCommon.RCPurchasesAreCompletedBy as IosPurchases
 
 internal fun IosPurchasesAreCompletedBy.toPurchasesAreCompletedBy(): PurchasesAreCompletedBy =
     when (this) {
-        RCPurchasesAreCompletedByRevenueCat -> PurchasesAreCompletedBy.REVENUECAT
-        RCPurchasesAreCompletedByMyApp -> PurchasesAreCompletedBy.MY_APP
+        RCPurchasesAreCompletedByRevenueCat -> PurchasesAreCompletedBy.RevenueCat
+        RCPurchasesAreCompletedByMyApp -> PurchasesAreCompletedBy.MyApp(StoreKitVersion.DEFAULT)   // TODO: Inject SKVersion
         else -> error("Unexpected IosPurchasesAreCompletedBy: $this")
     }
 
 internal fun PurchasesAreCompletedBy.toIosPurchasesAreCompletedBy(): IosPurchasesAreCompletedBy =
     when (this) {
-        PurchasesAreCompletedBy.REVENUECAT -> RCPurchasesAreCompletedByRevenueCat
-        PurchasesAreCompletedBy.MY_APP -> RCPurchasesAreCompletedByMyApp
+        is PurchasesAreCompletedBy.RevenueCat -> RCPurchasesAreCompletedByRevenueCat
+        is PurchasesAreCompletedBy.MyApp -> RCPurchasesAreCompletedByMyApp
+    }
+
+internal fun PurchasesAreCompletedBy.toHybridString(): String =
+    when(this) {
+        is PurchasesAreCompletedBy.RevenueCat -> "REVENUECAT"
+        is PurchasesAreCompletedBy.MyApp -> "MY_APP"
     }

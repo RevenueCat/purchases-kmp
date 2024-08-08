@@ -1,7 +1,5 @@
 package com.revenuecat.purchases.kmp
 
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.MY_APP
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.REVENUECAT
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.PromotionalOffer

@@ -62,12 +62,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 IosPurchases.configureWithAPIKey(
                     apiKey = apiKey,
                     appUserID = appUserId,
-                    purchasesAreCompletedBy = purchasesAreCompletedBy.toIosPurchasesAreCompletedBy(),
+                    purchasesAreCompletedBy = purchasesAreCompletedBy.toHybridString(),
                     userDefaultsSuiteName = userDefaultsSuiteName,
                     platformFlavor = BuildKonfig.platformFlavor,
                     platformFlavorVersion = frameworkVersion,
-                    // In Flutter it's deprecated & defaults to false.
-                    usesStoreKit2IfAvailable = false,
+                    storeKitVersion = purchasesAreCompletedBy.storeKitVersion().toHybridString(),
                     dangerousSettings = dangerousSettings.toIosDangerousSettings(),
                     shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
                     verificationMode = verificationMode.name,

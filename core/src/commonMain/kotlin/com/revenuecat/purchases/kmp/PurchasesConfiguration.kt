@@ -1,6 +1,5 @@
 package com.revenuecat.purchases.kmp
 
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.REVENUECAT
 import com.revenuecat.purchases.kmp.PurchasesConfiguration.Builder
 import kotlin.jvm.JvmSynthetic
 
@@ -43,7 +42,7 @@ public class PurchasesConfiguration private constructor(
         public var appUserId: String? = null
 
         @set:JvmSynthetic
-        public var purchasesAreCompletedBy: PurchasesAreCompletedBy = REVENUECAT
+        public var purchasesAreCompletedBy: PurchasesAreCompletedBy = PurchasesAreCompletedBy.RevenueCat
 
         @set:JvmSynthetic
         public var userDefaultsSuiteName: String? = null

@@ -4,12 +4,18 @@ import com.revenuecat.purchases.PurchasesAreCompletedBy as AndroidPurchasesAreCo
 
 internal fun AndroidPurchasesAreCompletedBy.toPurchasesAreCompletedBy(): PurchasesAreCompletedBy =
     when (this) {
-        AndroidPurchasesAreCompletedBy.REVENUECAT -> PurchasesAreCompletedBy.REVENUECAT
-        AndroidPurchasesAreCompletedBy.MY_APP -> PurchasesAreCompletedBy.MY_APP
+        AndroidPurchasesAreCompletedBy.REVENUECAT -> PurchasesAreCompletedBy.RevenueCat
+        AndroidPurchasesAreCompletedBy.MY_APP -> PurchasesAreCompletedBy.MyApp(StoreKitVersion.DEFAULT) // TODO: Inject SKVersion
     }
 
 internal fun PurchasesAreCompletedBy.toAndroidPurchasesAreCompletedBy(): AndroidPurchasesAreCompletedBy =
     when (this) {
-        PurchasesAreCompletedBy.REVENUECAT -> AndroidPurchasesAreCompletedBy.REVENUECAT
-        PurchasesAreCompletedBy.MY_APP -> AndroidPurchasesAreCompletedBy.MY_APP
+        is PurchasesAreCompletedBy.RevenueCat -> AndroidPurchasesAreCompletedBy.REVENUECAT
+        is PurchasesAreCompletedBy.MyApp -> AndroidPurchasesAreCompletedBy.MY_APP
+    }
+
+internal fun PurchasesAreCompletedBy.toHybridString(): String =
+    when(this) {
+        is PurchasesAreCompletedBy.RevenueCat -> "REVENUECAT"
+        is PurchasesAreCompletedBy.MyApp -> "MY_APP"
     }
