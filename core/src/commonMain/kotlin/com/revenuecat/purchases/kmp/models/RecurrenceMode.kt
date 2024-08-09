@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.models
 
 /**
- * Recurrence mode for a pricing phase. Google-Play store only.
+ * Recurrence mode for a pricing phase. Google Play Store only.
  */
 public enum class RecurrenceMode {
 
