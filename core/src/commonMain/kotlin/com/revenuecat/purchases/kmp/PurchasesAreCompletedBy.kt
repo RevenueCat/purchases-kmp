@@ -37,3 +37,18 @@ internal fun PurchasesAreCompletedBy.storeKitVersion(): StoreKitVersion =
         is PurchasesAreCompletedBy.MyApp -> this.storeKitVersion
         is PurchasesAreCompletedBy.RevenueCat -> StoreKitVersion.DEFAULT
     }
+
+/**
+ * Converts an instance of `PurchasesAreCompletedBy` to its corresponding string representation
+ * suitable for usage with the PurchasesHybridCommon library.
+ *
+ * @return A `String` that represents the type of `PurchasesAreCompletedBy`:
+ * - Returns `"REVENUECAT"` if the instance is of type `PurchasesAreCompletedBy.RevenueCat`.
+ * - Returns `"MY_APP"` if the instance is of type `PurchasesAreCompletedBy.MyApp`.
+ *
+ */
+internal fun PurchasesAreCompletedBy.toHybridString(): String =
+    when(this) {
+        is PurchasesAreCompletedBy.RevenueCat -> "REVENUECAT"
+        is PurchasesAreCompletedBy.MyApp -> "MY_APP"
+    }

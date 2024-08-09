@@ -94,12 +94,6 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             IosDangerousSettings(autoSyncPurchases)
     }
 
-    public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy
-        get() = iosPurchases.purchasesAreCompletedBy().toPurchasesAreCompletedBy(iosPurchases)
-        set(value) {
-            iosPurchases.setPurchasesAreCompletedBy(value.toIosPurchasesAreCompletedBy())
-        }
-
     public actual val appUserID: String
         get() = iosPurchases.appUserID()
 

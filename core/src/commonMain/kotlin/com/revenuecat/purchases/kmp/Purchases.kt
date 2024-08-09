@@ -92,13 +92,6 @@ public expect class Purchases {
     }
 
     /**
-     * Default to [PurchasesAreCompletedBy.RevenueCat], set this to [PurchasesAreCompletedBy.MyApp]
-     * when configuring the SDK if you are consuming and acknowledging transactions outside
-     * of the Purchases SDK.
-     */
-    public val purchasesAreCompletedBy: PurchasesAreCompletedBy
-
-    /**
      * The passed in or generated app user ID.
      */
     public val appUserID: String
