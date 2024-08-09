@@ -10,7 +10,7 @@ package com.revenuecat.purchases.kmp
  * - Note: Verification is only performed if enabled using PurchasesConfiguration.Builder's
  * entitlementVerificationMode property. This is disabled by default.
  */
-public expect enum class VerificationResult {
+public enum class VerificationResult {
     /**
      * No verification was done.
      *
@@ -34,16 +34,17 @@ public expect enum class VerificationResult {
     VERIFIED_ON_DEVICE,
 
     ;
-}
 
-/**
- * Whether the result is [VerificationResult.VERIFIED] or [VerificationResult.VERIFIED_ON_DEVICE].
- */
-public val VerificationResult.isVerified: Boolean
-    get() {
-        return when (this) {
-            VerificationResult.VERIFIED, VerificationResult.VERIFIED_ON_DEVICE -> true
-            VerificationResult.NOT_REQUESTED, VerificationResult.FAILED -> false
-            else -> error("Unexpected VerificationResult: $this")
+    /**
+     * Whether the result has been verified.
+     */
+    public val isVerified: Boolean
+        // Ideally we would get this from the native layer, but we have had issues
+        // accessing this in the iOS layer. For now, we're duplicating this logic.
+        get() = when (this) {
+            VERIFIED,
+            VERIFIED_ON_DEVICE -> true
+            FAILED,
+            NOT_REQUESTED -> false
         }
-    }
+}

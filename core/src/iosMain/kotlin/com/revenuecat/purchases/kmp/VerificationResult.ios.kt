@@ -1,24 +1,17 @@
 package com.revenuecat.purchases.kmp
 
-import cocoapods.PurchasesHybridCommon.RCVerificationResult
-import cocoapods.PurchasesHybridCommon.RCVerificationResultFailed
-import cocoapods.PurchasesHybridCommon.RCVerificationResultNotRequested
-import cocoapods.PurchasesHybridCommon.RCVerificationResultVerified
-import cocoapods.PurchasesHybridCommon.RCVerificationResultVerifiedOnDevice
+import cocoapods.PurchasesHybridCommon.RCVerificationResultVar
+import cocoapods.PurchasesHybridCommon.RCVerificationResult as IosVerificationResult
+import cocoapods.PurchasesHybridCommon.RCVerificationResultFailed as IosVerificationResultFailed
+import cocoapods.PurchasesHybridCommon.RCVerificationResultNotRequested as IosVerificationResultNotRequested
+import cocoapods.PurchasesHybridCommon.RCVerificationResultVerified as IosVerificationResultVerified
+import cocoapods.PurchasesHybridCommon.RCVerificationResultVerifiedOnDevice as IosVerificationResultVerifiedOnDevice
 
-public actual enum class VerificationResult {
-    NOT_REQUESTED,
-    VERIFIED,
-    FAILED,
-    VERIFIED_ON_DEVICE,
-    ;
-}
-
-internal fun RCVerificationResult.toVerificationResult(): VerificationResult =
+internal fun IosVerificationResult.toVerificationResult(): VerificationResult =
     when (this) {
-        RCVerificationResultNotRequested -> VerificationResult.NOT_REQUESTED
-        RCVerificationResultVerified -> VerificationResult.VERIFIED
-        RCVerificationResultFailed -> VerificationResult.FAILED
-        RCVerificationResultVerifiedOnDevice -> VerificationResult.VERIFIED_ON_DEVICE
+        IosVerificationResultNotRequested -> VerificationResult.NOT_REQUESTED
+        IosVerificationResultVerified -> VerificationResult.VERIFIED
+        IosVerificationResultFailed -> VerificationResult.FAILED
+        IosVerificationResultVerifiedOnDevice -> VerificationResult.VERIFIED_ON_DEVICE
         else -> error("Unexpected RCVerificationResult: $this")
     }
