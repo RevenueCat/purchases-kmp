@@ -24,7 +24,6 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         private var _sharedInstance: Purchases? = null
         public actual val sharedInstance: Purchases
             get() = _sharedInstance ?: error(ConfigureStrings.NO_SINGLETON_INSTANCE)
-
         public actual var logLevel: LogLevel
             get() = IosPurchases.logLevel().toLogLevel()
             set(value) = IosPurchases.setLogLevel(value.toRcLogLevel())
@@ -96,7 +95,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     }
 
     public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy
-        get() = iosPurchases.purchasesAreCompletedBy().toPurchasesAreCompletedBy()
+        get() = iosPurchases.purchasesAreCompletedBy().toPurchasesAreCompletedBy(iosPurchases)
         set(value) {
             iosPurchases.setPurchasesAreCompletedBy(value.toIosPurchasesAreCompletedBy())
         }

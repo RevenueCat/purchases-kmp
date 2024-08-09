@@ -92,10 +92,11 @@ public expect class Purchases {
     }
 
     /**
-     * Default to [REVENUECAT], set this to [MY_APP] if you are consuming and acknowledging
-     * transactions outside of the Purchases SDK.
+     * Default to [PurchasesAreCompletedBy.RevenueCat], set this to [PurchasesAreCompletedBy.MyApp]
+     * when configuring the SDK if you are consuming and acknowledging transactions outside
+     * of the Purchases SDK.
      */
-    public var purchasesAreCompletedBy: PurchasesAreCompletedBy
+    public val purchasesAreCompletedBy: PurchasesAreCompletedBy
 
     /**
      * The passed in or generated app user ID.
@@ -139,7 +140,7 @@ public expect class Purchases {
     /**
      * This method will send an Amazon purchase to the RevenueCat backend. This function should
      * only be called if you have set [purchasesAreCompletedBy] to
-     * [MY_APP][PurchasesAreCompletedBy.MY_APP] or when performing a client side migration of your
+     * [MyApp][PurchasesAreCompletedBy.MyApp] or when performing a client side migration of your
      * current users to RevenueCat.
      *
      * The receipt IDs are cached if successfully posted so they are not posted more than once.

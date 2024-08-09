@@ -102,7 +102,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
             AndroidDangerousSettings(autoSyncPurchases)
     }
 
-    public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy
+    public actual val purchasesAreCompletedBy: PurchasesAreCompletedBy
         get() = androidPurchases.purchasesAreCompletedBy.toPurchasesAreCompletedBy()
         set(value) {
             androidPurchases.purchasesAreCompletedBy = value.toAndroidPurchasesAreCompletedBy()

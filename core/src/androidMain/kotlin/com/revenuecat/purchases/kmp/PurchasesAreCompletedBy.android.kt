@@ -5,7 +5,9 @@ import com.revenuecat.purchases.PurchasesAreCompletedBy as AndroidPurchasesAreCo
 internal fun AndroidPurchasesAreCompletedBy.toPurchasesAreCompletedBy(): PurchasesAreCompletedBy =
     when (this) {
         AndroidPurchasesAreCompletedBy.REVENUECAT -> PurchasesAreCompletedBy.RevenueCat
-        AndroidPurchasesAreCompletedBy.MY_APP -> PurchasesAreCompletedBy.MyApp(StoreKitVersion.DEFAULT) // TODO: Inject SKVersion
+        AndroidPurchasesAreCompletedBy.MY_APP -> PurchasesAreCompletedBy.MyApp(
+            StoreKitVersion.DEFAULT     // StoreKitVersion doesn't matter on Android
+        )
     }
 
 internal fun PurchasesAreCompletedBy.toAndroidPurchasesAreCompletedBy(): AndroidPurchasesAreCompletedBy =
