@@ -35,5 +35,5 @@ private fun IosPackageType.toPackageType(): PackageType =
         IosPackageTypeTwoMonth -> PackageType.TWO_MONTH
         IosPackageTypeMonthly -> PackageType.MONTHLY
         IosPackageTypeWeekly -> PackageType.WEEKLY
-        else -> error("Unexpected RCPackageType: $this")
+        else -> error("Unexpected IosPackageType: $this")
     }
