@@ -47,7 +47,8 @@ private class EntitlementInfoAPI {
             val billingIssueDetectedAtInstant: Instant? = billingIssueDetectedAtInstant
             // FIXME re-enable in SDK-3530
             //  val ownershipType: OwnershipType = ownershipType
-            val verification: VerificationResult = verification
+            // FIXME re-enable in SDK-3530
+            //  val verification: VerificationResult = verification
         }
     }
 

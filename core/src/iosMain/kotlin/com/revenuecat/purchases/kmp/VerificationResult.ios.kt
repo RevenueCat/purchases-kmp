@@ -1,6 +1,5 @@
 package com.revenuecat.purchases.kmp
 
-import cocoapods.PurchasesHybridCommon.RCVerificationResultVar
 import cocoapods.PurchasesHybridCommon.RCVerificationResult as IosVerificationResult
 import cocoapods.PurchasesHybridCommon.RCVerificationResultFailed as IosVerificationResultFailed
 import cocoapods.PurchasesHybridCommon.RCVerificationResultNotRequested as IosVerificationResultNotRequested
