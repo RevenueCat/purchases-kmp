@@ -5,7 +5,7 @@ package com.revenuecat.purchases.kmp
 import com.revenuecat.purchases.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.Package as RcPackage
-import com.revenuecat.purchases.PackageType as RcPackageType
+import com.revenuecat.purchases.PackageType as AndroidPackageType
 
 public actual typealias Package = RcPackage
 
@@ -18,17 +18,15 @@ public actual val Package.storeProduct: StoreProduct
 public actual val Package.presentedOfferingContext: PresentedOfferingContext
     get() = presentedOfferingContext
 
-internal fun RcPackageType.toPackageType(): PackageType =
+private fun AndroidPackageType.toPackageType(): PackageType =
     when (this) {
-        RcPackageType.UNKNOWN -> PackageType.UNKNOWN
-        RcPackageType.CUSTOM -> PackageType.CUSTOM
-        RcPackageType.LIFETIME -> PackageType.LIFETIME
-        RcPackageType.ANNUAL -> PackageType.ANNUAL
-        RcPackageType.SIX_MONTH -> PackageType.SIX_MONTH
-        RcPackageType.THREE_MONTH -> PackageType.THREE_MONTH
-        RcPackageType.TWO_MONTH -> PackageType.TWO_MONTH
-        RcPackageType.MONTHLY -> PackageType.MONTHLY
-        RcPackageType.WEEKLY -> PackageType.WEEKLY
+        AndroidPackageType.UNKNOWN -> PackageType.UNKNOWN
+        AndroidPackageType.CUSTOM -> PackageType.CUSTOM
+        AndroidPackageType.LIFETIME -> PackageType.LIFETIME
+        AndroidPackageType.ANNUAL -> PackageType.ANNUAL
+        AndroidPackageType.SIX_MONTH -> PackageType.SIX_MONTH
+        AndroidPackageType.THREE_MONTH -> PackageType.THREE_MONTH
+        AndroidPackageType.TWO_MONTH -> PackageType.TWO_MONTH
+        AndroidPackageType.MONTHLY -> PackageType.MONTHLY
+        AndroidPackageType.WEEKLY -> PackageType.WEEKLY
     }
-
-public actual typealias PackageType = RcPackageType

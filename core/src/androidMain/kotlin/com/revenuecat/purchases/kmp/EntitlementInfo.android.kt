@@ -38,7 +38,7 @@ public actual val EntitlementInfo.billingIssueDetectedAtMillis: Long?
 public actual val EntitlementInfo.ownershipType: OwnershipType
     get() = ownershipType.toOwnershipType()
 public actual val EntitlementInfo.verification: VerificationResult
-    get() = verification
+    get() = verification.toVerificationResult()
 
 internal fun AndroidStore.toStore(): Store =
     when (this) {

@@ -1,5 +1,11 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.models.RecurrenceMode as RcRecurrenceMode
+import com.revenuecat.purchases.models.RecurrenceMode as AndroidRecurrenceMode
 
-public actual typealias RecurrenceMode = RcRecurrenceMode
+internal fun AndroidRecurrenceMode.toRecurrenceMode(): RecurrenceMode =
+    when (this) {
+        AndroidRecurrenceMode.INFINITE_RECURRING -> RecurrenceMode.INFINITE_RECURRING
+        AndroidRecurrenceMode.FINITE_RECURRING -> RecurrenceMode.FINITE_RECURRING
+        AndroidRecurrenceMode.NON_RECURRING -> RecurrenceMode.NON_RECURRING
+        AndroidRecurrenceMode.UNKNOWN -> RecurrenceMode.UNKNOWN
+    }

@@ -66,7 +66,7 @@ public val SubscriptionOption.billingPeriod: Period?
  * Not applicable for Amazon subscriptions.
  */
 public val SubscriptionOption.isPrepaid: Boolean
-    get() = fullPricePhase?.recurrenceMode == RecurrenceMode.NON_RECURRING
+    get() = fullPricePhase?.recurrenceMode?.name == RecurrenceMode.NON_RECURRING.name
 
 /**
  * The full price [PricingPhase] of the subscription.

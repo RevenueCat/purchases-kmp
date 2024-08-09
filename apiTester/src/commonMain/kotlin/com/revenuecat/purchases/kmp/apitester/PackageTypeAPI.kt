@@ -4,6 +4,7 @@ import com.revenuecat.purchases.kmp.PackageType
 
 @Suppress("unused")
 private class PackageTypeAPI {
+
     fun check(type: PackageType) {
         when (type) {
             PackageType.UNKNOWN,

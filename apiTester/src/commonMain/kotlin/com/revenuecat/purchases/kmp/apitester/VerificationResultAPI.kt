@@ -1,21 +1,20 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.VerificationResult
-import com.revenuecat.purchases.kmp.isVerified
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class VerificationResultAPI {
 
-    fun check(verificationResult: VerificationResult) {
-        when (verificationResult) {
-            VerificationResult.VERIFIED_ON_DEVICE,
-            VerificationResult.NOT_REQUESTED,
+    fun check(result: VerificationResult) {
+        when (result) {
             VerificationResult.VERIFIED,
+            VerificationResult.NOT_REQUESTED,
+            VerificationResult.VERIFIED_ON_DEVICE,
             VerificationResult.FAILED,
             -> {
             }
         }.exhaustive
 
-        val isVerified: Boolean = verificationResult.isVerified
+        val isVerified: Boolean = result.isVerified
     }
 }
