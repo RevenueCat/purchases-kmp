@@ -1,12 +1,24 @@
 package com.revenuecat.purchases.kmp
 
+import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicy
 import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicyCachedOrFetched
 import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicyFetchCurrent
 import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicyFromCacheOnly
 import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicyNotStaleCachedOrFetched
-import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicy as IosCacheFetchPolicy
 
-internal fun CacheFetchPolicy.toIosCacheFetchPolicy(): IosCacheFetchPolicy =
+public actual enum class CacheFetchPolicy {
+    CACHE_ONLY,
+    FETCH_CURRENT,
+    NOT_STALE_CACHED_OR_CURRENT,
+    CACHED_OR_FETCHED,
+    ;
+
+    public actual companion object {
+        public actual fun default(): CacheFetchPolicy = CACHED_OR_FETCHED
+    }
+}
+
+internal fun CacheFetchPolicy.toRCCacheFetchPolicy(): RCCacheFetchPolicy =
     when (this) {
         CacheFetchPolicy.CACHE_ONLY -> RCCacheFetchPolicyFromCacheOnly
         CacheFetchPolicy.FETCH_CURRENT -> RCCacheFetchPolicyFetchCurrent

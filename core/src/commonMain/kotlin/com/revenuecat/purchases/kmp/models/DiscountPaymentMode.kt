@@ -4,7 +4,7 @@ package com.revenuecat.purchases.kmp.models
  * App Store only. The payment mode for a [StoreProductDiscount] indicates how the product discount
  * price is charged.
  */
-public enum class DiscountPaymentMode {
+public expect enum class DiscountPaymentMode {
     /**
      * No initial charge.
      */
