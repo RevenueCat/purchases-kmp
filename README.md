@@ -48,7 +48,7 @@ Please follow the [Quickstart Guide](https://docs.revenuecat.com/docs/) for more
 - Java 8+
 - Kotlin 1.9.0+
 - Android 5.0+ (API level 21+)
-- iOS 11.0+ 
+- iOS 13.0+ 
 
 ## SDK Reference
 Our full SDK reference [can be found here](https://revenuecat.github.io/purchases-kmp/).

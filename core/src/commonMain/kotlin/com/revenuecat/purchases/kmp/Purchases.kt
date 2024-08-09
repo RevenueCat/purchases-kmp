@@ -1,7 +1,5 @@
 package com.revenuecat.purchases.kmp
 
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.MY_APP
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.REVENUECAT
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
@@ -94,12 +92,6 @@ public expect class Purchases {
     }
 
     /**
-     * Default to [REVENUECAT], set this to [MY_APP] if you are consuming and acknowledging
-     * transactions outside of the Purchases SDK.
-     */
-    public var purchasesAreCompletedBy: PurchasesAreCompletedBy
-
-    /**
      * The passed in or generated app user ID.
      */
     public val appUserID: String
@@ -141,7 +133,7 @@ public expect class Purchases {
     /**
      * This method will send an Amazon purchase to the RevenueCat backend. This function should
      * only be called if you have set [purchasesAreCompletedBy] to
-     * [MY_APP][PurchasesAreCompletedBy.MY_APP] or when performing a client side migration of your
+     * [MyApp][PurchasesAreCompletedBy.MyApp] or when performing a client side migration of your
      * current users to RevenueCat.
      *
      * The receipt IDs are cached if successfully posted so they are not posted more than once.

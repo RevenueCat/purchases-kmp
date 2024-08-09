@@ -24,7 +24,6 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         private var _sharedInstance: Purchases? = null
         public actual val sharedInstance: Purchases
             get() = _sharedInstance ?: error(ConfigureStrings.NO_SINGLETON_INSTANCE)
-
         public actual var logLevel: LogLevel
             get() = IosPurchases.logLevel().toLogLevel()
             set(value) = IosPurchases.setLogLevel(value.toRcLogLevel())
@@ -62,12 +61,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 IosPurchases.configureWithAPIKey(
                     apiKey = apiKey,
                     appUserID = appUserId,
-                    purchasesAreCompletedBy = purchasesAreCompletedBy.toIosPurchasesAreCompletedBy(),
+                    purchasesAreCompletedBy = purchasesAreCompletedBy.toHybridString(),
                     userDefaultsSuiteName = userDefaultsSuiteName,
                     platformFlavor = BuildKonfig.platformFlavor,
                     platformFlavorVersion = frameworkVersion,
-                    // In Flutter it's deprecated & defaults to false.
-                    usesStoreKit2IfAvailable = false,
+                    storeKitVersion = purchasesAreCompletedBy.storeKitVersion().toHybridString(),
                     dangerousSettings = dangerousSettings.toIosDangerousSettings(),
                     shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
                     verificationMode = verificationMode.name,
@@ -95,12 +93,6 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         private fun DangerousSettings.toIosDangerousSettings(): IosDangerousSettings =
             IosDangerousSettings(autoSyncPurchases)
     }
-
-    public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy
-        get() = iosPurchases.purchasesAreCompletedBy().toPurchasesAreCompletedBy()
-        set(value) {
-            iosPurchases.setPurchasesAreCompletedBy(value.toIosPurchasesAreCompletedBy())
-        }
 
     public actual val appUserID: String
         get() = iosPurchases.appUserID()

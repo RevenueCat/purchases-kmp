@@ -19,7 +19,7 @@ kotlin {
 
     cocoapods {
         version = "1.0"
-        ios.deploymentTarget = "11.0"
+        ios.deploymentTarget = "13.0"
 
         framework {
             baseName = "Purchases"

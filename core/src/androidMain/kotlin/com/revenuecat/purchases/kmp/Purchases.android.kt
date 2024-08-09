@@ -74,7 +74,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
                     context = AndroidProvider.requireApplication(),
                     apiKey = apiKey,
                     appUserID = appUserId,
-                    purchasesAreCompletedBy = purchasesAreCompletedBy.toAndroidPurchasesAreCompletedBy(),
+                    purchasesAreCompletedBy = purchasesAreCompletedBy.toHybridString(),
                     platformInfo = PlatformInfo(
                         flavor = BuildKonfig.platformFlavor,
                         version = frameworkVersion,
@@ -101,12 +101,6 @@ public actual class Purchases private constructor(private val androidPurchases: 
         private fun DangerousSettings.toAndroidDangerousSettings(): AndroidDangerousSettings =
             AndroidDangerousSettings(autoSyncPurchases)
     }
-
-    public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy
-        get() = androidPurchases.purchasesAreCompletedBy.toPurchasesAreCompletedBy()
-        set(value) {
-            androidPurchases.purchasesAreCompletedBy = value.toAndroidPurchasesAreCompletedBy()
-        }
 
     public actual val appUserID: String by androidPurchases::appUserID
 

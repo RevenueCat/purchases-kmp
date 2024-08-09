@@ -6,8 +6,8 @@ import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy
 private class PurchasesAreCompletedByAPI {
     fun check(mode: PurchasesAreCompletedBy) {
         when (mode) {
-            PurchasesAreCompletedBy.REVENUECAT,
-            PurchasesAreCompletedBy.MY_APP,
+            is PurchasesAreCompletedBy.RevenueCat,
+            is PurchasesAreCompletedBy.MyApp,
             -> {
             }
         }.exhaustive
