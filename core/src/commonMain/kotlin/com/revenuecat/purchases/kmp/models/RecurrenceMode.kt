@@ -1,9 +1,9 @@
 package com.revenuecat.purchases.kmp.models
 
 /**
- * Recurrence mode for a pricing phase.
+ * Recurrence mode for a pricing phase. Google-Play store only.
  */
-public expect enum class RecurrenceMode {
+public enum class RecurrenceMode {
 
     /**
      * Pricing phase repeats infinitely until cancellation.
@@ -21,12 +21,3 @@ public expect enum class RecurrenceMode {
     NON_RECURRING,
     UNKNOWN,
 }
-
-public val RecurrenceMode.identifier: Int?
-    get() = when(this){
-        RecurrenceMode.INFINITE_RECURRING -> 1
-        RecurrenceMode.FINITE_RECURRING -> 2
-        RecurrenceMode.NON_RECURRING -> 3
-        RecurrenceMode.UNKNOWN -> null
-        else -> error("Unknown RecurrenceMode: $this")
-    }
