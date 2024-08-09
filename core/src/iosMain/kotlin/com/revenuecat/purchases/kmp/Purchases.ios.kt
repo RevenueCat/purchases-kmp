@@ -62,7 +62,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 IosPurchases.configureWithAPIKey(
                     apiKey = apiKey,
                     appUserID = appUserId,
-                    purchasesAreCompletedBy = purchasesAreCompletedBy.toIosPurchasesAreCompletedBy(),
+                    purchasesAreCompletedBy = purchasesAreCompletedBy.toRCPurchasesAreCompletedBy(),
                     userDefaultsSuiteName = userDefaultsSuiteName,
                     platformFlavor = BuildKonfig.platformFlavor,
                     platformFlavorVersion = frameworkVersion,
@@ -99,7 +99,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy
         get() = iosPurchases.purchasesAreCompletedBy().toPurchasesAreCompletedBy()
         set(value) {
-            iosPurchases.setPurchasesAreCompletedBy(value.toIosPurchasesAreCompletedBy())
+            iosPurchases.setPurchasesAreCompletedBy(value.toRCPurchasesAreCompletedBy())
         }
 
     public actual val appUserID: String
@@ -289,7 +289,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
     ): Unit = iosPurchases.getCustomerInfoWithFetchPolicy(
-        fetchPolicy.toIosCacheFetchPolicy()
+        fetchPolicy.toRCCacheFetchPolicy()
     ) { customerInfo, error ->
         if (error != null) onError(error.toPurchasesErrorOrThrow())
         else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))

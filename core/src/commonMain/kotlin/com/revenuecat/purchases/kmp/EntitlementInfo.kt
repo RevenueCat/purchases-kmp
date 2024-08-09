@@ -92,7 +92,7 @@ public expect val EntitlementInfo.verification: VerificationResult
 /**
  * Enum of supported stores
  */
-public enum class Store {
+public expect enum class Store {
     /**
      * For entitlements granted via Apple App Store.
      */
@@ -142,7 +142,7 @@ public enum class Store {
 /**
  * Enum of supported period types for an entitlement.
  */
-public enum class PeriodType {
+public expect enum class PeriodType {
     /**
      * If the entitlement is not under an introductory or trial period.
      */
@@ -162,7 +162,7 @@ public enum class PeriodType {
 /**
  * Enum of supported ownership types for an entitlement.
  */
-public enum class OwnershipType {
+public expect enum class OwnershipType {
     /**
      * The purchase was made directly by this user.
      */

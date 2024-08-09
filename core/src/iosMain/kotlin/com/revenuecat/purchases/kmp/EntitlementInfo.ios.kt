@@ -6,18 +6,18 @@ import cocoapods.PurchasesHybridCommon.RCEntitlementInfo
 import cocoapods.PurchasesHybridCommon.RCIntro
 import cocoapods.PurchasesHybridCommon.RCMacAppStore
 import cocoapods.PurchasesHybridCommon.RCNormal
+import cocoapods.PurchasesHybridCommon.RCPeriodType
 import cocoapods.PurchasesHybridCommon.RCPlayStore
 import cocoapods.PurchasesHybridCommon.RCPromotional
+import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipType
 import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypeFamilyShared
 import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypePurchased
 import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypeUnknown
+import cocoapods.PurchasesHybridCommon.RCStore
 import cocoapods.PurchasesHybridCommon.RCStripe
 import cocoapods.PurchasesHybridCommon.RCTrial
 import cocoapods.PurchasesHybridCommon.RCUnknownStore
 import com.revenuecat.purchases.kmp.ktx.toEpochMilliseconds
-import cocoapods.PurchasesHybridCommon.RCPeriodType as IosPeriodType
-import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipType as IosOwnershipType
-import cocoapods.PurchasesHybridCommon.RCStore as IosStore
 
 public actual typealias EntitlementInfo = RCEntitlementInfo
 
@@ -52,7 +52,31 @@ public actual val EntitlementInfo.ownershipType: OwnershipType
 public actual val EntitlementInfo.verification: VerificationResult
     get() = verification().toVerificationResult()
 
-internal fun IosStore.toStore(): Store =
+public actual enum class Store {
+    APP_STORE,
+    MAC_APP_STORE,
+    PLAY_STORE,
+    STRIPE,
+    PROMOTIONAL,
+    UNKNOWN_STORE,
+    AMAZON,
+    RC_BILLING,
+    EXTERNAL,
+}
+
+public actual enum class PeriodType {
+    NORMAL,
+    INTRO,
+    TRIAL,
+}
+
+public actual enum class OwnershipType {
+    PURCHASED,
+    FAMILY_SHARED,
+    UNKNOWN,
+}
+
+internal fun RCStore.toStore(): Store =
     when (this) {
         RCAppStore -> Store.APP_STORE
         RCMacAppStore -> Store.MAC_APP_STORE
@@ -61,21 +85,21 @@ internal fun IosStore.toStore(): Store =
         RCPromotional -> Store.PROMOTIONAL
         RCUnknownStore -> Store.UNKNOWN_STORE
         RCAmazon -> Store.AMAZON
-        else -> error("Unknown IosStore: $this")
+        else -> error("Unknown RCStore: $this")
     }
 
-internal fun IosPeriodType.toPeriodType(): PeriodType =
+internal fun RCPeriodType.toPeriodType(): PeriodType =
     when (this) {
         RCNormal -> PeriodType.NORMAL
         RCIntro -> PeriodType.INTRO
         RCTrial -> PeriodType.TRIAL
-        else -> error("Unknown IosPeriodType: $this")
+        else -> error("Unknown RCPeriodType: $this")
     }
 
-internal fun IosOwnershipType.toOwnershipType(): OwnershipType =
+internal fun RCPurchaseOwnershipType.toOwnershipType(): OwnershipType =
     when (this) {
         RCPurchaseOwnershipTypePurchased -> OwnershipType.PURCHASED
         RCPurchaseOwnershipTypeFamilyShared -> OwnershipType.FAMILY_SHARED
         RCPurchaseOwnershipTypeUnknown -> OwnershipType.UNKNOWN
-        else -> error("Unknown IosOwnershipType: $this")
+        else -> error("Unknown RCPurchaseOwnershipType: $this")
     }
