@@ -1,15 +1,10 @@
 package com.revenuecat.purchases.kmp.models
 
-import cocoapods.PurchasesHybridCommon.RCDiscountType
 import cocoapods.PurchasesHybridCommon.RCDiscountTypeIntroductory
 import cocoapods.PurchasesHybridCommon.RCDiscountTypePromotional
+import cocoapods.PurchasesHybridCommon.RCDiscountType as IosDiscountType
 
-public actual enum class DiscountType {
-    INTRODUCTORY,
-    PROMOTIONAL,
-}
-
-internal fun RCDiscountType.toDiscountType(): DiscountType =
+internal fun IosDiscountType.toDiscountType(): DiscountType =
     when(this) {
         RCDiscountTypeIntroductory -> DiscountType.INTRODUCTORY
         RCDiscountTypePromotional -> DiscountType.PROMOTIONAL

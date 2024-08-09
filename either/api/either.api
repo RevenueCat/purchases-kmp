@@ -1,6 +1,6 @@
 public final class com/revenuecat/purchases/kmp/either/EitherKt {
-	public static final fun awaitCustomerInfoEither (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun awaitCustomerInfoEither$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun awaitCustomerInfoEither (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun awaitCustomerInfoEither$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun awaitGetProductsEither (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitLogInEither (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitLogOutEither (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
