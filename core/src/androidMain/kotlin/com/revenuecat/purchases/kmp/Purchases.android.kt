@@ -16,6 +16,7 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.toAndroidBillingFeature
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import com.revenuecat.purchases.logInWith
 import com.revenuecat.purchases.logOutWith
@@ -95,7 +96,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
             callback: (Boolean) -> Unit,
         ): Unit = AndroidPurchases.canMakePayments(
             context = AndroidProvider.requireApplication(),
-            features = features
+            features = features.map { it.toAndroidBillingFeature() },
         ) { result -> callback(result) }
 
         private fun DangerousSettings.toAndroidDangerousSettings(): AndroidDangerousSettings =
