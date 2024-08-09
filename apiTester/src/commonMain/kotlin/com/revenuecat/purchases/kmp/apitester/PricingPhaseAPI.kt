@@ -4,7 +4,10 @@ import com.revenuecat.purchases.kmp.models.OfferPaymentMode
 import com.revenuecat.purchases.kmp.models.Period
 import com.revenuecat.purchases.kmp.models.Price
 import com.revenuecat.purchases.kmp.models.PricingPhase
-import com.revenuecat.purchases.kmp.models.RecurrenceMode
+import com.revenuecat.purchases.kmp.models.billingCycleCount
+import com.revenuecat.purchases.kmp.models.billingPeriod
+import com.revenuecat.purchases.kmp.models.offerPaymentMode
+import com.revenuecat.purchases.kmp.models.price
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class PricingPhaseAPI {
