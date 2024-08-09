@@ -65,7 +65,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                     userDefaultsSuiteName = userDefaultsSuiteName,
                     platformFlavor = BuildKonfig.platformFlavor,
                     platformFlavorVersion = frameworkVersion,
-                    storeKitVersion = purchasesAreCompletedBy.storeKitVersion().toHybridString(),
+                    storeKitVersion = storeKitVersionToUse().toHybridString(),
                     dangerousSettings = dangerousSettings.toIosDangerousSettings(),
                     shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
                     verificationMode = verificationMode.name,

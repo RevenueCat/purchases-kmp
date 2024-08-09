@@ -243,6 +243,7 @@ private class PurchasesCommonAPI {
             appUserId = ""
             purchasesAreCompletedBy = PurchasesAreCompletedBy.RevenueCat
             userDefaultsSuiteName = ""
+            storeKitVersion = StoreKitVersion.DEFAULT
             showInAppMessagesAutomatically = true
             store = Store.PLAY_STORE
             diagnosticsEnabled = true

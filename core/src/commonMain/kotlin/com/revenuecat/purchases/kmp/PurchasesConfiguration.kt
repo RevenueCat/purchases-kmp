@@ -12,6 +12,7 @@ public class PurchasesConfiguration private constructor(
     public val appUserId: String?,
     public val purchasesAreCompletedBy: PurchasesAreCompletedBy,
     public val userDefaultsSuiteName: String?,
+    public val storeKitVersion: StoreKitVersion,
     public val showInAppMessagesAutomatically: Boolean,
     public val store: Store?,
     public val diagnosticsEnabled: Boolean,
@@ -31,6 +32,23 @@ public class PurchasesConfiguration private constructor(
                 "verificationMode=$verificationMode" +
                 ")"
 
+    internal fun storeKitVersionToUse(): StoreKitVersion {
+        var storeKitVersionToUse = this.storeKitVersion
+
+        if (this.purchasesAreCompletedBy is PurchasesAreCompletedBy.MyApp) {
+            storeKitVersionToUse = (this.purchasesAreCompletedBy as PurchasesAreCompletedBy.MyApp).storeKitVersion
+
+            if (storeKitVersionToUse != this.storeKitVersion) {
+                println(
+                    "Warning: The storeKitVersion in purchasesAreCompletedBy does not match the " +
+                            "provided storeKitVersion parameter. We will use the value found in purchasesAreCompletedBy."
+                )
+            }
+        }
+
+        return storeKitVersionToUse
+    }
+
     /**
      * Use this builder to create an instance of [PurchasesConfiguration].
      */
@@ -46,6 +64,9 @@ public class PurchasesConfiguration private constructor(
 
         @set:JvmSynthetic
         public var userDefaultsSuiteName: String? = null
+
+        @set:JvmSynthetic
+        public var storeKitVersion: StoreKitVersion = StoreKitVersion.DEFAULT
 
         @set:JvmSynthetic
         public var showInAppMessagesAutomatically: Boolean = true
@@ -101,6 +122,21 @@ public class PurchasesConfiguration private constructor(
          */
         public fun userDefaultsSuiteName(userDefaultsSuiteName: String?): Builder =
             apply { this.userDefaultsSuiteName = userDefaultsSuiteName }
+
+        /**
+         * iOS-only, will be ignored for Android. By providing StoreKitVersion.defaultVersion,
+         * RevenueCat will automatically select the most appropriate StoreKit version
+         * for the app's runtime environment.
+         *
+         * **Warning:** Make sure you have an In-App Purchase Key configured in your app.
+         * Please see []revenuecat.com](https://rev.cat/in-app-purchase-key-configuration)
+         * for more info.
+         *
+         * - Note: StoreKit 2 is only available on iOS 16+. StoreKit 1 will be used for
+         * previous iOS versions regardless of this setting.
+         */
+        public fun storeKitVersion(storeKitVersion: StoreKitVersion): Builder =
+            apply { this.storeKitVersion = storeKitVersion }
 
         /**
          * Enable this setting to show in-app messages from Google Play automatically. Default is
@@ -160,6 +196,7 @@ public class PurchasesConfiguration private constructor(
             appUserId = appUserId,
             purchasesAreCompletedBy = purchasesAreCompletedBy,
             userDefaultsSuiteName = userDefaultsSuiteName,
+            storeKitVersion = storeKitVersion,
             showInAppMessagesAutomatically = showInAppMessagesAutomatically,
             store = store,
             diagnosticsEnabled = diagnosticsEnabled,
