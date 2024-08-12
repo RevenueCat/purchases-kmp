@@ -15,7 +15,6 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
-import com.revenuecat.purchases.kmp.models.productIds
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import platform.Foundation.NSURL
 import cocoapods.PurchasesHybridCommon.RCDangerousSettings as IosDangerousSettings
@@ -177,11 +176,15 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ): Unit = iosPurchases.purchaseProduct(
         storeProduct
     ) { transaction, customerInfo, error, userCancelled ->
-        if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
-        else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
-            customerInfo ?: error("Expected a non-null RCCustomerInfo")
-        )
+        if (error != null) {
+            onError(error.toPurchasesErrorOrThrow(), userCancelled)
+        } else {
+            val storeTransaction = transaction?.let {
+                StoreTransaction(it)
+            } ?: error(IllegalArgumentException("Expected a non-null RCStoreTransaction"))
+            val customerInformation = customerInfo ?: error(IllegalArgumentException("Expected a non-null RCCustomerInfo"))
+            onSuccess(storeTransaction, customerInformation)
+        }
     }
 
     public actual fun purchase(
@@ -194,11 +197,15 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ): Unit = iosPurchases.purchasePackage(
         packageToPurchase
     ) { transaction, customerInfo, error, userCancelled ->
-        if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
-        else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
-            customerInfo ?: error("Expected a non-null RCCustomerInfo")
-        )
+        if (error != null) {
+            onError(error.toPurchasesErrorOrThrow(), userCancelled)
+        } else {
+            val storeTransaction = transaction?.let {
+                StoreTransaction(it)
+            } ?: error(IllegalArgumentException("Expected a non-null RCStoreTransaction"))
+            val customerInformation = customerInfo ?: error(IllegalArgumentException("Expected a non-null RCCustomerInfo"))
+            onSuccess(storeTransaction, customerInformation)
+        }
     }
 
     public actual fun purchase(
@@ -223,11 +230,15 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         storeProduct,
         promotionalOffer
     ) { transaction, customerInfo, error, userCancelled ->
-        if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
-        else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
-            customerInfo ?: error("Expected a non-null RCCustomerInfo")
-        )
+        if (error != null) {
+            onError(error.toPurchasesErrorOrThrow(), userCancelled)
+        } else {
+            val storeTransaction = transaction?.let {
+                StoreTransaction(it)
+            } ?: error(IllegalArgumentException("Expected a non-null RCStoreTransaction"))
+            val customerInformation = customerInfo ?: error(IllegalArgumentException("Expected a non-null RCCustomerInfo"))
+            onSuccess(storeTransaction, customerInformation)
+        }
     }
 
     public actual fun purchase(
@@ -239,12 +250,17 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         packageToPurchase,
         promotionalOffer
     ) { transaction, customerInfo, error, userCancelled ->
-        if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
-        else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
-            customerInfo ?: error("Expected a non-null RCCustomerInfo")
-        )
+        if (error != null) {
+            onError(error.toPurchasesErrorOrThrow(), userCancelled)
+        } else {
+            val storeTransaction = transaction?.let {
+                StoreTransaction(it)
+            } ?: error(IllegalArgumentException("Expected a non-null RCStoreTransaction"))
+            val customerInformation = customerInfo ?: error(IllegalArgumentException("Expected a non-null RCCustomerInfo"))
+            onSuccess(storeTransaction, customerInformation)
+        }
     }
+
 
     public actual fun restorePurchases(
         onError: (error: PurchasesError) -> Unit,
@@ -262,13 +278,20 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         RCCommonFunctionality.recordPurchaseForProductID(
             productID,
             completion = { storeTransactionMap, error ->
-                if (error != null) onError(error.error().toPurchasesErrorOrThrow())
-
-                // TODO: Parse storeTransactionMap to a StoreTransaction object
-                else onSuccess()
+                if (error != null) {
+                    onError(error.error().toPurchasesErrorOrThrow())
+                } else if (storeTransactionMap != null) {
+                    onSuccess(StoreTransaction(storeTransactionMap))
+                } else {
+                    onError(PurchasesError(
+                        PurchasesErrorCode.UnknownError,
+                        "Transaction not found"
+                    ))
+                }
             }
         )
     }
+
 
 
     public actual fun logIn(

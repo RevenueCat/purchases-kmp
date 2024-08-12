@@ -25,7 +25,7 @@ public class StoreTransaction(
      */
     public val purchaseTime: Long
 ) {
-    public constructor(map: Map<String, Any>) : this(
+    public constructor(map: Map<Any?, *>) : this(
         transactionId = map["transactionIdentifier"] as? String
             ?: throw IllegalArgumentException("transactionIdentifier is missing or not a String"),
         productIDs = map["productIdentifier"]?.let { listOf(it as String) }

@@ -190,7 +190,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         }.googleReplacementMode(replacementMode)
             .build(),
         onError = { error, userCancelled -> onError(error.toPurchasesError(), userCancelled) },
-        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo) },
+        onSuccess = { purchase, customerInfo -> onSuccess(StoreTransaction(purchase!!), customerInfo) },
     )
 
     public actual fun purchase(
@@ -210,7 +210,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         }.googleReplacementMode(replacementMode)
             .build(),
         onError = { error, userCancelled -> onError(error.toPurchasesError(), userCancelled) },
-        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo) },
+        onSuccess = { purchase, customerInfo -> onSuccess(StoreTransaction(purchase!!), customerInfo) },
     )
 
     public actual fun purchase(
@@ -230,7 +230,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         }.googleReplacementMode(replacementMode)
             .build(),
         onError = { error, userCancelled -> onError(error.toPurchasesError(), userCancelled) },
-        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo) },
+        onSuccess = { purchase, customerInfo -> onSuccess(StoreTransaction(purchase!!), customerInfo) },
     )
 
     public actual fun purchase(
