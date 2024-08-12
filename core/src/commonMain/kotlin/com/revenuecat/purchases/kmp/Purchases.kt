@@ -372,6 +372,12 @@ public expect class Purchases {
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
     )
 
+    public fun recordPurchase(
+        productID: String,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (storeTransaction: StoreTransaction) -> Unit,
+    )
+
     /**
      * This function will change the current [appUserID]. Typically this would be used after a log
      * out to identify a new user without calling `configure()`.

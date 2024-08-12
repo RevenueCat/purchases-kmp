@@ -3,6 +3,7 @@ package com.revenuecat.purchases.kmp
 import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.configureWithAPIKey
+import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
 import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
@@ -14,6 +15,7 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.productIds
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import platform.Foundation.NSURL
 import cocoapods.PurchasesHybridCommon.RCDangerousSettings as IosDangerousSettings
@@ -251,6 +253,23 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         if (error != null) onError(error.toPurchasesErrorOrThrow())
         else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
     }
+
+    public actual fun recordPurchase(
+        productID: String,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (storeTransaction: StoreTransaction) -> Unit,
+    ) {
+        RCCommonFunctionality.recordPurchaseForProductID(
+            productID,
+            completion = { storeTransactionMap, error ->
+                if (error != null) onError(error.error().toPurchasesErrorOrThrow())
+
+                // TODO: Parse storeTransactionMap to a StoreTransaction object
+                else onSuccess()
+            }
+        )
+    }
+
 
     public actual fun logIn(
         newAppUserID: String,
