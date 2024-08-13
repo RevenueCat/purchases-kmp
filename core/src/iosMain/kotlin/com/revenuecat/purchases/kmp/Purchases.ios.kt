@@ -16,7 +16,6 @@ import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
-import platform.Foundation.NSDate
 import platform.Foundation.NSURL
 import cocoapods.PurchasesHybridCommon.RCDangerousSettings as IosDangerousSettings
 import cocoapods.PurchasesHybridCommon.RCPurchases as IosPurchases
