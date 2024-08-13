@@ -266,14 +266,31 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         RCCommonFunctionality.recordPurchaseForProductID(
             productID,
             completion = { storeTransactionMap, error ->
-                if (error != null) onError(error.error().toPurchasesErrorOrThrow())
+                if (error != null) {
+                    onError(error.error().toPurchasesErrorOrThrow())
+                    return@recordPurchaseForProductID
+                }
 
-                // FIXME: Handle this case better. Maybe use onError()?
-                if (storeTransactionMap == null) error("Expected a non-null storeTransactionMap")
-
-                else onSuccess(
-                    StoreTransaction.fromMap(storeTransactionMap = storeTransactionMap)
-                )
+                try {
+                    if (storeTransactionMap == null) {
+                        onError(
+                            PurchasesError(
+                                code = PurchasesErrorCode.UnknownError,
+                                underlyingErrorMessage="Expected storeTransactionMap to be non-null when error is non-null."
+                            )
+                        )
+                    } else {
+                        val storeTransaction = StoreTransaction.fromMap(storeTransactionMap = storeTransactionMap)
+                        onSuccess(storeTransaction)
+                    }
+                } catch(e: IllegalArgumentException) {
+                    onError(
+                        PurchasesError(
+                            code = PurchasesErrorCode.UnknownError,
+                            underlyingErrorMessage="Incorrectly formatted storeTransactionMap: $storeTransactionMap"
+                        )
+                    )
+                }
             }
         )
     }

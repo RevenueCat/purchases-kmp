@@ -8,7 +8,6 @@ import kotlin.test.assertFailsWith
 
 class StoreTransactionTests {
 
-    // fromMap tests
     @Test
     fun testFromMapCorrectlyParsesMapWithAllFields() {
         val transactionId = "someTransactionIdentifier"
