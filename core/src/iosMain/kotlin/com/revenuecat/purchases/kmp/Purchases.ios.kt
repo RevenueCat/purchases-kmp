@@ -15,8 +15,8 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
-import com.revenuecat.purchases.kmp.models.productIds
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
+import platform.Foundation.NSDate
 import platform.Foundation.NSURL
 import cocoapods.PurchasesHybridCommon.RCDangerousSettings as IosDangerousSettings
 import cocoapods.PurchasesHybridCommon.RCPurchases as IosPurchases
@@ -179,7 +179,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo ?: error("Expected a non-null RCCustomerInfo")
         )
     }
@@ -196,7 +197,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo ?: error("Expected a non-null RCCustomerInfo")
         )
     }
@@ -225,7 +227,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo ?: error("Expected a non-null RCCustomerInfo")
         )
     }
@@ -241,7 +244,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo ?: error("Expected a non-null RCCustomerInfo")
         )
     }
@@ -264,8 +268,17 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             completion = { storeTransactionMap, error ->
                 if (error != null) onError(error.error().toPurchasesErrorOrThrow())
 
-                // TODO: Parse storeTransactionMap to a StoreTransaction object
-                else onSuccess()
+                // FIXME: Handle this case better. Maybe use onError()?
+                if (storeTransactionMap == null) error("Expected a non-null RCStoreTransactionMap")
+
+                // TODO: Double check the keys.
+                else onSuccess(
+                    StoreTransaction(
+                        storeTransactionMap["transactionIdentifier"] as String,
+                        storeTransactionMap["productIdentifier"] as String,
+                        storeTransactionMap["purchaseDate"] as NSDate,
+                    )
+                )
             }
         )
     }
