@@ -269,7 +269,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 if (error != null) onError(error.error().toPurchasesErrorOrThrow())
 
                 // FIXME: Handle this case better. Maybe use onError()?
-                if (storeTransactionMap == null) error("Expected a non-null RCStoreTransactionMap")
+                if (storeTransactionMap == null) error("Expected a non-null storeTransactionMap")
 
                 // TODO: Double check the keys.
                 else onSuccess(
