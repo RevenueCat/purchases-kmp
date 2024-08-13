@@ -372,6 +372,27 @@ public expect class Purchases {
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
     )
 
+    /**
+     * iOS only. Always returns an error on iOS < 15.
+     *
+     * Use this method only if you already have your own IAP implementation using StoreKit 2 and
+     * want to use RevenueCat's backend. If you are using StoreKit 1 for your implementation, you
+     * do not need this method.
+     *
+     * You only need to use this method with *new* purchases.
+     * Subscription updates are observed automatically.
+     *
+     * Important: This should only be used if you have set [purchasesAreCompletedBy] to
+     * [PurchasesAreCompletedBy.MyApp] during SDK configuration.
+     *
+     * **Warning** You need to finish the transaction yourself after calling this method.
+     *
+     * @param productID: The Product ID that was just purchased
+     * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
+     * what went wrong.
+     * @param onSuccess Will be called if the function completes successfully, including details
+     * on the [StoreTransaction] that was recorded.
+     */
     public fun recordPurchase(
         productID: String,
         onError: (error: PurchasesError) -> Unit,
