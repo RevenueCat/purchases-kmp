@@ -15,7 +15,6 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
-import com.revenuecat.purchases.kmp.models.productIds
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import platform.Foundation.NSURL
 import cocoapods.PurchasesHybridCommon.RCDangerousSettings as IosDangerousSettings
@@ -179,7 +178,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo ?: error("Expected a non-null RCCustomerInfo")
         )
     }
@@ -196,7 +196,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo ?: error("Expected a non-null RCCustomerInfo")
         )
     }
@@ -225,7 +226,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo ?: error("Expected a non-null RCCustomerInfo")
         )
     }
@@ -241,7 +243,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo ?: error("Expected a non-null RCCustomerInfo")
         )
     }
@@ -262,10 +265,31 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         RCCommonFunctionality.recordPurchaseForProductID(
             productID,
             completion = { storeTransactionMap, error ->
-                if (error != null) onError(error.error().toPurchasesErrorOrThrow())
+                if (error != null) {
+                    onError(error.error().toPurchasesErrorOrThrow())
+                    return@recordPurchaseForProductID
+                }
 
-                // TODO: Parse storeTransactionMap to a StoreTransaction object
-                else onSuccess()
+                try {
+                    if (storeTransactionMap == null) {
+                        onError(
+                            PurchasesError(
+                                code = PurchasesErrorCode.UnknownError,
+                                underlyingErrorMessage="Expected storeTransactionMap to be non-null when error is non-null."
+                            )
+                        )
+                    } else {
+                        val storeTransaction = StoreTransaction.fromMap(storeTransactionMap = storeTransactionMap)
+                        onSuccess(storeTransaction)
+                    }
+                } catch(e: IllegalArgumentException) {
+                    onError(
+                        PurchasesError(
+                            code = PurchasesErrorCode.UnknownError,
+                            underlyingErrorMessage="Incorrectly formatted storeTransactionMap: $storeTransactionMap"
+                        )
+                    )
+                }
             }
         )
     }
