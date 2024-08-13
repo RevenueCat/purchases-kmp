@@ -13,7 +13,7 @@ class PurchasesConfigurationTests {
             storeKitVersion = StoreKitVersion.DEFAULT
         }
 
-        assertEquals(config.storeKitVersionToUse(), StoreKitVersion.DEFAULT)
+        assertEquals(StoreKitVersion.DEFAULT, config.storeKitVersionToUse())
     }
 
     @Test
@@ -23,6 +23,6 @@ class PurchasesConfigurationTests {
             storeKitVersion = StoreKitVersion.STOREKIT_1
         }
 
-        assertEquals(config.storeKitVersionToUse(), StoreKitVersion.STOREKIT_2)
+        assertEquals(StoreKitVersion.STOREKIT_2, config.storeKitVersionToUse())
     }
 }

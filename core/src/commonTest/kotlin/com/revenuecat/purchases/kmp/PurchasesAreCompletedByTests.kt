@@ -10,7 +10,7 @@ class PurchasesAreCompletedByTests {
         val purchasesAreCompletedBy = PurchasesAreCompletedBy.RevenueCat
         val skVersion = purchasesAreCompletedBy.storeKitVersion()
 
-        assertEquals(skVersion, StoreKitVersion.DEFAULT)
+        assertEquals(StoreKitVersion.DEFAULT, skVersion)
     }
 
     @Test
@@ -24,9 +24,9 @@ class PurchasesAreCompletedByTests {
         val purchasesAreCompletedByDefault = PurchasesAreCompletedBy.MyApp(StoreKitVersion.DEFAULT)
         val skVersionDefault = purchasesAreCompletedByDefault.storeKitVersion()
 
-        assertEquals(skVersion1, StoreKitVersion.STOREKIT_1)
-        assertEquals(skVersion2, StoreKitVersion.STOREKIT_2)
-        assertEquals(skVersionDefault, StoreKitVersion.DEFAULT)
+        assertEquals(StoreKitVersion.STOREKIT_1, skVersion1)
+        assertEquals(StoreKitVersion.STOREKIT_2, skVersion2)
+        assertEquals(StoreKitVersion.DEFAULT, skVersionDefault)
     }
 
     @Test
@@ -37,7 +37,7 @@ class PurchasesAreCompletedByTests {
         val purchasesAreCompletedByRevenueCat = PurchasesAreCompletedBy.RevenueCat
         val revenuecatHybridString = purchasesAreCompletedByRevenueCat.toHybridString()
 
-        assertEquals(myAppHybridString, "MY_APP")
-        assertEquals(revenuecatHybridString, "REVENUECAT")
+        assertEquals("MY_APP", myAppHybridString)
+        assertEquals("REVENUECAT", revenuecatHybridString)
     }
 }

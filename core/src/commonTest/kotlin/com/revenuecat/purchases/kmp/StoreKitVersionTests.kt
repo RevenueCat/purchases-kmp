@@ -16,8 +16,8 @@ class StoreKitVersionTests {
         val storeKitDefault = StoreKitVersion.DEFAULT
         val storeKitDefaultString = storeKitDefault.toHybridString()
 
-        assertEquals(storeKit1String, "STOREKIT_1")
-        assertEquals(storeKit2String, "STOREKIT_2")
-        assertEquals(storeKitDefaultString, "DEFAULT")
+        assertEquals("STOREKIT_1", storeKit1String)
+        assertEquals("STOREKIT_2", storeKit2String)
+        assertEquals("DEFAULT", storeKitDefaultString)
     }
 }
