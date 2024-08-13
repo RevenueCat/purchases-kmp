@@ -271,13 +271,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 // FIXME: Handle this case better. Maybe use onError()?
                 if (storeTransactionMap == null) error("Expected a non-null storeTransactionMap")
 
-                // TODO: Double check the keys.
                 else onSuccess(
-                    StoreTransaction(
-                        storeTransactionMap["transactionIdentifier"] as String,
-                        storeTransactionMap["productIdentifier"] as String,
-                        storeTransactionMap["purchaseDate"] as NSDate,
-                    )
+                    StoreTransaction.fromMap(storeTransactionMap = storeTransactionMap)
                 )
             }
         )

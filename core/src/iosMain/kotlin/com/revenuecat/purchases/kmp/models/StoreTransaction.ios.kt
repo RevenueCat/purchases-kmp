@@ -21,12 +21,26 @@ public actual class StoreTransaction private constructor(
     internal constructor(
         transactionId: String,
         productId: String,
-        purchaseDate: NSDate,
+        purchaseTime: Long,
     ) : this(
         transactionId = transactionId,
         productIds = listOf(productId),
-        purchaseTime = purchaseDate.toEpochMilliseconds()
+        purchaseTime = purchaseTime
     )
+
+    internal companion object {
+        fun fromMap(storeTransactionMap: Map<Any?, *>): StoreTransaction {
+            val transactionId = storeTransactionMap["transactionIdentifier"] as? String ?: throw IllegalArgumentException("Expected a non-null transactionIdentifier")
+            val productId = storeTransactionMap["productIdentifier"] as? String ?: throw IllegalArgumentException("Expected a non-null productIdentifier")
+            val purchaseTime = (storeTransactionMap["purchaseDateMillis"] as? Double)?.toLong() ?: throw IllegalArgumentException("Expected a non-null purchaseDateMillis")
+
+            return StoreTransaction(
+                transactionId = transactionId,
+                productId = productId,
+                purchaseTime = purchaseTime
+            )
+        }
+    }
 
 }
 
