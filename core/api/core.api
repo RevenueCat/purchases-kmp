@@ -1,3 +1,18 @@
+public final class com/revenuecat/purchases/kmp/CacheFetchPolicy : java/lang/Enum {
+	public static final field CACHED_OR_FETCHED Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;
+	public static final field CACHE_ONLY Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;
+	public static final field Companion Lcom/revenuecat/purchases/kmp/CacheFetchPolicy$Companion;
+	public static final field FETCH_CURRENT Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;
+	public static final field NOT_STALE_CACHED_OR_CURRENT Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;
+}
+
+public final class com/revenuecat/purchases/kmp/CacheFetchPolicy$Companion {
+	public final fun default ()Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;
+}
+
 public final class com/revenuecat/purchases/kmp/CustomerInfo_androidKt {
 	public static final fun getActiveSubscriptions (Lcom/revenuecat/purchases/CustomerInfo;)Ljava/util/Set;
 	public static final fun getAllExpirationDateMillis (Lcom/revenuecat/purchases/CustomerInfo;)Ljava/util/Map;
@@ -33,11 +48,11 @@ public final class com/revenuecat/purchases/kmp/EntitlementInfo_androidKt {
 	public static final fun getIdentifier (Lcom/revenuecat/purchases/EntitlementInfo;)Ljava/lang/String;
 	public static final fun getLatestPurchaseDateMillis (Lcom/revenuecat/purchases/EntitlementInfo;)Ljava/lang/Long;
 	public static final fun getOriginalPurchaseDateMillis (Lcom/revenuecat/purchases/EntitlementInfo;)Ljava/lang/Long;
-	public static final fun getOwnershipType (Lcom/revenuecat/purchases/EntitlementInfo;)Lcom/revenuecat/purchases/OwnershipType;
-	public static final fun getPeriodType (Lcom/revenuecat/purchases/EntitlementInfo;)Lcom/revenuecat/purchases/PeriodType;
+	public static final fun getOwnershipType (Lcom/revenuecat/purchases/EntitlementInfo;)Lcom/revenuecat/purchases/kmp/OwnershipType;
+	public static final fun getPeriodType (Lcom/revenuecat/purchases/EntitlementInfo;)Lcom/revenuecat/purchases/kmp/PeriodType;
 	public static final fun getProductIdentifier (Lcom/revenuecat/purchases/EntitlementInfo;)Ljava/lang/String;
 	public static final fun getProductPlanIdentifier (Lcom/revenuecat/purchases/EntitlementInfo;)Ljava/lang/String;
-	public static final fun getStore (Lcom/revenuecat/purchases/EntitlementInfo;)Lcom/revenuecat/purchases/Store;
+	public static final fun getStore (Lcom/revenuecat/purchases/EntitlementInfo;)Lcom/revenuecat/purchases/kmp/Store;
 	public static final fun getUnsubscribeDetectedAtMillis (Lcom/revenuecat/purchases/EntitlementInfo;)Ljava/lang/Long;
 	public static final fun getVerification (Lcom/revenuecat/purchases/EntitlementInfo;)Lcom/revenuecat/purchases/VerificationResult;
 	public static final fun getWillRenew (Lcom/revenuecat/purchases/EntitlementInfo;)Z
@@ -65,6 +80,17 @@ public final class com/revenuecat/purchases/kmp/EntitlementVerificationMode : ja
 
 public final class com/revenuecat/purchases/kmp/Errors_androidKt {
 	public static final fun toPurchasesError (Lcom/revenuecat/purchases/PurchasesError;)Lcom/revenuecat/purchases/kmp/PurchasesError;
+}
+
+public final class com/revenuecat/purchases/kmp/LogLevel : java/lang/Enum {
+	public static final field DEBUG Lcom/revenuecat/purchases/kmp/LogLevel;
+	public static final field ERROR Lcom/revenuecat/purchases/kmp/LogLevel;
+	public static final field INFO Lcom/revenuecat/purchases/kmp/LogLevel;
+	public static final field VERBOSE Lcom/revenuecat/purchases/kmp/LogLevel;
+	public static final field WARN Lcom/revenuecat/purchases/kmp/LogLevel;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/LogLevel;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/LogLevel;
 }
 
 public final class com/revenuecat/purchases/kmp/OfferingKt {
@@ -97,6 +123,15 @@ public final class com/revenuecat/purchases/kmp/Offerings_androidKt {
 	public static final fun getCurrent (Lcom/revenuecat/purchases/Offerings;)Lcom/revenuecat/purchases/Offering;
 }
 
+public final class com/revenuecat/purchases/kmp/OwnershipType : java/lang/Enum {
+	public static final field FAMILY_SHARED Lcom/revenuecat/purchases/kmp/OwnershipType;
+	public static final field PURCHASED Lcom/revenuecat/purchases/kmp/OwnershipType;
+	public static final field UNKNOWN Lcom/revenuecat/purchases/kmp/OwnershipType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/OwnershipType;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/OwnershipType;
+}
+
 public final class com/revenuecat/purchases/kmp/PackageKt {
 	public static final fun getIdentifier (Lcom/revenuecat/purchases/PackageType;)Ljava/lang/String;
 }
@@ -106,6 +141,15 @@ public final class com/revenuecat/purchases/kmp/Package_androidKt {
 	public static final fun getPackageType (Lcom/revenuecat/purchases/Package;)Lcom/revenuecat/purchases/PackageType;
 	public static final fun getPresentedOfferingContext (Lcom/revenuecat/purchases/Package;)Lcom/revenuecat/purchases/PresentedOfferingContext;
 	public static final fun getStoreProduct (Lcom/revenuecat/purchases/Package;)Lcom/revenuecat/purchases/kmp/models/StoreProduct;
+}
+
+public final class com/revenuecat/purchases/kmp/PeriodType : java/lang/Enum {
+	public static final field INTRO Lcom/revenuecat/purchases/kmp/PeriodType;
+	public static final field NORMAL Lcom/revenuecat/purchases/kmp/PeriodType;
+	public static final field TRIAL Lcom/revenuecat/purchases/kmp/PeriodType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PeriodType;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/PeriodType;
 }
 
 public final class com/revenuecat/purchases/kmp/PresentedOfferingContext_androidKt {
@@ -124,19 +168,19 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun collectDeviceIdentifiers ()V
 	public static final fun configure (Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;)Lcom/revenuecat/purchases/kmp/Purchases;
 	public final fun getAppUserID ()Ljava/lang/String;
-	public final fun getCustomerInfo (Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
-	public static synthetic fun getCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public final fun getCustomerInfo (Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun getCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 	public final fun getDelegate ()Lcom/revenuecat/purchases/kmp/PurchasesDelegate;
 	public static final fun getForceUniversalAppStore ()Z
 	public static final fun getLogHandler ()Lcom/revenuecat/purchases/LogHandler;
-	public static final fun getLogLevel ()Lcom/revenuecat/purchases/LogLevel;
+	public static final fun getLogLevel ()Lcom/revenuecat/purchases/kmp/LogLevel;
 	public final fun getOfferings (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun getProducts (Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun getPromotionalOffer (Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public static final fun getProxyURL ()Ljava/lang/String;
 	public static final fun getSharedInstance ()Lcom/revenuecat/purchases/kmp/Purchases;
 	public static final fun getSimulatesAskToBuyInSandbox ()Z
-	public final fun getStore ()Lcom/revenuecat/purchases/Store;
+	public final fun getStore ()Lcom/revenuecat/purchases/kmp/Store;
 	public final fun invalidateCustomerInfoCache ()V
 	public final fun isAnonymous ()Z
 	public static final fun isConfigured ()Z
@@ -169,7 +213,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public static final fun setForceUniversalAppStore (Z)V
 	public final fun setKeyword (Ljava/lang/String;)V
 	public static final fun setLogHandler (Lcom/revenuecat/purchases/LogHandler;)V
-	public static final fun setLogLevel (Lcom/revenuecat/purchases/LogLevel;)V
+	public static final fun setLogLevel (Lcom/revenuecat/purchases/kmp/LogLevel;)V
 	public final fun setMediaSource (Ljava/lang/String;)V
 	public final fun setMixpanelDistinctID (Ljava/lang/String;)V
 	public final fun setMparticleID (Ljava/lang/String;)V
@@ -192,14 +236,14 @@ public final class com/revenuecat/purchases/kmp/Purchases$Companion {
 	public final fun configure (Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;)Lcom/revenuecat/purchases/kmp/Purchases;
 	public final fun getForceUniversalAppStore ()Z
 	public final fun getLogHandler ()Lcom/revenuecat/purchases/LogHandler;
-	public final fun getLogLevel ()Lcom/revenuecat/purchases/LogLevel;
+	public final fun getLogLevel ()Lcom/revenuecat/purchases/kmp/LogLevel;
 	public final fun getProxyURL ()Ljava/lang/String;
 	public final fun getSharedInstance ()Lcom/revenuecat/purchases/kmp/Purchases;
 	public final fun getSimulatesAskToBuyInSandbox ()Z
 	public final fun isConfigured ()Z
 	public final fun setForceUniversalAppStore (Z)V
 	public final fun setLogHandler (Lcom/revenuecat/purchases/LogHandler;)V
-	public final fun setLogLevel (Lcom/revenuecat/purchases/LogLevel;)V
+	public final fun setLogLevel (Lcom/revenuecat/purchases/kmp/LogLevel;)V
 	public final fun setProxyURL (Ljava/lang/String;)V
 	public final fun setSimulatesAskToBuyInSandbox (Z)V
 }
@@ -234,7 +278,7 @@ public final class com/revenuecat/purchases/kmp/PurchasesConfiguration {
 	public final fun getPendingTransactionsForPrepaidPlansEnabled ()Ljava/lang/Boolean;
 	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;
 	public final fun getShowInAppMessagesAutomatically ()Z
-	public final fun getStore ()Lcom/revenuecat/purchases/Store;
+	public final fun getStore ()Lcom/revenuecat/purchases/kmp/Store;
 	public final fun getStoreKitVersion ()Lcom/revenuecat/purchases/kmp/StoreKitVersion;
 	public final fun getUserDefaultsSuiteName ()Ljava/lang/String;
 	public final fun getVerificationMode ()Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
@@ -255,7 +299,7 @@ public final class com/revenuecat/purchases/kmp/PurchasesConfiguration$Builder {
 	public final fun getPendingTransactionsForPrepaidPlansEnabled ()Ljava/lang/Boolean;
 	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;
 	public final fun getShowInAppMessagesAutomatically ()Z
-	public final fun getStore ()Lcom/revenuecat/purchases/Store;
+	public final fun getStore ()Lcom/revenuecat/purchases/kmp/Store;
 	public final fun getStoreKitVersion ()Lcom/revenuecat/purchases/kmp/StoreKitVersion;
 	public final fun getUserDefaultsSuiteName ()Ljava/lang/String;
 	public final fun getVerificationMode ()Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
@@ -268,12 +312,12 @@ public final class com/revenuecat/purchases/kmp/PurchasesConfiguration$Builder {
 	public final synthetic fun setPendingTransactionsForPrepaidPlansEnabled (Ljava/lang/Boolean;)V
 	public final synthetic fun setPurchasesAreCompletedBy (Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;)V
 	public final synthetic fun setShowInAppMessagesAutomatically (Z)V
-	public final synthetic fun setStore (Lcom/revenuecat/purchases/Store;)V
+	public final synthetic fun setStore (Lcom/revenuecat/purchases/kmp/Store;)V
 	public final synthetic fun setStoreKitVersion (Lcom/revenuecat/purchases/kmp/StoreKitVersion;)V
 	public final synthetic fun setUserDefaultsSuiteName (Ljava/lang/String;)V
 	public final synthetic fun setVerificationMode (Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;)V
 	public final fun showInAppMessagesAutomatically (Z)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
-	public final fun store (Lcom/revenuecat/purchases/Store;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun store (Lcom/revenuecat/purchases/kmp/Store;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
 	public final fun storeKitVersion (Lcom/revenuecat/purchases/kmp/StoreKitVersion;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
 	public final fun userDefaultsSuiteName (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
 	public final fun verificationMode (Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
@@ -362,6 +406,21 @@ public final class com/revenuecat/purchases/kmp/PurchasesTransactionException : 
 	public final fun getUserCancelled ()Z
 }
 
+public final class com/revenuecat/purchases/kmp/Store : java/lang/Enum {
+	public static final field AMAZON Lcom/revenuecat/purchases/kmp/Store;
+	public static final field APP_STORE Lcom/revenuecat/purchases/kmp/Store;
+	public static final field EXTERNAL Lcom/revenuecat/purchases/kmp/Store;
+	public static final field MAC_APP_STORE Lcom/revenuecat/purchases/kmp/Store;
+	public static final field PLAY_STORE Lcom/revenuecat/purchases/kmp/Store;
+	public static final field PROMOTIONAL Lcom/revenuecat/purchases/kmp/Store;
+	public static final field RC_BILLING Lcom/revenuecat/purchases/kmp/Store;
+	public static final field STRIPE Lcom/revenuecat/purchases/kmp/Store;
+	public static final field UNKNOWN_STORE Lcom/revenuecat/purchases/kmp/Store;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/Store;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/Store;
+}
+
 public final class com/revenuecat/purchases/kmp/StoreKitVersion : java/lang/Enum {
 	public static final field DEFAULT Lcom/revenuecat/purchases/kmp/StoreKitVersion;
 	public static final field STOREKIT_1 Lcom/revenuecat/purchases/kmp/StoreKitVersion;
@@ -399,8 +458,8 @@ public final class com/revenuecat/purchases/kmp/i18n/Locale_androidKt {
 }
 
 public final class com/revenuecat/purchases/kmp/ktx/CoroutinesKt {
-	public static final fun awaitCustomerInfo (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun awaitCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/CacheFetchPolicy;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun awaitCustomerInfo (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun awaitCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun awaitGetProducts (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitLogIn (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitLogOut (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -584,4 +643,3 @@ public final class com/revenuecat/purchases/kmp/models/Transaction_androidKt {
 	public static final fun getPurchaseDateMillis (Lcom/revenuecat/purchases/models/Transaction;)J
 	public static final fun getTransactionIdentifier (Lcom/revenuecat/purchases/models/Transaction;)Ljava/lang/String;
 }
-

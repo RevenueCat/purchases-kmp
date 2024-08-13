@@ -41,7 +41,11 @@ public actual class Purchases private constructor(private val androidPurchases: 
             )
 
         @JvmStatic
-        public actual var logLevel: LogLevel by AndroidPurchases.Companion::logLevel
+        public actual var logLevel: LogLevel
+            get() = AndroidPurchases.Companion.logLevel.toLogLevel()
+            set(value) {
+                AndroidPurchases.Companion.logLevel = value.toAndroidLogLevel()
+            }
 
         @JvmStatic
         public actual var logHandler: LogHandler by AndroidPurchases.Companion::logHandler
@@ -75,7 +79,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
                         flavor = BuildKonfig.platformFlavor,
                         version = frameworkVersion,
                     ),
-                    store = store ?: Store.PLAY_STORE,
+                    store = (store ?: Store.PLAY_STORE).toAndroidStore(),
                     dangerousSettings = dangerousSettings.toAndroidDangerousSettings(),
                     shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
                     verificationMode = verificationMode.name,
@@ -109,7 +113,8 @@ public actual class Purchases private constructor(private val androidPurchases: 
 
     public actual val isAnonymous: Boolean by androidPurchases::isAnonymous
 
-    public actual val store: Store by androidPurchases::store
+    public actual val store: Store
+        get() = androidPurchases.store.toStore()
 
     public actual fun syncPurchases(
         onError: (error: PurchasesError) -> Unit,
@@ -295,7 +300,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
     ): Unit = androidPurchases.getCustomerInfoWith(
-        fetchPolicy = fetchPolicy,
+        fetchPolicy = fetchPolicy.toAndroidCacheFetchPolicy(),
         onError = { onError(it.toPurchasesError()) },
         onSuccess = { onSuccess(it) }
     )
