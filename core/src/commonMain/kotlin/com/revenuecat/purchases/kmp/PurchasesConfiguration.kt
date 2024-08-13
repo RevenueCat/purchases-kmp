@@ -36,12 +36,22 @@ public class PurchasesConfiguration private constructor(
         var storeKitVersionToUse = this.storeKitVersion
 
         if (this.purchasesAreCompletedBy is PurchasesAreCompletedBy.MyApp) {
-            storeKitVersionToUse = (this.purchasesAreCompletedBy as PurchasesAreCompletedBy.MyApp).storeKitVersion
+            storeKitVersionToUse = this.purchasesAreCompletedBy.storeKitVersion
 
-            if (storeKitVersionToUse != this.storeKitVersion) {
+            if (this.storeKitVersion != StoreKitVersion.DEFAULT &&
+                storeKitVersionToUse != this.storeKitVersion) {
                 println(
                     "Warning: The storeKitVersion in purchasesAreCompletedBy does not match the " +
-                            "provided storeKitVersion parameter. We will use the value found in purchasesAreCompletedBy."
+                            "provided storeKitVersion parameter. We will use the value found in " +
+                            "purchasesAreCompletedBy."
+                )
+            }
+
+            if(this.purchasesAreCompletedBy.storeKitVersion == StoreKitVersion.DEFAULT) {
+                println(
+                    "Warning: You should provide the specific StoreKit version you're using in " +
+                            "your implementation when configuring PurchasesAreCompletedBy.MyApp, " +
+                            "and not rely on the DEFAULT."
                 )
             }
         }
