@@ -98,8 +98,6 @@ public actual class Purchases private constructor(private val androidPurchases: 
             AndroidDangerousSettings(autoSyncPurchases)
     }
 
-    public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy by androidPurchases::purchasesAreCompletedBy
-    
     public actual val appUserID: String by androidPurchases::appUserID
 
     public actual var delegate: PurchasesDelegate?
