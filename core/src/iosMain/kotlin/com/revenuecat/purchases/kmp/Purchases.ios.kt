@@ -301,11 +301,20 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                                     )
                             )
                         } else {
-                            val storeTransaction =
-                                    StoreTransaction.fromMap(
-                                            storeTransactionMap = storeTransactionMap
+                            val storeTransactionMappingResult = StoreTransaction.fromMap(
+                                storeTransactionMap = storeTransactionMap
+                            )
+                            storeTransactionMappingResult.onSuccess {
+                                onSuccess(it)
+                            }
+                            storeTransactionMappingResult.onFailure {
+                                onError(
+                                    PurchasesError(
+                                        code = PurchasesErrorCode.UnknownError,
+                                        underlyingErrorMessage = it.message
                                     )
-                            onSuccess(storeTransaction)
+                                )
+                            }
                         }
                     } catch (e: IllegalArgumentException) {
                         onError(

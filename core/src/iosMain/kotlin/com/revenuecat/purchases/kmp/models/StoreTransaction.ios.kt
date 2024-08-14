@@ -29,15 +29,29 @@ public actual class StoreTransaction private constructor(
     )
 
     internal companion object {
-        fun fromMap(storeTransactionMap: Map<Any?, *>): StoreTransaction {
-            val transactionId = storeTransactionMap["transactionIdentifier"] as? String ?: throw IllegalArgumentException("Expected a non-null transactionIdentifier")
-            val productId = storeTransactionMap["productIdentifier"] as? String ?: throw IllegalArgumentException("Expected a non-null productIdentifier")
-            val purchaseTime = (storeTransactionMap["purchaseDateMillis"] as? Double)?.toLong() ?: throw IllegalArgumentException("Expected a non-null purchaseDateMillis")
+        fun fromMap(storeTransactionMap: Map<Any?, *>): Result<StoreTransaction> {
+            val transactionId = storeTransactionMap["transactionIdentifier"] as? String
+            val productId = storeTransactionMap["productIdentifier"] as? String
+            val purchaseTime = (storeTransactionMap["purchaseDateMillis"] as? Double)?.toLong()
 
-            return StoreTransaction(
-                transactionId = transactionId,
-                productId = productId,
-                purchaseTime = purchaseTime
+            if(transactionId == null) {
+                return Result.failure(IllegalArgumentException("Expected a non-null transactionIdentifier"))
+            }
+
+            if(productId == null) {
+                return Result.failure(IllegalArgumentException("Expected a non-null productIdentifier"))
+            }
+
+            if(purchaseTime == null) {
+                return Result.failure(IllegalArgumentException("Expected a non-null purchaseDateMillis"))
+            }
+
+            return Result.success(
+                StoreTransaction(
+                    transactionId = transactionId,
+                    productId = productId,
+                    purchaseTime = purchaseTime
+                )
             )
         }
     }

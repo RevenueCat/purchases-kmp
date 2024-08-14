@@ -5,6 +5,7 @@ import com.revenuecat.purchases.kmp.models.StoreTransaction
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 
 class StoreTransactionTests {
 
@@ -24,8 +25,10 @@ class StoreTransactionTests {
             "purchaseDate" to purchaseDate
         )
 
-        val storeTransaction = StoreTransaction.fromMap(storeTransactionMap = hybridMap)
+        val result = StoreTransaction.fromMap(storeTransactionMap = hybridMap)
 
+        assertTrue(result.isSuccess)
+        val storeTransaction = result.getOrThrow()
         assertEquals(transactionId, storeTransaction.transactionId)
         assertEquals(listOf(productId), storeTransaction.productIds)
         assertEquals(purchaseDateMillis.toLong(), storeTransaction.purchaseTime)
@@ -43,8 +46,12 @@ class StoreTransactionTests {
             "purchaseDate" to purchaseDate
         )
 
-        assertFailsWith<IllegalArgumentException>("Expected a non-null transactionIdentifier") {
-            StoreTransaction.fromMap(storeTransactionMap = hybridMap)
+        val result = StoreTransaction.fromMap(storeTransactionMap = hybridMap)
+
+        assertTrue(result.isFailure)
+        result.exceptionOrNull()?.let {
+            assertTrue(it is IllegalArgumentException)
+            assertEquals("Expected a non-null transactionIdentifier", it.message)
         }
     }
 
@@ -60,8 +67,12 @@ class StoreTransactionTests {
             "purchaseDate" to purchaseDate
         )
 
-        assertFailsWith<IllegalArgumentException>("Expected a non-null productIdentifier") {
-            StoreTransaction.fromMap(storeTransactionMap = hybridMap)
+        val result = StoreTransaction.fromMap(storeTransactionMap = hybridMap)
+
+        assertTrue(result.isFailure)
+        result.exceptionOrNull()?.let {
+            assertTrue(it is IllegalArgumentException)
+            assertEquals("Expected a non-null productIdentifier", it.message)
         }
     }
 
@@ -78,8 +89,12 @@ class StoreTransactionTests {
             "purchaseDate" to purchaseDate
         )
 
-        assertFailsWith<IllegalArgumentException>("Expected a non-null purchaseDateMillis") {
-            StoreTransaction.fromMap(storeTransactionMap = hybridMap)
+        val result = StoreTransaction.fromMap(storeTransactionMap = hybridMap)
+
+        assertTrue(result.isFailure)
+        result.exceptionOrNull()?.let {
+            assertTrue(it is IllegalArgumentException)
+            assertEquals("Expected a non-null purchaseDateMillis", it.message)
         }
     }
 }
