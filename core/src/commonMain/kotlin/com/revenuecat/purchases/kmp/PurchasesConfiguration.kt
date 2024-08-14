@@ -132,7 +132,7 @@ public class PurchasesConfiguration private constructor(
             apply { this.userDefaultsSuiteName = userDefaultsSuiteName }
 
         /**
-         * iOS-only, will be ignored for Android. By providing StoreKitVersion.defaultVersion,
+         * iOS-only, will be ignored for Android. By providing [StoreKitVersion.DEFAULT],
          * RevenueCat will automatically select the most appropriate StoreKit version
          * for the app's runtime environment.
          *
