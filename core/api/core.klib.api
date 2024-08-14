@@ -758,8 +758,7 @@ open class com.revenuecat.purchases.kmp/PurchasesException : kotlin/Exception { 
     open val message // com.revenuecat.purchases.kmp/PurchasesException.message|{}message[0]
         open fun <get-message>(): kotlin/String // com.revenuecat.purchases.kmp/PurchasesException.message.<get-message>|<get-message>(){}[0]
 }
-sealed class com.revenuecat.purchases.kmp/PurchasesAreCompletedBy { // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy|null[0]
-    constructor <init>() // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.<init>|<init>(){}[0]
+sealed interface com.revenuecat.purchases.kmp/PurchasesAreCompletedBy { // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy|null[0]
     final class MyApp : com.revenuecat.purchases.kmp/PurchasesAreCompletedBy { // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp|null[0]
         constructor <init>(com.revenuecat.purchases.kmp/StoreKitVersion) // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp.<init>|<init>(com.revenuecat.purchases.kmp.StoreKitVersion){}[0]
         final fun component1(): com.revenuecat.purchases.kmp/StoreKitVersion // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp.component1|component1(){}[0]

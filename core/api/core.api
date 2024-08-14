@@ -204,7 +204,7 @@ public final class com/revenuecat/purchases/kmp/Purchases$Companion {
 	public final fun setSimulatesAskToBuyInSandbox (Z)V
 }
 
-public abstract class com/revenuecat/purchases/kmp/PurchasesAreCompletedBy {
+public abstract interface class com/revenuecat/purchases/kmp/PurchasesAreCompletedBy {
 }
 
 public final class com/revenuecat/purchases/kmp/PurchasesAreCompletedBy$MyApp : com/revenuecat/purchases/kmp/PurchasesAreCompletedBy {

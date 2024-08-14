@@ -3,13 +3,13 @@ package com.revenuecat.purchases.kmp
 /**
  * Modes for completing the purchase process.
  */
-public sealed class PurchasesAreCompletedBy {
+public sealed interface PurchasesAreCompletedBy {
 
     /**
      * RevenueCat will automatically acknowledge verified purchases.
      * No action is required by you.
      */
-    public data object RevenueCat : PurchasesAreCompletedBy()
+    public data object RevenueCat : PurchasesAreCompletedBy
 
     /**
      * RevenueCat will **not** automatically acknowledge any purchases.
@@ -24,7 +24,7 @@ public sealed class PurchasesAreCompletedBy {
      * If your app is Android-only, you may provide any value since it is ignored in the native
      * Android SDK.
      */
-    public data class MyApp(val storeKitVersion: StoreKitVersion) : PurchasesAreCompletedBy()
+    public data class MyApp(val storeKitVersion: StoreKitVersion) : PurchasesAreCompletedBy
 }
 
 /**
