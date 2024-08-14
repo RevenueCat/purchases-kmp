@@ -21,7 +21,7 @@ public expect val Package.presentedOfferingContext: PresentedOfferingContext
 /**
  *  Enumeration of all possible Package types.
  */
-public expect enum class PackageType {
+public enum class PackageType {
     /**
      * A package that was defined with a custom identifier.
      */
@@ -67,17 +67,3 @@ public expect enum class PackageType {
      */
     WEEKLY,
 }
-
-public val PackageType.identifier: String?
-    get() = when (this) {
-        PackageType.UNKNOWN -> null
-        PackageType.CUSTOM -> null
-        PackageType.LIFETIME -> "\$rc_lifetime"
-        PackageType.ANNUAL -> "\$rc_annual"
-        PackageType.SIX_MONTH -> "\$rc_six_month"
-        PackageType.THREE_MONTH -> "\$rc_three_month"
-        PackageType.TWO_MONTH -> "\$rc_two_month"
-        PackageType.MONTHLY -> "\$rc_monthly"
-        PackageType.WEEKLY -> "\$rc_weekly"
-        else -> error("Unexpected PackageType: $this")
-    }

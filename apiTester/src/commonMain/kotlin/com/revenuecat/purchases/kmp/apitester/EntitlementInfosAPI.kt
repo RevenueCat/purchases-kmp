@@ -14,6 +14,7 @@ private class EntitlementInfosAPI {
         val active: Map<String, EntitlementInfo> = infos.active
         val all: Map<String, EntitlementInfo> = infos.all
         val i: EntitlementInfo? = infos[""]
-        val verification: VerificationResult = infos.verification
+        // FIXME re-enable in SDK-3530
+        //  val verification: VerificationResult = verification
     }
 }

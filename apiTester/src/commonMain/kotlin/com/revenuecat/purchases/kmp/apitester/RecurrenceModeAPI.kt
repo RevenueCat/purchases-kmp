@@ -1,9 +1,8 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.models.RecurrenceMode
-import com.revenuecat.purchases.kmp.models.identifier
 
-@Suppress("unused", "UNUSED_VARIABLE")
+@Suppress("unused")
 private class RecurrenceModeAPI {
     fun check(recurrenceMode: RecurrenceMode) {
         when (recurrenceMode) {
@@ -14,7 +13,5 @@ private class RecurrenceModeAPI {
             -> {
             }
         }.exhaustive
-
-        val identifier: Int? = recurrenceMode.identifier
     }
 }

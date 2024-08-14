@@ -16,6 +16,8 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.toAndroidBillingFeature
+import com.revenuecat.purchases.kmp.models.toAndroidGoogleReplacementMode
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import com.revenuecat.purchases.logInWith
 import com.revenuecat.purchases.logOutWith
@@ -95,7 +97,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
             callback: (Boolean) -> Unit,
         ): Unit = AndroidPurchases.canMakePayments(
             context = AndroidProvider.requireApplication(),
-            features = features
+            features = features.map { it.toAndroidBillingFeature() },
         ) { result -> callback(result) }
 
         private fun DangerousSettings.toAndroidDangerousSettings(): AndroidDangerousSettings =
@@ -185,7 +187,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
         isPersonalizedPrice: Boolean?,
         oldProductId: String?,
-        replacementMode: GoogleReplacementMode,
+        replacementMode: ReplacementMode?,
     ): Unit = androidPurchases.purchaseWith(
         purchaseParams = PurchaseParams.Builder(
             AndroidProvider.requireActivity(),
@@ -193,7 +195,10 @@ public actual class Purchases private constructor(private val androidPurchases: 
         ).apply {
             if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
             if (oldProductId != null) oldProductId(oldProductId)
-        }.googleReplacementMode(replacementMode)
+            if (replacementMode is GoogleReplacementMode) {
+                googleReplacementMode(replacementMode.toAndroidGoogleReplacementMode())
+            }
+        }
             .build(),
         onError = { error, userCancelled -> onError(error.toPurchasesError(), userCancelled) },
         onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo) },
@@ -205,7 +210,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
         isPersonalizedPrice: Boolean?,
         oldProductId: String?,
-        replacementMode: GoogleReplacementMode,
+        replacementMode: ReplacementMode?,
     ): Unit = androidPurchases.purchaseWith(
         purchaseParams = PurchaseParams.Builder(
             AndroidProvider.requireActivity(),
@@ -213,7 +218,10 @@ public actual class Purchases private constructor(private val androidPurchases: 
         ).apply {
             if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
             if (oldProductId != null) oldProductId(oldProductId)
-        }.googleReplacementMode(replacementMode)
+            if (replacementMode is GoogleReplacementMode) {
+                googleReplacementMode(replacementMode.toAndroidGoogleReplacementMode())
+            }
+        }
             .build(),
         onError = { error, userCancelled -> onError(error.toPurchasesError(), userCancelled) },
         onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo) },
@@ -225,7 +233,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
         isPersonalizedPrice: Boolean?,
         oldProductId: String?,
-        replacementMode: GoogleReplacementMode,
+        replacementMode: ReplacementMode?,
     ): Unit = androidPurchases.purchaseWith(
         purchaseParams = PurchaseParams.Builder(
             AndroidProvider.requireActivity(),
@@ -233,7 +241,10 @@ public actual class Purchases private constructor(private val androidPurchases: 
         ).apply {
             if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
             if (oldProductId != null) oldProductId(oldProductId)
-        }.googleReplacementMode(replacementMode)
+            if (replacementMode is GoogleReplacementMode) {
+                googleReplacementMode(replacementMode.toAndroidGoogleReplacementMode())
+            }
+        }
             .build(),
         onError = { error, userCancelled -> onError(error.toPurchasesError(), userCancelled) },
         onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo) },

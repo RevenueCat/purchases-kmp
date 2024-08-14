@@ -179,7 +179,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
         isPersonalizedPrice: Boolean?,
         oldProductId: String?,
-        replacementMode: GoogleReplacementMode,
+        replacementMode: ReplacementMode?,
     ): Unit = iosPurchases.purchaseProduct(
         storeProduct
     ) { transaction, customerInfo, error, userCancelled ->
@@ -196,7 +196,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
         isPersonalizedPrice: Boolean?,
         oldProductId: String?,
-        replacementMode: GoogleReplacementMode,
+        replacementMode: ReplacementMode?,
     ): Unit = iosPurchases.purchasePackage(
         packageToPurchase
     ) { transaction, customerInfo, error, userCancelled ->
@@ -213,7 +213,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
         isPersonalizedPrice: Boolean?,
         oldProductId: String?,
-        replacementMode: GoogleReplacementMode,
+        replacementMode: ReplacementMode?,
     ): Unit = error(
         "Purchasing a SubscriptionOption is not possible on iOS. " +
                 "Did you mean purchase(StoreProduct, PromotionalOffer) or " +
