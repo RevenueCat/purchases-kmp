@@ -8,12 +8,17 @@ plugins {
 
 kotlin {
     sourceSets {
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-        }
         androidMain.dependencies {
             api(libs.revenuecat.common)
             implementation(libs.androidx.startup)
+        }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test.annotations)
+            implementation(libs.kotlin.test.assertions)
+        }
+        androidUnitTest.dependencies {
+            implementation(libs.kotlin.test.junit)
         }
     }
 
