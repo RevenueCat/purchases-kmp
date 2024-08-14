@@ -112,9 +112,9 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (CustomerInfo) -> Unit,
     ): Unit = iosPurchases.syncPurchasesWithCompletionHandler { customerInfo, error ->
-            if (error != null) onError(error.toPurchasesErrorOrThrow())
-            else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
-        }
+        if (error != null) onError(error.toPurchasesErrorOrThrow())
+        else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
+    }
 
     public actual fun syncAmazonPurchase(
         productID: String,
@@ -130,28 +130,28 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (offerings: Offerings) -> Unit,
     ): Unit = iosPurchases.syncAttributesAndOfferingsIfNeededWithCompletion { offerings, error ->
-            if (error != null) onError(error.toPurchasesErrorOrThrow())
-            else onSuccess(offerings ?: error("Expected a non-null RCOfferings"))
-        }
+        if (error != null) onError(error.toPurchasesErrorOrThrow())
+        else onSuccess(offerings ?: error("Expected a non-null RCOfferings"))
+    }
 
     public actual fun getOfferings(
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (offerings: Offerings) -> Unit,
     ): Unit = iosPurchases.getOfferingsWithCompletion { offerings, error ->
-            if (error != null) onError(error.toPurchasesErrorOrThrow())
-            else onSuccess(offerings ?: error("Expected a non-null RCOfferings"))
-        }
+        if (error != null) onError(error.toPurchasesErrorOrThrow())
+        else onSuccess(offerings ?: error("Expected a non-null RCOfferings"))
+    }
 
     public actual fun getProducts(
         productIds: List<String>,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (storeProducts: List<StoreProduct>) -> Unit,
     ): Unit = iosPurchases.getProductsWithIdentifiers(
-            productIdentifiers = productIds,
-            completion = {
-                onSuccess(it.orEmpty().map { product -> (product as RCStoreProduct) })
-            },
-        )
+        productIdentifiers = productIds,
+        completion = {
+            onSuccess(it.orEmpty().map { product -> (product as RCStoreProduct) })
+        },
+    )
 
     public actual fun getPromotionalOffer(
         discount: StoreProductDiscount,
@@ -159,12 +159,12 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (offer: PromotionalOffer) -> Unit,
     ): Unit = iosPurchases.getPromotionalOfferForProductDiscount(
-            discount = discount,
-            withProduct = storeProduct
-        ) { offer, error ->
-            if (error != null) onError(error.toPurchasesErrorOrThrow())
-            else onSuccess(offer ?: error("Expected a non-null RCPromotionalOffer"))
-        }
+        discount = discount,
+        withProduct = storeProduct
+    ) { offer, error ->
+        if (error != null) onError(error.toPurchasesErrorOrThrow())
+        else onSuccess(offer ?: error("Expected a non-null RCPromotionalOffer"))
+    }
 
     public actual fun purchase(
         storeProduct: StoreProduct,
@@ -211,10 +211,10 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         oldProductId: String?,
         replacementMode: GoogleReplacementMode,
     ): Unit = error(
-            "Purchasing a SubscriptionOption is not possible on iOS. " +
-                    "Did you mean purchase(StoreProduct, PromotionalOffer) or " +
-                    "Purchases.purchase(Package, PromotionalOffer)?"
-        )
+        "Purchasing a SubscriptionOption is not possible on iOS. " +
+                "Did you mean purchase(StoreProduct, PromotionalOffer) or " +
+                "Purchases.purchase(Package, PromotionalOffer)?"
+    )
 
     public actual fun purchase(
         storeProduct: StoreProduct,
@@ -413,7 +413,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun setAdGroup(adGroup: String?): Unit =
         iosPurchases.setAdGroup(adGroup)
 
-    public actual fun setAd(ad: String?): Unit = 
+    public actual fun setAd(ad: String?): Unit =
         iosPurchases.setAd(ad)
 
     public actual fun setKeyword(keyword: String?): Unit =
