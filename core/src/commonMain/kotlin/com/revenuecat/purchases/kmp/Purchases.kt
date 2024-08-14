@@ -1,7 +1,6 @@
 package com.revenuecat.purchases.kmp
 
 import com.revenuecat.purchases.kmp.models.BillingFeature
-import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.StoreMessageType
 import com.revenuecat.purchases.kmp.models.StoreProduct
@@ -244,7 +243,7 @@ public expect class Purchases {
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
         isPersonalizedPrice: Boolean? = null,
         oldProductId: String? = null,
-        replacementMode: GoogleReplacementMode = GoogleReplacementMode.WITHOUT_PRORATION,
+        replacementMode: ReplacementMode? = null,
     )
 
     /**
@@ -283,7 +282,7 @@ public expect class Purchases {
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
         isPersonalizedPrice: Boolean? = null,
         oldProductId: String? = null,
-        replacementMode: GoogleReplacementMode = GoogleReplacementMode.WITHOUT_PRORATION,
+        replacementMode: ReplacementMode? = null,
     )
 
     /**
@@ -311,7 +310,7 @@ public expect class Purchases {
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
         isPersonalizedPrice: Boolean? = null,
         oldProductId: String? = null,
-        replacementMode: GoogleReplacementMode = GoogleReplacementMode.WITHOUT_PRORATION,
+        replacementMode: ReplacementMode? = null,
     )
 
     /**

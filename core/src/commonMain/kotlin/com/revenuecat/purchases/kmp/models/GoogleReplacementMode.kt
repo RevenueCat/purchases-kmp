@@ -10,7 +10,7 @@ import com.revenuecat.purchases.kmp.ReplacementMode
  * [developer.android.com](https://developer.android.com/google/play/billing/subscriptions#proration)
  * for examples.
  */
-public expect enum class GoogleReplacementMode: ReplacementMode {
+public enum class GoogleReplacementMode: ReplacementMode {
     /**
      * Old subscription is cancelled, and new subscription takes effect immediately.
      * User is charged for the full price of the new subscription on the old subscription's expiration date.
@@ -62,13 +62,3 @@ public expect enum class GoogleReplacementMode: ReplacementMode {
      */
     DEFERRED;
 }
-
-public val GoogleReplacementMode.playBillingClientMode: Int
-    get() = when(this) {
-        GoogleReplacementMode.WITHOUT_PRORATION -> 3
-        GoogleReplacementMode.WITH_TIME_PRORATION -> 1
-        GoogleReplacementMode.CHARGE_FULL_PRICE -> 5
-        GoogleReplacementMode.CHARGE_PRORATED_PRICE -> 2
-        GoogleReplacementMode.DEFERRED -> 6
-        else -> error("Unexpected GoogleReplacementMode: $this")
-    }

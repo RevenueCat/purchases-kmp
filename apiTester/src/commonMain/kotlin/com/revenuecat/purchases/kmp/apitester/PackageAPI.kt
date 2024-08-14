@@ -14,7 +14,8 @@ private class PackageAPI {
     fun check(p: Package) {
         with(p) {
             val identifier: String = identifier
-            val packageType: PackageType = packageType
+            // FIXME re-enable in SDK-3529
+            // val packageType: PackageType = packageType
             val product: StoreProduct = storeProduct
             val presentedOfferingContext: PresentedOfferingContext = presentedOfferingContext
         }
