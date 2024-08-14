@@ -260,9 +260,14 @@ public actual class Purchases private constructor(private val androidPurchases: 
         productID: String,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (storeTransaction: StoreTransaction) -> Unit,
-    ): Unit = error(
-        "recordPurchase() is not supported on Android."
-    )
+    ) {
+        onError(
+            PurchasesError(
+                PurchasesErrorCode.UnsupportedError,
+                underlyingErrorMessage = "recordPurchase() is not supported on Android."
+            )
+        )
+    }
 
     public actual fun logIn(
         newAppUserID: String,
