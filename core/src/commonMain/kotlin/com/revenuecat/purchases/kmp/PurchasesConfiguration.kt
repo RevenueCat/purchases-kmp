@@ -25,6 +25,7 @@ public class PurchasesConfiguration private constructor(
                 "appUserId=$appUserId, " +
                 "purchasesAreCompletedBy=$purchasesAreCompletedBy, " +
                 "userDefaultsSuiteName=$userDefaultsSuiteName, " +
+                "storeKitVersion=$storeKitVersion, " +
                 "showInAppMessagesAutomatically=$showInAppMessagesAutomatically, " +
                 "store=$store, " +
                 "diagnosticsEnabled=$diagnosticsEnabled, " +
