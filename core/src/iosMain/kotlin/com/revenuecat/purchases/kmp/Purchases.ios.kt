@@ -31,9 +31,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
         private var _logHandler: LogHandler? = null
         public actual var logHandler: LogHandler
-            get() =
-                _logHandler
-                    ?: IosPurchases.logHandler().toLogHandler().also { _logHandler = it }
+            get() = _logHandler
+                ?: IosPurchases.logHandler().toLogHandler().also { _logHandler = it }
             set(value) {
                 _logHandler = value
                 IosPurchases.setLogHandler(value.toRcLogHandler())
@@ -54,7 +53,9 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             get() = IosPurchases.forceUniversalAppStore()
             set(value) = IosPurchases.setForceUniversalAppStore(value)
 
-        public actual fun configure(configuration: PurchasesConfiguration): Purchases {
+        public actual fun configure(
+            configuration: PurchasesConfiguration
+        ): Purchases {
             checkCommonVersion()
 
             return with(configuration) {
@@ -70,8 +71,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                     shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
                     verificationMode = verificationMode.name,
                 )
-            }
-                .let { Purchases(it) }
+            }.let { Purchases(it) }
                 .also { _sharedInstance = it }
         }
 
@@ -111,8 +111,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun syncPurchases(
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (CustomerInfo) -> Unit,
-    ): Unit =
-        iosPurchases.syncPurchasesWithCompletionHandler { customerInfo, error ->
+    ): Unit = iosPurchases.syncPurchasesWithCompletionHandler { customerInfo, error ->
             if (error != null) onError(error.toPurchasesErrorOrThrow())
             else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
         }
@@ -130,8 +129,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun syncAttributesAndOfferingsIfNeeded(
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (offerings: Offerings) -> Unit,
-    ): Unit =
-        iosPurchases.syncAttributesAndOfferingsIfNeededWithCompletion { offerings, error ->
+    ): Unit = iosPurchases.syncAttributesAndOfferingsIfNeededWithCompletion { offerings, error ->
             if (error != null) onError(error.toPurchasesErrorOrThrow())
             else onSuccess(offerings ?: error("Expected a non-null RCOfferings"))
         }
@@ -139,8 +137,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun getOfferings(
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (offerings: Offerings) -> Unit,
-    ): Unit =
-        iosPurchases.getOfferingsWithCompletion { offerings, error ->
+    ): Unit = iosPurchases.getOfferingsWithCompletion { offerings, error ->
             if (error != null) onError(error.toPurchasesErrorOrThrow())
             else onSuccess(offerings ?: error("Expected a non-null RCOfferings"))
         }
@@ -149,8 +146,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         productIds: List<String>,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (storeProducts: List<StoreProduct>) -> Unit,
-    ): Unit =
-        iosPurchases.getProductsWithIdentifiers(
+    ): Unit = iosPurchases.getProductsWithIdentifiers(
             productIdentifiers = productIds,
             completion = {
                 onSuccess(it.orEmpty().map { product -> (product as RCStoreProduct) })
@@ -162,8 +158,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         storeProduct: StoreProduct,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (offer: PromotionalOffer) -> Unit,
-    ): Unit =
-        iosPurchases.getPromotionalOfferForProductDiscount(
+    ): Unit = iosPurchases.getPromotionalOfferForProductDiscount(
             discount = discount,
             withProduct = storeProduct
         ) { offer, error ->
@@ -178,19 +173,16 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         isPersonalizedPrice: Boolean?,
         oldProductId: String?,
         replacementMode: GoogleReplacementMode,
-    ): Unit =
-        iosPurchases.purchaseProduct(storeProduct) { transaction,
-                                                     customerInfo,
-                                                     error,
-                                                     userCancelled ->
-            if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
-            else
-                onSuccess(
-                    transaction?.let { StoreTransaction(it) }
-                        ?: error("Expected a non-null RCStoreTransaction"),
-                    customerInfo ?: error("Expected a non-null RCCustomerInfo")
-                )
-        }
+    ): Unit = iosPurchases.purchaseProduct(
+        storeProduct
+    ) { transaction, customerInfo, error, userCancelled ->
+        if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
+        else onSuccess(
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
+            customerInfo ?: error("Expected a non-null RCCustomerInfo")
+        )
+    }
 
     public actual fun purchase(
         packageToPurchase: Package,
@@ -199,11 +191,9 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         isPersonalizedPrice: Boolean?,
         oldProductId: String?,
         replacementMode: GoogleReplacementMode,
-    ): Unit =
-        iosPurchases.purchasePackage(packageToPurchase) { transaction,
-                                                          customerInfo,
-                                                          error,
-                                                          userCancelled ->
+    ): Unit = iosPurchases.purchasePackage(
+        packageToPurchase
+    ) { transaction, customerInfo, error, userCancelled ->
             if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
             else
                 onSuccess(
@@ -220,8 +210,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         isPersonalizedPrice: Boolean?,
         oldProductId: String?,
         replacementMode: GoogleReplacementMode,
-    ): Unit =
-        error(
+    ): Unit = error(
             "Purchasing a SubscriptionOption is not possible on iOS. " +
                     "Did you mean purchase(StoreProduct, PromotionalOffer) or " +
                     "Purchases.purchase(Package, PromotionalOffer)?"
@@ -232,44 +221,41 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         promotionalOffer: PromotionalOffer,
         onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
-    ): Unit =
-        iosPurchases.purchaseProduct(storeProduct, promotionalOffer) { transaction,
-                                                                       customerInfo,
-                                                                       error,
-                                                                       userCancelled ->
-            if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
-            else
-                onSuccess(
-                    transaction?.let { StoreTransaction(it) }
-                        ?: error("Expected a non-null RCStoreTransaction"),
-                    customerInfo ?: error("Expected a non-null RCCustomerInfo")
-                )
-        }
+    ): Unit = iosPurchases.purchaseProduct(
+        storeProduct,
+        promotionalOffer
+    ) { transaction, customerInfo, error, userCancelled ->
+        if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
+        else
+            onSuccess(
+                transaction?.let { StoreTransaction(it) }
+                    ?: error("Expected a non-null RCStoreTransaction"),
+                customerInfo ?: error("Expected a non-null RCCustomerInfo")
+            )
+    }
 
     public actual fun purchase(
         packageToPurchase: Package,
         promotionalOffer: PromotionalOffer,
         onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
-    ): Unit =
-        iosPurchases.purchasePackage(packageToPurchase, promotionalOffer) { transaction,
-                                                                            customerInfo,
-                                                                            error,
-                                                                            userCancelled ->
-            if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
-            else
-                onSuccess(
-                    transaction?.let { StoreTransaction(it) }
-                        ?: error("Expected a non-null RCStoreTransaction"),
-                    customerInfo ?: error("Expected a non-null RCCustomerInfo")
-                )
-        }
+    ): Unit = iosPurchases.purchasePackage(
+        packageToPurchase,
+        promotionalOffer
+    ) { transaction, customerInfo, error, userCancelled ->
+        if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
+        else
+            onSuccess(
+                transaction?.let { StoreTransaction(it) }
+                    ?: error("Expected a non-null RCStoreTransaction"),
+                customerInfo ?: error("Expected a non-null RCCustomerInfo")
+            )
+    }
 
     public actual fun restorePurchases(
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
-    ): Unit =
-        iosPurchases.restorePurchasesWithCompletion { customerInfo, error ->
+    ): Unit = iosPurchases.restorePurchasesWithCompletion { customerInfo, error ->
             if (error != null) onError(error.toPurchasesErrorOrThrow())
             else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
         }
@@ -287,39 +273,29 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                     return@recordPurchaseForProductID
                 }
 
-                try {
-                    if (storeTransactionMap == null) {
-                        onError(
-                            PurchasesError(
-                                code = PurchasesErrorCode.UnknownError,
-                                underlyingErrorMessage =
-                                "Expected storeTransactionMap to be non-null when error is non-null."
-                            )
-                        )
-                    } else {
-                        val storeTransactionMappingResult = StoreTransaction.fromMap(
-                            storeTransactionMap = storeTransactionMap
-                        )
-                        storeTransactionMappingResult.onSuccess {
-                            onSuccess(it)
-                        }
-                        storeTransactionMappingResult.onFailure {
-                            onError(
-                                PurchasesError(
-                                    code = PurchasesErrorCode.UnknownError,
-                                    underlyingErrorMessage = it.message
-                                )
-                            )
-                        }
-                    }
-                } catch (e: IllegalArgumentException) {
+                if (storeTransactionMap == null) {
                     onError(
                         PurchasesError(
                             code = PurchasesErrorCode.UnknownError,
                             underlyingErrorMessage =
-                            "Incorrectly formatted storeTransactionMap: $storeTransactionMap"
+                            "Expected storeTransactionMap to be non-null when error is non-null."
                         )
                     )
+                } else {
+                    val storeTransactionMappingResult = StoreTransaction.fromMap(
+                        storeTransactionMap = storeTransactionMap
+                    )
+                    storeTransactionMappingResult.onSuccess {
+                        onSuccess(it)
+                    }
+                    storeTransactionMappingResult.onFailure {
+                        onError(
+                            PurchasesError(
+                                code = PurchasesErrorCode.UnknownError,
+                                underlyingErrorMessage = it.message
+                            )
+                        )
+                    }
                 }
             }
         )
@@ -329,27 +305,25 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         newAppUserID: String,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (customerInfo: CustomerInfo, created: Boolean) -> Unit
-    ): Unit =
-        iosPurchases.logIn(
-            appUserID = newAppUserID,
-            completion = { customerInfo, created, error ->
-                if (error != null) onError(error.toPurchasesErrorOrThrow())
-                else
-                    onSuccess(
-                        customerInfo ?: error("Expected a non-null RCCustomerInfo"),
-                        created
-                    )
-            }
-        )
+    ): Unit = iosPurchases.logIn(
+        appUserID = newAppUserID,
+        completion = { customerInfo, created, error ->
+            if (error != null) onError(error.toPurchasesErrorOrThrow())
+            else
+                onSuccess(
+                    customerInfo ?: error("Expected a non-null RCCustomerInfo"),
+                    created
+                )
+        }
+    )
 
     public actual fun logOut(
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
-    ): Unit =
-        iosPurchases.logOutWithCompletion { customerInfo, error ->
-            if (error != null) onError(error.toPurchasesErrorOrThrow())
-            else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
-        }
+    ): Unit = iosPurchases.logOutWithCompletion { customerInfo, error ->
+        if (error != null) onError(error.toPurchasesErrorOrThrow())
+        else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
+    }
 
     public actual fun close() {
         iosPurchases.setDelegate(null)
@@ -359,27 +333,25 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         fetchPolicy: CacheFetchPolicy,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
-    ): Unit =
-        iosPurchases.getCustomerInfoWithFetchPolicy(fetchPolicy.toRCCacheFetchPolicy()) { customerInfo,
-                                                                                          error ->
-            if (error != null) onError(error.toPurchasesErrorOrThrow())
-            else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
-        }
+    ): Unit = iosPurchases.getCustomerInfoWithFetchPolicy(
+        fetchPolicy.toRCCacheFetchPolicy()
+    ) { customerInfo, error ->
+        if (error != null) onError(error.toPurchasesErrorOrThrow())
+        else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
+    }
 
     public actual fun showInAppMessagesIfNeeded(
         messageTypes: List<StoreMessageType>,
-    ): Unit =
-        RCCommonFunctionality.showStoreMessagesForTypes(
-            rawValues =
-            messageTypes.mapTo(mutableSetOf()) { type ->
-                when (type) {
-                    StoreMessageType.BILLING_ISSUES -> 0
-                    StoreMessageType.PRICE_INCREASE_CONSENT -> 1
-                    StoreMessageType.GENERIC -> 2
-                }
-            },
-            completion = {}
-        )
+    ): Unit = RCCommonFunctionality.showStoreMessagesForTypes(
+        rawValues = messageTypes.mapTo(mutableSetOf()) { type ->
+            when (type) {
+                StoreMessageType.BILLING_ISSUES -> 0
+                StoreMessageType.PRICE_INCREASE_CONSENT -> 1
+                StoreMessageType.GENERIC -> 2
+            }
+        },
+        completion = { }
+    )
 
     public actual fun invalidateCustomerInfoCache(): Unit =
         iosPurchases.invalidateCustomerInfoCache()
@@ -387,7 +359,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun setAttributes(attributes: Map<String, String?>): Unit =
         iosPurchases.setAttributes(attributes.mapKeys { (key, _) -> key })
 
-    public actual fun setEmail(email: String?): Unit = iosPurchases.setEmail(email)
+    public actual fun setEmail(email: String?): Unit =
+        iosPurchases.setEmail(email)
 
     public actual fun setPhoneNumber(phoneNumber: String?): Unit =
         iosPurchases.setPhoneNumber(phoneNumber)
@@ -413,9 +386,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun setFirebaseAppInstanceID(firebaseAppInstanceID: String?): Unit =
         iosPurchases.setFirebaseAppInstanceID(firebaseAppInstanceID)
 
-    public actual fun collectDeviceIdentifiers(): Unit = iosPurchases.collectDeviceIdentifiers()
+    public actual fun collectDeviceIdentifiers(): Unit =
+        iosPurchases.collectDeviceIdentifiers()
 
-    public actual fun setAdjustID(adjustID: String?): Unit = iosPurchases.setAdjustID(adjustID)
+    public actual fun setAdjustID(adjustID: String?): Unit =
+        iosPurchases.setAdjustID(adjustID)
 
     public actual fun setAppsflyerID(appsflyerID: String?): Unit =
         iosPurchases.setAppsflyerID(appsflyerID)
@@ -432,13 +407,18 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun setMediaSource(mediaSource: String?): Unit =
         iosPurchases.setMediaSource(mediaSource)
 
-    public actual fun setCampaign(campaign: String?): Unit = iosPurchases.setCampaign(campaign)
+    public actual fun setCampaign(campaign: String?): Unit =
+        iosPurchases.setCampaign(campaign)
 
-    public actual fun setAdGroup(adGroup: String?): Unit = iosPurchases.setAdGroup(adGroup)
+    public actual fun setAdGroup(adGroup: String?): Unit =
+        iosPurchases.setAdGroup(adGroup)
 
-    public actual fun setAd(ad: String?): Unit = iosPurchases.setAd(ad)
+    public actual fun setAd(ad: String?): Unit = 
+        iosPurchases.setAd(ad)
 
-    public actual fun setKeyword(keyword: String?): Unit = iosPurchases.setKeyword(keyword)
+    public actual fun setKeyword(keyword: String?): Unit =
+        iosPurchases.setKeyword(keyword)
 
-    public actual fun setCreative(creative: String?): Unit = iosPurchases.setCreative(creative)
+    public actual fun setCreative(creative: String?): Unit =
+        iosPurchases.setCreative(creative)
 }
