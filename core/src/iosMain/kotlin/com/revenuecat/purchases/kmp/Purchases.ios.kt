@@ -309,11 +309,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         appUserID = newAppUserID,
         completion = { customerInfo, created, error ->
             if (error != null) onError(error.toPurchasesErrorOrThrow())
-            else
-                onSuccess(
-                    customerInfo ?: error("Expected a non-null RCCustomerInfo"),
-                    created
-                )
+            else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"), created)
         }
     )
 
