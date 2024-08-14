@@ -195,7 +195,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         ).apply {
             if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
             if (oldProductId != null) oldProductId(oldProductId)
-            if (replacementMode != null && replacementMode is GoogleReplacementMode) {
+            if (replacementMode is GoogleReplacementMode) {
                 googleReplacementMode(replacementMode.toAndroidGoogleReplacementMode())
             }
         }
@@ -218,7 +218,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         ).apply {
             if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
             if (oldProductId != null) oldProductId(oldProductId)
-            if (replacementMode != null && replacementMode is GoogleReplacementMode) {
+            if (replacementMode is GoogleReplacementMode) {
                 googleReplacementMode(replacementMode.toAndroidGoogleReplacementMode())
             }
         }
@@ -241,7 +241,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         ).apply {
             if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
             if (oldProductId != null) oldProductId(oldProductId)
-            if (replacementMode != null && replacementMode is GoogleReplacementMode) {
+            if (replacementMode is GoogleReplacementMode) {
                 googleReplacementMode(replacementMode.toAndroidGoogleReplacementMode())
             }
         }
