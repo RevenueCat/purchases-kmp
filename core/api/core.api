@@ -663,4 +663,3 @@ public final class com/revenuecat/purchases/kmp/models/Transaction_androidKt {
 	public static final fun getPurchaseDateMillis (Lcom/revenuecat/purchases/models/Transaction;)J
 	public static final fun getTransactionIdentifier (Lcom/revenuecat/purchases/models/Transaction;)Ljava/lang/String;
 }
-
