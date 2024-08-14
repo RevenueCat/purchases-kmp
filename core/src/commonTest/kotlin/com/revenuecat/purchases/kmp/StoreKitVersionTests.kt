@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 class StoreKitVersionTests {
 
     @Test
-    fun testToHybridString() {
+    fun `toHybridString returns the correct values`() {
         val storeKit1 = StoreKitVersion.STOREKIT_1
         val storeKit1String = storeKit1.toHybridString()
 

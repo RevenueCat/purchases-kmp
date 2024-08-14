@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 class PurchasesAreCompletedByTests {
 
     @Test
-    fun testToHybridString() {
+    fun `toHybridString returns the correct values`() {
         val purchasesAreCompletedByMyApp = PurchasesAreCompletedBy.MyApp(StoreKitVersion.DEFAULT)
         val myAppHybridString = purchasesAreCompletedByMyApp.toHybridString()
 

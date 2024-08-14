@@ -10,7 +10,7 @@ import kotlin.test.assertTrue
 class StoreTransactionTests {
 
     @Test
-    fun testFromMapCorrectlyParsesMapWithAllFields() {
+    fun `fromMap correctly parses map with all fields`() {
         val transactionId = "someTransactionIdentifier"
         val productId = "someProductIdentifier"
         val purchaseDateMillis = 1627689600000.0
@@ -35,7 +35,7 @@ class StoreTransactionTests {
     }
 
     @Test
-    fun testMissingTransactionIdentifier() {
+    fun `missing transactionIdentifier returns failure`() {
         val productId = "someProductIdentifier"
         val purchaseDateMillis = 1627689600000.0
         val purchaseDate = "2021-07-31T00:00:00Z"
@@ -56,7 +56,7 @@ class StoreTransactionTests {
     }
 
     @Test
-    fun testMissingProductIdentifier() {
+    fun `missing productIdentifier returns failure`() {
         val transactionId = "someTransactionIdentifier"
         val purchaseDateMillis = 1627689600000.0
         val purchaseDate = "2021-07-31T00:00:00Z"
@@ -77,7 +77,7 @@ class StoreTransactionTests {
     }
 
     @Test
-    fun testInvalidPurchaseDateMillis() {
+    fun `missing purchaseDateMillis returns failure`() {
         val transactionId = "someTransactionIdentifier"
         val productId = "someProductIdentifier"
         val purchaseDate = "2021-07-31T00:00:00Z"

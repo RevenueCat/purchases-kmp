@@ -7,7 +7,7 @@ import kotlin.test.assertEquals
 class PurchasesConfigurationTests {
 
     @Test
-    fun testCorrectlyProvidesStoreKitVersionIfMatching() {
+    fun `storeKitVersionToUse provides the correct result if the provided values are matching`() {
         val config = PurchasesConfiguration(apiKey = "abc123") {
             purchasesAreCompletedBy = PurchasesAreCompletedBy.RevenueCat
             storeKitVersion = StoreKitVersion.DEFAULT
@@ -17,7 +17,7 @@ class PurchasesConfigurationTests {
     }
 
     @Test
-    fun testCorrectlyProvidesStoreKitVersionIfMissingStoreKitVersion() {
+    fun `storeKitVersionToUse provides the correct result if storeKitVersion is missing`() {
         val config = PurchasesConfiguration(apiKey = "abc123") {
             purchasesAreCompletedBy = PurchasesAreCompletedBy.RevenueCat
         }
@@ -26,7 +26,7 @@ class PurchasesConfigurationTests {
     }
 
     @Test
-    fun testCorrectlyProvidesStoreKitVersionIfMissingPurchasesAreCompletedBy() {
+    fun `storeKitVersionToUse provides the correct result if PurchasesAreCompletedBy is missing`() {
         val config = PurchasesConfiguration(apiKey = "abc123") {
             storeKitVersion = StoreKitVersion.STOREKIT_1
         }
@@ -35,14 +35,14 @@ class PurchasesConfigurationTests {
     }
 
     @Test
-    fun testCorrectlyProvidesStoreKitVersionIfMissingAllStoreKitVersions() {
+    fun `storeKitVersionToUse provides the DEFAULT value if StoreKitVersion is not provided`() {
         val config = PurchasesConfiguration(apiKey = "abc123")
 
         assertEquals(StoreKitVersion.DEFAULT, config.storeKitVersionToUse())
     }
 
     @Test
-    fun testCorrectlyProvidesStoreKitVersionFromPurchasesAreCompletedByIfConflictingValuesProvided() {
+    fun `storeKitVersionToUse provides the value from PurchasesAreCompletedBy if conflicting values are provided`() {
         val config = PurchasesConfiguration(apiKey = "abc123") {
             purchasesAreCompletedBy = PurchasesAreCompletedBy.MyApp(StoreKitVersion.STOREKIT_2)
             storeKitVersion = StoreKitVersion.STOREKIT_1
