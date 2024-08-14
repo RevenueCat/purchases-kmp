@@ -28,17 +28,6 @@ public sealed interface PurchasesAreCompletedBy {
 }
 
 /**
- * Convenience function to get the storeKitVersion.
- *
- * @return the storeKitVersion if the instance is MyApp, otherwise returns StoreKitVersion.DEFAULT
- */
-internal fun PurchasesAreCompletedBy.storeKitVersion(): StoreKitVersion =
-    when (this) {
-        is PurchasesAreCompletedBy.MyApp -> this.storeKitVersion
-        is PurchasesAreCompletedBy.RevenueCat -> StoreKitVersion.DEFAULT
-    }
-
-/**
  * Converts an instance of `PurchasesAreCompletedBy` to its corresponding string representation
  * suitable for usage with the PurchasesHybridCommon library.
  *
