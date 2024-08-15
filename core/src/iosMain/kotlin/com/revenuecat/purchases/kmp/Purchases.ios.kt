@@ -1,8 +1,6 @@
 package com.revenuecat.purchases.kmp
 
 import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
-import cocoapods.PurchasesHybridCommon.RCDangerousSettings as IosDangerousSettings
-import cocoapods.PurchasesHybridCommon.RCPurchases as IosPurchases
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.configureWithAPIKey
 import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
@@ -19,6 +17,8 @@ import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import platform.Foundation.NSURL
+import cocoapods.PurchasesHybridCommon.RCDangerousSettings as IosDangerousSettings
+import cocoapods.PurchasesHybridCommon.RCPurchases as IosPurchases
 
 public actual class Purchases private constructor(private val iosPurchases: IosPurchases) {
     public actual companion object {
@@ -194,14 +194,13 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ): Unit = iosPurchases.purchasePackage(
         packageToPurchase
     ) { transaction, customerInfo, error, userCancelled ->
-            if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
-            else
-                onSuccess(
-                    transaction?.let { StoreTransaction(it) }
-                        ?: error("Expected a non-null RCStoreTransaction"),
-                    customerInfo ?: error("Expected a non-null RCCustomerInfo")
-                )
-        }
+        if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
+        else onSuccess(
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
+            customerInfo ?: error("Expected a non-null RCCustomerInfo")
+        )
+    }
 
     public actual fun purchase(
         subscriptionOption: SubscriptionOption,
@@ -226,12 +225,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         promotionalOffer
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
-        else
-            onSuccess(
-                transaction?.let { StoreTransaction(it) }
-                    ?: error("Expected a non-null RCStoreTransaction"),
-                customerInfo ?: error("Expected a non-null RCCustomerInfo")
-            )
+        else onSuccess(
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
+            customerInfo ?: error("Expected a non-null RCCustomerInfo")
+        )
     }
 
     public actual fun purchase(
@@ -244,21 +242,20 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         promotionalOffer
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
-        else
-            onSuccess(
-                transaction?.let { StoreTransaction(it) }
-                    ?: error("Expected a non-null RCStoreTransaction"),
-                customerInfo ?: error("Expected a non-null RCCustomerInfo")
-            )
+        else onSuccess(
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
+            customerInfo ?: error("Expected a non-null RCCustomerInfo")
+        )
     }
 
     public actual fun restorePurchases(
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
     ): Unit = iosPurchases.restorePurchasesWithCompletion { customerInfo, error ->
-            if (error != null) onError(error.toPurchasesErrorOrThrow())
-            else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
-        }
+        if (error != null) onError(error.toPurchasesErrorOrThrow())
+        else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
+    }
 
     public actual fun recordPurchase(
         productID: String,
