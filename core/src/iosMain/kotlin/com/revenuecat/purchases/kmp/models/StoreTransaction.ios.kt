@@ -32,7 +32,7 @@ public actual class StoreTransaction private constructor(
         fun fromMap(storeTransactionMap: Map<Any?, *>): Result<StoreTransaction> {
             val transactionId = storeTransactionMap["transactionIdentifier"] as? String
             val productId = storeTransactionMap["productIdentifier"] as? String
-            val purchaseTime = (storeTransactionMap["purchaseDateMillis"] as? Double)?.toLong()
+            val purchaseTime = (storeTransactionMap["purchaseDateMillis"] as? Number)?.toLong()
 
             if(transactionId == null) {
                 return Result.failure(IllegalArgumentException("Expected a non-null transactionIdentifier"))
