@@ -9,7 +9,7 @@ private class PurchasesAreCompletedByAPI {
         when (mode) {
             is PurchasesAreCompletedBy.RevenueCat -> { }
             is PurchasesAreCompletedBy.MyApp -> {
-                mode.storeKitVersion
+                val storeKitVersion: StoreKitVersion  = mode.storeKitVersion
             }
         }.exhaustive
     }
