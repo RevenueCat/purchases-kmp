@@ -1,5 +1,0 @@
-package com.revenuecat.purchases.kmp
-
-import com.revenuecat.purchases.PurchasesAreCompletedBy as AndroidPurchasesAreCompletedBy
-
-public actual typealias PurchasesAreCompletedBy = AndroidPurchasesAreCompletedBy

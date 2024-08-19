@@ -3,6 +3,7 @@ package com.revenuecat.purchases.kmp
 import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.configureWithAPIKey
+import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
 import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
@@ -24,7 +25,6 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         private var _sharedInstance: Purchases? = null
         public actual val sharedInstance: Purchases
             get() = _sharedInstance ?: error(ConfigureStrings.NO_SINGLETON_INSTANCE)
-
         public actual var logLevel: LogLevel
             get() = IosPurchases.logLevel().toLogLevel()
             set(value) = IosPurchases.setLogLevel(value.toRcLogLevel())
@@ -62,12 +62,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 IosPurchases.configureWithAPIKey(
                     apiKey = apiKey,
                     appUserID = appUserId,
-                    purchasesAreCompletedBy = purchasesAreCompletedBy.toRCPurchasesAreCompletedBy(),
+                    purchasesAreCompletedBy = purchasesAreCompletedBy.toHybridString(),
                     userDefaultsSuiteName = userDefaultsSuiteName,
                     platformFlavor = BuildKonfig.platformFlavor,
                     platformFlavorVersion = frameworkVersion,
-                    // In Flutter it's deprecated & defaults to false.
-                    usesStoreKit2IfAvailable = false,
+                    storeKitVersion = storeKitVersionToUse().toHybridString(),
                     dangerousSettings = dangerousSettings.toIosDangerousSettings(),
                     shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
                     verificationMode = verificationMode.name,
@@ -95,12 +94,6 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         private fun DangerousSettings.toIosDangerousSettings(): IosDangerousSettings =
             IosDangerousSettings(autoSyncPurchases)
     }
-
-    public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy
-        get() = iosPurchases.purchasesAreCompletedBy().toPurchasesAreCompletedBy()
-        set(value) {
-            iosPurchases.setPurchasesAreCompletedBy(value.toRCPurchasesAreCompletedBy())
-        }
 
     public actual val appUserID: String
         get() = iosPurchases.appUserID()
@@ -185,7 +178,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo ?: error("Expected a non-null RCCustomerInfo")
         )
     }
@@ -202,7 +196,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo ?: error("Expected a non-null RCCustomerInfo")
         )
     }
@@ -231,7 +226,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo ?: error("Expected a non-null RCCustomerInfo")
         )
     }
@@ -247,7 +243,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction ?: error("Expected a non-null RCStoreTransaction"),
+            transaction?.let { StoreTransaction(it) }
+                ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo ?: error("Expected a non-null RCCustomerInfo")
         )
     }
@@ -258,6 +255,47 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ): Unit = iosPurchases.restorePurchasesWithCompletion { customerInfo, error ->
         if (error != null) onError(error.toPurchasesErrorOrThrow())
         else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
+    }
+
+    public actual fun recordPurchase(
+        productID: String,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (storeTransaction: StoreTransaction) -> Unit,
+    ) {
+        RCCommonFunctionality.recordPurchaseForProductID(
+            productID,
+            completion = { storeTransactionMap, error ->
+                if (error != null) {
+                    onError(error.error().toPurchasesErrorOrThrow())
+                    return@recordPurchaseForProductID
+                }
+
+                if (storeTransactionMap == null) {
+                    onError(
+                        PurchasesError(
+                            code = PurchasesErrorCode.UnknownError,
+                            underlyingErrorMessage =
+                            "Expected storeTransactionMap to be non-null when error is non-null."
+                        )
+                    )
+                } else {
+                    val storeTransactionMappingResult = StoreTransaction.fromMap(
+                        storeTransactionMap = storeTransactionMap
+                    )
+                    storeTransactionMappingResult.onSuccess {
+                        onSuccess(it)
+                    }
+                    storeTransactionMappingResult.onFailure {
+                        onError(
+                            PurchasesError(
+                                code = PurchasesErrorCode.UnknownError,
+                                underlyingErrorMessage = it.message
+                            )
+                        )
+                    }
+                }
+            }
+        )
     }
 
     public actual fun logIn(

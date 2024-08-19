@@ -1,6 +1,5 @@
 package com.revenuecat.purchases.kmp
 
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.REVENUECAT
 import com.revenuecat.purchases.kmp.PurchasesConfiguration.Builder
 import kotlin.jvm.JvmSynthetic
 
@@ -13,11 +12,13 @@ public class PurchasesConfiguration private constructor(
     public val appUserId: String?,
     public val purchasesAreCompletedBy: PurchasesAreCompletedBy,
     public val userDefaultsSuiteName: String?,
+    public val storeKitVersion: StoreKitVersion,
     public val showInAppMessagesAutomatically: Boolean,
     public val store: Store?,
     public val diagnosticsEnabled: Boolean,
     public val dangerousSettings: DangerousSettings,
     public val verificationMode: EntitlementVerificationMode,
+    public val pendingTransactionsForPrepaidPlansEnabled: Boolean?
 ) {
     override fun toString(): String =
         "PurchasesConfiguration(" +
@@ -25,12 +26,39 @@ public class PurchasesConfiguration private constructor(
                 "appUserId=$appUserId, " +
                 "purchasesAreCompletedBy=$purchasesAreCompletedBy, " +
                 "userDefaultsSuiteName=$userDefaultsSuiteName, " +
+                "storeKitVersion=$storeKitVersion, " +
                 "showInAppMessagesAutomatically=$showInAppMessagesAutomatically, " +
                 "store=$store, " +
                 "diagnosticsEnabled=$diagnosticsEnabled, " +
                 "dangerousSettings=$dangerousSettings, " +
-                "verificationMode=$verificationMode" +
+                "verificationMode=$verificationMode," +
+                "pendingTransactionsForPrepaidPlansEnabled=$pendingTransactionsForPrepaidPlansEnabled" +
                 ")"
+
+    internal fun storeKitVersionToUse(): StoreKitVersion {
+        var storeKitVersionToUse = this.storeKitVersion
+
+        if (this.purchasesAreCompletedBy is PurchasesAreCompletedBy.MyApp) {
+            storeKitVersionToUse = this.purchasesAreCompletedBy.storeKitVersion
+
+            if (this.storeKitVersion != StoreKitVersion.DEFAULT &&
+                storeKitVersionToUse != this.storeKitVersion) {
+                Purchases.logHandler.w("[Purchases]", "The storeKitVersion in purchasesAreCompletedBy " +
+                        "does not match the provided storeKitVersion parameter. We will use the " +
+                        "value found in purchasesAreCompletedBy.")
+            }
+
+            if(this.purchasesAreCompletedBy.storeKitVersion == StoreKitVersion.DEFAULT) {
+                Purchases.logHandler.w("[Purchases]",
+                    "Warning: You should provide the specific StoreKit version you're using in " +
+                            "your implementation when configuring PurchasesAreCompletedBy.MyApp, " +
+                            "and not rely on the DEFAULT."
+                )
+            }
+        }
+
+        return storeKitVersionToUse
+    }
 
     /**
      * Use this builder to create an instance of [PurchasesConfiguration].
@@ -43,10 +71,13 @@ public class PurchasesConfiguration private constructor(
         public var appUserId: String? = null
 
         @set:JvmSynthetic
-        public var purchasesAreCompletedBy: PurchasesAreCompletedBy = REVENUECAT
+        public var purchasesAreCompletedBy: PurchasesAreCompletedBy = PurchasesAreCompletedBy.RevenueCat
 
         @set:JvmSynthetic
         public var userDefaultsSuiteName: String? = null
+
+        @set:JvmSynthetic
+        public var storeKitVersion: StoreKitVersion = StoreKitVersion.DEFAULT
 
         @set:JvmSynthetic
         public var showInAppMessagesAutomatically: Boolean = true
@@ -63,6 +94,9 @@ public class PurchasesConfiguration private constructor(
         @set:JvmSynthetic
         public var verificationMode: EntitlementVerificationMode =
             EntitlementVerificationMode.DISABLED
+
+        @set:JvmSynthetic
+        public var pendingTransactionsForPrepaidPlansEnabled: Boolean? = null
 
         /**
          * Your RevenueCat API Key.
@@ -102,6 +136,21 @@ public class PurchasesConfiguration private constructor(
          */
         public fun userDefaultsSuiteName(userDefaultsSuiteName: String?): Builder =
             apply { this.userDefaultsSuiteName = userDefaultsSuiteName }
+
+        /**
+         * iOS-only, will be ignored for Android. By providing [StoreKitVersion.DEFAULT],
+         * RevenueCat will automatically select the most appropriate StoreKit version
+         * for the app's runtime environment.
+         *
+         * **Warning:** Make sure you have an In-App Purchase Key configured in your app.
+         * Please see []revenuecat.com](https://rev.cat/in-app-purchase-key-configuration)
+         * for more info.
+         *
+         * - Note: StoreKit 2 is only available on iOS 16+. StoreKit 1 will be used for
+         * previous iOS versions regardless of this setting.
+         */
+        public fun storeKitVersion(storeKitVersion: StoreKitVersion): Builder =
+            apply { this.storeKitVersion = storeKitVersion }
 
         /**
          * Enable this setting to show in-app messages from Google Play automatically. Default is
@@ -154,6 +203,17 @@ public class PurchasesConfiguration private constructor(
             apply { this.verificationMode = verificationMode }
 
         /**
+         * Enable this setting if you want to allow pending purchases for prepaid subscriptions (only supported
+         * in Google Play). Note that entitlements are not granted until payment is done.
+         * Default is disabled.
+         */
+        public fun pendingTransactionsForPrepaidPlansEnabled(
+            pendingTransactionsForPrepaidPlansEnabled: Boolean
+        ): Builder = apply {
+            this.pendingTransactionsForPrepaidPlansEnabled = pendingTransactionsForPrepaidPlansEnabled
+        }
+
+        /**
          * Creates a [PurchasesConfiguration] instance with the specified properties.
          */
         public fun build(): PurchasesConfiguration = PurchasesConfiguration(
@@ -161,11 +221,13 @@ public class PurchasesConfiguration private constructor(
             appUserId = appUserId,
             purchasesAreCompletedBy = purchasesAreCompletedBy,
             userDefaultsSuiteName = userDefaultsSuiteName,
+            storeKitVersion = storeKitVersion,
             showInAppMessagesAutomatically = showInAppMessagesAutomatically,
             store = store,
             diagnosticsEnabled = diagnosticsEnabled,
             dangerousSettings = dangerousSettings,
-            verificationMode = verificationMode
+            verificationMode = verificationMode,
+            pendingTransactionsForPrepaidPlansEnabled = pendingTransactionsForPrepaidPlansEnabled
         )
     }
 }

@@ -1,6 +1,7 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.PresentedOfferingContext
+import com.revenuecat.purchases.kmp.models.InstallmentsInfo
 import com.revenuecat.purchases.kmp.models.PricingPhase
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.isBasePlan
@@ -16,5 +17,6 @@ private class SubscriptionOptionAPI {
         val presentedOfferingContext: PresentedOfferingContext? =
             subscriptionOption.presentedOfferingContext
         val isPrepaid: Boolean = subscriptionOption.isPrepaid
+        val installmentsInfo: InstallmentsInfo? = subscriptionOption.installmentsInfo
     }
 }

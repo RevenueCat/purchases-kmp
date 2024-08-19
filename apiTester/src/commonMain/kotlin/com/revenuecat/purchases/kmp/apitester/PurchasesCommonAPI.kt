@@ -9,11 +9,12 @@ import com.revenuecat.purchases.kmp.LogLevel
 import com.revenuecat.purchases.kmp.Offerings
 import com.revenuecat.purchases.kmp.Package
 import com.revenuecat.purchases.kmp.Purchases
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.MY_APP
+import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.PurchasesError
 import com.revenuecat.purchases.kmp.Store
+import com.revenuecat.purchases.kmp.StoreKitVersion
 import com.revenuecat.purchases.kmp.configure
 import com.revenuecat.purchases.kmp.either.FailedPurchase
 import com.revenuecat.purchases.kmp.either.awaitGetProductsEither
@@ -240,7 +241,20 @@ private class PurchasesCommonAPI {
 
         val config: PurchasesConfiguration = PurchasesConfiguration(apiKey = "") {
             appUserId = ""
-            purchasesAreCompletedBy = MY_APP
+            purchasesAreCompletedBy = PurchasesAreCompletedBy.RevenueCat
+            userDefaultsSuiteName = ""
+            storeKitVersion = StoreKitVersion.DEFAULT
+            showInAppMessagesAutomatically = true
+            store = Store.PLAY_STORE
+            diagnosticsEnabled = true
+            dangerousSettings = DangerousSettings(autoSyncPurchases = true)
+            verificationMode = EntitlementVerificationMode.INFORMATIONAL
+            pendingTransactionsForPrepaidPlansEnabled = true
+        }
+
+        val config2: PurchasesConfiguration = PurchasesConfiguration(apiKey = "") {
+            appUserId = ""
+            purchasesAreCompletedBy = PurchasesAreCompletedBy.MyApp(StoreKitVersion.DEFAULT)
             userDefaultsSuiteName = ""
             showInAppMessagesAutomatically = true
             store = Store.PLAY_STORE
@@ -252,7 +266,7 @@ private class PurchasesCommonAPI {
         val configuredInstance: Purchases = Purchases.configure(config)
         val otherConfiguredInstance: Purchases = Purchases.configure(apiKey = "") {
             appUserId = ""
-            purchasesAreCompletedBy = MY_APP
+            purchasesAreCompletedBy = PurchasesAreCompletedBy.MyApp(StoreKitVersion.DEFAULT)
             userDefaultsSuiteName = ""
             showInAppMessagesAutomatically = true
             store = Store.PLAY_STORE
@@ -261,6 +275,14 @@ private class PurchasesCommonAPI {
             verificationMode = EntitlementVerificationMode.INFORMATIONAL
         }
         val instance: Purchases = Purchases.sharedInstance
+    }
+    
+    fun checkRecordPurchase() {
+        Purchases.sharedInstance.recordPurchase(
+            productID = "myProductID",
+            onError = { error ->  },
+            onSuccess = { storeTransaction ->  }
+        )
     }
 
     fun checkLogHandler() {
