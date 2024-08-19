@@ -9,4 +9,5 @@ public actual interface SubscriptionOption {
     public actual val presentedOfferingIdentifier: String?
     public actual val presentedOfferingContext: PresentedOfferingContext?
     public actual val purchasingData: PurchasingData
+    public actual val installmentsInfo: InstallmentsInfo?
 }
