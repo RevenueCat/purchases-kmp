@@ -46,6 +46,8 @@ public expect interface SubscriptionOption {
     public val presentedOfferingContext: PresentedOfferingContext?
 
     public val purchasingData: PurchasingData
+
+    public val installmentsInfo: InstallmentsInfo?
 }
 
 /**

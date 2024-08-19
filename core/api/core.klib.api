@@ -6,6 +6,12 @@
 // - Show declarations: true
 
 // Library unique name: <com.revenuecat.purchases:core>
+abstract interface com.revenuecat.purchases.kmp.models/InstallmentsInfo { // com.revenuecat.purchases.kmp.models/InstallmentsInfo|null[0]
+    abstract val commitmentPaymentsCount // com.revenuecat.purchases.kmp.models/InstallmentsInfo.commitmentPaymentsCount|{}commitmentPaymentsCount[0]
+        abstract fun <get-commitmentPaymentsCount>(): kotlin/Int // com.revenuecat.purchases.kmp.models/InstallmentsInfo.commitmentPaymentsCount.<get-commitmentPaymentsCount>|<get-commitmentPaymentsCount>(){}[0]
+    abstract val renewalCommitmentPaymentsCount // com.revenuecat.purchases.kmp.models/InstallmentsInfo.renewalCommitmentPaymentsCount|{}renewalCommitmentPaymentsCount[0]
+        abstract fun <get-renewalCommitmentPaymentsCount>(): kotlin/Int // com.revenuecat.purchases.kmp.models/InstallmentsInfo.renewalCommitmentPaymentsCount.<get-renewalCommitmentPaymentsCount>|<get-renewalCommitmentPaymentsCount>(){}[0]
+}
 abstract interface com.revenuecat.purchases.kmp.models/PurchasingData { // com.revenuecat.purchases.kmp.models/PurchasingData|null[0]
     abstract val productId // com.revenuecat.purchases.kmp.models/PurchasingData.productId|{}productId[0]
         abstract fun <get-productId>(): kotlin/String // com.revenuecat.purchases.kmp.models/PurchasingData.productId.<get-productId>|<get-productId>(){}[0]
@@ -15,6 +21,8 @@ abstract interface com.revenuecat.purchases.kmp.models/PurchasingData { // com.r
 abstract interface com.revenuecat.purchases.kmp.models/SubscriptionOption { // com.revenuecat.purchases.kmp.models/SubscriptionOption|null[0]
     abstract val id // com.revenuecat.purchases.kmp.models/SubscriptionOption.id|{}id[0]
         abstract fun <get-id>(): kotlin/String // com.revenuecat.purchases.kmp.models/SubscriptionOption.id.<get-id>|<get-id>(){}[0]
+    abstract val installmentsInfo // com.revenuecat.purchases.kmp.models/SubscriptionOption.installmentsInfo|{}installmentsInfo[0]
+        abstract fun <get-installmentsInfo>(): com.revenuecat.purchases.kmp.models/InstallmentsInfo? // com.revenuecat.purchases.kmp.models/SubscriptionOption.installmentsInfo.<get-installmentsInfo>|<get-installmentsInfo>(){}[0]
     abstract val presentedOfferingContext // com.revenuecat.purchases.kmp.models/SubscriptionOption.presentedOfferingContext|{}presentedOfferingContext[0]
         abstract fun <get-presentedOfferingContext>(): cocoapods.PurchasesHybridCommon/RCPresentedOfferingContext? // com.revenuecat.purchases.kmp.models/SubscriptionOption.presentedOfferingContext.<get-presentedOfferingContext>|<get-presentedOfferingContext>(){}[0]
     abstract val presentedOfferingIdentifier // com.revenuecat.purchases.kmp.models/SubscriptionOption.presentedOfferingIdentifier|{}presentedOfferingIdentifier[0]
