@@ -276,6 +276,14 @@ private class PurchasesCommonAPI {
         }
         val instance: Purchases = Purchases.sharedInstance
     }
+    
+    fun checkRecordPurchase() {
+        Purchases.sharedInstance.recordPurchase(
+            productID = "myProductID",
+            onError = { error ->  },
+            onSuccess = { storeTransaction ->  }
+        )
+    }
 
     fun checkLogHandler() {
         Purchases.logHandler = object : LogHandler {
