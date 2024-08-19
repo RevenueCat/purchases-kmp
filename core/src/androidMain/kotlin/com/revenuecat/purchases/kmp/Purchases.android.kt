@@ -79,6 +79,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
                     dangerousSettings = dangerousSettings.toAndroidDangerousSettings(),
                     shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
                     verificationMode = verificationMode.name,
+                    pendingTransactionsForPrepaidPlansEnabled = pendingTransactionsForPrepaidPlansEnabled
                 )
             }
 

@@ -249,6 +249,7 @@ private class PurchasesCommonAPI {
             diagnosticsEnabled = true
             dangerousSettings = DangerousSettings(autoSyncPurchases = true)
             verificationMode = EntitlementVerificationMode.INFORMATIONAL
+            pendingTransactionsForPrepaidPlansEnabled = true
         }
 
         val config2: PurchasesConfiguration = PurchasesConfiguration(apiKey = "") {

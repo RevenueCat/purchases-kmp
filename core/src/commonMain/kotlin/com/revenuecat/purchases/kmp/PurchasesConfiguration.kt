@@ -18,6 +18,7 @@ public class PurchasesConfiguration private constructor(
     public val diagnosticsEnabled: Boolean,
     public val dangerousSettings: DangerousSettings,
     public val verificationMode: EntitlementVerificationMode,
+    public val pendingTransactionsForPrepaidPlansEnabled: Boolean?
 ) {
     override fun toString(): String =
         "PurchasesConfiguration(" +
@@ -30,7 +31,8 @@ public class PurchasesConfiguration private constructor(
                 "store=$store, " +
                 "diagnosticsEnabled=$diagnosticsEnabled, " +
                 "dangerousSettings=$dangerousSettings, " +
-                "verificationMode=$verificationMode" +
+                "verificationMode=$verificationMode," +
+                "pendingTransactionsForPrepaidPlansEnabled=$pendingTransactionsForPrepaidPlansEnabled" +
                 ")"
 
     internal fun storeKitVersionToUse(): StoreKitVersion {
@@ -92,6 +94,9 @@ public class PurchasesConfiguration private constructor(
         @set:JvmSynthetic
         public var verificationMode: EntitlementVerificationMode =
             EntitlementVerificationMode.DISABLED
+
+        @set:JvmSynthetic
+        public var pendingTransactionsForPrepaidPlansEnabled: Boolean? = null
 
         /**
          * Your RevenueCat API Key.
@@ -198,6 +203,17 @@ public class PurchasesConfiguration private constructor(
             apply { this.verificationMode = verificationMode }
 
         /**
+         * Enable this setting if you want to allow pending purchases for prepaid subscriptions (only supported
+         * in Google Play). Note that entitlements are not granted until payment is done.
+         * Default is disabled.
+         */
+        public fun pendingTransactionsForPrepaidPlansEnabled(
+            pendingTransactionsForPrepaidPlansEnabled: Boolean
+        ): Builder = apply {
+            this.pendingTransactionsForPrepaidPlansEnabled = pendingTransactionsForPrepaidPlansEnabled
+        }
+
+        /**
          * Creates a [PurchasesConfiguration] instance with the specified properties.
          */
         public fun build(): PurchasesConfiguration = PurchasesConfiguration(
@@ -210,7 +226,8 @@ public class PurchasesConfiguration private constructor(
             store = store,
             diagnosticsEnabled = diagnosticsEnabled,
             dangerousSettings = dangerousSettings,
-            verificationMode = verificationMode
+            verificationMode = verificationMode,
+            pendingTransactionsForPrepaidPlansEnabled = pendingTransactionsForPrepaidPlansEnabled
         )
     }
 }
