@@ -3,7 +3,7 @@ package com.revenuecat.purchases.kmp.models
 /**
  * Play Store only. Payment mode for offer pricing phases
  */
-public expect enum class OfferPaymentMode {
+public enum class OfferPaymentMode {
     /**
      * Subscribers don't pay until the specified period ends
      */

@@ -1,8 +1,15 @@
 package com.revenuecat.purchases.kmp.models
 
-import cocoapods.PurchasesHybridCommon.RCPromotionalOffer
+import platform.Foundation.NSNumberFormatter
+import cocoapods.PurchasesHybridCommon.RCPromotionalOffer as IosPromotionalOffer
 
-public actual typealias PromotionalOffer = RCPromotionalOffer
+public actual class PromotionalOffer(
+    internal val wrapped: IosPromotionalOffer,
+    priceFormatter: NSNumberFormatter?,
+) {
 
-public actual val PromotionalOffer.discount: StoreProductDiscount
-    get() = discount()
+    public actual val discount: StoreProductDiscount =
+        StoreProductDiscount(wrapped.discount(), priceFormatter)
+
+}
+

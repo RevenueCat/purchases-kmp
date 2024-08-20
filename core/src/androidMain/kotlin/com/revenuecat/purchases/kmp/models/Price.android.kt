@@ -1,5 +1,11 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.models.Price as RcPrice
+import com.revenuecat.purchases.models.Price as AndroidPrice
 
-public actual typealias Price = RcPrice
+public actual class Price(
+    internal val wrapped: AndroidPrice
+) {
+    public actual val formatted: String = wrapped.formatted
+    public actual val amountMicros: Long = wrapped.amountMicros
+    public actual val currencyCode: String = wrapped.currencyCode
+}

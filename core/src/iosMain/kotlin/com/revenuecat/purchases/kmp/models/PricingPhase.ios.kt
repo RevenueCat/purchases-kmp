@@ -1,18 +1,9 @@
 package com.revenuecat.purchases.kmp.models
 
-public actual class PricingPhase
-
-public actual val PricingPhase.billingPeriod: Period
-    get() = error("Not available in iOS")
-
-public actual val PricingPhase.recurrenceMode: RecurrenceMode
-    get() = error("Not available in iOS")
-
-public actual val PricingPhase.billingCycleCount: Int?
-    get() = error("Not available in iOS")
-
-public actual val PricingPhase.price: Price
-    get() = error("Not available in iOS")
-
-public actual val PricingPhase.offerPaymentMode: OfferPaymentMode?
-    get() = error("Not available in iOS")
+public actual class PricingPhase(
+    public actual val billingPeriod: Period,
+    public actual val recurrenceMode: RecurrenceMode,
+    public actual val billingCycleCount: Int?,
+    public actual val price: Price,
+    public actual val offerPaymentMode: OfferPaymentMode?,
+)

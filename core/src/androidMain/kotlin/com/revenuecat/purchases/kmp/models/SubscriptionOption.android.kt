@@ -1,7 +1,23 @@
-@file:Suppress("ACTUAL_CLASSIFIER_MUST_HAVE_THE_SAME_MEMBERS_AS_NON_FINAL_EXPECT_CLASSIFIER_WARNING")
-
 package com.revenuecat.purchases.kmp.models
 
+import com.revenuecat.purchases.kmp.PresentedOfferingContext
 import com.revenuecat.purchases.models.SubscriptionOption as RcSubscriptionOption
 
-public actual typealias SubscriptionOption = RcSubscriptionOption
+public class AndroidSubscriptionOption(
+    internal val wrapped: RcSubscriptionOption
+): SubscriptionOption {
+    public override val id: String = wrapped.id
+    public override val pricingPhases: List<PricingPhase> =
+        wrapped.pricingPhases.map { PricingPhase(it) }
+    public override val tags: List<String> = wrapped.tags
+    @Deprecated(
+        "Use presentedOfferingContext instead",
+        replaceWith = ReplaceWith("presentedOfferingContext.offeringIdentifier")
+    )
+    @Suppress("DEPRECATION")
+    public override val presentedOfferingIdentifier: String? = wrapped.presentedOfferingIdentifier
+    public override val presentedOfferingContext: PresentedOfferingContext? =
+        wrapped.presentedOfferingContext?.let { PresentedOfferingContext(it) }
+    public override val purchasingData: PurchasingData =
+        AndroidPurchasingData(wrapped.purchasingData)
+}

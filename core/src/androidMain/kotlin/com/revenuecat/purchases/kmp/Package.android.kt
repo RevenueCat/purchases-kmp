@@ -2,7 +2,6 @@
 
 package com.revenuecat.purchases.kmp
 
-import com.revenuecat.purchases.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.Package as RcPackage
 import com.revenuecat.purchases.PackageType as AndroidPackageType
@@ -16,7 +15,7 @@ public actual val Package.packageType: PackageType
 public actual val Package.storeProduct: StoreProduct
     get() = StoreProduct(product)
 public actual val Package.presentedOfferingContext: PresentedOfferingContext
-    get() = presentedOfferingContext
+    get() = PresentedOfferingContext(presentedOfferingContext)
 
 private fun AndroidPackageType.toPackageType(): PackageType =
     when (this) {

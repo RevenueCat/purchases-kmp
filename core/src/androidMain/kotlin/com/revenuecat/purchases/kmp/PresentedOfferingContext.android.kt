@@ -1,24 +1,21 @@
-@file:Suppress("EXTENSION_SHADOWED_BY_MEMBER")
-
 package com.revenuecat.purchases.kmp
 
-import com.revenuecat.purchases.PresentedOfferingContext as RcPresentedOfferingContext
+import com.revenuecat.purchases.PresentedOfferingContext as AndroidPresentedOfferingContext
+import com.revenuecat.purchases.PresentedOfferingContext.TargetingContext as AndroidPresentedOfferingTargetingContext
 
-public actual typealias PresentedOfferingContext = RcPresentedOfferingContext
+public actual class PresentedOfferingContext(
+    internal val wrapped: AndroidPresentedOfferingContext
+) {
+    public actual val offeringIdentifier: String = wrapped.offeringIdentifier
+    public actual val placementIdentifier: String? = wrapped.placementIdentifier
+    public actual val targetingContext: PresentedOfferingTargetingContext? =
+        wrapped.targetingContext?.let { PresentedOfferingTargetingContext(it) }
 
-public actual typealias PresentedOfferingTargetingContext = RcPresentedOfferingContext.TargetingContext
+}
 
-public actual val PresentedOfferingContext.offeringIdentifier: String
-    get() = offeringIdentifier
-
-public actual val PresentedOfferingContext.placementIdentifier: String?
-    get() = placementIdentifier
-
-public actual val PresentedOfferingContext.targetingContext: PresentedOfferingTargetingContext?
-    get() = targetingContext
-
-public actual val PresentedOfferingTargetingContext.revision: Int
-    get() = revision
-
-public actual val PresentedOfferingTargetingContext.ruleId: String
-    get() = ruleId
+public actual class PresentedOfferingTargetingContext(
+    internal val wrapped: AndroidPresentedOfferingTargetingContext
+) {
+    public actual val revision: Int = wrapped.revision
+    public actual val ruleId: String = wrapped.ruleId
+}

@@ -4,18 +4,9 @@ import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import com.revenuecat.purchases.kmp.ProductType
 import com.revenuecat.purchases.kmp.toProductType
 
-public actual interface PurchasingData {
-    public actual val productId: String
-    public actual val productType: ProductType
+internal class IosPurchasingData(
+    product: RCStoreProduct
+): PurchasingData {
+    override val productId: String = product.productIdentifier()
+    override val productType: ProductType = product.productType().toProductType()
 }
-
-internal fun RCStoreProduct.toPurchasingData(): PurchasingData =
-    IosPurchasingData(
-        productId = productIdentifier(),
-        productType = productType().toProductType()
-    )
-
-private data class IosPurchasingData(
-    override val productId: String,
-    override val productType: ProductType
-): PurchasingData

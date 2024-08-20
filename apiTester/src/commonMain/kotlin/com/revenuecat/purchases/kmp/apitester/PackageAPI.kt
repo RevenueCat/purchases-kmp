@@ -5,7 +5,6 @@ import com.revenuecat.purchases.kmp.PackageType
 import com.revenuecat.purchases.kmp.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.identifier
 import com.revenuecat.purchases.kmp.models.StoreProduct
-import com.revenuecat.purchases.kmp.packageType
 import com.revenuecat.purchases.kmp.presentedOfferingContext
 import com.revenuecat.purchases.kmp.storeProduct
 

@@ -9,28 +9,30 @@ private const val WEEKS_PER_MONTH = DAYS_PER_YEAR / MONTHS_PER_YEAR / DAYS_PER_W
 /**
  * Represents subscription or [PricingPhase] billing period.
  */
-public expect class Period
+public expect class Period {
+
+    /**
+     * The number of period units.
+     */
+    public val value: Int
+
+    /**
+     * The increment of time that a subscription period is specified in.
+     */
+    public val unit: PeriodUnit
+
+}
 
 /**
  * The unit of time a [Period] is denoted in.
  */
-public expect enum class PeriodUnit {
+public enum class PeriodUnit {
     DAY,
     WEEK,
     MONTH,
     YEAR,
     UNKNOWN,
 }
-
-/**
- * The number of period units.
- */
-public expect val Period.value: Int
-
-/**
- * The increment of time that a subscription period is specified in.
- */
-public expect val Period.unit: PeriodUnit
 
 public val Period.valueInMonths: Double
     get() = when (unit) {

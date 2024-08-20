@@ -1,5 +1,12 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.models.OfferPaymentMode as RcOfferPaymentMode
+import com.revenuecat.purchases.models.OfferPaymentMode as AndroidOfferPaymentMode
 
-public actual typealias OfferPaymentMode = RcOfferPaymentMode
+internal fun AndroidOfferPaymentMode.toOfferPaymentMode(): OfferPaymentMode {
+    return when(this) {
+        AndroidOfferPaymentMode.FREE_TRIAL -> OfferPaymentMode.FREE_TRIAL
+        AndroidOfferPaymentMode.SINGLE_PAYMENT -> OfferPaymentMode.SINGLE_PAYMENT
+        AndroidOfferPaymentMode.DISCOUNTED_RECURRING_PAYMENT ->
+            OfferPaymentMode.DISCOUNTED_RECURRING_PAYMENT
+    }
+}
