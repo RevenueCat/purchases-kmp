@@ -13,9 +13,6 @@ This latest release updates the Android SDK dependency from v7 to [v8](https://g
 This release raises the minimum required OS versions to the following:
 
 - iOS 13.0
-- tvOS 13.0
-- watchOS 6.2
-- macOS 10.15
 - Android: SDK 21 (Android 5.0)
 
 ### In-App Purchase Key Required for StoreKit 2
