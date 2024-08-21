@@ -56,20 +56,22 @@ internal object AndroidProvider : Application.ActivityLifecycleCallbacks {
 
 internal fun AndroidProvider.requireApplication(): Application =
     application ?: error(
-        "Purchases has no reference to the Application. Please make sure the merged " +
-                "AndroidManifest.xml contains the InitializationProvider element like below, " +
-                "with at least the PurchasesInitializer child. This should normally happen " +
-                "automatically." +
+        "Purchases has no reference to the Application. Please make sure you have not removed " +
+                "the androidx.startup.InitializationProvider from your AndroidManifest.xml. If you " +
+                "need to remove specific initializers, such as " +
+                "androidx.work.WorkManagerInitializer, do so as follows:" +
                 "\n\n" +
                 """
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:exported="false"
-            android:authorities="${'$'}{applicationId}.androidx-startup">
+            android:authorities="${'$'}{applicationId}.androidx-startup"
+            tools:node="merge">
         
             <meta-data
-                android:name="com.revenuecat.purchases.kmp.di.PurchasesInitializer"
-                android:value="androidx.startup" />
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
         
         </provider>
         """.trimIndent() +
