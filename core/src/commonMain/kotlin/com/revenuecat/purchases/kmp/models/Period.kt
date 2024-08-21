@@ -37,13 +37,3 @@ public enum class PeriodUnit {
     YEAR,
     UNKNOWN,
 }
-
-public val Period.valueInMonths: Double
-    get() = when (unit) {
-        PeriodUnit.DAY -> value / DAYS_PER_MONTH
-        PeriodUnit.WEEK -> value / WEEKS_PER_MONTH
-        PeriodUnit.MONTH -> value.toDouble()
-        PeriodUnit.YEAR -> value * MONTHS_PER_YEAR
-        PeriodUnit.UNKNOWN -> 0.0
-        else -> error("Unexpected PeriodUnit: $unit")
-    }
