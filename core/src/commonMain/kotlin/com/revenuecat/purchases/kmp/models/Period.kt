@@ -14,7 +14,18 @@ private const val WEEKS_PER_MONTH = DAYS_PER_YEAR / MONTHS_PER_YEAR / DAYS_PER_W
 public data class Period(
     val value: Int,
     val unit: PeriodUnit,
-)
+) {
+
+    public val valueInMonths: Double
+        get() = when (unit) {
+            PeriodUnit.DAY -> value / DAYS_PER_MONTH
+            PeriodUnit.WEEK -> value / WEEKS_PER_MONTH
+            PeriodUnit.MONTH -> value.toDouble()
+            PeriodUnit.YEAR -> value * MONTHS_PER_YEAR
+            PeriodUnit.UNKNOWN -> 0.0
+        }
+
+}
 
 /**
  * The unit of time a [Period] is denoted in.

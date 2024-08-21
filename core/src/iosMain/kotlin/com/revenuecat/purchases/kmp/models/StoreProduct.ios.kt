@@ -6,7 +6,7 @@ import com.revenuecat.purchases.kmp.toProductType
 import cocoapods.PurchasesHybridCommon.RCStoreProduct as IosStoreProduct
 import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount as IosStoreProductDiscount
 
-public actual class StoreProduct(
+public actual class StoreProduct internal constructor(
     internal val wrapped: IosStoreProduct
 ) {
     public actual val id: String = wrapped.productIdentifier()

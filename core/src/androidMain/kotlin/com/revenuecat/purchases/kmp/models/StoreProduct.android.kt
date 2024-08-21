@@ -5,7 +5,7 @@ import com.revenuecat.purchases.kmp.ProductType
 import com.revenuecat.purchases.kmp.toProductType
 import com.revenuecat.purchases.models.StoreProduct as AndroidStoreProduct
 
-public actual class StoreProduct(
+public actual class StoreProduct internal constructor(
     internal val wrapped: AndroidStoreProduct
 ) {
     public actual val id: String = wrapped.id
