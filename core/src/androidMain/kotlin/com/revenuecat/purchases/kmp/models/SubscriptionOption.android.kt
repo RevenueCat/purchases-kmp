@@ -8,7 +8,7 @@ public class AndroidSubscriptionOption(
 ): SubscriptionOption {
     public override val id: String = wrapped.id
     public override val pricingPhases: List<PricingPhase> =
-        wrapped.pricingPhases.map { PricingPhase(it) }
+        wrapped.pricingPhases.map { it.toPricingPhase() }
     public override val tags: List<String> = wrapped.tags
     @Deprecated(
         "Use presentedOfferingContext instead",

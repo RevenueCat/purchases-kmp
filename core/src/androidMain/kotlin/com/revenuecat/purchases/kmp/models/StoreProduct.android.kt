@@ -11,10 +11,10 @@ public actual class StoreProduct(
     public actual val id: String = wrapped.id
     public actual val type: ProductType = wrapped.type.toProductType()
     public actual val category: ProductCategory? = type.toProductCategoryOrNull()
-    public actual val price: Price = Price(wrapped.price)
+    public actual val price: Price = wrapped.price.toPrice()
     public actual val title: String = wrapped.title
     public actual val localizedDescription: String? = wrapped.description
-    public actual val period: Period? = wrapped.period?.let { Period(it) }
+    public actual val period: Period? = wrapped.period?.toPeriod()
     public actual val subscriptionOptions: SubscriptionOptions? =
         wrapped.subscriptionOptions?.toSubscriptionOptions()
     public actual val defaultOption: SubscriptionOption? =
