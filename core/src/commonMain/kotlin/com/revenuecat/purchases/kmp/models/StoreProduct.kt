@@ -96,3 +96,33 @@ public expect val StoreProduct.purchasingData: PurchasingData
  * - if fetched directly via `Purchases.getProducts`
  */
 public expect val StoreProduct.presentedOfferingContext: PresentedOfferingContext?
+
+/**
+ * Null for INAPP products. The price of the [StoreProduct] in the current locale in a weekly
+ * recurrence.
+ * This means that, for example, if the period is monthly, the price will be divided by 4.
+ * It uses a currency formatter to format the price in the given locale.
+ * Note that this value may be an approximation.
+ * For Google subscriptions, this value will use the basePlan to calculate the value.
+ */
+public expect fun StoreProduct.pricePerWeek(): Price?
+
+/**
+ * Null for INAPP products. The price of the [StoreProduct] in the current locale in a monthly
+ * recurrence.
+ * This means that, for example, if the period is annual, the price will be divided by 12.
+ * It uses a currency formatter to format the price in the given locale.
+ * Note that this value may be an approximation.
+ * For Google subscriptions, this value will use the basePlan to calculate the value.
+ */
+public expect fun StoreProduct.pricePerMonth(): Price?
+
+/**
+ * Null for INAPP products. The price of the [StoreProduct] in the current locale in a yearly
+ * recurrence.
+ * This means that, for example, if the period is monthly, the price will be multiplied by 12.
+ * It uses a currency formatter to format the price in the given locale.
+ * Note that this value may be an approximation.
+ * For Google subscriptions, this value will use the basePlan to calculate the value.
+ */
+public expect fun StoreProduct.pricePerYear(): Price?

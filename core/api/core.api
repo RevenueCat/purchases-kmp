@@ -562,6 +562,9 @@ public final class com/revenuecat/purchases/kmp/models/StoreProduct_androidKt {
 	public static final fun getSubscriptionOptions (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/models/SubscriptionOptions;
 	public static final fun getTitle (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Ljava/lang/String;
 	public static final fun getType (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/ProductType;
+	public static final fun pricePerMonth (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/models/Price;
+	public static final fun pricePerWeek (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/models/Price;
+	public static final fun pricePerYear (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/models/Price;
 }
 
 public final class com/revenuecat/purchases/kmp/models/StoreTransaction_androidKt {
