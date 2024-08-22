@@ -20,8 +20,8 @@ kotlin {
     }
 
     cocoapods {
-        version = "1.0"
-        ios.deploymentTarget = "11.0"
+        version = libs.versions.revenuecat.kmp.get()
+        ios.deploymentTarget = libs.versions.ios.deploymentTarget.get()
 
         pod("PurchasesHybridCommonUI") {
             version = libs.versions.revenuecat.common.get()
