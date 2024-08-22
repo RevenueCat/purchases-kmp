@@ -1,35 +1,35 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'core'
+    spec.name                     = 'mappings'
     spec.version                  = '1.0.0-SNAPSHOT'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
     spec.license                  = ''
     spec.summary                  = ''
-    spec.vendored_frameworks      = 'build/cocoapods/framework/Purchases.framework'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/mappings.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '13.0'
     spec.dependency 'PurchasesHybridCommon', '11.1.1'
                 
-    if !Dir.exist?('build/cocoapods/framework/Purchases.framework') || Dir.empty?('build/cocoapods/framework/Purchases.framework')
+    if !Dir.exist?('build/cocoapods/framework/mappings.framework') || Dir.empty?('build/cocoapods/framework/mappings.framework')
         raise "
 
-        Kotlin framework 'Purchases' doesn't exist yet, so a proper Xcode project can't be generated.
+        Kotlin framework 'mappings' doesn't exist yet, so a proper Xcode project can't be generated.
         'pod install' should be executed after running ':generateDummyFramework' Gradle task:
 
-            ./gradlew :core:generateDummyFramework
+            ./gradlew :mappings:generateDummyFramework
 
         Alternatively, proper pod installation is performed during Gradle sync in the IDE (if Podfile location is set)"
     end
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':core',
-        'PRODUCT_MODULE_NAME' => 'Purchases',
+        'KOTLIN_PROJECT_PATH' => ':mappings',
+        'PRODUCT_MODULE_NAME' => 'mappings',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build core',
+            :name => 'Build mappings',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT
