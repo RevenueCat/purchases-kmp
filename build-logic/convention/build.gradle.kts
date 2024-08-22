@@ -28,5 +28,10 @@ gradlePlugin {
             implementationClass =
                 "com.revenuecat.purchases.kmp.buildlogic.plugin.PublicLibraryConventionPlugin"
         }
+        register("InternalLibrary") {
+            id = "revenuecat-internal-library"
+            implementationClass =
+                "com.revenuecat.purchases.kmp.buildlogic.plugin.InternalLibraryConventionPlugin"
+        }
     }
 }
