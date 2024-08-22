@@ -10,10 +10,10 @@ import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 /**
- * A build convention plugin to be applied to all published library modules, to reduce duplication
+ * A build convention plugin to be applied to all public library modules, to reduce duplication
  * in build scripts.
  */
-class LibraryConventionPlugin : Plugin<Project> {
+class PublicLibraryConventionPlugin : Plugin<Project> {
 
     override fun apply(target: Project) = with(target) {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")

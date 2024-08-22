@@ -23,10 +23,10 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("Library") {
-            id = "revenuecat-library"
+        register("PublicLibrary") {
+            id = "revenuecat-public-library"
             implementationClass =
-                "com.revenuecat.purchases.kmp.buildlogic.plugin.LibraryConventionPlugin"
+                "com.revenuecat.purchases.kmp.buildlogic.plugin.PublicLibraryConventionPlugin"
         }
     }
 }

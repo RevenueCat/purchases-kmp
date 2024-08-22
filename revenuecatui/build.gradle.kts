@@ -1,5 +1,5 @@
 plugins {
-    id("revenuecat-library")
+    id("revenuecat-public-library")
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlin.cocoapods)
 }
