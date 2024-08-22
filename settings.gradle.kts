@@ -19,9 +19,10 @@ dependencyResolutionManagement {
 
 rootProject.name = "purchases-kmp"
 include(":apiTester")
-include(":core")
-include(":result")
-include(":either")
-include(":datetime")
-include(":revenuecatui")
 include(":composeApp")
+include(":core")
+include(":datetime")
+include(":either")
+include(":mappings")
+include(":result")
+include(":revenuecatui")
