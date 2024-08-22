@@ -8,6 +8,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.core)
+            implementation(projects.mappings)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.ui)
