@@ -5,30 +5,14 @@ import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount
 import platform.Foundation.NSDecimalNumber
 import platform.Foundation.NSNumberFormatter
 
-public actual data class Price(
-    actual val formatted: String,
-    actual val amountMicros: Long,
-    actual val currencyCode: String,
-) {
-    internal constructor(
-        formatted: String,
-        amountDecimal: NSDecimalNumber,
-        currencyCode: String,
-    ) : this(
-        formatted = formatted,
-        amountMicros = amountDecimal.decimalNumberByMultiplyingByPowerOf10(6).longValue,
-        currencyCode = currencyCode,
-    )
-}
-
 internal fun RCStoreProduct.toPrice(): Price =
     localizedPriceString().let { localizedPrice ->
         Price(
             formatted = localizedPrice,
-            amountDecimal = priceFormatter().amountDecimalOrDefault(
+            amountMicros = priceFormatter().amountDecimalOrDefault(
                 localizedPrice = localizedPrice,
                 defaultValue = "0.0"
-            ),
+            ).decimalNumberByMultiplyingByPowerOf10(6).longValue,
             currencyCode = currencyCodeOrUsd(),
         )
     }
@@ -40,19 +24,21 @@ internal fun RCStoreProductDiscount.toPrice(formatter: NSNumberFormatter?): Pric
     localizedPriceString().let { localizedPrice ->
         Price(
             formatted = localizedPrice,
-            amountDecimal = formatter.amountDecimalOrDefault(
+            amountMicros = formatter.amountDecimalOrDefault(
                 localizedPrice = localizedPrice,
                 defaultValue = "0.0"
-            ),
+            ).decimalNumberByMultiplyingByPowerOf10(6).longValue,
             currencyCode = currencyCodeOrUsd(),
         )
     }
 
-
 internal fun RCStoreProductDiscount.currencyCodeOrUsd(): String =
     currencyCode() ?: "USD" // FIXME revisit
 
-private fun NSNumberFormatter?.amountDecimalOrDefault(localizedPrice: String, defaultValue: String): NSDecimalNumber =
+private fun NSNumberFormatter?.amountDecimalOrDefault(
+    localizedPrice: String,
+    defaultValue: String
+): NSDecimalNumber =
     this?.numberFromString(localizedPrice)
         ?.let { NSDecimalNumber.decimalNumberWithString(it.stringValue) }
         ?: NSDecimalNumber.decimalNumberWithString(defaultValue)

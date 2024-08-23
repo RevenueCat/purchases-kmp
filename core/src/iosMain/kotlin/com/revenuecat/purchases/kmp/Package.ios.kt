@@ -1,6 +1,7 @@
 package com.revenuecat.purchases.kmp
 
 import cocoapods.PurchasesHybridCommon.RCPackage
+import com.revenuecat.purchases.kmp.models.StoreProduct
 import cocoapods.PurchasesHybridCommon.RCPackageType as IosPackageType
 import cocoapods.PurchasesHybridCommon.RCPackageTypeAnnual as IosPackageTypeAnnual
 import cocoapods.PurchasesHybridCommon.RCPackageTypeCustom as IosPackageTypeCustom
@@ -11,7 +12,6 @@ import cocoapods.PurchasesHybridCommon.RCPackageTypeThreeMonth as IosPackageType
 import cocoapods.PurchasesHybridCommon.RCPackageTypeTwoMonth as IosPackageTypeTwoMonth
 import cocoapods.PurchasesHybridCommon.RCPackageTypeUnknown as IosPackageTypeUnknown
 import cocoapods.PurchasesHybridCommon.RCPackageTypeWeekly as IosPackageTypeWeekly
-import com.revenuecat.purchases.kmp.models.StoreProduct
 
 public actual typealias Package = RCPackage
 
@@ -20,9 +20,9 @@ public actual val Package.identifier: String
 public actual val Package.packageType: PackageType
     get() = packageType().toPackageType()
 public actual val Package.storeProduct: StoreProduct
-    get() = storeProduct()
+    get() = StoreProduct(storeProduct())
 public actual val Package.presentedOfferingContext: PresentedOfferingContext
-    get() = presentedOfferingContext()
+    get() = presentedOfferingContext().toPresentedOfferingContext()
 
 private fun IosPackageType.toPackageType(): PackageType =
     when (this) {

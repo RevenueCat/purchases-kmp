@@ -8,6 +8,7 @@ import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.RCStoreTransaction
 import com.revenuecat.purchases.kmp.models.StoreTransaction
+import com.revenuecat.purchases.kmp.models.StoreProduct
 import platform.Foundation.NSError
 import platform.darwin.NSObject
 
@@ -27,7 +28,7 @@ private class PurchasesDelegateWrapper(val wrapped: PurchasesDelegate) :
         readyForPromotedProduct: RCStoreProduct,
         purchase: (((RCStoreTransaction?, RCCustomerInfo?, NSError?, Boolean) -> Unit)?) -> Unit
     ) {
-        wrapped.onPurchasePromoProduct(readyForPromotedProduct) { onError, onSuccess ->
+        wrapped.onPurchasePromoProduct(StoreProduct(readyForPromotedProduct)) { onError, onSuccess ->
             purchase { transaction, customerInfo, error, userCancelled ->
                 if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
                 else onSuccess(

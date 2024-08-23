@@ -8,7 +8,6 @@ import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
 import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
 import com.revenuecat.purchases.kmp.models.BillingFeature
-import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.StoreMessageType
 import com.revenuecat.purchases.kmp.models.StoreProduct
@@ -150,7 +149,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ): Unit = iosPurchases.getProductsWithIdentifiers(
         productIdentifiers = productIds,
         completion = {
-            onSuccess(it.orEmpty().map { product -> (product as RCStoreProduct) })
+            onSuccess(it.orEmpty().map { product -> StoreProduct(product as RCStoreProduct) })
         },
     )
 
@@ -160,11 +159,13 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (offer: PromotionalOffer) -> Unit,
     ): Unit = iosPurchases.getPromotionalOfferForProductDiscount(
-        discount = discount,
-        withProduct = storeProduct
+        discount = discount.wrapped,
+        withProduct = storeProduct.wrapped,
     ) { offer, error ->
         if (error != null) onError(error.toPurchasesErrorOrThrow())
-        else onSuccess(offer ?: error("Expected a non-null RCPromotionalOffer"))
+        else onSuccess(offer?.let {
+            PromotionalOffer(it, storeProduct.wrapped.priceFormatter())
+        } ?: error("Expected a non-null RCPromotionalOffer"))
     }
 
     public actual fun purchase(
@@ -175,7 +176,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         oldProductId: String?,
         replacementMode: ReplacementMode?,
     ): Unit = iosPurchases.purchaseProduct(
-        storeProduct
+        storeProduct.wrapped
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
@@ -222,8 +223,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     ): Unit = iosPurchases.purchaseProduct(
-        storeProduct,
-        promotionalOffer
+        storeProduct.wrapped,
+        promotionalOffer.wrapped
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
@@ -240,7 +241,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     ): Unit = iosPurchases.purchasePackage(
         packageToPurchase,
-        promotionalOffer
+        promotionalOffer.wrapped
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
