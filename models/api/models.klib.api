@@ -1,0 +1,11 @@
+// Klib ABI Dump
+// Targets: [iosArm64, iosSimulatorArm64, iosX64]
+// Rendering settings:
+// - Signature version: 2
+// - Show manifest properties: true
+// - Show declarations: true
+
+// Library unique name: <com.revenuecat.purchases:models>
+final class com.revenuecat.purchases.kmp.models/StoreProduct { // com.revenuecat.purchases.kmp.models/StoreProduct|null[0]
+    constructor <init>() // com.revenuecat.purchases.kmp.models/StoreProduct.<init>|<init>(){}[0]
+}

@@ -94,14 +94,6 @@ final class com.revenuecat.purchases.kmp.models/Period { // com.revenuecat.purch
     final val valueInMonths // com.revenuecat.purchases.kmp.models/Period.valueInMonths|{}valueInMonths[0]
         final fun <get-valueInMonths>(): kotlin/Double // com.revenuecat.purchases.kmp.models/Period.valueInMonths.<get-valueInMonths>|<get-valueInMonths>(){}[0]
 }
-final class com.revenuecat.purchases.kmp.models/Period { // com.revenuecat.purchases.kmp.models/Period|null[0]
-    final val unit // com.revenuecat.purchases.kmp.models/Period.unit|{}unit[0]
-        final fun <get-unit>(): com.revenuecat.purchases.kmp.models/PeriodUnit // com.revenuecat.purchases.kmp.models/Period.unit.<get-unit>|<get-unit>(){}[0]
-    final val value // com.revenuecat.purchases.kmp.models/Period.value|{}value[0]
-        final fun <get-value>(): kotlin/Int // com.revenuecat.purchases.kmp.models/Period.value.<get-value>|<get-value>(){}[0]
-    final val valueInMonths // com.revenuecat.purchases.kmp.models/Period.valueInMonths|{}valueInMonths[0]
-        final fun <get-valueInMonths>(): kotlin/Double // com.revenuecat.purchases.kmp.models/Period.valueInMonths.<get-valueInMonths>|<get-valueInMonths>(){}[0]
-}
 final class com.revenuecat.purchases.kmp.models/Price { // com.revenuecat.purchases.kmp.models/Price|null[0]
     final val amountMicros // com.revenuecat.purchases.kmp.models/Price.amountMicros|{}amountMicros[0]
         final fun <get-amountMicros>(): kotlin/Long // com.revenuecat.purchases.kmp.models/Price.amountMicros.<get-amountMicros>|<get-amountMicros>(){}[0]

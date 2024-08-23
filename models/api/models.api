@@ -1,0 +1,4 @@
+public final class com/revenuecat/purchases/kmp/models/StoreProduct {
+	public fun <init> ()V
+}
+
