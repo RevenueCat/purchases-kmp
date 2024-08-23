@@ -2,6 +2,7 @@ package com.revenuecat.purchases.kmp.models
 
 import com.revenuecat.purchases.kmp.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.ProductType
+import com.revenuecat.purchases.kmp.toPresentedOfferingContext
 import com.revenuecat.purchases.kmp.toProductType
 import com.revenuecat.purchases.models.StoreProduct as AndroidStoreProduct
 
@@ -23,5 +24,5 @@ public actual class StoreProduct internal constructor(
     public actual val introductoryDiscount: StoreProductDiscount? = null
     public actual val purchasingData: PurchasingData = AndroidPurchasingData(wrapped.purchasingData)
     public actual val presentedOfferingContext: PresentedOfferingContext? =
-        wrapped.presentedOfferingContext?.let { PresentedOfferingContext(it) }
+        wrapped.presentedOfferingContext?.toPresentedOfferingContext()
 }

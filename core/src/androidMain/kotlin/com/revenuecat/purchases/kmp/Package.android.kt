@@ -15,7 +15,7 @@ public actual val Package.packageType: PackageType
 public actual val Package.storeProduct: StoreProduct
     get() = StoreProduct(product)
 public actual val Package.presentedOfferingContext: PresentedOfferingContext
-    get() = PresentedOfferingContext(presentedOfferingContext)
+    get() = presentedOfferingContext.toPresentedOfferingContext()
 
 private fun AndroidPackageType.toPackageType(): PackageType =
     when (this) {

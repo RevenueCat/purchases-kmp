@@ -1,6 +1,7 @@
 package com.revenuecat.purchases.kmp.models
 
 import com.revenuecat.purchases.kmp.PresentedOfferingContext
+import com.revenuecat.purchases.kmp.toPresentedOfferingContext
 import com.revenuecat.purchases.models.SubscriptionOption as RcSubscriptionOption
 
 internal class AndroidSubscriptionOption(
@@ -17,7 +18,7 @@ internal class AndroidSubscriptionOption(
     @Suppress("DEPRECATION")
     override val presentedOfferingIdentifier: String? = wrapped.presentedOfferingIdentifier
     override val presentedOfferingContext: PresentedOfferingContext? =
-        wrapped.presentedOfferingContext?.let { PresentedOfferingContext(it) }
+        wrapped.presentedOfferingContext?.toPresentedOfferingContext()
     override val purchasingData: PurchasingData =
         AndroidPurchasingData(wrapped.purchasingData)
 }

@@ -22,7 +22,7 @@ public actual val Package.packageType: PackageType
 public actual val Package.storeProduct: StoreProduct
     get() = StoreProduct(storeProduct())
 public actual val Package.presentedOfferingContext: PresentedOfferingContext
-    get() = PresentedOfferingContext(presentedOfferingContext())
+    get() = presentedOfferingContext().toPresentedOfferingContext()
 
 private fun IosPackageType.toPackageType(): PackageType =
     when (this) {
