@@ -1,37 +1,29 @@
-@file:Suppress("EXTENSION_SHADOWED_BY_MEMBER")
-
 package com.revenuecat.purchases.kmp.models
 
-import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import com.revenuecat.purchases.kmp.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.ProductType
 import com.revenuecat.purchases.kmp.toProductType
+import cocoapods.PurchasesHybridCommon.RCStoreProduct as IosStoreProduct
+import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount as IosStoreProductDiscount
 
-public actual typealias StoreProduct = RCStoreProduct
-
-public actual val StoreProduct.id: String
-    get() = productIdentifier()
-public actual val StoreProduct.type: ProductType
-    get() = productType().toProductType()
-public actual val StoreProduct.category: ProductCategory?
-    get() = productCategory().toProductCategory()
-public actual val StoreProduct.price: Price
-    get() = toPrice()
-public actual val StoreProduct.title: String
-    get() = localizedTitle()
-public actual val StoreProduct.localizedDescription: String?
-    get() = localizedDescription()
-public actual val StoreProduct.period: Period?
-    get() = subscriptionPeriod()
-public actual val StoreProduct.subscriptionOptions: SubscriptionOptions?
-    get() = null
-public actual val StoreProduct.defaultOption: SubscriptionOption?
-    get() = null
-public actual val StoreProduct.discounts: List<StoreProductDiscount>
-    get() = discounts().map { it as StoreProductDiscount }
-public actual val StoreProduct.introductoryDiscount: StoreProductDiscount?
-    get() = introductoryDiscount()
-public actual val StoreProduct.purchasingData: PurchasingData
-    get() = toPurchasingData()
-public actual val StoreProduct.presentedOfferingContext: PresentedOfferingContext?
-    get() = null
+public actual class StoreProduct internal constructor(
+    internal val wrapped: IosStoreProduct
+) {
+    public actual val id: String = wrapped.productIdentifier()
+    public actual val type: ProductType = wrapped.productType().toProductType()
+    public actual val category: ProductCategory? = wrapped.productCategory().toProductCategory()
+    public actual val price: Price = wrapped.toPrice()
+    public actual val title: String = wrapped.localizedTitle()
+    public actual val localizedDescription: String? = wrapped.localizedDescription()
+    public actual val period: Period? = wrapped.subscriptionPeriod()?.toPeriod()
+    public actual val subscriptionOptions: SubscriptionOptions? = null
+    public actual val defaultOption: SubscriptionOption? = null
+    public actual val discounts: List<StoreProductDiscount> =
+        wrapped.discounts().map {
+            StoreProductDiscount(it as IosStoreProductDiscount, wrapped.priceFormatter())
+        }
+    public actual val introductoryDiscount: StoreProductDiscount? =
+        wrapped.introductoryDiscount()?.let { StoreProductDiscount(it, wrapped.priceFormatter()) }
+    public actual val purchasingData: PurchasingData = IosPurchasingData(wrapped)
+    public actual val presentedOfferingContext: PresentedOfferingContext? = null
+}

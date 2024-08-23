@@ -1,28 +1,15 @@
 package com.revenuecat.purchases.kmp.models
 
-import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriod
-import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnit
+import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriod as IosPeriod
+import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnit as IosPeriodUnit
 import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnitDay
 import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnitMonth
 import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnitWeek
 import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnitYear
 
-public actual typealias Period = RCSubscriptionPeriod
-public actual enum class PeriodUnit {
-    DAY,
-    WEEK,
-    MONTH,
-    YEAR,
-    UNKNOWN,
-}
+internal fun IosPeriod.toPeriod(): Period = Period(value().toInt(), unit().toPeriodUnit())
 
-public actual val Period.value: Int
-    get() = value().toInt()
-
-public actual val Period.unit: PeriodUnit
-    get() = unit().toUnit()
-
-internal fun RCSubscriptionPeriodUnit.toUnit(): PeriodUnit =
+internal fun IosPeriodUnit.toPeriodUnit(): PeriodUnit =
     when (this) {
         RCSubscriptionPeriodUnitDay -> PeriodUnit.DAY
         RCSubscriptionPeriodUnitWeek -> PeriodUnit.WEEK

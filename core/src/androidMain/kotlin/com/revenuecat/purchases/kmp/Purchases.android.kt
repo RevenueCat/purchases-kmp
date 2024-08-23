@@ -8,6 +8,7 @@ import com.revenuecat.purchases.getProductsWith
 import com.revenuecat.purchases.kmp.di.AndroidProvider
 import com.revenuecat.purchases.kmp.di.requireActivity
 import com.revenuecat.purchases.kmp.di.requireApplication
+import com.revenuecat.purchases.kmp.models.AndroidSubscriptionOption
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
@@ -191,7 +192,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
     ): Unit = androidPurchases.purchaseWith(
         purchaseParams = PurchaseParams.Builder(
             AndroidProvider.requireActivity(),
-            storeProduct
+            storeProduct.wrapped
         ).apply {
             if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
             if (oldProductId != null) oldProductId(oldProductId)
@@ -237,7 +238,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
     ): Unit = androidPurchases.purchaseWith(
         purchaseParams = PurchaseParams.Builder(
             AndroidProvider.requireActivity(),
-            subscriptionOption
+            (subscriptionOption as AndroidSubscriptionOption).wrapped
         ).apply {
             if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
             if (oldProductId != null) oldProductId(oldProductId)

@@ -1,5 +1,11 @@
 package com.revenuecat.purchases.kmp
 
-import com.revenuecat.purchases.ProductType as RcProductType
+import com.revenuecat.purchases.ProductType as AndroidProductType
 
-public actual typealias ProductType = RcProductType
+internal fun AndroidProductType.toProductType(): ProductType {
+    return when (this) {
+        AndroidProductType.SUBS -> ProductType.SUBS
+        AndroidProductType.INAPP -> ProductType.INAPP
+        AndroidProductType.UNKNOWN -> ProductType.UNKNOWN
+    }
+}

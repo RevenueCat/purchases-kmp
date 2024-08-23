@@ -1,5 +1,5 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.models.Price as RcPrice
+import com.revenuecat.purchases.models.Price as AndroidPrice
 
-public actual typealias Price = RcPrice
+internal fun AndroidPrice.toPrice(): Price = Price(formatted, amountMicros, currencyCode)

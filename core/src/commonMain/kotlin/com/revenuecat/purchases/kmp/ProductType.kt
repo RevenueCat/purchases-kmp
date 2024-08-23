@@ -3,7 +3,7 @@ package com.revenuecat.purchases.kmp
 /**
  * Possible product types.
  */
-public expect enum class ProductType {
+public enum class ProductType {
     /**
      * A subscription product.
      */

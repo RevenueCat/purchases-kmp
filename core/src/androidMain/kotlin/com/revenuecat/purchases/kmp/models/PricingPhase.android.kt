@@ -1,22 +1,13 @@
-@file:Suppress("EXTENSION_SHADOWED_BY_MEMBER")
-
 package com.revenuecat.purchases.kmp.models
 
 import com.revenuecat.purchases.models.PricingPhase as AndroidPricingPhase
 
-public actual typealias PricingPhase = AndroidPricingPhase
-
-public actual val PricingPhase.billingPeriod: Period
-    get() = billingPeriod
-
-public actual val PricingPhase.recurrenceMode: RecurrenceMode
-    get() = recurrenceMode.toRecurrenceMode()
-
-public actual val PricingPhase.billingCycleCount: Int?
-    get() = billingCycleCount
-
-public actual val PricingPhase.price: Price
-    get() = price
-
-public actual val PricingPhase.offerPaymentMode: OfferPaymentMode?
-    get() = offerPaymentMode
+internal fun AndroidPricingPhase.toPricingPhase(): PricingPhase {
+    return PricingPhase(
+        billingPeriod = billingPeriod.toPeriod(),
+        recurrenceMode = recurrenceMode.toRecurrenceMode(),
+        billingCycleCount = billingCycleCount,
+        price = price.toPrice(),
+        offerPaymentMode = offerPaymentMode?.toOfferPaymentMode()
+    )
+}

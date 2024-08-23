@@ -5,7 +5,8 @@ import com.revenuecat.purchases.kmp.PresentedOfferingContext
 /**
  * Play Store only. A purchase-able entity for a subscription product.
  */
-public expect interface SubscriptionOption {
+public interface SubscriptionOption {
+
     /**
      * For Google subscriptions:
      * If this SubscriptionOption represents a base plan, this will be the basePlanId.

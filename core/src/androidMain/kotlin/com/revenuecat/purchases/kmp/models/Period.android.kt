@@ -1,14 +1,14 @@
-@file:Suppress("EXTENSION_SHADOWED_BY_MEMBER")
-
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.models.Period as RcPeriod
+import com.revenuecat.purchases.models.Period as AndroidPeriod
+import com.revenuecat.purchases.models.Period.Unit as AndroidPeriodUnit
 
-public actual typealias Period = RcPeriod
-public actual typealias PeriodUnit = RcPeriod.Unit
+internal fun AndroidPeriod.toPeriod(): Period = Period(value, unit.toPeriodUnit())
 
-public actual val Period.value: Int
-    get() = value
-
-public actual val Period.unit: PeriodUnit
-    get() = unit
+internal fun AndroidPeriodUnit.toPeriodUnit(): PeriodUnit = when (this) {
+    AndroidPeriodUnit.DAY -> PeriodUnit.DAY
+    AndroidPeriodUnit.WEEK -> PeriodUnit.WEEK
+    AndroidPeriodUnit.MONTH -> PeriodUnit.MONTH
+    AndroidPeriodUnit.YEAR -> PeriodUnit.YEAR
+    AndroidPeriodUnit.UNKNOWN -> PeriodUnit.UNKNOWN
+}
