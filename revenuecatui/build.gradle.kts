@@ -8,7 +8,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.core)
-            implementation(projects.mappings)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.ui)
@@ -16,6 +15,10 @@ kotlin {
         }
         androidMain.dependencies {
             implementation(libs.revenuecat.commonUi)
+            implementation(projects.mappings)
+        }
+        iosMain.dependencies {
+            implementation(projects.mappings)
         }
     }
 

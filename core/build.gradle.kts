@@ -8,12 +8,13 @@ plugins {
 
 kotlin {
     sourceSets {
-        commonMain.dependencies {
-            implementation(projects.mappings)
-        }
         androidMain.dependencies {
             api(libs.revenuecat.common)
             implementation(libs.androidx.startup)
+            implementation(projects.mappings)
+        }
+        iosMain.dependencies {
+            implementation(projects.mappings)
         }
 
         commonTest.dependencies {
