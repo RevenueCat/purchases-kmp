@@ -1,35 +1,35 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'revenuecatui'
+    spec.name                     = 'models'
     spec.version                  = '1.0.0-SNAPSHOT'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
     spec.license                  = ''
     spec.summary                  = ''
-    spec.vendored_frameworks      = 'build/cocoapods/framework/revenuecatui.framework'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/models.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '13.0'
-    spec.dependency 'PurchasesHybridCommonUI', '13.0.1'
+    spec.dependency 'PurchasesHybridCommon', '13.0.1'
                 
-    if !Dir.exist?('build/cocoapods/framework/revenuecatui.framework') || Dir.empty?('build/cocoapods/framework/revenuecatui.framework')
+    if !Dir.exist?('build/cocoapods/framework/models.framework') || Dir.empty?('build/cocoapods/framework/models.framework')
         raise "
 
-        Kotlin framework 'revenuecatui' doesn't exist yet, so a proper Xcode project can't be generated.
+        Kotlin framework 'models' doesn't exist yet, so a proper Xcode project can't be generated.
         'pod install' should be executed after running ':generateDummyFramework' Gradle task:
 
-            ./gradlew :revenuecatui:generateDummyFramework
+            ./gradlew :models:generateDummyFramework
 
         Alternatively, proper pod installation is performed during Gradle sync in the IDE (if Podfile location is set)"
     end
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':revenuecatui',
-        'PRODUCT_MODULE_NAME' => 'revenuecatui',
+        'KOTLIN_PROJECT_PATH' => ':models',
+        'PRODUCT_MODULE_NAME' => 'models',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build revenuecatui',
+            :name => 'Build models',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT
@@ -46,5 +46,5 @@ Pod::Spec.new do |spec|
             SCRIPT
         }
     ]
-    spec.resources = ['build/compose/cocoapods/compose-resources']
+                
 end
