@@ -310,7 +310,7 @@ public final class com/revenuecat/purchases/kmp/PurchasesAreCompletedBy$RevenueC
 }
 
 public final class com/revenuecat/purchases/kmp/PurchasesConfiguration {
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/StoreKitVersion;ZLcom/revenuecat/purchases/Store;ZLcom/revenuecat/purchases/kmp/DangerousSettings;Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;Ljava/lang/Boolean;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/StoreKitVersion;ZLcom/revenuecat/purchases/kmp/Store;ZLcom/revenuecat/purchases/kmp/DangerousSettings;Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;Ljava/lang/Boolean;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getApiKey ()Ljava/lang/String;
 	public final fun getAppUserId ()Ljava/lang/String;
 	public final fun getDangerousSettings ()Lcom/revenuecat/purchases/kmp/DangerousSettings;
@@ -702,6 +702,7 @@ public final class com/revenuecat/purchases/kmp/models/StoreTransaction_androidK
 
 public abstract interface class com/revenuecat/purchases/kmp/models/SubscriptionOption {
 	public abstract fun getId ()Ljava/lang/String;
+	public abstract fun getInstallmentsInfo ()Lcom/revenuecat/purchases/models/InstallmentsInfo;
 	public abstract fun getPresentedOfferingContext ()Lcom/revenuecat/purchases/kmp/PresentedOfferingContext;
 	public abstract fun getPresentedOfferingIdentifier ()Ljava/lang/String;
 	public abstract fun getPricingPhases ()Ljava/util/List;
@@ -731,3 +732,4 @@ public final class com/revenuecat/purchases/kmp/models/Transaction_androidKt {
 	public static final fun getPurchaseDateMillis (Lcom/revenuecat/purchases/models/Transaction;)J
 	public static final fun getTransactionIdentifier (Lcom/revenuecat/purchases/models/Transaction;)Ljava/lang/String;
 }
+
