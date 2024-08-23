@@ -21,4 +21,5 @@ internal class AndroidSubscriptionOption(
         wrapped.presentedOfferingContext?.toPresentedOfferingContext()
     override val purchasingData: PurchasingData =
         AndroidPurchasingData(wrapped.purchasingData)
+    override val installmentsInfo: InstallmentsInfo? = wrapped.installmentsInfo
 }
