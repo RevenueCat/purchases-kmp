@@ -109,7 +109,9 @@ dependencies {
     dokkatoo(projects.core)
     dokkatoo(projects.datetime)
     dokkatoo(projects.either)
+    dokkatoo(projects.models)
     dokkatoo(projects.result)
+    dokkatoo(projects.revenuecatui)
 }
 
 private fun TaskContainer.registerDetektTask(

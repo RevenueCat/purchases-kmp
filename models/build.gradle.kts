@@ -1,15 +1,12 @@
 plugins {
-    id("revenuecat-internal-library")
+    id("revenuecat-public-library")
     alias(libs.plugins.kotlin.cocoapods)
 }
 
 kotlin {
     sourceSets {
-        commonMain.dependencies {
-            api(projects.models)
-        }
         androidMain.dependencies {
-            api(libs.revenuecat.common)
+            implementation(libs.revenuecat.common)
         }
     }
 
@@ -25,5 +22,5 @@ kotlin {
 }
 
 android {
-    namespace = "com.revenuecat.purchases.kmp.mappings"
+    namespace = "com.revenuecat.purchases.kmp"
 }

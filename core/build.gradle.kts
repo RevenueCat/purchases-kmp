@@ -8,6 +8,9 @@ plugins {
 
 kotlin {
     sourceSets {
+        commonMain.dependencies {
+            api(projects.models)
+        }
         androidMain.dependencies {
             api(libs.revenuecat.common)
             implementation(libs.androidx.startup)
