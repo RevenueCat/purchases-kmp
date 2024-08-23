@@ -11,7 +11,7 @@ private const val WEEKS_PER_MONTH = DAYS_PER_YEAR / MONTHS_PER_YEAR / DAYS_PER_W
  * @property value The number of period units.
  * @property unit The increment of time that a subscription period is specified in.
  */
-public class Period private constructor(
+public class Period internal constructor(
     public val value: Int,
     public val unit: PeriodUnit,
 ) {

@@ -164,16 +164,31 @@ public final class com/revenuecat/purchases/kmp/PeriodType : java/lang/Enum {
 }
 
 public final class com/revenuecat/purchases/kmp/PresentedOfferingContext {
-	public fun <init> (Lcom/revenuecat/purchases/PresentedOfferingContext;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;)Lcom/revenuecat/purchases/kmp/PresentedOfferingContext;
+	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/PresentedOfferingContext;Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/PresentedOfferingContext;
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getOfferingIdentifier ()Ljava/lang/String;
 	public final fun getPlacementIdentifier ()Ljava/lang/String;
 	public final fun getTargetingContext ()Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/PresentedOfferingTargetingContext {
-	public fun <init> (Lcom/revenuecat/purchases/PresentedOfferingContext$TargetingContext;)V
+	public fun <init> (ILjava/lang/String;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (ILjava/lang/String;)Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;
+	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;ILjava/lang/String;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;
+	public fun equals (Ljava/lang/Object;)Z
 	public final fun getRevision ()I
 	public final fun getRuleId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/ProductType : java/lang/Enum {
@@ -559,17 +574,9 @@ public final class com/revenuecat/purchases/kmp/models/OfferPaymentMode : java/l
 }
 
 public final class com/revenuecat/purchases/kmp/models/Period {
-	public fun <init> (ILcom/revenuecat/purchases/kmp/models/PeriodUnit;)V
-	public final fun component1 ()I
-	public final fun component2 ()Lcom/revenuecat/purchases/kmp/models/PeriodUnit;
-	public final fun copy (ILcom/revenuecat/purchases/kmp/models/PeriodUnit;)Lcom/revenuecat/purchases/kmp/models/Period;
-	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/models/Period;ILcom/revenuecat/purchases/kmp/models/PeriodUnit;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/models/Period;
-	public fun equals (Ljava/lang/Object;)Z
 	public final fun getUnit ()Lcom/revenuecat/purchases/kmp/models/PeriodUnit;
 	public final fun getValue ()I
 	public final fun getValueInMonths ()D
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/PeriodUnit : java/lang/Enum {
@@ -584,37 +591,17 @@ public final class com/revenuecat/purchases/kmp/models/PeriodUnit : java/lang/En
 }
 
 public final class com/revenuecat/purchases/kmp/models/Price {
-	public fun <init> (Ljava/lang/String;JLjava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()J
-	public final fun component3 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;JLjava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Price;
-	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/models/Price;Ljava/lang/String;JLjava/lang/String;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/models/Price;
-	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAmountMicros ()J
 	public final fun getCurrencyCode ()Ljava/lang/String;
 	public final fun getFormatted ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/PricingPhase {
-	public fun <init> (Lcom/revenuecat/purchases/kmp/models/Period;Lcom/revenuecat/purchases/kmp/models/RecurrenceMode;Ljava/lang/Integer;Lcom/revenuecat/purchases/kmp/models/Price;Lcom/revenuecat/purchases/kmp/models/OfferPaymentMode;)V
-	public final fun component1 ()Lcom/revenuecat/purchases/kmp/models/Period;
-	public final fun component2 ()Lcom/revenuecat/purchases/kmp/models/RecurrenceMode;
-	public final fun component3 ()Ljava/lang/Integer;
-	public final fun component4 ()Lcom/revenuecat/purchases/kmp/models/Price;
-	public final fun component5 ()Lcom/revenuecat/purchases/kmp/models/OfferPaymentMode;
-	public final fun copy (Lcom/revenuecat/purchases/kmp/models/Period;Lcom/revenuecat/purchases/kmp/models/RecurrenceMode;Ljava/lang/Integer;Lcom/revenuecat/purchases/kmp/models/Price;Lcom/revenuecat/purchases/kmp/models/OfferPaymentMode;)Lcom/revenuecat/purchases/kmp/models/PricingPhase;
-	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/models/PricingPhase;Lcom/revenuecat/purchases/kmp/models/Period;Lcom/revenuecat/purchases/kmp/models/RecurrenceMode;Ljava/lang/Integer;Lcom/revenuecat/purchases/kmp/models/Price;Lcom/revenuecat/purchases/kmp/models/OfferPaymentMode;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/models/PricingPhase;
-	public fun equals (Ljava/lang/Object;)Z
 	public final fun getBillingCycleCount ()Ljava/lang/Integer;
 	public final fun getBillingPeriod ()Lcom/revenuecat/purchases/kmp/models/Period;
 	public final fun getOfferPaymentMode ()Lcom/revenuecat/purchases/kmp/models/OfferPaymentMode;
 	public final fun getPrice ()Lcom/revenuecat/purchases/kmp/models/Price;
 	public final fun getRecurrenceMode ()Lcom/revenuecat/purchases/kmp/models/RecurrenceMode;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/ProductCategory : java/lang/Enum {

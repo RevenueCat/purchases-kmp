@@ -10,7 +10,7 @@ package com.revenuecat.purchases.kmp.models
  * @param offerPaymentMode Indicates how the pricing phase is charged for FINITE_RECURRING
  * pricing phases
  */
-public class PricingPhase private constructor(
+public class PricingPhase internal constructor(
     public val billingPeriod: Period,
     public val recurrenceMode: RecurrenceMode,
     public val billingCycleCount: Int?,
