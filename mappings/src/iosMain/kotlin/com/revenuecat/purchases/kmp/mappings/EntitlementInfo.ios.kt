@@ -1,4 +1,4 @@
-package com.revenuecat.purchases.kmp
+package com.revenuecat.purchases.kmp.mappings
 
 import cocoapods.PurchasesHybridCommon.RCAmazon
 import cocoapods.PurchasesHybridCommon.RCAppStore
@@ -14,43 +14,34 @@ import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypeUnknown
 import cocoapods.PurchasesHybridCommon.RCStripe
 import cocoapods.PurchasesHybridCommon.RCTrial
 import cocoapods.PurchasesHybridCommon.RCUnknownStore
-import com.revenuecat.purchases.kmp.ktx.toEpochMilliseconds
+import com.revenuecat.purchases.kmp.mappings.ktx.toEpochMilliseconds
+import com.revenuecat.purchases.kmp.EntitlementInfo
+import com.revenuecat.purchases.kmp.OwnershipType
+import com.revenuecat.purchases.kmp.PeriodType
+import com.revenuecat.purchases.kmp.Store
 import cocoapods.PurchasesHybridCommon.RCPeriodType as IosPeriodType
 import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipType as IosOwnershipType
 import cocoapods.PurchasesHybridCommon.RCStore as IosStore
 
-public actual typealias EntitlementInfo = RCEntitlementInfo
-
-public actual val EntitlementInfo.identifier: String
-    get() = identifier()
-public actual val EntitlementInfo.isActive: Boolean
-    get() = isActive()
-public actual val EntitlementInfo.willRenew: Boolean
-    get() = willRenew()
-public actual val EntitlementInfo.periodType: PeriodType
-    get() = periodType().toPeriodType()
-public actual val EntitlementInfo.latestPurchaseDateMillis: Long?
-    get() = latestPurchaseDate()?.toEpochMilliseconds()
-public actual val EntitlementInfo.originalPurchaseDateMillis: Long?
-    get() = originalPurchaseDate()?.toEpochMilliseconds()
-public actual val EntitlementInfo.expirationDateMillis: Long?
-    get() = expirationDate()?.toEpochMilliseconds()
-public actual val EntitlementInfo.store: Store
-    get() = store().toStore()
-public actual val EntitlementInfo.productIdentifier: String
-    get() = productIdentifier()
-public actual val EntitlementInfo.productPlanIdentifier: String?
-    get() = productPlanIdentifier()
-public actual val EntitlementInfo.isSandbox: Boolean
-    get() = isSandbox()
-public actual val EntitlementInfo.unsubscribeDetectedAtMillis: Long?
-    get() = unsubscribeDetectedAt()?.toEpochMilliseconds()
-public actual val EntitlementInfo.billingIssueDetectedAtMillis: Long?
-    get() = billingIssueDetectedAt()?.toEpochMilliseconds()
-public actual val EntitlementInfo.ownershipType: OwnershipType
-    get() = ownershipType().toOwnershipType()
-public actual val EntitlementInfo.verification: VerificationResult
-    get() = verification().toVerificationResult()
+internal fun RCEntitlementInfo.toEntitlementInfo(): EntitlementInfo {
+    return EntitlementInfo(
+        identifier(),
+        isActive(),
+        willRenew(),
+        periodType().toPeriodType(),
+        latestPurchaseDate()?.toEpochMilliseconds(),
+        originalPurchaseDate()?.toEpochMilliseconds(),
+        expirationDate()?.toEpochMilliseconds(),
+        store().toStore(),
+        productIdentifier(),
+        productPlanIdentifier(),
+        isSandbox(),
+        unsubscribeDetectedAt()?.toEpochMilliseconds(),
+        billingIssueDetectedAt()?.toEpochMilliseconds(),
+        ownershipType().toOwnershipType(),
+        verification().toVerificationResult()
+    )
+}
 
 internal fun IosStore.toStore(): Store =
     when (this) {

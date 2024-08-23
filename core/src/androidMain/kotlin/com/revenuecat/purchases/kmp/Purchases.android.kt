@@ -8,6 +8,9 @@ import com.revenuecat.purchases.getProductsWith
 import com.revenuecat.purchases.kmp.di.AndroidProvider
 import com.revenuecat.purchases.kmp.di.requireActivity
 import com.revenuecat.purchases.kmp.di.requireApplication
+import com.revenuecat.purchases.kmp.mappings.toAndroidStore
+import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
+import com.revenuecat.purchases.kmp.mappings.toStore
 import com.revenuecat.purchases.kmp.models.AndroidSubscriptionOption
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
@@ -124,7 +127,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onSuccess: (CustomerInfo) -> Unit,
     ): Unit = androidPurchases.syncPurchasesWith(
         onError = { onError(it.toPurchasesError()) },
-        onSuccess = { onSuccess(it) },
+        onSuccess = { onSuccess(it.toCustomerInfo()) },
     )
 
     public actual fun syncAmazonPurchase(
@@ -197,7 +200,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         }
             .build(),
         onError = { error, userCancelled -> onError(error.toPurchasesError(), userCancelled) },
-        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo) },
+        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo.toCustomerInfo()) },
     )
 
     public actual fun purchase(
@@ -220,7 +223,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         }
             .build(),
         onError = { error, userCancelled -> onError(error.toPurchasesError(), userCancelled) },
-        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo) },
+        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo.toCustomerInfo()) },
     )
 
     public actual fun purchase(
@@ -243,7 +246,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         }
             .build(),
         onError = { error, userCancelled -> onError(error.toPurchasesError(), userCancelled) },
-        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo) },
+        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo.toCustomerInfo()) },
     )
 
     public actual fun purchase(
@@ -271,7 +274,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
     ): Unit = androidPurchases.restorePurchasesWith(
         onError = { onError(it.toPurchasesError()) },
-        onSuccess = { onSuccess(it) },
+        onSuccess = { onSuccess(it.toCustomerInfo()) },
     )
 
     public actual fun recordPurchase(
@@ -294,7 +297,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
     ): Unit = androidPurchases.logInWith(
         appUserID = newAppUserID,
         onError = { onError(it.toPurchasesError()) },
-        onSuccess = { customerInfo, created -> onSuccess(customerInfo, created) }
+        onSuccess = { customerInfo, created -> onSuccess(customerInfo.toCustomerInfo(), created) }
     )
 
     public actual fun logOut(
@@ -302,7 +305,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
     ): Unit = androidPurchases.logOutWith(
         onError = { onError(it.toPurchasesError()) },
-        onSuccess = { onSuccess(it) },
+        onSuccess = { onSuccess(it.toCustomerInfo()) },
     )
 
     public actual fun close(): Unit = androidPurchases.close()
@@ -314,7 +317,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
     ): Unit = androidPurchases.getCustomerInfoWith(
         fetchPolicy = fetchPolicy.toAndroidCacheFetchPolicy(),
         onError = { onError(it.toPurchasesError()) },
-        onSuccess = { onSuccess(it) }
+        onSuccess = { onSuccess(it.toCustomerInfo()) }
     )
 
     public actual fun showInAppMessagesIfNeeded(

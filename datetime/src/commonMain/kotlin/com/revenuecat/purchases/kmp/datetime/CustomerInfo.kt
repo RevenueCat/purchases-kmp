@@ -2,12 +2,6 @@ package com.revenuecat.purchases.kmp.datetime
 
 import com.revenuecat.purchases.kmp.CustomerInfo
 import com.revenuecat.purchases.kmp.Purchases
-import com.revenuecat.purchases.kmp.allExpirationDateMillis
-import com.revenuecat.purchases.kmp.allPurchaseDateMillis
-import com.revenuecat.purchases.kmp.firstSeenMillis
-import com.revenuecat.purchases.kmp.latestExpirationDateMillis
-import com.revenuecat.purchases.kmp.originalPurchaseDateMillis
-import com.revenuecat.purchases.kmp.requestDateMillis
 import kotlinx.datetime.Instant
 
 /**

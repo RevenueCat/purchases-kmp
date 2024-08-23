@@ -1,8 +1,7 @@
 package com.revenuecat.purchases.kmp.models
 
 import cocoapods.PurchasesHybridCommon.RCStoreTransaction
-import com.revenuecat.purchases.kmp.ktx.toEpochMilliseconds
-import platform.Foundation.NSDate
+import com.revenuecat.purchases.kmp.mappings.ktx.toEpochMilliseconds
 
 public actual class StoreTransaction private constructor(
     internal val transactionId: String?,

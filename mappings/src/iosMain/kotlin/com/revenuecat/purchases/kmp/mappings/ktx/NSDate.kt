@@ -1,7 +1,7 @@
-package com.revenuecat.purchases.kmp.ktx
+package com.revenuecat.purchases.kmp.mappings.ktx
 
 import platform.Foundation.NSDate
 import platform.Foundation.timeIntervalSince1970
 
-internal fun NSDate.toEpochMilliseconds(): Long =
+public fun NSDate.toEpochMilliseconds(): Long =
     (timeIntervalSince1970() * 1_000).toLong()
