@@ -1,24 +1,16 @@
 package com.revenuecat.purchases.kmp.models
 
-import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount
+import platform.Foundation.NSNumberFormatter
+import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount as IosStoreProductDiscount
 
-public actual typealias StoreProductDiscount = RCStoreProductDiscount
-
-// FIXME create non-aliased class like on Android, and remove the parentProduct parameter.
-public actual fun StoreProductDiscount.price(parentProduct: StoreProduct): Price =
-    toPrice(parentProduct.priceFormatter())
-
-public actual val StoreProductDiscount.numberOfPeriods: Long
-    get() = numberOfPeriods()
-
-public actual val StoreProductDiscount.offerIdentifier: String?
-    get() = offerIdentifier()
-
-public actual val StoreProductDiscount.paymentMode: DiscountPaymentMode
-    get() = paymentMode().toDiscountPaymentMode()
-
-public actual val StoreProductDiscount.subscriptionPeriod: Period
-    get() = subscriptionPeriod()
-
-public actual val StoreProductDiscount.type: DiscountType
-    get() = type().toDiscountType()
+public actual class StoreProductDiscount(
+    internal val wrapped: IosStoreProductDiscount,
+    priceFormatter: NSNumberFormatter?,
+) {
+    public actual val price: Price = wrapped.toPrice(priceFormatter)
+    public actual val numberOfPeriods: Long = wrapped.numberOfPeriods()
+    public actual val offerIdentifier: String? = wrapped.offerIdentifier()
+    public actual val paymentMode: DiscountPaymentMode = wrapped.paymentMode().toDiscountPaymentMode()
+    public actual val subscriptionPeriod: Period = wrapped.subscriptionPeriod().toPeriod()
+    public actual val type: DiscountType = wrapped.type().toDiscountType()
+}
