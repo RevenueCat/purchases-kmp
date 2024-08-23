@@ -1,7 +1,5 @@
 package com.revenuecat.purchases.kmp
 
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.MY_APP
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy.REVENUECAT
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.StoreMessageType
@@ -93,12 +91,6 @@ public expect class Purchases {
     }
 
     /**
-     * Default to [REVENUECAT], set this to [MY_APP] if you are consuming and acknowledging
-     * transactions outside of the Purchases SDK.
-     */
-    public var purchasesAreCompletedBy: PurchasesAreCompletedBy
-
-    /**
      * The passed in or generated app user ID.
      */
     public val appUserID: String
@@ -140,7 +132,7 @@ public expect class Purchases {
     /**
      * This method will send an Amazon purchase to the RevenueCat backend. This function should
      * only be called if you have set [purchasesAreCompletedBy] to
-     * [MY_APP][PurchasesAreCompletedBy.MY_APP] or when performing a client side migration of your
+     * [MyApp][PurchasesAreCompletedBy.MyApp] or when performing a client side migration of your
      * current users to RevenueCat.
      *
      * The receipt IDs are cached if successfully posted so they are not posted more than once.
@@ -377,6 +369,33 @@ public expect class Purchases {
     public fun restorePurchases(
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
+    )
+
+    /**
+     * iOS only. Always returns an error on iOS < 15.
+     *
+     * Use this method only if you already have your own IAP implementation using StoreKit 2 and
+     * want to use RevenueCat's backend. If you are using StoreKit 1 for your implementation, you
+     * do not need this method.
+     *
+     * You only need to use this method with *new* purchases.
+     * Subscription updates are observed automatically.
+     *
+     * Important: This should only be used if you have set [purchasesAreCompletedBy] to
+     * [PurchasesAreCompletedBy.MyApp] during SDK configuration.
+     *
+     * **Warning** You need to finish the transaction yourself after calling this method.
+     *
+     * @param productID: The Product ID that was just purchased
+     * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
+     * what went wrong.
+     * @param onSuccess Will be called if the function completes successfully, including details
+     * on the [StoreTransaction] that was recorded.
+     */
+    public fun recordPurchase(
+        productID: String,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (storeTransaction: StoreTransaction) -> Unit,
     )
 
     /**

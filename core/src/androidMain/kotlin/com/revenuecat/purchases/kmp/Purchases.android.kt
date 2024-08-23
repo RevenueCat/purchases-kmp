@@ -77,7 +77,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
                     context = AndroidProvider.requireApplication(),
                     apiKey = apiKey,
                     appUserID = appUserId,
-                    purchasesAreCompletedBy = purchasesAreCompletedBy.toAndroidPurchasesAreCompletedBy(),
+                    purchasesAreCompletedBy = purchasesAreCompletedBy.toHybridString(),
                     platformInfo = PlatformInfo(
                         flavor = BuildKonfig.platformFlavor,
                         version = frameworkVersion,
@@ -86,6 +86,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
                     dangerousSettings = dangerousSettings.toAndroidDangerousSettings(),
                     shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
                     verificationMode = verificationMode.name,
+                    pendingTransactionsForPrepaidPlansEnabled = pendingTransactionsForPrepaidPlansEnabled
                 )
             }
 
@@ -104,12 +105,6 @@ public actual class Purchases private constructor(private val androidPurchases: 
         private fun DangerousSettings.toAndroidDangerousSettings(): AndroidDangerousSettings =
             AndroidDangerousSettings(autoSyncPurchases)
     }
-
-    public actual var purchasesAreCompletedBy: PurchasesAreCompletedBy
-        get() = androidPurchases.purchasesAreCompletedBy.toPurchasesAreCompletedBy()
-        set(value) {
-            androidPurchases.purchasesAreCompletedBy = value.toAndroidPurchasesAreCompletedBy()
-        }
 
     public actual val appUserID: String by androidPurchases::appUserID
 
@@ -278,6 +273,19 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onError = { onError(it.toPurchasesError()) },
         onSuccess = { onSuccess(it) },
     )
+
+    public actual fun recordPurchase(
+        productID: String,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (storeTransaction: StoreTransaction) -> Unit,
+    ) {
+        onError(
+            PurchasesError(
+                PurchasesErrorCode.UnsupportedError,
+                underlyingErrorMessage = "recordPurchase() is not supported on Android."
+            )
+        )
+    }
 
     public actual fun logIn(
         newAppUserID: String,
