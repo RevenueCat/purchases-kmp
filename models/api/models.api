@@ -1,0 +1,148 @@
+public final class com/revenuecat/purchases/kmp/CustomerInfo {
+	public fun <init> (Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Ljava/util/Set;Lcom/revenuecat/purchases/kmp/EntitlementInfos;JLjava/lang/Long;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Long;J)V
+	public final fun component1 ()Ljava/util/Set;
+	public final fun component10 ()Ljava/lang/String;
+	public final fun component11 ()Ljava/lang/String;
+	public final fun component12 ()Ljava/lang/Long;
+	public final fun component13 ()J
+	public final fun component2 ()Ljava/util/Map;
+	public final fun component3 ()Ljava/util/Map;
+	public final fun component4 ()Ljava/util/Set;
+	public final fun component5 ()Lcom/revenuecat/purchases/kmp/EntitlementInfos;
+	public final fun component6 ()J
+	public final fun component7 ()Ljava/lang/Long;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ljava/util/List;
+	public final fun copy (Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Ljava/util/Set;Lcom/revenuecat/purchases/kmp/EntitlementInfos;JLjava/lang/Long;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Long;J)Lcom/revenuecat/purchases/kmp/CustomerInfo;
+	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/CustomerInfo;Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Ljava/util/Set;Lcom/revenuecat/purchases/kmp/EntitlementInfos;JLjava/lang/Long;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Long;JILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/CustomerInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getActiveSubscriptions ()Ljava/util/Set;
+	public final fun getAllExpirationDateMillis ()Ljava/util/Map;
+	public final fun getAllPurchaseDateMillis ()Ljava/util/Map;
+	public final fun getAllPurchasedProductIdentifiers ()Ljava/util/Set;
+	public final fun getEntitlements ()Lcom/revenuecat/purchases/kmp/EntitlementInfos;
+	public final fun getFirstSeenMillis ()J
+	public final fun getLatestExpirationDateMillis ()Ljava/lang/Long;
+	public final fun getManagementUrlString ()Ljava/lang/String;
+	public final fun getNonSubscriptionTransactions ()Ljava/util/List;
+	public final fun getOriginalAppUserId ()Ljava/lang/String;
+	public final fun getOriginalApplicationVersion ()Ljava/lang/String;
+	public final fun getOriginalPurchaseDateMillis ()Ljava/lang/Long;
+	public final fun getRequestDateMillis ()J
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/EntitlementInfo {
+	public fun <init> (Ljava/lang/String;ZZLcom/revenuecat/purchases/kmp/PeriodType;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;Lcom/revenuecat/purchases/kmp/Store;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/Long;Ljava/lang/Long;Lcom/revenuecat/purchases/kmp/OwnershipType;Lcom/revenuecat/purchases/kmp/VerificationResult;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/lang/String;
+	public final fun component11 ()Z
+	public final fun component12 ()Ljava/lang/Long;
+	public final fun component13 ()Ljava/lang/Long;
+	public final fun component14 ()Lcom/revenuecat/purchases/kmp/OwnershipType;
+	public final fun component15 ()Lcom/revenuecat/purchases/kmp/VerificationResult;
+	public final fun component2 ()Z
+	public final fun component3 ()Z
+	public final fun component4 ()Lcom/revenuecat/purchases/kmp/PeriodType;
+	public final fun component5 ()Ljava/lang/Long;
+	public final fun component6 ()Ljava/lang/Long;
+	public final fun component7 ()Ljava/lang/Long;
+	public final fun component8 ()Lcom/revenuecat/purchases/kmp/Store;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;ZZLcom/revenuecat/purchases/kmp/PeriodType;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;Lcom/revenuecat/purchases/kmp/Store;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/Long;Ljava/lang/Long;Lcom/revenuecat/purchases/kmp/OwnershipType;Lcom/revenuecat/purchases/kmp/VerificationResult;)Lcom/revenuecat/purchases/kmp/EntitlementInfo;
+	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/EntitlementInfo;Ljava/lang/String;ZZLcom/revenuecat/purchases/kmp/PeriodType;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;Lcom/revenuecat/purchases/kmp/Store;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/Long;Ljava/lang/Long;Lcom/revenuecat/purchases/kmp/OwnershipType;Lcom/revenuecat/purchases/kmp/VerificationResult;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/EntitlementInfo;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getBillingIssueDetectedAtMillis ()Ljava/lang/Long;
+	public final fun getExpirationDateMillis ()Ljava/lang/Long;
+	public final fun getIdentifier ()Ljava/lang/String;
+	public final fun getLatestPurchaseDateMillis ()Ljava/lang/Long;
+	public final fun getOriginalPurchaseDateMillis ()Ljava/lang/Long;
+	public final fun getOwnershipType ()Lcom/revenuecat/purchases/kmp/OwnershipType;
+	public final fun getPeriodType ()Lcom/revenuecat/purchases/kmp/PeriodType;
+	public final fun getProductIdentifier ()Ljava/lang/String;
+	public final fun getProductPlanIdentifier ()Ljava/lang/String;
+	public final fun getStore ()Lcom/revenuecat/purchases/kmp/Store;
+	public final fun getUnsubscribeDetectedAtMillis ()Ljava/lang/Long;
+	public final fun getVerification ()Lcom/revenuecat/purchases/kmp/VerificationResult;
+	public final fun getWillRenew ()Z
+	public fun hashCode ()I
+	public final fun isActive ()Z
+	public final fun isSandbox ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/EntitlementInfos {
+	public fun <init> (Ljava/util/Map;Lcom/revenuecat/purchases/kmp/VerificationResult;)V
+	public final fun component1 ()Ljava/util/Map;
+	public final fun component2 ()Lcom/revenuecat/purchases/kmp/VerificationResult;
+	public final fun copy (Ljava/util/Map;Lcom/revenuecat/purchases/kmp/VerificationResult;)Lcom/revenuecat/purchases/kmp/EntitlementInfos;
+	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/EntitlementInfos;Ljava/util/Map;Lcom/revenuecat/purchases/kmp/VerificationResult;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/EntitlementInfos;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun get (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/EntitlementInfo;
+	public final fun getActive ()Ljava/util/Map;
+	public final fun getAll ()Ljava/util/Map;
+	public final fun getVerification ()Lcom/revenuecat/purchases/kmp/VerificationResult;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/OwnershipType : java/lang/Enum {
+	public static final field FAMILY_SHARED Lcom/revenuecat/purchases/kmp/OwnershipType;
+	public static final field PURCHASED Lcom/revenuecat/purchases/kmp/OwnershipType;
+	public static final field UNKNOWN Lcom/revenuecat/purchases/kmp/OwnershipType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/OwnershipType;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/OwnershipType;
+}
+
+public final class com/revenuecat/purchases/kmp/PeriodType : java/lang/Enum {
+	public static final field INTRO Lcom/revenuecat/purchases/kmp/PeriodType;
+	public static final field NORMAL Lcom/revenuecat/purchases/kmp/PeriodType;
+	public static final field TRIAL Lcom/revenuecat/purchases/kmp/PeriodType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PeriodType;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/PeriodType;
+}
+
+public final class com/revenuecat/purchases/kmp/Store : java/lang/Enum {
+	public static final field AMAZON Lcom/revenuecat/purchases/kmp/Store;
+	public static final field APP_STORE Lcom/revenuecat/purchases/kmp/Store;
+	public static final field EXTERNAL Lcom/revenuecat/purchases/kmp/Store;
+	public static final field MAC_APP_STORE Lcom/revenuecat/purchases/kmp/Store;
+	public static final field PLAY_STORE Lcom/revenuecat/purchases/kmp/Store;
+	public static final field PROMOTIONAL Lcom/revenuecat/purchases/kmp/Store;
+	public static final field RC_BILLING Lcom/revenuecat/purchases/kmp/Store;
+	public static final field STRIPE Lcom/revenuecat/purchases/kmp/Store;
+	public static final field UNKNOWN_STORE Lcom/revenuecat/purchases/kmp/Store;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/Store;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/Store;
+}
+
+public final class com/revenuecat/purchases/kmp/VerificationResult : java/lang/Enum {
+	public static final field FAILED Lcom/revenuecat/purchases/kmp/VerificationResult;
+	public static final field NOT_REQUESTED Lcom/revenuecat/purchases/kmp/VerificationResult;
+	public static final field VERIFIED Lcom/revenuecat/purchases/kmp/VerificationResult;
+	public static final field VERIFIED_ON_DEVICE Lcom/revenuecat/purchases/kmp/VerificationResult;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun isVerified ()Z
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/VerificationResult;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/VerificationResult;
+}
+
+public final class com/revenuecat/purchases/kmp/models/Transaction {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;J)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()J
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;J)Lcom/revenuecat/purchases/kmp/models/Transaction;
+	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/models/Transaction;Ljava/lang/String;Ljava/lang/String;JILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/models/Transaction;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getProductIdentifier ()Ljava/lang/String;
+	public final fun getPurchaseDateMillis ()J
+	public final fun getTransactionIdentifier ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
