@@ -1,6 +1,22 @@
 package com.revenuecat.purchases.kmp.mappings
 
+import com.revenuecat.purchases.kmp.CustomerInfo
 import com.revenuecat.purchases.CustomerInfo as AndroidCustomerInfo
 
-// This file is only created so the directory structure is properly set up on git.
-// TODO Add some actual code here.
+public fun AndroidCustomerInfo.toCustomerInfo(): CustomerInfo {
+    return CustomerInfo(
+        activeSubscriptions = activeSubscriptions,
+        allExpirationDateMillis = allExpirationDatesByProduct.mapValues { (_, date) -> date?.time },
+        allPurchaseDateMillis = allPurchaseDatesByProduct.mapValues { (_, date) -> date?.time },
+        allPurchasedProductIdentifiers = allPurchaseDatesByProduct.keys,
+        entitlements = entitlements.toEntitlementInfos(),
+        firstSeenMillis = firstSeen.time,
+        latestExpirationDateMillis = latestExpirationDate?.time,
+        managementUrlString = managementURL?.toString(),
+        nonSubscriptionTransactions = nonSubscriptionTransactions.map { it.toTransaction() },
+        originalAppUserId = originalAppUserId,
+        originalApplicationVersion = null,
+        originalPurchaseDateMillis = originalPurchaseDate?.time,
+        requestDateMillis = requestDate.time
+    )
+}

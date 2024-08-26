@@ -1,8 +1,9 @@
 package com.revenuecat.purchases.kmp.ui.revenuecatui
 
-import com.revenuecat.purchases.CustomerInfo
+import com.revenuecat.purchases.CustomerInfo as AndroidCustomerInfo
 import com.revenuecat.purchases.Package
 import com.revenuecat.purchases.PurchasesError
+import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.toPurchasesError
 import com.revenuecat.purchases.models.StoreTransaction
 import com.revenuecat.purchases.ui.revenuecatui.ExperimentalPreviewRevenueCatUIPurchasesAPI
@@ -28,9 +29,9 @@ private class PaywallListenerWrapper(private val listener: PaywallListener) :
         listener.onPurchaseCancelled()
 
     override fun onPurchaseCompleted(
-        customerInfo: CustomerInfo,
+        customerInfo: AndroidCustomerInfo,
         storeTransaction: StoreTransaction
-    ) = listener.onPurchaseCompleted(customerInfo, storeTransaction)
+    ) = listener.onPurchaseCompleted(customerInfo.toCustomerInfo(), storeTransaction)
 
     override fun onPurchaseError(error: PurchasesError) =
         listener.onPurchaseError(error.toPurchasesError())
@@ -38,8 +39,8 @@ private class PaywallListenerWrapper(private val listener: PaywallListener) :
     override fun onPurchaseStarted(rcPackage: Package) =
         listener.onPurchaseStarted(rcPackage)
 
-    override fun onRestoreCompleted(customerInfo: CustomerInfo) =
-        listener.onRestoreCompleted(customerInfo)
+    override fun onRestoreCompleted(customerInfo: AndroidCustomerInfo) =
+        listener.onRestoreCompleted(customerInfo.toCustomerInfo())
 
     override fun onRestoreError(error: PurchasesError) =
         listener.onRestoreError(error.toPurchasesError())

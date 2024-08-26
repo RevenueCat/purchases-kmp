@@ -7,6 +7,7 @@ import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
 import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
+import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.StoreMessageType
@@ -113,7 +114,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onSuccess: (CustomerInfo) -> Unit,
     ): Unit = iosPurchases.syncPurchasesWithCompletionHandler { customerInfo, error ->
         if (error != null) onError(error.toPurchasesErrorOrThrow())
-        else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
+        else onSuccess(customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo"))
     }
 
     public actual fun syncAmazonPurchase(
@@ -182,7 +183,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         else onSuccess(
             transaction?.let { StoreTransaction(it) }
                 ?: error("Expected a non-null RCStoreTransaction"),
-            customerInfo ?: error("Expected a non-null RCCustomerInfo")
+            customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
         )
     }
 
@@ -200,7 +201,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         else onSuccess(
             transaction?.let { StoreTransaction(it) }
                 ?: error("Expected a non-null RCStoreTransaction"),
-            customerInfo ?: error("Expected a non-null RCCustomerInfo")
+            customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
         )
     }
 
@@ -230,7 +231,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         else onSuccess(
             transaction?.let { StoreTransaction(it) }
                 ?: error("Expected a non-null RCStoreTransaction"),
-            customerInfo ?: error("Expected a non-null RCCustomerInfo")
+            customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
         )
     }
 
@@ -247,7 +248,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         else onSuccess(
             transaction?.let { StoreTransaction(it) }
                 ?: error("Expected a non-null RCStoreTransaction"),
-            customerInfo ?: error("Expected a non-null RCCustomerInfo")
+            customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
         )
     }
 
@@ -256,7 +257,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
     ): Unit = iosPurchases.restorePurchasesWithCompletion { customerInfo, error ->
         if (error != null) onError(error.toPurchasesErrorOrThrow())
-        else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
+        else onSuccess(customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo"))
     }
 
     public actual fun recordPurchase(
@@ -308,7 +309,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         appUserID = newAppUserID,
         completion = { customerInfo, created, error ->
             if (error != null) onError(error.toPurchasesErrorOrThrow())
-            else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"), created)
+            else onSuccess(customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo"), created)
         }
     )
 
@@ -317,7 +318,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
     ): Unit = iosPurchases.logOutWithCompletion { customerInfo, error ->
         if (error != null) onError(error.toPurchasesErrorOrThrow())
-        else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
+        else onSuccess(customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo"))
     }
 
     public actual fun close() {
@@ -332,7 +333,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         fetchPolicy.toIosCacheFetchPolicy()
     ) { customerInfo, error ->
         if (error != null) onError(error.toPurchasesErrorOrThrow())
-        else onSuccess(customerInfo ?: error("Expected a non-null RCCustomerInfo"))
+        else onSuccess(customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo"))
     }
 
     public actual fun showInAppMessagesIfNeeded(

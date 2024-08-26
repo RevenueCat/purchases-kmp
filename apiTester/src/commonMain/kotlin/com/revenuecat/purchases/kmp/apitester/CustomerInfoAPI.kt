@@ -4,25 +4,13 @@ package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.CustomerInfo
 import com.revenuecat.purchases.kmp.EntitlementInfos
-import com.revenuecat.purchases.kmp.activeSubscriptions
-import com.revenuecat.purchases.kmp.allExpirationDateMillis
-import com.revenuecat.purchases.kmp.allPurchaseDateMillis
-import com.revenuecat.purchases.kmp.allPurchasedProductIdentifiers
 import com.revenuecat.purchases.kmp.datetime.allExpirationInstants
 import com.revenuecat.purchases.kmp.datetime.allPurchaseInstants
 import com.revenuecat.purchases.kmp.datetime.firstSeenInstant
 import com.revenuecat.purchases.kmp.datetime.latestExpirationInstant
 import com.revenuecat.purchases.kmp.datetime.originalPurchaseInstant
 import com.revenuecat.purchases.kmp.datetime.requestInstant
-import com.revenuecat.purchases.kmp.entitlements
-import com.revenuecat.purchases.kmp.firstSeenMillis
-import com.revenuecat.purchases.kmp.latestExpirationDateMillis
-import com.revenuecat.purchases.kmp.managementUrlString
 import com.revenuecat.purchases.kmp.models.Transaction
-import com.revenuecat.purchases.kmp.nonSubscriptionTransactions
-import com.revenuecat.purchases.kmp.originalAppUserId
-import com.revenuecat.purchases.kmp.originalPurchaseDateMillis
-import com.revenuecat.purchases.kmp.requestDateMillis
 import kotlinx.datetime.Instant
 
 private class CustomerInfoAPI {

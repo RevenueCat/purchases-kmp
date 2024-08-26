@@ -7,6 +7,7 @@ import cocoapods.PurchasesHybridCommon.RCPurchases
 import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.RCStoreTransaction
+import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import platform.Foundation.NSError
@@ -34,14 +35,14 @@ private class PurchasesDelegateWrapper(val wrapped: PurchasesDelegate) :
                 else onSuccess(
                     transaction?.let { StoreTransaction(it) }
                         ?: error("Expected a non-null RCStoreTransaction"),
-                    customerInfo ?: error("Expected a non-null RCCustomerInfo")
+                    customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
                 )
             }
         }
     }
 
     override fun purchases(purchases: RCPurchases, receivedUpdatedCustomerInfo: RCCustomerInfo) {
-        wrapped.onCustomerInfoUpdated(receivedUpdatedCustomerInfo)
+        wrapped.onCustomerInfoUpdated(receivedUpdatedCustomerInfo.toCustomerInfo())
     }
 
 }
