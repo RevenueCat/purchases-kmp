@@ -4,7 +4,7 @@ import com.revenuecat.purchases.interfaces.UpdatedCustomerInfoListener
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreTransaction
-import com.revenuecat.purchases.CustomerInfo as RCCustomerInfo
+import com.revenuecat.purchases.CustomerInfo as AndroidCustomerInfo
 
 /**
  * A convenience implementation of [PurchasesDelegate] specifically for Android. Only requires the
@@ -33,7 +33,7 @@ internal fun PurchasesDelegate.toUpdatedCustomerInfoListener(): UpdatedCustomerI
 
 private class PurchasesDelegateWrapper(val wrapped: PurchasesDelegate) :
     UpdatedCustomerInfoListener {
-    override fun onReceived(customerInfo: RCCustomerInfo) {
+    override fun onReceived(customerInfo: AndroidCustomerInfo) {
         wrapped.onCustomerInfoUpdated(customerInfo.toCustomerInfo())
     }
 }

@@ -5,8 +5,8 @@ import com.revenuecat.purchases.kmp.models.Transaction
 
 internal fun AndroidTransaction.toTransaction(): Transaction {
     return Transaction(
-        transactionIdentifier,
-        productIdentifier,
-        purchaseDate.time
+        transactionIdentifier = transactionIdentifier,
+        productIdentifier = productIdentifier,
+        purchaseDateMillis = purchaseDate.time
     )
 }

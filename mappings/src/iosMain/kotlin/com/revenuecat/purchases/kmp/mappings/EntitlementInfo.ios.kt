@@ -25,21 +25,21 @@ import cocoapods.PurchasesHybridCommon.RCStore as IosStore
 
 internal fun RCEntitlementInfo.toEntitlementInfo(): EntitlementInfo {
     return EntitlementInfo(
-        identifier(),
-        isActive(),
-        willRenew(),
-        periodType().toPeriodType(),
-        latestPurchaseDate()?.toEpochMilliseconds(),
-        originalPurchaseDate()?.toEpochMilliseconds(),
-        expirationDate()?.toEpochMilliseconds(),
-        store().toStore(),
-        productIdentifier(),
-        productPlanIdentifier(),
-        isSandbox(),
-        unsubscribeDetectedAt()?.toEpochMilliseconds(),
-        billingIssueDetectedAt()?.toEpochMilliseconds(),
-        ownershipType().toOwnershipType(),
-        verification().toVerificationResult()
+        identifier = identifier(),
+        isActive = isActive(),
+        willRenew = willRenew(),
+        periodType = periodType().toPeriodType(),
+        latestPurchaseDateMillis = latestPurchaseDate()?.toEpochMilliseconds(),
+        originalPurchaseDateMillis = originalPurchaseDate()?.toEpochMilliseconds(),
+        expirationDateMillis = expirationDate()?.toEpochMilliseconds(),
+        store = store().toStore(),
+        productIdentifier = productIdentifier(),
+        productPlanIdentifier = productPlanIdentifier(),
+        isSandbox = isSandbox(),
+        unsubscribeDetectedAtMillis = unsubscribeDetectedAt()?.toEpochMilliseconds(),
+        billingIssueDetectedAtMillis = billingIssueDetectedAt()?.toEpochMilliseconds(),
+        ownershipType = ownershipType().toOwnershipType(),
+        verification = verification().toVerificationResult()
     )
 }
 

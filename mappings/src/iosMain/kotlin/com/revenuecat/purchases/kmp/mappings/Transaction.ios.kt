@@ -8,8 +8,8 @@ internal fun Map<String, Any?>.toTransaction(): Transaction {
     // TODO: This is a workaround for the fact that PHC does not expose
     // the NonSubscriptionTransaction type
     return Transaction(
-        get("transactionIdentifier") as String,
-        get("productIdentifier") as String,
-        (get("purchaseDate") as NSDate).toEpochMilliseconds()
+        transactionIdentifier = get("transactionIdentifier") as String,
+        productIdentifier = get("productIdentifier") as String,
+        purchaseDateMillis = (get("purchaseDate") as NSDate).toEpochMilliseconds()
     )
 }

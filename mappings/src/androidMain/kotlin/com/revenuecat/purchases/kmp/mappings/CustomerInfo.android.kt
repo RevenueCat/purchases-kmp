@@ -5,18 +5,18 @@ import com.revenuecat.purchases.CustomerInfo as AndroidCustomerInfo
 
 public fun AndroidCustomerInfo.toCustomerInfo(): CustomerInfo {
     return CustomerInfo(
-        activeSubscriptions,
-        allExpirationDatesByProduct.mapValues { (_, date) -> date?.time },
-        allPurchaseDatesByProduct.mapValues { (_, date) -> date?.time },
-        allPurchaseDatesByProduct.keys,
-        entitlements.toEntitlementInfos(),
-        firstSeen.time,
-        latestExpirationDate?.time,
-        managementURL?.toString(),
-        nonSubscriptionTransactions.map { it.toTransaction() },
-        originalAppUserId,
-        null,
-        originalPurchaseDate?.time,
-        requestDate.time
+        activeSubscriptions = activeSubscriptions,
+        allExpirationDateMillis = allExpirationDatesByProduct.mapValues { (_, date) -> date?.time },
+        allPurchaseDateMillis = allPurchaseDatesByProduct.mapValues { (_, date) -> date?.time },
+        allPurchasedProductIdentifiers = allPurchaseDatesByProduct.keys,
+        entitlements = entitlements.toEntitlementInfos(),
+        firstSeenMillis = firstSeen.time,
+        latestExpirationDateMillis = latestExpirationDate?.time,
+        managementUrlString = managementURL?.toString(),
+        nonSubscriptionTransactions = nonSubscriptionTransactions.map { it.toTransaction() },
+        originalAppUserId = originalAppUserId,
+        originalApplicationVersion = null,
+        originalPurchaseDateMillis = originalPurchaseDate?.time,
+        requestDateMillis = requestDate.time
     )
 }

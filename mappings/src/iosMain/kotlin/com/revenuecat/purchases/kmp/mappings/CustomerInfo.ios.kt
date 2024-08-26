@@ -9,28 +9,28 @@ import cocoapods.PurchasesHybridCommon.RCCustomerInfo as IosCustomerInfo
 public fun IosCustomerInfo.toCustomerInfo(): CustomerInfo {
     @Suppress("UNCHECKED_CAST")
     return CustomerInfo(
-        activeSubscriptions() as Set<String>,
-        allPurchasedProductIdentifiers().associate { productId ->
+        activeSubscriptions = activeSubscriptions() as Set<String>,
+        allExpirationDateMillis = allPurchasedProductIdentifiers().associate { productId ->
             productId as String to expirationDateForProductIdentifier(productId)?.toEpochMilliseconds()
         },
-        allPurchasedProductIdentifiers().associate { productId ->
+        allPurchaseDateMillis = allPurchasedProductIdentifiers().associate { productId ->
             productId as String to purchaseDateForProductIdentifier(productId)?.toEpochMilliseconds()
         },
-        allPurchasedProductIdentifiers() as Set<String>,
-        entitlements().toEntitlementInfos(),
-        firstSeen().toEpochMilliseconds(),
-        latestExpirationDate()?.toEpochMilliseconds(),
-        managementURL()?.absoluteString,
-        nonSubscriptions().map {
+        allPurchasedProductIdentifiers = allPurchasedProductIdentifiers() as Set<String>,
+        entitlements = entitlements().toEntitlementInfos(),
+        firstSeenMillis = firstSeen().toEpochMilliseconds(),
+        latestExpirationDateMillis = latestExpirationDate()?.toEpochMilliseconds(),
+        managementUrlString = managementURL()?.absoluteString,
+        nonSubscriptionTransactions = nonSubscriptions().map {
             val map = (it as NSObject)
                 .dictionaryWithValuesForKeys(
                     listOf("transactionIdentifier", "productIdentifier", "purchaseDate")
                 ).mapKeys { (key, _) -> key as String }
             map.toTransaction()
         },
-        originalAppUserId(),
-        null,
-        originalPurchaseDate()?.toEpochMilliseconds(),
-        requestDate().toEpochMilliseconds()
+        originalAppUserId = originalAppUserId(),
+        originalApplicationVersion = null,
+        originalPurchaseDateMillis = originalPurchaseDate()?.toEpochMilliseconds(),
+        requestDateMillis = requestDate().toEpochMilliseconds()
     )
 }
