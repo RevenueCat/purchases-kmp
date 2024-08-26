@@ -1,7 +1,5 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.kmp.ProductType
-
 /**
  * Type containing information of installment subscriptions. Currently only supported in Google Play.
  */

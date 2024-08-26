@@ -4,7 +4,6 @@ package com.revenuecat.purchases.models
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
 class StoreTransactionTests {

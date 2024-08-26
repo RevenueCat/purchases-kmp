@@ -1,22 +1,21 @@
-@file:Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
-
-package com.revenuecat.purchases.kmp
+package com.revenuecat.purchases.kmp.mappings
 
 import cocoapods.PurchasesHybridCommon.RCCustomerInfo
 import cocoapods.PurchasesHybridCommon.RCPurchases
 import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.RCStoreTransaction
-import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
+import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.StoreProduct
+import com.revenuecat.purchases.kmp.toPurchasesErrorOrThrow
 import platform.Foundation.NSError
 import platform.darwin.NSObject
 
-internal fun RCPurchasesDelegateProtocol.toPurchasesDelegate(): PurchasesDelegate =
+public fun RCPurchasesDelegateProtocol.toPurchasesDelegate(): PurchasesDelegate =
     (this as PurchasesDelegateWrapper).wrapped
 
-internal fun PurchasesDelegate.toRcPurchasesDelegate(): RCPurchasesDelegateProtocol =
+public fun PurchasesDelegate.toRcPurchasesDelegate(): RCPurchasesDelegateProtocol =
     PurchasesDelegateWrapper(this)
 
 private class PurchasesDelegateWrapper(val wrapped: PurchasesDelegate) :
@@ -33,7 +32,7 @@ private class PurchasesDelegateWrapper(val wrapped: PurchasesDelegate) :
             purchase { transaction, customerInfo, error, userCancelled ->
                 if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
                 else onSuccess(
-                    transaction?.let { StoreTransaction(it) }
+                    transaction?.toStoreTransaction()
                         ?: error("Expected a non-null RCStoreTransaction"),
                     customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
                 )

@@ -71,7 +71,8 @@ public class PurchasesConfiguration private constructor(
         public var appUserId: String? = null
 
         @set:JvmSynthetic
-        public var purchasesAreCompletedBy: PurchasesAreCompletedBy = PurchasesAreCompletedBy.RevenueCat
+        public var purchasesAreCompletedBy: PurchasesAreCompletedBy =
+            PurchasesAreCompletedBy.RevenueCat
 
         @set:JvmSynthetic
         public var userDefaultsSuiteName: String? = null
