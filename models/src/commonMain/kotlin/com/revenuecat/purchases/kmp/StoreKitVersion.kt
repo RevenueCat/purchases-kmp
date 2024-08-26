@@ -23,10 +23,3 @@ public enum class StoreKitVersion {
      */
     DEFAULT,
 }
-
-internal fun StoreKitVersion.toHybridString(): String =
-    when(this) {
-        StoreKitVersion.STOREKIT_1 -> "STOREKIT_1"
-        StoreKitVersion.STOREKIT_2 -> "STOREKIT_2"
-        StoreKitVersion.DEFAULT -> "DEFAULT"
-    }

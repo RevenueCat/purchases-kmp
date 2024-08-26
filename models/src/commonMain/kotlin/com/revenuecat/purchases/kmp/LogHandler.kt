@@ -5,7 +5,7 @@ package com.revenuecat.purchases.kmp
  *
  * @see Purchases.logHandler
  */
-public expect interface LogHandler {
+public interface LogHandler {
     /**
      * Log a message at the [LogLevel.VERBOSE] level.
      */

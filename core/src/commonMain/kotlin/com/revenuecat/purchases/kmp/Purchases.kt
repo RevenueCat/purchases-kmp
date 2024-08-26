@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp
 
+import com.revenuecat.purchases.kmp.PurchasesConfiguration.Builder
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.StoreMessageType
@@ -7,6 +8,7 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import kotlin.jvm.JvmSynthetic
 
 /**
  * Entry point for Purchases. This class can be instantiated using [Purchases.configure]. This
@@ -644,3 +646,30 @@ public expect class Purchases {
  */
 public val Purchases.Companion.frameworkVersion: String
     get() = BuildKonfig.revenuecatKmpVersion
+
+/**
+ * Configures an instance of the SDK with the specified [configuration builder][builder]. The
+ * instance will be set as a singleton. You should access the singleton instance using
+ * [sharedInstance][Purchases.sharedInstance].
+ */
+@JvmSynthetic
+public fun Purchases.Companion.configure(
+    apiKey: String,
+    builder: Builder.() -> Unit = { }
+): Purchases =
+    configure(PurchasesConfiguration(apiKey, builder))
+
+/**
+ * Converts an instance of `PurchasesAreCompletedBy` to its corresponding string representation
+ * suitable for usage with the PurchasesHybridCommon library.
+ *
+ * @return A `String` that represents the type of `PurchasesAreCompletedBy`:
+ * - Returns `"REVENUECAT"` if the instance is of type `PurchasesAreCompletedBy.RevenueCat`.
+ * - Returns `"MY_APP"` if the instance is of type `PurchasesAreCompletedBy.MyApp`.
+ *
+ */
+internal fun PurchasesAreCompletedBy.toHybridString(): String =
+    when(this) {
+        is PurchasesAreCompletedBy.RevenueCat -> "REVENUECAT"
+        is PurchasesAreCompletedBy.MyApp -> "MY_APP"
+    }

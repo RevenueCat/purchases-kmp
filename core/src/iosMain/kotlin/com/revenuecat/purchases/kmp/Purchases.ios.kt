@@ -9,8 +9,23 @@ import cocoapods.PurchasesHybridCommon.setOnesignalUserID
 import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
 import com.revenuecat.purchases.kmp.mappings.fromMap
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
+import com.revenuecat.purchases.kmp.mappings.toHybridString
+import com.revenuecat.purchases.kmp.mappings.toIosCacheFetchPolicy
+import com.revenuecat.purchases.kmp.mappings.toIosLogHandler
+import com.revenuecat.purchases.kmp.mappings.toIosPackage
+import com.revenuecat.purchases.kmp.mappings.toIosPromotionalOffer
+import com.revenuecat.purchases.kmp.mappings.toIosStoreProduct
+import com.revenuecat.purchases.kmp.mappings.toIosStoreProductDiscount
+import com.revenuecat.purchases.kmp.mappings.toLogHandler
+import com.revenuecat.purchases.kmp.mappings.toLogLevel
+import com.revenuecat.purchases.kmp.mappings.toOfferings
+import com.revenuecat.purchases.kmp.mappings.toPromotionalOffer
 import com.revenuecat.purchases.kmp.mappings.toPurchasesDelegate
+import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
+import com.revenuecat.purchases.kmp.mappings.toRcLogLevel
 import com.revenuecat.purchases.kmp.mappings.toRcPurchasesDelegate
+import com.revenuecat.purchases.kmp.mappings.toStoreProduct
+import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.StoreMessageType
@@ -39,7 +54,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 ?: IosPurchases.logHandler().toLogHandler().also { _logHandler = it }
             set(value) {
                 _logHandler = value
-                IosPurchases.setLogHandler(value.toRcLogHandler())
+                IosPurchases.setLogHandler(value.toIosLogHandler())
             }
 
         public actual var proxyURL: String?
@@ -77,6 +92,31 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 )
             }.let { Purchases(it) }
                 .also { _sharedInstance = it }
+        }
+
+        private fun PurchasesConfiguration.storeKitVersionToUse(): StoreKitVersion {
+            var storeKitVersionToUse = this.storeKitVersion
+
+            if (this.purchasesAreCompletedBy is PurchasesAreCompletedBy.MyApp) {
+                storeKitVersionToUse = (this.purchasesAreCompletedBy as PurchasesAreCompletedBy.MyApp).storeKitVersion
+
+                if (this.storeKitVersion != StoreKitVersion.DEFAULT &&
+                    storeKitVersionToUse != this.storeKitVersion) {
+                    logHandler.w("[Purchases]", "The storeKitVersion in purchasesAreCompletedBy " +
+                            "does not match the provided storeKitVersion parameter. We will use the " +
+                            "value found in purchasesAreCompletedBy.")
+                }
+
+                if(storeKitVersionToUse == StoreKitVersion.DEFAULT) {
+                    logHandler.w("[Purchases]",
+                        "Warning: You should provide the specific StoreKit version you're using in " +
+                                "your implementation when configuring PurchasesAreCompletedBy.MyApp, " +
+                                "and not rely on the DEFAULT."
+                    )
+                }
+            }
+
+            return storeKitVersionToUse
         }
 
         public actual fun canMakePayments(
@@ -135,7 +175,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onSuccess: (offerings: Offerings) -> Unit,
     ): Unit = iosPurchases.syncAttributesAndOfferingsIfNeededWithCompletion { offerings, error ->
         if (error != null) onError(error.toPurchasesErrorOrThrow())
-        else onSuccess(offerings ?: error("Expected a non-null RCOfferings"))
+        else onSuccess(offerings?.toOfferings() ?: error("Expected a non-null RCOfferings"))
     }
 
     public actual fun getOfferings(
@@ -143,7 +183,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onSuccess: (offerings: Offerings) -> Unit,
     ): Unit = iosPurchases.getOfferingsWithCompletion { offerings, error ->
         if (error != null) onError(error.toPurchasesErrorOrThrow())
-        else onSuccess(offerings ?: error("Expected a non-null RCOfferings"))
+        else onSuccess(offerings?.toOfferings() ?: error("Expected a non-null RCOfferings"))
     }
 
     public actual fun getProducts(
@@ -153,7 +193,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     ): Unit = iosPurchases.getProductsWithIdentifiers(
         productIdentifiers = productIds,
         completion = {
-            onSuccess(it.orEmpty().map { product -> StoreProduct(product as RCStoreProduct) })
+            onSuccess(it.orEmpty().map { product -> (product as RCStoreProduct).toStoreProduct() })
         },
     )
 
@@ -163,13 +203,12 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (offer: PromotionalOffer) -> Unit,
     ): Unit = iosPurchases.getPromotionalOfferForProductDiscount(
-        discount = discount.wrapped,
-        withProduct = storeProduct.wrapped,
+        discount = discount.toIosStoreProductDiscount(),
+        withProduct = storeProduct.toIosStoreProduct(),
     ) { offer, error ->
         if (error != null) onError(error.toPurchasesErrorOrThrow())
-        else onSuccess(offer?.let {
-            PromotionalOffer(it, storeProduct.wrapped.priceFormatter())
-        } ?: error("Expected a non-null RCPromotionalOffer"))
+        else onSuccess(offer?.toPromotionalOffer(storeProduct.toIosStoreProduct().priceFormatter())
+            ?: error("Expected a non-null RCPromotionalOffer"))
     }
 
     public actual fun purchase(
@@ -180,11 +219,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         oldProductId: String?,
         replacementMode: ReplacementMode?,
     ): Unit = iosPurchases.purchaseProduct(
-        storeProduct.wrapped
+        storeProduct.toIosStoreProduct()
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction?.let { StoreTransaction(it) }
+            transaction?.toStoreTransaction()
                 ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
         )
@@ -198,11 +237,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         oldProductId: String?,
         replacementMode: ReplacementMode?,
     ): Unit = iosPurchases.purchasePackage(
-        packageToPurchase
+        packageToPurchase.toIosPackage(),
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction?.let { StoreTransaction(it) }
+            transaction?.toStoreTransaction()
                 ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
         )
@@ -227,12 +266,12 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     ): Unit = iosPurchases.purchaseProduct(
-        storeProduct.wrapped,
-        promotionalOffer.wrapped
+        storeProduct.toIosStoreProduct(),
+        promotionalOffer.toIosPromotionalOffer()
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction?.let { StoreTransaction(it) }
+            transaction?.toStoreTransaction()
                 ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
         )
@@ -244,12 +283,12 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     ): Unit = iosPurchases.purchasePackage(
-        packageToPurchase,
-        promotionalOffer.wrapped
+        packageToPurchase.toIosPackage(),
+        promotionalOffer.toIosPromotionalOffer()
     ) { transaction, customerInfo, error, userCancelled ->
         if (error != null) onError(error.toPurchasesErrorOrThrow(), userCancelled)
         else onSuccess(
-            transaction?.let { StoreTransaction(it) }
+            transaction?.toStoreTransaction()
                 ?: error("Expected a non-null RCStoreTransaction"),
             customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
         )

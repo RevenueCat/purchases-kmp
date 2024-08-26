@@ -3,7 +3,7 @@ package com.revenuecat.purchases.kmp.models
 /**
  * App Store only. Information about a subscription offer that you configured in App Store Connect.
  */
-public expect class StoreProductDiscount {
+public interface StoreProductDiscount {
 
     /**
      * The price of this product discount

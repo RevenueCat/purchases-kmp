@@ -6,7 +6,7 @@ import com.revenuecat.purchases.kmp.ProductType
 /**
  * Represents an in-app product's or subscription's listing details.
  */
-public expect class StoreProduct {
+public interface StoreProduct {
 
     /**
      * The product ID.

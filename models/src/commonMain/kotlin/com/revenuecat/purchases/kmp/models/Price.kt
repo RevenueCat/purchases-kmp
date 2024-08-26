@@ -10,7 +10,7 @@ package com.revenuecat.purchases.kmp.models
  * For example, if price is specified in British pounds sterling, price_currency_code is "GBP".
  * If currency code cannot be determined, currency symbol is returned.
  */
-public class Price internal constructor(
+public class Price(
     public val formatted: String,
     public val amountMicros: Long,
     public val currencyCode: String,

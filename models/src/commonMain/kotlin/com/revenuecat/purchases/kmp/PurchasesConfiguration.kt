@@ -35,31 +35,6 @@ public class PurchasesConfiguration private constructor(
                 "pendingTransactionsForPrepaidPlansEnabled=$pendingTransactionsForPrepaidPlansEnabled" +
                 ")"
 
-    internal fun storeKitVersionToUse(): StoreKitVersion {
-        var storeKitVersionToUse = this.storeKitVersion
-
-        if (this.purchasesAreCompletedBy is PurchasesAreCompletedBy.MyApp) {
-            storeKitVersionToUse = this.purchasesAreCompletedBy.storeKitVersion
-
-            if (this.storeKitVersion != StoreKitVersion.DEFAULT &&
-                storeKitVersionToUse != this.storeKitVersion) {
-                Purchases.logHandler.w("[Purchases]", "The storeKitVersion in purchasesAreCompletedBy " +
-                        "does not match the provided storeKitVersion parameter. We will use the " +
-                        "value found in purchasesAreCompletedBy.")
-            }
-
-            if(this.purchasesAreCompletedBy.storeKitVersion == StoreKitVersion.DEFAULT) {
-                Purchases.logHandler.w("[Purchases]",
-                    "Warning: You should provide the specific StoreKit version you're using in " +
-                            "your implementation when configuring PurchasesAreCompletedBy.MyApp, " +
-                            "and not rely on the DEFAULT."
-                )
-            }
-        }
-
-        return storeKitVersionToUse
-    }
-
     /**
      * Use this builder to create an instance of [PurchasesConfiguration].
      */
@@ -245,15 +220,3 @@ public fun PurchasesConfiguration(
     Builder(apiKey)
         .apply(builder)
         .build()
-
-/**
- * Configures an instance of the SDK with the specified [configuration builder][builder]. The
- * instance will be set as a singleton. You should access the singleton instance using
- * [sharedInstance][Purchases.sharedInstance].
- */
-@JvmSynthetic
-public fun Purchases.Companion.configure(
-    apiKey: String,
-    builder: Builder.() -> Unit = { }
-): Purchases =
-    configure(PurchasesConfiguration(apiKey, builder))

@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.interop.UIKitViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallFooterViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
-import objcnames.classes.RCOffering
+import com.revenuecat.purchases.kmp.mappings.toIosOffering
 
 @Composable
 internal fun UIKitPaywall(
@@ -27,13 +27,13 @@ internal fun UIKitPaywall(
     UIKitViewController(
         modifier = modifier,
         factory = {
-            val viewController = if (footer) RCPaywallFooterViewController(
-                offering = options.offering as RCOffering?,
+            val viewController = if (footer) RCPaywallViewController(
+                offering = options.offering?.toIosOffering(),
                 displayCloseButton = options.shouldDisplayDismissButton,
                 shouldBlockTouchEvents = false,
                 dismissRequestedHandler = dismissRequestedHandler,
             ) else RCPaywallViewController(
-                offering = options.offering as RCOffering?,
+                offering = options.offering?.toIosOffering(),
                 displayCloseButton = options.shouldDisplayDismissButton,
                 shouldBlockTouchEvents = false,
                 dismissRequestedHandler = dismissRequestedHandler,
