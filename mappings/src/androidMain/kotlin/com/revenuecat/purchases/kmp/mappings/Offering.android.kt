@@ -17,20 +17,14 @@ private class AndroidOffering(val wrapped: NativeAndroidOffering): Offering {
         get() = wrapped.serverDescription
     override val metadata: Map<String, Any>
         get() = wrapped.metadata
-    override val availablePackages: List<Package>
-        get() = wrapped.availablePackages.map { it.toPackage() }
-    override val lifetime: Package?
-        get() = wrapped.lifetime?.toPackage()
-    override val annual: Package?
-        get() = wrapped.annual?.toPackage()
-    override val sixMonth: Package?
-        get() = wrapped.sixMonth?.toPackage()
-    override val threeMonth: Package?
-        get() = wrapped.threeMonth?.toPackage()
-    override val twoMonth: Package?
-        get() = wrapped.twoMonth?.toPackage()
-    override val monthly: Package?
-        get() = wrapped.monthly?.toPackage()
-    override val weekly: Package?
-        get() = wrapped.weekly?.toPackage()
+    override val availablePackages: List<Package> by lazy {
+        wrapped.availablePackages.map { it.toPackage() }
+    }
+    override val lifetime: Package? by lazy { wrapped.lifetime?.toPackage() }
+    override val annual: Package? by lazy { wrapped.annual?.toPackage() }
+    override val sixMonth: Package? by lazy { wrapped.sixMonth?.toPackage() }
+    override val threeMonth: Package? by lazy { wrapped.threeMonth?.toPackage() }
+    override val twoMonth: Package? by lazy { wrapped.twoMonth?.toPackage() }
+    override val monthly: Package? by lazy { wrapped.monthly?.toPackage() }
+    override val weekly: Package? by lazy { wrapped.weekly?.toPackage() }
 }

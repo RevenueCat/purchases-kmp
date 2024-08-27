@@ -1,7 +1,6 @@
 package com.revenuecat.purchases.kmp.mappings
 
 
-import com.revenuecat.purchases.kmp.models.StoreTransaction
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -24,7 +23,7 @@ class StoreTransactionTests {
             "purchaseDate" to purchaseDate
         )
 
-        val result = StoreTransaction.fromMap(storeTransactionMap = hybridMap)
+        val result = buildStoreTransaction(storeTransactionMap = hybridMap)
 
         assertTrue(result.isSuccess)
         val storeTransaction = result.getOrThrow()
@@ -49,7 +48,7 @@ class StoreTransactionTests {
             "purchaseDate" to purchaseDate
         )
 
-        val result = StoreTransaction.fromMap(storeTransactionMap = hybridMap)
+        val result = buildStoreTransaction(storeTransactionMap = hybridMap)
 
         assertTrue(result.isSuccess)
         val storeTransaction = result.getOrThrow()
@@ -70,7 +69,7 @@ class StoreTransactionTests {
             "purchaseDate" to purchaseDate
         )
 
-        val result = StoreTransaction.fromMap(storeTransactionMap = hybridMap)
+        val result = buildStoreTransaction(storeTransactionMap = hybridMap)
 
         assertTrue(result.isFailure)
         result.exceptionOrNull()?.let {
@@ -91,7 +90,7 @@ class StoreTransactionTests {
             "purchaseDate" to purchaseDate
         )
 
-        val result = StoreTransaction.fromMap(storeTransactionMap = hybridMap)
+        val result = buildStoreTransaction(storeTransactionMap = hybridMap)
 
         assertTrue(result.isFailure)
         result.exceptionOrNull()?.let {
@@ -113,7 +112,7 @@ class StoreTransactionTests {
             "purchaseDate" to purchaseDate
         )
 
-        val result = StoreTransaction.fromMap(storeTransactionMap = hybridMap)
+        val result = buildStoreTransaction(storeTransactionMap = hybridMap)
 
         assertTrue(result.isFailure)
         result.exceptionOrNull()?.let {

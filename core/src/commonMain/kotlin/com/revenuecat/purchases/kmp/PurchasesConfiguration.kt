@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp
 
+import com.revenuecat.purchases.kmp.Purchases.Companion.logHandler
 import com.revenuecat.purchases.kmp.PurchasesConfiguration.Builder
 import kotlin.jvm.JvmSynthetic
 
@@ -12,7 +13,7 @@ public class PurchasesConfiguration private constructor(
     public val appUserId: String?,
     public val purchasesAreCompletedBy: PurchasesAreCompletedBy,
     public val userDefaultsSuiteName: String?,
-    public val storeKitVersion: StoreKitVersion,
+    storeKitVersion: StoreKitVersion,
     public val showInAppMessagesAutomatically: Boolean,
     public val store: Store?,
     public val diagnosticsEnabled: Boolean,
@@ -20,6 +21,11 @@ public class PurchasesConfiguration private constructor(
     public val verificationMode: EntitlementVerificationMode,
     public val pendingTransactionsForPrepaidPlansEnabled: Boolean?
 ) {
+    public val storeKitVersion: StoreKitVersion = storeKitVersionToUse(
+        purchasesAreCompletedBy,
+        storeKitVersion,
+    )
+
     override fun toString(): String =
         "PurchasesConfiguration(" +
                 "apiKey=$apiKey, " +
@@ -34,6 +40,35 @@ public class PurchasesConfiguration private constructor(
                 "verificationMode=$verificationMode," +
                 "pendingTransactionsForPrepaidPlansEnabled=$pendingTransactionsForPrepaidPlansEnabled" +
                 ")"
+
+    private fun storeKitVersionToUse(
+        purchasesAreCompletedBy: PurchasesAreCompletedBy,
+        storeKitVersion: StoreKitVersion,
+    ): StoreKitVersion {
+        var storeKitVersionToUse = storeKitVersion
+
+        if (purchasesAreCompletedBy is PurchasesAreCompletedBy.MyApp) {
+            storeKitVersionToUse = purchasesAreCompletedBy.storeKitVersion
+
+            if (storeKitVersion != StoreKitVersion.DEFAULT &&
+                storeKitVersionToUse != storeKitVersion) {
+                logHandler.w("[Purchases]", "The storeKitVersion in purchasesAreCompletedBy " +
+                        "does not match the provided storeKitVersion parameter. We will use the " +
+                        "value found in purchasesAreCompletedBy.")
+            }
+
+            if(storeKitVersionToUse == StoreKitVersion.DEFAULT) {
+                logHandler.w("[Purchases]",
+                    "Warning: You should provide the specific StoreKit version you're using in " +
+                            "your implementation when configuring PurchasesAreCompletedBy.MyApp, " +
+                            "and not rely on the DEFAULT."
+                )
+            }
+        }
+
+        return storeKitVersionToUse
+    }
+
 
     /**
      * Use this builder to create an instance of [PurchasesConfiguration].
@@ -87,11 +122,11 @@ public class PurchasesConfiguration private constructor(
             apply { this.appUserId = appUserId }
 
         /**
-         * An optional setting. Set this to [MY_APP][PurchasesAreCompletedBy.MY_APP] if you have
+         * An optional setting. Set this to [PurchasesAreCompletedBy.MyApp] if you have
          * your own IAP
          * implementation and want to use only RevenueCat's backend. Default is
-         * [REVENUECAT][PurchasesAreCompletedBy.REVENUECAT]. If you are on Android and setting this
-         * to [MY_APP][PurchasesAreCompletedBy.MY_APP], you will have to acknowledge the purchases
+         * [PurchasesAreCompletedBy.RevenueCat]. If you are on Android and setting this
+         * to [PurchasesAreCompletedBy.MyApp], you will have to acknowledge the purchases
          * yourself.
          *
          * **Note:** failing to acknowledge a purchase within 3 days will lead to Google Play

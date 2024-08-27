@@ -13,7 +13,7 @@ import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
 import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
 import com.revenuecat.purchases.kmp.Purchases.Companion.logHandler
-import com.revenuecat.purchases.kmp.mappings.fromMap
+import com.revenuecat.purchases.kmp.mappings.buildStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toHybridString
 import com.revenuecat.purchases.kmp.mappings.toIosCacheFetchPolicy
@@ -100,7 +100,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                     userDefaultsSuiteName = userDefaultsSuiteName,
                     platformFlavor = BuildKonfig.platformFlavor,
                     platformFlavorVersion = frameworkVersion,
-                    storeKitVersion = storeKitVersionToUse().toHybridString(),
+                    storeKitVersion = storeKitVersion.toHybridString(),
                     dangerousSettings = dangerousSettings.toIosDangerousSettings(),
                     shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
                     verificationMode = verificationMode.name,
@@ -314,7 +314,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                         )
                     )
                 } else {
-                    val storeTransactionMappingResult = StoreTransaction.fromMap(
+                    val storeTransactionMappingResult = buildStoreTransaction(
                         storeTransactionMap = storeTransactionMap
                     )
                     storeTransactionMappingResult.onSuccess {
@@ -449,29 +449,4 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
     public actual fun setCreative(creative: String?): Unit =
         iosPurchases.setCreative(creative)
-}
-
-internal fun PurchasesConfiguration.storeKitVersionToUse(): StoreKitVersion {
-    var storeKitVersionToUse = this.storeKitVersion
-
-    if (this.purchasesAreCompletedBy is PurchasesAreCompletedBy.MyApp) {
-        storeKitVersionToUse = (this.purchasesAreCompletedBy as PurchasesAreCompletedBy.MyApp).storeKitVersion
-
-        if (this.storeKitVersion != StoreKitVersion.DEFAULT &&
-            storeKitVersionToUse != this.storeKitVersion) {
-            logHandler.w("[Purchases]", "The storeKitVersion in purchasesAreCompletedBy " +
-                    "does not match the provided storeKitVersion parameter. We will use the " +
-                    "value found in purchasesAreCompletedBy.")
-        }
-
-        if(storeKitVersionToUse == StoreKitVersion.DEFAULT) {
-            logHandler.w("[Purchases]",
-                "Warning: You should provide the specific StoreKit version you're using in " +
-                        "your implementation when configuring PurchasesAreCompletedBy.MyApp, " +
-                        "and not rely on the DEFAULT."
-            )
-        }
-    }
-
-    return storeKitVersionToUse
 }

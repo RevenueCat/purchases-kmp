@@ -19,6 +19,7 @@ import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toLogHandler
 import com.revenuecat.purchases.kmp.mappings.toLogLevel
 import com.revenuecat.purchases.kmp.mappings.toAndroidSubscriptionOption
+import com.revenuecat.purchases.kmp.mappings.toHybridString
 import com.revenuecat.purchases.kmp.mappings.toOfferings
 import com.revenuecat.purchases.kmp.mappings.toPurchasesDelegate
 import com.revenuecat.purchases.kmp.mappings.toPurchasesError

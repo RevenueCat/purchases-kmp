@@ -658,18 +658,3 @@ public fun Purchases.Companion.configure(
     builder: Builder.() -> Unit = { }
 ): Purchases =
     configure(PurchasesConfiguration(apiKey, builder))
-
-/**
- * Converts an instance of `PurchasesAreCompletedBy` to its corresponding string representation
- * suitable for usage with the PurchasesHybridCommon library.
- *
- * @return A `String` that represents the type of `PurchasesAreCompletedBy`:
- * - Returns `"REVENUECAT"` if the instance is of type `PurchasesAreCompletedBy.RevenueCat`.
- * - Returns `"MY_APP"` if the instance is of type `PurchasesAreCompletedBy.MyApp`.
- *
- */
-internal fun PurchasesAreCompletedBy.toHybridString(): String =
-    when(this) {
-        is PurchasesAreCompletedBy.RevenueCat -> "REVENUECAT"
-        is PurchasesAreCompletedBy.MyApp -> "MY_APP"
-    }

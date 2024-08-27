@@ -13,7 +13,7 @@ public fun NativeAndroidSubscriptionOption.toSubscriptionOption(): SubscriptionO
 public fun SubscriptionOption.toAndroidSubscriptionOption(): NativeAndroidSubscriptionOption =
     (this as AndroidSubscriptionOption).wrapped
 
-internal class AndroidSubscriptionOption(
+private class AndroidSubscriptionOption(
     val wrapped: NativeAndroidSubscriptionOption
 ): SubscriptionOption {
     override val id: String = wrapped.id

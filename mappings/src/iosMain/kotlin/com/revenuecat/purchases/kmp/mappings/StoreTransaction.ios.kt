@@ -11,7 +11,7 @@ public fun IosStoreTransaction.toStoreTransaction(): StoreTransaction =
         purchaseTime = purchaseDate().toEpochMilliseconds(),
     )
 
-public fun StoreTransaction.Companion.fromMap(storeTransactionMap: Map<Any?, *>): Result<StoreTransaction> {
+public fun buildStoreTransaction(storeTransactionMap: Map<Any?, *>): Result<StoreTransaction> {
     val transactionId = storeTransactionMap["transactionIdentifier"] as? String
     val productId = storeTransactionMap["productIdentifier"] as? String
     val purchaseTime = (storeTransactionMap["purchaseDateMillis"] as? Number)?.toLong()

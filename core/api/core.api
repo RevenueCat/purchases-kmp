@@ -86,6 +86,65 @@ public final class com/revenuecat/purchases/kmp/Purchases$Companion {
 	public final fun setSimulatesAskToBuyInSandbox (Z)V
 }
 
+public final class com/revenuecat/purchases/kmp/PurchasesConfiguration {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/StoreKitVersion;ZLcom/revenuecat/purchases/kmp/Store;ZLcom/revenuecat/purchases/kmp/DangerousSettings;Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;Ljava/lang/Boolean;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getApiKey ()Ljava/lang/String;
+	public final fun getAppUserId ()Ljava/lang/String;
+	public final fun getDangerousSettings ()Lcom/revenuecat/purchases/kmp/DangerousSettings;
+	public final fun getDiagnosticsEnabled ()Z
+	public final fun getPendingTransactionsForPrepaidPlansEnabled ()Ljava/lang/Boolean;
+	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;
+	public final fun getShowInAppMessagesAutomatically ()Z
+	public final fun getStore ()Lcom/revenuecat/purchases/kmp/Store;
+	public final fun getStoreKitVersion ()Lcom/revenuecat/purchases/kmp/StoreKitVersion;
+	public final fun getUserDefaultsSuiteName ()Ljava/lang/String;
+	public final fun getVerificationMode ()Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/PurchasesConfiguration$Builder {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun apiKey (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun appUserId (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun build ()Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;
+	public final fun dangerousSettings (Lcom/revenuecat/purchases/kmp/DangerousSettings;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun diagnosticsEnabled (Z)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun getApiKey ()Ljava/lang/String;
+	public final fun getAppUserId ()Ljava/lang/String;
+	public final fun getDangerousSettings ()Lcom/revenuecat/purchases/kmp/DangerousSettings;
+	public final fun getDiagnosticsEnabled ()Z
+	public final fun getPendingTransactionsForPrepaidPlansEnabled ()Ljava/lang/Boolean;
+	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;
+	public final fun getShowInAppMessagesAutomatically ()Z
+	public final fun getStore ()Lcom/revenuecat/purchases/kmp/Store;
+	public final fun getStoreKitVersion ()Lcom/revenuecat/purchases/kmp/StoreKitVersion;
+	public final fun getUserDefaultsSuiteName ()Ljava/lang/String;
+	public final fun getVerificationMode ()Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
+	public final fun pendingTransactionsForPrepaidPlansEnabled (Z)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun purchasesAreCompletedBy (Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final synthetic fun setApiKey (Ljava/lang/String;)V
+	public final synthetic fun setAppUserId (Ljava/lang/String;)V
+	public final synthetic fun setDangerousSettings (Lcom/revenuecat/purchases/kmp/DangerousSettings;)V
+	public final synthetic fun setDiagnosticsEnabled (Z)V
+	public final synthetic fun setPendingTransactionsForPrepaidPlansEnabled (Ljava/lang/Boolean;)V
+	public final synthetic fun setPurchasesAreCompletedBy (Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;)V
+	public final synthetic fun setShowInAppMessagesAutomatically (Z)V
+	public final synthetic fun setStore (Lcom/revenuecat/purchases/kmp/Store;)V
+	public final synthetic fun setStoreKitVersion (Lcom/revenuecat/purchases/kmp/StoreKitVersion;)V
+	public final synthetic fun setUserDefaultsSuiteName (Ljava/lang/String;)V
+	public final synthetic fun setVerificationMode (Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;)V
+	public final fun showInAppMessagesAutomatically (Z)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun store (Lcom/revenuecat/purchases/kmp/Store;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun storeKitVersion (Lcom/revenuecat/purchases/kmp/StoreKitVersion;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun userDefaultsSuiteName (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun verificationMode (Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+}
+
+public final class com/revenuecat/purchases/kmp/PurchasesConfigurationKt {
+	public static final synthetic fun PurchasesConfiguration (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;
+	public static synthetic fun PurchasesConfiguration$default (Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;
+}
+
 public final class com/revenuecat/purchases/kmp/PurchasesKt {
 	public static final synthetic fun configure (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/revenuecat/purchases/kmp/Purchases;
 	public static synthetic fun configure$default (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/Purchases;

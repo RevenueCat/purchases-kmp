@@ -3,22 +3,22 @@ package com.revenuecat.purchases.kmp.models
 /**
  * A collection of [SubscriptionOption]s.
  */
-public class SubscriptionOptions(
+public interface SubscriptionOptions {
     /**
      * The base plan [SubscriptionOption].
      */
-    public val basePlan: SubscriptionOption?,
+    public val basePlan: SubscriptionOption?
 
     /**
      * The first [SubscriptionOption] with a free trial [PricingPhase].
      */
-    public val freeTrial: SubscriptionOption?,
+    public val freeTrial: SubscriptionOption?
 
     /**
      * The first [SubscriptionOption] with an intro trial [PricingPhase].
      * There can be a free trial [PricingPhase] and intro trial [PricingPhase] in the same [SubscriptionOption].
      */
-    public val introOffer: SubscriptionOption?,
+    public val introOffer: SubscriptionOption?
 
     /**
      * The default [SubscriptionOption]:
@@ -26,13 +26,11 @@ public class SubscriptionOptions(
      *   - Uses [SubscriptionOption] WITH longest free trial or cheapest first phase
      *   - Falls back to use base plan
      */
-    public val defaultOffer: SubscriptionOption?,
-    private val subscriptionOptions: List<SubscriptionOption>,
-) {
+    public val defaultOffer: SubscriptionOption?
+
     /**
      * Finds all [SubscriptionOption]s with a specific tag.
      * Note: All offers inherit base plan tags.
      */
-    public fun withTag(tag: String): List<SubscriptionOption> =
-        subscriptionOptions.filter { tag in it.tags }
+    public fun withTag(tag: String): List<SubscriptionOption>
 }

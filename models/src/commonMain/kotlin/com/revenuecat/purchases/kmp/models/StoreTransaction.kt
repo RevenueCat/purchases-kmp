@@ -23,6 +23,4 @@ public data class StoreTransaction(
      * Time the product was purchased, in milliseconds since the epoch.
      */
     val purchaseTime: Long,
-) {
-    public companion object
-}
+)

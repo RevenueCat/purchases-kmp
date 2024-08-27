@@ -16,22 +16,17 @@ private class IosOffering(val iosOffering: NativeIosOffering): Offering {
         get() = iosOffering.identifier()
     override val serverDescription: String
         get() = iosOffering.serverDescription()
-    override val metadata: Map<String, Any>
-        get() = iosOffering.metadata().mapEntries { (key, value) -> key as String to value as Any }
-    override val availablePackages: List<Package>
-        get() = iosOffering.availablePackages().map { it as Package }
-    override val lifetime: Package?
-        get() = iosOffering.lifetime()?.toPackage()
-    override val annual: Package?
-        get() = iosOffering.annual()?.toPackage()
-    override val sixMonth: Package?
-        get() = iosOffering.sixMonth()?.toPackage()
-    override val threeMonth: Package?
-        get() = iosOffering.threeMonth()?.toPackage()
-    override val twoMonth: Package?
-        get() = iosOffering.twoMonth()?.toPackage()
-    override val monthly: Package?
-        get() = iosOffering.monthly()?.toPackage()
-    override val weekly: Package?
-        get() = iosOffering.weekly()?.toPackage()
+    override val metadata: Map<String, Any> by lazy {
+        iosOffering.metadata().mapEntries { (key, value) -> key as String to value as Any }
+    }
+    override val availablePackages: List<Package> by lazy {
+        iosOffering.availablePackages().map { it as Package }
+    }
+    override val lifetime: Package? by lazy { iosOffering.lifetime()?.toPackage() }
+    override val annual: Package? by lazy { iosOffering.annual()?.toPackage() }
+    override val sixMonth: Package? by lazy { iosOffering.sixMonth()?.toPackage() }
+    override val threeMonth: Package? by lazy { iosOffering.threeMonth()?.toPackage() }
+    override val twoMonth: Package? by lazy { iosOffering.twoMonth()?.toPackage() }
+    override val monthly: Package? by lazy { iosOffering.monthly()?.toPackage() }
+    override val weekly: Package? by lazy { iosOffering.weekly()?.toPackage() }
 }

@@ -5,6 +5,6 @@ import com.revenuecat.purchases.models.InstallmentsInfo as AndroidInstallmentsIn
 
 public fun AndroidInstallmentsInfo.toInstallmentsInfo(): InstallmentsInfo =
     InstallmentsInfo(
-        this.commitmentPaymentsCount,
-        this.renewalCommitmentPaymentsCount,
+        commitmentPaymentsCount = this.commitmentPaymentsCount,
+        renewalCommitmentPaymentsCount = this.renewalCommitmentPaymentsCount,
     )

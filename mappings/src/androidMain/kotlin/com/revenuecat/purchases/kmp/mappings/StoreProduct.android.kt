@@ -27,7 +27,7 @@ private class AndroidStoreProduct(
     override val localizedDescription: String = wrapped.description
     override val period: Period? = wrapped.period?.toPeriod()
     override val subscriptionOptions: SubscriptionOptions? = wrapped.subscriptionOptions?.toSubscriptionOptions()
-    override val defaultOption: SubscriptionOption? = wrapped.defaultOption?.let { AndroidSubscriptionOption(it) }
+    override val defaultOption: SubscriptionOption? = wrapped.defaultOption?.toSubscriptionOption()
     override val discounts: List<StoreProductDiscount> = emptyList()
     override val introductoryDiscount: StoreProductDiscount? = null
     override val purchasingData: PurchasingData = AndroidPurchasingData(wrapped.purchasingData)
