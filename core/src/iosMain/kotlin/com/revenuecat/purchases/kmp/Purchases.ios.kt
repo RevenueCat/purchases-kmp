@@ -60,7 +60,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             set(value) {
                 _logHandler = value
                 IosPurchases.setLogHandler { level, message ->
-                    val tag = "Purchases"
+                    val tag = "PurchasesKMP"
                     when (level) {
                         RCLogLevelVerbose -> value.v(tag, message ?: "")
                         RCLogLevelInfo -> value.d(tag, message ?: "")

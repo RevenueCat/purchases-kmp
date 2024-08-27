@@ -10,7 +10,7 @@ import com.revenuecat.purchases.models.SubscriptionOption as NativeAndroidSubscr
 public fun NativeAndroidSubscriptionOption.toSubscriptionOption(): SubscriptionOption =
     AndroidSubscriptionOption(this)
 
-public fun SubscriptionOption.toNativeAndroidSubscriptionOption(): NativeAndroidSubscriptionOption =
+public fun SubscriptionOption.toAndroidSubscriptionOption(): NativeAndroidSubscriptionOption =
     (this as AndroidSubscriptionOption).wrapped
 
 internal class AndroidSubscriptionOption(

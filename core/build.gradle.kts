@@ -12,7 +12,7 @@ kotlin {
             api(projects.models)
         }
         androidMain.dependencies {
-            api(libs.revenuecat.common)
+            implementation(libs.revenuecat.common)
             implementation(libs.androidx.startup)
             implementation(projects.mappings)
         }

@@ -18,7 +18,7 @@ import com.revenuecat.purchases.kmp.mappings.toAndroidStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toLogHandler
 import com.revenuecat.purchases.kmp.mappings.toLogLevel
-import com.revenuecat.purchases.kmp.mappings.toNativeAndroidSubscriptionOption
+import com.revenuecat.purchases.kmp.mappings.toAndroidSubscriptionOption
 import com.revenuecat.purchases.kmp.mappings.toOfferings
 import com.revenuecat.purchases.kmp.mappings.toPurchasesDelegate
 import com.revenuecat.purchases.kmp.mappings.toPurchasesError
@@ -273,7 +273,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
     ): Unit = androidPurchases.purchaseWith(
         purchaseParams = PurchaseParams.Builder(
             AndroidProvider.requireActivity(),
-            subscriptionOption.toNativeAndroidSubscriptionOption(),
+            subscriptionOption.toAndroidSubscriptionOption(),
         ).apply {
             if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
             if (oldProductId != null) oldProductId(oldProductId)
