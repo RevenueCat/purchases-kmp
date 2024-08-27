@@ -3,7 +3,7 @@ package com.revenuecat.purchases.kmp
 /**
  * Only use a Dangerous Setting if suggested by RevenueCat support team.
  */
-public data class DangerousSettings(
+public class DangerousSettings(
     /**
      * Disable or enable syncing purchases automatically. If this is disabled, RevenueCat will not
      * sync any purchase automatically, and you will have to call [syncPurchases] whenever a new

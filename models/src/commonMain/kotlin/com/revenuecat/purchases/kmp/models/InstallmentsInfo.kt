@@ -3,7 +3,7 @@ package com.revenuecat.purchases.kmp.models
 /**
  * Type containing information of installment subscriptions. Currently only supported in Google Play.
  */
-public data class InstallmentsInfo(
+public class InstallmentsInfo(
     /**
      * Number of payments the customer commits to in order to purchase the subscription.
      */

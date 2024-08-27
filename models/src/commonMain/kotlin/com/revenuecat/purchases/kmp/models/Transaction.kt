@@ -3,7 +3,7 @@ package com.revenuecat.purchases.kmp.models
 /**
  * Representation of a transaction.
  */
-public data class Transaction(
+public class Transaction(
     /**
      * Identifier of this transaction.
      */

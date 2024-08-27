@@ -3,12 +3,12 @@ package com.revenuecat.purchases.kmp.models
 /**
  * Represents an in-app billing purchase.
  */
-public data class StoreTransaction(
+public class StoreTransaction(
     /**
      * Unique (per store) order identifier for the purchased transaction. Always null for Amazon.
      * Only available for non-restored Google purchases for Google Play.
      */
-    val transactionId: String?,
+    public val transactionId: String?,
 
     /**
      * Product IDs purchased.
@@ -17,10 +17,10 @@ public data class StoreTransaction(
      * which RevenueCat does not support.
      * Only the first productId will be processed by the SDK.
      */
-    val productIds: List<String>,
+    public val productIds: List<String>,
 
     /**
      * Time the product was purchased, in milliseconds since the epoch.
      */
-    val purchaseTime: Long,
+    public val purchaseTime: Long,
 )

@@ -5,7 +5,7 @@ import com.revenuecat.purchases.kmp.models.Transaction
 /**
  * Class containing all information regarding the customer.
  */
-public data class CustomerInfo(
+public class CustomerInfo(
     /**
      * Set of active subscription productIds.
      * * For Google subscriptions, productIds will be `subscriptionId:basePlanId`.

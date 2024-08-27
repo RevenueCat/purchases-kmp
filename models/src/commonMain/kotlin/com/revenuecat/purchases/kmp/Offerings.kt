@@ -4,16 +4,16 @@ package com.revenuecat.purchases.kmp
  * This class contains all the offerings configured in RevenueCat dashboard.
  * For more info see https://docs.revenuecat.com/docs/entitlements
  */
-public data class Offerings(
+public class Offerings(
     /**
      * Dictionary of all Offerings [Offering] objects keyed by their identifier.
      */
-    val all: Map<String, Offering>,
+    public val all: Map<String, Offering>,
 
     /**
      * Current offering configured in the RevenueCat dashboard.
      */
-    val current: Offering?
+    public val current: Offering?
 ) {
     /**
      * Retrieves an specific offering by its identifier. It's equivalent to
