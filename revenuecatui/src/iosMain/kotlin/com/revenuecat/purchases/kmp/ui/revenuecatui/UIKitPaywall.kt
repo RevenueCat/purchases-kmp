@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.interop.UIKitViewController
+import cocoapods.PurchasesHybridCommonUI.RCPaywallFooterViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
 import com.revenuecat.purchases.kmp.mappings.toIosOffering
 import objcnames.classes.RCOffering
@@ -27,13 +28,13 @@ internal fun UIKitPaywall(
     UIKitViewController(
         modifier = modifier,
         factory = {
-            val viewController = if (footer) RCPaywallViewController(
-                offering = options.offering?.toIosOffering() as RCOffering,
+            val viewController = if (footer) RCPaywallFooterViewController(
+                offering = options.offering?.toIosOffering() as? RCOffering,
                 displayCloseButton = options.shouldDisplayDismissButton,
                 shouldBlockTouchEvents = false,
                 dismissRequestedHandler = dismissRequestedHandler,
             ) else RCPaywallViewController(
-                offering = options.offering?.toIosOffering() as RCOffering,
+                offering = options.offering?.toIosOffering() as? RCOffering,
                 displayCloseButton = options.shouldDisplayDismissButton,
                 shouldBlockTouchEvents = false,
                 dismissRequestedHandler = dismissRequestedHandler,
