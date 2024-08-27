@@ -11,7 +11,6 @@ import com.revenuecat.purchases.kmp.di.requireApplication
 import com.revenuecat.purchases.kmp.mappings.toAndroidBillingFeature
 import com.revenuecat.purchases.kmp.mappings.toAndroidCacheFetchPolicy
 import com.revenuecat.purchases.kmp.mappings.toAndroidGoogleReplacementMode
-import com.revenuecat.purchases.kmp.mappings.toAndroidLogHandler
 import com.revenuecat.purchases.kmp.mappings.toAndroidLogLevel
 import com.revenuecat.purchases.kmp.mappings.toAndroidPackage
 import com.revenuecat.purchases.kmp.mappings.toAndroidStore
@@ -70,7 +69,28 @@ public actual class Purchases private constructor(private val androidPurchases: 
         public actual var logHandler: LogHandler
             get() = AndroidPurchases.Companion.logHandler.toLogHandler()
             set(value) {
-                AndroidPurchases.Companion.logHandler = value.toAndroidLogHandler()
+                AndroidPurchases.Companion.logHandler = object : com.revenuecat.purchases.LogHandler {
+                    override fun d(tag: String, msg: String) {
+                        value.d(tag, msg)
+                    }
+
+                    override fun e(tag: String, msg: String, throwable: Throwable?) {
+                        value.e(tag, msg, throwable)
+                    }
+
+                    override fun i(tag: String, msg: String) {
+                        value.i(tag, msg)
+                    }
+
+                    override fun v(tag: String, msg: String) {
+                        value.v(tag, msg)
+                    }
+
+                    override fun w(tag: String, msg: String) {
+                        value.w(tag, msg)
+                    }
+
+                }
             }
 
         @JvmStatic

@@ -12,8 +12,6 @@ private typealias NativeIosLogHandler = (RCLogLevel, String?) -> Unit
 
 public fun NativeIosLogHandler.toLogHandler(): LogHandler = IosLogHandler(this)
 
-public fun LogHandler.toIosLogHandler(): NativeIosLogHandler = (this as IosLogHandler).logHandler
-
 private class IosLogHandler(val logHandler: NativeIosLogHandler) : LogHandler {
     override fun v(tag: String, msg: String) {
         logHandler(RCLogLevelVerbose, msg)

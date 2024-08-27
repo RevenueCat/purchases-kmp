@@ -8,7 +8,7 @@ public data class StoreTransaction(
      * Unique (per store) order identifier for the purchased transaction. Always null for Amazon.
      * Only available for non-restored Google purchases for Google Play.
      */
-    val orderId: String?,
+    val transactionId: String?,
 
     /**
      * Product IDs purchased.

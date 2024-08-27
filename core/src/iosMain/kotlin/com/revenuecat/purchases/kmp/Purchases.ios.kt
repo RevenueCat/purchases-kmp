@@ -1,17 +1,22 @@
 package com.revenuecat.purchases.kmp
 
 import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
+import cocoapods.PurchasesHybridCommon.RCLogLevelDebug
+import cocoapods.PurchasesHybridCommon.RCLogLevelError
+import cocoapods.PurchasesHybridCommon.RCLogLevelInfo
+import cocoapods.PurchasesHybridCommon.RCLogLevelVerbose
+import cocoapods.PurchasesHybridCommon.RCLogLevelWarn
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.configureWithAPIKey
 import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
 import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
+import com.revenuecat.purchases.kmp.Purchases.Companion.logHandler
 import com.revenuecat.purchases.kmp.mappings.fromMap
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toHybridString
 import com.revenuecat.purchases.kmp.mappings.toIosCacheFetchPolicy
-import com.revenuecat.purchases.kmp.mappings.toIosLogHandler
 import com.revenuecat.purchases.kmp.mappings.toIosPackage
 import com.revenuecat.purchases.kmp.mappings.toIosPromotionalOffer
 import com.revenuecat.purchases.kmp.mappings.toIosStoreProduct
@@ -54,7 +59,17 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 ?: IosPurchases.logHandler().toLogHandler().also { _logHandler = it }
             set(value) {
                 _logHandler = value
-                IosPurchases.setLogHandler(value.toIosLogHandler())
+                IosPurchases.setLogHandler { level, message ->
+                    val tag = "Purchases"
+                    when (level) {
+                        RCLogLevelVerbose -> value.v(tag, message ?: "")
+                        RCLogLevelInfo -> value.d(tag, message ?: "")
+                        RCLogLevelDebug -> value.d(tag, message ?: "")
+                        RCLogLevelWarn -> value.w(tag, message ?: "")
+                        RCLogLevelError -> value.e(tag, message ?: "", null)
+                        else -> value.e(tag, "Unrecognized log level", null)
+                    }
+                }
             }
 
         public actual var proxyURL: String?
@@ -92,31 +107,6 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 )
             }.let { Purchases(it) }
                 .also { _sharedInstance = it }
-        }
-
-        private fun PurchasesConfiguration.storeKitVersionToUse(): StoreKitVersion {
-            var storeKitVersionToUse = this.storeKitVersion
-
-            if (this.purchasesAreCompletedBy is PurchasesAreCompletedBy.MyApp) {
-                storeKitVersionToUse = (this.purchasesAreCompletedBy as PurchasesAreCompletedBy.MyApp).storeKitVersion
-
-                if (this.storeKitVersion != StoreKitVersion.DEFAULT &&
-                    storeKitVersionToUse != this.storeKitVersion) {
-                    logHandler.w("[Purchases]", "The storeKitVersion in purchasesAreCompletedBy " +
-                            "does not match the provided storeKitVersion parameter. We will use the " +
-                            "value found in purchasesAreCompletedBy.")
-                }
-
-                if(storeKitVersionToUse == StoreKitVersion.DEFAULT) {
-                    logHandler.w("[Purchases]",
-                        "Warning: You should provide the specific StoreKit version you're using in " +
-                                "your implementation when configuring PurchasesAreCompletedBy.MyApp, " +
-                                "and not rely on the DEFAULT."
-                    )
-                }
-            }
-
-            return storeKitVersionToUse
         }
 
         public actual fun canMakePayments(
@@ -459,4 +449,29 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
     public actual fun setCreative(creative: String?): Unit =
         iosPurchases.setCreative(creative)
+}
+
+internal fun PurchasesConfiguration.storeKitVersionToUse(): StoreKitVersion {
+    var storeKitVersionToUse = this.storeKitVersion
+
+    if (this.purchasesAreCompletedBy is PurchasesAreCompletedBy.MyApp) {
+        storeKitVersionToUse = (this.purchasesAreCompletedBy as PurchasesAreCompletedBy.MyApp).storeKitVersion
+
+        if (this.storeKitVersion != StoreKitVersion.DEFAULT &&
+            storeKitVersionToUse != this.storeKitVersion) {
+            logHandler.w("[Purchases]", "The storeKitVersion in purchasesAreCompletedBy " +
+                    "does not match the provided storeKitVersion parameter. We will use the " +
+                    "value found in purchasesAreCompletedBy.")
+        }
+
+        if(storeKitVersionToUse == StoreKitVersion.DEFAULT) {
+            logHandler.w("[Purchases]",
+                "Warning: You should provide the specific StoreKit version you're using in " +
+                        "your implementation when configuring PurchasesAreCompletedBy.MyApp, " +
+                        "and not rely on the DEFAULT."
+            )
+        }
+    }
+
+    return storeKitVersionToUse
 }

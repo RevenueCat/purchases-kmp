@@ -3,7 +3,7 @@ package com.revenuecat.purchases.kmp.apitester
 import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.StoreKitVersion
 
-@Suppress("unused")
+@Suppress("unused", "UNUSED_VARIABLE")
 private class PurchasesAreCompletedByAPI {
     fun check(mode: PurchasesAreCompletedBy) {
         when (mode) {

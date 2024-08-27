@@ -6,7 +6,7 @@ import cocoapods.PurchasesHybridCommon.RCStoreTransaction as IosStoreTransaction
 
 public fun IosStoreTransaction.toStoreTransaction(): StoreTransaction =
     StoreTransaction(
-        orderId = transactionIdentifier(),
+        transactionId = transactionIdentifier(),
         productIds = listOf(productIdentifier()),
         purchaseTime = purchaseDate().toEpochMilliseconds(),
     )
@@ -30,7 +30,7 @@ public fun StoreTransaction.Companion.fromMap(storeTransactionMap: Map<Any?, *>)
 
     return Result.success(
         StoreTransaction(
-            orderId = transactionId,
+            transactionId = transactionId,
             productIds = listOf(productId),
             purchaseTime = purchaseTime
         )

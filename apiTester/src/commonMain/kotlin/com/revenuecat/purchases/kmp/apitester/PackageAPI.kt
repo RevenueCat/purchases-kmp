@@ -1,9 +1,7 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.Package
-import com.revenuecat.purchases.kmp.identifier
 import com.revenuecat.purchases.kmp.models.StoreProduct
-import com.revenuecat.purchases.kmp.storeProduct
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class PackageAPI {

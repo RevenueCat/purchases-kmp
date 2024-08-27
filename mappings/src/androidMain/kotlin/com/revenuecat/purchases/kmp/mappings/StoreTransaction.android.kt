@@ -5,7 +5,7 @@ import com.revenuecat.purchases.models.StoreTransaction as AndroidStoreTransacti
 
 public fun AndroidStoreTransaction.toStoreTransaction(): StoreTransaction =
     StoreTransaction(
-        orderId = orderId,
+        transactionId = orderId,
         productIds = productIds,
         purchaseTime = purchaseTime
     )

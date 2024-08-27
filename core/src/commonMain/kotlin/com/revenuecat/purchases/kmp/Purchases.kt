@@ -133,7 +133,7 @@ public expect class Purchases {
 
     /**
      * This method will send an Amazon purchase to the RevenueCat backend. This function should
-     * only be called if you have set [purchasesAreCompletedBy] to
+     * only be called if you have set [PurchasesAreCompletedBy] to
      * [MyApp][PurchasesAreCompletedBy.MyApp] or when performing a client side migration of your
      * current users to RevenueCat.
      *
@@ -383,7 +383,7 @@ public expect class Purchases {
      * You only need to use this method with *new* purchases.
      * Subscription updates are observed automatically.
      *
-     * Important: This should only be used if you have set [purchasesAreCompletedBy] to
+     * Important: This should only be used if you have set [PurchasesAreCompletedBy] to
      * [PurchasesAreCompletedBy.MyApp] during SDK configuration.
      *
      * **Warning** You need to finish the transaction yourself after calling this method.

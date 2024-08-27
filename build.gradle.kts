@@ -100,7 +100,7 @@ allprojects {
 }
 
 apiValidation {
-    ignoredProjects.addAll(listOf("apiTester", "composeApp", "mappings"))
+    ignoredProjects.addAll(listOf("apiTester", "composeApp", "mappings", "models"))
 
     @OptIn(kotlinx.validation.ExperimentalBCVApi::class)
     klib {

@@ -1,4 +1,4 @@
-package com.revenuecat.purchases.models
+package com.revenuecat.purchases.kmp.mappings
 
 
 import com.revenuecat.purchases.kmp.models.StoreTransaction
@@ -55,7 +55,7 @@ class StoreTransactionTests {
         val storeTransaction = result.getOrThrow()
         assertEquals(transactionId, storeTransaction.transactionId)
         assertEquals(listOf(productId), storeTransaction.productIds)
-        assertEquals(purchaseDateMillis.toLong(), storeTransaction.purchaseTime)
+        assertEquals(purchaseDateMillis, storeTransaction.purchaseTime)
     }
 
     @Test

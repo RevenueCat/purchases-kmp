@@ -5,8 +5,6 @@ import com.revenuecat.purchases.LogHandler as NativeAndroidLogHandler
 
 public fun NativeAndroidLogHandler.toLogHandler(): LogHandler = AndroidLogHandler(this)
 
-public fun LogHandler.toAndroidLogHandler(): NativeAndroidLogHandler = (this as AndroidLogHandler).androidLogHandler
-
 private class AndroidLogHandler(val androidLogHandler: NativeAndroidLogHandler) : LogHandler {
     override fun v(tag: String, msg: String) {
         androidLogHandler.v(tag, msg)

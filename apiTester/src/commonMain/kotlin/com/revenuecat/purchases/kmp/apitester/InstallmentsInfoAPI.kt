@@ -2,7 +2,7 @@ package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.models.InstallmentsInfo
 
-@Suppress("unused")
+@Suppress("unused", "UNUSED_VARIABLE")
 private class InstallmentsInfoAPI {
     fun checkInstallmentsInfo(installmentsInfo: InstallmentsInfo) {
         val commitmentPaymentsCount: Int = installmentsInfo.commitmentPaymentsCount

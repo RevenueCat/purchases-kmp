@@ -1,5 +1,10 @@
 package com.revenuecat.purchases.kmp
 
+import com.revenuecat.purchases.kmp.PrintLnLogHandler
+import com.revenuecat.purchases.kmp.Purchases
+import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy
+import com.revenuecat.purchases.kmp.PurchasesConfiguration
+import com.revenuecat.purchases.kmp.StoreKitVersion
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
