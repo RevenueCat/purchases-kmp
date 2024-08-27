@@ -5,15 +5,26 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 /**
  * Contains information about the product available for the user to purchase. For more info see
  * [/docs/entitlements](https://docs.revenuecat.com/docs/entitlements).
- * @property identifier Unique identifier for this package. Can be one a predefined package type or a custom one.
- * @property packageType Package type for the product. Will be one of [PackageType].
- * @property storeProduct [StoreProduct] assigned to this package.
- * @property presentedOfferingContext [PresentedOfferingContext] from which this package was obtained.
  */
 public interface Package {
+    /**
+     * Unique identifier for this package. Can be one a predefined package type or a custom one.
+     */
     public val identifier: String
+
+    /**
+     * Package type for the product. Will be one of [PackageType].
+     */
     public val packageType: PackageType
+
+    /**
+     * [StoreProduct] assigned to this package.
+     */
     public val storeProduct: StoreProduct
+
+    /**
+     * [PresentedOfferingContext] from which this package was obtained.
+     */
     public val presentedOfferingContext: PresentedOfferingContext
 }
 

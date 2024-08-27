@@ -12,7 +12,6 @@ import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
 import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
-import com.revenuecat.purchases.kmp.Purchases.Companion.logHandler
 import com.revenuecat.purchases.kmp.mappings.buildStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toHybridString
@@ -63,7 +62,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                     val tag = "PurchasesKMP"
                     when (level) {
                         RCLogLevelVerbose -> value.v(tag, message ?: "")
-                        RCLogLevelInfo -> value.d(tag, message ?: "")
+                        RCLogLevelInfo -> value.i(tag, message ?: "")
                         RCLogLevelDebug -> value.d(tag, message ?: "")
                         RCLogLevelWarn -> value.w(tag, message ?: "")
                         RCLogLevelError -> value.e(tag, message ?: "", null)
