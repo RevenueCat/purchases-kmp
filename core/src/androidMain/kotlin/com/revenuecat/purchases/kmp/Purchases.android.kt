@@ -8,7 +8,6 @@ import com.revenuecat.purchases.getProductsWith
 import com.revenuecat.purchases.kmp.di.AndroidProvider
 import com.revenuecat.purchases.kmp.di.requireActivity
 import com.revenuecat.purchases.kmp.di.requireApplication
-import com.revenuecat.purchases.kmp.mappings.DefaultLogHandler
 import com.revenuecat.purchases.kmp.mappings.toAndroidBillingFeature
 import com.revenuecat.purchases.kmp.mappings.toAndroidCacheFetchPolicy
 import com.revenuecat.purchases.kmp.mappings.toAndroidGoogleReplacementMode
@@ -93,8 +92,6 @@ public actual class Purchases private constructor(private val androidPurchases: 
 
         @JvmStatic
         public actual fun configure(configuration: PurchasesConfiguration): Purchases {
-            // Sets the log handler to the default before configuring the SDK.
-            logHandler = DefaultLogHandler()
             with(configuration) {
                 // Using the common configure() call allows us to pass PlatformInfo.
                 commonConfigure(
