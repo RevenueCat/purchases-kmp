@@ -10,31 +10,39 @@ import com.revenuecat.purchases.kmp.LogHandler
 
 private typealias NativeIosLogHandler = (RCLogLevel, String?) -> Unit
 
-public fun NativeIosLogHandler.toLogHandler(): LogHandler = IosLogHandler(this)
+public fun LogHandler.toIosLogHandler(): NativeIosLogHandler = {
+    level, message -> handleLog(this, level, message)
+}
 
-private class IosLogHandler(val logHandler: NativeIosLogHandler) : LogHandler {
-    override fun v(tag: String, msg: String) {
-        logHandler(RCLogLevelVerbose, msg)
+private fun handleLog(logHandler: LogHandler, level: RCLogLevel, message: String?) {
+    val tag = "PurchasesKMP"
+    when (level) {
+        RCLogLevelVerbose -> logHandler.v(tag, message ?: "")
+        RCLogLevelDebug -> logHandler.d(tag, message ?: "")
+        RCLogLevelInfo -> logHandler.i(tag, message ?: "")
+        RCLogLevelWarn -> logHandler.w(tag, message ?: "")
+        RCLogLevelError -> logHandler.e(tag, message ?: "", null)
     }
+}
 
+public class DefaultLogHandler : LogHandler {
     override fun d(tag: String, msg: String) {
-        logHandler(RCLogLevelDebug, msg)
-    }
-
-    override fun i(tag: String, msg: String) {
-        logHandler(RCLogLevelInfo, msg)
-    }
-
-    override fun w(tag: String, msg: String) {
-        logHandler(RCLogLevelWarn, msg)
+        println("[DEBUG][$tag] $msg")
     }
 
     override fun e(tag: String, msg: String, throwable: Throwable?) {
-        logHandler(RCLogLevelError, buildString {
-            append("[$tag] $msg")
-            throwable?.also {
-                append(" - ${it.message}\n$it")
-            }
-        })
+        println("[DEBUG][$tag] $msg. Throwable: $throwable")
+    }
+
+    override fun i(tag: String, msg: String) {
+        println("[INFO][$tag] $msg")
+    }
+
+    override fun v(tag: String, msg: String) {
+        println("[VERBOSE][$tag] $msg")
+    }
+
+    override fun w(tag: String, msg: String) {
+        println("[WARN][$tag] $msg")
     }
 }

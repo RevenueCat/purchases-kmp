@@ -8,18 +8,20 @@ import com.revenuecat.purchases.getProductsWith
 import com.revenuecat.purchases.kmp.di.AndroidProvider
 import com.revenuecat.purchases.kmp.di.requireActivity
 import com.revenuecat.purchases.kmp.di.requireApplication
+import com.revenuecat.purchases.kmp.mappings.DefaultLogHandler
 import com.revenuecat.purchases.kmp.mappings.toAndroidBillingFeature
 import com.revenuecat.purchases.kmp.mappings.toAndroidCacheFetchPolicy
 import com.revenuecat.purchases.kmp.mappings.toAndroidGoogleReplacementMode
+import com.revenuecat.purchases.kmp.mappings.toAndroidLogHandler
 import com.revenuecat.purchases.kmp.mappings.toAndroidLogLevel
 import com.revenuecat.purchases.kmp.mappings.toAndroidPackage
 import com.revenuecat.purchases.kmp.mappings.toAndroidStore
 import com.revenuecat.purchases.kmp.mappings.toAndroidStoreProduct
+import com.revenuecat.purchases.kmp.mappings.toAndroidSubscriptionOption
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
+import com.revenuecat.purchases.kmp.mappings.toHybridString
 import com.revenuecat.purchases.kmp.mappings.toLogHandler
 import com.revenuecat.purchases.kmp.mappings.toLogLevel
-import com.revenuecat.purchases.kmp.mappings.toAndroidSubscriptionOption
-import com.revenuecat.purchases.kmp.mappings.toHybridString
 import com.revenuecat.purchases.kmp.mappings.toOfferings
 import com.revenuecat.purchases.kmp.mappings.toPurchasesDelegate
 import com.revenuecat.purchases.kmp.mappings.toPurchasesError
@@ -70,28 +72,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         public actual var logHandler: LogHandler
             get() = AndroidPurchases.Companion.logHandler.toLogHandler()
             set(value) {
-                AndroidPurchases.Companion.logHandler = object : com.revenuecat.purchases.LogHandler {
-                    override fun d(tag: String, msg: String) {
-                        value.d(tag, msg)
-                    }
-
-                    override fun e(tag: String, msg: String, throwable: Throwable?) {
-                        value.e(tag, msg, throwable)
-                    }
-
-                    override fun i(tag: String, msg: String) {
-                        value.i(tag, msg)
-                    }
-
-                    override fun v(tag: String, msg: String) {
-                        value.v(tag, msg)
-                    }
-
-                    override fun w(tag: String, msg: String) {
-                        value.w(tag, msg)
-                    }
-
-                }
+                AndroidPurchases.Companion.logHandler = value.toAndroidLogHandler()
             }
 
         @JvmStatic
@@ -112,6 +93,8 @@ public actual class Purchases private constructor(private val androidPurchases: 
 
         @JvmStatic
         public actual fun configure(configuration: PurchasesConfiguration): Purchases {
+            // Sets the log handler to the default before configuring the SDK.
+            logHandler = DefaultLogHandler()
             with(configuration) {
                 // Using the common configure() call allows us to pass PlatformInfo.
                 commonConfigure(

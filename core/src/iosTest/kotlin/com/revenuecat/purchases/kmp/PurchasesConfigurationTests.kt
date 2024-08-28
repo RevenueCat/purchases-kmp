@@ -44,6 +44,7 @@ class PurchasesConfigurationTests {
     @Test
     fun `storeKitVersion provides the value from PurchasesAreCompletedBy if conflicting values are provided`() {
         Purchases.logHandler = PrintLnLogHandler
+        println("TEST 2")
         val config = PurchasesConfiguration(apiKey = "abc123") {
             purchasesAreCompletedBy = PurchasesAreCompletedBy.MyApp(StoreKitVersion.STOREKIT_2)
             storeKitVersion = StoreKitVersion.STOREKIT_1
