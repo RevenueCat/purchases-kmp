@@ -24,5 +24,5 @@ public sealed interface PurchasesAreCompletedBy {
      * If your app is Android-only, you may provide any value since it is ignored in the native
      * Android SDK.
      */
-    public data class MyApp(val storeKitVersion: StoreKitVersion) : PurchasesAreCompletedBy
+    public class MyApp(public val storeKitVersion: StoreKitVersion) : PurchasesAreCompletedBy
 }
