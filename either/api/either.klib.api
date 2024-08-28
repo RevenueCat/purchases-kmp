@@ -7,13 +7,6 @@
 
 // Library unique name: <com.revenuecat.purchases:either>
 final class com.revenuecat.purchases.kmp.either/FailedPurchase { // com.revenuecat.purchases.kmp.either/FailedPurchase|null[0]
-    constructor <init>(com.revenuecat.purchases.kmp/PurchasesError, kotlin/Boolean) // com.revenuecat.purchases.kmp.either/FailedPurchase.<init>|<init>(com.revenuecat.purchases.kmp.PurchasesError;kotlin.Boolean){}[0]
-    final fun component1(): com.revenuecat.purchases.kmp/PurchasesError // com.revenuecat.purchases.kmp.either/FailedPurchase.component1|component1(){}[0]
-    final fun component2(): kotlin/Boolean // com.revenuecat.purchases.kmp.either/FailedPurchase.component2|component2(){}[0]
-    final fun copy(com.revenuecat.purchases.kmp/PurchasesError =..., kotlin/Boolean =...): com.revenuecat.purchases.kmp.either/FailedPurchase // com.revenuecat.purchases.kmp.either/FailedPurchase.copy|copy(com.revenuecat.purchases.kmp.PurchasesError;kotlin.Boolean){}[0]
-    final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.either/FailedPurchase.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.either/FailedPurchase.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.either/FailedPurchase.toString|toString(){}[0]
     final val error // com.revenuecat.purchases.kmp.either/FailedPurchase.error|{}error[0]
         final fun <get-error>(): com.revenuecat.purchases.kmp/PurchasesError // com.revenuecat.purchases.kmp.either/FailedPurchase.error.<get-error>|<get-error>(){}[0]
     final val userCancelled // com.revenuecat.purchases.kmp.either/FailedPurchase.userCancelled|{}userCancelled[0]

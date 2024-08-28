@@ -20,15 +20,7 @@ public final class com/revenuecat/purchases/kmp/either/EitherKt {
 }
 
 public final class com/revenuecat/purchases/kmp/either/FailedPurchase {
-	public fun <init> (Lcom/revenuecat/purchases/kmp/PurchasesError;Z)V
-	public final fun component1 ()Lcom/revenuecat/purchases/kmp/PurchasesError;
-	public final fun component2 ()Z
-	public final fun copy (Lcom/revenuecat/purchases/kmp/PurchasesError;Z)Lcom/revenuecat/purchases/kmp/either/FailedPurchase;
-	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/either/FailedPurchase;Lcom/revenuecat/purchases/kmp/PurchasesError;ZILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/either/FailedPurchase;
-	public fun equals (Ljava/lang/Object;)Z
 	public final fun getError ()Lcom/revenuecat/purchases/kmp/PurchasesError;
 	public final fun getUserCancelled ()Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 

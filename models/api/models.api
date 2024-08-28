@@ -189,13 +189,7 @@ public abstract interface class com/revenuecat/purchases/kmp/PurchasesAreComplet
 
 public final class com/revenuecat/purchases/kmp/PurchasesAreCompletedBy$MyApp : com/revenuecat/purchases/kmp/PurchasesAreCompletedBy {
 	public fun <init> (Lcom/revenuecat/purchases/kmp/StoreKitVersion;)V
-	public final fun component1 ()Lcom/revenuecat/purchases/kmp/StoreKitVersion;
-	public final fun copy (Lcom/revenuecat/purchases/kmp/StoreKitVersion;)Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy$MyApp;
-	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy$MyApp;Lcom/revenuecat/purchases/kmp/StoreKitVersion;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy$MyApp;
-	public fun equals (Ljava/lang/Object;)Z
 	public final fun getStoreKitVersion ()Lcom/revenuecat/purchases/kmp/StoreKitVersion;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/PurchasesAreCompletedBy$RevenueCat : com/revenuecat/purchases/kmp/PurchasesAreCompletedBy {
