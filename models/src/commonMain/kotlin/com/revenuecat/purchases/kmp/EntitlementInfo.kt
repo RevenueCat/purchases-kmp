@@ -3,7 +3,7 @@ package com.revenuecat.purchases.kmp
 /**
  * This object gives you access to all of the information about the status of a user's entitlements.
  */
-public data class EntitlementInfo(
+public class EntitlementInfo(
     /**
      * The entitlement identifier configured in the RevenueCat dashboard.
      */

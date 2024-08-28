@@ -1,143 +1,3 @@
-public final class com/revenuecat/purchases/kmp/CacheFetchPolicy : java/lang/Enum {
-	public static final field CACHED_OR_FETCHED Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;
-	public static final field CACHE_ONLY Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;
-	public static final field Companion Lcom/revenuecat/purchases/kmp/CacheFetchPolicy$Companion;
-	public static final field FETCH_CURRENT Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;
-	public static final field NOT_STALE_CACHED_OR_CURRENT Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;
-}
-
-public final class com/revenuecat/purchases/kmp/CacheFetchPolicy$Companion {
-	public final fun default ()Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;
-}
-
-public final class com/revenuecat/purchases/kmp/DangerousSettings {
-	public fun <init> ()V
-	public fun <init> (Z)V
-	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Z
-	public final fun copy (Z)Lcom/revenuecat/purchases/kmp/DangerousSettings;
-	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/DangerousSettings;ZILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/DangerousSettings;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAutoSyncPurchases ()Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/revenuecat/purchases/kmp/EntitlementVerificationMode : java/lang/Enum {
-	public static final field DISABLED Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
-	public static final field INFORMATIONAL Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
-}
-
-public final class com/revenuecat/purchases/kmp/Errors_androidKt {
-	public static final fun toPurchasesError (Lcom/revenuecat/purchases/PurchasesError;)Lcom/revenuecat/purchases/kmp/PurchasesError;
-}
-
-public final class com/revenuecat/purchases/kmp/LogLevel : java/lang/Enum {
-	public static final field DEBUG Lcom/revenuecat/purchases/kmp/LogLevel;
-	public static final field ERROR Lcom/revenuecat/purchases/kmp/LogLevel;
-	public static final field INFO Lcom/revenuecat/purchases/kmp/LogLevel;
-	public static final field VERBOSE Lcom/revenuecat/purchases/kmp/LogLevel;
-	public static final field WARN Lcom/revenuecat/purchases/kmp/LogLevel;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/LogLevel;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/LogLevel;
-}
-
-public final class com/revenuecat/purchases/kmp/OfferingKt {
-	public static final fun get (Lcom/revenuecat/purchases/Offering;Ljava/lang/String;)Lcom/revenuecat/purchases/Package;
-	public static final fun getMetadataString (Lcom/revenuecat/purchases/Offering;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public static final fun getPackage (Lcom/revenuecat/purchases/Offering;Ljava/lang/String;)Lcom/revenuecat/purchases/Package;
-}
-
-public final class com/revenuecat/purchases/kmp/Offering_androidKt {
-	public static final fun getAnnual (Lcom/revenuecat/purchases/Offering;)Lcom/revenuecat/purchases/Package;
-	public static final fun getAvailablePackages (Lcom/revenuecat/purchases/Offering;)Ljava/util/List;
-	public static final fun getIdentifier (Lcom/revenuecat/purchases/Offering;)Ljava/lang/String;
-	public static final fun getLifetime (Lcom/revenuecat/purchases/Offering;)Lcom/revenuecat/purchases/Package;
-	public static final fun getMetadata (Lcom/revenuecat/purchases/Offering;)Ljava/util/Map;
-	public static final fun getMonthly (Lcom/revenuecat/purchases/Offering;)Lcom/revenuecat/purchases/Package;
-	public static final fun getServerDescription (Lcom/revenuecat/purchases/Offering;)Ljava/lang/String;
-	public static final fun getSixMonth (Lcom/revenuecat/purchases/Offering;)Lcom/revenuecat/purchases/Package;
-	public static final fun getThreeMonth (Lcom/revenuecat/purchases/Offering;)Lcom/revenuecat/purchases/Package;
-	public static final fun getTwoMonth (Lcom/revenuecat/purchases/Offering;)Lcom/revenuecat/purchases/Package;
-	public static final fun getWeekly (Lcom/revenuecat/purchases/Offering;)Lcom/revenuecat/purchases/Package;
-}
-
-public final class com/revenuecat/purchases/kmp/OfferingsKt {
-	public static final fun get (Lcom/revenuecat/purchases/Offerings;Ljava/lang/String;)Lcom/revenuecat/purchases/Offering;
-	public static final fun getOffering (Lcom/revenuecat/purchases/Offerings;Ljava/lang/String;)Lcom/revenuecat/purchases/Offering;
-}
-
-public final class com/revenuecat/purchases/kmp/Offerings_androidKt {
-	public static final fun getAll (Lcom/revenuecat/purchases/Offerings;)Ljava/util/Map;
-	public static final fun getCurrent (Lcom/revenuecat/purchases/Offerings;)Lcom/revenuecat/purchases/Offering;
-}
-
-public final class com/revenuecat/purchases/kmp/PackageType : java/lang/Enum {
-	public static final field ANNUAL Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field CUSTOM Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field LIFETIME Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field MONTHLY Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field SIX_MONTH Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field THREE_MONTH Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field TWO_MONTH Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field UNKNOWN Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field WEEKLY Lcom/revenuecat/purchases/kmp/PackageType;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PackageType;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/PackageType;
-}
-
-public final class com/revenuecat/purchases/kmp/Package_androidKt {
-	public static final fun getIdentifier (Lcom/revenuecat/purchases/Package;)Ljava/lang/String;
-	public static final fun getPackageType (Lcom/revenuecat/purchases/Package;)Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final fun getPresentedOfferingContext (Lcom/revenuecat/purchases/Package;)Lcom/revenuecat/purchases/kmp/PresentedOfferingContext;
-	public static final fun getStoreProduct (Lcom/revenuecat/purchases/Package;)Lcom/revenuecat/purchases/kmp/models/StoreProduct;
-}
-
-public final class com/revenuecat/purchases/kmp/PresentedOfferingContext {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;)Lcom/revenuecat/purchases/kmp/PresentedOfferingContext;
-	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/PresentedOfferingContext;Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/PresentedOfferingContext;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getOfferingIdentifier ()Ljava/lang/String;
-	public final fun getPlacementIdentifier ()Ljava/lang/String;
-	public final fun getTargetingContext ()Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/revenuecat/purchases/kmp/PresentedOfferingTargetingContext {
-	public fun <init> (ILjava/lang/String;)V
-	public final fun component1 ()I
-	public final fun component2 ()Ljava/lang/String;
-	public final fun copy (ILjava/lang/String;)Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;
-	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;ILjava/lang/String;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getRevision ()I
-	public final fun getRuleId ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/revenuecat/purchases/kmp/ProductType : java/lang/Enum {
-	public static final field INAPP Lcom/revenuecat/purchases/kmp/ProductType;
-	public static final field SUBS Lcom/revenuecat/purchases/kmp/ProductType;
-	public static final field UNKNOWN Lcom/revenuecat/purchases/kmp/ProductType;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/ProductType;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/ProductType;
-}
-
 public final class com/revenuecat/purchases/kmp/Purchases {
 	public static final field Companion Lcom/revenuecat/purchases/kmp/Purchases$Companion;
 	public synthetic fun <init> (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -150,7 +10,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public static synthetic fun getCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 	public final fun getDelegate ()Lcom/revenuecat/purchases/kmp/PurchasesDelegate;
 	public static final fun getForceUniversalAppStore ()Z
-	public static final fun getLogHandler ()Lcom/revenuecat/purchases/LogHandler;
+	public static final fun getLogHandler ()Lcom/revenuecat/purchases/kmp/LogHandler;
 	public static final fun getLogLevel ()Lcom/revenuecat/purchases/kmp/LogLevel;
 	public final fun getOfferings (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun getProducts (Ljava/util/List;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
@@ -164,12 +24,12 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public static final fun isConfigured ()Z
 	public final fun logIn (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
 	public final fun logOut (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
-	public final fun purchase (Lcom/revenuecat/purchases/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
-	public final fun purchase (Lcom/revenuecat/purchases/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/ReplacementMode;)V
+	public final fun purchase (Lcom/revenuecat/purchases/kmp/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
+	public final fun purchase (Lcom/revenuecat/purchases/kmp/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/ReplacementMode;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/ReplacementMode;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/ReplacementMode;)V
-	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/ReplacementMode;ILjava/lang/Object;)V
+	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/ReplacementMode;ILjava/lang/Object;)V
 	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/ReplacementMode;ILjava/lang/Object;)V
 	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/ReplacementMode;ILjava/lang/Object;)V
 	public final fun recordPurchase (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
@@ -190,7 +50,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun setFirebaseAppInstanceID (Ljava/lang/String;)V
 	public static final fun setForceUniversalAppStore (Z)V
 	public final fun setKeyword (Ljava/lang/String;)V
-	public static final fun setLogHandler (Lcom/revenuecat/purchases/LogHandler;)V
+	public static final fun setLogHandler (Lcom/revenuecat/purchases/kmp/LogHandler;)V
 	public static final fun setLogLevel (Lcom/revenuecat/purchases/kmp/LogLevel;)V
 	public final fun setMediaSource (Ljava/lang/String;)V
 	public final fun setMixpanelDistinctID (Ljava/lang/String;)V
@@ -213,38 +73,17 @@ public final class com/revenuecat/purchases/kmp/Purchases$Companion {
 	public static synthetic fun canMakePayments$default (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 	public final fun configure (Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;)Lcom/revenuecat/purchases/kmp/Purchases;
 	public final fun getForceUniversalAppStore ()Z
-	public final fun getLogHandler ()Lcom/revenuecat/purchases/LogHandler;
+	public final fun getLogHandler ()Lcom/revenuecat/purchases/kmp/LogHandler;
 	public final fun getLogLevel ()Lcom/revenuecat/purchases/kmp/LogLevel;
 	public final fun getProxyURL ()Ljava/lang/String;
 	public final fun getSharedInstance ()Lcom/revenuecat/purchases/kmp/Purchases;
 	public final fun getSimulatesAskToBuyInSandbox ()Z
 	public final fun isConfigured ()Z
 	public final fun setForceUniversalAppStore (Z)V
-	public final fun setLogHandler (Lcom/revenuecat/purchases/LogHandler;)V
+	public final fun setLogHandler (Lcom/revenuecat/purchases/kmp/LogHandler;)V
 	public final fun setLogLevel (Lcom/revenuecat/purchases/kmp/LogLevel;)V
 	public final fun setProxyURL (Ljava/lang/String;)V
 	public final fun setSimulatesAskToBuyInSandbox (Z)V
-}
-
-public abstract interface class com/revenuecat/purchases/kmp/PurchasesAreCompletedBy {
-}
-
-public final class com/revenuecat/purchases/kmp/PurchasesAreCompletedBy$MyApp : com/revenuecat/purchases/kmp/PurchasesAreCompletedBy {
-	public fun <init> (Lcom/revenuecat/purchases/kmp/StoreKitVersion;)V
-	public final fun component1 ()Lcom/revenuecat/purchases/kmp/StoreKitVersion;
-	public final fun copy (Lcom/revenuecat/purchases/kmp/StoreKitVersion;)Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy$MyApp;
-	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy$MyApp;Lcom/revenuecat/purchases/kmp/StoreKitVersion;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy$MyApp;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getStoreKitVersion ()Lcom/revenuecat/purchases/kmp/StoreKitVersion;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/revenuecat/purchases/kmp/PurchasesAreCompletedBy$RevenueCat : com/revenuecat/purchases/kmp/PurchasesAreCompletedBy {
-	public static final field INSTANCE Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy$RevenueCat;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/PurchasesConfiguration {
@@ -304,103 +143,12 @@ public final class com/revenuecat/purchases/kmp/PurchasesConfiguration$Builder {
 public final class com/revenuecat/purchases/kmp/PurchasesConfigurationKt {
 	public static final synthetic fun PurchasesConfiguration (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;
 	public static synthetic fun PurchasesConfiguration$default (Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;
-	public static final synthetic fun configure (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/revenuecat/purchases/kmp/Purchases;
-	public static synthetic fun configure$default (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/Purchases;
-}
-
-public abstract interface class com/revenuecat/purchases/kmp/PurchasesDelegate {
-	public abstract fun onCustomerInfoUpdated (Lcom/revenuecat/purchases/kmp/CustomerInfo;)V
-	public abstract fun onPurchasePromoProduct (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;)V
-}
-
-public final class com/revenuecat/purchases/kmp/PurchasesError {
-	public fun <init> (Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;Ljava/lang/String;)V
-	public synthetic fun <init> (Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getCode ()Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public final fun getMessage ()Ljava/lang/String;
-	public final fun getUnderlyingErrorMessage ()Ljava/lang/String;
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/revenuecat/purchases/kmp/PurchasesErrorCode : java/lang/Enum {
-	public static final field ApiEndpointBlocked Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field BeginRefundRequestError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ConfigurationError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field CustomerInfoError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field EmptySubscriberAttributesError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field FeatureNotAvailableInCustomEntitlementsComputationMode Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field IneligibleError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field InsufficientPermissionsError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field InvalidAppUserIdError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field InvalidAppleSubscriptionKeyError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field InvalidCredentialsError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field InvalidPromotionalOfferError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field InvalidReceiptError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field InvalidSubscriberAttributesError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field LogOutWithAnonymousUserError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field MissingReceiptFileError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field NetworkError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field OfflineConnectionError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field OperationAlreadyInProgressError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field PaymentPendingError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ProductAlreadyPurchasedError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ProductDiscountMissingIdentifierError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ProductDiscountMissingSubscriptionGroupIdentifierError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ProductNotAvailableForPurchaseError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ProductRequestTimedOut Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field PurchaseCancelledError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field PurchaseInvalidError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field PurchaseNotAllowedError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ReceiptAlreadyInUseError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ReceiptInUseByOtherSubscriberError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field SignatureVerificationError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field StoreProblemError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field SystemInfoError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field UnexpectedBackendResponseError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field UnknownBackendError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field UnknownError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field UnsupportedError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public final fun getCode ()I
-	public final fun getDescription ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-}
-
-public class com/revenuecat/purchases/kmp/PurchasesException : java/lang/Exception {
-	public fun <init> (Lcom/revenuecat/purchases/kmp/PurchasesError;)V
-	public final fun getCode ()Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public final fun getError ()Lcom/revenuecat/purchases/kmp/PurchasesError;
-	public fun getMessage ()Ljava/lang/String;
-	public final fun getUnderlyingErrorMessage ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/PurchasesKt {
+	public static final synthetic fun configure (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/revenuecat/purchases/kmp/Purchases;
+	public static synthetic fun configure$default (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/Purchases;
 	public static final fun getFrameworkVersion (Lcom/revenuecat/purchases/kmp/Purchases$Companion;)Ljava/lang/String;
-}
-
-public final class com/revenuecat/purchases/kmp/PurchasesTransactionException : com/revenuecat/purchases/kmp/PurchasesException {
-	public fun <init> (Lcom/revenuecat/purchases/kmp/PurchasesError;Z)V
-	public final fun getUserCancelled ()Z
-}
-
-public abstract interface class com/revenuecat/purchases/kmp/ReplacementMode {
-	public abstract fun getName ()Ljava/lang/String;
-}
-
-public final class com/revenuecat/purchases/kmp/StoreKitVersion : java/lang/Enum {
-	public static final field DEFAULT Lcom/revenuecat/purchases/kmp/StoreKitVersion;
-	public static final field STOREKIT_1 Lcom/revenuecat/purchases/kmp/StoreKitVersion;
-	public static final field STOREKIT_2 Lcom/revenuecat/purchases/kmp/StoreKitVersion;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/StoreKitVersion;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/StoreKitVersion;
-}
-
-public final class com/revenuecat/purchases/kmp/UpdatedCustomerInfoDelegate : com/revenuecat/purchases/kmp/PurchasesDelegate {
-	public fun <init> (Lkotlin/jvm/functions/Function1;)V
-	public fun onCustomerInfoUpdated (Lcom/revenuecat/purchases/kmp/CustomerInfo;)V
-	public fun onPurchasePromoProduct (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;)V
 }
 
 public final class com/revenuecat/purchases/kmp/i18n/Locale {
@@ -428,12 +176,12 @@ public final class com/revenuecat/purchases/kmp/ktx/CoroutinesKt {
 	public static final fun awaitLogOut (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitOfferings (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPromotionalOffer (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun awaitRestore (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -455,187 +203,15 @@ public final class com/revenuecat/purchases/kmp/ktx/SuccessfulLogin {
 }
 
 public final class com/revenuecat/purchases/kmp/ktx/SuccessfulPurchase {
-	public fun <init> (Lcom/revenuecat/purchases/models/StoreTransaction;Lcom/revenuecat/purchases/kmp/CustomerInfo;)V
-	public final fun component1 ()Lcom/revenuecat/purchases/models/StoreTransaction;
+	public fun <init> (Lcom/revenuecat/purchases/kmp/models/StoreTransaction;Lcom/revenuecat/purchases/kmp/CustomerInfo;)V
+	public final fun component1 ()Lcom/revenuecat/purchases/kmp/models/StoreTransaction;
 	public final fun component2 ()Lcom/revenuecat/purchases/kmp/CustomerInfo;
-	public final fun copy (Lcom/revenuecat/purchases/models/StoreTransaction;Lcom/revenuecat/purchases/kmp/CustomerInfo;)Lcom/revenuecat/purchases/kmp/ktx/SuccessfulPurchase;
-	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/ktx/SuccessfulPurchase;Lcom/revenuecat/purchases/models/StoreTransaction;Lcom/revenuecat/purchases/kmp/CustomerInfo;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/ktx/SuccessfulPurchase;
+	public final fun copy (Lcom/revenuecat/purchases/kmp/models/StoreTransaction;Lcom/revenuecat/purchases/kmp/CustomerInfo;)Lcom/revenuecat/purchases/kmp/ktx/SuccessfulPurchase;
+	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/ktx/SuccessfulPurchase;Lcom/revenuecat/purchases/kmp/models/StoreTransaction;Lcom/revenuecat/purchases/kmp/CustomerInfo;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/ktx/SuccessfulPurchase;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCustomerInfo ()Lcom/revenuecat/purchases/kmp/CustomerInfo;
-	public final fun getStoreTransaction ()Lcom/revenuecat/purchases/models/StoreTransaction;
+	public final fun getStoreTransaction ()Lcom/revenuecat/purchases/kmp/models/StoreTransaction;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/revenuecat/purchases/kmp/models/BillingFeature : java/lang/Enum {
-	public static final field PRICE_CHANGE_CONFIRMATION Lcom/revenuecat/purchases/kmp/models/BillingFeature;
-	public static final field SUBSCRIPTIONS Lcom/revenuecat/purchases/kmp/models/BillingFeature;
-	public static final field SUBSCRIPTIONS_UPDATE Lcom/revenuecat/purchases/kmp/models/BillingFeature;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/BillingFeature;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/BillingFeature;
-}
-
-public final class com/revenuecat/purchases/kmp/models/DiscountPaymentMode : java/lang/Enum {
-	public static final field FREE_TRIAL Lcom/revenuecat/purchases/kmp/models/DiscountPaymentMode;
-	public static final field PAY_AS_YOU_GO Lcom/revenuecat/purchases/kmp/models/DiscountPaymentMode;
-	public static final field PAY_UP_FRONT Lcom/revenuecat/purchases/kmp/models/DiscountPaymentMode;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/DiscountPaymentMode;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/DiscountPaymentMode;
-}
-
-public final class com/revenuecat/purchases/kmp/models/DiscountType : java/lang/Enum {
-	public static final field INTRODUCTORY Lcom/revenuecat/purchases/kmp/models/DiscountType;
-	public static final field PROMOTIONAL Lcom/revenuecat/purchases/kmp/models/DiscountType;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/DiscountType;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/DiscountType;
-}
-
-public final class com/revenuecat/purchases/kmp/models/GoogleReplacementMode : java/lang/Enum, com/revenuecat/purchases/kmp/ReplacementMode {
-	public static final field CHARGE_FULL_PRICE Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;
-	public static final field CHARGE_PRORATED_PRICE Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;
-	public static final field DEFERRED Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;
-	public static final field WITHOUT_PRORATION Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;
-	public static final field WITH_TIME_PRORATION Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public synthetic fun getName ()Ljava/lang/String;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;
-}
-
-public final class com/revenuecat/purchases/kmp/models/OfferPaymentMode : java/lang/Enum {
-	public static final field DISCOUNTED_RECURRING_PAYMENT Lcom/revenuecat/purchases/kmp/models/OfferPaymentMode;
-	public static final field FREE_TRIAL Lcom/revenuecat/purchases/kmp/models/OfferPaymentMode;
-	public static final field SINGLE_PAYMENT Lcom/revenuecat/purchases/kmp/models/OfferPaymentMode;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/OfferPaymentMode;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/OfferPaymentMode;
-}
-
-public final class com/revenuecat/purchases/kmp/models/Period {
-	public final fun getUnit ()Lcom/revenuecat/purchases/kmp/models/PeriodUnit;
-	public final fun getValue ()I
-	public final fun getValueInMonths ()D
-}
-
-public final class com/revenuecat/purchases/kmp/models/PeriodUnit : java/lang/Enum {
-	public static final field DAY Lcom/revenuecat/purchases/kmp/models/PeriodUnit;
-	public static final field MONTH Lcom/revenuecat/purchases/kmp/models/PeriodUnit;
-	public static final field UNKNOWN Lcom/revenuecat/purchases/kmp/models/PeriodUnit;
-	public static final field WEEK Lcom/revenuecat/purchases/kmp/models/PeriodUnit;
-	public static final field YEAR Lcom/revenuecat/purchases/kmp/models/PeriodUnit;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/PeriodUnit;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/PeriodUnit;
-}
-
-public final class com/revenuecat/purchases/kmp/models/Price {
-	public final fun getAmountMicros ()J
-	public final fun getCurrencyCode ()Ljava/lang/String;
-	public final fun getFormatted ()Ljava/lang/String;
-}
-
-public final class com/revenuecat/purchases/kmp/models/PricingPhase {
-	public final fun getBillingCycleCount ()Ljava/lang/Integer;
-	public final fun getBillingPeriod ()Lcom/revenuecat/purchases/kmp/models/Period;
-	public final fun getOfferPaymentMode ()Lcom/revenuecat/purchases/kmp/models/OfferPaymentMode;
-	public final fun getPrice ()Lcom/revenuecat/purchases/kmp/models/Price;
-	public final fun getRecurrenceMode ()Lcom/revenuecat/purchases/kmp/models/RecurrenceMode;
-}
-
-public final class com/revenuecat/purchases/kmp/models/ProductCategory : java/lang/Enum {
-	public static final field NON_SUBSCRIPTION Lcom/revenuecat/purchases/kmp/models/ProductCategory;
-	public static final field SUBSCRIPTION Lcom/revenuecat/purchases/kmp/models/ProductCategory;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/ProductCategory;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/ProductCategory;
-}
-
-public final class com/revenuecat/purchases/kmp/models/PromotionalOffer {
-	public final fun getDiscount ()Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;
-}
-
-public abstract interface class com/revenuecat/purchases/kmp/models/PurchasingData {
-	public abstract fun getProductId ()Ljava/lang/String;
-	public abstract fun getProductType ()Lcom/revenuecat/purchases/kmp/ProductType;
-}
-
-public final class com/revenuecat/purchases/kmp/models/RecurrenceMode : java/lang/Enum {
-	public static final field FINITE_RECURRING Lcom/revenuecat/purchases/kmp/models/RecurrenceMode;
-	public static final field INFINITE_RECURRING Lcom/revenuecat/purchases/kmp/models/RecurrenceMode;
-	public static final field NON_RECURRING Lcom/revenuecat/purchases/kmp/models/RecurrenceMode;
-	public static final field UNKNOWN Lcom/revenuecat/purchases/kmp/models/RecurrenceMode;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/RecurrenceMode;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/RecurrenceMode;
-}
-
-public final class com/revenuecat/purchases/kmp/models/StoreMessageType : java/lang/Enum {
-	public static final field BILLING_ISSUES Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
-	public static final field GENERIC Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
-	public static final field PRICE_INCREASE_CONSENT Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
-}
-
-public final class com/revenuecat/purchases/kmp/models/StoreProduct {
-	public final fun getCategory ()Lcom/revenuecat/purchases/kmp/models/ProductCategory;
-	public final fun getDefaultOption ()Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;
-	public final fun getDiscounts ()Ljava/util/List;
-	public final fun getId ()Ljava/lang/String;
-	public final fun getIntroductoryDiscount ()Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;
-	public final fun getLocalizedDescription ()Ljava/lang/String;
-	public final fun getPeriod ()Lcom/revenuecat/purchases/kmp/models/Period;
-	public final fun getPresentedOfferingContext ()Lcom/revenuecat/purchases/kmp/PresentedOfferingContext;
-	public final fun getPrice ()Lcom/revenuecat/purchases/kmp/models/Price;
-	public final fun getPurchasingData ()Lcom/revenuecat/purchases/kmp/models/PurchasingData;
-	public final fun getSubscriptionOptions ()Lcom/revenuecat/purchases/kmp/models/SubscriptionOptions;
-	public final fun getTitle ()Ljava/lang/String;
-	public final fun getType ()Lcom/revenuecat/purchases/kmp/ProductType;
-}
-
-public final class com/revenuecat/purchases/kmp/models/StoreProductDiscount {
-	public final fun getNumberOfPeriods ()J
-	public final fun getOfferIdentifier ()Ljava/lang/String;
-	public final fun getPaymentMode ()Lcom/revenuecat/purchases/kmp/models/DiscountPaymentMode;
-	public final fun getPrice ()Lcom/revenuecat/purchases/kmp/models/Price;
-	public final fun getSubscriptionPeriod ()Lcom/revenuecat/purchases/kmp/models/Period;
-	public final fun getType ()Lcom/revenuecat/purchases/kmp/models/DiscountType;
-}
-
-public final class com/revenuecat/purchases/kmp/models/StoreTransaction_androidKt {
-	public static final fun getProductIds (Lcom/revenuecat/purchases/models/StoreTransaction;)Ljava/util/List;
-	public static final fun getPurchaseTime (Lcom/revenuecat/purchases/models/StoreTransaction;)J
-	public static final fun getTransactionId (Lcom/revenuecat/purchases/models/StoreTransaction;)Ljava/lang/String;
-}
-
-public abstract interface class com/revenuecat/purchases/kmp/models/SubscriptionOption {
-	public abstract fun getId ()Ljava/lang/String;
-	public abstract fun getInstallmentsInfo ()Lcom/revenuecat/purchases/models/InstallmentsInfo;
-	public abstract fun getPresentedOfferingContext ()Lcom/revenuecat/purchases/kmp/PresentedOfferingContext;
-	public abstract fun getPresentedOfferingIdentifier ()Ljava/lang/String;
-	public abstract fun getPricingPhases ()Ljava/util/List;
-	public abstract fun getPurchasingData ()Lcom/revenuecat/purchases/kmp/models/PurchasingData;
-	public abstract fun getTags ()Ljava/util/List;
-}
-
-public final class com/revenuecat/purchases/kmp/models/SubscriptionOptionKt {
-	public static final fun getBillingPeriod (Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;)Lcom/revenuecat/purchases/kmp/models/Period;
-	public static final fun getFreePhase (Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;)Lcom/revenuecat/purchases/kmp/models/PricingPhase;
-	public static final fun getFullPricePhase (Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;)Lcom/revenuecat/purchases/kmp/models/PricingPhase;
-	public static final fun getIntroPhase (Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;)Lcom/revenuecat/purchases/kmp/models/PricingPhase;
-	public static final fun isBasePlan (Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;)Z
-	public static final fun isPrepaid (Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;)Z
-}
-
-public final class com/revenuecat/purchases/kmp/models/SubscriptionOptions {
-	public final fun getBasePlan ()Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;
-	public final fun getDefaultOffer ()Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;
-	public final fun getFreeTrial ()Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;
-	public final fun getIntroOffer ()Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;
-	public final fun withTag (Ljava/lang/String;)Ljava/util/List;
 }
 

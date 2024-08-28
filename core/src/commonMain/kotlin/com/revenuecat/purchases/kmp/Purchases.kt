@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp
 
+import com.revenuecat.purchases.kmp.PurchasesConfiguration.Builder
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.StoreMessageType
@@ -7,6 +8,7 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import kotlin.jvm.JvmSynthetic
 
 /**
  * Entry point for Purchases. This class can be instantiated using [Purchases.configure]. This
@@ -131,7 +133,7 @@ public expect class Purchases {
 
     /**
      * This method will send an Amazon purchase to the RevenueCat backend. This function should
-     * only be called if you have set [purchasesAreCompletedBy] to
+     * only be called if you have set [PurchasesAreCompletedBy] to
      * [MyApp][PurchasesAreCompletedBy.MyApp] or when performing a client side migration of your
      * current users to RevenueCat.
      *
@@ -381,7 +383,7 @@ public expect class Purchases {
      * You only need to use this method with *new* purchases.
      * Subscription updates are observed automatically.
      *
-     * Important: This should only be used if you have set [purchasesAreCompletedBy] to
+     * Important: This should only be used if you have set [PurchasesAreCompletedBy] to
      * [PurchasesAreCompletedBy.MyApp] during SDK configuration.
      *
      * **Warning** You need to finish the transaction yourself after calling this method.
@@ -644,3 +646,15 @@ public expect class Purchases {
  */
 public val Purchases.Companion.frameworkVersion: String
     get() = BuildKonfig.revenuecatKmpVersion
+
+/**
+ * Configures an instance of the SDK with the specified [configuration builder][builder]. The
+ * instance will be set as a singleton. You should access the singleton instance using
+ * [sharedInstance][Purchases.sharedInstance].
+ */
+@JvmSynthetic
+public fun Purchases.Companion.configure(
+    apiKey: String,
+    builder: Builder.() -> Unit = { }
+): Purchases =
+    configure(PurchasesConfiguration(apiKey, builder))

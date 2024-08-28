@@ -21,33 +21,33 @@ import kotlin.coroutines.suspendCoroutine
 /**
  * The result of a successful purchase operation. Used in coroutines.
  */
-public data class SuccessfulPurchase(
+public class SuccessfulPurchase(
     /**
      * The [StoreTransaction] for this purchase.
      */
-    val storeTransaction: StoreTransaction,
+    public val storeTransaction: StoreTransaction,
 
     /**
      * The updated [CustomerInfo] for this user after the purchase has been synced with
      * RevenueCat's servers.
      */
-    val customerInfo: CustomerInfo,
+    public val customerInfo: CustomerInfo,
 )
 
 /**
  * The result of a successful login operation. Used in coroutines.
  */
-public data class SuccessfulLogin(
+public class SuccessfulLogin(
     /**
      * The [CustomerInfo] associated with the logged in user.
      */
-    val customerInfo: CustomerInfo,
+    public val customerInfo: CustomerInfo,
 
     /**
      * true if a new user has been registered in the backend,
      * false if the user had already been registered.
      */
-    val created: Boolean,
+    public val created: Boolean,
 )
 
 /**
