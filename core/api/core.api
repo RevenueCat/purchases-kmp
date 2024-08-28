@@ -191,27 +191,13 @@ public final class com/revenuecat/purchases/kmp/ktx/CoroutinesKt {
 
 public final class com/revenuecat/purchases/kmp/ktx/SuccessfulLogin {
 	public fun <init> (Lcom/revenuecat/purchases/kmp/CustomerInfo;Z)V
-	public final fun component1 ()Lcom/revenuecat/purchases/kmp/CustomerInfo;
-	public final fun component2 ()Z
-	public final fun copy (Lcom/revenuecat/purchases/kmp/CustomerInfo;Z)Lcom/revenuecat/purchases/kmp/ktx/SuccessfulLogin;
-	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/ktx/SuccessfulLogin;Lcom/revenuecat/purchases/kmp/CustomerInfo;ZILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/ktx/SuccessfulLogin;
-	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCreated ()Z
 	public final fun getCustomerInfo ()Lcom/revenuecat/purchases/kmp/CustomerInfo;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/ktx/SuccessfulPurchase {
 	public fun <init> (Lcom/revenuecat/purchases/kmp/models/StoreTransaction;Lcom/revenuecat/purchases/kmp/CustomerInfo;)V
-	public final fun component1 ()Lcom/revenuecat/purchases/kmp/models/StoreTransaction;
-	public final fun component2 ()Lcom/revenuecat/purchases/kmp/CustomerInfo;
-	public final fun copy (Lcom/revenuecat/purchases/kmp/models/StoreTransaction;Lcom/revenuecat/purchases/kmp/CustomerInfo;)Lcom/revenuecat/purchases/kmp/ktx/SuccessfulPurchase;
-	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/ktx/SuccessfulPurchase;Lcom/revenuecat/purchases/kmp/models/StoreTransaction;Lcom/revenuecat/purchases/kmp/CustomerInfo;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/ktx/SuccessfulPurchase;
-	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCustomerInfo ()Lcom/revenuecat/purchases/kmp/CustomerInfo;
 	public final fun getStoreTransaction ()Lcom/revenuecat/purchases/kmp/models/StoreTransaction;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 

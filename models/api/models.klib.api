@@ -577,11 +577,6 @@ open class com.revenuecat.purchases.kmp/PurchasesException : kotlin/Exception { 
 sealed interface com.revenuecat.purchases.kmp/PurchasesAreCompletedBy { // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy|null[0]
     final class MyApp : com.revenuecat.purchases.kmp/PurchasesAreCompletedBy { // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp|null[0]
         constructor <init>(com.revenuecat.purchases.kmp/StoreKitVersion) // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp.<init>|<init>(com.revenuecat.purchases.kmp.StoreKitVersion){}[0]
-        final fun component1(): com.revenuecat.purchases.kmp/StoreKitVersion // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp.component1|component1(){}[0]
-        final fun copy(com.revenuecat.purchases.kmp/StoreKitVersion =...): com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp.copy|copy(com.revenuecat.purchases.kmp.StoreKitVersion){}[0]
-        final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp.equals|equals(kotlin.Any?){}[0]
-        final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp.hashCode|hashCode(){}[0]
-        final fun toString(): kotlin/String // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp.toString|toString(){}[0]
         final val storeKitVersion // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp.storeKitVersion|{}storeKitVersion[0]
             final fun <get-storeKitVersion>(): com.revenuecat.purchases.kmp/StoreKitVersion // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp.storeKitVersion.<get-storeKitVersion>|<get-storeKitVersion>(){}[0]
     }
