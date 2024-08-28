@@ -8,41 +8,53 @@ import cocoapods.PurchasesHybridCommon.RCLogLevelVerbose
 import cocoapods.PurchasesHybridCommon.RCLogLevelWarn
 import com.revenuecat.purchases.kmp.LogHandler
 
-private typealias NativeIosLogHandler = (RCLogLevel, String?) -> Unit
+private typealias IosLogHandler = (RCLogLevel, String?) -> Unit
 
-public fun LogHandler.toIosLogHandler(): NativeIosLogHandler = {
-    level, message -> handleLog(this, level, message)
-}
+public fun IosLogHandler.toLogHandler(): LogHandler =
+    when (this) {
+        is LogHandlerWrapper -> wrapped
+        else -> IosLogHandlerWrapper(this)
+    }
 
-private fun handleLog(logHandler: LogHandler, level: RCLogLevel, message: String?) {
-    val tag = "PurchasesKMP"
-    when (level) {
-        RCLogLevelVerbose -> logHandler.v(tag, message ?: "")
-        RCLogLevelDebug -> logHandler.d(tag, message ?: "")
-        RCLogLevelInfo -> logHandler.i(tag, message ?: "")
-        RCLogLevelWarn -> logHandler.w(tag, message ?: "")
-        RCLogLevelError -> logHandler.e(tag, message ?: "", null)
+public fun LogHandler.toIosLogHandler(): IosLogHandler =
+    when (this) {
+        is IosLogHandlerWrapper -> wrapped
+        else -> LogHandlerWrapper(this)
+    }
+
+private class LogHandlerWrapper(val wrapped: LogHandler) : IosLogHandler {
+    private val tag = "[Purchases]"
+
+    override fun invoke(level: RCLogLevel, message: String?) {
+        when (level) {
+            RCLogLevelVerbose -> wrapped.v(tag, message ?: "")
+            RCLogLevelDebug -> wrapped.d(tag, message ?: "")
+            RCLogLevelInfo -> wrapped.i(tag, message ?: "")
+            RCLogLevelWarn -> wrapped.w(tag, message ?: "")
+            RCLogLevelError -> wrapped.e(tag, message ?: "", null)
+        }
     }
 }
 
-public class DefaultLogHandler : LogHandler {
+private class IosLogHandlerWrapper(val wrapped: IosLogHandler) : LogHandler {
     override fun d(tag: String, msg: String) {
-        println("[DEBUG][$tag] $msg")
+        wrapped(RCLogLevelDebug, "[DEBUG][$tag] $msg")
     }
 
     override fun e(tag: String, msg: String, throwable: Throwable?) {
-        println("[DEBUG][$tag] $msg. Throwable: $throwable")
+        wrapped(RCLogLevelError, "[ERROR][$tag] $msg")
+        throwable?.printStackTrace()
     }
 
     override fun i(tag: String, msg: String) {
-        println("[INFO][$tag] $msg")
+        wrapped(RCLogLevelInfo, "[INFO][$tag] $msg")
     }
 
     override fun v(tag: String, msg: String) {
-        println("[VERBOSE][$tag] $msg")
+        wrapped(RCLogLevelVerbose, "[VERBOSE][$tag] $msg")
     }
 
     override fun w(tag: String, msg: String) {
-        println("[WARN][$tag] $msg")
+        wrapped(RCLogLevelWarn, "[WARN][$tag] $msg")
     }
 }
