@@ -7,7 +7,6 @@ import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
 import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
-import com.revenuecat.purchases.kmp.mappings.DefaultLogHandler
 import com.revenuecat.purchases.kmp.mappings.buildStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toHybridString
@@ -17,6 +16,7 @@ import com.revenuecat.purchases.kmp.mappings.toIosPackage
 import com.revenuecat.purchases.kmp.mappings.toIosPromotionalOffer
 import com.revenuecat.purchases.kmp.mappings.toIosStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toIosStoreProductDiscount
+import com.revenuecat.purchases.kmp.mappings.toLogHandler
 import com.revenuecat.purchases.kmp.mappings.toLogLevel
 import com.revenuecat.purchases.kmp.mappings.toOfferings
 import com.revenuecat.purchases.kmp.mappings.toPromotionalOffer
@@ -48,11 +48,9 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             get() = IosPurchases.logLevel().toLogLevel()
             set(value) = IosPurchases.setLogLevel(value.toRcLogLevel())
 
-        private var _logHandler: LogHandler = DefaultLogHandler()
         public actual var logHandler: LogHandler
-            get() = _logHandler
+            get() = IosPurchases.logHandler().toLogHandler()
             set(value) {
-                _logHandler = value
                 IosPurchases.setLogHandler(value.toIosLogHandler())
             }
 
@@ -75,8 +73,6 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             configuration: PurchasesConfiguration
         ): Purchases {
             checkCommonVersion()
-            // This sets the log handler to the default one right before configuring the SDK.
-            logHandler = _logHandler
 
             return with(configuration) {
                 IosPurchases.configureWithAPIKey(

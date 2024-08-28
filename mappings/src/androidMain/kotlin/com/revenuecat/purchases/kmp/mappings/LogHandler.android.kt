@@ -1,37 +1,21 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import android.util.Log
 import com.revenuecat.purchases.kmp.LogHandler
-import com.revenuecat.purchases.LogHandler as NativeAndroidLogHandler
+import com.revenuecat.purchases.LogHandler as AndroidLogHandler
 
-public fun NativeAndroidLogHandler.toLogHandler(): LogHandler =
-    (this as LogHandlerWrapper).wrapped
-
-public fun LogHandler.toAndroidLogHandler(): NativeAndroidLogHandler = LogHandlerWrapper(this)
-
-public class DefaultLogHandler: LogHandler {
-    override fun d(tag: String, msg: String) {
-        Log.d(tag, msg)
+public fun AndroidLogHandler.toLogHandler(): LogHandler =
+    when (this) {
+        is LogHandlerWrapper -> wrapped
+        else -> AndroidLogHandlerWrapper(this)
     }
 
-    override fun e(tag: String, msg: String, throwable: Throwable?) {
-        Log.e(tag, msg, throwable)
+public fun LogHandler.toAndroidLogHandler(): AndroidLogHandler =
+    when (this) {
+        is AndroidLogHandlerWrapper -> wrapped
+        else -> LogHandlerWrapper(this)
     }
 
-    override fun i(tag: String, msg: String) {
-        Log.i(tag, msg)
-    }
-
-    override fun v(tag: String, msg: String) {
-        Log.v(tag, msg)
-    }
-
-    override fun w(tag: String, msg: String) {
-        Log.w(tag, msg)
-    }
-}
-
-private class LogHandlerWrapper(val wrapped: LogHandler) : NativeAndroidLogHandler {
+private class LogHandlerWrapper(val wrapped: LogHandler) : AndroidLogHandler {
     override fun d(tag: String, msg: String) {
         wrapped.d(tag, msg)
     }
@@ -51,5 +35,26 @@ private class LogHandlerWrapper(val wrapped: LogHandler) : NativeAndroidLogHandl
     override fun w(tag: String, msg: String) {
         wrapped.w(tag, msg)
     }
+}
 
+private class AndroidLogHandlerWrapper(val wrapped: AndroidLogHandler) : LogHandler {
+    override fun d(tag: String, msg: String) {
+        wrapped.d(tag, msg)
+    }
+
+    override fun e(tag: String, msg: String, throwable: Throwable?) {
+        wrapped.e(tag, msg, throwable)
+    }
+
+    override fun i(tag: String, msg: String) {
+        wrapped.i(tag, msg)
+    }
+
+    override fun v(tag: String, msg: String) {
+        wrapped.v(tag, msg)
+    }
+
+    override fun w(tag: String, msg: String) {
+        wrapped.w(tag, msg)
+    }
 }
