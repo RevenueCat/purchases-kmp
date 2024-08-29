@@ -27,7 +27,7 @@ com.revenuecat.purchases:purchases-kmp-core:<version>
 ```
 
 ## Linked iOS framework
-The linked iOS framework has changed. This has been linked to your iOS project, e.g. in  your `Podfile`, and should be updated.
+The linked iOS framework has changed. This has been linked to your iOS project, e.g. in  your `Podfile`, and should be updated. If you are indeed using CocoaPods, don't forget to run `pod install --repo-update` after you made this change.
 
 ### When using Paywalls
 | Old framework | New framework             |
@@ -116,6 +116,9 @@ After this, you can access the SDK's singleton instance using `Purchases.sharedI
 | `PurchasesAreCompletedBy`                        |
 | `PurchasesConfiguration.purchasesAreCompletedBy` |
 | `StoreProduct.category`                          |
+
+## Next steps
+If you're migrating to `1.0.0-beta.3` or newer, make sure to follow the [`1.0.0-beta.3`](1.0.0-beta.3-MIGRATION.md) migration guide next.
 
 ## Reporting undocumented issues:
 
