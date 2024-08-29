@@ -27,7 +27,7 @@ com.revenuecat.purchases:purchases-kmp-core:<version>
 ```
 
 ## Linked iOS framework
-The linked iOS framework has changed. This has been linked to your iOS project, e.g. in  your `Podfile`, and should be updated. If you are indeed using CocoaPods, don't forget to run `pod install` after you made this change.
+The linked iOS framework has changed. This has been linked to your iOS project, e.g. in  your `Podfile`, and should be updated. If you are indeed using CocoaPods, don't forget to run `pod install --repo-update` after you made this change.
 
 ### When using Paywalls
 | Old framework | New framework             |
