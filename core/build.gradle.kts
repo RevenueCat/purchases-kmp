@@ -1,16 +1,23 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 
 plugins {
-    id("revenuecat-library")
+    id("revenuecat-public-library")
     alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.codingfeline.buildkonfig)
 }
 
 kotlin {
     sourceSets {
+        commonMain.dependencies {
+            api(projects.models)
+        }
         androidMain.dependencies {
-            api(libs.revenuecat.common)
+            implementation(libs.revenuecat.common)
             implementation(libs.androidx.startup)
+            implementation(projects.mappings)
+        }
+        iosMain.dependencies {
+            implementation(projects.mappings)
         }
 
         commonTest.dependencies {
@@ -23,8 +30,8 @@ kotlin {
     }
 
     cocoapods {
-        version = "1.0"
-        ios.deploymentTarget = "13.0"
+        version = libs.versions.revenuecat.kmp.get()
+        ios.deploymentTarget = libs.versions.ios.deploymentTarget.get()
 
         framework {
             baseName = "Purchases"

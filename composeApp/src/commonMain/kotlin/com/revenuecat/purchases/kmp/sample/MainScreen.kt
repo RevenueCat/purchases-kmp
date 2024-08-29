@@ -29,10 +29,7 @@ import com.revenuecat.purchases.kmp.Offering
 import com.revenuecat.purchases.kmp.Offerings
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
-import com.revenuecat.purchases.kmp.all
-import com.revenuecat.purchases.kmp.current
 import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
-import com.revenuecat.purchases.kmp.identifier
 
 @Composable
 fun MainScreen(

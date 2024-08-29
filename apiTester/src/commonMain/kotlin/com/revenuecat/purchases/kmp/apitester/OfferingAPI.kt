@@ -2,20 +2,6 @@ package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.Offering
 import com.revenuecat.purchases.kmp.Package
-import com.revenuecat.purchases.kmp.annual
-import com.revenuecat.purchases.kmp.availablePackages
-import com.revenuecat.purchases.kmp.get
-import com.revenuecat.purchases.kmp.getMetadataString
-import com.revenuecat.purchases.kmp.getPackage
-import com.revenuecat.purchases.kmp.identifier
-import com.revenuecat.purchases.kmp.lifetime
-import com.revenuecat.purchases.kmp.metadata
-import com.revenuecat.purchases.kmp.monthly
-import com.revenuecat.purchases.kmp.serverDescription
-import com.revenuecat.purchases.kmp.sixMonth
-import com.revenuecat.purchases.kmp.threeMonth
-import com.revenuecat.purchases.kmp.twoMonth
-import com.revenuecat.purchases.kmp.weekly
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class OfferingAPI {

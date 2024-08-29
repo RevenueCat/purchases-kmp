@@ -1,5 +1,5 @@
 plugins {
-    id("revenuecat-library")
+    id("revenuecat-public-library")
 }
 
 kotlin {

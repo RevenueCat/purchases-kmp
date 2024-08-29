@@ -2,13 +2,6 @@ package com.revenuecat.purchases.kmp.datetime
 
 import com.revenuecat.purchases.kmp.EntitlementInfo
 import com.revenuecat.purchases.kmp.PeriodType
-import com.revenuecat.purchases.kmp.billingIssueDetectedAtMillis
-import com.revenuecat.purchases.kmp.expirationDateMillis
-import com.revenuecat.purchases.kmp.isActive
-import com.revenuecat.purchases.kmp.latestPurchaseDateMillis
-import com.revenuecat.purchases.kmp.originalPurchaseDateMillis
-import com.revenuecat.purchases.kmp.periodType
-import com.revenuecat.purchases.kmp.unsubscribeDetectedAtMillis
 import kotlinx.datetime.Instant
 
 
