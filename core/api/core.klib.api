@@ -6,17 +6,6 @@
 // - Show declarations: true
 
 // Library unique name: <com.revenuecat.purchases:core>
-final class com.revenuecat.purchases.kmp.i18n/Locale { // com.revenuecat.purchases.kmp.i18n/Locale|null[0]
-    final object Companion { // com.revenuecat.purchases.kmp.i18n/Locale.Companion|null[0]
-        final fun create(kotlin/String, kotlin/String): com.revenuecat.purchases.kmp.i18n/Locale // com.revenuecat.purchases.kmp.i18n/Locale.Companion.create|create(kotlin.String;kotlin.String){}[0]
-        final val Default // com.revenuecat.purchases.kmp.i18n/Locale.Companion.Default|{}Default[0]
-            final fun <get-Default>(): com.revenuecat.purchases.kmp.i18n/Locale // com.revenuecat.purchases.kmp.i18n/Locale.Companion.Default.<get-Default>|<get-Default>(){}[0]
-    }
-    final val countryCode // com.revenuecat.purchases.kmp.i18n/Locale.countryCode|{}countryCode[0]
-        final fun <get-countryCode>(): kotlin/String // com.revenuecat.purchases.kmp.i18n/Locale.countryCode.<get-countryCode>|<get-countryCode>(){}[0]
-    final val languageCode // com.revenuecat.purchases.kmp.i18n/Locale.languageCode|{}languageCode[0]
-        final fun <get-languageCode>(): kotlin/String // com.revenuecat.purchases.kmp.i18n/Locale.languageCode.<get-languageCode>|<get-languageCode>(){}[0]
-}
 final class com.revenuecat.purchases.kmp.ktx/SuccessfulLogin { // com.revenuecat.purchases.kmp.ktx/SuccessfulLogin|null[0]
     constructor <init>(com.revenuecat.purchases.kmp/CustomerInfo, kotlin/Boolean) // com.revenuecat.purchases.kmp.ktx/SuccessfulLogin.<init>|<init>(com.revenuecat.purchases.kmp.CustomerInfo;kotlin.Boolean){}[0]
     final val created // com.revenuecat.purchases.kmp.ktx/SuccessfulLogin.created|{}created[0]
@@ -179,9 +168,7 @@ final class com.revenuecat.purchases.kmp/PurchasesConfiguration { // com.revenue
     final val verificationMode // com.revenuecat.purchases.kmp/PurchasesConfiguration.verificationMode|{}verificationMode[0]
         final fun <get-verificationMode>(): com.revenuecat.purchases.kmp/EntitlementVerificationMode // com.revenuecat.purchases.kmp/PurchasesConfiguration.verificationMode.<get-verificationMode>|<get-verificationMode>(){}[0]
 }
-final fun (com.revenuecat.purchases.kmp.i18n/Locale).com.revenuecat.purchases.kmp.i18n/toNsLocale(): platform.Foundation/NSLocale // com.revenuecat.purchases.kmp.i18n/toNsLocale|toNsLocale@com.revenuecat.purchases.kmp.i18n.Locale(){}[0]
 final fun (com.revenuecat.purchases.kmp/Purchases.Companion).com.revenuecat.purchases.kmp/configure(kotlin/String, kotlin/Function1<com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder, kotlin/Unit> =...): com.revenuecat.purchases.kmp/Purchases // com.revenuecat.purchases.kmp/configure|configure@com.revenuecat.purchases.kmp.Purchases.Companion(kotlin.String;kotlin.Function1<com.revenuecat.purchases.kmp.PurchasesConfiguration.Builder,kotlin.Unit>){}[0]
-final fun (platform.Foundation/NSLocale).com.revenuecat.purchases.kmp.i18n/toLocale(): com.revenuecat.purchases.kmp.i18n/Locale // com.revenuecat.purchases.kmp.i18n/toLocale|toLocale@platform.Foundation.NSLocale(){}[0]
 final fun com.revenuecat.purchases.kmp/PurchasesConfiguration(kotlin/String, kotlin/Function1<com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder, kotlin/Unit> =...): com.revenuecat.purchases.kmp/PurchasesConfiguration // com.revenuecat.purchases.kmp/PurchasesConfiguration|PurchasesConfiguration(kotlin.String;kotlin.Function1<com.revenuecat.purchases.kmp.PurchasesConfiguration.Builder,kotlin.Unit>){}[0]
 final suspend fun (com.revenuecat.purchases.kmp/Purchases).com.revenuecat.purchases.kmp.ktx/awaitCustomerInfo(com.revenuecat.purchases.kmp/CacheFetchPolicy =...): com.revenuecat.purchases.kmp/CustomerInfo // com.revenuecat.purchases.kmp.ktx/awaitCustomerInfo|awaitCustomerInfo@com.revenuecat.purchases.kmp.Purchases(com.revenuecat.purchases.kmp.CacheFetchPolicy){}[0]
 final suspend fun (com.revenuecat.purchases.kmp/Purchases).com.revenuecat.purchases.kmp.ktx/awaitGetProducts(kotlin.collections/List<kotlin/String>): kotlin.collections/List<com.revenuecat.purchases.kmp.models/StoreProduct> // com.revenuecat.purchases.kmp.ktx/awaitGetProducts|awaitGetProducts@com.revenuecat.purchases.kmp.Purchases(kotlin.collections.List<kotlin.String>){}[0]
