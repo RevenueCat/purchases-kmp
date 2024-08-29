@@ -29,6 +29,7 @@ fun App() {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            val loggingListener = rememberLoggingPaywallListener()
             var screen by remember { mutableStateOf<Screen>(Screen.Main) }
 
             when (val currentScreen = screen) {
@@ -45,6 +46,7 @@ fun App() {
                     val options = PaywallOptions(dismissRequest = { screen = Screen.Main }) {
                         offering = currentScreen.offering
                         shouldDisplayDismissButton = true
+                        listener = loggingListener
                     }
                     Paywall(options)
                 }
@@ -53,6 +55,7 @@ fun App() {
                     val options = PaywallOptions(dismissRequest = { screen = Screen.Main }) {
                         offering = currentScreen.offering
                         shouldDisplayDismissButton = true
+                        listener = loggingListener
                     }
                     PaywallFooter(options) { contentPadding ->
                         CustomPaywallContent(
