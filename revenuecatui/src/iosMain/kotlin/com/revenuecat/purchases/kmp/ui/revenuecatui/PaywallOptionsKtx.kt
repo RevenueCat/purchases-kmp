@@ -1,6 +1,5 @@
 package com.revenuecat.purchases.kmp.ui.revenuecatui
 
-// Not sure why we have 2 Kotlin mappings to the same ObjC classes.
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewControllerDelegateProtocol
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
