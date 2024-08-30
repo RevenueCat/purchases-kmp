@@ -25,15 +25,15 @@ import kotlin.coroutines.suspendCoroutine
 /**
  * The result of a failed purchase operation. Used by suspending functions returning [Either].
  */
-public data class FailedPurchase(
+public class FailedPurchase internal constructor(
     /**
      * The error that occurred.
      */
-    val error: PurchasesError,
+    public val error: PurchasesError,
     /**
      * Whether the user cancelled the transaction.
      */
-    val userCancelled: Boolean,
+    public val userCancelled: Boolean,
 )
 
 /**

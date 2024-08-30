@@ -8,6 +8,26 @@ import com.revenuecat.purchases.getProductsWith
 import com.revenuecat.purchases.kmp.di.AndroidProvider
 import com.revenuecat.purchases.kmp.di.requireActivity
 import com.revenuecat.purchases.kmp.di.requireApplication
+import com.revenuecat.purchases.kmp.mappings.toAndroidBillingFeature
+import com.revenuecat.purchases.kmp.mappings.toAndroidCacheFetchPolicy
+import com.revenuecat.purchases.kmp.mappings.toAndroidGoogleReplacementMode
+import com.revenuecat.purchases.kmp.mappings.toAndroidLogHandler
+import com.revenuecat.purchases.kmp.mappings.toAndroidLogLevel
+import com.revenuecat.purchases.kmp.mappings.toAndroidPackage
+import com.revenuecat.purchases.kmp.mappings.toAndroidStore
+import com.revenuecat.purchases.kmp.mappings.toAndroidStoreProduct
+import com.revenuecat.purchases.kmp.mappings.toAndroidSubscriptionOption
+import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
+import com.revenuecat.purchases.kmp.mappings.toHybridString
+import com.revenuecat.purchases.kmp.mappings.toLogHandler
+import com.revenuecat.purchases.kmp.mappings.toLogLevel
+import com.revenuecat.purchases.kmp.mappings.toOfferings
+import com.revenuecat.purchases.kmp.mappings.toPurchasesDelegate
+import com.revenuecat.purchases.kmp.mappings.toPurchasesError
+import com.revenuecat.purchases.kmp.mappings.toStore
+import com.revenuecat.purchases.kmp.mappings.toStoreProduct
+import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
+import com.revenuecat.purchases.kmp.mappings.toUpdatedCustomerInfoListener
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
@@ -41,10 +61,18 @@ public actual class Purchases private constructor(private val androidPurchases: 
             )
 
         @JvmStatic
-        public actual var logLevel: LogLevel by AndroidPurchases.Companion::logLevel
+        public actual var logLevel: LogLevel
+            get() = AndroidPurchases.Companion.logLevel.toLogLevel()
+            set(value) {
+                AndroidPurchases.Companion.logLevel = value.toAndroidLogLevel()
+            }
 
         @JvmStatic
-        public actual var logHandler: LogHandler by AndroidPurchases.Companion::logHandler
+        public actual var logHandler: LogHandler
+            get() = AndroidPurchases.Companion.logHandler.toLogHandler()
+            set(value) {
+                AndroidPurchases.Companion.logHandler = value.toAndroidLogHandler()
+            }
 
         @JvmStatic
         public actual var proxyURL: String?
@@ -75,7 +103,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
                         flavor = BuildKonfig.platformFlavor,
                         version = frameworkVersion,
                     ),
-                    store = store ?: Store.PLAY_STORE,
+                    store = (store ?: Store.PLAY_STORE).toAndroidStore(),
                     dangerousSettings = dangerousSettings.toAndroidDangerousSettings(),
                     shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
                     verificationMode = verificationMode.name,
@@ -92,7 +120,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
             callback: (Boolean) -> Unit,
         ): Unit = AndroidPurchases.canMakePayments(
             context = AndroidProvider.requireApplication(),
-            features = features
+            features = features.map { it.toAndroidBillingFeature() },
         ) { result -> callback(result) }
 
         private fun DangerousSettings.toAndroidDangerousSettings(): AndroidDangerousSettings =
@@ -109,14 +137,15 @@ public actual class Purchases private constructor(private val androidPurchases: 
 
     public actual val isAnonymous: Boolean by androidPurchases::isAnonymous
 
-    public actual val store: Store by androidPurchases::store
+    public actual val store: Store
+        get() = androidPurchases.store.toStore()
 
     public actual fun syncPurchases(
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (CustomerInfo) -> Unit,
     ): Unit = androidPurchases.syncPurchasesWith(
         onError = { onError(it.toPurchasesError()) },
-        onSuccess = { onSuccess(it) },
+        onSuccess = { onSuccess(it.toCustomerInfo()) },
     )
 
     public actual fun syncAmazonPurchase(
@@ -138,7 +167,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onSuccess: (offerings: Offerings) -> Unit,
     ): Unit = androidPurchases.syncAttributesAndOfferingsIfNeededWith(
         onError = { error -> onError(error.toPurchasesError()) },
-        onSuccess = onSuccess
+        onSuccess = { offerings -> onSuccess(offerings.toOfferings()) }
     )
 
     public actual fun getOfferings(
@@ -146,7 +175,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onSuccess: (offerings: Offerings) -> Unit,
     ): Unit = androidPurchases.getOfferingsWith(
         onError = { error -> onError(error.toPurchasesError()) },
-        onSuccess = { offerings -> onSuccess(offerings) }
+        onSuccess = { offerings -> onSuccess(offerings.toOfferings()) }
     )
 
     public actual fun getProducts(
@@ -156,7 +185,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
     ): Unit = androidPurchases.getProductsWith(
         productIds = productIds,
         onError = { onError(it.toPurchasesError()) },
-        onGetStoreProducts = { onSuccess(it.map { product -> StoreProduct(product) }) },
+        onGetStoreProducts = { onSuccess(it.map { product -> product.toStoreProduct() }) },
     )
 
     public actual fun getPromotionalOffer(
@@ -175,18 +204,21 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
         isPersonalizedPrice: Boolean?,
         oldProductId: String?,
-        replacementMode: GoogleReplacementMode,
+        replacementMode: ReplacementMode?,
     ): Unit = androidPurchases.purchaseWith(
         purchaseParams = PurchaseParams.Builder(
             AndroidProvider.requireActivity(),
-            storeProduct
+            storeProduct.toAndroidStoreProduct()
         ).apply {
             if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
             if (oldProductId != null) oldProductId(oldProductId)
-        }.googleReplacementMode(replacementMode)
+            if (replacementMode is GoogleReplacementMode) {
+                googleReplacementMode(replacementMode.toAndroidGoogleReplacementMode())
+            }
+        }
             .build(),
         onError = { error, userCancelled -> onError(error.toPurchasesError(), userCancelled) },
-        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo) },
+        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!.toStoreTransaction(), customerInfo.toCustomerInfo()) },
     )
 
     public actual fun purchase(
@@ -195,18 +227,21 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
         isPersonalizedPrice: Boolean?,
         oldProductId: String?,
-        replacementMode: GoogleReplacementMode,
+        replacementMode: ReplacementMode?,
     ): Unit = androidPurchases.purchaseWith(
         purchaseParams = PurchaseParams.Builder(
             AndroidProvider.requireActivity(),
-            packageToPurchase
+            packageToPurchase.toAndroidPackage(),
         ).apply {
             if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
             if (oldProductId != null) oldProductId(oldProductId)
-        }.googleReplacementMode(replacementMode)
+            if (replacementMode is GoogleReplacementMode) {
+                googleReplacementMode(replacementMode.toAndroidGoogleReplacementMode())
+            }
+        }
             .build(),
         onError = { error, userCancelled -> onError(error.toPurchasesError(), userCancelled) },
-        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo) },
+        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!.toStoreTransaction(), customerInfo.toCustomerInfo()) },
     )
 
     public actual fun purchase(
@@ -215,18 +250,21 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
         isPersonalizedPrice: Boolean?,
         oldProductId: String?,
-        replacementMode: GoogleReplacementMode,
+        replacementMode: ReplacementMode?,
     ): Unit = androidPurchases.purchaseWith(
         purchaseParams = PurchaseParams.Builder(
             AndroidProvider.requireActivity(),
-            subscriptionOption
+            subscriptionOption.toAndroidSubscriptionOption(),
         ).apply {
             if (isPersonalizedPrice != null) isPersonalizedPrice(isPersonalizedPrice)
             if (oldProductId != null) oldProductId(oldProductId)
-        }.googleReplacementMode(replacementMode)
+            if (replacementMode is GoogleReplacementMode) {
+                googleReplacementMode(replacementMode.toAndroidGoogleReplacementMode())
+            }
+        }
             .build(),
         onError = { error, userCancelled -> onError(error.toPurchasesError(), userCancelled) },
-        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!, customerInfo) },
+        onSuccess = { purchase, customerInfo -> onSuccess(purchase!!.toStoreTransaction(), customerInfo.toCustomerInfo()) },
     )
 
     public actual fun purchase(
@@ -254,7 +292,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
     ): Unit = androidPurchases.restorePurchasesWith(
         onError = { onError(it.toPurchasesError()) },
-        onSuccess = { onSuccess(it) },
+        onSuccess = { onSuccess(it.toCustomerInfo()) },
     )
 
     public actual fun recordPurchase(
@@ -277,7 +315,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
     ): Unit = androidPurchases.logInWith(
         appUserID = newAppUserID,
         onError = { onError(it.toPurchasesError()) },
-        onSuccess = { customerInfo, created -> onSuccess(customerInfo, created) }
+        onSuccess = { customerInfo, created -> onSuccess(customerInfo.toCustomerInfo(), created) }
     )
 
     public actual fun logOut(
@@ -285,7 +323,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
     ): Unit = androidPurchases.logOutWith(
         onError = { onError(it.toPurchasesError()) },
-        onSuccess = { onSuccess(it) },
+        onSuccess = { onSuccess(it.toCustomerInfo()) },
     )
 
     public actual fun close(): Unit = androidPurchases.close()
@@ -295,9 +333,9 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (customerInfo: CustomerInfo) -> Unit,
     ): Unit = androidPurchases.getCustomerInfoWith(
-        fetchPolicy = fetchPolicy,
+        fetchPolicy = fetchPolicy.toAndroidCacheFetchPolicy(),
         onError = { onError(it.toPurchasesError()) },
-        onSuccess = { onSuccess(it) }
+        onSuccess = { onSuccess(it.toCustomerInfo()) }
     )
 
     public actual fun showInAppMessagesIfNeeded(

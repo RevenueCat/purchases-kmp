@@ -5,7 +5,7 @@ import cocoapods.PurchasesHybridCommonUI.RCPaywallViewControllerDelegateProtocol
 import com.revenuecat.purchases.kmp.CustomerInfo
 import com.revenuecat.purchases.kmp.Package
 import com.revenuecat.purchases.kmp.models.StoreTransaction
-import com.revenuecat.purchases.kmp.toPurchasesErrorOrThrow
+import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
 import kotlinx.cinterop.CValue
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed

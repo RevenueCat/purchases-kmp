@@ -1,5 +1,5 @@
 plugins {
-    id("revenuecat-library")
+    id("revenuecat-public-library")
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlin.cocoapods)
 }
@@ -8,6 +8,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.core)
+            api(projects.models)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.ui)
@@ -15,12 +16,16 @@ kotlin {
         }
         androidMain.dependencies {
             implementation(libs.revenuecat.commonUi)
+            implementation(projects.mappings)
+        }
+        iosMain.dependencies {
+            implementation(projects.mappings)
         }
     }
 
     cocoapods {
-        version = "1.0"
-        ios.deploymentTarget = "13.0"
+        version = libs.versions.revenuecat.kmp.get()
+        ios.deploymentTarget = libs.versions.ios.deploymentTarget.get()
 
         pod("PurchasesHybridCommonUI") {
             version = libs.versions.revenuecat.common.get()

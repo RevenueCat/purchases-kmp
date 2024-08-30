@@ -3,6 +3,8 @@
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.MavenPublishPlugin
 import com.vanniktech.maven.publish.SonatypeHost
+import dev.iurysouza.modulegraph.LinkText
+import dev.iurysouza.modulegraph.Orientation
 import io.gitlab.arturbosch.detekt.Detekt
 import org.gradle.configurationcache.extensions.capitalized
 
@@ -17,6 +19,7 @@ plugins {
     alias(libs.plugins.adamko.dokkatoo.html)
     alias(libs.plugins.arturbosch.detekt).apply(false)
     alias(libs.plugins.vanniktech.mavenPublish).apply(false)
+    alias(libs.plugins.iurysouza.modulegraph)
 }
 
 allprojects {
@@ -97,7 +100,7 @@ allprojects {
 }
 
 apiValidation {
-    ignoredProjects.addAll(listOf("apiTester", "composeApp"))
+    ignoredProjects.addAll(listOf("apiTester", "composeApp", "mappings"))
 
     @OptIn(kotlinx.validation.ExperimentalBCVApi::class)
     klib {
@@ -109,7 +112,38 @@ dependencies {
     dokkatoo(projects.core)
     dokkatoo(projects.datetime)
     dokkatoo(projects.either)
+    dokkatoo(projects.models)
     dokkatoo(projects.result)
+    dokkatoo(projects.revenuecatui)
+}
+
+moduleGraphConfig {
+    fun Dependency.readmePath() = "./$name/README.md"
+    fun Dependency.heading() = "## :${name} module dependency graph"
+    val topToBottom = Orientation.TOP_TO_BOTTOM
+    // Intentional root for all modules, so we always show the entire graph.
+    val rootModuleRegex = ".*revenuecatui.*"
+
+    listOf(
+        projects.core,
+        projects.mappings,
+        projects.models,
+        projects.revenuecatui,
+    ).forEach { project ->
+        // All graphs are equal, but we need to specify 1 main graph. So :core it is.
+        if (project == projects.core) {
+            readmePath.set(project.readmePath())
+            heading = project.heading()
+            orientation.set(topToBottom)
+            rootModulesRegex.set(rootModuleRegex)
+        } else graph(
+            readmePath = project.readmePath(),
+            heading = project.heading(),
+        ) {
+            orientation = topToBottom
+            rootModulesRegex = rootModuleRegex
+        }
+    }
 }
 
 private fun TaskContainer.registerDetektTask(

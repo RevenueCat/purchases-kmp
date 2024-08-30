@@ -1,45 +1,46 @@
 package com.revenuecat.purchases.kmp.ui.revenuecatui
 
-import com.revenuecat.purchases.CustomerInfo
+import com.revenuecat.purchases.CustomerInfo as AndroidCustomerInfo
 import com.revenuecat.purchases.Package
 import com.revenuecat.purchases.PurchasesError
-import com.revenuecat.purchases.kmp.toPurchasesError
+import com.revenuecat.purchases.kmp.mappings.toAndroidOffering
+import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
+import com.revenuecat.purchases.kmp.mappings.toPackage
+import com.revenuecat.purchases.kmp.mappings.toPurchasesError
+import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
 import com.revenuecat.purchases.models.StoreTransaction
 import com.revenuecat.purchases.ui.revenuecatui.ExperimentalPreviewRevenueCatUIPurchasesAPI
 import com.revenuecat.purchases.ui.revenuecatui.PaywallListener as AndroidPaywallListener
 import com.revenuecat.purchases.ui.revenuecatui.PaywallOptions as AndroidPaywallOptions
 
-@OptIn(ExperimentalPreviewRevenueCatUIPurchasesAPI::class)
 internal fun PaywallOptions.toAndroidPaywallOptions(): AndroidPaywallOptions =
     AndroidPaywallOptions.Builder(dismissRequest)
-        .setOffering(offering)
+        .setOffering(offering?.toAndroidOffering())
         .setShouldDisplayDismissButton(shouldDisplayDismissButton)
         .setListener(listener?.toAndroidPaywallListener())
         .build()
 
-@OptIn(ExperimentalPreviewRevenueCatUIPurchasesAPI::class)
 private fun PaywallListener.toAndroidPaywallListener(): AndroidPaywallListener =
     PaywallListenerWrapper(this)
 
-@OptIn(ExperimentalPreviewRevenueCatUIPurchasesAPI::class)
 private class PaywallListenerWrapper(private val listener: PaywallListener) :
     AndroidPaywallListener {
     override fun onPurchaseCancelled() =
         listener.onPurchaseCancelled()
 
     override fun onPurchaseCompleted(
-        customerInfo: CustomerInfo,
+        customerInfo: AndroidCustomerInfo,
         storeTransaction: StoreTransaction
-    ) = listener.onPurchaseCompleted(customerInfo, storeTransaction)
+    ) = listener.onPurchaseCompleted(customerInfo.toCustomerInfo(), storeTransaction.toStoreTransaction())
 
     override fun onPurchaseError(error: PurchasesError) =
         listener.onPurchaseError(error.toPurchasesError())
 
     override fun onPurchaseStarted(rcPackage: Package) =
-        listener.onPurchaseStarted(rcPackage)
+        listener.onPurchaseStarted(rcPackage.toPackage())
 
-    override fun onRestoreCompleted(customerInfo: CustomerInfo) =
-        listener.onRestoreCompleted(customerInfo)
+    override fun onRestoreCompleted(customerInfo: AndroidCustomerInfo) =
+        listener.onRestoreCompleted(customerInfo.toCustomerInfo())
 
     override fun onRestoreError(error: PurchasesError) =
         listener.onRestoreError(error.toPurchasesError())
