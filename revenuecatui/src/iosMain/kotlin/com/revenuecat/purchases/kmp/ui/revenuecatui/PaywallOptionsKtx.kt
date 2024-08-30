@@ -2,19 +2,22 @@ package com.revenuecat.purchases.kmp.ui.revenuecatui
 
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewControllerDelegateProtocol
-import com.revenuecat.purchases.kmp.CustomerInfo
-import com.revenuecat.purchases.kmp.Package
-import com.revenuecat.purchases.kmp.models.StoreTransaction
+import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
+import com.revenuecat.purchases.kmp.mappings.toPackage
 import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
+import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
 import kotlinx.cinterop.CValue
 import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
-import objcnames.classes.RCCustomerInfo
-import objcnames.classes.RCPackage
-import objcnames.classes.RCStoreTransaction
 import platform.CoreGraphics.CGSize
 import platform.Foundation.NSError
 import platform.darwin.NSObject
+import cocoapods.PurchasesHybridCommon.RCCustomerInfo as PhcCustomerInfo
+import cocoapods.PurchasesHybridCommon.RCPackage as PhcPackage
+import cocoapods.PurchasesHybridCommon.RCStoreTransaction as PhcStoreTransaction
+import objcnames.classes.RCCustomerInfo as ObjcNamesCustomerInfo
+import objcnames.classes.RCPackage as ObjcNamesPackage
+import objcnames.classes.RCStoreTransaction as ObjcNamesStoreTransaction
 
 internal class IosPaywallDelegate(
     private val listener: PaywallListener?,
@@ -25,20 +28,22 @@ internal class IosPaywallDelegate(
     @Suppress("CAST_NEVER_SUCCEEDS")
     override fun paywallViewController(
         controller: RCPaywallViewController,
-        didStartPurchaseWithPackage: RCPackage
+        didStartPurchaseWithPackage: ObjcNamesPackage
     ) {
-        listener?.onPurchaseStarted(didStartPurchaseWithPackage as Package)
+        listener?.onPurchaseStarted(
+            (didStartPurchaseWithPackage as PhcPackage).toPackage()
+        )
     }
 
     @Suppress("CAST_NEVER_SUCCEEDS")
     override fun paywallViewController(
         controller: RCPaywallViewController,
-        didFinishPurchasingWithCustomerInfo: RCCustomerInfo,
-        transaction: RCStoreTransaction?
+        didFinishPurchasingWithCustomerInfo: ObjcNamesCustomerInfo,
+        transaction: ObjcNamesStoreTransaction?
     ) {
         listener?.onPurchaseCompleted(
-            didFinishPurchasingWithCustomerInfo as CustomerInfo,
-            transaction as StoreTransaction
+            (didFinishPurchasingWithCustomerInfo as PhcCustomerInfo).toCustomerInfo(),
+            (transaction as PhcStoreTransaction).toStoreTransaction()
         )
     }
 
@@ -61,9 +66,11 @@ internal class IosPaywallDelegate(
     @Suppress("CAST_NEVER_SUCCEEDS", "PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun paywallViewController(
         controller: RCPaywallViewController,
-        didFinishRestoringWithCustomerInfo: RCCustomerInfo
+        didFinishRestoringWithCustomerInfo: ObjcNamesCustomerInfo
     ) {
-        listener?.onRestoreCompleted(didFinishRestoringWithCustomerInfo as CustomerInfo)
+        listener?.onRestoreCompleted(
+            (didFinishRestoringWithCustomerInfo as PhcCustomerInfo).toCustomerInfo()
+        )
     }
 
     @Suppress("CONFLICTING_OVERLOADS", "PARAMETER_NAME_CHANGED_ON_OVERRIDE")
