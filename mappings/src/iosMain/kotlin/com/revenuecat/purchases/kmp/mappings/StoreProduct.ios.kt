@@ -31,8 +31,9 @@ private class IosStoreProduct(val wrapped: NativeIosStoreProduct): StoreProduct 
     override val defaultOption: SubscriptionOption? = null
     override val discounts: List<StoreProductDiscount> = wrapped.discounts()
         .map { it as IosStoreProductDiscount }
-        .map { it.toStoreProductDiscount(wrapped.priceFormatter()) }
-    override val introductoryDiscount: StoreProductDiscount? = wrapped.introductoryDiscount()?.toStoreProductDiscount(wrapped.priceFormatter())
+        .map { it.toStoreProductDiscount() }
+    override val introductoryDiscount: StoreProductDiscount? =
+        wrapped.introductoryDiscount()?.toStoreProductDiscount()
     override val purchasingData: PurchasingData = IosPurchasingData(wrapped)
     override val presentedOfferingContext: PresentedOfferingContext? = null
 }

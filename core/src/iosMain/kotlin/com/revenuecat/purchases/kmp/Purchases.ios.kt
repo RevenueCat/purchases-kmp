@@ -179,7 +179,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         withProduct = storeProduct.toIosStoreProduct(),
     ) { offer, error ->
         if (error != null) onError(error.toPurchasesErrorOrThrow())
-        else onSuccess(offer?.toPromotionalOffer(storeProduct.toIosStoreProduct().priceFormatter())
+        else onSuccess(
+            offer?.toPromotionalOffer()
             ?: error("Expected a non-null RCPromotionalOffer"))
     }
 
