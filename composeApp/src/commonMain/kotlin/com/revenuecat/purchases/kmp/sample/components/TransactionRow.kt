@@ -12,10 +12,11 @@ import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
 @Composable
 internal fun TransactionsRow(
     transactions: Collection<Transaction>,
+    label: String,
     modifier: Modifier = Modifier,
 ) {
     CollapsibleRow(
-        collapsedContent = { Text(text = "transactions: ${transactions.size}") },
+        collapsedContent = { Text(text = "$label: ${transactions.size}") },
         expandedContent = {
             Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
                 transactions.forEach { transaction -> TransactionRow(transaction) }

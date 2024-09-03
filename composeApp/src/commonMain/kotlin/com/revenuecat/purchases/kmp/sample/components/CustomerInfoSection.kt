@@ -56,7 +56,10 @@ internal fun CustomerInfoSection(
                         label = "allExpirationInstants"
                     )
                     EntitlementInfosRow(infos = state.value.entitlements)
-                    TransactionsRow(transactions = state.value.nonSubscriptionTransactions)
+                    TransactionsRow(
+                        transactions = state.value.nonSubscriptionTransactions,
+                        label = "nonSubscriptionTransactions"
+                    )
                 }
             }
         }
