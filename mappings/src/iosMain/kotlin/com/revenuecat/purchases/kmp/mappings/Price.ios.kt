@@ -2,13 +2,13 @@ package com.revenuecat.purchases.kmp.mappings
 
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount
-import cocoapods.PurchasesHybridCommon.price
+import cocoapods.PurchasesHybridCommon.priceAmount
 import com.revenuecat.purchases.kmp.models.Price
 
 internal fun RCStoreProduct.toPrice(): Price =
     Price(
         formatted = localizedPriceString(),
-        amountMicros = price().decimalNumberByMultiplyingByPowerOf10(6).longValue,
+        amountMicros = priceAmount().decimalNumberByMultiplyingByPowerOf10(6).longValue,
         currencyCode = currencyCodeOrUsd(),
     )
 
@@ -18,7 +18,7 @@ internal fun RCStoreProduct.currencyCodeOrUsd(): String =
 internal fun RCStoreProductDiscount.toPrice(): Price =
     Price(
         formatted = localizedPriceString(),
-        amountMicros = price().decimalNumberByMultiplyingByPowerOf10(6).longValue,
+        amountMicros = priceAmount().decimalNumberByMultiplyingByPowerOf10(6).longValue,
         currencyCode = currencyCodeOrUsd(),
     )
 
