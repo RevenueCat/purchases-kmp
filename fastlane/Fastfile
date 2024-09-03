@@ -99,6 +99,23 @@ lane :update_hybrid_common do |options|
     open_pr: options[:open_pr] || false,
     automatic_release: options[:automatic_release] || false
   )
+  # Making sure Podfile.lock is updated.
+  podfile = "iosApp/Podfile"
+  cocoapods(
+    podfile: podfile,
+    repo_update: true
+  )
+  if options[:open_pr]
+    git_commit(
+      path: ["#{podfile}.lock"],
+      message: "Updates Podfile.lock",
+      skip_git_hooks: true
+    )
+    push_to_git_remote(
+      tags: false
+      no_verify: true
+    )
+  end
 end
 
 desc "Opens a PR updating the SDK version to the next minor, appending -SNAPSHOT."
