@@ -16,18 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.revenuecat.purchases.kmp.Offering
 import com.revenuecat.purchases.kmp.Offerings
+import com.revenuecat.purchases.kmp.sample.AsyncState
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
-
-internal sealed interface OfferingsState {
-    data object Loading : OfferingsState
-    data class Loaded(val offerings: Offerings) : OfferingsState
-    data object Error : OfferingsState
-}
-
 
 @Composable
 internal fun OfferingsSection(
-    state: OfferingsState,
+    state: AsyncState<Offerings>,
     onShowPaywallClick: (offering: Offering?, footer: Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -37,12 +31,12 @@ internal fun OfferingsSection(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         when (state) {
-            is OfferingsState.Loading -> CircularProgressIndicator()
-            is OfferingsState.Error -> Text("Failed to get offerings")
-            is OfferingsState.Loaded -> {
+            is AsyncState.Loading -> CircularProgressIndicator()
+            is AsyncState.Error -> Text("Failed to get offerings")
+            is AsyncState.Loaded -> {
 
-                state.offerings.all.forEach { (id, offering) ->
-                    val isCurrent = id == state.offerings.current?.identifier
+                state.value.all.forEach { (id, offering) ->
+                    val isCurrent = id == state.value.current?.identifier
                     OfferingRow(
                         offering = offering,
                         isCurrent = isCurrent,

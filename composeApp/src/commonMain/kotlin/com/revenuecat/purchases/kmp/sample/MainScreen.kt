@@ -14,6 +14,9 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,12 +27,24 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import arrow.core.Either
+import com.revenuecat.purchases.kmp.CustomerInfo
 import com.revenuecat.purchases.kmp.Offering
+import com.revenuecat.purchases.kmp.Offerings
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
+import com.revenuecat.purchases.kmp.PurchasesDelegate
+import com.revenuecat.purchases.kmp.PurchasesError
 import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
+import com.revenuecat.purchases.kmp.ktx.awaitCustomerInfo
+import com.revenuecat.purchases.kmp.models.StoreProduct
+import com.revenuecat.purchases.kmp.models.StoreTransaction
+import com.revenuecat.purchases.kmp.sample.components.CustomerInfoSection
 import com.revenuecat.purchases.kmp.sample.components.OfferingsSection
-import com.revenuecat.purchases.kmp.sample.components.OfferingsState
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.channels.trySendBlocking
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.onStart
 
 @Composable
 fun MainScreen(
@@ -69,6 +84,34 @@ fun MainScreen(
                 Text("Configure")
             }
         } else {
+            var offeringsState: AsyncState<Offerings> by remember {
+                mutableStateOf(AsyncState.Loading)
+            }
+            LaunchedEffect(Unit) {
+                offeringsState =
+                    when (val offerings = Purchases.sharedInstance.awaitOfferingsEither()) {
+                        is Either.Left -> AsyncState.Error
+                        is Either.Right -> AsyncState.Loaded(offerings.value)
+                    }
+            }
+            val customerInfo by Purchases.sharedInstance.rememberCustomerInfoState()
+            val customerInfoState by remember {
+                derivedStateOf { customerInfo?.let { AsyncState.Loaded(it) } ?: AsyncState.Loading }
+            }
+
+            Spacer(modifier = Modifier.size(16.dp))
+            Text(
+                text = "CustomerInfo",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.h6,
+            )
+            Spacer(modifier = Modifier.size(8.dp))
+            CustomerInfoSection(
+                state = customerInfoState,
+                modifier = Modifier.fillMaxWidth(),
+            )
+
             Spacer(modifier = Modifier.size(16.dp))
             Text(
                 text = "Offerings",
@@ -76,16 +119,7 @@ fun MainScreen(
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.h6,
             )
-
-            var offeringsState: OfferingsState by remember { mutableStateOf(OfferingsState.Loading) }
-            LaunchedEffect(Unit) {
-                offeringsState =
-                    when (val offerings = Purchases.sharedInstance.awaitOfferingsEither()) {
-                        is Either.Left -> OfferingsState.Error
-                        is Either.Right -> OfferingsState.Loaded(offerings.value)
-                    }
-            }
-
+            Spacer(modifier = Modifier.size(8.dp))
             OfferingsSection(
                 state = offeringsState,
                 onShowPaywallClick = onShowPaywallClick,
@@ -132,3 +166,25 @@ private data class Configuration(val apiKey: String, val userId: String) {
             apply(builder)
         }
 }
+
+private val Purchases.customerInfoFlow: Flow<CustomerInfo>
+    get() = callbackFlow {
+        delegate = object : PurchasesDelegate {
+            override fun onPurchasePromoProduct(
+                product: StoreProduct,
+                startPurchase: (onError: (error: PurchasesError, userCancelled: Boolean) -> Unit, onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit) -> Unit
+            ) {
+                // Not implemented
+            }
+
+            override fun onCustomerInfoUpdated(customerInfo: CustomerInfo) {
+                trySendBlocking(customerInfo)
+            }
+        }
+
+        awaitClose { delegate = null }
+    }.onStart { emit(awaitCustomerInfo()) }
+
+@Composable
+private fun Purchases.rememberCustomerInfoState(): State<CustomerInfo?> =
+    remember { customerInfoFlow }.collectAsState(initial = null)

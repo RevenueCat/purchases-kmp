@@ -55,7 +55,7 @@ internal fun CollapsibleRow(
 
 @Composable
 internal fun CollapsibleStringsRow(
-    strings: List<String>,
+    strings: Collection<String>,
     label: String,
     modifier: Modifier = Modifier,
 ) {
