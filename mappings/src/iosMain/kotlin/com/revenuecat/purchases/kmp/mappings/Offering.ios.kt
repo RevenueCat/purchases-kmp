@@ -4,6 +4,7 @@ import com.revenuecat.purchases.kmp.Offering
 import com.revenuecat.purchases.kmp.Package
 import com.revenuecat.purchases.kmp.mappings.ktx.mapEntries
 import cocoapods.PurchasesHybridCommon.RCOffering as NativeIosOffering
+import cocoapods.PurchasesHybridCommon.RCPackage as NativeIosPackage
 
 public fun NativeIosOffering.toOffering(): Offering =
     IosOffering(this)
@@ -20,7 +21,7 @@ private class IosOffering(val iosOffering: NativeIosOffering): Offering {
         iosOffering.metadata().mapEntries { (key, value) -> key as String to value as Any }
     }
     override val availablePackages: List<Package> by lazy {
-        iosOffering.availablePackages().map { it as Package }
+        iosOffering.availablePackages().map { (it as NativeIosPackage).toPackage() }
     }
     override val lifetime: Package? by lazy { iosOffering.lifetime()?.toPackage() }
     override val annual: Package? by lazy { iosOffering.annual()?.toPackage() }
