@@ -1,14 +1,13 @@
 package com.revenuecat.purchases.kmp.sample
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -26,10 +25,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import arrow.core.Either
 import com.revenuecat.purchases.kmp.Offering
-import com.revenuecat.purchases.kmp.Offerings
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
+import com.revenuecat.purchases.kmp.sample.components.OfferingsSection
+import com.revenuecat.purchases.kmp.sample.components.OfferingsState
 
 @Composable
 fun MainScreen(
@@ -37,7 +37,9 @@ fun MainScreen(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.padding(all = 16.dp)
+        modifier = modifier
+            .verticalScroll(state = rememberScrollState())
+            .padding(all = 16.dp)
     ) {
         Text(
             text = "Configuration",
@@ -69,13 +71,23 @@ fun MainScreen(
         } else {
             Spacer(modifier = Modifier.size(16.dp))
             Text(
-                text = "Paywalls",
+                text = "Offerings",
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.h6,
             )
 
-            PaywallsSection(
+            var offeringsState: OfferingsState by remember { mutableStateOf(OfferingsState.Loading) }
+            LaunchedEffect(Unit) {
+                offeringsState =
+                    when (val offerings = Purchases.sharedInstance.awaitOfferingsEither()) {
+                        is Either.Left -> OfferingsState.Error
+                        is Either.Right -> OfferingsState.Loaded(offerings.value)
+                    }
+            }
+
+            OfferingsSection(
+                state = offeringsState,
                 onShowPaywallClick = onShowPaywallClick,
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -113,82 +125,10 @@ private fun ConfigurationSettings(
     }
 }
 
-@Composable
-private fun PaywallsSection(
-    onShowPaywallClick: (offering: Offering?, footer: Boolean) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    var offeringsState: OfferingsState by remember { mutableStateOf(OfferingsState.Loading) }
-    LaunchedEffect(Unit) {
-        offeringsState =
-            when (val offerings = Purchases.sharedInstance.awaitOfferingsEither()) {
-                is Either.Left -> OfferingsState.Error
-                is Either.Right -> OfferingsState.Loaded(offerings.value)
-            }
-    }
-
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = "Current offering",
-                modifier = Modifier.weight(1f),
-            )
-            Button(onClick = { onShowPaywallClick(null, true) }) {
-                Text("Footer")
-            }
-            Spacer(modifier = Modifier.size(4.dp))
-            Button(onClick = { onShowPaywallClick(null, false) }) {
-                Text("Fullscreen")
-            }
-        }
-
-        when (val currentOfferingsState = offeringsState) {
-            is OfferingsState.Loading -> CircularProgressIndicator()
-            is OfferingsState.Error -> Text("Failed to get offerings")
-            is OfferingsState.Loaded -> {
-
-                currentOfferingsState.offerings.all.forEach { (id, offering) ->
-                    val isCurrent =
-                        id == currentOfferingsState.offerings.current?.identifier
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Text(
-                            text = "${if (isCurrent) "\uD83D\uDC49" else ""} $id",
-                            modifier = Modifier.weight(1f),
-                        )
-                        Button(onClick = { onShowPaywallClick(offering, true) }) {
-                            Text("Footer")
-                        }
-                        Spacer(modifier = Modifier.size(4.dp))
-                        Button(onClick = { onShowPaywallClick(offering, false) }) {
-                            Text("Fullscreen")
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 private data class Configuration(val apiKey: String, val userId: String) {
     fun toPurchasesConfiguration(builder: PurchasesConfiguration.Builder.() -> Unit = { }) =
         PurchasesConfiguration(apiKey) {
             appUserId = userId
             apply(builder)
         }
-}
-
-private sealed interface OfferingsState {
-    data object Loading : OfferingsState
-    data class Loaded(val offerings: Offerings) : OfferingsState
-    data object Error : OfferingsState
 }
