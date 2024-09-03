@@ -1,11 +1,14 @@
 package com.revenuecat.purchases.kmp.sample
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.LocalTextStyle
@@ -23,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -56,79 +60,90 @@ fun MainScreen(
             .verticalScroll(state = rememberScrollState())
             .padding(all = 16.dp)
     ) {
-        Text(
-            text = "Configuration",
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.h6,
-        )
-
         var isConfigured by remember { mutableStateOf(Purchases.isConfigured) }
-        var configuration by remember {
-            mutableStateOf(
-                Configuration(apiKey = BuildKonfig.apiKey, userId = BuildKonfig.appUserId)
-            )
-        }
-        ConfigurationSettings(
-            configuration = configuration,
-            onConfigurationChanged = { configuration = it },
-            modifier = Modifier.fillMaxWidth()
-        )
 
-        if (!isConfigured) {
-            Spacer(modifier = Modifier.size(8.dp))
-            Button(
-                onClick = {
-                    Purchases.configure(configuration.toPurchasesConfiguration())
-                    isConfigured = Purchases.isConfigured
-                },
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                enabled = configuration.userId.isNotBlank() && configuration.apiKey.isNotBlank(),
-            ) {
-                Text("Configure")
-            }
-        } else {
-            var offeringsState: AsyncState<Offerings> by remember {
-                mutableStateOf(AsyncState.Loading)
-            }
-            LaunchedEffect(Unit) {
-                offeringsState =
-                    when (val offerings = Purchases.sharedInstance.awaitOfferingsEither()) {
-                        is Either.Left -> AsyncState.Error
-                        is Either.Right -> AsyncState.Loaded(offerings.value)
+        AnimatedContent(targetState = isConfigured) { configured ->
+            if (!configured) Column {
+                Text(
+                    text = "Configuration",
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.h6,
+                )
+
+                Spacer(modifier = Modifier.size(8.dp))
+
+                var configuration by remember {
+                    mutableStateOf(
+                        Configuration(apiKey = BuildKonfig.apiKey, userId = BuildKonfig.appUserId)
+                    )
+                }
+                ConfigurationSettings(
+                    configuration = configuration,
+                    onConfigurationChanged = { configuration = it },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.size(8.dp))
+                Button(
+                    onClick = {
+                        Purchases.configure(configuration.toPurchasesConfiguration())
+                        isConfigured = Purchases.isConfigured
+                    },
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    enabled = configuration.userId.isNotBlank() && configuration.apiKey.isNotBlank(),
+                ) {
+                    Text("Configure")
+                }
+
+                Spacer(modifier = Modifier.size(16.dp))
+
+                ConfigurationTip(modifier = Modifier.fillMaxWidth())
+
+            } else Column {
+                var offeringsState: AsyncState<Offerings> by remember {
+                    mutableStateOf(AsyncState.Loading)
+                }
+                LaunchedEffect(Unit) {
+                    offeringsState =
+                        when (val offerings = Purchases.sharedInstance.awaitOfferingsEither()) {
+                            is Either.Left -> AsyncState.Error
+                            is Either.Right -> AsyncState.Loaded(offerings.value)
+                        }
+                }
+                val customerInfo by Purchases.sharedInstance.rememberCustomerInfoState()
+                val customerInfoState by remember {
+                    derivedStateOf {
+                        customerInfo?.let { AsyncState.Loaded(it) } ?: AsyncState.Loading
                     }
-            }
-            val customerInfo by Purchases.sharedInstance.rememberCustomerInfoState()
-            val customerInfoState by remember {
-                derivedStateOf { customerInfo?.let { AsyncState.Loaded(it) } ?: AsyncState.Loading }
-            }
+                }
 
-            Spacer(modifier = Modifier.size(16.dp))
-            Text(
-                text = "CustomerInfo",
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.h6,
-            )
-            Spacer(modifier = Modifier.size(8.dp))
-            CustomerInfoSection(
-                state = customerInfoState,
-                modifier = Modifier.fillMaxWidth(),
-            )
+                Spacer(modifier = Modifier.size(16.dp))
+                Text(
+                    text = "CustomerInfo",
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.h6,
+                )
+                Spacer(modifier = Modifier.size(8.dp))
+                CustomerInfoSection(
+                    state = customerInfoState,
+                    modifier = Modifier.fillMaxWidth(),
+                )
 
-            Spacer(modifier = Modifier.size(16.dp))
-            Text(
-                text = "Offerings",
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.h6,
-            )
-            Spacer(modifier = Modifier.size(8.dp))
-            OfferingsSection(
-                state = offeringsState,
-                onShowPaywallClick = onShowPaywallClick,
-                modifier = Modifier.fillMaxWidth(),
-            )
+                Spacer(modifier = Modifier.size(16.dp))
+                Text(
+                    text = "Offerings",
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.h6,
+                )
+                Spacer(modifier = Modifier.size(8.dp))
+                OfferingsSection(
+                    state = offeringsState,
+                    onShowPaywallClick = onShowPaywallClick,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
         }
     }
 }
@@ -160,6 +175,24 @@ private fun ConfigurationSettings(
             modifier = Modifier.fillMaxWidth(),
             textStyle = LocalTextStyle.current.copy(fontFamily = FontFamily.Monospace)
         )
+    }
+}
+
+@Composable
+private fun ConfigurationTip(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .background(
+                color = Color.Green.copy(alpha = 0.1f),
+                shape = RoundedCornerShape(size = 16.dp)
+            )
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        Text(text = "Tip: you can configure these values in your local.properties file using the following keys:")
+        Spacer(modifier = Modifier.size(4.dp))
+        Text(text = "revenuecat.apiKey.google", fontFamily = FontFamily.Monospace)
+        Text(text = "revenuecat.apiKey.apple", fontFamily = FontFamily.Monospace)
+        Text(text = "revenuecat.appUserId", fontFamily = FontFamily.Monospace)
     }
 }
 
