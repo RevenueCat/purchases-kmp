@@ -64,7 +64,11 @@ fun MainScreen(
         )
 
         var isConfigured by remember { mutableStateOf(Purchases.isConfigured) }
-        var configuration by remember { mutableStateOf(Configuration(apiKey = "", userId = "")) }
+        var configuration by remember {
+            mutableStateOf(
+                Configuration(apiKey = BuildKonfig.apiKey, userId = BuildKonfig.appUserId)
+            )
+        }
         ConfigurationSettings(
             configuration = configuration,
             onConfigurationChanged = { configuration = it },

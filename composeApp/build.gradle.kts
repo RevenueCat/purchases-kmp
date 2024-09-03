@@ -1,7 +1,11 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+import org.jetbrains.compose.internal.utils.getLocalProperty
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.codingfeline.buildkonfig)
 }
 
 kotlin {
@@ -79,5 +83,35 @@ android {
     compileOptions {
         sourceCompatibility(libs.versions.java.get())
         targetCompatibility(libs.versions.java.get())
+    }
+}
+
+buildkonfig {
+    packageName = "com.revenuecat.purchases.kmp.sample"
+
+    defaultConfigs {
+        // apiKey is overridden in targetConfigs.
+        buildConfigField(type = STRING, name = "apiKey", value = "")
+        buildConfigField(
+            type = STRING,
+            name = "appUserId",
+            value = project.rootProject.getLocalProperty("revenuecat.appUserId") ?: ""
+        )
+    }
+    targetConfigs {
+        create("android") {
+            buildConfigField(
+                type = STRING,
+                name = "apiKey",
+                value = project.rootProject.getLocalProperty("revenuecat.apiKey.google") ?: ""
+            )
+        }
+        create("ios") {
+            buildConfigField(
+                type = STRING,
+                name = "apiKey",
+                value = project.rootProject.getLocalProperty("revenuecat.apiKey.apple") ?: ""
+            )
+        }
     }
 }
