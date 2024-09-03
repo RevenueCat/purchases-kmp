@@ -95,7 +95,7 @@ buildkonfig {
         buildConfigField(
             type = STRING,
             name = "appUserId",
-            value = project.rootProject.getLocalProperty("revenuecat.appUserId") ?: ""
+            value = project.rootProject.getLocalProperty("revenuecat.appUserId").orEmpty()
         )
     }
     targetConfigs {
@@ -103,15 +103,25 @@ buildkonfig {
             buildConfigField(
                 type = STRING,
                 name = "apiKey",
-                value = project.rootProject.getLocalProperty("revenuecat.apiKey.google") ?: ""
+                value = project.rootProject
+                    .getLocalProperty("revenuecat.apiKey.google")
+                    .orEmpty()
             )
         }
-        create("ios") {
-            buildConfigField(
-                type = STRING,
-                name = "apiKey",
-                value = project.rootProject.getLocalProperty("revenuecat.apiKey.apple") ?: ""
-            )
+        listOf(
+            "iosX64",
+            "iosArm64",
+            "iosSimulatorArm64",
+        ).forEach { iosTarget ->
+            create(iosTarget) {
+                buildConfigField(
+                    type = STRING,
+                    name = "apiKey",
+                    value = project.rootProject
+                        .getLocalProperty("revenuecat.apiKey.apple")
+                        .orEmpty()
+                )
+            }
         }
     }
 }
