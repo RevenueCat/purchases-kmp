@@ -112,7 +112,7 @@ lane :update_hybrid_common do |options|
       skip_git_hooks: true
     )
     push_to_git_remote(
-      tags: false
+      tags: false,
       no_verify: true
     )
   end
