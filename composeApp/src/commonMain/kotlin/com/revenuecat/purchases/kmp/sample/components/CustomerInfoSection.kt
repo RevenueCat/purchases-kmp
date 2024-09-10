@@ -16,6 +16,7 @@ import com.revenuecat.purchases.kmp.datetime.latestExpirationInstant
 import com.revenuecat.purchases.kmp.datetime.originalPurchaseInstant
 import com.revenuecat.purchases.kmp.datetime.requestInstant
 import com.revenuecat.purchases.kmp.sample.AsyncState
+import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
 
 @Composable
 internal fun CustomerInfoSection(
@@ -31,7 +32,10 @@ internal fun CustomerInfoSection(
             is AsyncState.Loading -> CircularProgressIndicator()
             is AsyncState.Error -> Text("Failed to get customer info")
             is AsyncState.Loaded -> {
-                Column(modifier = Modifier.fillMaxWidth()) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+                ) {
                     Text(text = "originalAppUserId: ${state.value.originalAppUserId}")
                     Text(text = "originalApplicationVersion: ${state.value.originalApplicationVersion}")
                     Text(text = "firstSeenInstant: ${state.value.firstSeenInstant}")

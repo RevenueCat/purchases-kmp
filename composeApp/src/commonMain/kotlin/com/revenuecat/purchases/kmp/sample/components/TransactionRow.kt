@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.sample.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
@@ -8,6 +9,7 @@ import androidx.compose.ui.Modifier
 import com.revenuecat.purchases.kmp.datetime.purchaseInstant
 import com.revenuecat.purchases.kmp.models.Transaction
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
+import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
 
 @Composable
 internal fun TransactionsRow(
@@ -18,7 +20,10 @@ internal fun TransactionsRow(
     CollapsibleRow(
         collapsedContent = { Text(text = "$label: ${transactions.size}") },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 transactions.forEach { transaction -> TransactionRow(transaction) }
             }
         },
@@ -34,7 +39,10 @@ internal fun TransactionRow(
     CollapsibleRow(
         collapsedContent = { Text(text = transaction.transactionIdentifier) },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 Text(text = "productIdentifier: ${transaction.productIdentifier}")
                 Text(text = "purchaseInstant: ${transaction.purchaseInstant}")
             }

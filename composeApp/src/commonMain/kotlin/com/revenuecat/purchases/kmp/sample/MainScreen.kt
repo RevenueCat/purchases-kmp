@@ -165,6 +165,7 @@ private fun ConfigurationSettings(
             modifier = Modifier.fillMaxWidth(),
             textStyle = LocalTextStyle.current.copy(fontFamily = FontFamily.Monospace)
         )
+        Spacer(modifier = Modifier.size(DefaultSpacingVertical))
         Text(
             text = "user ID",
             modifier = Modifier.fillMaxWidth()

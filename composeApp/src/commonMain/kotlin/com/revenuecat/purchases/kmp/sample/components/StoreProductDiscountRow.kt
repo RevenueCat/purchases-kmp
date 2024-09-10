@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.sample.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
@@ -7,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
+import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
 
 @Composable
 internal fun StoreProductDiscountsRow(
@@ -17,7 +19,10 @@ internal fun StoreProductDiscountsRow(
         modifier = modifier,
         collapsedContent = { Text(text = "discounts: ${discounts.size}") },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 discounts.forEach { discount -> StoreProductDiscountRow(discount = discount) }
             }
         },
@@ -38,7 +43,10 @@ internal fun StoreProductDiscountRow(
             )
         },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 Text(text = "offerIdentifier: ${discount.offerIdentifier}")
                 Text(text = "numberOfPeriods: ${discount.numberOfPeriods}")
                 Text(text = "type: ${discount.type}")

@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.sample.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
@@ -8,6 +9,7 @@ import androidx.compose.ui.Modifier
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.SubscriptionOptions
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
+import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
 
 @Composable
 internal fun SubscriptionOptionsRow(
@@ -18,7 +20,10 @@ internal fun SubscriptionOptionsRow(
         modifier = modifier,
         collapsedContent = { Text(text = "subscriptionOptions") },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 options.basePlan?.let {
                     SubscriptionOptionRow(option = it, label = "basePlan")
                 } ?: Text(text = "basePlan: null")
@@ -46,7 +51,10 @@ internal fun SubscriptionOptionRow(
         modifier = modifier,
         collapsedContent = { Text(text = "$label: ${option.id}") },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 PurchasingDataRow(data = option.purchasingData)
                 option.presentedOfferingContext?.let {
                     PresentedOfferingContextRow(context = it)

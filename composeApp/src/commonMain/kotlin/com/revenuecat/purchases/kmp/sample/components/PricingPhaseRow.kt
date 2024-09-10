@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.sample.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
@@ -7,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.revenuecat.purchases.kmp.models.PricingPhase
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
+import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
 
 @Composable
 internal fun PricingPhasesRow(
@@ -17,7 +19,10 @@ internal fun PricingPhasesRow(
         modifier = modifier,
         collapsedContent = { Text(text = "pricingPhases: ${phases.size}") },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 phases.forEach { phase ->
                     PricingPhaseRow(phase = phase)
                 }
@@ -35,7 +40,10 @@ internal fun PricingPhaseRow(
         modifier = modifier,
         collapsedContent = { Text(text = "${phase.price.formatted} / ${phase.billingPeriod.value} ${phase.billingPeriod.unit}") },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 Text(text = "recurrenceMode: ${phase.recurrenceMode}")
                 Text(text = "offerPaymentMode: ${phase.offerPaymentMode}")
                 Text(text = "billingCycleCount: ${phase.billingCycleCount}")

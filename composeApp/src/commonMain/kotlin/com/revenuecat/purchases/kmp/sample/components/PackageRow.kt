@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.sample.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
@@ -7,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.revenuecat.purchases.kmp.Package
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
+import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
 
 @Composable
 internal fun PackagesRow(
@@ -18,7 +20,10 @@ internal fun PackagesRow(
         modifier = modifier,
         collapsedContent = { Text(text = "$label: ${pkgs.size}") },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 pkgs.forEach { pkg -> PackageRow(pkg = pkg) }
             }
         },
@@ -34,7 +39,10 @@ internal fun PackageRow(
     CollapsibleRow(
         collapsedContent = { Text(text = "$label: ${pkg.identifier}") },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 Text(text = "type: ${pkg.packageType}")
                 PresentedOfferingContextRow(context = pkg.presentedOfferingContext)
                 StoreProductRow(product = pkg.storeProduct)

@@ -13,6 +13,7 @@ import com.revenuecat.purchases.kmp.Offering
 import com.revenuecat.purchases.kmp.Offerings
 import com.revenuecat.purchases.kmp.sample.AsyncState
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
+import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
 
 @Composable
 internal fun OfferingsSection(
@@ -56,7 +57,10 @@ private fun OfferingRow(
             Text(text = "${if (isCurrent) "\uD83D\uDC49 " else ""}${offering.identifier}")
         },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 PaywallsRow(
                     onShowFullscreenClick = { onShowPaywallClick(false) },
                     onShowFooterClick = { onShowPaywallClick(true) }

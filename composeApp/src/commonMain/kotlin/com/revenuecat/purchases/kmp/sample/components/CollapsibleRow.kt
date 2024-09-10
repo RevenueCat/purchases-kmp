@@ -3,6 +3,7 @@ package com.revenuecat.purchases.kmp.sample.components
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -21,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
+import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
 
 @Composable
 internal fun CollapsibleRow(
@@ -63,7 +65,10 @@ internal fun CollapsibleStringsRow(
         modifier = modifier,
         collapsedContent = { Text(text = "$label: ${strings.size}") },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 strings.forEach { string -> Text(text = string) }
             }
         },
@@ -80,7 +85,10 @@ internal fun <K, V> CollapsibleMapRow(
         modifier = modifier,
         collapsedContent = { Text(text = "$label: ${map.size}") },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 map.forEach { (key, value) -> Text(text = "$key: $value") }
             }
         },

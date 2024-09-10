@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.sample.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
@@ -13,6 +14,7 @@ import com.revenuecat.purchases.kmp.datetime.latestPurchaseInstant
 import com.revenuecat.purchases.kmp.datetime.originalPurchaseInstant
 import com.revenuecat.purchases.kmp.datetime.unsubscribeDetectedAtInstant
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
+import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
 
 @Composable
 internal fun EntitlementInfosRow(
@@ -24,7 +26,10 @@ internal fun EntitlementInfosRow(
             Text(text = "entitlements: ${infos.all.size}")
         },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 Text(text = "verification: ${infos.verification}")
                 infos.all.forEach { (_, info) ->
                     EntitlementInfoRow(info = info)
@@ -44,7 +49,10 @@ internal fun EntitlementInfoRow(
         modifier = modifier,
         collapsedContent = { Text(text = info.identifier) },
         expandedContent = {
-            Column(modifier = Modifier.padding(start = DefaultPaddingHorizontal)) {
+            Column(
+                modifier = Modifier.padding(start = DefaultPaddingHorizontal),
+                verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
+            ) {
                 Text(text = "isActive: ${info.isActive}")
                 Text(text = "willRenew: ${info.willRenew}")
                 Text(text = "latestPurchaseInstant: ${info.latestPurchaseInstant}")
