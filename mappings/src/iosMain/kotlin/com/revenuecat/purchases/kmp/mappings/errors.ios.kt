@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.PurchasesError
-import com.revenuecat.purchases.kmp.PurchasesErrorCode
+import com.revenuecat.purchases.kmp.models.PurchasesError
+import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
 import platform.Foundation.NSError
 
 

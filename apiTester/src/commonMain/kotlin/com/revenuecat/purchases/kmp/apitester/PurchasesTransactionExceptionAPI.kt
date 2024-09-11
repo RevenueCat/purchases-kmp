@@ -1,8 +1,8 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.PurchasesError
-import com.revenuecat.purchases.kmp.PurchasesErrorCode
-import com.revenuecat.purchases.kmp.PurchasesTransactionException
+import com.revenuecat.purchases.kmp.models.PurchasesError
+import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
+import com.revenuecat.purchases.kmp.models.PurchasesTransactionException
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class PurchasesTransactionExceptionAPI {

@@ -35,6 +35,8 @@ import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
+import com.revenuecat.purchases.kmp.models.PurchasesError
+import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
 import com.revenuecat.purchases.kmp.models.Store
 import com.revenuecat.purchases.kmp.models.StoreMessageType
 import com.revenuecat.purchases.kmp.models.StoreProduct
