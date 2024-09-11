@@ -1,18 +1,21 @@
-package com.revenuecat.purchases.kmp.mappings
+package com.revenuecat.purchases.kmp
 
 import cocoapods.PurchasesHybridCommon.RCCustomerInfo
 import cocoapods.PurchasesHybridCommon.RCPurchases
 import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.RCStoreTransaction
-import com.revenuecat.purchases.kmp.PurchasesDelegate
+import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
+import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
+import com.revenuecat.purchases.kmp.mappings.toStoreProduct
+import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
 import platform.Foundation.NSError
 import platform.darwin.NSObject
 
-public fun RCPurchasesDelegateProtocol.toPurchasesDelegate(): PurchasesDelegate =
+internal fun RCPurchasesDelegateProtocol.toPurchasesDelegate(): PurchasesDelegate =
     (this as PurchasesDelegateWrapper).wrapped
 
-public fun PurchasesDelegate.toRcPurchasesDelegate(): RCPurchasesDelegateProtocol =
+internal fun PurchasesDelegate.toRcPurchasesDelegate(): RCPurchasesDelegateProtocol =
     PurchasesDelegateWrapper(this)
 
 private class PurchasesDelegateWrapper(val wrapped: PurchasesDelegate) :
