@@ -44,73 +44,6 @@ public abstract interface class com/revenuecat/purchases/kmp/PurchasesDelegate {
 	public abstract fun onPurchasePromoProduct (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;)V
 }
 
-public final class com/revenuecat/purchases/kmp/PurchasesError {
-	public fun <init> (Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;Ljava/lang/String;)V
-	public synthetic fun <init> (Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getCode ()Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public final fun getMessage ()Ljava/lang/String;
-	public final fun getUnderlyingErrorMessage ()Ljava/lang/String;
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/revenuecat/purchases/kmp/PurchasesErrorCode : java/lang/Enum {
-	public static final field ApiEndpointBlocked Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field BeginRefundRequestError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ConfigurationError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field CustomerInfoError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field EmptySubscriberAttributesError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field FeatureNotAvailableInCustomEntitlementsComputationMode Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field IneligibleError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field InsufficientPermissionsError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field InvalidAppUserIdError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field InvalidAppleSubscriptionKeyError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field InvalidCredentialsError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field InvalidPromotionalOfferError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field InvalidReceiptError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field InvalidSubscriberAttributesError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field LogOutWithAnonymousUserError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field MissingReceiptFileError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field NetworkError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field OfflineConnectionError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field OperationAlreadyInProgressError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field PaymentPendingError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ProductAlreadyPurchasedError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ProductDiscountMissingIdentifierError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ProductDiscountMissingSubscriptionGroupIdentifierError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ProductNotAvailableForPurchaseError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ProductRequestTimedOut Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field PurchaseCancelledError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field PurchaseInvalidError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field PurchaseNotAllowedError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ReceiptAlreadyInUseError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field ReceiptInUseByOtherSubscriberError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field SignatureVerificationError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field StoreProblemError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field SystemInfoError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field UnexpectedBackendResponseError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field UnknownBackendError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field UnknownError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static final field UnsupportedError Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public final fun getCode ()I
-	public final fun getDescription ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-}
-
-public class com/revenuecat/purchases/kmp/PurchasesException : java/lang/Exception {
-	public fun <init> (Lcom/revenuecat/purchases/kmp/PurchasesError;)V
-	public final fun getCode ()Lcom/revenuecat/purchases/kmp/PurchasesErrorCode;
-	public final fun getError ()Lcom/revenuecat/purchases/kmp/PurchasesError;
-	public fun getMessage ()Ljava/lang/String;
-	public final fun getUnderlyingErrorMessage ()Ljava/lang/String;
-}
-
-public final class com/revenuecat/purchases/kmp/PurchasesTransactionException : com/revenuecat/purchases/kmp/PurchasesException {
-	public fun <init> (Lcom/revenuecat/purchases/kmp/PurchasesError;Z)V
-	public final fun getUserCancelled ()Z
-}
-
 public abstract interface class com/revenuecat/purchases/kmp/ReplacementMode {
 	public abstract fun getName ()Ljava/lang/String;
 }
@@ -378,6 +311,73 @@ public final class com/revenuecat/purchases/kmp/models/ProductType : java/lang/E
 
 public abstract interface class com/revenuecat/purchases/kmp/models/PromotionalOffer {
 	public abstract fun getDiscount ()Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;
+}
+
+public final class com/revenuecat/purchases/kmp/models/PurchasesError {
+	public fun <init> (Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;Ljava/lang/String;)V
+	public synthetic fun <init> (Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getCode ()Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public final fun getMessage ()Ljava/lang/String;
+	public final fun getUnderlyingErrorMessage ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/models/PurchasesErrorCode : java/lang/Enum {
+	public static final field ApiEndpointBlocked Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field BeginRefundRequestError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field ConfigurationError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field CustomerInfoError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field EmptySubscriberAttributesError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field FeatureNotAvailableInCustomEntitlementsComputationMode Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field IneligibleError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field InsufficientPermissionsError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field InvalidAppUserIdError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field InvalidAppleSubscriptionKeyError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field InvalidCredentialsError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field InvalidPromotionalOfferError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field InvalidReceiptError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field InvalidSubscriberAttributesError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field LogOutWithAnonymousUserError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field MissingReceiptFileError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field NetworkError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field OfflineConnectionError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field OperationAlreadyInProgressError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field PaymentPendingError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field ProductAlreadyPurchasedError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field ProductDiscountMissingIdentifierError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field ProductDiscountMissingSubscriptionGroupIdentifierError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field ProductNotAvailableForPurchaseError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field ProductRequestTimedOut Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field PurchaseCancelledError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field PurchaseInvalidError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field PurchaseNotAllowedError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field ReceiptAlreadyInUseError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field ReceiptInUseByOtherSubscriberError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field SignatureVerificationError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field StoreProblemError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field SystemInfoError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field UnexpectedBackendResponseError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field UnknownBackendError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field UnknownError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field UnsupportedError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public final fun getCode ()I
+	public final fun getDescription ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+}
+
+public class com/revenuecat/purchases/kmp/models/PurchasesException : java/lang/Exception {
+	public fun <init> (Lcom/revenuecat/purchases/kmp/models/PurchasesError;)V
+	public final fun getCode ()Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public final fun getError ()Lcom/revenuecat/purchases/kmp/models/PurchasesError;
+	public fun getMessage ()Ljava/lang/String;
+	public final fun getUnderlyingErrorMessage ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/models/PurchasesTransactionException : com/revenuecat/purchases/kmp/models/PurchasesException {
+	public fun <init> (Lcom/revenuecat/purchases/kmp/models/PurchasesError;Z)V
+	public final fun getUserCancelled ()Z
 }
 
 public abstract interface class com/revenuecat/purchases/kmp/models/PurchasingData {
