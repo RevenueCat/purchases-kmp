@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.Offering
-import com.revenuecat.purchases.kmp.Package
+import com.revenuecat.purchases.kmp.models.Offering
+import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.Offering as NativeAndroidOffering
 
 public fun NativeAndroidOffering.toOffering(): Offering =

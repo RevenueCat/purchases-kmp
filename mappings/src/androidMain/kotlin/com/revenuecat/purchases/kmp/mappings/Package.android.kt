@@ -1,10 +1,10 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.PackageType
-import com.revenuecat.purchases.kmp.PresentedOfferingContext
+import com.revenuecat.purchases.kmp.models.PackageType
+import com.revenuecat.purchases.kmp.models.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.Package as NativeAndroidPackage
-import com.revenuecat.purchases.kmp.Package as RCPackage
+import com.revenuecat.purchases.kmp.models.Package as RCPackage
 import com.revenuecat.purchases.PackageType as AndroidPackageType
 
 public fun NativeAndroidPackage.toPackage(): RCPackage = AndroidPackage(this)

@@ -4,8 +4,8 @@ import arrow.core.Either
 import com.revenuecat.purchases.kmp.DangerousSettings
 import com.revenuecat.purchases.kmp.LogHandler
 import com.revenuecat.purchases.kmp.LogLevel
-import com.revenuecat.purchases.kmp.Offerings
-import com.revenuecat.purchases.kmp.Package
+import com.revenuecat.purchases.kmp.models.Offerings
+import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.PurchasesConfiguration

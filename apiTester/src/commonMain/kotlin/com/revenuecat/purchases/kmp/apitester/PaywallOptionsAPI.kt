@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.Offering
+import com.revenuecat.purchases.kmp.models.Offering
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallListener
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallOptions
 

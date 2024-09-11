@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.PackageType
-import com.revenuecat.purchases.kmp.PresentedOfferingContext
+import com.revenuecat.purchases.kmp.models.PackageType
+import com.revenuecat.purchases.kmp.models.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import cocoapods.PurchasesHybridCommon.RCPackage as NativeIosPackage
 import cocoapods.PurchasesHybridCommon.RCPackageType as IosPackageType
@@ -14,7 +14,7 @@ import cocoapods.PurchasesHybridCommon.RCPackageTypeThreeMonth as IosPackageType
 import cocoapods.PurchasesHybridCommon.RCPackageTypeTwoMonth as IosPackageTypeTwoMonth
 import cocoapods.PurchasesHybridCommon.RCPackageTypeUnknown as IosPackageTypeUnknown
 import cocoapods.PurchasesHybridCommon.RCPackageTypeWeekly as IosPackageTypeWeekly
-import com.revenuecat.purchases.kmp.Package as RCPackage
+import com.revenuecat.purchases.kmp.models.Package as RCPackage
 
 public fun NativeIosPackage.toPackage(): RCPackage = IosPackage(this)
 

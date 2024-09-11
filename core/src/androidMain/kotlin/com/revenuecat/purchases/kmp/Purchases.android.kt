@@ -32,6 +32,8 @@ import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
+import com.revenuecat.purchases.kmp.models.Offerings
+import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.Store
 import com.revenuecat.purchases.kmp.models.StoreMessageType

@@ -1,7 +1,5 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.kmp.PresentedOfferingContext
-
 /**
  * Play Store only. A purchase-able entity for a subscription product.
  */

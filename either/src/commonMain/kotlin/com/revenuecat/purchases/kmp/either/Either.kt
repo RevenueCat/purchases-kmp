@@ -3,8 +3,8 @@ package com.revenuecat.purchases.kmp.either
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
-import com.revenuecat.purchases.kmp.Offerings
-import com.revenuecat.purchases.kmp.Package
+import com.revenuecat.purchases.kmp.models.Offerings
+import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesError
 import com.revenuecat.purchases.kmp.ktx.SuccessfulLogin

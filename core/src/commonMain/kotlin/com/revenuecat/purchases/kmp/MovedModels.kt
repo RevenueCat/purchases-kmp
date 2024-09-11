@@ -53,6 +53,24 @@ public typealias EntitlementVerificationMode =
         com.revenuecat.purchases.kmp.models.EntitlementVerificationMode
 
 @Deprecated(
+    message = "This type has moved to the models package.",
+    replaceWith = ReplaceWith(
+        expression = "Offering",
+        imports = ["com.revenuecat.purchases.kmp.models.Offering"]
+    )
+)
+public typealias Offering = com.revenuecat.purchases.kmp.models.Offering
+
+@Deprecated(
+    message = "This type has moved to the models package.",
+    replaceWith = ReplaceWith(
+        expression = "Offerings",
+        imports = ["com.revenuecat.purchases.kmp.models.Offerings"]
+    )
+)
+public typealias Offerings = com.revenuecat.purchases.kmp.models.Offerings
+
+@Deprecated(
     message = "This class has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "OwnershipType",
@@ -62,6 +80,24 @@ public typealias EntitlementVerificationMode =
 public typealias OwnershipType = com.revenuecat.purchases.kmp.models.OwnershipType
 
 @Deprecated(
+    message = "This type has moved to the models package.",
+    replaceWith = ReplaceWith(
+        expression = "Package",
+        imports = ["com.revenuecat.purchases.kmp.models.Package"]
+    )
+)
+public typealias Package = com.revenuecat.purchases.kmp.models.Package
+
+@Deprecated(
+    message = "This type has moved to the models package.",
+    replaceWith = ReplaceWith(
+        expression = "PackageType",
+        imports = ["com.revenuecat.purchases.kmp.models.PackageType"]
+    )
+)
+public typealias PackageType = com.revenuecat.purchases.kmp.models.PackageType
+
+@Deprecated(
     message = "This class has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "PeriodType",
@@ -69,6 +105,26 @@ public typealias OwnershipType = com.revenuecat.purchases.kmp.models.OwnershipTy
     )
 )
 public typealias PeriodType = com.revenuecat.purchases.kmp.models.PeriodType
+
+@Deprecated(
+    message = "This type has moved to the models package.",
+    replaceWith = ReplaceWith(
+        expression = "PresentedOfferingContext",
+        imports = ["com.revenuecat.purchases.kmp.models.PresentedOfferingContext"]
+    )
+)
+public typealias PresentedOfferingContext =
+        com.revenuecat.purchases.kmp.models.PresentedOfferingContext
+
+@Deprecated(
+    message = "This type has moved to the models package.",
+    replaceWith = ReplaceWith(
+        expression = "PresentedOfferingTargetingContext",
+        imports = ["com.revenuecat.purchases.kmp.models.PresentedOfferingTargetingContext"]
+    )
+)
+public typealias PresentedOfferingTargetingContext =
+        com.revenuecat.purchases.kmp.models.PresentedOfferingTargetingContext
 
 @Deprecated(
     message = "This class has moved to the models package.",
