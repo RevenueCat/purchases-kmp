@@ -1,10 +1,10 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.PresentedOfferingContext
-import com.revenuecat.purchases.kmp.ProductType
 import com.revenuecat.purchases.kmp.models.Period
 import com.revenuecat.purchases.kmp.models.Price
 import com.revenuecat.purchases.kmp.models.ProductCategory
+import com.revenuecat.purchases.kmp.models.ProductType
 import com.revenuecat.purchases.kmp.models.PurchasingData
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount

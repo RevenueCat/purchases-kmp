@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.ProductType
+import com.revenuecat.purchases.kmp.models.ProductType
 import com.revenuecat.purchases.kmp.models.PurchasingData
 import com.revenuecat.purchases.models.PurchasingData as NativeAndroidPurchasingData
 

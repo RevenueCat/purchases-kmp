@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.StoreKitVersion
+import com.revenuecat.purchases.kmp.models.StoreKitVersion
 
 public fun StoreKitVersion.toHybridString(): String =
     when(this) {

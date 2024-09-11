@@ -3,7 +3,6 @@ package com.revenuecat.purchases.kmp.apitester
 import arrow.core.Either
 import com.revenuecat.purchases.kmp.CustomerInfo
 import com.revenuecat.purchases.kmp.DangerousSettings
-import com.revenuecat.purchases.kmp.EntitlementVerificationMode
 import com.revenuecat.purchases.kmp.LogHandler
 import com.revenuecat.purchases.kmp.LogLevel
 import com.revenuecat.purchases.kmp.Offerings
@@ -14,7 +13,6 @@ import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.PurchasesError
 import com.revenuecat.purchases.kmp.Store
-import com.revenuecat.purchases.kmp.StoreKitVersion
 import com.revenuecat.purchases.kmp.configure
 import com.revenuecat.purchases.kmp.either.FailedPurchase
 import com.revenuecat.purchases.kmp.either.awaitGetProductsEither
@@ -25,7 +23,9 @@ import com.revenuecat.purchases.kmp.ktx.awaitGetProducts
 import com.revenuecat.purchases.kmp.ktx.awaitOfferings
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
 import com.revenuecat.purchases.kmp.models.BillingFeature
+import com.revenuecat.purchases.kmp.models.EntitlementVerificationMode
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
+import com.revenuecat.purchases.kmp.models.StoreKitVersion
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption

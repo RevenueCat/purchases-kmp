@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.EntitlementVerificationMode
+import com.revenuecat.purchases.kmp.models.EntitlementVerificationMode
 
 @Suppress("unused")
 private class EntitlementVerificationModeAPI {

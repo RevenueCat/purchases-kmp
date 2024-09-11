@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.VerificationResult
+import com.revenuecat.purchases.kmp.models.VerificationResult
 import com.revenuecat.purchases.VerificationResult as AndroidVerificationResult
 
 internal fun AndroidVerificationResult.toVerificationResult(): VerificationResult =

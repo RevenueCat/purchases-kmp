@@ -1,4 +1,4 @@
-package com.revenuecat.purchases.kmp
+package com.revenuecat.purchases.kmp.models
 
 /**
  * The result of the verification process.
@@ -44,6 +44,7 @@ public enum class VerificationResult {
         get() = when (this) {
             VERIFIED,
             VERIFIED_ON_DEVICE -> true
+
             FAILED,
             NOT_REQUESTED -> false
         }

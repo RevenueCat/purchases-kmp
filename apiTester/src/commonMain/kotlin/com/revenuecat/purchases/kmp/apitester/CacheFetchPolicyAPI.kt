@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.CacheFetchPolicy
+import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 
 @Suppress("unused")
 private class CacheFetchPolicyAPI {

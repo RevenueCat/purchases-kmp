@@ -27,6 +27,7 @@ import com.revenuecat.purchases.kmp.mappings.toRcPurchasesDelegate
 import com.revenuecat.purchases.kmp.mappings.toStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
 import com.revenuecat.purchases.kmp.models.BillingFeature
+import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.StoreMessageType
 import com.revenuecat.purchases.kmp.models.StoreProduct

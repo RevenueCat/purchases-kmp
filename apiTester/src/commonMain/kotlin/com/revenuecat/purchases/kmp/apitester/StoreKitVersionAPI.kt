@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.StoreKitVersion
+import com.revenuecat.purchases.kmp.models.StoreKitVersion
 
 @Suppress("unused")
 private class StoreKitVersionAPI {

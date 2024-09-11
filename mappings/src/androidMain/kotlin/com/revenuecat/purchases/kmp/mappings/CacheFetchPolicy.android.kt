@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.CacheFetchPolicy
+import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.CacheFetchPolicy as AndroidCacheFetchPolicy
 
 public fun CacheFetchPolicy.toAndroidCacheFetchPolicy(): AndroidCacheFetchPolicy =

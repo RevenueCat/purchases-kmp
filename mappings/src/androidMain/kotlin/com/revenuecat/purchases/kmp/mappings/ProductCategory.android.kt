@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.ProductType
 import com.revenuecat.purchases.kmp.models.ProductCategory
+import com.revenuecat.purchases.kmp.models.ProductType
 
 internal fun ProductType.toProductCategoryOrNull(): ProductCategory? =
     when (this) {
