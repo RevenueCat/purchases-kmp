@@ -55,11 +55,38 @@ public typealias EntitlementVerificationMode =
 @Deprecated(
     message = "This class has moved to the models package.",
     replaceWith = ReplaceWith(
+        expression = "OwnershipType",
+        imports = ["com.revenuecat.purchases.kmp.models.OwnershipType"]
+    )
+)
+public typealias OwnershipType = com.revenuecat.purchases.kmp.models.OwnershipType
+
+@Deprecated(
+    message = "This class has moved to the models package.",
+    replaceWith = ReplaceWith(
+        expression = "PeriodType",
+        imports = ["com.revenuecat.purchases.kmp.models.PeriodType"]
+    )
+)
+public typealias PeriodType = com.revenuecat.purchases.kmp.models.PeriodType
+
+@Deprecated(
+    message = "This class has moved to the models package.",
+    replaceWith = ReplaceWith(
         expression = "ProductType",
         imports = ["com.revenuecat.purchases.kmp.models.ProductType"]
     )
 )
 public typealias ProductType = com.revenuecat.purchases.kmp.models.ProductType
+
+@Deprecated(
+    message = "This class has moved to the models package.",
+    replaceWith = ReplaceWith(
+        expression = "Store",
+        imports = ["com.revenuecat.purchases.kmp.models.Store"]
+    )
+)
+public typealias Store = com.revenuecat.purchases.kmp.models.Store
 
 @Deprecated(
     message = "This class has moved to the models package.",
