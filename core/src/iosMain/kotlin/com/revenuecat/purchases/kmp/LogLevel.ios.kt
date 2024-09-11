@@ -1,14 +1,13 @@
-package com.revenuecat.purchases.kmp.mappings
+package com.revenuecat.purchases.kmp
 
 import cocoapods.PurchasesHybridCommon.RCLogLevelDebug
 import cocoapods.PurchasesHybridCommon.RCLogLevelError
 import cocoapods.PurchasesHybridCommon.RCLogLevelInfo
 import cocoapods.PurchasesHybridCommon.RCLogLevelVerbose
 import cocoapods.PurchasesHybridCommon.RCLogLevelWarn
-import com.revenuecat.purchases.kmp.LogLevel
 import cocoapods.PurchasesHybridCommon.RCLogLevel as IosLogLevel
 
-public fun IosLogLevel.toLogLevel(): LogLevel =
+internal fun IosLogLevel.toLogLevel(): LogLevel =
     when (this) {
         RCLogLevelVerbose -> LogLevel.VERBOSE
         RCLogLevelDebug -> LogLevel.DEBUG
@@ -18,7 +17,7 @@ public fun IosLogLevel.toLogLevel(): LogLevel =
         else -> error("Unexpected IosLogLevel: $this")
     }
 
-public fun LogLevel.toRcLogLevel(): IosLogLevel =
+internal fun LogLevel.toRcLogLevel(): IosLogLevel =
     when (this) {
         LogLevel.VERBOSE -> RCLogLevelVerbose
         LogLevel.DEBUG -> RCLogLevelDebug
