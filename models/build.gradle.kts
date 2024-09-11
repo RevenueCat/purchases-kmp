@@ -22,5 +22,5 @@ kotlin {
 }
 
 android {
-    namespace = "com.revenuecat.purchases.kmp"
+    namespace = "com.revenuecat.purchases.kmp.models"
 }
