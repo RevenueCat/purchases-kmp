@@ -18,6 +18,33 @@ public typealias CacheFetchPolicy = com.revenuecat.purchases.kmp.models.CacheFet
 @Deprecated(
     message = "This class has moved to the models package.",
     replaceWith = ReplaceWith(
+        expression = "CustomerInfo",
+        imports = ["com.revenuecat.purchases.kmp.models.CustomerInfo"]
+    )
+)
+public typealias CustomerInfo = com.revenuecat.purchases.kmp.models.CustomerInfo
+
+@Deprecated(
+    message = "This class has moved to the models package.",
+    replaceWith = ReplaceWith(
+        expression = "EntitlementInfo",
+        imports = ["com.revenuecat.purchases.kmp.models.EntitlementInfo"]
+    )
+)
+public typealias EntitlementInfo = com.revenuecat.purchases.kmp.models.EntitlementInfo
+
+@Deprecated(
+    message = "This class has moved to the models package.",
+    replaceWith = ReplaceWith(
+        expression = "EntitlementInfos",
+        imports = ["com.revenuecat.purchases.kmp.models.EntitlementInfos"]
+    )
+)
+public typealias EntitlementInfos = com.revenuecat.purchases.kmp.models.EntitlementInfos
+
+@Deprecated(
+    message = "This class has moved to the models package.",
+    replaceWith = ReplaceWith(
         expression = "EntitlementVerificationMode",
         imports = ["com.revenuecat.purchases.kmp.models.EntitlementVerificationMode"]
     )

@@ -15,10 +15,10 @@ import cocoapods.PurchasesHybridCommon.RCStripe
 import cocoapods.PurchasesHybridCommon.RCTrial
 import cocoapods.PurchasesHybridCommon.RCUnknownStore
 import com.revenuecat.purchases.kmp.mappings.ktx.toEpochMilliseconds
-import com.revenuecat.purchases.kmp.EntitlementInfo
-import com.revenuecat.purchases.kmp.OwnershipType
-import com.revenuecat.purchases.kmp.PeriodType
-import com.revenuecat.purchases.kmp.Store
+import com.revenuecat.purchases.kmp.models.EntitlementInfo
+import com.revenuecat.purchases.kmp.models.OwnershipType
+import com.revenuecat.purchases.kmp.models.PeriodType
+import com.revenuecat.purchases.kmp.models.Store
 import cocoapods.PurchasesHybridCommon.RCPeriodType as IosPeriodType
 import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipType as IosOwnershipType
 import cocoapods.PurchasesHybridCommon.RCStore as IosStore

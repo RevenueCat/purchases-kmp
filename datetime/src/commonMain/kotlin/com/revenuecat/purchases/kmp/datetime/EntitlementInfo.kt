@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.datetime
 
-import com.revenuecat.purchases.kmp.EntitlementInfo
-import com.revenuecat.purchases.kmp.PeriodType
+import com.revenuecat.purchases.kmp.models.EntitlementInfo
+import com.revenuecat.purchases.kmp.models.PeriodType
 import kotlinx.datetime.Instant
 
 

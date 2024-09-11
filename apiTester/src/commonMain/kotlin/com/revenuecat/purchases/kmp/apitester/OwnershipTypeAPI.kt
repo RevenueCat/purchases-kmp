@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.OwnershipType
+import com.revenuecat.purchases.kmp.models.OwnershipType
 
 @Suppress("unused")
 private class OwnershipTypeAPI {

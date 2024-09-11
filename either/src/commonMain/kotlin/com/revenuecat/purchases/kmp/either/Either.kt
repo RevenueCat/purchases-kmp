@@ -3,7 +3,6 @@ package com.revenuecat.purchases.kmp.either
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
-import com.revenuecat.purchases.kmp.CustomerInfo
 import com.revenuecat.purchases.kmp.Offerings
 import com.revenuecat.purchases.kmp.Package
 import com.revenuecat.purchases.kmp.Purchases
@@ -13,6 +12,7 @@ import com.revenuecat.purchases.kmp.ktx.SuccessfulPurchase
 import com.revenuecat.purchases.kmp.ktx.awaitPromotionalOffer
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
+import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.StoreProduct

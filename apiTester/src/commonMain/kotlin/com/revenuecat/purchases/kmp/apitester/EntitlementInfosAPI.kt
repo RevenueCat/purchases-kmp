@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.EntitlementInfo
-import com.revenuecat.purchases.kmp.EntitlementInfos
+import com.revenuecat.purchases.kmp.models.EntitlementInfo
+import com.revenuecat.purchases.kmp.models.EntitlementInfos
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class EntitlementInfosAPI {

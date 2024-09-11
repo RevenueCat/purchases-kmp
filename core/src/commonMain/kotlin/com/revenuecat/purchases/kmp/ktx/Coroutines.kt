@@ -1,12 +1,12 @@
 package com.revenuecat.purchases.kmp.ktx
 
-import com.revenuecat.purchases.kmp.CustomerInfo
 import com.revenuecat.purchases.kmp.Offerings
 import com.revenuecat.purchases.kmp.Package
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesException
 import com.revenuecat.purchases.kmp.PurchasesTransactionException
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
+import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.StoreProduct

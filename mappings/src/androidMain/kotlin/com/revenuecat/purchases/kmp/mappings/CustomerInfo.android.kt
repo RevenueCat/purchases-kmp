@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.CustomerInfo
+import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.CustomerInfo as AndroidCustomerInfo
 
 public fun AndroidCustomerInfo.toCustomerInfo(): CustomerInfo {

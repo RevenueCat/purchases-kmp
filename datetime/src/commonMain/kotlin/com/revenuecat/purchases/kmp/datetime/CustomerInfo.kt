@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.datetime
 
-import com.revenuecat.purchases.kmp.CustomerInfo
 import com.revenuecat.purchases.kmp.Purchases
+import com.revenuecat.purchases.kmp.models.CustomerInfo
 import kotlinx.datetime.Instant
 
 /**

@@ -2,14 +2,14 @@
 
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.CustomerInfo
-import com.revenuecat.purchases.kmp.EntitlementInfos
 import com.revenuecat.purchases.kmp.datetime.allExpirationInstants
 import com.revenuecat.purchases.kmp.datetime.allPurchaseInstants
 import com.revenuecat.purchases.kmp.datetime.firstSeenInstant
 import com.revenuecat.purchases.kmp.datetime.latestExpirationInstant
 import com.revenuecat.purchases.kmp.datetime.originalPurchaseInstant
 import com.revenuecat.purchases.kmp.datetime.requestInstant
+import com.revenuecat.purchases.kmp.models.CustomerInfo
+import com.revenuecat.purchases.kmp.models.EntitlementInfos
 import com.revenuecat.purchases.kmp.models.Transaction
 import kotlinx.datetime.Instant
 

@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.Store
+import com.revenuecat.purchases.kmp.models.Store
 import com.revenuecat.purchases.Store as AndroidStore
 
 public fun AndroidStore.toStore(): Store =
