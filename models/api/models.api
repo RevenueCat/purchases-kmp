@@ -1,14 +1,3 @@
-public abstract interface class com/revenuecat/purchases/kmp/PurchasesDelegate {
-	public abstract fun onCustomerInfoUpdated (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)V
-	public abstract fun onPurchasePromoProduct (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;)V
-}
-
-public final class com/revenuecat/purchases/kmp/UpdatedCustomerInfoDelegate : com/revenuecat/purchases/kmp/PurchasesDelegate {
-	public fun <init> (Lkotlin/jvm/functions/Function1;)V
-	public fun onCustomerInfoUpdated (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)V
-	public fun onPurchasePromoProduct (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;)V
-}
-
 public final class com/revenuecat/purchases/kmp/models/BillingFeature : java/lang/Enum {
 	public static final field PRICE_CHANGE_CONFIRMATION Lcom/revenuecat/purchases/kmp/models/BillingFeature;
 	public static final field SUBSCRIPTIONS Lcom/revenuecat/purchases/kmp/models/BillingFeature;

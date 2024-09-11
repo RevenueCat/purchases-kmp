@@ -164,10 +164,21 @@ public final class com/revenuecat/purchases/kmp/PurchasesConfigurationKt {
 	public static synthetic fun PurchasesConfiguration$default (Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;
 }
 
+public abstract interface class com/revenuecat/purchases/kmp/PurchasesDelegate {
+	public abstract fun onCustomerInfoUpdated (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)V
+	public abstract fun onPurchasePromoProduct (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;)V
+}
+
 public final class com/revenuecat/purchases/kmp/PurchasesKt {
 	public static final synthetic fun configure (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/revenuecat/purchases/kmp/Purchases;
 	public static synthetic fun configure$default (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/Purchases;
 	public static final fun getFrameworkVersion (Lcom/revenuecat/purchases/kmp/Purchases$Companion;)Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/UpdatedCustomerInfoDelegate : com/revenuecat/purchases/kmp/PurchasesDelegate {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public fun onCustomerInfoUpdated (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)V
+	public fun onPurchasePromoProduct (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;)V
 }
 
 public final class com/revenuecat/purchases/kmp/ktx/CoroutinesKt {

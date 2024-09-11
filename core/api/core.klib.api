@@ -13,6 +13,10 @@ abstract interface com.revenuecat.purchases.kmp/LogHandler { // com.revenuecat.p
     abstract fun v(kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp/LogHandler.v|v(kotlin.String;kotlin.String){}[0]
     abstract fun w(kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp/LogHandler.w|w(kotlin.String;kotlin.String){}[0]
 }
+abstract interface com.revenuecat.purchases.kmp/PurchasesDelegate { // com.revenuecat.purchases.kmp/PurchasesDelegate|null[0]
+    abstract fun onCustomerInfoUpdated(com.revenuecat.purchases.kmp.models/CustomerInfo) // com.revenuecat.purchases.kmp/PurchasesDelegate.onCustomerInfoUpdated|onCustomerInfoUpdated(com.revenuecat.purchases.kmp.models.CustomerInfo){}[0]
+    abstract fun onPurchasePromoProduct(com.revenuecat.purchases.kmp.models/StoreProduct, kotlin/Function2<kotlin/Function2<com.revenuecat.purchases.kmp.models/PurchasesError, kotlin/Boolean, kotlin/Unit>, kotlin/Function2<com.revenuecat.purchases.kmp.models/StoreTransaction, com.revenuecat.purchases.kmp.models/CustomerInfo, kotlin/Unit>, kotlin/Unit>) // com.revenuecat.purchases.kmp/PurchasesDelegate.onPurchasePromoProduct|onPurchasePromoProduct(com.revenuecat.purchases.kmp.models.StoreProduct;kotlin.Function2<kotlin.Function2<com.revenuecat.purchases.kmp.models.PurchasesError,kotlin.Boolean,kotlin.Unit>,kotlin.Function2<com.revenuecat.purchases.kmp.models.StoreTransaction,com.revenuecat.purchases.kmp.models.CustomerInfo,kotlin.Unit>,kotlin.Unit>){}[0]
+}
 final class com.revenuecat.purchases.kmp.ktx/SuccessfulLogin { // com.revenuecat.purchases.kmp.ktx/SuccessfulLogin|null[0]
     constructor <init>(com.revenuecat.purchases.kmp.models/CustomerInfo, kotlin/Boolean) // com.revenuecat.purchases.kmp.ktx/SuccessfulLogin.<init>|<init>(com.revenuecat.purchases.kmp.models.CustomerInfo;kotlin.Boolean){}[0]
     final val created // com.revenuecat.purchases.kmp.ktx/SuccessfulLogin.created|{}created[0]
