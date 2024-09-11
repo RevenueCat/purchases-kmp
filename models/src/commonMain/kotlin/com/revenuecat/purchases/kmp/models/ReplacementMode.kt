@@ -1,4 +1,4 @@
-package com.revenuecat.purchases.kmp
+package com.revenuecat.purchases.kmp.models
 
 /**
  * Contains information about the replacement mode to use in case of a product upgrade.

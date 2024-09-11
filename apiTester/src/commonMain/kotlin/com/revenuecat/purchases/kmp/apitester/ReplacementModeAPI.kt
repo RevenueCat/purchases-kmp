@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.ReplacementMode
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
+import com.revenuecat.purchases.kmp.models.ReplacementMode
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class ReplacementModeAPI {

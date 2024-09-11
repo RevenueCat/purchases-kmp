@@ -1,4 +1,4 @@
-package com.revenuecat.purchases.kmp
+package com.revenuecat.purchases.kmp.models
 
 /**
  * Only use a Dangerous Setting if suggested by RevenueCat support team.

@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy
+import com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.models.StoreKitVersion
 
 @Suppress("unused", "UNUSED_VARIABLE")

@@ -2,7 +2,9 @@ package com.revenuecat.purchases.kmp
 
 import com.revenuecat.purchases.kmp.Purchases.Companion.logHandler
 import com.revenuecat.purchases.kmp.PurchasesConfiguration.Builder
+import com.revenuecat.purchases.kmp.models.DangerousSettings
 import com.revenuecat.purchases.kmp.models.EntitlementVerificationMode
+import com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.models.Store
 import com.revenuecat.purchases.kmp.models.StoreKitVersion
 import kotlin.jvm.JvmSynthetic
