@@ -7,7 +7,7 @@ package com.revenuecat.purchases.kmp
 
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "CacheFetchPolicy",
         imports = ["com.revenuecat.purchases.kmp.models.CacheFetchPolicy"]
@@ -16,7 +16,7 @@ package com.revenuecat.purchases.kmp
 public typealias CacheFetchPolicy = com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "CustomerInfo",
         imports = ["com.revenuecat.purchases.kmp.models.CustomerInfo"]
@@ -25,7 +25,7 @@ public typealias CacheFetchPolicy = com.revenuecat.purchases.kmp.models.CacheFet
 public typealias CustomerInfo = com.revenuecat.purchases.kmp.models.CustomerInfo
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "EntitlementInfo",
         imports = ["com.revenuecat.purchases.kmp.models.EntitlementInfo"]
@@ -34,7 +34,7 @@ public typealias CustomerInfo = com.revenuecat.purchases.kmp.models.CustomerInfo
 public typealias EntitlementInfo = com.revenuecat.purchases.kmp.models.EntitlementInfo
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "EntitlementInfos",
         imports = ["com.revenuecat.purchases.kmp.models.EntitlementInfos"]
@@ -43,7 +43,7 @@ public typealias EntitlementInfo = com.revenuecat.purchases.kmp.models.Entitleme
 public typealias EntitlementInfos = com.revenuecat.purchases.kmp.models.EntitlementInfos
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "EntitlementVerificationMode",
         imports = ["com.revenuecat.purchases.kmp.models.EntitlementVerificationMode"]
@@ -71,7 +71,7 @@ public typealias Offering = com.revenuecat.purchases.kmp.models.Offering
 public typealias Offerings = com.revenuecat.purchases.kmp.models.Offerings
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "OwnershipType",
         imports = ["com.revenuecat.purchases.kmp.models.OwnershipType"]
@@ -98,7 +98,7 @@ public typealias Package = com.revenuecat.purchases.kmp.models.Package
 public typealias PackageType = com.revenuecat.purchases.kmp.models.PackageType
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "PeriodType",
         imports = ["com.revenuecat.purchases.kmp.models.PeriodType"]
@@ -127,7 +127,7 @@ public typealias PresentedOfferingTargetingContext =
         com.revenuecat.purchases.kmp.models.PresentedOfferingTargetingContext
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "ProductType",
         imports = ["com.revenuecat.purchases.kmp.models.ProductType"]
@@ -136,7 +136,7 @@ public typealias PresentedOfferingTargetingContext =
 public typealias ProductType = com.revenuecat.purchases.kmp.models.ProductType
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "Store",
         imports = ["com.revenuecat.purchases.kmp.models.Store"]
@@ -145,7 +145,7 @@ public typealias ProductType = com.revenuecat.purchases.kmp.models.ProductType
 public typealias Store = com.revenuecat.purchases.kmp.models.Store
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "StoreKitVersion",
         imports = ["com.revenuecat.purchases.kmp.models.StoreKitVersion"]
@@ -154,7 +154,7 @@ public typealias Store = com.revenuecat.purchases.kmp.models.Store
 public typealias StoreKitVersion = com.revenuecat.purchases.kmp.models.StoreKitVersion
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "VerificationResult",
         imports = ["com.revenuecat.purchases.kmp.models.VerificationResult"]
