@@ -1,3 +1,22 @@
+public abstract interface class com/revenuecat/purchases/kmp/LogHandler {
+	public abstract fun d (Ljava/lang/String;Ljava/lang/String;)V
+	public abstract fun e (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
+	public abstract fun i (Ljava/lang/String;Ljava/lang/String;)V
+	public abstract fun v (Ljava/lang/String;Ljava/lang/String;)V
+	public abstract fun w (Ljava/lang/String;Ljava/lang/String;)V
+}
+
+public final class com/revenuecat/purchases/kmp/LogLevel : java/lang/Enum {
+	public static final field DEBUG Lcom/revenuecat/purchases/kmp/LogLevel;
+	public static final field ERROR Lcom/revenuecat/purchases/kmp/LogLevel;
+	public static final field INFO Lcom/revenuecat/purchases/kmp/LogLevel;
+	public static final field VERBOSE Lcom/revenuecat/purchases/kmp/LogLevel;
+	public static final field WARN Lcom/revenuecat/purchases/kmp/LogLevel;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/LogLevel;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/LogLevel;
+}
+
 public final class com/revenuecat/purchases/kmp/Purchases {
 	public static final field Companion Lcom/revenuecat/purchases/kmp/Purchases$Companion;
 	public synthetic fun <init> (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/internal/DefaultConstructorMarker;)V

@@ -6,6 +6,13 @@
 // - Show declarations: true
 
 // Library unique name: <com.revenuecat.purchases:core>
+abstract interface com.revenuecat.purchases.kmp/LogHandler { // com.revenuecat.purchases.kmp/LogHandler|null[0]
+    abstract fun d(kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp/LogHandler.d|d(kotlin.String;kotlin.String){}[0]
+    abstract fun e(kotlin/String, kotlin/String, kotlin/Throwable?) // com.revenuecat.purchases.kmp/LogHandler.e|e(kotlin.String;kotlin.String;kotlin.Throwable?){}[0]
+    abstract fun i(kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp/LogHandler.i|i(kotlin.String;kotlin.String){}[0]
+    abstract fun v(kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp/LogHandler.v|v(kotlin.String;kotlin.String){}[0]
+    abstract fun w(kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp/LogHandler.w|w(kotlin.String;kotlin.String){}[0]
+}
 final class com.revenuecat.purchases.kmp.ktx/SuccessfulLogin { // com.revenuecat.purchases.kmp.ktx/SuccessfulLogin|null[0]
     constructor <init>(com.revenuecat.purchases.kmp.models/CustomerInfo, kotlin/Boolean) // com.revenuecat.purchases.kmp.ktx/SuccessfulLogin.<init>|<init>(com.revenuecat.purchases.kmp.models.CustomerInfo;kotlin.Boolean){}[0]
     final val created // com.revenuecat.purchases.kmp.ktx/SuccessfulLogin.created|{}created[0]
@@ -167,6 +174,17 @@ final class com.revenuecat.purchases.kmp/PurchasesConfiguration { // com.revenue
         final fun <get-userDefaultsSuiteName>(): kotlin/String? // com.revenuecat.purchases.kmp/PurchasesConfiguration.userDefaultsSuiteName.<get-userDefaultsSuiteName>|<get-userDefaultsSuiteName>(){}[0]
     final val verificationMode // com.revenuecat.purchases.kmp/PurchasesConfiguration.verificationMode|{}verificationMode[0]
         final fun <get-verificationMode>(): com.revenuecat.purchases.kmp.models/EntitlementVerificationMode // com.revenuecat.purchases.kmp/PurchasesConfiguration.verificationMode.<get-verificationMode>|<get-verificationMode>(){}[0]
+}
+final enum class com.revenuecat.purchases.kmp/LogLevel : kotlin/Enum<com.revenuecat.purchases.kmp/LogLevel> { // com.revenuecat.purchases.kmp/LogLevel|null[0]
+    enum entry DEBUG // com.revenuecat.purchases.kmp/LogLevel.DEBUG|null[0]
+    enum entry ERROR // com.revenuecat.purchases.kmp/LogLevel.ERROR|null[0]
+    enum entry INFO // com.revenuecat.purchases.kmp/LogLevel.INFO|null[0]
+    enum entry VERBOSE // com.revenuecat.purchases.kmp/LogLevel.VERBOSE|null[0]
+    enum entry WARN // com.revenuecat.purchases.kmp/LogLevel.WARN|null[0]
+    final fun valueOf(kotlin/String): com.revenuecat.purchases.kmp/LogLevel // com.revenuecat.purchases.kmp/LogLevel.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<com.revenuecat.purchases.kmp/LogLevel> // com.revenuecat.purchases.kmp/LogLevel.values|values#static(){}[0]
+    final val entries // com.revenuecat.purchases.kmp/LogLevel.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<com.revenuecat.purchases.kmp/LogLevel> // com.revenuecat.purchases.kmp/LogLevel.entries.<get-entries>|<get-entries>#static(){}[0]
 }
 final fun (com.revenuecat.purchases.kmp/Purchases.Companion).com.revenuecat.purchases.kmp/configure(kotlin/String, kotlin/Function1<com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder, kotlin/Unit> =...): com.revenuecat.purchases.kmp/Purchases // com.revenuecat.purchases.kmp/configure|configure@com.revenuecat.purchases.kmp.Purchases.Companion(kotlin.String;kotlin.Function1<com.revenuecat.purchases.kmp.PurchasesConfiguration.Builder,kotlin.Unit>){}[0]
 final fun com.revenuecat.purchases.kmp/PurchasesConfiguration(kotlin/String, kotlin/Function1<com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder, kotlin/Unit> =...): com.revenuecat.purchases.kmp/PurchasesConfiguration // com.revenuecat.purchases.kmp/PurchasesConfiguration|PurchasesConfiguration(kotlin.String;kotlin.Function1<com.revenuecat.purchases.kmp.PurchasesConfiguration.Builder,kotlin.Unit>){}[0]
