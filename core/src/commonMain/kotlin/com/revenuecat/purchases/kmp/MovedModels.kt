@@ -7,7 +7,7 @@ package com.revenuecat.purchases.kmp
 
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "CacheFetchPolicy",
         imports = ["com.revenuecat.purchases.kmp.models.CacheFetchPolicy"]
@@ -16,7 +16,7 @@ package com.revenuecat.purchases.kmp
 public typealias CacheFetchPolicy = com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "CustomerInfo",
         imports = ["com.revenuecat.purchases.kmp.models.CustomerInfo"]
@@ -53,7 +53,7 @@ public typealias EntitlementVerificationMode =
         com.revenuecat.purchases.kmp.models.EntitlementVerificationMode
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "OwnershipType",
         imports = ["com.revenuecat.purchases.kmp.models.OwnershipType"]
@@ -80,7 +80,7 @@ public typealias PeriodType = com.revenuecat.purchases.kmp.models.PeriodType
 public typealias ProductType = com.revenuecat.purchases.kmp.models.ProductType
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "Store",
         imports = ["com.revenuecat.purchases.kmp.models.Store"]
@@ -98,7 +98,7 @@ public typealias Store = com.revenuecat.purchases.kmp.models.Store
 public typealias StoreKitVersion = com.revenuecat.purchases.kmp.models.StoreKitVersion
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "VerificationResult",
         imports = ["com.revenuecat.purchases.kmp.models.VerificationResult"]
