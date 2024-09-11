@@ -7,7 +7,7 @@ package com.revenuecat.purchases.kmp
 
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "CacheFetchPolicy",
         imports = ["com.revenuecat.purchases.kmp.models.CacheFetchPolicy"]
@@ -16,7 +16,7 @@ package com.revenuecat.purchases.kmp
 public typealias CacheFetchPolicy = com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "EntitlementVerificationMode",
         imports = ["com.revenuecat.purchases.kmp.models.EntitlementVerificationMode"]
@@ -26,7 +26,7 @@ public typealias EntitlementVerificationMode =
         com.revenuecat.purchases.kmp.models.EntitlementVerificationMode
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "ProductType",
         imports = ["com.revenuecat.purchases.kmp.models.ProductType"]
@@ -35,7 +35,7 @@ public typealias EntitlementVerificationMode =
 public typealias ProductType = com.revenuecat.purchases.kmp.models.ProductType
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "StoreKitVersion",
         imports = ["com.revenuecat.purchases.kmp.models.StoreKitVersion"]
@@ -44,7 +44,7 @@ public typealias ProductType = com.revenuecat.purchases.kmp.models.ProductType
 public typealias StoreKitVersion = com.revenuecat.purchases.kmp.models.StoreKitVersion
 
 @Deprecated(
-    message = "This class has moved to the models package.",
+    message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
         expression = "VerificationResult",
         imports = ["com.revenuecat.purchases.kmp.models.VerificationResult"]
