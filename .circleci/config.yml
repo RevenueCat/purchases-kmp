@@ -240,7 +240,10 @@ workflows:
             - equal: [ "release-train", << pipeline.schedule.name >> ]
         - equal: [ bump, << pipeline.parameters.action >> ]
     jobs:
-      - revenuecat/automatic-bump
+      - revenuecat/automatic-bump:
+          context:
+            - git-user-ops
+            - github-bot-public
 
   # The second stage of the release train starts a hold job, which is a job that
   # needs to be manually approved on the CircleCI web app. This ensures there's 
