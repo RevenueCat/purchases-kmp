@@ -4,7 +4,7 @@ import cocoapods.PurchasesHybridCommon.RCStoreProductTypeAutoRenewableSubscripti
 import cocoapods.PurchasesHybridCommon.RCStoreProductTypeConsumable
 import cocoapods.PurchasesHybridCommon.RCStoreProductTypeNonConsumable
 import cocoapods.PurchasesHybridCommon.RCStoreProductTypeNonRenewableSubscription
-import com.revenuecat.purchases.kmp.ProductType
+import com.revenuecat.purchases.kmp.models.ProductType
 import cocoapods.PurchasesHybridCommon.RCStoreProductType as IosStoreProductType
 
 internal fun IosStoreProductType.toProductType(): ProductType =

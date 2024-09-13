@@ -1,7 +1,6 @@
 package com.revenuecat.purchases.kmp.models
 
 import com.revenuecat.purchases.kmp.PresentedOfferingContext
-import com.revenuecat.purchases.kmp.ProductType
 
 /**
  * Represents an in-app product's or subscription's listing details.

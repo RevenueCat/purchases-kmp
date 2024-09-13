@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.ProductType
+import com.revenuecat.purchases.kmp.models.ProductType
 
 @Suppress("unused")
 private class ProductTypeAPI {

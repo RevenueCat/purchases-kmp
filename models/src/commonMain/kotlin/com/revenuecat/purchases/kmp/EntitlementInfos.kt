@@ -1,5 +1,7 @@
 package com.revenuecat.purchases.kmp
 
+import com.revenuecat.purchases.kmp.models.VerificationResult
+
 /**
  * This class contains all the entitlements associated to the user.
  */

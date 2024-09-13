@@ -1,5 +1,7 @@
 package com.revenuecat.purchases.kmp
 
+import com.revenuecat.purchases.kmp.models.StoreKitVersion
+
 /**
  * Modes for completing the purchase process.
  */

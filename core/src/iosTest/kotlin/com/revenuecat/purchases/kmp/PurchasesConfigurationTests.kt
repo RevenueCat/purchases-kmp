@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp
 
+import com.revenuecat.purchases.kmp.models.StoreKitVersion
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

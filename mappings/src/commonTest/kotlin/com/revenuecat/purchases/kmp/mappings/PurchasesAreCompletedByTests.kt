@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy
-import com.revenuecat.purchases.kmp.StoreKitVersion
+import com.revenuecat.purchases.kmp.models.StoreKitVersion
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

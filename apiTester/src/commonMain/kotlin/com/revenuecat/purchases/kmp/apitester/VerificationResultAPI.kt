@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.VerificationResult
+import com.revenuecat.purchases.kmp.models.VerificationResult
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class VerificationResultAPI {

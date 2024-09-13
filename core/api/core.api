@@ -6,8 +6,8 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun collectDeviceIdentifiers ()V
 	public static final fun configure (Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;)Lcom/revenuecat/purchases/kmp/Purchases;
 	public final fun getAppUserID ()Ljava/lang/String;
-	public final fun getCustomerInfo (Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
-	public static synthetic fun getCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public final fun getCustomerInfo (Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public static synthetic fun getCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 	public final fun getDelegate ()Lcom/revenuecat/purchases/kmp/PurchasesDelegate;
 	public static final fun getForceUniversalAppStore ()Z
 	public static final fun getLogHandler ()Lcom/revenuecat/purchases/kmp/LogHandler;
@@ -87,7 +87,7 @@ public final class com/revenuecat/purchases/kmp/Purchases$Companion {
 }
 
 public final class com/revenuecat/purchases/kmp/PurchasesConfiguration {
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/StoreKitVersion;ZLcom/revenuecat/purchases/kmp/Store;ZLcom/revenuecat/purchases/kmp/DangerousSettings;Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;Ljava/lang/Boolean;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/StoreKitVersion;ZLcom/revenuecat/purchases/kmp/Store;ZLcom/revenuecat/purchases/kmp/DangerousSettings;Lcom/revenuecat/purchases/kmp/models/EntitlementVerificationMode;Ljava/lang/Boolean;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getApiKey ()Ljava/lang/String;
 	public final fun getAppUserId ()Ljava/lang/String;
 	public final fun getDangerousSettings ()Lcom/revenuecat/purchases/kmp/DangerousSettings;
@@ -96,9 +96,9 @@ public final class com/revenuecat/purchases/kmp/PurchasesConfiguration {
 	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;
 	public final fun getShowInAppMessagesAutomatically ()Z
 	public final fun getStore ()Lcom/revenuecat/purchases/kmp/Store;
-	public final fun getStoreKitVersion ()Lcom/revenuecat/purchases/kmp/StoreKitVersion;
+	public final fun getStoreKitVersion ()Lcom/revenuecat/purchases/kmp/models/StoreKitVersion;
 	public final fun getUserDefaultsSuiteName ()Ljava/lang/String;
-	public final fun getVerificationMode ()Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
+	public final fun getVerificationMode ()Lcom/revenuecat/purchases/kmp/models/EntitlementVerificationMode;
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -117,9 +117,9 @@ public final class com/revenuecat/purchases/kmp/PurchasesConfiguration$Builder {
 	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;
 	public final fun getShowInAppMessagesAutomatically ()Z
 	public final fun getStore ()Lcom/revenuecat/purchases/kmp/Store;
-	public final fun getStoreKitVersion ()Lcom/revenuecat/purchases/kmp/StoreKitVersion;
+	public final fun getStoreKitVersion ()Lcom/revenuecat/purchases/kmp/models/StoreKitVersion;
 	public final fun getUserDefaultsSuiteName ()Ljava/lang/String;
-	public final fun getVerificationMode ()Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;
+	public final fun getVerificationMode ()Lcom/revenuecat/purchases/kmp/models/EntitlementVerificationMode;
 	public final fun pendingTransactionsForPrepaidPlansEnabled (Z)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
 	public final fun purchasesAreCompletedBy (Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
 	public final synthetic fun setApiKey (Ljava/lang/String;)V
@@ -130,14 +130,14 @@ public final class com/revenuecat/purchases/kmp/PurchasesConfiguration$Builder {
 	public final synthetic fun setPurchasesAreCompletedBy (Lcom/revenuecat/purchases/kmp/PurchasesAreCompletedBy;)V
 	public final synthetic fun setShowInAppMessagesAutomatically (Z)V
 	public final synthetic fun setStore (Lcom/revenuecat/purchases/kmp/Store;)V
-	public final synthetic fun setStoreKitVersion (Lcom/revenuecat/purchases/kmp/StoreKitVersion;)V
+	public final synthetic fun setStoreKitVersion (Lcom/revenuecat/purchases/kmp/models/StoreKitVersion;)V
 	public final synthetic fun setUserDefaultsSuiteName (Ljava/lang/String;)V
-	public final synthetic fun setVerificationMode (Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;)V
+	public final synthetic fun setVerificationMode (Lcom/revenuecat/purchases/kmp/models/EntitlementVerificationMode;)V
 	public final fun showInAppMessagesAutomatically (Z)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
 	public final fun store (Lcom/revenuecat/purchases/kmp/Store;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
-	public final fun storeKitVersion (Lcom/revenuecat/purchases/kmp/StoreKitVersion;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun storeKitVersion (Lcom/revenuecat/purchases/kmp/models/StoreKitVersion;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
 	public final fun userDefaultsSuiteName (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
-	public final fun verificationMode (Lcom/revenuecat/purchases/kmp/EntitlementVerificationMode;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun verificationMode (Lcom/revenuecat/purchases/kmp/models/EntitlementVerificationMode;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
 }
 
 public final class com/revenuecat/purchases/kmp/PurchasesConfigurationKt {
@@ -152,8 +152,8 @@ public final class com/revenuecat/purchases/kmp/PurchasesKt {
 }
 
 public final class com/revenuecat/purchases/kmp/ktx/CoroutinesKt {
-	public static final fun awaitCustomerInfo (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static synthetic fun awaitCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/CacheFetchPolicy;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun awaitCustomerInfo (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun awaitCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun awaitGetProducts (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitLogIn (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitLogOut (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
