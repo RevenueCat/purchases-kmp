@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.ui.revenuecatui
 
-import com.revenuecat.purchases.kmp.Offering
+import com.revenuecat.purchases.kmp.models.Offering
 import kotlin.jvm.JvmSynthetic
 
 /**

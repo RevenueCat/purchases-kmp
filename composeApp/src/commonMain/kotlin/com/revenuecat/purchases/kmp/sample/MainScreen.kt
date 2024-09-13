@@ -31,8 +31,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import arrow.core.Either
-import com.revenuecat.purchases.kmp.Offering
-import com.revenuecat.purchases.kmp.Offerings
+import com.revenuecat.purchases.kmp.models.Offering
+import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import com.revenuecat.purchases.kmp.PurchasesDelegate

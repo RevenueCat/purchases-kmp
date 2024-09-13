@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.ktx
 
-import com.revenuecat.purchases.kmp.Offerings
-import com.revenuecat.purchases.kmp.Package
+import com.revenuecat.purchases.kmp.models.Offerings
+import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesException
 import com.revenuecat.purchases.kmp.PurchasesTransactionException

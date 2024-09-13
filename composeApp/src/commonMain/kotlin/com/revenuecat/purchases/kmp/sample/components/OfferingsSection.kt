@@ -9,8 +9,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.revenuecat.purchases.kmp.Offering
-import com.revenuecat.purchases.kmp.Offerings
+import com.revenuecat.purchases.kmp.models.Offering
+import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.sample.AsyncState
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
 import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical

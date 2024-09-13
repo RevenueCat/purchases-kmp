@@ -1,6 +1,4 @@
-package com.revenuecat.purchases.kmp
-
-import com.revenuecat.purchases.kmp.models.StoreProduct
+package com.revenuecat.purchases.kmp.models
 
 /**
  * Contains information about the product available for the user to purchase. For more info see

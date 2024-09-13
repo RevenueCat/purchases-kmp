@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.sample
 
-import com.revenuecat.purchases.kmp.Offering
+import com.revenuecat.purchases.kmp.models.Offering
 
 sealed interface Screen {
 

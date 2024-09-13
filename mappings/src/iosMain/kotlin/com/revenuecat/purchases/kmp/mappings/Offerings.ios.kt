@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.Offerings
+import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.mappings.ktx.mapEntries
 import cocoapods.PurchasesHybridCommon.RCOffering as IosOffering
 import cocoapods.PurchasesHybridCommon.RCOfferings as IosOfferings

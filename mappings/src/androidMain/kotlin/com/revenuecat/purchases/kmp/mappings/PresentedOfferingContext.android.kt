@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.PresentedOfferingContext
-import com.revenuecat.purchases.kmp.PresentedOfferingTargetingContext
+import com.revenuecat.purchases.kmp.models.PresentedOfferingContext
+import com.revenuecat.purchases.kmp.models.PresentedOfferingTargetingContext
 import com.revenuecat.purchases.PresentedOfferingContext as AndroidPresentedOfferingContext
 import com.revenuecat.purchases.PresentedOfferingContext.TargetingContext as AndroidPresentedOfferingTargetingContext
 

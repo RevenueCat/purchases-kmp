@@ -24,72 +24,6 @@ public final class com/revenuecat/purchases/kmp/LogLevel : java/lang/Enum {
 	public static fun values ()[Lcom/revenuecat/purchases/kmp/LogLevel;
 }
 
-public abstract interface class com/revenuecat/purchases/kmp/Offering {
-	public abstract fun get (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/Package;
-	public abstract fun getAnnual ()Lcom/revenuecat/purchases/kmp/Package;
-	public abstract fun getAvailablePackages ()Ljava/util/List;
-	public abstract fun getIdentifier ()Ljava/lang/String;
-	public abstract fun getLifetime ()Lcom/revenuecat/purchases/kmp/Package;
-	public abstract fun getMetadata ()Ljava/util/Map;
-	public abstract fun getMetadataString (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public abstract fun getMonthly ()Lcom/revenuecat/purchases/kmp/Package;
-	public abstract fun getPackage (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/Package;
-	public abstract fun getServerDescription ()Ljava/lang/String;
-	public abstract fun getSixMonth ()Lcom/revenuecat/purchases/kmp/Package;
-	public abstract fun getThreeMonth ()Lcom/revenuecat/purchases/kmp/Package;
-	public abstract fun getTwoMonth ()Lcom/revenuecat/purchases/kmp/Package;
-	public abstract fun getWeekly ()Lcom/revenuecat/purchases/kmp/Package;
-}
-
-public final class com/revenuecat/purchases/kmp/Offering$DefaultImpls {
-	public static fun get (Lcom/revenuecat/purchases/kmp/Offering;Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/Package;
-	public static fun getMetadataString (Lcom/revenuecat/purchases/kmp/Offering;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public static fun getPackage (Lcom/revenuecat/purchases/kmp/Offering;Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/Package;
-}
-
-public final class com/revenuecat/purchases/kmp/Offerings {
-	public fun <init> (Ljava/util/Map;Lcom/revenuecat/purchases/kmp/Offering;)V
-	public final fun get (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/Offering;
-	public final fun getAll ()Ljava/util/Map;
-	public final fun getCurrent ()Lcom/revenuecat/purchases/kmp/Offering;
-	public final fun getOffering (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/Offering;
-}
-
-public abstract interface class com/revenuecat/purchases/kmp/Package {
-	public abstract fun getIdentifier ()Ljava/lang/String;
-	public abstract fun getPackageType ()Lcom/revenuecat/purchases/kmp/PackageType;
-	public abstract fun getPresentedOfferingContext ()Lcom/revenuecat/purchases/kmp/PresentedOfferingContext;
-	public abstract fun getStoreProduct ()Lcom/revenuecat/purchases/kmp/models/StoreProduct;
-}
-
-public final class com/revenuecat/purchases/kmp/PackageType : java/lang/Enum {
-	public static final field ANNUAL Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field CUSTOM Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field LIFETIME Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field MONTHLY Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field SIX_MONTH Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field THREE_MONTH Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field TWO_MONTH Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field UNKNOWN Lcom/revenuecat/purchases/kmp/PackageType;
-	public static final field WEEKLY Lcom/revenuecat/purchases/kmp/PackageType;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/PackageType;
-	public static fun values ()[Lcom/revenuecat/purchases/kmp/PackageType;
-}
-
-public final class com/revenuecat/purchases/kmp/PresentedOfferingContext {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;)V
-	public final fun getOfferingIdentifier ()Ljava/lang/String;
-	public final fun getPlacementIdentifier ()Ljava/lang/String;
-	public final fun getTargetingContext ()Lcom/revenuecat/purchases/kmp/PresentedOfferingTargetingContext;
-}
-
-public final class com/revenuecat/purchases/kmp/PresentedOfferingTargetingContext {
-	public fun <init> (ILjava/lang/String;)V
-	public final fun getRevision ()I
-	public final fun getRuleId ()Ljava/lang/String;
-}
-
 public abstract interface class com/revenuecat/purchases/kmp/PurchasesAreCompletedBy {
 }
 
@@ -307,6 +241,37 @@ public final class com/revenuecat/purchases/kmp/models/OfferPaymentMode : java/l
 	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/OfferPaymentMode;
 }
 
+public abstract interface class com/revenuecat/purchases/kmp/models/Offering {
+	public abstract fun get (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Package;
+	public abstract fun getAnnual ()Lcom/revenuecat/purchases/kmp/models/Package;
+	public abstract fun getAvailablePackages ()Ljava/util/List;
+	public abstract fun getIdentifier ()Ljava/lang/String;
+	public abstract fun getLifetime ()Lcom/revenuecat/purchases/kmp/models/Package;
+	public abstract fun getMetadata ()Ljava/util/Map;
+	public abstract fun getMetadataString (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public abstract fun getMonthly ()Lcom/revenuecat/purchases/kmp/models/Package;
+	public abstract fun getPackage (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Package;
+	public abstract fun getServerDescription ()Ljava/lang/String;
+	public abstract fun getSixMonth ()Lcom/revenuecat/purchases/kmp/models/Package;
+	public abstract fun getThreeMonth ()Lcom/revenuecat/purchases/kmp/models/Package;
+	public abstract fun getTwoMonth ()Lcom/revenuecat/purchases/kmp/models/Package;
+	public abstract fun getWeekly ()Lcom/revenuecat/purchases/kmp/models/Package;
+}
+
+public final class com/revenuecat/purchases/kmp/models/Offering$DefaultImpls {
+	public static fun get (Lcom/revenuecat/purchases/kmp/models/Offering;Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Package;
+	public static fun getMetadataString (Lcom/revenuecat/purchases/kmp/models/Offering;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static fun getPackage (Lcom/revenuecat/purchases/kmp/models/Offering;Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Package;
+}
+
+public final class com/revenuecat/purchases/kmp/models/Offerings {
+	public fun <init> (Ljava/util/Map;Lcom/revenuecat/purchases/kmp/models/Offering;)V
+	public final fun get (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Offering;
+	public final fun getAll ()Ljava/util/Map;
+	public final fun getCurrent ()Lcom/revenuecat/purchases/kmp/models/Offering;
+	public final fun getOffering (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Offering;
+}
+
 public final class com/revenuecat/purchases/kmp/models/OwnershipType : java/lang/Enum {
 	public static final field FAMILY_SHARED Lcom/revenuecat/purchases/kmp/models/OwnershipType;
 	public static final field PURCHASED Lcom/revenuecat/purchases/kmp/models/OwnershipType;
@@ -314,6 +279,28 @@ public final class com/revenuecat/purchases/kmp/models/OwnershipType : java/lang
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/OwnershipType;
 	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/OwnershipType;
+}
+
+public abstract interface class com/revenuecat/purchases/kmp/models/Package {
+	public abstract fun getIdentifier ()Ljava/lang/String;
+	public abstract fun getPackageType ()Lcom/revenuecat/purchases/kmp/models/PackageType;
+	public abstract fun getPresentedOfferingContext ()Lcom/revenuecat/purchases/kmp/models/PresentedOfferingContext;
+	public abstract fun getStoreProduct ()Lcom/revenuecat/purchases/kmp/models/StoreProduct;
+}
+
+public final class com/revenuecat/purchases/kmp/models/PackageType : java/lang/Enum {
+	public static final field ANNUAL Lcom/revenuecat/purchases/kmp/models/PackageType;
+	public static final field CUSTOM Lcom/revenuecat/purchases/kmp/models/PackageType;
+	public static final field LIFETIME Lcom/revenuecat/purchases/kmp/models/PackageType;
+	public static final field MONTHLY Lcom/revenuecat/purchases/kmp/models/PackageType;
+	public static final field SIX_MONTH Lcom/revenuecat/purchases/kmp/models/PackageType;
+	public static final field THREE_MONTH Lcom/revenuecat/purchases/kmp/models/PackageType;
+	public static final field TWO_MONTH Lcom/revenuecat/purchases/kmp/models/PackageType;
+	public static final field UNKNOWN Lcom/revenuecat/purchases/kmp/models/PackageType;
+	public static final field WEEKLY Lcom/revenuecat/purchases/kmp/models/PackageType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/PackageType;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/PackageType;
 }
 
 public final class com/revenuecat/purchases/kmp/models/Period {
@@ -341,6 +328,19 @@ public final class com/revenuecat/purchases/kmp/models/PeriodUnit : java/lang/En
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/PeriodUnit;
 	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/PeriodUnit;
+}
+
+public final class com/revenuecat/purchases/kmp/models/PresentedOfferingContext {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/PresentedOfferingTargetingContext;)V
+	public final fun getOfferingIdentifier ()Ljava/lang/String;
+	public final fun getPlacementIdentifier ()Ljava/lang/String;
+	public final fun getTargetingContext ()Lcom/revenuecat/purchases/kmp/models/PresentedOfferingTargetingContext;
+}
+
+public final class com/revenuecat/purchases/kmp/models/PresentedOfferingTargetingContext {
+	public fun <init> (ILjava/lang/String;)V
+	public final fun getRevision ()I
+	public final fun getRuleId ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/Price {
@@ -436,7 +436,7 @@ public abstract interface class com/revenuecat/purchases/kmp/models/StoreProduct
 	public abstract fun getIntroductoryDiscount ()Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;
 	public abstract fun getLocalizedDescription ()Ljava/lang/String;
 	public abstract fun getPeriod ()Lcom/revenuecat/purchases/kmp/models/Period;
-	public abstract fun getPresentedOfferingContext ()Lcom/revenuecat/purchases/kmp/PresentedOfferingContext;
+	public abstract fun getPresentedOfferingContext ()Lcom/revenuecat/purchases/kmp/models/PresentedOfferingContext;
 	public abstract fun getPrice ()Lcom/revenuecat/purchases/kmp/models/Price;
 	public abstract fun getPurchasingData ()Lcom/revenuecat/purchases/kmp/models/PurchasingData;
 	public abstract fun getSubscriptionOptions ()Lcom/revenuecat/purchases/kmp/models/SubscriptionOptions;
@@ -463,7 +463,7 @@ public final class com/revenuecat/purchases/kmp/models/StoreTransaction {
 public abstract interface class com/revenuecat/purchases/kmp/models/SubscriptionOption {
 	public abstract fun getId ()Ljava/lang/String;
 	public abstract fun getInstallmentsInfo ()Lcom/revenuecat/purchases/kmp/models/InstallmentsInfo;
-	public abstract fun getPresentedOfferingContext ()Lcom/revenuecat/purchases/kmp/PresentedOfferingContext;
+	public abstract fun getPresentedOfferingContext ()Lcom/revenuecat/purchases/kmp/models/PresentedOfferingContext;
 	public abstract fun getPresentedOfferingIdentifier ()Ljava/lang/String;
 	public abstract fun getPricingPhases ()Ljava/util/List;
 	public abstract fun getPurchasingData ()Lcom/revenuecat/purchases/kmp/models/PurchasingData;

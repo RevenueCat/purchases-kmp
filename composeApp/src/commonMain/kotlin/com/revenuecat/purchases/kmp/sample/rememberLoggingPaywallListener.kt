@@ -2,7 +2,7 @@ package com.revenuecat.purchases.kmp.sample
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import com.revenuecat.purchases.kmp.Package
+import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.PurchasesError
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.StoreTransaction
