@@ -1,5 +1,7 @@
 package com.revenuecat.purchases.kmp.models
 
+import com.revenuecat.purchases.kmp.models.VerificationResult
+
 /**
  * This object gives you access to all of the information about the status of a user's entitlements.
  */
