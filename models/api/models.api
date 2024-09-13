@@ -504,3 +504,4 @@ public final class com/revenuecat/purchases/kmp/models/VerificationResult : java
 	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/VerificationResult;
 	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/VerificationResult;
 }
+
