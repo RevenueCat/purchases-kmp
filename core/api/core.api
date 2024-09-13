@@ -183,3 +183,4 @@ public final class com/revenuecat/purchases/kmp/ktx/SuccessfulPurchase {
 	public final fun getCustomerInfo ()Lcom/revenuecat/purchases/kmp/models/CustomerInfo;
 	public final fun getStoreTransaction ()Lcom/revenuecat/purchases/kmp/models/StoreTransaction;
 }
+
