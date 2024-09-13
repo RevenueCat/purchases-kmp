@@ -138,6 +138,43 @@ public typealias ProductType = com.revenuecat.purchases.kmp.models.ProductType
 @Deprecated(
     message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
+        expression = "PurchasesError",
+        imports = ["com.revenuecat.purchases.kmp.models.PurchasesError"]
+    )
+)
+public typealias PurchasesError = com.revenuecat.purchases.kmp.models.PurchasesError
+
+@Deprecated(
+    message = "This type has moved to the models package.",
+    replaceWith = ReplaceWith(
+        expression = "PurchasesErrorCode",
+        imports = ["com.revenuecat.purchases.kmp.models.PurchasesErrorCode"]
+    )
+)
+public typealias PurchasesErrorCode = com.revenuecat.purchases.kmp.models.PurchasesErrorCode
+
+@Deprecated(
+    message = "This type has moved to the models package.",
+    replaceWith = ReplaceWith(
+        expression = "PurchasesException",
+        imports = ["com.revenuecat.purchases.kmp.models.PurchasesException"]
+    )
+)
+public typealias PurchasesException = com.revenuecat.purchases.kmp.models.PurchasesException
+
+@Deprecated(
+    message = "This type has moved to the models package.",
+    replaceWith = ReplaceWith(
+        expression = "PurchasesTransactionException",
+        imports = ["com.revenuecat.purchases.kmp.models.PurchasesTransactionException"]
+    )
+)
+public typealias PurchasesTransactionException =
+        com.revenuecat.purchases.kmp.models.PurchasesTransactionException
+
+@Deprecated(
+    message = "This type has moved to the models package.",
+    replaceWith = ReplaceWith(
         expression = "Store",
         imports = ["com.revenuecat.purchases.kmp.models.Store"]
     )

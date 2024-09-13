@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.PurchasesErrorCode
+import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
 
 @Suppress("unused")
 private class PurchasesErrorCodeAPI {

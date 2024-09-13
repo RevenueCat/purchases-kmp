@@ -1,4 +1,4 @@
-package com.revenuecat.purchases.kmp
+package com.revenuecat.purchases.kmp.models
 
 /**
  * An exception indicating an error occurred during a transaction. Extends [PurchasesException] by

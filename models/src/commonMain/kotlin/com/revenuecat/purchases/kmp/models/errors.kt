@@ -1,4 +1,4 @@
-package com.revenuecat.purchases.kmp
+package com.revenuecat.purchases.kmp.models
 
 /**
  * This class represents an error
