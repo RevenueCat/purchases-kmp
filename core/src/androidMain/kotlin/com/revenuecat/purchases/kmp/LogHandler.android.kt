@@ -1,15 +1,14 @@
-package com.revenuecat.purchases.kmp.mappings
+package com.revenuecat.purchases.kmp
 
-import com.revenuecat.purchases.kmp.LogHandler
 import com.revenuecat.purchases.LogHandler as AndroidLogHandler
 
-public fun AndroidLogHandler.toLogHandler(): LogHandler =
+internal fun AndroidLogHandler.toLogHandler(): LogHandler =
     when (this) {
         is LogHandlerWrapper -> wrapped
         else -> AndroidLogHandlerWrapper(this)
     }
 
-public fun LogHandler.toAndroidLogHandler(): AndroidLogHandler =
+internal fun LogHandler.toAndroidLogHandler(): AndroidLogHandler =
     when (this) {
         is AndroidLogHandlerWrapper -> wrapped
         else -> LogHandlerWrapper(this)

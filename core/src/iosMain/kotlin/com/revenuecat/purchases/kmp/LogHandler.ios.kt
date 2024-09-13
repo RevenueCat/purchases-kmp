@@ -1,4 +1,4 @@
-package com.revenuecat.purchases.kmp.mappings
+package com.revenuecat.purchases.kmp
 
 import cocoapods.PurchasesHybridCommon.RCLogLevel
 import cocoapods.PurchasesHybridCommon.RCLogLevelDebug
@@ -6,17 +6,16 @@ import cocoapods.PurchasesHybridCommon.RCLogLevelError
 import cocoapods.PurchasesHybridCommon.RCLogLevelInfo
 import cocoapods.PurchasesHybridCommon.RCLogLevelVerbose
 import cocoapods.PurchasesHybridCommon.RCLogLevelWarn
-import com.revenuecat.purchases.kmp.LogHandler
 
 private typealias IosLogHandler = (RCLogLevel, String?) -> Unit
 
-public fun IosLogHandler.toLogHandler(): LogHandler =
+internal fun IosLogHandler.toLogHandler(): LogHandler =
     when (this) {
         is LogHandlerWrapper -> wrapped
         else -> IosLogHandlerWrapper(this)
     }
 
-public fun LogHandler.toIosLogHandler(): IosLogHandler =
+internal fun LogHandler.toIosLogHandler(): IosLogHandler =
     when (this) {
         is IosLogHandlerWrapper -> wrapped
         else -> LogHandlerWrapper(this)

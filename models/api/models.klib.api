@@ -126,13 +126,6 @@ abstract interface com.revenuecat.purchases.kmp.models/SubscriptionOptions { // 
     abstract val introOffer // com.revenuecat.purchases.kmp.models/SubscriptionOptions.introOffer|{}introOffer[0]
         abstract fun <get-introOffer>(): com.revenuecat.purchases.kmp.models/SubscriptionOption? // com.revenuecat.purchases.kmp.models/SubscriptionOptions.introOffer.<get-introOffer>|<get-introOffer>(){}[0]
 }
-abstract interface com.revenuecat.purchases.kmp/LogHandler { // com.revenuecat.purchases.kmp/LogHandler|null[0]
-    abstract fun d(kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp/LogHandler.d|d(kotlin.String;kotlin.String){}[0]
-    abstract fun e(kotlin/String, kotlin/String, kotlin/Throwable?) // com.revenuecat.purchases.kmp/LogHandler.e|e(kotlin.String;kotlin.String;kotlin.Throwable?){}[0]
-    abstract fun i(kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp/LogHandler.i|i(kotlin.String;kotlin.String){}[0]
-    abstract fun v(kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp/LogHandler.v|v(kotlin.String;kotlin.String){}[0]
-    abstract fun w(kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp/LogHandler.w|w(kotlin.String;kotlin.String){}[0]
-}
 abstract interface com.revenuecat.purchases.kmp/PurchasesDelegate { // com.revenuecat.purchases.kmp/PurchasesDelegate|null[0]
     abstract fun onCustomerInfoUpdated(com.revenuecat.purchases.kmp.models/CustomerInfo) // com.revenuecat.purchases.kmp/PurchasesDelegate.onCustomerInfoUpdated|onCustomerInfoUpdated(com.revenuecat.purchases.kmp.models.CustomerInfo){}[0]
     abstract fun onPurchasePromoProduct(com.revenuecat.purchases.kmp.models/StoreProduct, kotlin/Function2<kotlin/Function2<com.revenuecat.purchases.kmp.models/PurchasesError, kotlin/Boolean, kotlin/Unit>, kotlin/Function2<com.revenuecat.purchases.kmp.models/StoreTransaction, com.revenuecat.purchases.kmp.models/CustomerInfo, kotlin/Unit>, kotlin/Unit>) // com.revenuecat.purchases.kmp/PurchasesDelegate.onPurchasePromoProduct|onPurchasePromoProduct(com.revenuecat.purchases.kmp.models.StoreProduct;kotlin.Function2<kotlin.Function2<com.revenuecat.purchases.kmp.models.PurchasesError,kotlin.Boolean,kotlin.Unit>,kotlin.Function2<com.revenuecat.purchases.kmp.models.StoreTransaction,com.revenuecat.purchases.kmp.models.CustomerInfo,kotlin.Unit>,kotlin.Unit>){}[0]
@@ -539,17 +532,6 @@ final enum class com.revenuecat.purchases.kmp.models/VerificationResult : kotlin
         final fun <get-entries>(): kotlin.enums/EnumEntries<com.revenuecat.purchases.kmp.models/VerificationResult> // com.revenuecat.purchases.kmp.models/VerificationResult.entries.<get-entries>|<get-entries>#static(){}[0]
     final val isVerified // com.revenuecat.purchases.kmp.models/VerificationResult.isVerified|{}isVerified[0]
         final fun <get-isVerified>(): kotlin/Boolean // com.revenuecat.purchases.kmp.models/VerificationResult.isVerified.<get-isVerified>|<get-isVerified>(){}[0]
-}
-final enum class com.revenuecat.purchases.kmp/LogLevel : kotlin/Enum<com.revenuecat.purchases.kmp/LogLevel> { // com.revenuecat.purchases.kmp/LogLevel|null[0]
-    enum entry DEBUG // com.revenuecat.purchases.kmp/LogLevel.DEBUG|null[0]
-    enum entry ERROR // com.revenuecat.purchases.kmp/LogLevel.ERROR|null[0]
-    enum entry INFO // com.revenuecat.purchases.kmp/LogLevel.INFO|null[0]
-    enum entry VERBOSE // com.revenuecat.purchases.kmp/LogLevel.VERBOSE|null[0]
-    enum entry WARN // com.revenuecat.purchases.kmp/LogLevel.WARN|null[0]
-    final fun valueOf(kotlin/String): com.revenuecat.purchases.kmp/LogLevel // com.revenuecat.purchases.kmp/LogLevel.valueOf|valueOf#static(kotlin.String){}[0]
-    final fun values(): kotlin/Array<com.revenuecat.purchases.kmp/LogLevel> // com.revenuecat.purchases.kmp/LogLevel.values|values#static(){}[0]
-    final val entries // com.revenuecat.purchases.kmp/LogLevel.entries|#static{}entries[0]
-        final fun <get-entries>(): kotlin.enums/EnumEntries<com.revenuecat.purchases.kmp/LogLevel> // com.revenuecat.purchases.kmp/LogLevel.entries.<get-entries>|<get-entries>#static(){}[0]
 }
 final val com.revenuecat.purchases.kmp.models/billingPeriod // com.revenuecat.purchases.kmp.models/billingPeriod|@com.revenuecat.purchases.kmp.models.SubscriptionOption{}billingPeriod[0]
     final fun (com.revenuecat.purchases.kmp.models/SubscriptionOption).<get-billingPeriod>(): com.revenuecat.purchases.kmp.models/Period? // com.revenuecat.purchases.kmp.models/billingPeriod.<get-billingPeriod>|<get-billingPeriod>@com.revenuecat.purchases.kmp.models.SubscriptionOption(){}[0]

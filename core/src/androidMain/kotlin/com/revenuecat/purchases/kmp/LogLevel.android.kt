@@ -1,9 +1,8 @@
-package com.revenuecat.purchases.kmp.mappings
+package com.revenuecat.purchases.kmp
 
-import com.revenuecat.purchases.kmp.LogLevel
 import com.revenuecat.purchases.LogLevel as AndroidLogLevel
 
-public fun AndroidLogLevel.toLogLevel(): LogLevel =
+internal fun AndroidLogLevel.toLogLevel(): LogLevel =
     when (this) {
         AndroidLogLevel.VERBOSE -> LogLevel.VERBOSE
         AndroidLogLevel.DEBUG -> LogLevel.DEBUG
@@ -12,7 +11,7 @@ public fun AndroidLogLevel.toLogLevel(): LogLevel =
         AndroidLogLevel.ERROR -> LogLevel.ERROR
     }
 
-public fun LogLevel.toAndroidLogLevel(): AndroidLogLevel =
+internal fun LogLevel.toAndroidLogLevel(): AndroidLogLevel =
     when (this) {
         LogLevel.VERBOSE -> AndroidLogLevel.VERBOSE
         LogLevel.DEBUG -> AndroidLogLevel.DEBUG

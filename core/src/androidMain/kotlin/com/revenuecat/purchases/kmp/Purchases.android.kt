@@ -11,16 +11,12 @@ import com.revenuecat.purchases.kmp.di.requireApplication
 import com.revenuecat.purchases.kmp.mappings.toAndroidBillingFeature
 import com.revenuecat.purchases.kmp.mappings.toAndroidCacheFetchPolicy
 import com.revenuecat.purchases.kmp.mappings.toAndroidGoogleReplacementMode
-import com.revenuecat.purchases.kmp.mappings.toAndroidLogHandler
-import com.revenuecat.purchases.kmp.mappings.toAndroidLogLevel
 import com.revenuecat.purchases.kmp.mappings.toAndroidPackage
 import com.revenuecat.purchases.kmp.mappings.toAndroidStore
 import com.revenuecat.purchases.kmp.mappings.toAndroidStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toAndroidSubscriptionOption
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toHybridString
-import com.revenuecat.purchases.kmp.mappings.toLogHandler
-import com.revenuecat.purchases.kmp.mappings.toLogLevel
 import com.revenuecat.purchases.kmp.mappings.toOfferings
 import com.revenuecat.purchases.kmp.mappings.toPurchasesDelegate
 import com.revenuecat.purchases.kmp.mappings.toPurchasesError
