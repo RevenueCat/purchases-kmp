@@ -19,3 +19,6 @@ fastlane/.env
 # CircleCI
 vendor/
 .bundle/
+
+# Share IssueNavigationConfiguration
+!.idea/vcs.xml
