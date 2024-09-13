@@ -14,7 +14,13 @@ REPO_NAME = "purchases-kmp"
 PATH_CHANGELOG_LATEST = './CHANGELOG-LATEST.md'
 PATH_CHANGELOG = './CHANGELOG.md'
 PATH_VERSIONS = './VERSIONS.md'
-FILES_WITH_SDK_VERSION = { './gradle/libs.versions.toml' => ["revenuecat-kmp = \"{x}\""] }
+FILES_WITH_SDK_VERSION = {
+  './gradle/libs.versions.toml' => ["revenuecat-kmp = \"{x}\""],
+  './core/core.podspec' => ["spec.version                  = '{x}'"],
+  './mappings/mappings.podspec' => ["spec.version                  = '{x}'"],
+  './models/models.podspec' => ["spec.version                  = '{x}'"],
+  './revenuecatui/revenuecatui.podspec' => ["spec.version                  = '{x}'"]
+}
 
 desc "Bumps version, edits changelog, and creates pull request"
 lane :bump do |options|
