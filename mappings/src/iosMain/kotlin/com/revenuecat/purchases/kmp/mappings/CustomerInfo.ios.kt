@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.CustomerInfo
 import com.revenuecat.purchases.kmp.mappings.ktx.toEpochMilliseconds
+import com.revenuecat.purchases.kmp.models.CustomerInfo
 import platform.Foundation.dictionaryWithValuesForKeys
 import platform.darwin.NSObject
 import cocoapods.PurchasesHybridCommon.RCCustomerInfo as IosCustomerInfo

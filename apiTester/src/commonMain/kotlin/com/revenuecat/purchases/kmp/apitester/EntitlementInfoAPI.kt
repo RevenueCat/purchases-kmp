@@ -1,11 +1,11 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.EntitlementInfo
 import com.revenuecat.purchases.kmp.datetime.billingIssueDetectedAtInstant
 import com.revenuecat.purchases.kmp.datetime.expirationInstant
 import com.revenuecat.purchases.kmp.datetime.latestPurchaseInstant
 import com.revenuecat.purchases.kmp.datetime.originalPurchaseInstant
 import com.revenuecat.purchases.kmp.datetime.unsubscribeDetectedAtInstant
+import com.revenuecat.purchases.kmp.models.EntitlementInfo
 import kotlinx.datetime.Instant
 
 @Suppress("unused", "UNUSED_VARIABLE")

@@ -1,18 +1,18 @@
 public final class com/revenuecat/purchases/kmp/datetime/CustomerInfoKt {
-	public static final fun getAllExpirationInstants (Lcom/revenuecat/purchases/kmp/CustomerInfo;)Ljava/util/Map;
-	public static final fun getAllPurchaseInstants (Lcom/revenuecat/purchases/kmp/CustomerInfo;)Ljava/util/Map;
-	public static final fun getFirstSeenInstant (Lcom/revenuecat/purchases/kmp/CustomerInfo;)Lkotlinx/datetime/Instant;
-	public static final fun getLatestExpirationInstant (Lcom/revenuecat/purchases/kmp/CustomerInfo;)Lkotlinx/datetime/Instant;
-	public static final fun getOriginalPurchaseInstant (Lcom/revenuecat/purchases/kmp/CustomerInfo;)Lkotlinx/datetime/Instant;
-	public static final fun getRequestInstant (Lcom/revenuecat/purchases/kmp/CustomerInfo;)Lkotlinx/datetime/Instant;
+	public static final fun getAllExpirationInstants (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)Ljava/util/Map;
+	public static final fun getAllPurchaseInstants (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)Ljava/util/Map;
+	public static final fun getFirstSeenInstant (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)Lkotlinx/datetime/Instant;
+	public static final fun getLatestExpirationInstant (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)Lkotlinx/datetime/Instant;
+	public static final fun getOriginalPurchaseInstant (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)Lkotlinx/datetime/Instant;
+	public static final fun getRequestInstant (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)Lkotlinx/datetime/Instant;
 }
 
 public final class com/revenuecat/purchases/kmp/datetime/EntitlementInfoKt {
-	public static final fun getBillingIssueDetectedAtInstant (Lcom/revenuecat/purchases/kmp/EntitlementInfo;)Lkotlinx/datetime/Instant;
-	public static final fun getExpirationInstant (Lcom/revenuecat/purchases/kmp/EntitlementInfo;)Lkotlinx/datetime/Instant;
-	public static final fun getLatestPurchaseInstant (Lcom/revenuecat/purchases/kmp/EntitlementInfo;)Lkotlinx/datetime/Instant;
-	public static final fun getOriginalPurchaseInstant (Lcom/revenuecat/purchases/kmp/EntitlementInfo;)Lkotlinx/datetime/Instant;
-	public static final fun getUnsubscribeDetectedAtInstant (Lcom/revenuecat/purchases/kmp/EntitlementInfo;)Lkotlinx/datetime/Instant;
+	public static final fun getBillingIssueDetectedAtInstant (Lcom/revenuecat/purchases/kmp/models/EntitlementInfo;)Lkotlinx/datetime/Instant;
+	public static final fun getExpirationInstant (Lcom/revenuecat/purchases/kmp/models/EntitlementInfo;)Lkotlinx/datetime/Instant;
+	public static final fun getLatestPurchaseInstant (Lcom/revenuecat/purchases/kmp/models/EntitlementInfo;)Lkotlinx/datetime/Instant;
+	public static final fun getOriginalPurchaseInstant (Lcom/revenuecat/purchases/kmp/models/EntitlementInfo;)Lkotlinx/datetime/Instant;
+	public static final fun getUnsubscribeDetectedAtInstant (Lcom/revenuecat/purchases/kmp/models/EntitlementInfo;)Lkotlinx/datetime/Instant;
 }
 
 public final class com/revenuecat/purchases/kmp/datetime/TransactionKt {

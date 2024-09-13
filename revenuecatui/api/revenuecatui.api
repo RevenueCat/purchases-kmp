@@ -8,20 +8,20 @@ public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallKt {
 
 public abstract interface class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener {
 	public abstract fun onPurchaseCancelled ()V
-	public abstract fun onPurchaseCompleted (Lcom/revenuecat/purchases/kmp/CustomerInfo;Lcom/revenuecat/purchases/kmp/models/StoreTransaction;)V
+	public abstract fun onPurchaseCompleted (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;Lcom/revenuecat/purchases/kmp/models/StoreTransaction;)V
 	public abstract fun onPurchaseError (Lcom/revenuecat/purchases/kmp/PurchasesError;)V
 	public abstract fun onPurchaseStarted (Lcom/revenuecat/purchases/kmp/Package;)V
-	public abstract fun onRestoreCompleted (Lcom/revenuecat/purchases/kmp/CustomerInfo;)V
+	public abstract fun onRestoreCompleted (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)V
 	public abstract fun onRestoreError (Lcom/revenuecat/purchases/kmp/PurchasesError;)V
 	public abstract fun onRestoreStarted ()V
 }
 
 public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener$DefaultImpls {
 	public static fun onPurchaseCancelled (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;)V
-	public static fun onPurchaseCompleted (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/kmp/CustomerInfo;Lcom/revenuecat/purchases/kmp/models/StoreTransaction;)V
+	public static fun onPurchaseCompleted (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/kmp/models/CustomerInfo;Lcom/revenuecat/purchases/kmp/models/StoreTransaction;)V
 	public static fun onPurchaseError (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/kmp/PurchasesError;)V
 	public static fun onPurchaseStarted (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/kmp/Package;)V
-	public static fun onRestoreCompleted (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/kmp/CustomerInfo;)V
+	public static fun onRestoreCompleted (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)V
 	public static fun onRestoreError (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/kmp/PurchasesError;)V
 	public static fun onRestoreStarted (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;)V
 }

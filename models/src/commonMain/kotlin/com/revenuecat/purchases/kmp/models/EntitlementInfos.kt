@@ -1,4 +1,4 @@
-package com.revenuecat.purchases.kmp
+package com.revenuecat.purchases.kmp.models
 
 import com.revenuecat.purchases.kmp.models.VerificationResult
 

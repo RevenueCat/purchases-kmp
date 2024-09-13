@@ -6,13 +6,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.revenuecat.purchases.kmp.EntitlementInfo
-import com.revenuecat.purchases.kmp.EntitlementInfos
 import com.revenuecat.purchases.kmp.datetime.billingIssueDetectedAtInstant
 import com.revenuecat.purchases.kmp.datetime.expirationInstant
 import com.revenuecat.purchases.kmp.datetime.latestPurchaseInstant
 import com.revenuecat.purchases.kmp.datetime.originalPurchaseInstant
 import com.revenuecat.purchases.kmp.datetime.unsubscribeDetectedAtInstant
+import com.revenuecat.purchases.kmp.models.EntitlementInfo
+import com.revenuecat.purchases.kmp.models.EntitlementInfos
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
 import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
 

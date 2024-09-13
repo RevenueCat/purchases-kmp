@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp
 
+import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 

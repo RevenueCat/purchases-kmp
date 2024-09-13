@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.Store
+import com.revenuecat.purchases.kmp.models.Store
 
 @Suppress("unused")
 private class StoreAPI {

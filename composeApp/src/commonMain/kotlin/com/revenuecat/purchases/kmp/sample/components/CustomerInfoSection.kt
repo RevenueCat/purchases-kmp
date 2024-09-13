@@ -8,13 +8,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.revenuecat.purchases.kmp.CustomerInfo
 import com.revenuecat.purchases.kmp.datetime.allExpirationInstants
 import com.revenuecat.purchases.kmp.datetime.allPurchaseInstants
 import com.revenuecat.purchases.kmp.datetime.firstSeenInstant
 import com.revenuecat.purchases.kmp.datetime.latestExpirationInstant
 import com.revenuecat.purchases.kmp.datetime.originalPurchaseInstant
 import com.revenuecat.purchases.kmp.datetime.requestInstant
+import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.sample.AsyncState
 import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
 

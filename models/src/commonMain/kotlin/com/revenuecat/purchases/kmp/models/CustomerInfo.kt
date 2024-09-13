@@ -1,6 +1,4 @@
-package com.revenuecat.purchases.kmp
-
-import com.revenuecat.purchases.kmp.models.Transaction
+package com.revenuecat.purchases.kmp.models
 
 /**
  * Class containing all information regarding the customer.

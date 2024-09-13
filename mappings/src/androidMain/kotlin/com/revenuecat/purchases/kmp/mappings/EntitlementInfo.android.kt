@@ -1,8 +1,8 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.EntitlementInfo
-import com.revenuecat.purchases.kmp.OwnershipType
-import com.revenuecat.purchases.kmp.PeriodType
+import com.revenuecat.purchases.kmp.models.EntitlementInfo
+import com.revenuecat.purchases.kmp.models.OwnershipType
+import com.revenuecat.purchases.kmp.models.PeriodType
 import com.revenuecat.purchases.EntitlementInfo as RcEntitlementInfo
 import com.revenuecat.purchases.OwnershipType as AndroidOwnershipType
 import com.revenuecat.purchases.PeriodType as AndroidPeriodType

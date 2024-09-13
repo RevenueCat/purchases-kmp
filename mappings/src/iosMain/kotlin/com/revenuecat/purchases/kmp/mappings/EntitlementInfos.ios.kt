@@ -3,7 +3,7 @@ package com.revenuecat.purchases.kmp.mappings
 import cocoapods.PurchasesHybridCommon.RCEntitlementInfo
 import cocoapods.PurchasesHybridCommon.RCEntitlementInfos
 import com.revenuecat.purchases.kmp.mappings.ktx.mapEntries
-import com.revenuecat.purchases.kmp.EntitlementInfos
+import com.revenuecat.purchases.kmp.models.EntitlementInfos
 
 internal fun RCEntitlementInfos.toEntitlementInfos(): EntitlementInfos =
     EntitlementInfos(

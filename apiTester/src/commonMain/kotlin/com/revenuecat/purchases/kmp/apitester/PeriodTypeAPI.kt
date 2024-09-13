@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.PeriodType
+import com.revenuecat.purchases.kmp.models.PeriodType
 
 @Suppress("unused")
 private class PeriodTypeAPI {
