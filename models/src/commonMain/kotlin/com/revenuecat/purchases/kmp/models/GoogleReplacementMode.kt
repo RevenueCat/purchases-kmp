@@ -1,7 +1,5 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.kmp.ReplacementMode
-
 /**
  * Enum of possible replacement modes to be passed to a Play Store purchase.
  * Ignored for Amazon and App Store purchases.

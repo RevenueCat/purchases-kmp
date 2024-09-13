@@ -27,6 +27,15 @@ public typealias CustomerInfo = com.revenuecat.purchases.kmp.models.CustomerInfo
 @Deprecated(
     message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
+        expression = "DangerousSettings",
+        imports = ["com.revenuecat.purchases.kmp.models.DangerousSettings"]
+    )
+)
+public typealias DangerousSettings = com.revenuecat.purchases.kmp.models.DangerousSettings
+
+@Deprecated(
+    message = "This type has moved to the models package.",
+    replaceWith = ReplaceWith(
         expression = "EntitlementInfo",
         imports = ["com.revenuecat.purchases.kmp.models.EntitlementInfo"]
     )
@@ -138,6 +147,16 @@ public typealias ProductType = com.revenuecat.purchases.kmp.models.ProductType
 @Deprecated(
     message = "This type has moved to the models package.",
     replaceWith = ReplaceWith(
+        expression = "PurchasesAreCompletedBy",
+        imports = ["com.revenuecat.purchases.kmp.PurchasesAreCompletedBy"]
+    )
+)
+public typealias PurchasesAreCompletedBy =
+        com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
+
+@Deprecated(
+    message = "This type has moved to the models package.",
+    replaceWith = ReplaceWith(
         expression = "PurchasesError",
         imports = ["com.revenuecat.purchases.kmp.models.PurchasesError"]
     )
@@ -171,6 +190,15 @@ public typealias PurchasesException = com.revenuecat.purchases.kmp.models.Purcha
 )
 public typealias PurchasesTransactionException =
         com.revenuecat.purchases.kmp.models.PurchasesTransactionException
+
+@Deprecated(
+    message = "This type has moved to the models package.",
+    replaceWith = ReplaceWith(
+        expression = "ReplacementMode",
+        imports = ["com.revenuecat.purchases.kmp.models.ReplacementMode"]
+    )
+)
+public typealias ReplacementMode = com.revenuecat.purchases.kmp.models.ReplacementMode
 
 @Deprecated(
     message = "This type has moved to the models package.",

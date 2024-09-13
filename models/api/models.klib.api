@@ -53,6 +53,10 @@ abstract interface com.revenuecat.purchases.kmp.models/PurchasingData { // com.r
     abstract val productType // com.revenuecat.purchases.kmp.models/PurchasingData.productType|{}productType[0]
         abstract fun <get-productType>(): com.revenuecat.purchases.kmp.models/ProductType // com.revenuecat.purchases.kmp.models/PurchasingData.productType.<get-productType>|<get-productType>(){}[0]
 }
+abstract interface com.revenuecat.purchases.kmp.models/ReplacementMode { // com.revenuecat.purchases.kmp.models/ReplacementMode|null[0]
+    abstract val name // com.revenuecat.purchases.kmp.models/ReplacementMode.name|{}name[0]
+        abstract fun <get-name>(): kotlin/String // com.revenuecat.purchases.kmp.models/ReplacementMode.name.<get-name>|<get-name>(){}[0]
+}
 abstract interface com.revenuecat.purchases.kmp.models/StoreProduct { // com.revenuecat.purchases.kmp.models/StoreProduct|null[0]
     abstract val category // com.revenuecat.purchases.kmp.models/StoreProduct.category|{}category[0]
         abstract fun <get-category>(): com.revenuecat.purchases.kmp.models/ProductCategory? // com.revenuecat.purchases.kmp.models/StoreProduct.category.<get-category>|<get-category>(){}[0]
@@ -133,10 +137,6 @@ abstract interface com.revenuecat.purchases.kmp/PurchasesDelegate { // com.reven
     abstract fun onCustomerInfoUpdated(com.revenuecat.purchases.kmp.models/CustomerInfo) // com.revenuecat.purchases.kmp/PurchasesDelegate.onCustomerInfoUpdated|onCustomerInfoUpdated(com.revenuecat.purchases.kmp.models.CustomerInfo){}[0]
     abstract fun onPurchasePromoProduct(com.revenuecat.purchases.kmp.models/StoreProduct, kotlin/Function2<kotlin/Function2<com.revenuecat.purchases.kmp.models/PurchasesError, kotlin/Boolean, kotlin/Unit>, kotlin/Function2<com.revenuecat.purchases.kmp.models/StoreTransaction, com.revenuecat.purchases.kmp.models/CustomerInfo, kotlin/Unit>, kotlin/Unit>) // com.revenuecat.purchases.kmp/PurchasesDelegate.onPurchasePromoProduct|onPurchasePromoProduct(com.revenuecat.purchases.kmp.models.StoreProduct;kotlin.Function2<kotlin.Function2<com.revenuecat.purchases.kmp.models.PurchasesError,kotlin.Boolean,kotlin.Unit>,kotlin.Function2<com.revenuecat.purchases.kmp.models.StoreTransaction,com.revenuecat.purchases.kmp.models.CustomerInfo,kotlin.Unit>,kotlin.Unit>){}[0]
 }
-abstract interface com.revenuecat.purchases.kmp/ReplacementMode { // com.revenuecat.purchases.kmp/ReplacementMode|null[0]
-    abstract val name // com.revenuecat.purchases.kmp/ReplacementMode.name|{}name[0]
-        abstract fun <get-name>(): kotlin/String // com.revenuecat.purchases.kmp/ReplacementMode.name.<get-name>|<get-name>(){}[0]
-}
 final class com.revenuecat.purchases.kmp.models/CustomerInfo { // com.revenuecat.purchases.kmp.models/CustomerInfo|null[0]
     constructor <init>(kotlin.collections/Set<kotlin/String>, kotlin.collections/Map<kotlin/String, kotlin/Long?>, kotlin.collections/Map<kotlin/String, kotlin/Long?>, kotlin.collections/Set<kotlin/String>, com.revenuecat.purchases.kmp.models/EntitlementInfos, kotlin/Long, kotlin/Long?, kotlin/String?, kotlin.collections/List<com.revenuecat.purchases.kmp.models/Transaction>, kotlin/String, kotlin/String?, kotlin/Long?, kotlin/Long) // com.revenuecat.purchases.kmp.models/CustomerInfo.<init>|<init>(kotlin.collections.Set<kotlin.String>;kotlin.collections.Map<kotlin.String,kotlin.Long?>;kotlin.collections.Map<kotlin.String,kotlin.Long?>;kotlin.collections.Set<kotlin.String>;com.revenuecat.purchases.kmp.models.EntitlementInfos;kotlin.Long;kotlin.Long?;kotlin.String?;kotlin.collections.List<com.revenuecat.purchases.kmp.models.Transaction>;kotlin.String;kotlin.String?;kotlin.Long?;kotlin.Long){}[0]
     final val activeSubscriptions // com.revenuecat.purchases.kmp.models/CustomerInfo.activeSubscriptions|{}activeSubscriptions[0]
@@ -165,6 +165,11 @@ final class com.revenuecat.purchases.kmp.models/CustomerInfo { // com.revenuecat
         final fun <get-originalPurchaseDateMillis>(): kotlin/Long? // com.revenuecat.purchases.kmp.models/CustomerInfo.originalPurchaseDateMillis.<get-originalPurchaseDateMillis>|<get-originalPurchaseDateMillis>(){}[0]
     final val requestDateMillis // com.revenuecat.purchases.kmp.models/CustomerInfo.requestDateMillis|{}requestDateMillis[0]
         final fun <get-requestDateMillis>(): kotlin/Long // com.revenuecat.purchases.kmp.models/CustomerInfo.requestDateMillis.<get-requestDateMillis>|<get-requestDateMillis>(){}[0]
+}
+final class com.revenuecat.purchases.kmp.models/DangerousSettings { // com.revenuecat.purchases.kmp.models/DangerousSettings|null[0]
+    constructor <init>(kotlin/Boolean =...) // com.revenuecat.purchases.kmp.models/DangerousSettings.<init>|<init>(kotlin.Boolean){}[0]
+    final val autoSyncPurchases // com.revenuecat.purchases.kmp.models/DangerousSettings.autoSyncPurchases|{}autoSyncPurchases[0]
+        final fun <get-autoSyncPurchases>(): kotlin/Boolean // com.revenuecat.purchases.kmp.models/DangerousSettings.autoSyncPurchases.<get-autoSyncPurchases>|<get-autoSyncPurchases>(){}[0]
 }
 final class com.revenuecat.purchases.kmp.models/EntitlementInfo { // com.revenuecat.purchases.kmp.models/EntitlementInfo|null[0]
     constructor <init>(kotlin/String, kotlin/Boolean, kotlin/Boolean, com.revenuecat.purchases.kmp.models/PeriodType, kotlin/Long?, kotlin/Long?, kotlin/Long?, com.revenuecat.purchases.kmp.models/Store, kotlin/String, kotlin/String?, kotlin/Boolean, kotlin/Long?, kotlin/Long?, com.revenuecat.purchases.kmp.models/OwnershipType, com.revenuecat.purchases.kmp.models/VerificationResult) // com.revenuecat.purchases.kmp.models/EntitlementInfo.<init>|<init>(kotlin.String;kotlin.Boolean;kotlin.Boolean;com.revenuecat.purchases.kmp.models.PeriodType;kotlin.Long?;kotlin.Long?;kotlin.Long?;com.revenuecat.purchases.kmp.models.Store;kotlin.String;kotlin.String?;kotlin.Boolean;kotlin.Long?;kotlin.Long?;com.revenuecat.purchases.kmp.models.OwnershipType;com.revenuecat.purchases.kmp.models.VerificationResult){}[0]
@@ -305,11 +310,6 @@ final class com.revenuecat.purchases.kmp.models/Transaction { // com.revenuecat.
     final val transactionIdentifier // com.revenuecat.purchases.kmp.models/Transaction.transactionIdentifier|{}transactionIdentifier[0]
         final fun <get-transactionIdentifier>(): kotlin/String // com.revenuecat.purchases.kmp.models/Transaction.transactionIdentifier.<get-transactionIdentifier>|<get-transactionIdentifier>(){}[0]
 }
-final class com.revenuecat.purchases.kmp/DangerousSettings { // com.revenuecat.purchases.kmp/DangerousSettings|null[0]
-    constructor <init>(kotlin/Boolean =...) // com.revenuecat.purchases.kmp/DangerousSettings.<init>|<init>(kotlin.Boolean){}[0]
-    final val autoSyncPurchases // com.revenuecat.purchases.kmp/DangerousSettings.autoSyncPurchases|{}autoSyncPurchases[0]
-        final fun <get-autoSyncPurchases>(): kotlin/Boolean // com.revenuecat.purchases.kmp/DangerousSettings.autoSyncPurchases.<get-autoSyncPurchases>|<get-autoSyncPurchases>(){}[0]
-}
 final enum class com.revenuecat.purchases.kmp.models/BillingFeature : kotlin/Enum<com.revenuecat.purchases.kmp.models/BillingFeature> { // com.revenuecat.purchases.kmp.models/BillingFeature|null[0]
     enum entry PRICE_CHANGE_CONFIRMATION // com.revenuecat.purchases.kmp.models/BillingFeature.PRICE_CHANGE_CONFIRMATION|null[0]
     enum entry SUBSCRIPTIONS // com.revenuecat.purchases.kmp.models/BillingFeature.SUBSCRIPTIONS|null[0]
@@ -357,7 +357,7 @@ final enum class com.revenuecat.purchases.kmp.models/EntitlementVerificationMode
     final val entries // com.revenuecat.purchases.kmp.models/EntitlementVerificationMode.entries|#static{}entries[0]
         final fun <get-entries>(): kotlin.enums/EnumEntries<com.revenuecat.purchases.kmp.models/EntitlementVerificationMode> // com.revenuecat.purchases.kmp.models/EntitlementVerificationMode.entries.<get-entries>|<get-entries>#static(){}[0]
 }
-final enum class com.revenuecat.purchases.kmp.models/GoogleReplacementMode : com.revenuecat.purchases.kmp/ReplacementMode, kotlin/Enum<com.revenuecat.purchases.kmp.models/GoogleReplacementMode> { // com.revenuecat.purchases.kmp.models/GoogleReplacementMode|null[0]
+final enum class com.revenuecat.purchases.kmp.models/GoogleReplacementMode : com.revenuecat.purchases.kmp.models/ReplacementMode, kotlin/Enum<com.revenuecat.purchases.kmp.models/GoogleReplacementMode> { // com.revenuecat.purchases.kmp.models/GoogleReplacementMode|null[0]
     enum entry CHARGE_FULL_PRICE // com.revenuecat.purchases.kmp.models/GoogleReplacementMode.CHARGE_FULL_PRICE|null[0]
     enum entry CHARGE_PRORATED_PRICE // com.revenuecat.purchases.kmp.models/GoogleReplacementMode.CHARGE_PRORATED_PRICE|null[0]
     enum entry DEFERRED // com.revenuecat.purchases.kmp.models/GoogleReplacementMode.DEFERRED|null[0]
@@ -574,15 +574,15 @@ open class com.revenuecat.purchases.kmp.models/PurchasesException : kotlin/Excep
     open val message // com.revenuecat.purchases.kmp.models/PurchasesException.message|{}message[0]
         open fun <get-message>(): kotlin/String // com.revenuecat.purchases.kmp.models/PurchasesException.message.<get-message>|<get-message>(){}[0]
 }
-sealed interface com.revenuecat.purchases.kmp/PurchasesAreCompletedBy { // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy|null[0]
-    final class MyApp : com.revenuecat.purchases.kmp/PurchasesAreCompletedBy { // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp|null[0]
-        constructor <init>(com.revenuecat.purchases.kmp.models/StoreKitVersion) // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp.<init>|<init>(com.revenuecat.purchases.kmp.models.StoreKitVersion){}[0]
-        final val storeKitVersion // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp.storeKitVersion|{}storeKitVersion[0]
-            final fun <get-storeKitVersion>(): com.revenuecat.purchases.kmp.models/StoreKitVersion // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.MyApp.storeKitVersion.<get-storeKitVersion>|<get-storeKitVersion>(){}[0]
+sealed interface com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy { // com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy|null[0]
+    final class MyApp : com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy { // com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy.MyApp|null[0]
+        constructor <init>(com.revenuecat.purchases.kmp.models/StoreKitVersion) // com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy.MyApp.<init>|<init>(com.revenuecat.purchases.kmp.models.StoreKitVersion){}[0]
+        final val storeKitVersion // com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy.MyApp.storeKitVersion|{}storeKitVersion[0]
+            final fun <get-storeKitVersion>(): com.revenuecat.purchases.kmp.models/StoreKitVersion // com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy.MyApp.storeKitVersion.<get-storeKitVersion>|<get-storeKitVersion>(){}[0]
     }
-    final object RevenueCat : com.revenuecat.purchases.kmp/PurchasesAreCompletedBy { // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.RevenueCat|null[0]
-        final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.RevenueCat.equals|equals(kotlin.Any?){}[0]
-        final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.RevenueCat.hashCode|hashCode(){}[0]
-        final fun toString(): kotlin/String // com.revenuecat.purchases.kmp/PurchasesAreCompletedBy.RevenueCat.toString|toString(){}[0]
+    final object RevenueCat : com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy { // com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy.RevenueCat|null[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy.RevenueCat.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy.RevenueCat.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy.RevenueCat.toString|toString(){}[0]
     }
 }

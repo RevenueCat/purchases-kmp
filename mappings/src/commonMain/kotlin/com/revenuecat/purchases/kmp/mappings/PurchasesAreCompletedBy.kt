@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.PurchasesAreCompletedBy
+import com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
 
 /**
  * Converts an instance of `PurchasesAreCompletedBy` to its corresponding string representation
