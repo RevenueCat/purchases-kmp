@@ -17,9 +17,7 @@ import com.revenuecat.purchases.kmp.mappings.toIosStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toIosStoreProductDiscount
 import com.revenuecat.purchases.kmp.mappings.toOfferings
 import com.revenuecat.purchases.kmp.mappings.toPromotionalOffer
-import com.revenuecat.purchases.kmp.mappings.toPurchasesDelegate
 import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
-import com.revenuecat.purchases.kmp.mappings.toRcPurchasesDelegate
 import com.revenuecat.purchases.kmp.mappings.toStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
 import com.revenuecat.purchases.kmp.models.BillingFeature
