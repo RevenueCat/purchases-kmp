@@ -141,6 +141,17 @@ jobs:
           command: ./gradlew :apiTester:assemble
       - android/save-gradle-cache
 
+  unit-tests:
+    executor: xcode15
+    steps:
+      - install-android-sdk-on-macos
+      - checkout
+      - android/restore-gradle-cache
+      - run:
+          name: Execute unit tests
+          command: ./gradlew allTests
+      - android/save-gradle-cache
+
   build:
     executor: xcode15
     steps:
@@ -260,11 +271,13 @@ workflows:
       - detekt
       - validate-binary-compatibility
       - test-public-api
+      - unit-tests
       - build:
           requires:
             - detekt
             - validate-binary-compatibility
             - test-public-api
+            - unit-tests
       - hold:
           type: approval
           requires:
