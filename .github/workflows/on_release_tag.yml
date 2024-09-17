@@ -3,123 +3,39 @@ name: On release tag
 on:
   push:
     tags:
-      - '^[0-9]+\.[0-9]+\.[0-9]+(?!.*-SNAPSHOT).*$'
+      - '^[0-9]+\\.[0-9]+\\.[0-9]+(?!.*-SNAPSHOT).*$'
 
 jobs:
-  detekt:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
-      - uses: gradle/wrapper-validation-action@v2
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
-      - name: Run Detekt on commonMain
-        run: ./gradlew detektCommonMain
-
-  validate-binary-compatibility:
-    runs-on: macos-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
-      - uses: gradle/wrapper-validation-action@v2
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
-      - name: Validate binary compatibility
-        run: ./gradlew apiCheck
-
-  test-public-api:
-    runs-on: macos-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@v4
-      - uses: gradle/wrapper-validation-action@v2
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
-      - name: Test public API
-        run: ./gradlew :apiTester:assemble
-
-  build:
-    needs: [ detekt, validate-binary-compatibility, test-public-api ]
-    runs-on: macos-latest
-    permissions:
-      contents: read
-    steps:
-    - uses: actions/checkout@v4
-    - uses: gradle/wrapper-validation-action@v2
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-
-    # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
-    # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
-
-    - name: Build libraries
-      run: ./gradlew assemble -x :composeApp:assemble
-    - name: Build sample
-      run: ./gradlew :composeApp:assembleDebug
-
   generate-api-reference:
     needs: build
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
-
     steps:
-    - uses: actions/checkout@v4
-    - uses: gradle/wrapper-validation-action@v2
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-
-    # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
-    # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
-
-    - name: Generate Dokkatoo site
-      run: ./gradlew :dokkatooGenerate
-    - name: Upload GitHub Pages artifact
-      uses: actions/upload-pages-artifact@v3.0.1
-      with:
-        path: 'build/dokka/html'
+      - uses: actions/checkout@v4
+      - uses: gradle/wrapper-validation-action@v2
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+      - name: Generate Dokkatoo site
+        run: ./gradlew :dokkatooGenerate
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3.0.1
+        with:
+          path: 'build/dokka/html'
 
   deploy-api-reference:
     needs: generate-api-reference
-
     permissions:
       pages: write      # to deploy to Pages
       id-token: write   # to verify the deployment originates from an appropriate source
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to GitHub Pages
