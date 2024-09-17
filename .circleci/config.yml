@@ -75,10 +75,10 @@ executors:
 jobs:
   update-purchases-hybrid-common-version:
     description: "Opens a PR updating the purchases-hybrid-common dependency to the latest version."
-    executor: ruby3
+    executor: xcode15
     steps:
       - checkout
-      - revenuecat/install-gem-unix-dependencies:
+      - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - revenuecat/trust-github-key
       - revenuecat/setup-git-credentials
