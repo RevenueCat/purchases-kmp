@@ -53,8 +53,7 @@ commands:
           name: Get the Kotlin version
           command: |
             kotlin-version=$(sed -nE 's/^kotlin = "([^"]+)".*/\1/p' gradle/libs.versions.toml)
-            echo $kotlin-version
-            # echo 'export CACHE_KEY_KOTLIN_VERSION="$kotlin-version"' >> "$BASH_ENV"
+            echo 'export CACHE_KEY_KOTLIN_VERSION="$kotlin-version"' >> "$BASH_ENV"
       - run: printenv
       - save_cache:
           name: Saving Kotlin/Native compiler to cache
@@ -68,7 +67,10 @@ commands:
           command: echo 'export CACHE_KEY_OS="$(uname -s)"' >> "$BASH_ENV"
       - run:
           name: Get the Kotlin version
-          command: echo 'export CACHE_KEY_KOTLIN_VERSION="$(sed -nE 's/^kotlin = "([^"]+)".*/\1/p' gradle/libs.versions.toml)"' >> "$BASH_ENV"
+          command: |
+            kotlin-version=$(sed -nE 's/^kotlin = "([^"]+)".*/\1/p' gradle/libs.versions.toml)
+            echo $kotlin-version
+            echo 'export CACHE_KEY_KOTLIN_VERSION="$kotlin-version"' >> "$BASH_ENV"
       - run: printenv
       - restore_cache:
           name: Restoring Kotlin/Native compiler from cache
