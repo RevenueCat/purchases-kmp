@@ -154,10 +154,12 @@ jobs:
       - install-android-sdk-on-macos
       - checkout
       - android/restore-gradle-cache
+      - restore-kotlin-native-compiler-from-cache
       - run:
           name: Validate binary compatibility
           command: ./gradlew apiCheck
       - android/save-gradle-cache
+      - save-kotlin-native-compiler-to-cache
 
   build-libraries-android:
     executor: android202409
