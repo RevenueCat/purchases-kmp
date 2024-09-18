@@ -188,6 +188,9 @@ jobs:
     steps:
       - checkout
       - android/restore-gradle-cache
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - install-cocoapods-on-macos
       - run:
           name: Build sample app for iOS
           # This builds the composeApp Gradle module as a Run Script build phase.
