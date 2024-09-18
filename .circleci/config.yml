@@ -44,6 +44,35 @@ commands:
           command: bundle exec pod install --repo-update
           working_directory: iosApp
 
+  save-kotlin-native-compiler-to-cache:
+    steps:
+      - run: printenv
+      - run: 
+          name: Get the operating system
+          command: echo 'export CACHE_KEY_OS="$(uname -s)"' >> "$BASH_ENV"
+      - run:
+          name: Get the Kotlin version
+          command: echo 'export CACHE_KEY_KOTLIN_VERSION="$(sed -nE 's/^kotlin = "([^"]+)".*/\1/p' gradle/libs.versions.toml)"' >> "$BASH_ENV"
+      - run: printenv
+      - save_cache:
+          name: Saving Kotlin/Native compiler to cache
+          paths: [~/.konan]
+          key: konan-{{ .Environment.CACHE_KEY_OS }}-{{ arch }}-{{ .Environment.CACHE_KEY_KOTLIN_VERSION }}
+
+  restore-kotlin-native-compiler-from-cache:
+    steps:
+      - run: printenv
+      - run: 
+          name: Get the operating system
+          command: echo 'export CACHE_KEY_OS="$(uname -s)"' >> "$BASH_ENV"
+      - run:
+          name: Get the Kotlin version
+          command: echo 'export CACHE_KEY_KOTLIN_VERSION="$(sed -nE 's/^kotlin = "([^"]+)".*/\1/p' gradle/libs.versions.toml)"' >> "$BASH_ENV"
+      - run: printenv
+      - restore_cache:
+          name: Restoring Kotlin/Native compiler from cache
+          key: konan-{{ .Environment.CACHE_KEY_OS }}-{{ arch }}-{{ .Environment.CACHE_KEY_KOTLIN_VERSION }}
+
 parameters:
   action:
     type: enum
@@ -156,6 +185,7 @@ jobs:
     steps:
       - checkout
       - android/restore-gradle-cache
+      - restore-kotlin-native-compiler-from-cache
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - install-cocoapods-on-macos
@@ -170,6 +200,7 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
+      - save-kotlin-native-compiler-to-cache
 
   build-sample-android:
     executor: android202409
@@ -191,6 +222,7 @@ jobs:
     steps:
       - checkout
       - android/restore-gradle-cache
+      - restore-kotlin-native-compiler-from-cache
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - install-cocoapods-on-macos
@@ -199,6 +231,7 @@ jobs:
           # This builds the composeApp Gradle module as a Run Script build phase.
           command: xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme iosApp -configuration Debug -allowProvisioningUpdates
       - android/save-gradle-cache
+      - save-kotlin-native-compiler-to-cache
 
   public-api-tests-android:
     executor: android202409
@@ -220,6 +253,7 @@ jobs:
     steps:
       - checkout
       - android/restore-gradle-cache
+      - restore-kotlin-native-compiler-from-cache
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - install-cocoapods-on-macos
@@ -232,6 +266,7 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
+      - save-kotlin-native-compiler-to-cache
 
   unit-tests-android:
     executor: android202409
@@ -253,6 +288,7 @@ jobs:
     steps:
       - checkout
       - android/restore-gradle-cache
+      - restore-kotlin-native-compiler-from-cache
       - run:
           name: Execute unit tests for iOS
           command: |
@@ -262,6 +298,7 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
+      - save-kotlin-native-compiler-to-cache
 
   publish:
     description: "Publishes the SDK, either a SNAPSHOT or release version."
@@ -278,6 +315,7 @@ jobs:
       - install-cocoapods-on-macos
       - android/restore-gradle-cache
       - android/restore-build-cache
+      - restore-kotlin-native-compiler-from-cache
       - when:
           condition: << parameters.snapshot >>
           steps:
@@ -292,6 +330,7 @@ jobs:
                 command: bundle exec fastlane publish_if_release
       - android/save-gradle-cache
       - android/save-build-cache
+      - save-kotlin-native-compiler-to-cache
 
   create-github-release:
     description: "Creates a GitHub release for the current version"
