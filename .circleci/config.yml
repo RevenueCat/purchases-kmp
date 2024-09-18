@@ -54,7 +54,7 @@ commands:
           command: |
             kotlin-version=$(sed -nE 's/^kotlin = "([^"]+)".*/\1/p' gradle/libs.versions.toml)
             echo $kotlin-version
-            echo 'export CACHE_KEY_KOTLIN_VERSION="$kotlin-version"' >> "$BASH_ENV"
+            # echo 'export CACHE_KEY_KOTLIN_VERSION="$kotlin-version"' >> "$BASH_ENV"
       - run: printenv
       - save_cache:
           name: Saving Kotlin/Native compiler to cache
