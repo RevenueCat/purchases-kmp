@@ -46,35 +46,28 @@ commands:
 
   save-kotlin-native-compiler-to-cache:
     steps:
-      - run: 
-          name: Get the operating system
-          command: echo 'export CACHE_KEY_OS="$(uname -s)"' >> "$BASH_ENV"
       - run:
           name: Get the Kotlin version
-          command: |
-            kotlin_version=$(sed -nE 's/^kotlin = "([^"]+)".*/\1/p' gradle/libs.versions.toml)
-            echo 'export CACHE_KEY_KOTLIN_VERSION="$kotlin_version"' >> "$BASH_ENV"
-      - run: printenv
+          command: sed -nE 's/^kotlin = "([^"]+)".*/\1/p' gradle/libs.versions.toml > ~/.kotlin_version
+      - run: cat ~/.kotlin_version
+      # We cannot use the Kotlin version in the cache key directly, so we use the checksum of a file
+      # containing it instead.
       - save_cache:
           name: Saving Kotlin/Native compiler to cache
           paths: [~/.konan]
-          key: konan-{{ .Environment.CACHE_KEY_OS }}-{{ arch }}-{{ .Environment.CACHE_KEY_KOTLIN_VERSION }}
+          key: konan-{{ arch }}-{{ checksum "~/.kotlin_version" }}
 
   restore-kotlin-native-compiler-from-cache:
     steps:
-      - run: 
-          name: Get the operating system
-          command: echo 'export CACHE_KEY_OS="$(uname -s)"' >> "$BASH_ENV"
       - run:
           name: Get the Kotlin version
-          command: |
-            kotlin_version=$(sed -nE 's/^kotlin = "([^"]+)".*/\1/p' gradle/libs.versions.toml)
-            echo $kotlin_version
-            echo 'export CACHE_KEY_KOTLIN_VERSION="$kotlin_version"' >> "$BASH_ENV"
-      - run: printenv
+          command: sed -nE 's/^kotlin = "([^"]+)".*/\1/p' gradle/libs.versions.toml > ~/.kotlin_version
+      - run: cat ~/.kotlin_version
+      # We cannot use the Kotlin version in the cache key directly, so we use the checksum of a file
+      # containing it instead.
       - restore_cache:
           name: Restoring Kotlin/Native compiler from cache
-          key: konan-{{ .Environment.CACHE_KEY_OS }}-{{ arch }}-{{ .Environment.CACHE_KEY_KOTLIN_VERSION }}
+          key: konan-{{ arch }}-{{ checksum "~/.kotlin_version" }}
 
 parameters:
   action:
