@@ -57,6 +57,10 @@ parameters:
     default: ''
 
 executors:
+  android202409:
+    docker:
+      - image: cimg/android:2024.09.1
+    resource_class: large
   jdk17:
     docker:
       - image: cimg/openjdk:17.0
@@ -131,7 +135,7 @@ jobs:
       - android/save-gradle-cache
 
   build-libraries-android:
-    executor: jdk17
+    executor: android202409
     steps:
       - checkout
       - android/restore-gradle-cache
@@ -165,7 +169,7 @@ jobs:
       - android/save-gradle-cache
 
   build-sample-android:
-    executor: jdk17
+    executor: android202409
     steps:
       - checkout
       - android/restore-gradle-cache
@@ -191,7 +195,7 @@ jobs:
       - android/save-gradle-cache
 
   public-api-tests-android:
-    executor: jdk17
+    executor: android202409
     steps:
       - checkout
       - android/restore-gradle-cache
@@ -221,7 +225,7 @@ jobs:
       - android/save-gradle-cache
 
   unit-tests-android:
-    executor: jdk17
+    executor: android202409
     steps:
       - checkout
       - android/restore-gradle-cache
