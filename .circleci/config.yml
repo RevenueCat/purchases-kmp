@@ -217,6 +217,9 @@ jobs:
     steps:
       - checkout
       - android/restore-gradle-cache
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - install-cocoapods-on-macos
       - run:
           name: Test public API for iOS
           command: |
