@@ -194,7 +194,7 @@ jobs:
       - run:
           name: Build sample app for iOS
           # This builds the composeApp Gradle module as a Run Script build phase.
-          command: xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme iosApp
+          command: xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme iosApp -configuration Debug
       - android/save-gradle-cache
 
   public-api-tests-android:
