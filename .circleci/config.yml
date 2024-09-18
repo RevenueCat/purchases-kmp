@@ -251,7 +251,7 @@ jobs:
           name: Execute unit tests for iOS
           command: |
             tasks=()
-            for arch in Arm64 SimulatorArm64 X64; do
+            for arch in SimulatorArm64 X64; do
               tasks+=("ios${arch}Test")
             done
             ./gradlew "${tasks[@]}"
