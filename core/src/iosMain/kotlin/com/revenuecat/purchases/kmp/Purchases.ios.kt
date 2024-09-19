@@ -119,7 +119,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
     public actual var delegate: PurchasesDelegate?
         get() = iosPurchases.delegate()?.toPurchasesDelegate()
-        set(value) = iosPurchases.setDelegate(value?.toRcPurchasesDelegate())
+        set(value) = iosPurchases.setDelegate(value.toRcPurchasesDelegate())
 
     public actual val isAnonymous: Boolean
         get() = iosPurchases.isAnonymous()
