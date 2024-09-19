@@ -199,11 +199,11 @@ jobs:
           # This builds the composeApp Gradle module as a Run Script build phase.
           command: >
             xcodebuild
-              -workspace iosApp/iosApp.xcworkspace
-              -scheme iosApp
-              -configuration Debug
-              -allowProvisioningDeviceRegistration
-              -allowProvisioningUpdates
+            -workspace iosApp/iosApp.xcworkspace
+            -scheme iosApp
+            -configuration Debug
+            -allowProvisioningDeviceRegistration
+            -allowProvisioningUpdates
       - android/save-gradle-cache
 
   public-api-tests-android:
