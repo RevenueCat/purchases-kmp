@@ -204,7 +204,8 @@ jobs:
             -configuration Debug
             -allowProvisioningDeviceRegistration
             -allowProvisioningUpdates
-            CODE_SIGNING_REQUIRED=NO
+            -destination 'platform=iOS Simulator,OS=17.5,name=iPhone 15'
+            CODE_SIGNING_ALLOWED=NO
       - android/save-gradle-cache
 
   public-api-tests-android:
