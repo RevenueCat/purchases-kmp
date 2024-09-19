@@ -204,6 +204,7 @@ jobs:
             -configuration Debug
             -allowProvisioningDeviceRegistration
             -allowProvisioningUpdates
+            CODE_SIGNING_REQUIRED=NO
       - android/save-gradle-cache
 
   public-api-tests-android:
