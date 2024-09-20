@@ -1,6 +1,7 @@
 package com.revenuecat.purchases.kmp
 
 import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
+import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.configureWithAPIKey
 import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
@@ -117,9 +118,18 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual val appUserID: String
         get() = iosPurchases.appUserID()
 
+    /**
+     * Making sure we keep a strong reference to our delegate wrapper, as iosPurchases only keeps
+     * a weak one. This avoids the wrapper from being deallocated the first chance it gets. This
+     * behavior matches the Android platform behavior.
+     */
+    private var _delegateWrapper: RCPurchasesDelegateProtocol? = null
     public actual var delegate: PurchasesDelegate?
         get() = iosPurchases.delegate()?.toPurchasesDelegate()
-        set(value) = iosPurchases.setDelegate(value.toRcPurchasesDelegate())
+        set(value) {
+            _delegateWrapper = value.toRcPurchasesDelegate()
+            iosPurchases.setDelegate(_delegateWrapper)
+        }
 
     public actual val isAnonymous: Boolean
         get() = iosPurchases.isAnonymous()
