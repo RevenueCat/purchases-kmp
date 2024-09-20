@@ -15,8 +15,8 @@ import platform.darwin.NSObject
 internal fun RCPurchasesDelegateProtocol.toPurchasesDelegate(): PurchasesDelegate =
     (this as PurchasesDelegateWrapper).wrapped
 
-internal fun PurchasesDelegate.toRcPurchasesDelegate(): RCPurchasesDelegateProtocol =
-    PurchasesDelegateWrapper(this)
+internal fun PurchasesDelegate?.toRcPurchasesDelegate(): RCPurchasesDelegateProtocol? =
+    this?.let { PurchasesDelegateWrapper(it) }
 
 private class PurchasesDelegateWrapper(val wrapped: PurchasesDelegate) :
     RCPurchasesDelegateProtocol,
