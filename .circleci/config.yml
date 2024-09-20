@@ -75,7 +75,11 @@ commands:
           name: Save incremental Gradle build to workspace
           # root: ~/project/
           root: ./
-          paths: "**/build"
+          paths: 
+            # This doesn't support directory glob patterns (**), unfortunately.
+            - build
+            - ./*/build
+            - ./*/*/build
 
   attach-workspace-at-working-directory:
     steps:
