@@ -226,8 +226,12 @@ jobs:
       - install-cocoapods-on-macos
       - run:
           name: Build sample app for iOS
-          # This builds the composeApp Gradle module as a Run Script build phase.
-          command: xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme iosApp -configuration Debug -allowProvisioningUpdates
+          command: |
+            tasks=()
+            for arch in Arm64 SimulatorArm64 X64; do
+              tasks+=(":composeApp:compileKotlinIos$arch")
+            done
+            ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
       - save-kotlin-native-compiler-to-cache
 
