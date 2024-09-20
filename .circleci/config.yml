@@ -75,7 +75,7 @@ commands:
           name: Save incremental Gradle build to workspace
           # root: ~/project/
           root: ./
-          paths: \**/build
+          paths: "**/build"
 
   attach-workspace-at-working-directory:
     steps:
