@@ -340,7 +340,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     }
 
     public actual fun close() {
-        iosPurchases.setDelegate(null)
+        delegate = null
     }
 
     public actual fun getCustomerInfo(
