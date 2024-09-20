@@ -107,6 +107,10 @@ public expect class Purchases {
     /**
      * The delegate is responsible for handling promotional product purchases (App Store only) and
      * changes to customer information.
+     *
+     * **Note:** If your delegate is not a singleton, make sure you set this back to null when
+     * you're done to avoid memory leaks. For instance, if your delegate is tied to a screen, set
+     * this to null when the user navigates away from the screen.
      */
     public var delegate: PurchasesDelegate?
 
