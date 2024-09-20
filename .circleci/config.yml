@@ -76,6 +76,7 @@ commands:
           # root: ~/project/
           root: ./
           paths: 
+            - .gradle
             # This doesn't support directory glob patterns (**), unfortunately.
             - build
             - ./*/build
