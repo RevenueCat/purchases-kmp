@@ -417,9 +417,9 @@ workflows:
       - unit-tests-ios:
           requires: [build-libraries-ios]
       - validate-binary-compatibility:
-          requires: 
-            - build-libraries-android
-            - build-libraries-ios
+          # This would benefit from the incremental build output of build-libraries-android
+          # too, but merging 2 workspaces is not possible.
+          requires: [build-libraries-ios]
 
   on-main-branch:
     when:
@@ -482,9 +482,9 @@ workflows:
       - unit-tests-ios:
           requires: [build-libraries-ios]
       - validate-binary-compatibility:
-          requires: 
-            - build-libraries-android
-            - build-libraries-ios
+          # This would benefit from the incremental build output of build-libraries-android
+          # too, but merging 2 workspaces is not possible.
+          requires: [build-libraries-ios]
       - hold:
           type: approval
           requires:
