@@ -197,6 +197,7 @@ jobs:
       - run: which env || echo "env not found"
       - run: which pod || echo "pod not found"
       - run: which ruby || echo "ruby not found"
+      - run: env pod install
       - run:
           name: Build sample app for iOS
           # This builds the composeApp Gradle module as a Run Script build phase.
