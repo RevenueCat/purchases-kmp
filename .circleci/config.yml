@@ -69,6 +69,20 @@ commands:
           name: Restoring Kotlin/Native compiler from cache
           key: konan-{{ arch }}-{{ checksum "~/.kotlin_version" }}
 
+  save-incremental-gradle-build-to-workspace:
+    steps:
+      - persist_to_workspace:
+          name: Save incremental Gradle build to workspace
+          # root: ~/project/
+          root: ./
+          paths: \**/build
+
+  attach-workspace-at-working-directory:
+    steps:
+      - attach_workspace:
+          name: Attach workspace at working directory
+          at: ./
+
 parameters:
   action:
     type: enum
@@ -155,17 +169,20 @@ jobs:
       - checkout
       - android/restore-gradle-cache
       - restore-kotlin-native-compiler-from-cache
+      - attach-workspace-at-working-directory
       - run:
           name: Validate binary compatibility
           command: ./gradlew apiCheck
       - android/save-gradle-cache
       - save-kotlin-native-compiler-to-cache
+      - save-incremental-gradle-build-to-workspace
 
   build-libraries-android:
     executor: android202409
     steps:
       - checkout
       - android/restore-gradle-cache
+      - attach-workspace-at-working-directory
       - run:
           name: Build libraries for Android
           command: |
@@ -177,6 +194,7 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
+      - save-incremental-gradle-build-to-workspace
 
   build-libraries-ios:
     executor: xcode15
@@ -184,6 +202,7 @@ jobs:
       - checkout
       - android/restore-gradle-cache
       - restore-kotlin-native-compiler-from-cache
+      - attach-workspace-at-working-directory
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - install-cocoapods-on-macos
@@ -199,12 +218,14 @@ jobs:
             ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
       - save-kotlin-native-compiler-to-cache
+      - save-incremental-gradle-build-to-workspace
 
   build-sample-android:
     executor: android202409
     steps:
       - checkout
       - android/restore-gradle-cache
+      - attach-workspace-at-working-directory
       - run:
           name: Build sample app for Android
           command: |
@@ -214,6 +235,7 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
+      - save-incremental-gradle-build-to-workspace
 
   build-sample-ios:
     executor: xcode15
@@ -221,6 +243,7 @@ jobs:
       - checkout
       - android/restore-gradle-cache
       - restore-kotlin-native-compiler-from-cache
+      - attach-workspace-at-working-directory
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - install-cocoapods-on-macos
@@ -234,12 +257,14 @@ jobs:
             ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
       - save-kotlin-native-compiler-to-cache
+      - save-incremental-gradle-build-to-workspace
 
   public-api-tests-android:
     executor: android202409
     steps:
       - checkout
       - android/restore-gradle-cache
+      - attach-workspace-at-working-directory
       - run:
           name: Test public API for Android
           command: |
@@ -249,6 +274,7 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
+      - save-incremental-gradle-build-to-workspace
 
   public-api-tests-ios:
     executor: xcode15
@@ -256,6 +282,7 @@ jobs:
       - checkout
       - android/restore-gradle-cache
       - restore-kotlin-native-compiler-from-cache
+      - attach-workspace-at-working-directory
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - install-cocoapods-on-macos
@@ -269,12 +296,14 @@ jobs:
             ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
       - save-kotlin-native-compiler-to-cache
+      - save-incremental-gradle-build-to-workspace
 
   unit-tests-android:
     executor: android202409
     steps:
       - checkout
       - android/restore-gradle-cache
+      - attach-workspace-at-working-directory
       - run:
           name: Execute unit tests for Android
           command: |
@@ -284,6 +313,7 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
+      - save-incremental-gradle-build-to-workspace
 
   unit-tests-ios:
     executor: xcode15
@@ -291,6 +321,7 @@ jobs:
       - checkout
       - android/restore-gradle-cache
       - restore-kotlin-native-compiler-from-cache
+      - attach-workspace-at-working-directory
       - run:
           name: Execute unit tests for iOS
           command: |
@@ -301,6 +332,7 @@ jobs:
             ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
       - save-kotlin-native-compiler-to-cache
+      - save-incremental-gradle-build-to-workspace
 
   publish:
     description: "Publishes the SDK, either a SNAPSHOT or release version."
@@ -316,7 +348,6 @@ jobs:
           cache-version: v1
       - install-cocoapods-on-macos
       - android/restore-gradle-cache
-      - android/restore-build-cache
       - restore-kotlin-native-compiler-from-cache
       - when:
           condition: << parameters.snapshot >>
@@ -331,7 +362,6 @@ jobs:
                 name: "Publish release to Maven Central"
                 command: bundle exec fastlane publish_if_release
       - android/save-gradle-cache
-      - android/save-build-cache
       - save-kotlin-native-compiler-to-cache
 
   create-github-release:
