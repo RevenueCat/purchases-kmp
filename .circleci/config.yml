@@ -237,7 +237,7 @@ jobs:
             for buildType in Debug Release; do
               tasks+=(":composeApp:compile${buildType}KotlinAndroid")
             done
-            ./gradlew "${tasks[@]}"
+            ./gradlew "${tasks[@]}" --info
       - android/save-gradle-cache
       - save-incremental-gradle-build-to-workspace
 
@@ -258,7 +258,7 @@ jobs:
             for arch in Arm64 SimulatorArm64 X64; do
               tasks+=(":composeApp:compileKotlinIos$arch")
             done
-            ./gradlew "${tasks[@]}"
+            ./gradlew "${tasks[@]}" --info
       - android/save-gradle-cache
       - save-kotlin-native-compiler-to-cache
       - save-incremental-gradle-build-to-workspace
