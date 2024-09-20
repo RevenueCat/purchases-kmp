@@ -57,6 +57,10 @@ parameters:
     default: ''
 
 executors:
+  android202409:
+    docker:
+      - image: cimg/android:2024.09.1
+    resource_class: large
   jdk17:
     docker:
       - image: cimg/openjdk:17.0
@@ -130,40 +134,137 @@ jobs:
           command: ./gradlew apiCheck
       - android/save-gradle-cache
 
-  test-public-api:
-    executor: xcode15
+  build-libraries-android:
+    executor: android202409
     steps:
-      - install-android-sdk-on-macos
       - checkout
       - android/restore-gradle-cache
       - run:
-          name: Test public API
-          command: ./gradlew :apiTester:assemble
+          name: Build libraries for Android
+          command: |
+            tasks=()
+            for module in core revenuecatui datetime either result; do
+              for buildType in Debug Release; do
+                tasks+=(":$module:compile${buildType}KotlinAndroid")
+              done
+            done
+            ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
 
-  unit-tests:
+  build-libraries-ios:
     executor: xcode15
     steps:
-      - install-android-sdk-on-macos
       - checkout
       - android/restore-gradle-cache
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - install-cocoapods-on-macos
       - run:
-          name: Execute unit tests
-          command: ./gradlew allTests
+          name: Build libraries for iOS
+          command: |
+            tasks=()
+            for module in core revenuecatui datetime either result; do
+              for arch in Arm64 SimulatorArm64 X64; do
+                tasks+=(":$module:compileKotlinIos$arch")
+              done
+            done
+            ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
 
-  build:
-    executor: xcode15
+  build-sample-android:
+    executor: android202409
     steps:
-      - install-android-sdk-on-macos
       - checkout
       - android/restore-gradle-cache
       - run:
-          name: Build libraries
-          command: ./gradlew assemble -x :composeApp:assemble
+          name: Build sample app for Android
+          command: |
+            tasks=()
+            for buildType in Debug Release; do
+              tasks+=(":composeApp:compile${buildType}KotlinAndroid")
+            done
+            ./gradlew "${tasks[@]}"
+      - android/save-gradle-cache
+
+  build-sample-ios:
+    executor: xcode15
+    steps:
+      - checkout
+      - android/restore-gradle-cache
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - install-cocoapods-on-macos
       - run:
-          name: Build sample
-          command: ./gradlew :composeApp:assembleDebug
+          name: Build sample app for iOS
+          command: |
+            tasks=()
+            for arch in Arm64 SimulatorArm64 X64; do
+              tasks+=(":composeApp:compileKotlinIos$arch")
+            done
+            ./gradlew "${tasks[@]}"
+      - android/save-gradle-cache
+
+  public-api-tests-android:
+    executor: android202409
+    steps:
+      - checkout
+      - android/restore-gradle-cache
+      - run:
+          name: Test public API for Android
+          command: |
+            tasks=()
+            for buildType in Debug Release; do
+              tasks+=(":apiTester:compile${buildType}KotlinAndroid")
+            done
+            ./gradlew "${tasks[@]}"
+      - android/save-gradle-cache
+
+  public-api-tests-ios:
+    executor: xcode15
+    steps:
+      - checkout
+      - android/restore-gradle-cache
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - install-cocoapods-on-macos
+      - run:
+          name: Test public API for iOS
+          command: |
+            tasks=()
+            for arch in Arm64 SimulatorArm64 X64; do
+              tasks+=(":apiTester:compileKotlinIos$arch")
+            done
+            ./gradlew "${tasks[@]}"
+      - android/save-gradle-cache
+
+  unit-tests-android:
+    executor: android202409
+    steps:
+      - checkout
+      - android/restore-gradle-cache
+      - run:
+          name: Execute unit tests for Android
+          command: |
+            tasks=()
+            for buildType in Debug Release; do
+              tasks+=("test${buildType}UnitTest")
+            done
+            ./gradlew "${tasks[@]}"
+      - android/save-gradle-cache
+
+  unit-tests-ios:
+    executor: xcode15
+    steps:
+      - checkout
+      - android/restore-gradle-cache
+      - run:
+          name: Execute unit tests for iOS
+          command: |
+            tasks=()
+            for arch in SimulatorArm64 X64; do
+              tasks+=("ios${arch}Test")
+            done
+            ./gradlew "${tasks[@]}"
       - android/save-gradle-cache
 
   publish:
@@ -229,15 +330,24 @@ workflows:
       - revenuecat/danger:
           context: danger-bot
       - detekt
-      - validate-binary-compatibility
-      - test-public-api
-      - unit-tests
-      - build:
-          requires:
-            - detekt
-            - validate-binary-compatibility
-            - test-public-api
-            - unit-tests
+      - build-libraries-android
+      - build-libraries-ios
+      - build-sample-android:
+          requires: [build-libraries-android]
+      - build-sample-ios:
+          requires: [build-libraries-ios]
+      - public-api-tests-android:
+          requires: [build-libraries-android]
+      - public-api-tests-ios:
+          requires: [build-libraries-ios]
+      - unit-tests-android:
+          requires: [build-libraries-android]
+      - unit-tests-ios:
+          requires: [build-libraries-ios]
+      - validate-binary-compatibility:
+          requires: 
+            - build-libraries-android
+            - build-libraries-ios
 
   on-main-branch:
     when:
@@ -285,15 +395,24 @@ workflows:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
       - detekt
-      - validate-binary-compatibility
-      - test-public-api
-      - unit-tests
-      - build:
-          requires:
-            - detekt
-            - validate-binary-compatibility
-            - test-public-api
-            - unit-tests
+      - build-libraries-android
+      - build-libraries-ios
+      - build-sample-android:
+          requires: [build-libraries-android]
+      - build-sample-ios:
+          requires: [build-libraries-ios]
+      - public-api-tests-android:
+          requires: [build-libraries-android]
+      - public-api-tests-ios:
+          requires: [build-libraries-ios]
+      - unit-tests-android:
+          requires: [build-libraries-android]
+      - unit-tests-ios:
+          requires: [build-libraries-ios]
+      - validate-binary-compatibility:
+          requires: 
+            - build-libraries-android
+            - build-libraries-ios
       - hold:
           type: approval
           requires:
