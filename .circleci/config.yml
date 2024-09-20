@@ -49,7 +49,6 @@ commands:
       - run:
           name: Get the Kotlin version
           command: sed -nE 's/^kotlin = "([^"]+)".*/\1/p' gradle/libs.versions.toml > ~/.kotlin_version
-      - run: cat ~/.kotlin_version
       # We cannot use the Kotlin version in the cache key directly, so we use the checksum of a file
       # containing it instead.
       - save_cache:
@@ -62,7 +61,6 @@ commands:
       - run:
           name: Get the Kotlin version
           command: sed -nE 's/^kotlin = "([^"]+)".*/\1/p' gradle/libs.versions.toml > ~/.kotlin_version
-      - run: cat ~/.kotlin_version
       # We cannot use the Kotlin version in the cache key directly, so we use the checksum of a file
       # containing it instead.
       - restore_cache:
