@@ -141,6 +141,17 @@ jobs:
           command: ./gradlew :apiTester:assemble
       - android/save-gradle-cache
 
+  unit-tests:
+    executor: xcode15
+    steps:
+      - install-android-sdk-on-macos
+      - checkout
+      - android/restore-gradle-cache
+      - run:
+          name: Execute unit tests
+          command: ./gradlew allTests
+      - android/save-gradle-cache
+
   build:
     executor: xcode15
     steps:
@@ -198,11 +209,6 @@ jobs:
           command: bundle exec fastlane github_release_current_version
 
 workflows:
-  danger:
-    jobs:
-      - revenuecat/danger:
-          context: danger-bot
-
   on-action-upgrade-hybrid-common:
     when:
       equal: [ upgrade-hybrid-common, << pipeline.parameters.action >> ]
@@ -211,6 +217,27 @@ workflows:
           context:
             - git-user-ops
             - github-bot-public
+
+  # This workflow runs for any commit to main, as well as for any other
+  # branch with an open PR. This is controlled by the "Only build pull requests"
+  # setting on CircleCI. 
+  on-any-branch:
+    when:
+      not:
+        equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+    jobs:
+      - revenuecat/danger:
+          context: danger-bot
+      - detekt
+      - validate-binary-compatibility
+      - test-public-api
+      - unit-tests
+      - build:
+          requires:
+            - detekt
+            - validate-binary-compatibility
+            - test-public-api
+            - unit-tests
 
   on-main-branch:
     when:
@@ -260,11 +287,13 @@ workflows:
       - detekt
       - validate-binary-compatibility
       - test-public-api
+      - unit-tests
       - build:
           requires:
             - detekt
             - validate-binary-compatibility
             - test-public-api
+            - unit-tests
       - hold:
           type: approval
           requires:
