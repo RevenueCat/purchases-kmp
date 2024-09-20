@@ -198,7 +198,7 @@ jobs:
       - run: which pod || echo "pod not found"
       - run: which ruby || echo "ruby not found"
       - run: cd iosApp && env pod install
-      # Try this later - run: ./gradlew :core:podBuildPurchasesHybridCommonIphonesimulator :models:podBuildPurchasesHybridCommonIphonesimulator :mappings:podBuildPurchasesHybridCommonIphonesimulator :revenuecatui:podBuildPurchasesHybridCommonUIIphonesimulator
+      - run: ./gradlew :core:podBuildPurchasesHybridCommonIphonesimulator :models:podBuildPurchasesHybridCommonIphonesimulator :mappings:podBuildPurchasesHybridCommonIphonesimulator :revenuecatui:podBuildPurchasesHybridCommonUIIphonesimulator
       - run:
           name: Build sample app for iOS
           # This builds the composeApp Gradle module as a Run Script build phase.
@@ -209,7 +209,7 @@ jobs:
             -configuration Debug
             OBJROOT=build/ios
             SYMROOT=build/ios
-            -sdk iphonesimulator
+            -destination 'platform=iOS Simulator,OS=17.5,name=iPhone 15'
             -allowProvisioningDeviceRegistration
             -allowProvisioningUpdates
             CODE_SIGNING_ALLOWED=NO
