@@ -194,7 +194,6 @@ jobs:
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - install-cocoapods-on-macos
-      # - run: cd iosApp && env pod install
       - run:
           name: Build sample app for iOS
           command: |
@@ -335,8 +334,8 @@ workflows:
       - build-libraries-ios
       - build-sample-android:
           requires: [build-libraries-android]
-      - build-sample-ios
-          # TODO REENABLE requires: [build-libraries-ios]
+      - build-sample-ios:
+          requires: [build-libraries-ios]
       - public-api-tests-android:
           requires: [build-libraries-android]
       - public-api-tests-ios:
