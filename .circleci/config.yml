@@ -205,9 +205,11 @@ jobs:
             -workspace iosApp/iosApp.xcworkspace
             -scheme iosApp
             -configuration Debug
+            OBJROOT=build/ios
+            SYMROOT=build/ios
+            -destination 'platform=iOS Simulator,OS=17.5,name=iPhone 15'
             -allowProvisioningDeviceRegistration
             -allowProvisioningUpdates
-            -destination 'platform=iOS Simulator,OS=17.5,name=iPhone 15'
             CODE_SIGNING_ALLOWED=NO
       - android/save-gradle-cache
 
@@ -341,8 +343,8 @@ workflows:
       - build-libraries-ios
       - build-sample-android:
           requires: [build-libraries-android]
-      - build-sample-ios:
-          requires: [build-libraries-ios]
+      - build-sample-ios
+          # TODO REENABLE requires: [build-libraries-ios]
       - public-api-tests-android:
           requires: [build-libraries-android]
       - public-api-tests-ios:
