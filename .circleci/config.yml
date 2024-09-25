@@ -67,6 +67,33 @@ commands:
           name: Restoring Kotlin/Native compiler from cache
           key: konan-{{ arch }}-{{ checksum "~/.kotlin_version" }}
 
+  save-gradle-user-home-directory-to-cache:
+    steps:
+      - android/save-gradle-cache
+
+  restore-gradle-user-home-directory-from-cache:
+    steps:
+      - android/restore-gradle-cache:
+          find-args: . -name "*.gradle.kts" -o -name "*.versions.toml" -o -name "gradle-wrapper.properties"
+
+  save-incremental-gradle-build-to-workspace:
+    steps:
+      - persist_to_workspace:
+          name: Save incremental Gradle build to workspace
+          root: ./
+          paths: 
+            - .gradle
+            # This doesn't support directory glob patterns (**), unfortunately.
+            - build
+            - ./*/build
+            - ./*/*/build
+
+  attach-workspace-at-working-directory:
+    steps:
+      - attach_workspace:
+          name: Attach workspace at working directory
+          at: ./
+
 parameters:
   action:
     type: enum
@@ -134,11 +161,11 @@ jobs:
     executor: jdk17
     steps:
       - checkout
-      - android/restore-gradle-cache
+      - restore-gradle-user-home-directory-from-cache
       - run:
           name: Run Detekt on commonMain
           command: ./gradlew detektCommonMain
-      - android/save-gradle-cache
+      - save-gradle-user-home-directory-to-cache
       - run:
           name: Collect Detekt HTML reports
           command: mkdir -p artifacts/detekt && mv build/reports/detekt/*.html artifacts/detekt/
@@ -151,19 +178,22 @@ jobs:
     steps:
       - install-android-sdk-on-macos
       - checkout
-      - android/restore-gradle-cache
+      - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
+      - attach-workspace-at-working-directory
       - run:
           name: Validate binary compatibility
           command: ./gradlew apiCheck
-      - android/save-gradle-cache
+      - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
+      - save-incremental-gradle-build-to-workspace
 
   build-libraries-android:
     executor: android202409
     steps:
       - checkout
-      - android/restore-gradle-cache
+      - restore-gradle-user-home-directory-from-cache
+      - attach-workspace-at-working-directory
       - run:
           name: Build libraries for Android
           command: |
@@ -174,14 +204,16 @@ jobs:
               done
             done
             ./gradlew "${tasks[@]}"
-      - android/save-gradle-cache
+      - save-gradle-user-home-directory-to-cache
+      - save-incremental-gradle-build-to-workspace
 
   build-libraries-ios:
     executor: xcode15
     steps:
       - checkout
-      - android/restore-gradle-cache
+      - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
+      - attach-workspace-at-working-directory
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - install-cocoapods-on-macos
@@ -195,14 +227,16 @@ jobs:
               done
             done
             ./gradlew "${tasks[@]}"
-      - android/save-gradle-cache
+      - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
+      - save-incremental-gradle-build-to-workspace
 
   build-sample-android:
     executor: android202409
     steps:
       - checkout
-      - android/restore-gradle-cache
+      - restore-gradle-user-home-directory-from-cache
+      - attach-workspace-at-working-directory
       - run:
           name: Build sample app for Android
           command: |
@@ -211,14 +245,16 @@ jobs:
               tasks+=(":composeApp:compile${buildType}KotlinAndroid")
             done
             ./gradlew "${tasks[@]}"
-      - android/save-gradle-cache
+      - save-gradle-user-home-directory-to-cache
+      - save-incremental-gradle-build-to-workspace
 
   build-sample-ios:
     executor: xcode15
     steps:
       - checkout
-      - android/restore-gradle-cache
+      - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
+      - attach-workspace-at-working-directory
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - install-cocoapods-on-macos
@@ -230,14 +266,16 @@ jobs:
               tasks+=(":composeApp:compileKotlinIos$arch")
             done
             ./gradlew "${tasks[@]}"
-      - android/save-gradle-cache
+      - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
+      - save-incremental-gradle-build-to-workspace
 
   public-api-tests-android:
     executor: android202409
     steps:
       - checkout
-      - android/restore-gradle-cache
+      - restore-gradle-user-home-directory-from-cache
+      - attach-workspace-at-working-directory
       - run:
           name: Test public API for Android
           command: |
@@ -246,14 +284,16 @@ jobs:
               tasks+=(":apiTester:compile${buildType}KotlinAndroid")
             done
             ./gradlew "${tasks[@]}"
-      - android/save-gradle-cache
+      - save-gradle-user-home-directory-to-cache
+      - save-incremental-gradle-build-to-workspace
 
   public-api-tests-ios:
     executor: xcode15
     steps:
       - checkout
-      - android/restore-gradle-cache
+      - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
+      - attach-workspace-at-working-directory
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - install-cocoapods-on-macos
@@ -265,14 +305,16 @@ jobs:
               tasks+=(":apiTester:compileKotlinIos$arch")
             done
             ./gradlew "${tasks[@]}"
-      - android/save-gradle-cache
+      - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
+      - save-incremental-gradle-build-to-workspace
 
   unit-tests-android:
     executor: android202409
     steps:
       - checkout
-      - android/restore-gradle-cache
+      - restore-gradle-user-home-directory-from-cache
+      - attach-workspace-at-working-directory
       - run:
           name: Execute unit tests for Android
           command: |
@@ -281,14 +323,16 @@ jobs:
               tasks+=("test${buildType}UnitTest")
             done
             ./gradlew "${tasks[@]}"
-      - android/save-gradle-cache
+      - save-gradle-user-home-directory-to-cache
+      - save-incremental-gradle-build-to-workspace
 
   unit-tests-ios:
     executor: xcode15
     steps:
       - checkout
-      - android/restore-gradle-cache
+      - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
+      - attach-workspace-at-working-directory
       - run:
           name: Execute unit tests for iOS
           command: |
@@ -297,8 +341,9 @@ jobs:
               tasks+=("ios${arch}Test")
             done
             ./gradlew "${tasks[@]}"
-      - android/save-gradle-cache
+      - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
+      - save-incremental-gradle-build-to-workspace
 
   publish:
     description: "Publishes the SDK, either a SNAPSHOT or release version."
@@ -313,8 +358,7 @@ jobs:
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - install-cocoapods-on-macos
-      - android/restore-gradle-cache
-      - android/restore-build-cache
+      - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - when:
           condition: << parameters.snapshot >>
@@ -328,8 +372,7 @@ jobs:
             - run:
                 name: "Publish release to Maven Central"
                 command: bundle exec fastlane publish_if_release
-      - android/save-gradle-cache
-      - android/save-build-cache
+      - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
 
   create-github-release:
@@ -380,9 +423,9 @@ workflows:
       - unit-tests-ios:
           requires: [build-libraries-ios]
       - validate-binary-compatibility:
-          requires: 
-            - build-libraries-android
-            - build-libraries-ios
+          # This would benefit from the incremental build output of build-libraries-android
+          # too, but merging 2 workspaces is not possible.
+          requires: [build-libraries-ios]
 
   on-main-branch:
     when:
@@ -445,9 +488,9 @@ workflows:
       - unit-tests-ios:
           requires: [build-libraries-ios]
       - validate-binary-compatibility:
-          requires: 
-            - build-libraries-android
-            - build-libraries-ios
+          # This would benefit from the incremental build output of build-libraries-android
+          # too, but merging 2 workspaces is not possible.
+          requires: [build-libraries-ios]
       - hold:
           type: approval
           requires:
