@@ -494,7 +494,14 @@ workflows:
       - hold:
           type: approval
           requires:
-            - build
+            - detekt
+            - build-sample-android
+            - build-sample-ios
+            - public-api-tests-android
+            - public-api-tests-ios
+            - unit-tests-android
+            - unit-tests-ios
+            - validate-binary-compatibility
       - revenuecat/tag-current-branch:
           requires:
             - hold
