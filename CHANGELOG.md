@@ -1,5 +1,9 @@
 ## 1.1.0+13.3.0
 ## RevenueCat SDK
+
+> [!NOTE]
+> It is now possible to integrate `PurchasesHyridCommon[UI]` using Swift Package Manager! Use this URL: https://github.com/RevenueCat/purchases-hybrid-common/
+
 ### 🐞 Bugfixes
 * Fixes the PurchasesDelegate being deallocated on iOS (#214) via JayShortway (@JayShortway)
 ### 📦 Dependency Updates
