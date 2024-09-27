@@ -11,4 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: reviewdog/action-actionlint@v1
+      - name: Enable the actionlint matcher
+        run: echo "::add-matcher::.github/actionlint-matcher.json"
+      - name: Lint GitHub Actions workflows
+        uses: docker://rhysd/actionlint:latest
+        with:
+          args: -color
