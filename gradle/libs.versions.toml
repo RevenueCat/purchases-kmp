@@ -7,7 +7,7 @@ ios-deploymentTarget = "13.0"
 java = "1.8"
 kotlin = "1.9.23"
 revenuecat-common = "13.3.0"
-revenuecat-kmp = "1.1.0+13.3.0"
+revenuecat-kmp = "1.2.0-SNAPSHOT"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
