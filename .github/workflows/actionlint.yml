@@ -1,7 +1,8 @@
 name: Lint GitHub Actions workflows
 on: 
   push:
-    tags: ['^[0-9]+\\.[0-9]+\\.[0-9]+(?!.*-SNAPSHOT).*$]
+    branches: [main]
+    paths: ['.github/workflows/**']
   pull_request:
     paths: ['.github/workflows/**']
 
