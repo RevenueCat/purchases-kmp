@@ -349,7 +349,6 @@ DEPENDENCIES
   danger
   fastlane
   fastlane-plugin-revenuecat_internal!
-  ffi
   rb-readline
 
 BUNDLED WITH
