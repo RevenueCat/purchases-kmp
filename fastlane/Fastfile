@@ -149,7 +149,7 @@ lane :publish_if_snapshot do |options|
   if version.end_with?("-SNAPSHOT")
     publish
   else
-    UI.verbose!("The current version '#{version}' is not a SNAPSHOT version, so nothing will be published.")
+    UI.verbose("The current version '#{version}' is not a SNAPSHOT version, so nothing will be published.")
   end
 end
 
