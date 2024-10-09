@@ -8,6 +8,14 @@ plugins {
     alias(libs.plugins.codingfeline.buildkonfig)
 }
 
+val kotlinVersion = providers.gradleProperty("kotlinVersion").orNull
+    ?: libs.versions.kotlin.get()
+println("TEST kotlinVersion: ${kotlinVersion}")
+
+if (kotlinVersion.split('.').first().toInt() >= 2) {
+    apply(plugin = "org.jetbrains.kotlin.plugin.compose")
+}
+
 kotlin {
     androidTarget {
         compilations.all {

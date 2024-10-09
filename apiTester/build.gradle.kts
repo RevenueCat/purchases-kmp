@@ -4,6 +4,14 @@ plugins {
     alias(libs.plugins.jetbrains.compose)
 }
 
+val kotlinVersion = providers.gradleProperty("kotlinVersion").orNull
+    ?: libs.versions.kotlin.get()
+println("TEST kotlinVersion: ${kotlinVersion}")
+
+if (kotlinVersion.split('.').first().toInt() >= 2) {
+    apply(plugin = "org.jetbrains.kotlin.plugin.compose")
+}
+
 kotlin {
     // Compilation targets:
     androidTarget {

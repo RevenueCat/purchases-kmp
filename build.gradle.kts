@@ -3,7 +3,6 @@
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.MavenPublishPlugin
 import com.vanniktech.maven.publish.SonatypeHost
-import dev.iurysouza.modulegraph.LinkText
 import dev.iurysouza.modulegraph.Orientation
 import io.gitlab.arturbosch.detekt.Detekt
 import org.gradle.configurationcache.extensions.capitalized
@@ -20,6 +19,24 @@ plugins {
     alias(libs.plugins.arturbosch.detekt).apply(false)
     alias(libs.plugins.vanniktech.mavenPublish).apply(false)
     alias(libs.plugins.iurysouza.modulegraph)
+}
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+
+        val kotlinVersion = providers.gradleProperty("kotlinVersion").orNull
+            ?: libs.versions.kotlin.get()
+        println("TEST kotlinVersion: ${kotlinVersion}")
+
+        if (kotlinVersion.split('.').first().toInt() >= 2) {
+            classpath("org.jetbrains.kotlin:compose-compiler-gradle-plugin:$kotlinVersion")
+        }
+
+
+    }
 }
 
 allprojects {

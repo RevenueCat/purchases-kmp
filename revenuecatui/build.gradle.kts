@@ -1,7 +1,20 @@
+import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
+
 plugins {
     id("revenuecat-public-library")
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.kotlin.cocoapods)
+}
+
+println("TEST kotlinPluginVersion: ${getKotlinPluginVersion()}")
+// We should be comparing for 2.0.20 to be precise, but this is good enough for now.
+val kotlinVersion = providers.gradleProperty("kotlinVersion").orNull
+    ?: libs.versions.kotlin.get()
+println("TEST kotlinVersion: ${kotlinVersion}")
+
+if (kotlinVersion.split('.').first().toInt() >= 2) {
+    error("TEST")
+    apply(plugin = "org.jetbrains.kotlin.plugin.compose")
 }
 
 kotlin {
