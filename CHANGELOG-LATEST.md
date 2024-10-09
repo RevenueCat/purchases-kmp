@@ -1,17 +1,13 @@
 ## RevenueCat SDK
-
-> [!NOTE]
-> It is now possible to integrate `PurchasesHyridCommon[UI]` using Swift Package Manager! Use this URL: https://github.com/RevenueCat/purchases-hybrid-common/
-
-### 🐞 Bugfixes
-* Fixes the PurchasesDelegate being deallocated on iOS (#214) via JayShortway (@JayShortway)
 ### 📦 Dependency Updates
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 13.3.0 (#218) via RevenueCat Git Bot (@RCGitBot)
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 13.4.0 (#230) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 8.8.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.8.0)
+  * [iOS 5.4.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.4.0)
+* Bump fastlane from 2.223.0 to 2.223.1 (#229) via dependabot[bot] (@dependabot[bot])
+* Bump fastlane from 2.222.0 to 2.223.0 (#225) via dependabot[bot] (@dependabot[bot])
 
 ### 🔄 Other Changes
-* Updates Fastlane plugin to 5b2e35c6985e02b5911c53ebe4d071e742e03ccc (#221) via JayShortway (@JayShortway)
-* Fixes requirements of the hold job. (#220) via JayShortway (@JayShortway)
-* Enables incremental builds per workflow. (#215) via JayShortway (@JayShortway)
-* Saves and restores the Kotlin/Native compiler on CI (#210) via JayShortway (@JayShortway)
-* Parallelizes CI jobs by platform (#209) via JayShortway (@JayShortway)
-* Migrate GitHub Actions to CircleCI (#207) via JayShortway (@JayShortway)
+* Update fastlane plugin (#232) via Toni Rico (@tonidero)
+* Adds actionlint to lint GitHub Actions workflows (#227) via JayShortway (@JayShortway)
+* Attempts to fix the on_release_tag workflow to allow publishing the API reference site (#228) via JayShortway (@JayShortway)
+* Skips publishing SNAPSHOT if the current version is not a SNAPSHOT. (#226) via JayShortway (@JayShortway)
