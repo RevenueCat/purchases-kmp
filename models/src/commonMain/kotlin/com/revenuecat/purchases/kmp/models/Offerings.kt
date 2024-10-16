@@ -16,7 +16,7 @@ public class Offerings(
     public val current: Offering?,
 
     /**
-     * An implementation to retrieves a specific offering by placement identifier.
+     * An implementation to retrieve a specific offering by placement identifier.
      */
     private val getCurrentOfferingForPlacement: (placementId: String) -> Offering?
 ) {
