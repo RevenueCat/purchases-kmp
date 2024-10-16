@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.mappings
 
+import cocoapods.PurchasesHybridCommon.currentOfferingForPlacement
 import com.revenuecat.purchases.kmp.mappings.ktx.mapEntries
 import com.revenuecat.purchases.kmp.models.Offerings
 import cocoapods.PurchasesHybridCommon.RCOffering as IosOffering
@@ -11,5 +12,7 @@ public fun IosOfferings.toOfferings(): Offerings =
         all = all().mapEntries { (offeringId, offering) ->
             offeringId as String to (offering as IosOffering).toOffering()
         },
-        getCurrentOfferingForPlacement = { TODO() }
+        getCurrentOfferingForPlacement = {
+            currentOfferingForPlacement(it)?.toOffering()
+        }
     )
