@@ -1,3 +1,9 @@
+## 1.1.3+13.5.1
+## RevenueCat SDK
+### 📦 Dependency Updates
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 13.5.1 (#241) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 8.8.1](https://github.com/RevenueCat/purchases-android/releases/tag/8.8.1)
+
 ## 1.1.2+13.5.0
 ## RevenueCat SDK
 ### 📦 Dependency Updates
