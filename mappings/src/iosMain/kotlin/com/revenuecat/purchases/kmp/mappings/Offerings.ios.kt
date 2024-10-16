@@ -2,6 +2,7 @@ package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.mappings.ktx.mapEntries
 import com.revenuecat.purchases.kmp.models.Offerings
+import cocoapods.PurchasesHybridCommon.RCOffering as IosOffering
 import cocoapods.PurchasesHybridCommon.RCOfferings as IosOfferings
 
 public fun IosOfferings.toOfferings(): Offerings =
