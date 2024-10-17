@@ -3,7 +3,7 @@ package com.revenuecat.purchases.kmp.ui.revenuecatui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.interop.UIKitViewController
+import androidx.compose.ui.viewinterop.UIKitViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallFooterViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
 import com.revenuecat.purchases.kmp.mappings.toIosOffering
