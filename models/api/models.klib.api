@@ -212,7 +212,9 @@ final class com.revenuecat.purchases.kmp.models/InstallmentsInfo { // com.revenu
 }
 final class com.revenuecat.purchases.kmp.models/Offerings { // com.revenuecat.purchases.kmp.models/Offerings|null[0]
     constructor <init>(kotlin.collections/Map<kotlin/String, com.revenuecat.purchases.kmp.models/Offering>, com.revenuecat.purchases.kmp.models/Offering?) // com.revenuecat.purchases.kmp.models/Offerings.<init>|<init>(kotlin.collections.Map<kotlin.String,com.revenuecat.purchases.kmp.models.Offering>;com.revenuecat.purchases.kmp.models.Offering?){}[0]
+    constructor <init>(kotlin.collections/Map<kotlin/String, com.revenuecat.purchases.kmp.models/Offering>, com.revenuecat.purchases.kmp.models/Offering?, kotlin/Function1<kotlin/String, com.revenuecat.purchases.kmp.models/Offering?>) // com.revenuecat.purchases.kmp.models/Offerings.<init>|<init>(kotlin.collections.Map<kotlin.String,com.revenuecat.purchases.kmp.models.Offering>;com.revenuecat.purchases.kmp.models.Offering?;kotlin.Function1<kotlin.String,com.revenuecat.purchases.kmp.models.Offering?>){}[0]
     final fun get(kotlin/String): com.revenuecat.purchases.kmp.models/Offering? // com.revenuecat.purchases.kmp.models/Offerings.get|get(kotlin.String){}[0]
+    final fun getCurrentOfferingForPlacement(kotlin/String): com.revenuecat.purchases.kmp.models/Offering? // com.revenuecat.purchases.kmp.models/Offerings.getCurrentOfferingForPlacement|getCurrentOfferingForPlacement(kotlin.String){}[0]
     final fun getOffering(kotlin/String): com.revenuecat.purchases.kmp.models/Offering? // com.revenuecat.purchases.kmp.models/Offerings.getOffering|getOffering(kotlin.String){}[0]
     final val all // com.revenuecat.purchases.kmp.models/Offerings.all|{}all[0]
         final fun <get-all>(): kotlin.collections/Map<kotlin/String, com.revenuecat.purchases.kmp.models/Offering> // com.revenuecat.purchases.kmp.models/Offerings.all.<get-all>|<get-all>(){}[0]

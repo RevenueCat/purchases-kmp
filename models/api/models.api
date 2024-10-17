@@ -150,9 +150,11 @@ public final class com/revenuecat/purchases/kmp/models/Offering$DefaultImpls {
 
 public final class com/revenuecat/purchases/kmp/models/Offerings {
 	public fun <init> (Ljava/util/Map;Lcom/revenuecat/purchases/kmp/models/Offering;)V
+	public fun <init> (Ljava/util/Map;Lcom/revenuecat/purchases/kmp/models/Offering;Lkotlin/jvm/functions/Function1;)V
 	public final fun get (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Offering;
 	public final fun getAll ()Ljava/util/Map;
 	public final fun getCurrent ()Lcom/revenuecat/purchases/kmp/models/Offering;
+	public final fun getCurrentOfferingForPlacement (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Offering;
 	public final fun getOffering (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Offering;
 }
 
