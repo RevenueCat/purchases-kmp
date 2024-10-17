@@ -6,7 +6,7 @@ android-targetSdk = "34"
 ios-deploymentTarget = "13.0"
 java = "1.8"
 kotlin = "1.9.23"
-revenuecat-common = "13.5.1"
+revenuecat-common = "13.6.0"
 revenuecat-kmp = "1.2.0-SNAPSHOT"
 
 [libraries]
