@@ -1,6 +1,5 @@
 package com.revenuecat.purchases.kmp.ui.revenuecatui
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,7 +35,6 @@ public actual fun PaywallFooter(
                 .clip(
                     RoundedCornerShape(topStart = DefaultCornerRadius, topEnd = DefaultCornerRadius)
                 )
-                .animateContentSize()
                 .height(height),
             onHeightChange = { newHeight -> height = newHeight.dp }
         )
