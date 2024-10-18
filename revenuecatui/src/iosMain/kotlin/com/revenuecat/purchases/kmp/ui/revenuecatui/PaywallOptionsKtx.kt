@@ -6,6 +6,10 @@ import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toPackage
 import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
 import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
+import kotlinx.cinterop.CValue
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.pointed
+import platform.CoreGraphics.CGSize
 import platform.Foundation.NSError
 import platform.darwin.NSObject
 import cocoapods.PurchasesHybridCommon.RCCustomerInfo as PhcCustomerInfo
@@ -17,6 +21,7 @@ import objcnames.classes.RCStoreTransaction as ObjcNamesStoreTransaction
 
 internal class IosPaywallDelegate(
     private val listener: PaywallListener?,
+    private val onHeightChange: (Int) -> Unit
 ) : RCPaywallViewControllerDelegateProtocol,
     NSObject() {
 
@@ -74,5 +79,15 @@ internal class IosPaywallDelegate(
         didFailRestoringWithError: NSError
     ) {
         listener?.onRestoreError(didFailRestoringWithError.toPurchasesErrorOrThrow())
+    }
+
+
+    override fun paywallViewController(
+        controller: RCPaywallViewController,
+        didChangeSizeTo: CValue<CGSize>
+    ) {
+        var height: Int? = null
+        memScoped { height = didChangeSizeTo.ptr.pointed.height.toInt() }
+        onHeightChange(height!!)
     }
 }
