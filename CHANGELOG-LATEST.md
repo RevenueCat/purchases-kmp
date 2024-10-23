@@ -1,11 +1,4 @@
 ## RevenueCat SDK
-### ✨ New Features
-* Adds `Offerings.getCurrentOfferingForPlacement()` (#243) via JayShortway (@JayShortway)
-### 🐞 Bugfixes
-* Fixes iOS PaywallFooter height (#247) via JayShortway (@JayShortway)
-* Updates Compose Multiplatform to 1.7.0. (#246) via JayShortway (@JayShortway)
 ### 📦 Dependency Updates
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 13.6.0 (#244) via RevenueCat Git Bot (@RCGitBot)
-  * [Android 8.8.1](https://github.com/RevenueCat/purchases-android/releases/tag/8.8.1)
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 13.5.1 (#241) via RevenueCat Git Bot (@RCGitBot)
-  * [Android 8.8.1](https://github.com/RevenueCat/purchases-android/releases/tag/8.8.1)
+* Bump fastlane from 2.224.0 to 2.225.0 (#251) via dependabot[bot] (@dependabot[bot])
+* Bump danger from 9.5.0 to 9.5.1 (#250) via dependabot[bot] (@dependabot[bot])
