@@ -372,6 +372,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 StoreMessageType.BILLING_ISSUES -> 0
                 StoreMessageType.PRICE_INCREASE_CONSENT -> 1
                 StoreMessageType.GENERIC -> 2
+                StoreMessageType.WIN_BACK_OFFER -> 3
             }
         },
         completion = { }

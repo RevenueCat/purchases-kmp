@@ -8,7 +8,9 @@ private class StoreMessageTypeAPI {
         when (type) {
             StoreMessageType.BILLING_ISSUES,
             StoreMessageType.GENERIC,
-            StoreMessageType.PRICE_INCREASE_CONSENT -> {
+            StoreMessageType.PRICE_INCREASE_CONSENT,
+            StoreMessageType.WIN_BACK_OFFER -> {
+                
             }
         }.exhaustive
     }
