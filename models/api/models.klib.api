@@ -514,6 +514,7 @@ final enum class com.revenuecat.purchases.kmp.models/StoreMessageType : kotlin/E
     enum entry BILLING_ISSUES // com.revenuecat.purchases.kmp.models/StoreMessageType.BILLING_ISSUES|null[0]
     enum entry GENERIC // com.revenuecat.purchases.kmp.models/StoreMessageType.GENERIC|null[0]
     enum entry PRICE_INCREASE_CONSENT // com.revenuecat.purchases.kmp.models/StoreMessageType.PRICE_INCREASE_CONSENT|null[0]
+    enum entry WIN_BACK_OFFER // com.revenuecat.purchases.kmp.models/StoreMessageType.WIN_BACK_OFFER|null[0]
     final fun valueOf(kotlin/String): com.revenuecat.purchases.kmp.models/StoreMessageType // com.revenuecat.purchases.kmp.models/StoreMessageType.valueOf|valueOf#static(kotlin.String){}[0]
     final fun values(): kotlin/Array<com.revenuecat.purchases.kmp.models/StoreMessageType> // com.revenuecat.purchases.kmp.models/StoreMessageType.values|values#static(){}[0]
     final val entries // com.revenuecat.purchases.kmp.models/StoreMessageType.entries|#static{}entries[0]

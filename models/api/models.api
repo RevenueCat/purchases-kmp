@@ -395,6 +395,7 @@ public final class com/revenuecat/purchases/kmp/models/StoreMessageType : java/l
 	public static final field BILLING_ISSUES Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
 	public static final field GENERIC Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
 	public static final field PRICE_INCREASE_CONSENT Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
+	public static final field WIN_BACK_OFFER Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
 	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/StoreMessageType;
