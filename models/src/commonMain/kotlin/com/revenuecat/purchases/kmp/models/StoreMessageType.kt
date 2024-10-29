@@ -21,4 +21,10 @@ public enum class StoreMessageType {
      * App Store only. Generic store messages.
      */
     GENERIC,
+
+    /**
+     * App Store only. This message will show if the subscriber is eligible for an iOS win-back
+     * offer and will allow the subscriber to redeem the offer.
+     */
+    WIN_BACK_OFFER,
 }

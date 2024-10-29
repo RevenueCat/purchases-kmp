@@ -421,6 +421,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
         when (this) {
             StoreMessageType.BILLING_ISSUES -> InAppMessageType.BILLING_ISSUES
             StoreMessageType.GENERIC,
+            StoreMessageType.WIN_BACK_OFFER,
             StoreMessageType.PRICE_INCREASE_CONSENT -> null
         }
 
