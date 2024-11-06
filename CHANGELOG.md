@@ -1,3 +1,11 @@
+## 1.3.1+13.8.0
+## RevenueCat SDK
+### 📦 Dependency Updates
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 13.8.0 (#260) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 8.9.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.9.0)
+  * [iOS 5.7.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.7.1)
+* Bump cocoapods from 1.16.1 to 1.16.2 (#257) via dependabot[bot] (@dependabot[bot])
+
 ## 1.3.0+13.7.0
 ## RevenueCat SDK
 ### 📦 Dependency Updates
