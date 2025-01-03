@@ -8,6 +8,7 @@ import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.PurchasesError
+import com.revenuecat.purchases.kmp.models.RedeemWebPurchaseListener
 import com.revenuecat.purchases.kmp.models.ReplacementMode
 import com.revenuecat.purchases.kmp.models.Store
 import com.revenuecat.purchases.kmp.models.StoreMessageType
@@ -15,6 +16,7 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import kotlin.jvm.JvmSynthetic
 
 /**
@@ -97,6 +99,13 @@ public expect class Purchases {
             features: List<BillingFeature> = listOf(),
             callback: (Boolean) -> Unit,
         )
+
+        /**
+         * Given a url string, parses the link and returns a [WebPurchaseRedemption], which can
+         * be used to redeem a web purchase using [Purchases.redeemWebPurchase]
+         * @return A parsed version of the link or null if it's not a valid RevenueCat web purchase redemption link.
+         */
+        public fun parseAsWebPurchaseRedemption(url: String): WebPurchaseRedemption?
     }
 
     /**
@@ -650,6 +659,14 @@ public expect class Purchases {
      */
     public fun setCreative(creative: String?)
 
+    /**
+     * Redeem a web purchase using a [WebPurchaseRedemption] object obtained
+     * through [Purchases.parseAsWebPurchaseRedemption].
+     */
+    public fun redeemWebPurchase(
+        webPurchaseRedemption: WebPurchaseRedemption,
+        listener: RedeemWebPurchaseListener,
+    )
 }
 
 /**

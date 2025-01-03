@@ -1,10 +1,14 @@
 package com.revenuecat.purchases.kmp
 
+import android.content.Intent
+import android.net.Uri
+import com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI
 import com.revenuecat.purchases.PurchaseParams
 import com.revenuecat.purchases.common.PlatformInfo
 import com.revenuecat.purchases.getCustomerInfoWith
 import com.revenuecat.purchases.getOfferingsWith
 import com.revenuecat.purchases.getProductsWith
+import com.revenuecat.purchases.hybridcommon.isWebPurchaseRedemptionURL
 import com.revenuecat.purchases.kmp.di.AndroidProvider
 import com.revenuecat.purchases.kmp.di.requireActivity
 import com.revenuecat.purchases.kmp.di.requireApplication
@@ -22,6 +26,7 @@ import com.revenuecat.purchases.kmp.mappings.toPurchasesError
 import com.revenuecat.purchases.kmp.mappings.toStore
 import com.revenuecat.purchases.kmp.mappings.toStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
+import com.revenuecat.purchases.kmp.mappings.toWebPurchaseResult
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomerInfo
@@ -32,6 +37,7 @@ import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
+import com.revenuecat.purchases.kmp.models.RedeemWebPurchaseListener
 import com.revenuecat.purchases.kmp.models.ReplacementMode
 import com.revenuecat.purchases.kmp.models.Store
 import com.revenuecat.purchases.kmp.models.StoreMessageType
@@ -39,6 +45,7 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import com.revenuecat.purchases.logInWith
 import com.revenuecat.purchases.logOutWith
@@ -128,6 +135,14 @@ public actual class Purchases private constructor(private val androidPurchases: 
 
         private fun DangerousSettings.toAndroidDangerousSettings(): AndroidDangerousSettings =
             AndroidDangerousSettings(autoSyncPurchases)
+
+        public actual fun parseAsWebPurchaseRedemption(url: String): WebPurchaseRedemption? {
+            return if (isWebPurchaseRedemptionURL(url)) {
+                WebPurchaseRedemption(url)
+            } else {
+                null
+            }
+        }
     }
 
     public actual val appUserID: String by androidPurchases::appUserID
@@ -416,6 +431,38 @@ public actual class Purchases private constructor(private val androidPurchases: 
 
     public actual fun setCreative(creative: String?): Unit =
         androidPurchases.setCreative(creative)
+
+    @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+    public actual fun redeemWebPurchase(
+        webPurchaseRedemption: WebPurchaseRedemption,
+        listener: RedeemWebPurchaseListener
+    ) {
+        val respondInvalidUrlError = {
+            listener.handleResult(
+                RedeemWebPurchaseListener.Result.Error(
+                PurchasesError(
+                    PurchasesErrorCode.ConfigurationError,
+                    "Invalid URL: ${webPurchaseRedemption.redemptionUrl}"
+                )
+            ))
+        }
+        val nativeWebPurchaseRedemption = try {
+            // Replace this with parseAsWebPurchaseRedemption overload
+            // accepting strings once it's available.
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(webPurchaseRedemption.redemptionUrl))
+            AndroidPurchases.parseAsWebPurchaseRedemption(intent)
+        } catch (@Suppress("TooGenericExceptionCaught") e: Throwable) {
+            respondInvalidUrlError()
+            return
+        }
+        if (nativeWebPurchaseRedemption == null) {
+            respondInvalidUrlError()
+            return
+        }
+        androidPurchases.redeemWebPurchase(nativeWebPurchaseRedemption) { result ->
+            listener.handleResult(result.toWebPurchaseResult())
+        }
+    }
 
     private fun StoreMessageType.toInAppMessageTypeOrNull(): InAppMessageType? =
         when (this) {
