@@ -9,6 +9,8 @@ import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.RCStoreTransaction
 import cocoapods.PurchasesHybridCommon.configureWithAPIKey
+import cocoapods.PurchasesHybridCommon.isWebPurchaseRedemptionURL
+import cocoapods.PurchasesHybridCommon.parseAsWebPurchaseRedemptionWithUrlString
 import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
@@ -40,6 +42,7 @@ import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
+import com.revenuecat.purchases.kmp.models.RedeemWebPurchaseListener
 import com.revenuecat.purchases.kmp.models.ReplacementMode
 import com.revenuecat.purchases.kmp.models.Store
 import com.revenuecat.purchases.kmp.models.StoreMessageType
@@ -47,6 +50,7 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import platform.Foundation.NSError
@@ -126,6 +130,19 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
         private fun DangerousSettings.toIosDangerousSettings(): IosDangerousSettings =
             IosDangerousSettings(autoSyncPurchases)
+
+        /**
+         * Given a url string, parses the link and returns a [WebPurchaseRedemption], which can
+         * be used to redeem a web purchase using [Purchases.redeemWebPurchase]
+         * @return A parsed version of the link or null if it's not a valid RevenueCat web purchase redemption link.
+         */
+        public actual fun parseAsWebPurchaseRedemption(url: String): WebPurchaseRedemption? {
+            return if (RCCommonFunctionality.isWebPurchaseRedemptionURL(url)) {
+                WebPurchaseRedemption(url)
+            } else {
+                null
+            }
+        }
     }
 
     public actual val appUserID: String
@@ -691,5 +708,60 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             msg = "`enableAdServicesAttributionTokenCollection()` is only available on iOS 14.3 " +
                     "and up."
         )
+    }
+
+    public actual fun redeemWebPurchase(
+        webPurchaseRedemption: WebPurchaseRedemption,
+        listener: RedeemWebPurchaseListener,
+    ) {
+        val nativeWebPurchaseRedemption = RCCommonFunctionality.parseAsWebPurchaseRedemptionWithUrlString(
+            webPurchaseRedemption.redemptionUrl,
+        )
+        if (nativeWebPurchaseRedemption == null) {
+            listener.handleResult(RedeemWebPurchaseListener.Result.Error(
+                PurchasesError(
+                    code = PurchasesErrorCode.ConfigurationError,
+                    underlyingErrorMessage = "Invalid web purchase redemption URL."
+                )
+            ))
+            return
+        }
+        iosPurchases.redeemWebPurchaseWithWebPurchaseRedemption(
+            nativeWebPurchaseRedemption,
+        ) { rcCustomerInfo, nsError ->
+            if (nsError != null) {
+                val errorCode = nsError.code.toInt()
+                val result = when (errorCode) {
+                    PurchasesErrorCode.InvalidWebPurchaseToken.code ->
+                        RedeemWebPurchaseListener.Result.InvalidToken
+                    PurchasesErrorCode.PurchaseBelongsToOtherUser.code ->
+                        RedeemWebPurchaseListener.Result.PurchaseBelongsToOtherUser
+                    PurchasesErrorCode.ExpiredWebPurchaseToken.code ->
+                        RedeemWebPurchaseListener.Result.Expired(
+                            nsError.userInfo["rc_obfuscated_email"] as String? ?: ""
+                        )
+                    else ->
+                        RedeemWebPurchaseListener.Result.Error(nsError.toPurchasesErrorOrThrow())
+                }
+                listener.handleResult(result)
+                return@redeemWebPurchaseWithWebPurchaseRedemption
+            }
+            if (rcCustomerInfo == null) {
+                listener.handleResult(
+                    RedeemWebPurchaseListener.Result.Error(
+                        PurchasesError(
+                            code = PurchasesErrorCode.UnknownError,
+                            underlyingErrorMessage = "Expected a non-null RCCustomerInfo when error is null."
+                        )
+                    )
+                )
+                return@redeemWebPurchaseWithWebPurchaseRedemption
+            }
+            listener.handleResult(
+                RedeemWebPurchaseListener.Result.Success(
+                    rcCustomerInfo.toCustomerInfo()
+                )
+            )
+        }
     }
 }
