@@ -25,7 +25,6 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
-            export("dev.theolm:rinku:1.3.1")
         }
     }
 
@@ -49,9 +48,6 @@ kotlin {
             implementation(projects.either)
             implementation(projects.datetime)
             implementation(projects.revenuecatui)
-            // Needs to be `api` to be available in iOS.
-            api(libs.rinku)
-            implementation(libs.rinku.compose.ext)
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
