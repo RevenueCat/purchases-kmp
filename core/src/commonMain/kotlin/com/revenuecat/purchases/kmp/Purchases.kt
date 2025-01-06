@@ -15,6 +15,7 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.WinBackOffer
 import kotlin.jvm.JvmSynthetic
 
 /**
@@ -409,6 +410,38 @@ public expect class Purchases {
         productID: String,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (storeTransaction: StoreTransaction) -> Unit,
+    )
+
+    /**
+     * iOS only. Always returns an error on iOS < 18.
+     *
+     * @param product: The product to check for eligible win-back offers on.
+     * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
+     * what went wrong.
+     * @param onSuccess Will be called if the function completes successfully, including details
+     * on the [WinBackOffer]s that the subscriber is eligible for.
+     */
+    public fun getEligibleWinBackOffersForProduct(
+        product: StoreProduct,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (List<WinBackOffer>) -> Unit,
+    )
+
+    /**
+     * iOS only. Always returns an error on iOS < 18.
+     *
+     * @param product: The product to purchase
+     * @param winBackOffer: The win-back offer to apply to the purchase
+     * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
+     * what went wrong.
+     * @param onSuccess Will be called if the function completes successfully, including details
+     * on the purchase.
+     */
+    public fun purchase(
+        product: StoreProduct,
+        winBackOffer: WinBackOffer,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     )
 
     /**

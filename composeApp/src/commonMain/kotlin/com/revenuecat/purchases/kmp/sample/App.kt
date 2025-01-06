@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.sample
 
+import WinBackTestingScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -39,6 +40,7 @@ fun App() {
                             if (footer) Screen.PaywallFooter(offering)
                             else Screen.Paywall(offering)
                     },
+                    setScreen = { screen = it },
                     modifier = Modifier.fillMaxSize()
                 )
 
@@ -67,6 +69,8 @@ fun App() {
                         )
                     }
                 }
+
+                is Screen.WinBackTesting -> WinBackTestingScreen()
             }
         }
     }

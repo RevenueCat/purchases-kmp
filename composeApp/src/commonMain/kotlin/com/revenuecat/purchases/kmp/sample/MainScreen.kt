@@ -53,6 +53,7 @@ import kotlinx.coroutines.flow.onStart
 @Composable
 fun MainScreen(
     onShowPaywallClick: (offering: Offering?, footer: Boolean) -> Unit,
+    setScreen: (Screen) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -143,6 +144,14 @@ fun MainScreen(
                     onShowPaywallClick = onShowPaywallClick,
                     modifier = Modifier.fillMaxWidth(),
                 )
+
+                Spacer(modifier = Modifier.size(16.dp))
+                Button(
+                    onClick = { setScreen(Screen.WinBackTesting) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Win-Back Offer Testing")
+                }
             }
         }
     }

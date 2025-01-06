@@ -39,6 +39,7 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import com.revenuecat.purchases.logInWith
 import com.revenuecat.purchases.logOutWith
@@ -307,6 +308,19 @@ public actual class Purchases private constructor(private val androidPurchases: 
             PurchasesError(
                 PurchasesErrorCode.UnsupportedError,
                 underlyingErrorMessage = "recordPurchase() is not supported on Android."
+            )
+        )
+    }
+
+    public actual fun getEligibleWinBackOffersForProduct(
+        product: StoreProduct,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (List<WinBackOffer>) -> Unit,
+    ) {
+        onError(
+            PurchasesError(
+                PurchasesErrorCode.UnsupportedError,
+                underlyingErrorMessage = "getEligibleWinBackOffersForProduct() is not supported on Android."
             )
         )
     }
