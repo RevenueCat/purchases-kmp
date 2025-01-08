@@ -151,7 +151,6 @@ fun WinBackTestingScreen() {
                 onSuccess = { offerings ->
                     val currentOffering = offerings.current!!
 
-                    println(currentOffering.availablePackages)
                     val packageToPurchase = currentOffering.availablePackages.first {
                         it.storeProduct.id == "com.revenuecat.monthly_4.99.1_week_intro"
                     }

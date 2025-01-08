@@ -295,4 +295,58 @@ private class PurchasesCommonAPI {
         }
         val handler = Purchases.logHandler
     }
+
+    fun checkRedeemingWinBackOffersForProduct() {
+        // Get a product
+        Purchases.sharedInstance.getProducts(
+            listOf("com.some.product"),
+            onError = { error -> },
+            onSuccess = { products ->
+                val product = products.first()
+
+                // Fetch the eligible win-back offers for the product
+                Purchases.sharedInstance.getEligibleWinBackOffersForProduct(
+                    product = product,
+                    onError = { error -> },
+                    onSuccess = { eligibleWinBackOffers ->
+                        val winBackOffer = eligibleWinBackOffers.first()
+
+                        // Purchase the product with the win-back offer
+                        Purchases.sharedInstance.purchase(
+                            product = product,
+                            winBackOffer = winBackOffer,
+                            onError = { error -> },
+                            onSuccess = { transaction, customerInfo -> }
+                        )
+                    }
+                )
+            }
+        )
+    }
+
+    fun checkRedeemingWinBackOffersForPackage() {
+        // Get a package
+        Purchases.sharedInstance.getOfferings(
+            onError = { error -> },
+            onSuccess = { offerings ->
+                val packageToPurchase = offerings.current!!.availablePackages.first()
+
+                // Fetch the eligible win-back offers for the package
+                Purchases.sharedInstance.getEligibleWinBackOffersForPackage(
+                    packageToCheck = packageToPurchase,
+                    onError = { error -> },
+                    onSuccess = { eligibleWinBackOffers ->
+
+                        // Purchase the package with the win-back offer
+                        Purchases.sharedInstance.purchase(
+                            packageToPurchase,
+                            winBackOffer = eligibleWinBackOffers.first(),
+                            onError = { error -> },
+                            onSuccess = { transaction, customerInfo -> }
+                        )
+                    }
+                )
+            }
+        )
+    }
 }
