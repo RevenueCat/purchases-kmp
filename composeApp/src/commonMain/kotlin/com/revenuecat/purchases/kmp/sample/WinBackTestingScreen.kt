@@ -40,7 +40,6 @@ fun WinBackTestingScreen() {
         Spacer(modifier = Modifier.height(16.dp))
         
         Button(onClick = {
-            // Fetch Product implementation
             val productIds = ArrayList<String>()
             productIds.add("com.revenuecat.monthly_4.99")
 
@@ -50,9 +49,8 @@ fun WinBackTestingScreen() {
                     println("Error: Could not fetch products")
                 },
                 onSuccess = { products: List<StoreProduct> ->
-                    println("Found products: $products")
                     if(products.isEmpty()) {
-                        println("Products is empty!")
+                        println("Products are empty!")
                         return@getProducts
                     }
 
@@ -74,7 +72,6 @@ fun WinBackTestingScreen() {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            // Fetch Product implementation
             val productIds = ArrayList<String>()
             productIds.add("com.revenuecat.monthly_4.99")
 
@@ -90,7 +87,6 @@ fun WinBackTestingScreen() {
                         return@getProducts
                     }
 
-                    println("Calling getEligibleWinBackOffersForProduct")
                     Purchases.sharedInstance.getEligibleWinBackOffersForProduct(
                         products[0],
                         onError = { error ->
@@ -101,6 +97,18 @@ fun WinBackTestingScreen() {
                                 println("No eligible win-back offers found.")
                                 return@getEligibleWinBackOffersForProduct
                             }
+
+                            Purchases.sharedInstance.purchase(
+                                products[0],
+                                winBackOffer = eligibleWinBackOffers[0],
+                                onError = { error ->
+                                    println("An error occurred while making the purchase")
+                                    println(error)
+                                },
+                                onSuccess = { transaction, customerInfo ->
+                                    println("Successful purchase!!")
+                                }
+                            )
                         }
                     )
                 }
@@ -109,6 +117,71 @@ fun WinBackTestingScreen() {
             Text("Fetch and Redeem WinBack Offers For Product")
         }
 
+        Spacer(modifier = Modifier.height(32.dp))
 
+        Button(onClick = {
+            Purchases.sharedInstance.getOfferings(
+                onError = { error -> println(error) },
+                onSuccess = { offerings ->
+                    val currentOffering = offerings.current!!
+
+                    println(currentOffering.availablePackages)
+                    val packageToPurchase = currentOffering.availablePackages.first {
+                        it.storeProduct.id == "com.revenuecat.monthly_4.99.1_week_intro"
+                    }
+
+                    Purchases.sharedInstance.purchase(
+                        packageToPurchase,
+                        onError = { error: PurchasesError, userCancelled: Boolean ->
+                            println("Error: $error, userCancelled: $userCancelled")
+                        },
+                        onSuccess = { transaction: StoreTransaction, customerInfo: CustomerInfo ->
+                            println("onSuccess: $transaction, customerInfo: $customerInfo")
+                        }
+                    )
+                }
+            )
+        }) {
+            Text("Fetch and Purchase Package for WinBack Testing")
+        }
+
+        Button(onClick = {
+            Purchases.sharedInstance.getOfferings(
+                onError = { error -> println(error) },
+                onSuccess = { offerings ->
+                    val currentOffering = offerings.current!!
+
+                    println(currentOffering.availablePackages)
+                    val packageToPurchase = currentOffering.availablePackages.first {
+                        it.storeProduct.id == "com.revenuecat.monthly_4.99.1_week_intro"
+                    }
+
+                    Purchases.sharedInstance.getEligibleWinBackOffersForPackage(
+                        packageToCheck = packageToPurchase,
+                        onError = { error -> println(error) },
+                        onSuccess = { eligibleWinBackOffers ->
+                            if (eligibleWinBackOffers.isEmpty()) {
+                                println("No eligible win-back offers found.")
+                                return@getEligibleWinBackOffersForPackage
+                            }
+
+                            Purchases.sharedInstance.purchase(
+                                packageToPurchase,
+                                winBackOffer = eligibleWinBackOffers[0],
+                                onError = { error ->
+                                    println("An error occurred while making the purchase")
+                                    println(error)
+                                },
+                                onSuccess = { transaction, customerInfo ->
+                                    println("Successful purchase!!")
+                                }
+                            )
+                        }
+                    )
+                }
+            )
+        }) {
+            Text("Fetch and Redeem WinBack Offers For Package")
+        }
     }
 }

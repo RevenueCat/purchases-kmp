@@ -419,10 +419,25 @@ public expect class Purchases {
      * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
      * what went wrong.
      * @param onSuccess Will be called if the function completes successfully, including details
-     * on the [WinBackOffer]s that the subscriber is eligible for.
+     * on the [WinBackOffer]s that the subscriber is eligible for on the provided product.
      */
     public fun getEligibleWinBackOffersForProduct(
         product: StoreProduct,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (List<WinBackOffer>) -> Unit,
+    )
+
+    /**
+     * iOS only. Always returns an error on iOS < 18.
+     *
+     * @param packageToCheck: The package to check for eligible win-back offers on.
+     * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
+     * what went wrong.
+     * @param onSuccess Will be called if the function completes successfully, including details
+     * on the [WinBackOffer]s that the subscriber is eligible for on the provided package.
+     */
+    public fun getEligibleWinBackOffersForPackage(
+        packageToCheck: Package,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (List<WinBackOffer>) -> Unit,
     )
@@ -439,6 +454,23 @@ public expect class Purchases {
      */
     public fun purchase(
         product: StoreProduct,
+        winBackOffer: WinBackOffer,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
+    )
+
+    /**
+     * iOS only. Always returns an error on iOS < 18.
+     *
+     * @param packageToPurchase: The package to purchase
+     * @param winBackOffer: The win-back offer to apply to the purchase
+     * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
+     * what went wrong.
+     * @param onSuccess Will be called if the function completes successfully, including details
+     * on the purchase.
+     */
+    public fun purchase(
+        packageToPurchase: Package,
         winBackOffer: WinBackOffer,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,

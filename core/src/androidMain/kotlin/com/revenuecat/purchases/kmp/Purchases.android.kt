@@ -325,6 +325,47 @@ public actual class Purchases private constructor(private val androidPurchases: 
         )
     }
 
+    public actual fun getEligibleWinBackOffersForPackage(
+        packageToCheck: Package,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (List<WinBackOffer>) -> Unit,
+    ) {
+        onError(
+            PurchasesError(
+                PurchasesErrorCode.UnsupportedError,
+                underlyingErrorMessage = "getEligibleWinBackOffersForPackage() is not supported on Android."
+            )
+        )
+    }
+
+    public actual fun purchase(
+        product: StoreProduct,
+        winBackOffer: WinBackOffer,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit
+    ) {
+        onError(
+            PurchasesError(
+                PurchasesErrorCode.UnsupportedError,
+                underlyingErrorMessage = "purchase(product:winBackOffer:onError:onSuccess:) is not supported on Android."
+            )
+        )
+    }
+
+    public actual fun purchase(
+        packageToPurchase: Package,
+        winBackOffer: WinBackOffer,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
+    ) {
+        onError(
+            PurchasesError(
+                PurchasesErrorCode.UnsupportedError,
+                underlyingErrorMessage = "purchase(packageToPurchase:winBackOffer:onError:onSuccess:) is not supported on Android."
+            )
+        )
+    }
+
     public actual fun logIn(
         newAppUserID: String,
         onError: (error: PurchasesError) -> Unit,

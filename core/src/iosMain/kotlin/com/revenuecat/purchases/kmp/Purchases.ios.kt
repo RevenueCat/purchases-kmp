@@ -1,14 +1,12 @@
 package com.revenuecat.purchases.kmp
 
 import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
-import cocoapods.PurchasesHybridCommon.RCPurchaseParams
-import cocoapods.PurchasesHybridCommon.RCPurchaseParamsMeta
-import cocoapods.PurchasesHybridCommon.RCPurchases
+import cocoapods.PurchasesHybridCommon.RCCustomerInfo
+import cocoapods.PurchasesHybridCommon.RCPurchaseParamsBuilder
 import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
+import cocoapods.PurchasesHybridCommon.RCStoreTransaction
 import cocoapods.PurchasesHybridCommon.configureWithAPIKey
-import cocoapods.PurchasesHybridCommon.eligibleWinBackOffersForProductIdentifier
-import cocoapods.PurchasesHybridCommon.purchaseProduct
 import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
@@ -21,6 +19,7 @@ import com.revenuecat.purchases.kmp.mappings.toIosPackage
 import com.revenuecat.purchases.kmp.mappings.toIosPromotionalOffer
 import com.revenuecat.purchases.kmp.mappings.toIosStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toIosStoreProductDiscount
+import com.revenuecat.purchases.kmp.mappings.toIosWinBackOffer
 import com.revenuecat.purchases.kmp.mappings.toOfferings
 import com.revenuecat.purchases.kmp.mappings.toPromotionalOffer
 import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
@@ -45,6 +44,7 @@ import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
+import platform.Foundation.NSError
 import platform.Foundation.NSURL
 import cocoapods.PurchasesHybridCommon.RCDangerousSettings as IosDangerousSettings
 import cocoapods.PurchasesHybridCommon.RCPurchases as IosPurchases
@@ -360,6 +360,29 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         )
     }
 
+    public actual fun getEligibleWinBackOffersForPackage(
+        packageToCheck: Package,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (List<WinBackOffer>) -> Unit,
+    ) {
+        iosPurchases.eligibleWinBackOffersForPackage(
+            packageToCheck.toIosPackage(),
+            completion = { eligibleWinBackOffers, error ->
+
+                if (error != null) {
+                    onError(error.toPurchasesErrorOrThrow())
+                    return@eligibleWinBackOffersForPackage
+                }
+
+                val typedEligibleWinBackOffers = eligibleWinBackOffers?.mapNotNull {
+                    (it as? NativeIosWinBackOffer)?.toWinBackOffer()
+                } ?: emptyList()
+
+                onSuccess(typedEligibleWinBackOffers)
+            }
+        )
+    }
+
     public actual fun purchase(
         product: StoreProduct,
         winBackOffer: WinBackOffer,
@@ -367,22 +390,62 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     ) {
 
-        RCPurchaseParamsMeta
-        var purchaseParams = RCPurchaseParams()
+        val purchaseParams = RCPurchaseParamsBuilder(product = product.toIosStoreProduct())
+            .withWinBackOffer(winBackOffer.toIosWinBackOffer())
+            .build()
 
-        RCPurchaseParams.RCPurchaseParamsBuilder
-        RCPurchaseParamsBuilder
+        iosPurchases.purchase(
+            params = purchaseParams,
+            completionHandler = {
+                transaction: RCStoreTransaction?,
+                customerInfo: RCCustomerInfo?,
+                userCancelled: Boolean,
+                error: NSError? ->
 
-        RCCommonFunctionality.purchaseProduct(
-            productIdentifier = product.id,
-            winBackOfferID = winBackOffer.discount.offerIdentifier ?: "",
-            completionBlock = { map, errorContainer ->
+                if (error != null) {
+                    onError(error.toPurchasesErrorOrThrow())
+                    return@purchase
+                }
 
+                onSuccess(
+                    transaction?.toStoreTransaction()
+                        ?: error("Expected a non-null RCStoreTransaction"),
+                    customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
+                )
             }
         )
+    }
 
-        iosPurchases.purchase()
+    public actual fun purchase(
+        packageToPurchase: Package,
+        winBackOffer: WinBackOffer,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
+    ) {
+        val purchaseParams = RCPurchaseParamsBuilder(packageToPurchase.toIosPackage())
+            .withWinBackOffer(winBackOffer.toIosWinBackOffer())
+            .build()
 
+        iosPurchases.purchase(
+            params = purchaseParams,
+            completionHandler = {
+                    transaction: RCStoreTransaction?,
+                    customerInfo: RCCustomerInfo?,
+                    userCancelled: Boolean,
+                    error: NSError? ->
+
+                if (error != null) {
+                    onError(error.toPurchasesErrorOrThrow())
+                    return@purchase
+                }
+
+                onSuccess(
+                    transaction?.toStoreTransaction()
+                        ?: error("Expected a non-null RCStoreTransaction"),
+                    customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
+                )
+            }
+        )
     }
 
     public actual fun logIn(
