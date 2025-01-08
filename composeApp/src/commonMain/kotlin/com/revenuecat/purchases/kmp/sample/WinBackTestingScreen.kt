@@ -28,13 +28,10 @@ fun WinBackTestingScreen() {
         Spacer(modifier = Modifier.height(16.dp))
         
         Button(onClick = {
-            val productIds = ArrayList<String>()
-            productIds.add("com.revenuecat.monthly_4.99")
-
             Purchases.sharedInstance.getProducts(
-                productIds,
+                listOf("com.revenuecat.monthly_4.99"),
                 onError = { error: PurchasesError ->
-                    println("Error: Could not fetch products")
+                    println("Error: Could not fetch products: $error")
                 },
                 onSuccess = { products: List<StoreProduct> ->
                     if(products.isEmpty()) {
@@ -60,12 +57,10 @@ fun WinBackTestingScreen() {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            val productIds = ArrayList<String>()
-            productIds.add("com.revenuecat.monthly_4.99")
-
             Purchases.sharedInstance.getProducts(
-                productIds,
+                listOf("com.revenuecat.monthly_4.99"),
                 onError = { error: PurchasesError ->
+                    println("Error getting products: $error")
                 },
                 onSuccess = { products: List<StoreProduct> ->
                     if(products.isEmpty()) {
