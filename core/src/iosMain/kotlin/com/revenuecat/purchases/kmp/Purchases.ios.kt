@@ -46,6 +46,7 @@ import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import platform.Foundation.NSError
 import platform.Foundation.NSURL
+import platform.UIKit.UIDevice
 import cocoapods.PurchasesHybridCommon.RCDangerousSettings as IosDangerousSettings
 import cocoapods.PurchasesHybridCommon.RCPurchases as IosPurchases
 import cocoapods.PurchasesHybridCommon.RCWinBackOffer as NativeIosWinBackOffer
@@ -342,6 +343,16 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (List<WinBackOffer>) -> Unit,
     ) {
+        if (!isIOSVersion18OrAbove()) {
+            onError(
+                PurchasesError(
+                    PurchasesErrorCode.UnsupportedError,
+                    underlyingErrorMessage = "getEligibleWinBackOffersForProduct is only available on iOS 18.0+"
+                )
+            )
+            return
+        }
+
         iosPurchases.eligibleWinBackOffersForProduct(
             product = product.toIosStoreProduct(),
             completion = { eligibleWinBackOffers, error ->
@@ -365,6 +376,16 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (List<WinBackOffer>) -> Unit,
     ) {
+        if (!isIOSVersion18OrAbove()) {
+            onError(
+                PurchasesError(
+                    PurchasesErrorCode.UnsupportedError,
+                    underlyingErrorMessage = "getEligibleWinBackOffersForPackage is only available on iOS 18.0+"
+                )
+            )
+            return
+        }
+
         iosPurchases.eligibleWinBackOffersForPackage(
             packageToCheck.toIosPackage(),
             completion = { eligibleWinBackOffers, error ->
@@ -389,6 +410,15 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     ) {
+        if (!isIOSVersion18OrAbove()) {
+            onError(
+                PurchasesError(
+                    PurchasesErrorCode.UnsupportedError,
+                    underlyingErrorMessage = "purchase(product:winBackOffer:onError:onSuccess:) is only available on iOS 18.0+"
+                )
+            )
+            return
+        }
 
         val purchaseParams = RCPurchaseParamsBuilder(product = product.toIosStoreProduct())
             .withWinBackOffer(winBackOffer.toIosWinBackOffer())
@@ -422,6 +452,16 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     ) {
+        if (!isIOSVersion18OrAbove()) {
+            onError(
+                PurchasesError(
+                    PurchasesErrorCode.UnsupportedError,
+                    underlyingErrorMessage = "purchase(packageToPurchase:winBackOffer:onError:onSuccess:) is only available on iOS 18.0+"
+                )
+            )
+            return
+        }
+
         val purchaseParams = RCPurchaseParamsBuilder(packageToPurchase.toIosPackage())
             .withWinBackOffer(winBackOffer.toIosWinBackOffer())
             .build()
@@ -565,4 +605,12 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
     public actual fun setCreative(creative: String?): Unit =
         iosPurchases.setCreative(creative)
+
+    private fun isIOSVersion18OrAbove(): Boolean {
+        return currentOSVersion() > "18.0.0"
+    }
+
+    private fun currentOSVersion(): String {
+        return UIDevice.currentDevice.systemVersion
+    }
 }

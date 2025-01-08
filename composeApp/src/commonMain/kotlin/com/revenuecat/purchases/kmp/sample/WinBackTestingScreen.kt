@@ -78,12 +78,9 @@ fun WinBackTestingScreen() {
             Purchases.sharedInstance.getProducts(
                 productIds,
                 onError = { error: PurchasesError ->
-                    println("Error: Could not fetch products")
                 },
                 onSuccess = { products: List<StoreProduct> ->
-                    println("Found products: $products")
                     if(products.isEmpty()) {
-                        println("Products is empty!")
                         return@getProducts
                     }
 
@@ -91,6 +88,7 @@ fun WinBackTestingScreen() {
                         products[0],
                         onError = { error ->
                             println("Error: $error")
+                            return@getEligibleWinBackOffersForProduct
                         },
                         onSuccess = { eligibleWinBackOffers ->
                             if (eligibleWinBackOffers.isEmpty()) {

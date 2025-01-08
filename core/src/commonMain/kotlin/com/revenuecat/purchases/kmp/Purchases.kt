@@ -413,7 +413,8 @@ public expect class Purchases {
     )
 
     /**
-     * iOS only. Always returns an error on iOS < 18.
+     * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
+     * met.
      *
      * @param product: The product to check for eligible win-back offers on.
      * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
@@ -428,7 +429,8 @@ public expect class Purchases {
     )
 
     /**
-     * iOS only. Always returns an error on iOS < 18.
+     * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
+     * met.
      *
      * @param packageToCheck: The package to check for eligible win-back offers on.
      * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
@@ -443,7 +445,8 @@ public expect class Purchases {
     )
 
     /**
-     * iOS only. Always returns an error on iOS < 18.
+     * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
+     * met.
      *
      * @param product: The product to purchase
      * @param winBackOffer: The win-back offer to apply to the purchase
@@ -460,7 +463,8 @@ public expect class Purchases {
     )
 
     /**
-     * iOS only. Always returns an error on iOS < 18.
+     * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
+     * met.
      *
      * @param packageToPurchase: The package to purchase
      * @param winBackOffer: The win-back offer to apply to the purchase
