@@ -306,14 +306,14 @@ private class PurchasesCommonAPI {
 
                 // Fetch the eligible win-back offers for the product
                 Purchases.sharedInstance.getEligibleWinBackOffersForProduct(
-                    product = product,
+                    storeProduct = product,
                     onError = { error -> },
                     onSuccess = { eligibleWinBackOffers ->
                         val winBackOffer = eligibleWinBackOffers.first()
 
                         // Purchase the product with the win-back offer
                         Purchases.sharedInstance.purchase(
-                            product = product,
+                            storeProduct = product,
                             winBackOffer = winBackOffer,
                             onError = { error -> },
                             onSuccess = { transaction, customerInfo -> }

@@ -339,7 +339,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     }
 
     public actual fun getEligibleWinBackOffersForProduct(
-        product: StoreProduct,
+        storeProduct: StoreProduct,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (List<WinBackOffer>) -> Unit,
     ) {
@@ -354,7 +354,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         }
 
         iosPurchases.eligibleWinBackOffersForProduct(
-            product = product.toIosStoreProduct(),
+            product = storeProduct.toIosStoreProduct(),
             completion = { eligibleWinBackOffers, error ->
 
                 if (error != null) {
@@ -405,7 +405,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     }
 
     public actual fun purchase(
-        product: StoreProduct,
+        storeProduct: StoreProduct,
         winBackOffer: WinBackOffer,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
@@ -420,7 +420,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             return
         }
 
-        val purchaseParams = RCPurchaseParamsBuilder(product = product.toIosStoreProduct())
+        val purchaseParams = RCPurchaseParamsBuilder(product = storeProduct.toIosStoreProduct())
             .withWinBackOffer(winBackOffer.toIosWinBackOffer())
             .build()
 

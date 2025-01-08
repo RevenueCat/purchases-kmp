@@ -313,7 +313,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
     }
 
     public actual fun getEligibleWinBackOffersForProduct(
-        product: StoreProduct,
+        storeProduct: StoreProduct,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (List<WinBackOffer>) -> Unit,
     ) {
@@ -339,7 +339,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
     }
 
     public actual fun purchase(
-        product: StoreProduct,
+        storeProduct: StoreProduct,
         winBackOffer: WinBackOffer,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit

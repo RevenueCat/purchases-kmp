@@ -423,7 +423,7 @@ public expect class Purchases {
      * on the [WinBackOffer]s that the subscriber is eligible for on the provided product.
      */
     public fun getEligibleWinBackOffersForProduct(
-        product: StoreProduct,
+        storeProduct: StoreProduct,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (List<WinBackOffer>) -> Unit,
     )
@@ -456,7 +456,7 @@ public expect class Purchases {
      * on the purchase.
      */
     public fun purchase(
-        product: StoreProduct,
+        storeProduct: StoreProduct,
         winBackOffer: WinBackOffer,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
