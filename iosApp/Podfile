@@ -6,6 +6,6 @@ target 'iosApp' do
   # use_frameworks!
 
   # Pods for iosApp
-  pod 'PurchasesHybridCommon', '13.15.0'
-  pod 'PurchasesHybridCommonUI', '13.15.0'
+  pod 'PurchasesHybridCommon', '13.15.2'
+  pod 'PurchasesHybridCommonUI', '13.15.2'
 end
