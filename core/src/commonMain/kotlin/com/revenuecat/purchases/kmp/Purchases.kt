@@ -448,7 +448,7 @@ public expect class Purchases {
      * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
      * met.
      *
-     * @param product: The product to purchase
+     * @param storeProduct: The product to purchase
      * @param winBackOffer: The win-back offer to apply to the purchase
      * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
      * what went wrong.
@@ -458,7 +458,7 @@ public expect class Purchases {
     public fun purchase(
         storeProduct: StoreProduct,
         winBackOffer: WinBackOffer,
-        onError: (error: PurchasesError) -> Unit,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     )
 
@@ -476,7 +476,7 @@ public expect class Purchases {
     public fun purchase(
         packageToPurchase: Package,
         winBackOffer: WinBackOffer,
-        onError: (error: PurchasesError) -> Unit,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     )
 

@@ -341,28 +341,30 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual fun purchase(
         storeProduct: StoreProduct,
         winBackOffer: WinBackOffer,
-        onError: (error: PurchasesError) -> Unit,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit
     ) {
         onError(
             PurchasesError(
                 PurchasesErrorCode.UnsupportedError,
                 underlyingErrorMessage = "purchase(product:winBackOffer:onError:onSuccess:) is not supported on Android."
-            )
+            ),
+            false
         )
     }
 
     public actual fun purchase(
         packageToPurchase: Package,
         winBackOffer: WinBackOffer,
-        onError: (error: PurchasesError) -> Unit,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     ) {
         onError(
             PurchasesError(
                 PurchasesErrorCode.UnsupportedError,
                 underlyingErrorMessage = "purchase(packageToPurchase:winBackOffer:onError:onSuccess:) is not supported on Android."
-            )
+            ),
+            false
         )
     }
 

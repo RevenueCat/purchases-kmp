@@ -2,7 +2,8 @@ package com.revenuecat.purchases.kmp
 
 import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
 import cocoapods.PurchasesHybridCommon.RCCustomerInfo
-import cocoapods.PurchasesHybridCommon.RCPurchaseParamsBuilder
+import cocoapods.PurchasesHybridCommon.RCPurchaseParams
+//import cocoapods.PurchasesHybridCommon.RCPurchaseParamsBuilder
 import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.RCStoreTransaction
@@ -407,7 +408,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun purchase(
         storeProduct: StoreProduct,
         winBackOffer: WinBackOffer,
-        onError: (error: PurchasesError) -> Unit,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     ) {
         if (!isIOSVersion18OrAbove()) {
@@ -415,15 +416,17 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 PurchasesError(
                     PurchasesErrorCode.UnsupportedError,
                     underlyingErrorMessage = "purchase(product:winBackOffer:onError:onSuccess:) is only available on iOS 18.0+"
-                )
+                ),
+                false
             )
             return
         }
 
-        val purchaseParams = RCPurchaseParamsBuilder(product = storeProduct.toIosStoreProduct())
-            .withWinBackOffer(winBackOffer.toIosWinBackOffer())
-            .build()
-
+//        val purchaseParams = RCPurchaseParamsBuilder(product = storeProduct.toIosStoreProduct())
+//            .withWinBackOffer(winBackOffer.toIosWinBackOffer())
+//            .build()
+//
+        val purchaseParams = RCPurchaseParams()
         iosPurchases.purchase(
             params = purchaseParams,
             completionHandler = {
@@ -433,7 +436,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 error: NSError? ->
 
                 if (error != null) {
-                    onError(error.toPurchasesErrorOrThrow())
+                    onError(error.toPurchasesErrorOrThrow(),userCancelled)
                     return@purchase
                 }
 
@@ -449,7 +452,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun purchase(
         packageToPurchase: Package,
         winBackOffer: WinBackOffer,
-        onError: (error: PurchasesError) -> Unit,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     ) {
         if (!isIOSVersion18OrAbove()) {
@@ -457,14 +460,16 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 PurchasesError(
                     PurchasesErrorCode.UnsupportedError,
                     underlyingErrorMessage = "purchase(packageToPurchase:winBackOffer:onError:onSuccess:) is only available on iOS 18.0+"
-                )
+                ),
+                false
             )
             return
         }
 
-        val purchaseParams = RCPurchaseParamsBuilder(packageToPurchase.toIosPackage())
-            .withWinBackOffer(winBackOffer.toIosWinBackOffer())
-            .build()
+//        val purchaseParams = RCPurchaseParamsBuilder(packageToPurchase.toIosPackage())
+//            .withWinBackOffer(winBackOffer.toIosWinBackOffer())
+//            .build()
+        val purchaseParams: RCPurchaseParams = RCPurchaseParams()
 
         iosPurchases.purchase(
             params = purchaseParams,
@@ -475,7 +480,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                     error: NSError? ->
 
                 if (error != null) {
-                    onError(error.toPurchasesErrorOrThrow())
+                    onError(error.toPurchasesErrorOrThrow(), userCancelled)
                     return@purchase
                 }
 
