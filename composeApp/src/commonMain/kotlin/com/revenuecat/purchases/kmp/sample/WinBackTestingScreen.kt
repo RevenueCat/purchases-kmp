@@ -82,9 +82,9 @@ fun WinBackTestingScreen() {
                             Purchases.sharedInstance.purchase(
                                 products[0],
                                 winBackOffer = eligibleWinBackOffers[0],
-                                onError = { error ->
+                                onError = { error, userCancelled ->
                                     println("An error occurred while making the purchase")
-                                    println(error)
+                                    println("Error: ${error}, userCancelled: $userCancelled")
                                 },
                                 onSuccess = { transaction, customerInfo ->
                                     println("Successful purchase!!")
@@ -148,9 +148,9 @@ fun WinBackTestingScreen() {
                             Purchases.sharedInstance.purchase(
                                 packageToPurchase,
                                 winBackOffer = eligibleWinBackOffers[0],
-                                onError = { error ->
+                                onError = { error, userCancelled ->
                                     println("An error occurred while making the purchase")
-                                    println(error)
+                                    println("Error: ${error}, userCancelled: $userCancelled")
                                 },
                                 onSuccess = { transaction, customerInfo ->
                                     println("Successful purchase!!")
