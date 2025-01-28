@@ -650,6 +650,13 @@ public expect class Purchases {
      */
     public fun setCreative(creative: String?)
 
+    /**
+     * Enable automatic collection of Apple Search Ad attribution on iOS. Disabled by default.
+     *
+     * **Note:** this is only available on iOS 14.3 and up.
+     */
+    public fun enableAdServicesAttributionTokenCollection()
+
 }
 
 /**
