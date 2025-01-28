@@ -1,13 +1,15 @@
 package com.revenuecat.purchases.kmp
 
+import cocoapods.PurchasesHybridCommon.IOSAPIAvailabilityChecker
 import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
 import cocoapods.PurchasesHybridCommon.RCCustomerInfo
 import cocoapods.PurchasesHybridCommon.RCPurchaseParams
-//import cocoapods.PurchasesHybridCommon.RCPurchaseParamsBuilder
+import cocoapods.PurchasesHybridCommon.RCPurchaseParamsBuilder
 import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.RCStoreTransaction
 import cocoapods.PurchasesHybridCommon.configureWithAPIKey
+import cocoapods.PurchasesHybridCommon.purchaseProduct
 import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
@@ -344,7 +346,10 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (List<WinBackOffer>) -> Unit,
     ) {
-        if (!isIOSVersion18OrAbove()) {
+        // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
+        // interoperability drops the @available(osVersion) requirements, and you can technically
+        // call functions with an @available from any OS version in KMP
+        if (!IOSAPIAvailabilityChecker().isWinBackOfferAPIAvailable()) {
             onError(
                 PurchasesError(
                     PurchasesErrorCode.UnsupportedError,
@@ -377,7 +382,10 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (List<WinBackOffer>) -> Unit,
     ) {
-        if (!isIOSVersion18OrAbove()) {
+        // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
+        // interoperability drops the @available(osVersion) requirements, and you can technically
+        // call functions with an @available from any OS version in KMP
+        if (!IOSAPIAvailabilityChecker().isWinBackOfferAPIAvailable()) {
             onError(
                 PurchasesError(
                     PurchasesErrorCode.UnsupportedError,
@@ -411,7 +419,10 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     ) {
-        if (!isIOSVersion18OrAbove()) {
+        // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
+        // interoperability drops the @available(osVersion) requirements, and you can technically
+        // call functions with an @available from any OS version in KMP
+        if (!IOSAPIAvailabilityChecker().isWinBackOfferAPIAvailable()) {
             onError(
                 PurchasesError(
                     PurchasesErrorCode.UnsupportedError,
@@ -422,22 +433,21 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             return
         }
 
-//        val purchaseParams = RCPurchaseParamsBuilder(product = storeProduct.toIosStoreProduct())
-//            .withWinBackOffer(winBackOffer.toIosWinBackOffer())
-//            .build()
-//
-        val purchaseParams = RCPurchaseParams()
-        iosPurchases.purchase(
+        val purchaseParams = RCPurchaseParamsBuilder(product = storeProduct.toIosStoreProduct())
+            .withWinBackOffer(winBackOffer.toIosWinBackOffer())
+            .build()
+
+        iosPurchases.purchaseWithParams(
             params = purchaseParams,
-            completionHandler = {
+            completion = {
                 transaction: RCStoreTransaction?,
                 customerInfo: RCCustomerInfo?,
-                userCancelled: Boolean,
-                error: NSError? ->
+                error: NSError?,
+                userCancelled: Boolean ->
 
                 if (error != null) {
-                    onError(error.toPurchasesErrorOrThrow(),userCancelled)
-                    return@purchase
+                    onError(error.toPurchasesErrorOrThrow(), userCancelled)
+                    return@purchaseWithParams
                 }
 
                 onSuccess(
@@ -455,7 +465,10 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
         onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     ) {
-        if (!isIOSVersion18OrAbove()) {
+        // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
+        // interoperability drops the @available(osVersion) requirements, and you can technically
+        // call functions with an @available from any OS version in KMP
+        if (!IOSAPIAvailabilityChecker().isWinBackOfferAPIAvailable()) {
             onError(
                 PurchasesError(
                     PurchasesErrorCode.UnsupportedError,
@@ -466,22 +479,21 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             return
         }
 
-//        val purchaseParams = RCPurchaseParamsBuilder(packageToPurchase.toIosPackage())
-//            .withWinBackOffer(winBackOffer.toIosWinBackOffer())
-//            .build()
-        val purchaseParams: RCPurchaseParams = RCPurchaseParams()
+        val purchaseParams = RCPurchaseParamsBuilder(`package` = packageToPurchase.toIosPackage())
+            .withWinBackOffer(winBackOffer.toIosWinBackOffer())
+            .build()
 
-        iosPurchases.purchase(
+        iosPurchases.purchaseWithParams(
             params = purchaseParams,
-            completionHandler = {
-                    transaction: RCStoreTransaction?,
-                    customerInfo: RCCustomerInfo?,
-                    userCancelled: Boolean,
-                    error: NSError? ->
+            completion = {
+                transaction: RCStoreTransaction?,
+                customerInfo: RCCustomerInfo?,
+                error: NSError?,
+                userCancelled: Boolean ->
 
                 if (error != null) {
                     onError(error.toPurchasesErrorOrThrow(), userCancelled)
-                    return@purchase
+                    return@purchaseWithParams
                 }
 
                 onSuccess(
@@ -610,12 +622,4 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
     public actual fun setCreative(creative: String?): Unit =
         iosPurchases.setCreative(creative)
-
-    private fun isIOSVersion18OrAbove(): Boolean {
-        return currentOSVersion() > "18.0.0"
-    }
-
-    private fun currentOSVersion(): String {
-        return UIDevice.currentDevice.systemVersion
-    }
 }

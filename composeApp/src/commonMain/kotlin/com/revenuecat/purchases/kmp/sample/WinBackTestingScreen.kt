@@ -24,7 +24,7 @@ fun WinBackTestingScreen() {
         Text("Use this screen to fetch eligible win-back offers, purchase products without a win-back offer, and purchase products with an eligible win-back offer.")
         
         Text("This test relies on products and offers defined in the SKConfig file, so be sure to launch the PurchaseTester app from Xcode with the SKConfig file configured.")
-        
+
         Spacer(modifier = Modifier.height(16.dp))
         
         Button(onClick = {
@@ -35,7 +35,7 @@ fun WinBackTestingScreen() {
                 },
                 onSuccess = { products: List<StoreProduct> ->
                     if(products.isEmpty()) {
-                        println("Products are empty!")
+                        println("No products were found. Are you running on Android? Win-backs are only supported on iOS.")
                         return@getProducts
                     }
 
@@ -64,6 +64,7 @@ fun WinBackTestingScreen() {
                 },
                 onSuccess = { products: List<StoreProduct> ->
                     if(products.isEmpty()) {
+                        println("No products were found. Are you running on Android? Win-backs are only supported on iOS.")
                         return@getProducts
                     }
 
@@ -88,6 +89,7 @@ fun WinBackTestingScreen() {
                                 },
                                 onSuccess = { transaction, customerInfo ->
                                     println("Successful purchase!!")
+                                    println("transaction: ${transaction}, customerInfo: ${customerInfo}")
                                 }
                             )
                         }
@@ -106,20 +108,23 @@ fun WinBackTestingScreen() {
                 onSuccess = { offerings ->
                     val currentOffering = offerings.current!!
 
-                    println(currentOffering.availablePackages)
-                    val packageToPurchase = currentOffering.availablePackages.first {
-                        it.storeProduct.id == "com.revenuecat.monthly_4.99.1_week_intro"
+                    val packageToPurchase = currentOffering.availablePackages.firstOrNull {
+                        it.storeProduct.id == "com.revenuecat.monthly_4.99"
                     }
 
-                    Purchases.sharedInstance.purchase(
-                        packageToPurchase,
-                        onError = { error: PurchasesError, userCancelled: Boolean ->
-                            println("Error: $error, userCancelled: $userCancelled")
-                        },
-                        onSuccess = { transaction: StoreTransaction, customerInfo: CustomerInfo ->
-                            println("onSuccess: $transaction, customerInfo: $customerInfo")
-                        }
-                    )
+                    if (packageToPurchase != null) {
+                        Purchases.sharedInstance.purchase(
+                            packageToPurchase,
+                            onError = { error: PurchasesError, userCancelled: Boolean ->
+                                println("Error: $error, userCancelled: $userCancelled")
+                            },
+                            onSuccess = { transaction: StoreTransaction, customerInfo: CustomerInfo ->
+                                println("onSuccess: $transaction, customerInfo: $customerInfo")
+                            }
+                        )
+                    } else {
+                        println("No packages with matching products were found. Are you running on Android? Win-backs are only supported on iOS.")
+                    }
                 }
             )
         }) {
@@ -132,32 +137,39 @@ fun WinBackTestingScreen() {
                 onSuccess = { offerings ->
                     val currentOffering = offerings.current!!
 
-                    val packageToPurchase = currentOffering.availablePackages.first {
-                        it.storeProduct.id == "com.revenuecat.monthly_4.99.1_week_intro"
+                    val packageToPurchase = currentOffering.availablePackages.firstOrNull {
+                        it.storeProduct.id == "com.revenuecat.monthly_4.99"
                     }
 
-                    Purchases.sharedInstance.getEligibleWinBackOffersForPackage(
-                        packageToCheck = packageToPurchase,
-                        onError = { error -> println(error) },
-                        onSuccess = { eligibleWinBackOffers ->
-                            if (eligibleWinBackOffers.isEmpty()) {
-                                println("No eligible win-back offers found.")
-                                return@getEligibleWinBackOffersForPackage
-                            }
-
-                            Purchases.sharedInstance.purchase(
-                                packageToPurchase,
-                                winBackOffer = eligibleWinBackOffers[0],
-                                onError = { error, userCancelled ->
-                                    println("An error occurred while making the purchase")
-                                    println("Error: ${error}, userCancelled: $userCancelled")
-                                },
-                                onSuccess = { transaction, customerInfo ->
-                                    println("Successful purchase!!")
+                    if (packageToPurchase != null) {
+                        Purchases.sharedInstance.getEligibleWinBackOffersForPackage(
+                            packageToCheck = packageToPurchase,
+                            onError = { error -> println(error) },
+                            onSuccess = { eligibleWinBackOffers ->
+                                if (eligibleWinBackOffers.isEmpty()) {
+                                    println("No eligible win-back offers found.")
+                                    return@getEligibleWinBackOffersForPackage
                                 }
-                            )
-                        }
-                    )
+
+                                Purchases.sharedInstance.purchase(
+                                    packageToPurchase,
+                                    winBackOffer = eligibleWinBackOffers[0],
+                                    onError = { error, userCancelled ->
+                                        println("An error occurred while making the purchase")
+                                        println("Error: ${error}, userCancelled: $userCancelled")
+                                    },
+                                    onSuccess = { transaction, customerInfo ->
+                                        println("Successful purchase!!")
+                                        println("transaction: ${transaction}, customerInfo: ${customerInfo}")
+                                    }
+                                )
+                            }
+                        )
+                    } else {
+                        println("No packages with matching products were found. Are you running on Android? Win-backs are only supported on iOS.")
+                    }
+
+
                 }
             )
         }) {
