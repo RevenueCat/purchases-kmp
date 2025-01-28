@@ -622,4 +622,14 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
     public actual fun setCreative(creative: String?): Unit =
         iosPurchases.setCreative(creative)
+
+    public actual fun enableAdServicesAttributionTokenCollection() {
+        if (IOSAPIAvailabilityChecker().isEnableAdServicesAttributionTokenCollectionAPIAvailable())
+            RCCommonFunctionality.enableAdServicesAttributionTokenCollection()
+        else logHandler.d(
+            tag = "Purchases",
+            msg = "`enableAdServicesAttributionTokenCollection()` is only available on iOS 14.3 " +
+                    "and up."
+        )
+    }
 }
