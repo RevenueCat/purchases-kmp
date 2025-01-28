@@ -80,9 +80,20 @@ fun WinBackTestingScreen() {
                                 return@getEligibleWinBackOffersForProduct
                             }
 
+                            val winBackOffer = eligibleWinBackOffers[0]
+                            println("Got a win-back offer! winBackOffer.toString(): $winBackOffer")
+                            println("winBackOffer.discount: ${winBackOffer.discount}")
+                            println("winBackOffer.discount.price: ${winBackOffer.discount.price}")
+                            println("winBackOffer.discount.numberOfPeriods: ${winBackOffer.discount.numberOfPeriods}")
+                            println("winBackOffer.discount.offerIdentifier: ${winBackOffer.discount.offerIdentifier}")
+                            println("winBackOffer.discount.paymentMode: ${winBackOffer.discount.paymentMode.name}")
+                            println("winBackOffer.discount.subscriptionPeriod.unit.name: ${winBackOffer.discount.subscriptionPeriod.unit.name}")
+                            println("winBackOffer.discount.subscriptionPeriod.value: ${winBackOffer.discount.subscriptionPeriod.value}")
+                            println("winBackOffer.discount.type: ${winBackOffer.discount.type.name}")
+
                             Purchases.sharedInstance.purchase(
                                 products[0],
-                                winBackOffer = eligibleWinBackOffers[0],
+                                winBackOffer = winBackOffer,
                                 onError = { error, userCancelled ->
                                     println("An error occurred while making the purchase")
                                     println("Error: ${error}, userCancelled: $userCancelled")
@@ -109,7 +120,7 @@ fun WinBackTestingScreen() {
                     val currentOffering = offerings.current!!
 
                     val packageToPurchase = currentOffering.availablePackages.firstOrNull {
-                        it.storeProduct.id == "com.revenuecat.monthly_4.99"
+                        it.storeProduct.id == "com.revenuecat.monthly_4.99.1_week_intro"
                     }
 
                     if (packageToPurchase != null) {
@@ -138,7 +149,7 @@ fun WinBackTestingScreen() {
                     val currentOffering = offerings.current!!
 
                     val packageToPurchase = currentOffering.availablePackages.firstOrNull {
-                        it.storeProduct.id == "com.revenuecat.monthly_4.99"
+                        it.storeProduct.id == "com.revenuecat.monthly_4.99.1_week_intro"
                     }
 
                     if (packageToPurchase != null) {
@@ -151,9 +162,20 @@ fun WinBackTestingScreen() {
                                     return@getEligibleWinBackOffersForPackage
                                 }
 
+                                val winBackOffer = eligibleWinBackOffers[0]
+                                println("Got a win-back offer! winBackOffer.toString(): $winBackOffer")
+                                println("winBackOffer.discount: ${winBackOffer.discount}")
+                                println("winBackOffer.discount.price: ${winBackOffer.discount.price}")
+                                println("winBackOffer.discount.numberOfPeriods: ${winBackOffer.discount.numberOfPeriods}")
+                                println("winBackOffer.discount.offerIdentifier: ${winBackOffer.discount.offerIdentifier}")
+                                println("winBackOffer.discount.paymentMode: ${winBackOffer.discount.paymentMode.name}")
+                                println("winBackOffer.discount.subscriptionPeriod.unit.name: ${winBackOffer.discount.subscriptionPeriod.unit.name}")
+                                println("winBackOffer.discount.subscriptionPeriod.value: ${winBackOffer.discount.subscriptionPeriod.value}")
+                                println("winBackOffer.discount.type: ${winBackOffer.discount.type.name}")
+
                                 Purchases.sharedInstance.purchase(
                                     packageToPurchase,
-                                    winBackOffer = eligibleWinBackOffers[0],
+                                    winBackOffer = winBackOffer,
                                     onError = { error, userCancelled ->
                                         println("An error occurred while making the purchase")
                                         println("Error: ${error}, userCancelled: $userCancelled")
