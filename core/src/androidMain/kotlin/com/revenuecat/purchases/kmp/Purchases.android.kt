@@ -417,6 +417,15 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual fun setCreative(creative: String?): Unit =
         androidPurchases.setCreative(creative)
 
+    public actual fun enableAdServicesAttributionTokenCollection() {
+        // This is a no-op on Android.
+        logHandler.v(
+            tag = "Purchases",
+            msg = "`enableAdServicesAttributionTokenCollection()` is only available on iOS, 14.3 " +
+                    "and up."
+        )
+    }
+
     private fun StoreMessageType.toInAppMessageTypeOrNull(): InAppMessageType? =
         when (this) {
             StoreMessageType.BILLING_ISSUES -> InAppMessageType.BILLING_ISSUES

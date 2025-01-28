@@ -650,6 +650,8 @@ public expect class Purchases {
      */
     public fun setCreative(creative: String?)
 
+    public fun enableAdServicesAttributionTokenCollection()
+
 }
 
 /**
