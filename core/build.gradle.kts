@@ -31,7 +31,7 @@ kotlin {
 
     cocoapods {
         version = libs.versions.revenuecat.kmp.get()
-        ios.deploymentTarget = libs.versions.ios.deploymentTarget.get()
+        ios.deploymentTarget = libs.versions.ios.deploymentTarget.core.get()
 
         framework {
             baseName = "Purchases"
