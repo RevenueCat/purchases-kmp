@@ -9,6 +9,7 @@ private class DiscountTypeAPI {
         when (type) {
             DiscountType.INTRODUCTORY,
             DiscountType.PROMOTIONAL,
+            DiscountType.WINBACK,
             -> {
             }
         }.exhaustive

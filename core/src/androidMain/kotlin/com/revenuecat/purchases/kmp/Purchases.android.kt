@@ -39,6 +39,7 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import com.revenuecat.purchases.logInWith
 import com.revenuecat.purchases.logOutWith
@@ -308,6 +309,62 @@ public actual class Purchases private constructor(private val androidPurchases: 
                 PurchasesErrorCode.UnsupportedError,
                 underlyingErrorMessage = "recordPurchase() is not supported on Android."
             )
+        )
+    }
+
+    public actual fun getEligibleWinBackOffersForProduct(
+        storeProduct: StoreProduct,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (List<WinBackOffer>) -> Unit,
+    ) {
+        onError(
+            PurchasesError(
+                PurchasesErrorCode.UnsupportedError,
+                underlyingErrorMessage = "getEligibleWinBackOffersForProduct() is not supported on Android."
+            )
+        )
+    }
+
+    public actual fun getEligibleWinBackOffersForPackage(
+        packageToCheck: Package,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (List<WinBackOffer>) -> Unit,
+    ) {
+        onError(
+            PurchasesError(
+                PurchasesErrorCode.UnsupportedError,
+                underlyingErrorMessage = "getEligibleWinBackOffersForPackage() is not supported on Android."
+            )
+        )
+    }
+
+    public actual fun purchase(
+        storeProduct: StoreProduct,
+        winBackOffer: WinBackOffer,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
+        onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit
+    ) {
+        onError(
+            PurchasesError(
+                PurchasesErrorCode.UnsupportedError,
+                underlyingErrorMessage = "purchase(product:winBackOffer:onError:onSuccess:) is not supported on Android."
+            ),
+            false
+        )
+    }
+
+    public actual fun purchase(
+        packageToPurchase: Package,
+        winBackOffer: WinBackOffer,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
+        onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
+    ) {
+        onError(
+            PurchasesError(
+                PurchasesErrorCode.UnsupportedError,
+                underlyingErrorMessage = "purchase(packageToPurchase:winBackOffer:onError:onSuccess:) is not supported on Android."
+            ),
+            false
         )
     }
 

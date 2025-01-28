@@ -2,9 +2,14 @@ package com.revenuecat.purchases.kmp
 
 import cocoapods.PurchasesHybridCommon.IOSAPIAvailabilityChecker
 import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
+import cocoapods.PurchasesHybridCommon.RCCustomerInfo
+import cocoapods.PurchasesHybridCommon.RCPurchaseParams
+import cocoapods.PurchasesHybridCommon.RCPurchaseParamsBuilder
 import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
+import cocoapods.PurchasesHybridCommon.RCStoreTransaction
 import cocoapods.PurchasesHybridCommon.configureWithAPIKey
+import cocoapods.PurchasesHybridCommon.purchaseProduct
 import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
@@ -17,11 +22,13 @@ import com.revenuecat.purchases.kmp.mappings.toIosPackage
 import com.revenuecat.purchases.kmp.mappings.toIosPromotionalOffer
 import com.revenuecat.purchases.kmp.mappings.toIosStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toIosStoreProductDiscount
+import com.revenuecat.purchases.kmp.mappings.toIosWinBackOffer
 import com.revenuecat.purchases.kmp.mappings.toOfferings
 import com.revenuecat.purchases.kmp.mappings.toPromotionalOffer
 import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
 import com.revenuecat.purchases.kmp.mappings.toStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
+import com.revenuecat.purchases.kmp.mappings.toWinBackOffer
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomerInfo
@@ -38,10 +45,14 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
+import platform.Foundation.NSError
 import platform.Foundation.NSURL
+import platform.UIKit.UIDevice
 import cocoapods.PurchasesHybridCommon.RCDangerousSettings as IosDangerousSettings
 import cocoapods.PurchasesHybridCommon.RCPurchases as IosPurchases
+import cocoapods.PurchasesHybridCommon.RCWinBackOffer as NativeIosWinBackOffer
 
 public actual class Purchases private constructor(private val iosPurchases: IosPurchases) {
     public actual companion object {
@@ -326,6 +337,170 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                         )
                     }
                 }
+            }
+        )
+    }
+
+    public actual fun getEligibleWinBackOffersForProduct(
+        storeProduct: StoreProduct,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (List<WinBackOffer>) -> Unit,
+    ) {
+        // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
+        // interoperability drops the @available(osVersion) requirements, and you can technically
+        // call functions with an @available from any OS version in KMP
+        if (!IOSAPIAvailabilityChecker().isWinBackOfferAPIAvailable()) {
+            onError(
+                PurchasesError(
+                    PurchasesErrorCode.UnsupportedError,
+                    underlyingErrorMessage = "getEligibleWinBackOffersForProduct is only available on iOS 18.0+"
+                )
+            )
+            return
+        }
+
+        iosPurchases.eligibleWinBackOffersForProduct(
+            product = storeProduct.toIosStoreProduct(),
+            completion = { eligibleWinBackOffers, error ->
+
+                if (error != null) {
+                    onError(error.toPurchasesErrorOrThrow())
+                    return@eligibleWinBackOffersForProduct
+                }
+
+                val typedEligibleWinBackOffers = eligibleWinBackOffers?.mapNotNull {
+                    (it as? NativeIosWinBackOffer)?.toWinBackOffer()
+                } ?: emptyList()
+
+                onSuccess(typedEligibleWinBackOffers)
+            }
+        )
+    }
+
+    public actual fun getEligibleWinBackOffersForPackage(
+        packageToCheck: Package,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (List<WinBackOffer>) -> Unit,
+    ) {
+        // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
+        // interoperability drops the @available(osVersion) requirements, and you can technically
+        // call functions with an @available from any OS version in KMP
+        if (!IOSAPIAvailabilityChecker().isWinBackOfferAPIAvailable()) {
+            onError(
+                PurchasesError(
+                    PurchasesErrorCode.UnsupportedError,
+                    underlyingErrorMessage = "getEligibleWinBackOffersForPackage is only available on iOS 18.0+"
+                )
+            )
+            return
+        }
+
+        iosPurchases.eligibleWinBackOffersForPackage(
+            packageToCheck.toIosPackage(),
+            completion = { eligibleWinBackOffers, error ->
+
+                if (error != null) {
+                    onError(error.toPurchasesErrorOrThrow())
+                    return@eligibleWinBackOffersForPackage
+                }
+
+                val typedEligibleWinBackOffers = eligibleWinBackOffers?.mapNotNull {
+                    (it as? NativeIosWinBackOffer)?.toWinBackOffer()
+                } ?: emptyList()
+
+                onSuccess(typedEligibleWinBackOffers)
+            }
+        )
+    }
+
+    public actual fun purchase(
+        storeProduct: StoreProduct,
+        winBackOffer: WinBackOffer,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
+        onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
+    ) {
+        // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
+        // interoperability drops the @available(osVersion) requirements, and you can technically
+        // call functions with an @available from any OS version in KMP
+        if (!IOSAPIAvailabilityChecker().isWinBackOfferAPIAvailable()) {
+            onError(
+                PurchasesError(
+                    PurchasesErrorCode.UnsupportedError,
+                    underlyingErrorMessage = "purchase(product:winBackOffer:onError:onSuccess:) is only available on iOS 18.0+"
+                ),
+                false
+            )
+            return
+        }
+
+        val purchaseParams = RCPurchaseParamsBuilder(product = storeProduct.toIosStoreProduct())
+            .withWinBackOffer(winBackOffer.toIosWinBackOffer())
+            .build()
+
+        iosPurchases.purchaseWithParams(
+            params = purchaseParams,
+            completion = {
+                transaction: RCStoreTransaction?,
+                customerInfo: RCCustomerInfo?,
+                error: NSError?,
+                userCancelled: Boolean ->
+
+                if (error != null) {
+                    onError(error.toPurchasesErrorOrThrow(), userCancelled)
+                    return@purchaseWithParams
+                }
+
+                onSuccess(
+                    transaction?.toStoreTransaction()
+                        ?: error("Expected a non-null RCStoreTransaction"),
+                    customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
+                )
+            }
+        )
+    }
+
+    public actual fun purchase(
+        packageToPurchase: Package,
+        winBackOffer: WinBackOffer,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
+        onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
+    ) {
+        // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
+        // interoperability drops the @available(osVersion) requirements, and you can technically
+        // call functions with an @available from any OS version in KMP
+        if (!IOSAPIAvailabilityChecker().isWinBackOfferAPIAvailable()) {
+            onError(
+                PurchasesError(
+                    PurchasesErrorCode.UnsupportedError,
+                    underlyingErrorMessage = "purchase(packageToPurchase:winBackOffer:onError:onSuccess:) is only available on iOS 18.0+"
+                ),
+                false
+            )
+            return
+        }
+
+        val purchaseParams = RCPurchaseParamsBuilder(`package` = packageToPurchase.toIosPackage())
+            .withWinBackOffer(winBackOffer.toIosWinBackOffer())
+            .build()
+
+        iosPurchases.purchaseWithParams(
+            params = purchaseParams,
+            completion = {
+                transaction: RCStoreTransaction?,
+                customerInfo: RCCustomerInfo?,
+                error: NSError?,
+                userCancelled: Boolean ->
+
+                if (error != null) {
+                    onError(error.toPurchasesErrorOrThrow(), userCancelled)
+                    return@purchaseWithParams
+                }
+
+                onSuccess(
+                    transaction?.toStoreTransaction()
+                        ?: error("Expected a non-null RCStoreTransaction"),
+                    customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
+                )
             }
         )
     }
