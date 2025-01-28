@@ -418,7 +418,6 @@ public actual class Purchases private constructor(private val androidPurchases: 
         androidPurchases.setCreative(creative)
 
     public actual fun enableAdServicesAttributionTokenCollection() {
-        // This is a no-op on Android.
         logHandler.v(
             tag = "Purchases",
             msg = "`enableAdServicesAttributionTokenCollection()` is only available on iOS, 14.3 " +
