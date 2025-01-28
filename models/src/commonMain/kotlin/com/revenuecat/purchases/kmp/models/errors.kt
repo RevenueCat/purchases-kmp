@@ -96,6 +96,18 @@ public enum class PurchasesErrorCode(public val code: Int, public val descriptio
     ),
     FeatureNotAvailableInCustomEntitlementsComputationMode(
         37,
-        "This feature is not available when utilizing the customEntitlementsComputation dangerousSetting."
+        "This feature is not available when utilizing the customEntitlementsComputation dangerousSetting.",
+    ),
+    InvalidWebPurchaseToken(
+        39,
+        "The link you provided does not contain a valid purchase token.",
+    ),
+    PurchaseBelongsToOtherUser(
+        40,
+        "The web purchase already belongs to other user.",
+    ),
+    ExpiredWebPurchaseToken(
+        41,
+        "The link you provided has expired. A new one will be sent to the email used to make the purchase.",
     )
 }
