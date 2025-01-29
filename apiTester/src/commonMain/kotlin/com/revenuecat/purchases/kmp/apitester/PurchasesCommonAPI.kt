@@ -29,6 +29,7 @@ import com.revenuecat.purchases.kmp.models.StoreKitVersion
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.result.awaitGetProductsResult
 import com.revenuecat.purchases.kmp.result.awaitOfferingsResult
 import com.revenuecat.purchases.kmp.result.awaitPurchaseResult
@@ -307,8 +308,8 @@ private class PurchasesCommonAPI {
                 // Fetch the eligible win-back offers for the product
                 Purchases.sharedInstance.getEligibleWinBackOffersForProduct(
                     storeProduct = product,
-                    onError = { error -> },
-                    onSuccess = { eligibleWinBackOffers ->
+                    onError = { error: PurchasesError -> },
+                    onSuccess = { eligibleWinBackOffers: List<WinBackOffer> ->
                         val winBackOffer = eligibleWinBackOffers.first()
 
                         // Purchase the product with the win-back offer
@@ -334,8 +335,8 @@ private class PurchasesCommonAPI {
                 // Fetch the eligible win-back offers for the package
                 Purchases.sharedInstance.getEligibleWinBackOffersForPackage(
                     packageToCheck = packageToPurchase,
-                    onError = { error -> },
-                    onSuccess = { eligibleWinBackOffers ->
+                    onError = { error: PurchasesError -> },
+                    onSuccess = { eligibleWinBackOffers: List<WinBackOffer> ->
 
                         // Purchase the package with the win-back offer
                         Purchases.sharedInstance.purchase(
