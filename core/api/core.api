@@ -47,10 +47,10 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun logIn (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
 	public final fun logOut (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
-	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/Package;Lcom/revenuecat/purchases/kmp/models/WinBackOffer;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
+	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/Package;Lcom/revenuecat/purchases/kmp/models/WinBackOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/ReplacementMode;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
-	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/WinBackOffer;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
+	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/WinBackOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/ReplacementMode;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/ReplacementMode;)V
 	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/ReplacementMode;ILjava/lang/Object;)V
