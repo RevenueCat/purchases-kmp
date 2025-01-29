@@ -3,7 +3,6 @@ package com.revenuecat.purchases.kmp
 import cocoapods.PurchasesHybridCommon.IOSAPIAvailabilityChecker
 import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
 import cocoapods.PurchasesHybridCommon.RCCustomerInfo
-import cocoapods.PurchasesHybridCommon.RCPurchaseParams
 import cocoapods.PurchasesHybridCommon.RCPurchaseParamsBuilder
 import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
@@ -49,7 +48,6 @@ import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import platform.Foundation.NSError
 import platform.Foundation.NSURL
-import platform.UIKit.UIDevice
 import cocoapods.PurchasesHybridCommon.RCDangerousSettings as IosDangerousSettings
 import cocoapods.PurchasesHybridCommon.RCPurchases as IosPurchases
 import cocoapods.PurchasesHybridCommon.RCWinBackOffer as NativeIosWinBackOffer
