@@ -196,8 +196,6 @@ fun WinBackTestingScreen(
                     } else {
                         println("No packages with matching products were found. Are you running on Android? Win-backs are only supported on iOS.")
                     }
-
-
                 }
             )
         }) {
