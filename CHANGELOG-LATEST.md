@@ -1,11 +1,19 @@
 ## RevenueCat SDK
+### ✨ New Features
+* Adds `enableAdServicesAttributionTokenCollection()` (#302) via JayShortway (@JayShortway)
 ### 📦 Dependency Updates
-* Updates purchases-hybrid-common to 13.15.2 (#295) via RevenueCat Git Bot (@RCGitBot)
-  * [Android 8.10.8](https://github.com/RevenueCat/purchases-android/releases/tag/8.10.8)
-  * [Android 8.10.7](https://github.com/RevenueCat/purchases-android/releases/tag/8.10.7)
-  * [Android 8.10.6](https://github.com/RevenueCat/purchases-android/releases/tag/8.10.6)
-  * [iOS 5.14.5](https://github.com/RevenueCat/purchases-ios/releases/tag/5.14.5)
-  * [iOS 5.14.4](https://github.com/RevenueCat/purchases-ios/releases/tag/5.14.4)
-  * [iOS 5.14.3](https://github.com/RevenueCat/purchases-ios/releases/tag/5.14.3)
-  * [iOS 5.14.2](https://github.com/RevenueCat/purchases-ios/releases/tag/5.14.2)
-  * [iOS 5.14.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.14.1)
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 13.16.2 (#305) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 8.11.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.11.0)
+  * [iOS 5.15.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.15.0)
+  * [iOS 5.14.6](https://github.com/RevenueCat/purchases-ios/releases/tag/5.14.6)
+* Updates purchases-hybrid-common to 13.16.1 (#304) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 8.11.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.11.0)
+  * [iOS 5.15.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.15.0)
+  * [iOS 5.14.6](https://github.com/RevenueCat/purchases-ios/releases/tag/5.14.6)
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 13.16.0 (#300) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 8.11.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.11.0)
+  * [iOS 5.15.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.15.0)
+  * [iOS 5.14.6](https://github.com/RevenueCat/purchases-ios/releases/tag/5.14.6)
+
+### 🔄 Other Changes
+* Sets the deployment target of the UI module to 15. (#301) via JayShortway (@JayShortway)
