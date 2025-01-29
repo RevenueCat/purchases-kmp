@@ -413,10 +413,12 @@ public expect class Purchases {
     )
 
     /**
+     * Fetches the win-back offers that a subscriber is eligible for on a given product.
+     *
      * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
      * met.
      *
-     * @param product: The product to check for eligible win-back offers on.
+     * @param storeProduct: The product to check for eligible win-back offers on.
      * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
      * what went wrong.
      * @param onSuccess Will be called if the function completes successfully, including details
@@ -429,6 +431,8 @@ public expect class Purchases {
     )
 
     /**
+     * Fetches the win-back offers that a subscriber is eligible for on a given package.
+     *
      * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
      * met.
      *
@@ -445,6 +449,9 @@ public expect class Purchases {
     )
 
     /**
+     * Purchases a product with a given win-back offer. If you are using the Offerings system, use the
+     * overload with a [Package] parameter instead.
+     *
      * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
      * met.
      *
@@ -454,6 +461,8 @@ public expect class Purchases {
      * what went wrong and a boolean indicating whether the user canceled the purchase.
      * @param onSuccess Will be called if the function completes successfully, including details
      * on the purchase.
+     *
+     * @see [getEligibleWinBackOffersForProduct]
      */
     public fun purchase(
         storeProduct: StoreProduct,
@@ -463,6 +472,8 @@ public expect class Purchases {
     )
 
     /**
+     * Purchases a package with a given win-back offer.
+     *
      * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
      * met.
      *
@@ -472,6 +483,8 @@ public expect class Purchases {
      * what went wrong and a boolean indicating whether the user canceled the purchase.
      * @param onSuccess Will be called if the function completes successfully, including details
      * on the purchase.
+     *
+     * @see [getEligibleWinBackOffersForPackage]
      */
     public fun purchase(
         packageToPurchase: Package,

@@ -8,10 +8,14 @@ import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.configure
 import com.revenuecat.purchases.kmp.either.FailedPurchase
+import com.revenuecat.purchases.kmp.either.awaitGetEligibleWinBackOffersForPackageEither
+import com.revenuecat.purchases.kmp.either.awaitGetEligibleWinBackOffersForProductEither
 import com.revenuecat.purchases.kmp.either.awaitGetProductsEither
 import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
 import com.revenuecat.purchases.kmp.either.awaitPurchaseEither
 import com.revenuecat.purchases.kmp.ktx.SuccessfulPurchase
+import com.revenuecat.purchases.kmp.ktx.awaitGetEligibleWinBackOffersForPackage
+import com.revenuecat.purchases.kmp.ktx.awaitGetEligibleWinBackOffersForProduct
 import com.revenuecat.purchases.kmp.ktx.awaitGetProducts
 import com.revenuecat.purchases.kmp.ktx.awaitOfferings
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
@@ -30,6 +34,8 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
+import com.revenuecat.purchases.kmp.result.awaitGetEligibleWinBackOffersForPackageResult
+import com.revenuecat.purchases.kmp.result.awaitGetEligibleWinBackOffersForProductResult
 import com.revenuecat.purchases.kmp.result.awaitGetProductsResult
 import com.revenuecat.purchases.kmp.result.awaitOfferingsResult
 import com.revenuecat.purchases.kmp.result.awaitPurchaseResult
@@ -81,6 +87,7 @@ private class PurchasesCommonAPI {
         storeProduct: StoreProduct,
         packageToPurchase: Package,
         subscriptionOption: SubscriptionOption,
+        winBackOffer: WinBackOffer,
     ) {
         val oldProductId = "old"
         val replacementMode = GoogleReplacementMode.WITH_TIME_PRORATION
@@ -112,6 +119,20 @@ private class PurchasesCommonAPI {
             oldProductId = oldProductId,
             replacementMode = replacementMode,
         )
+
+        purchases.purchase(
+            storeProduct = storeProduct,
+            winBackOffer = winBackOffer,
+            onError = { error: PurchasesError, userCancelled: Boolean -> },
+            onSuccess = { transaction: StoreTransaction, customerInfo: CustomerInfo -> }
+        )
+
+        purchases.purchase(
+            packageToPurchase = packageToPurchase,
+            winBackOffer = winBackOffer,
+            onError = { error: PurchasesError, userCancelled: Boolean -> },
+            onSuccess = { transaction: StoreTransaction, customerInfo: CustomerInfo -> }
+        )
     }
 
     suspend fun checkCoroutines(
@@ -119,6 +140,7 @@ private class PurchasesCommonAPI {
         storeProduct: StoreProduct,
         packageToPurchase: Package,
         subscriptionOption: SubscriptionOption,
+        winBackOffer: WinBackOffer,
     ) {
         val offerings: Offerings = purchases.awaitOfferings()
 
@@ -148,6 +170,24 @@ private class PurchasesCommonAPI {
         )
 
         val getProductsResult: List<StoreProduct> = purchases.awaitGetProducts(listOf("product"))
+
+        val eligibleWinBackOffersForProduct: List<WinBackOffer> = purchases.awaitGetEligibleWinBackOffersForProduct(
+            storeProduct = storeProduct
+        )
+
+        val successfulPurchaseWithWinBackOfferForProduct: SuccessfulPurchase = purchases.awaitPurchase(
+            storeProduct = storeProduct,
+            winBackOffer = winBackOffer
+        )
+
+        val eligibleWinBackOffersForPackage: List<WinBackOffer> = purchases.awaitGetEligibleWinBackOffersForPackage(
+            packageToCheck = packageToPurchase
+        )
+
+        val successfulPurchaseWithWinBackOfferForPackage: SuccessfulPurchase = purchases.awaitPurchase(
+            packageToPurchase = packageToPurchase,
+            winBackOffer = winBackOffer
+        )
     }
 
     suspend fun checkCoroutinesResult(
@@ -155,6 +195,7 @@ private class PurchasesCommonAPI {
         storeProduct: StoreProduct,
         packageToPurchase: Package,
         subscriptionOption: SubscriptionOption,
+        winBackOffer: WinBackOffer,
     ) {
         val offerings: Result<Offerings> = purchases.awaitOfferingsResult()
 
@@ -185,6 +226,24 @@ private class PurchasesCommonAPI {
 
         val getProductsResult: Result<List<StoreProduct>> =
             purchases.awaitGetProductsResult(listOf("product"))
+
+        val eligibleWinBackOffersForProduct: Result<List<WinBackOffer>> = purchases.awaitGetEligibleWinBackOffersForProductResult(
+            storeProduct = storeProduct
+        )
+
+        val successfulPurchaseWithWinBackOfferForProduct: Result<SuccessfulPurchase> = purchases.awaitPurchaseResult(
+            storeProduct = storeProduct,
+            winBackOffer = winBackOffer
+        )
+
+        val eligibleWinBackOffersForPackage: Result<List<WinBackOffer>> = purchases.awaitGetEligibleWinBackOffersForPackageResult(
+            packageToCheck = packageToPurchase
+        )
+
+        val successfulPurchaseWithWinBackOfferForPackage: Result<SuccessfulPurchase> = purchases.awaitPurchaseResult(
+            packageToPurchase = packageToPurchase,
+            winBackOffer = winBackOffer
+        )
     }
 
     suspend fun checkCoroutinesEither(
@@ -192,6 +251,7 @@ private class PurchasesCommonAPI {
         storeProduct: StoreProduct,
         packageToPurchase: Package,
         subscriptionOption: SubscriptionOption,
+        winBackOffer: WinBackOffer,
     ) {
         val offerings: Either<PurchasesError, Offerings> = purchases.awaitOfferingsEither()
 
@@ -225,6 +285,24 @@ private class PurchasesCommonAPI {
 
         val getProductsResult: Either<PurchasesError, List<StoreProduct>> =
             purchases.awaitGetProductsEither(listOf("product"))
+
+        val eligibleWinBackOffersForProduct: Either<PurchasesError, List<WinBackOffer>> = purchases.awaitGetEligibleWinBackOffersForProductEither(
+            storeProduct = storeProduct
+        )
+
+        val successfulPurchaseWithWinBackOfferForProduct: Either<FailedPurchase, SuccessfulPurchase> = purchases.awaitPurchaseEither(
+            storeProduct = storeProduct,
+            winBackOffer = winBackOffer
+        )
+
+        val eligibleWinBackOffersForPackage: Either<PurchasesError, List<WinBackOffer>> = purchases.awaitGetEligibleWinBackOffersForPackageEither(
+            packageToCheck = packageToPurchase
+        )
+
+        val successfulPurchaseWithWinBackOfferForPackage: Either<FailedPurchase, SuccessfulPurchase> = purchases.awaitPurchaseEither(
+            packageToPurchase = packageToPurchase,
+            winBackOffer = winBackOffer
+        )
     }
 
     @Suppress("ForbiddenComment")
@@ -297,39 +375,21 @@ private class PurchasesCommonAPI {
         val handler = Purchases.logHandler
     }
 
-    fun checkRedeemingWinBackOffersForProduct(product: StoreProduct) {
-        // Fetch the eligible win-back offers for the product
-        Purchases.sharedInstance.getEligibleWinBackOffersForProduct(
-            storeProduct = product,
+    fun checkFetchingEligibleWinBackOffers(
+        purchases: Purchases,
+        storeProduct: StoreProduct,
+        packageToCheck: Package
+    ) {
+        purchases.getEligibleWinBackOffersForProduct(
+            storeProduct = storeProduct,
             onError = { error: PurchasesError -> },
-            onSuccess = { eligibleWinBackOffers: List<WinBackOffer> ->
-
-                // Purchase the product with the win-back offer
-                Purchases.sharedInstance.purchase(
-                    storeProduct = product,
-                    winBackOffer = eligibleWinBackOffers.first(),
-                    onError = { error: PurchasesError, userCancelled: Boolean -> },
-                    onSuccess = { transaction: StoreTransaction, customerInfo: CustomerInfo -> }
-                )
-            }
+            onSuccess = { eligibleWinBackOffers: List<WinBackOffer> -> }
         )
-    }
 
-    fun checkRedeemingWinBackOffersForPackage(aPackage: Package) {
-        // Fetch the eligible win-back offers for the package
-        Purchases.sharedInstance.getEligibleWinBackOffersForPackage(
-            packageToCheck = aPackage,
+        purchases.getEligibleWinBackOffersForPackage(
+            packageToCheck = packageToCheck,
             onError = { error: PurchasesError -> },
-            onSuccess = { eligibleWinBackOffers: List<WinBackOffer> ->
-
-                // Purchase the package with the win-back offer
-                Purchases.sharedInstance.purchase(
-                    aPackage,
-                    winBackOffer = eligibleWinBackOffers.first(),
-                    onError = { error: PurchasesError, userCancelled: Boolean -> },
-                    onSuccess = { transaction: StoreTransaction, customerInfo: CustomerInfo -> }
-                )
-            }
+            onSuccess = { eligibleWinBackOffers: List<WinBackOffer> -> }
         )
     }
 }

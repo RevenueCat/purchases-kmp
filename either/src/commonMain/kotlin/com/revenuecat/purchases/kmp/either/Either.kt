@@ -6,6 +6,8 @@ import arrow.core.right
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.ktx.SuccessfulLogin
 import com.revenuecat.purchases.kmp.ktx.SuccessfulPurchase
+import com.revenuecat.purchases.kmp.ktx.awaitGetEligibleWinBackOffersForPackage
+import com.revenuecat.purchases.kmp.ktx.awaitGetEligibleWinBackOffersForProduct
 import com.revenuecat.purchases.kmp.ktx.awaitPromotionalOffer
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
@@ -15,11 +17,15 @@ import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.PurchasesError
+import com.revenuecat.purchases.kmp.models.PurchasesException
+import com.revenuecat.purchases.kmp.models.PurchasesTransactionException
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.WinBackOffer
 import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 /**
@@ -329,6 +335,117 @@ public suspend fun Purchases.awaitPurchaseEither(
         onSuccess = { storeTransaction, customerInfo ->
             continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo).right())
         },
+    )
+}
+
+/**
+ * Fetches the win-back offers that a subscriber is eligible for on a given product.
+ *
+ * iOS only. Requires iOS 18.0+ and StoreKit 2 and returns an [Either] with an
+ * error if these requirements aren't met.
+ *
+ * @param storeProduct: The product to check for eligible win-back offers on.
+ *
+ * @return An [Either.Right] containing a [List] of [WinBackOffer]s if successful,
+ * an [Either.Left] containing a [PurchasesError] in case of a failure.
+ */
+public suspend fun Purchases.awaitGetEligibleWinBackOffersForProductEither(
+    storeProduct: StoreProduct
+): Either<PurchasesError, List<WinBackOffer>> = suspendCoroutine { continuation ->
+    getEligibleWinBackOffersForProduct(
+        storeProduct = storeProduct,
+        onError = { error ->
+            continuation.resume(error.left())
+        },
+        onSuccess = { eligibleWinBackOffers ->
+            continuation.resume(eligibleWinBackOffers.right())
+        }
+    )
+}
+
+/**
+ * Fetches the win-back offers that a subscriber is eligible for on a given package.
+ *
+ * iOS only. Requires iOS 18.0+ and StoreKit 2 and returns an [Either] with an
+ * error if these requirements aren't met.
+ *
+ * @param packageToCheck: The package to check for eligible win-back offers on.
+ *
+ * @return An [Either.Right] containing a [List] of [WinBackOffer]s if successful,
+ * an [Either.Left] containing a [PurchasesError] in case of a failure.
+ */
+public suspend fun Purchases.awaitGetEligibleWinBackOffersForPackageEither(
+    packageToCheck: Package,
+): Either<PurchasesError, List<WinBackOffer>> = suspendCoroutine { continuation ->
+    getEligibleWinBackOffersForPackage(
+        packageToCheck = packageToCheck,
+        onError = { error ->
+            continuation.resume(error.left())
+        },
+        onSuccess = { eligibleWinBackOffers ->
+            continuation.resume(eligibleWinBackOffers.right())
+        }
+    )
+}
+
+/**
+ * Purchases a product with a given win-back offer. If you are using the Offerings system, use the
+ * overload with a [Package] parameter instead.
+ *
+ * iOS only. Requires iOS 18.0+ and StoreKit 2 and returns an [Either] with an
+ * error if these requirements aren't met.
+ *
+ * @param storeProduct: The product to purchase
+ * @param winBackOffer: The win-back offer to apply to the purchase
+ *
+ * @return An [Either.Right] containing a [SuccessfulPurchase],
+ * an [Either.Left] containing a [FailedPurchase] in case of a failure.
+ *
+ * @see [awaitGetEligibleWinBackOffersForProductEither]
+ */
+public suspend fun Purchases.awaitPurchaseEither(
+    storeProduct: StoreProduct,
+    winBackOffer: WinBackOffer
+): Either<FailedPurchase, SuccessfulPurchase> = suspendCoroutine { continuation ->
+    purchase(
+        storeProduct = storeProduct,
+        winBackOffer = winBackOffer,
+        onError = { error, userCancelled ->
+            continuation.resume(FailedPurchase(error, userCancelled).left())
+        },
+        onSuccess = { storeTransaction, customerInfo ->
+            continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo).right())
+        }
+    )
+}
+
+/**
+ * Purchases a package with a given win-back offer.
+ *
+ * iOS only. Requires iOS 18.0+ and StoreKit 2 and returns an [Either] with an
+ * error if these requirements aren't met.
+ *
+ * @param packageToPurchase: The package to purchase
+ * @param winBackOffer: The win-back offer to apply to the purchase
+ *
+ * @return An [Either.Right] containing a [SuccessfulPurchase],
+ * an [Either.Left] containing a [FailedPurchase] in case of a failure.
+ *
+ * @see [awaitGetEligibleWinBackOffersForPackageEither]
+ */
+public suspend fun Purchases.awaitPurchaseEither(
+    packageToPurchase: Package,
+    winBackOffer: WinBackOffer
+): Either<FailedPurchase, SuccessfulPurchase> = suspendCoroutine { continuation ->
+    purchase(
+        packageToPurchase = packageToPurchase,
+        winBackOffer = winBackOffer,
+        onError = { error, userCancelled ->
+            continuation.resume(FailedPurchase(error, userCancelled).left())
+        },
+        onSuccess = { storeTransaction, customerInfo ->
+            continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo).right())
+        }
     )
 }
 
