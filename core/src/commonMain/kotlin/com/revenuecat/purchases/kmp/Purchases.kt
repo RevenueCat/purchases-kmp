@@ -451,7 +451,7 @@ public expect class Purchases {
      * @param storeProduct: The product to purchase
      * @param winBackOffer: The win-back offer to apply to the purchase
      * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
-     * what went wrong.
+     * what went wrong and a boolean indicating whether the user canceled the purchase.
      * @param onSuccess Will be called if the function completes successfully, including details
      * on the purchase.
      */
@@ -469,7 +469,7 @@ public expect class Purchases {
      * @param packageToPurchase: The package to purchase
      * @param winBackOffer: The win-back offer to apply to the purchase
      * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
-     * what went wrong.
+     * what went wrong and a boolean indicating whether the user canceled the purchase.
      * @param onSuccess Will be called if the function completes successfully, including details
      * on the purchase.
      */
