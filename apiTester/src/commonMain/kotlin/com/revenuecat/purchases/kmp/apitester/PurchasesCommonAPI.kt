@@ -316,8 +316,8 @@ private class PurchasesCommonAPI {
                         Purchases.sharedInstance.purchase(
                             storeProduct = product,
                             winBackOffer = winBackOffer,
-                            onError = { error, userCancelled -> },
-                            onSuccess = { transaction, customerInfo -> }
+                            onError = { error: PurchasesError, userCancelled: Boolean -> },
+                            onSuccess = { transaction: StoreTransaction, customerInfo: CustomerInfo -> }
                         )
                     }
                 )
@@ -342,8 +342,8 @@ private class PurchasesCommonAPI {
                         Purchases.sharedInstance.purchase(
                             packageToPurchase,
                             winBackOffer = eligibleWinBackOffers.first(),
-                            onError = { error, userCancelled -> },
-                            onSuccess = { transaction, customerInfo -> }
+                            onError = { error: PurchasesError, userCancelled: Boolean -> },
+                            onSuccess = { transaction: StoreTransaction, customerInfo: CustomerInfo -> }
                         )
                     }
                 )
