@@ -8,7 +8,6 @@ import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.RCStoreTransaction
 import cocoapods.PurchasesHybridCommon.configureWithAPIKey
-import cocoapods.PurchasesHybridCommon.purchaseProduct
 import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
@@ -362,7 +361,17 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             completion = { eligibleWinBackOffers, error ->
 
                 if (error != null) {
-                    onError(error.toPurchasesErrorOrThrow())
+                    try {
+                        onError(error.toPurchasesErrorOrThrow())
+                    } catch(e: Exception) {
+                        onError(
+                            PurchasesError(
+                                code = PurchasesErrorCode.UnknownError,
+                                underlyingErrorMessage =
+                                "An unknown error occurred. Could not convert error to a PurchasesError."
+                            )
+                        )
+                    }
                     return@eligibleWinBackOffersForProduct
                 }
 
@@ -398,7 +407,17 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             completion = { eligibleWinBackOffers, error ->
 
                 if (error != null) {
-                    onError(error.toPurchasesErrorOrThrow())
+                    try {
+                        onError(error.toPurchasesErrorOrThrow())
+                    } catch(e: Exception) {
+                        onError(
+                            PurchasesError(
+                                code = PurchasesErrorCode.UnknownError,
+                                underlyingErrorMessage =
+                                "An unknown error occurred. Could not convert error to a PurchasesError."
+                            )
+                        )
+                    }
                     return@eligibleWinBackOffersForPackage
                 }
 
@@ -444,7 +463,18 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 userCancelled: Boolean ->
 
                 if (error != null) {
-                    onError(error.toPurchasesErrorOrThrow(), userCancelled)
+                    try {
+                        onError(error.toPurchasesErrorOrThrow(), userCancelled)
+                    } catch(e: Exception) {
+                        onError(
+                            PurchasesError(
+                                code = PurchasesErrorCode.UnknownError,
+                                underlyingErrorMessage =
+                                "An unknown error occurred. Could not convert error to a PurchasesError."
+                            ),
+                            false
+                        )
+                    }
                     return@purchaseWithParams
                 }
 
@@ -490,7 +520,18 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 userCancelled: Boolean ->
 
                 if (error != null) {
-                    onError(error.toPurchasesErrorOrThrow(), userCancelled)
+                    try {
+                        onError(error.toPurchasesErrorOrThrow(), userCancelled)
+                    } catch(e: Exception) {
+                        onError(
+                            PurchasesError(
+                                code = PurchasesErrorCode.UnknownError,
+                                underlyingErrorMessage =
+                                "An unknown error occurred. Could not convert error to a PurchasesError."
+                            ),
+                            false
+                        )
+                    }
                     return@purchaseWithParams
                 }
 
