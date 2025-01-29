@@ -303,12 +303,11 @@ private class PurchasesCommonAPI {
             storeProduct = product,
             onError = { error: PurchasesError -> },
             onSuccess = { eligibleWinBackOffers: List<WinBackOffer> ->
-                val winBackOffer = eligibleWinBackOffers.first()
 
                 // Purchase the product with the win-back offer
                 Purchases.sharedInstance.purchase(
                     storeProduct = product,
-                    winBackOffer = winBackOffer,
+                    winBackOffer = eligibleWinBackOffers.first(),
                     onError = { error: PurchasesError, userCancelled: Boolean -> },
                     onSuccess = { transaction: StoreTransaction, customerInfo: CustomerInfo -> }
                 )
