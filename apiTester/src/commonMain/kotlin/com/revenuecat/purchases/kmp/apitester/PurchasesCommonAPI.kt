@@ -297,55 +297,38 @@ private class PurchasesCommonAPI {
         val handler = Purchases.logHandler
     }
 
-    fun checkRedeemingWinBackOffersForProduct() {
-        // Get a product
-        Purchases.sharedInstance.getProducts(
-            listOf("com.some.product"),
-            onError = { error -> },
-            onSuccess = { products ->
-                val product = products.first()
+    fun checkRedeemingWinBackOffersForProduct(product: StoreProduct) {
+        // Fetch the eligible win-back offers for the product
+        Purchases.sharedInstance.getEligibleWinBackOffersForProduct(
+            storeProduct = product,
+            onError = { error: PurchasesError -> },
+            onSuccess = { eligibleWinBackOffers: List<WinBackOffer> ->
+                val winBackOffer = eligibleWinBackOffers.first()
 
-                // Fetch the eligible win-back offers for the product
-                Purchases.sharedInstance.getEligibleWinBackOffersForProduct(
+                // Purchase the product with the win-back offer
+                Purchases.sharedInstance.purchase(
                     storeProduct = product,
-                    onError = { error: PurchasesError -> },
-                    onSuccess = { eligibleWinBackOffers: List<WinBackOffer> ->
-                        val winBackOffer = eligibleWinBackOffers.first()
-
-                        // Purchase the product with the win-back offer
-                        Purchases.sharedInstance.purchase(
-                            storeProduct = product,
-                            winBackOffer = winBackOffer,
-                            onError = { error: PurchasesError, userCancelled: Boolean -> },
-                            onSuccess = { transaction: StoreTransaction, customerInfo: CustomerInfo -> }
-                        )
-                    }
+                    winBackOffer = winBackOffer,
+                    onError = { error: PurchasesError, userCancelled: Boolean -> },
+                    onSuccess = { transaction: StoreTransaction, customerInfo: CustomerInfo -> }
                 )
             }
         )
     }
 
-    fun checkRedeemingWinBackOffersForPackage() {
-        // Get a package
-        Purchases.sharedInstance.getOfferings(
-            onError = { error -> },
-            onSuccess = { offerings ->
-                val packageToPurchase = offerings.current!!.availablePackages.first()
+    fun checkRedeemingWinBackOffersForPackage(aPackage: Package) {
+        // Fetch the eligible win-back offers for the package
+        Purchases.sharedInstance.getEligibleWinBackOffersForPackage(
+            packageToCheck = aPackage,
+            onError = { error: PurchasesError -> },
+            onSuccess = { eligibleWinBackOffers: List<WinBackOffer> ->
 
-                // Fetch the eligible win-back offers for the package
-                Purchases.sharedInstance.getEligibleWinBackOffersForPackage(
-                    packageToCheck = packageToPurchase,
-                    onError = { error: PurchasesError -> },
-                    onSuccess = { eligibleWinBackOffers: List<WinBackOffer> ->
-
-                        // Purchase the package with the win-back offer
-                        Purchases.sharedInstance.purchase(
-                            packageToPurchase,
-                            winBackOffer = eligibleWinBackOffers.first(),
-                            onError = { error: PurchasesError, userCancelled: Boolean -> },
-                            onSuccess = { transaction: StoreTransaction, customerInfo: CustomerInfo -> }
-                        )
-                    }
+                // Purchase the package with the win-back offer
+                Purchases.sharedInstance.purchase(
+                    aPackage,
+                    winBackOffer = eligibleWinBackOffers.first(),
+                    onError = { error: PurchasesError, userCancelled: Boolean -> },
+                    onSuccess = { transaction: StoreTransaction, customerInfo: CustomerInfo -> }
                 )
             }
         )
