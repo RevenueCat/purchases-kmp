@@ -35,12 +35,7 @@ fun App() {
 
             when (val currentScreen = screen) {
                 is Screen.Main -> MainScreen(
-                    onShowPaywallClick = { offering, footer ->
-                        screen =
-                            if (footer) Screen.PaywallFooter(offering)
-                            else Screen.Paywall(offering)
-                    },
-                    setScreen = { screen = it },
+                    navigateTo = { screen = it },
                     modifier = Modifier.fillMaxSize()
                 )
 

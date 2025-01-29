@@ -37,7 +37,6 @@ import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
 import com.revenuecat.purchases.kmp.ktx.awaitCustomerInfo
 import com.revenuecat.purchases.kmp.models.CustomerInfo
-import com.revenuecat.purchases.kmp.models.Offering
 import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.StoreProduct
@@ -52,8 +51,7 @@ import kotlinx.coroutines.flow.onStart
 
 @Composable
 fun MainScreen(
-    onShowPaywallClick: (offering: Offering?, footer: Boolean) -> Unit,
-    setScreen: (Screen) -> Unit,
+    navigateTo: (Screen) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -141,13 +139,13 @@ fun MainScreen(
                 Spacer(modifier = Modifier.size(8.dp))
                 OfferingsSection(
                     state = offeringsState,
-                    onShowPaywallClick = onShowPaywallClick,
+                    navigateTo = navigateTo,
                     modifier = Modifier.fillMaxWidth(),
                 )
 
                 Spacer(modifier = Modifier.size(16.dp))
                 Button(
-                    onClick = { setScreen(Screen.WinBackTesting) },
+                    onClick = { navigateTo(Screen.WinBackTesting) },
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text("Win-Back Offer Testing")

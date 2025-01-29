@@ -14,11 +14,12 @@ import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.sample.AsyncState
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
 import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
+import com.revenuecat.purchases.kmp.sample.Screen
 
 @Composable
 internal fun OfferingsSection(
     state: AsyncState<Offerings>,
-    onShowPaywallClick: (offering: Offering?, footer: Boolean) -> Unit,
+    navigateTo: (Screen) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -36,7 +37,13 @@ internal fun OfferingsSection(
                     OfferingRow(
                         offering = offering,
                         isCurrent = isCurrent,
-                        onShowPaywallClick = { footer -> onShowPaywallClick(offering, footer) },
+                        onShowPaywallClick = { footer ->
+                            if (footer) {
+                                navigateTo(Screen.PaywallFooter(offering = offering))
+                            } else {
+                                navigateTo(Screen.Paywall(offering = offering))
+                            }
+                        },
                         modifier = Modifier.fillMaxWidth(),
                     )
                 }
