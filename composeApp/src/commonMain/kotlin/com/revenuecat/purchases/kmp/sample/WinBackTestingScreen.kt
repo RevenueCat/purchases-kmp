@@ -3,6 +3,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -11,9 +12,12 @@ import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreTransaction
+import com.revenuecat.purchases.kmp.sample.Screen
 
 @Composable
-fun WinBackTestingScreen() {
+fun WinBackTestingScreen(
+    navigateTo: (Screen) -> Unit
+) {
 
     Column(
         modifier = Modifier
@@ -142,6 +146,8 @@ fun WinBackTestingScreen() {
             Text("Fetch and Purchase Package for WinBack Testing")
         }
 
+        Spacer(modifier = Modifier.size(16.dp))
+
         Button(onClick = {
             Purchases.sharedInstance.getOfferings(
                 onError = { error -> println(error) },
@@ -196,6 +202,15 @@ fun WinBackTestingScreen() {
             )
         }) {
             Text("Fetch and Redeem WinBack Offers For Package")
+        }
+
+        Spacer(modifier = Modifier.size(16.dp))
+
+        TextButton(
+            onClick = { navigateTo(Screen.Main) },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Go back")
         }
     }
 }
