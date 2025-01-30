@@ -363,7 +363,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 if (error != null) {
                     try {
                         onError(error.toPurchasesErrorOrThrow())
-                    } catch(e: Exception) {
+                    } catch(e: IllegalStateException) {
                         onError(
                             PurchasesError(
                                 code = PurchasesErrorCode.UnknownError,
@@ -409,7 +409,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 if (error != null) {
                     try {
                         onError(error.toPurchasesErrorOrThrow())
-                    } catch(e: Exception) {
+                    } catch(e: IllegalStateException) {
                         onError(
                             PurchasesError(
                                 code = PurchasesErrorCode.UnknownError,
@@ -465,7 +465,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 if (error != null) {
                     try {
                         onError(error.toPurchasesErrorOrThrow(), userCancelled)
-                    } catch(e: Exception) {
+                    } catch(e: IllegalStateException) {
                         onError(
                             PurchasesError(
                                 code = PurchasesErrorCode.UnknownError,
@@ -522,7 +522,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 if (error != null) {
                     try {
                         onError(error.toPurchasesErrorOrThrow(), userCancelled)
-                    } catch(e: Exception) {
+                    } catch(e: IllegalStateException) {
                         onError(
                             PurchasesError(
                                 code = PurchasesErrorCode.UnknownError,
