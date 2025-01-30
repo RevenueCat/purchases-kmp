@@ -97,5 +97,10 @@ public enum class PurchasesErrorCode(public val code: Int, public val descriptio
     FeatureNotAvailableInCustomEntitlementsComputationMode(
         37,
         "This feature is not available when utilizing the customEntitlementsComputation dangerousSetting."
-    )
+    ),
+    FeatureNotSupportedWithStoreKit1(
+        38,
+        "This feature is not supported when using StoreKit 1. " +
+                "Configure the SDK to use StoreKit 2 to use this feature."
+    ),
 }

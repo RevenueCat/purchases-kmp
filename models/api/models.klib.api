@@ -441,6 +441,7 @@ final enum class com.revenuecat.purchases.kmp.models/PurchasesErrorCode : kotlin
     enum entry CustomerInfoError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.CustomerInfoError|null[0]
     enum entry EmptySubscriberAttributesError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.EmptySubscriberAttributesError|null[0]
     enum entry FeatureNotAvailableInCustomEntitlementsComputationMode // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.FeatureNotAvailableInCustomEntitlementsComputationMode|null[0]
+    enum entry FeatureNotSupportedWithStoreKit1 // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.FeatureNotSupportedWithStoreKit1|null[0]
     enum entry IneligibleError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.IneligibleError|null[0]
     enum entry InsufficientPermissionsError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.InsufficientPermissionsError|null[0]
     enum entry InvalidAppUserIdError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.InvalidAppUserIdError|null[0]

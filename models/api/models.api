@@ -298,6 +298,7 @@ public final class com/revenuecat/purchases/kmp/models/PurchasesErrorCode : java
 	public static final field CustomerInfoError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field EmptySubscriberAttributesError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field FeatureNotAvailableInCustomEntitlementsComputationMode Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field FeatureNotSupportedWithStoreKit1 Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field IneligibleError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field InsufficientPermissionsError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field InvalidAppUserIdError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
