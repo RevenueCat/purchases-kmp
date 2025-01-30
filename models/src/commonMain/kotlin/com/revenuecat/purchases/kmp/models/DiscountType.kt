@@ -13,4 +13,9 @@ public enum class DiscountType {
      * Promotional offer for subscriptions.
      */
     PROMOTIONAL,
+
+    /**
+     * Win-back offers for subscriptions. App Store, iOS 18.0+ only.
+     */
+    WINBACK
 }

@@ -15,6 +15,7 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.WinBackOffer
 import kotlin.jvm.JvmSynthetic
 
 /**
@@ -409,6 +410,87 @@ public expect class Purchases {
         productID: String,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (storeTransaction: StoreTransaction) -> Unit,
+    )
+
+    /**
+     * Fetches the win-back offers that a subscriber is eligible for on a given product.
+     *
+     * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
+     * met.
+     *
+     * @param storeProduct: The product to check for eligible win-back offers on.
+     * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
+     * what went wrong.
+     * @param onSuccess Will be called if the function completes successfully, including details
+     * on the [WinBackOffer]s that the subscriber is eligible for on the provided product.
+     */
+    public fun getEligibleWinBackOffersForProduct(
+        storeProduct: StoreProduct,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (List<WinBackOffer>) -> Unit,
+    )
+
+    /**
+     * Fetches the win-back offers that a subscriber is eligible for on a given package.
+     *
+     * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
+     * met.
+     *
+     * @param packageToCheck: The package to check for eligible win-back offers on.
+     * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
+     * what went wrong.
+     * @param onSuccess Will be called if the function completes successfully, including details
+     * on the [WinBackOffer]s that the subscriber is eligible for on the provided package.
+     */
+    public fun getEligibleWinBackOffersForPackage(
+        packageToCheck: Package,
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (List<WinBackOffer>) -> Unit,
+    )
+
+    /**
+     * Purchases a product with a given win-back offer. If you are using the Offerings system, use the
+     * overload with a [Package] parameter instead.
+     *
+     * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
+     * met.
+     *
+     * @param storeProduct: The product to purchase
+     * @param winBackOffer: The win-back offer to apply to the purchase
+     * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
+     * what went wrong and a boolean indicating whether the user canceled the purchase.
+     * @param onSuccess Will be called if the function completes successfully, including details
+     * on the purchase.
+     *
+     * @see [getEligibleWinBackOffersForProduct]
+     */
+    public fun purchase(
+        storeProduct: StoreProduct,
+        winBackOffer: WinBackOffer,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
+        onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
+    )
+
+    /**
+     * Purchases a package with a given win-back offer.
+     *
+     * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
+     * met.
+     *
+     * @param packageToPurchase: The package to purchase
+     * @param winBackOffer: The win-back offer to apply to the purchase
+     * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
+     * what went wrong and a boolean indicating whether the user canceled the purchase.
+     * @param onSuccess Will be called if the function completes successfully, including details
+     * on the purchase.
+     *
+     * @see [getEligibleWinBackOffersForPackage]
+     */
+    public fun purchase(
+        packageToPurchase: Package,
+        winBackOffer: WinBackOffer,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
+        onSuccess: (transaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
     )
 
     /**

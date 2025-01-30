@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.sample
 
+import WinBackTestingScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,19 +32,16 @@ fun App() {
         ) {
             val loggingListener = rememberLoggingPaywallListener()
             var screen by remember { mutableStateOf<Screen>(Screen.Main) }
+            val navigateTo = { destination: Screen -> screen = destination }
 
             when (val currentScreen = screen) {
                 is Screen.Main -> MainScreen(
-                    onShowPaywallClick = { offering, footer ->
-                        screen =
-                            if (footer) Screen.PaywallFooter(offering)
-                            else Screen.Paywall(offering)
-                    },
+                    navigateTo = navigateTo,
                     modifier = Modifier.fillMaxSize()
                 )
 
                 is Screen.Paywall -> {
-                    val options = PaywallOptions(dismissRequest = { screen = Screen.Main }) {
+                    val options = PaywallOptions(dismissRequest = { navigateTo(Screen.Main) }) {
                         offering = currentScreen.offering
                         shouldDisplayDismissButton = true
                         listener = loggingListener
@@ -52,14 +50,14 @@ fun App() {
                 }
 
                 is Screen.PaywallFooter -> {
-                    val options = PaywallOptions(dismissRequest = { screen = Screen.Main }) {
+                    val options = PaywallOptions(dismissRequest = { navigateTo(Screen.Main) }) {
                         offering = currentScreen.offering
                         shouldDisplayDismissButton = true
                         listener = loggingListener
                     }
                     PaywallFooter(options) { contentPadding ->
                         CustomPaywallContent(
-                            onBackClick = { screen = Screen.Main },
+                            onBackClick = { navigateTo(Screen.Main) },
                             modifier = Modifier
                                 .fillMaxSize()
                                 .background(Color.Magenta)
@@ -67,6 +65,10 @@ fun App() {
                         )
                     }
                 }
+
+                is Screen.WinBackTesting -> WinBackTestingScreen(
+                    navigateTo = navigateTo
+                )
             }
         }
     }

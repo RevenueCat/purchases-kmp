@@ -1,0 +1,164 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "0C5FF3C7",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_compatibilityTimeRate" : {
+      "3" : 6
+    },
+    "_failTransactionsEnabled" : false,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ],
+    "_timeRate" : 1003
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "29C71E01",
+      "localizations" : [
+
+      ],
+      "name" : "com.subscription.group",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "4.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "6E83257F",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "",
+              "displayName" : "",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.revenuecat.monthly_4.99",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Monthly 4.99 w/ WinBack",
+          "subscriptionGroupID" : "29C71E01",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+            {
+              "internalID" : "1BA77EF7",
+              "isEligible" : true,
+              "offerID" : "winback1w0",
+              "paymentMode" : "free",
+              "referenceName" : "WinBack 1w0",
+              "subscriptionPeriod" : "P1W"
+            }
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "4.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "C0F60202",
+          "introductoryOffer" : {
+            "internalID" : "7884EFDA",
+            "paymentMode" : "free",
+            "subscriptionPeriod" : "P1W"
+          },
+          "localizations" : [
+            {
+              "description" : "",
+              "displayName" : "Monthly 1w0 w/winback",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.revenuecat.monthly_4.99.1_week_intro",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Monthly 4.99 1w0 w/ WinBack",
+          "subscriptionGroupID" : "29C71E01",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+            {
+              "internalID" : "1BA77EF7",
+              "isEligible" : true,
+              "offerID" : "winback1m0",
+              "paymentMode" : "free",
+              "referenceName" : "WinBack 1m0",
+              "subscriptionPeriod" : "P1M"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

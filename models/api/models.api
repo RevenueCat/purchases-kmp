@@ -58,6 +58,7 @@ public final class com/revenuecat/purchases/kmp/models/DiscountPaymentMode : jav
 public final class com/revenuecat/purchases/kmp/models/DiscountType : java/lang/Enum {
 	public static final field INTRODUCTORY Lcom/revenuecat/purchases/kmp/models/DiscountType;
 	public static final field PROMOTIONAL Lcom/revenuecat/purchases/kmp/models/DiscountType;
+	public static final field WINBACK Lcom/revenuecat/purchases/kmp/models/DiscountType;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/DiscountType;
 	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/DiscountType;
@@ -297,6 +298,7 @@ public final class com/revenuecat/purchases/kmp/models/PurchasesErrorCode : java
 	public static final field CustomerInfoError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field EmptySubscriberAttributesError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field FeatureNotAvailableInCustomEntitlementsComputationMode Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field FeatureNotSupportedWithStoreKit1 Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field IneligibleError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field InsufficientPermissionsError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field InvalidAppUserIdError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
@@ -476,5 +478,9 @@ public final class com/revenuecat/purchases/kmp/models/VerificationResult : java
 	public final fun isVerified ()Z
 	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/VerificationResult;
 	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/VerificationResult;
+}
+
+public abstract interface class com/revenuecat/purchases/kmp/models/WinBackOffer {
+	public abstract fun getDiscount ()Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;
 }
 

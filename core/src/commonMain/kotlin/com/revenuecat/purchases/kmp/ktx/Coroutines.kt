@@ -13,6 +13,7 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.WinBackOffer
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -355,6 +356,127 @@ public suspend fun Purchases.awaitPurchase(
         onSuccess = { storeTransaction, customerInfo ->
             continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo))
         },
+    )
+}
+
+/**
+ * Fetches the win-back offers that a subscriber is eligible for on a given product.
+ *
+ * iOS only. Requires iOS 18.0+ and StoreKit 2 and throws an error if
+ * these requirements aren't met.
+ *
+ * @param storeProduct: The product to check for eligible win-back offers on.
+ *
+ * @throws PurchasesException in case of an error.
+ *
+ * @return A [List] of eligible [WinBackOffer]s.
+ */
+@Throws(PurchasesException::class, CancellationException::class)
+public suspend fun Purchases.awaitEligibleWinBackOffersForProduct(
+    storeProduct: StoreProduct
+): List<WinBackOffer> = suspendCoroutine { continuation ->
+    getEligibleWinBackOffersForProduct(
+        storeProduct = storeProduct,
+        onError = { error ->
+            continuation.resumeWithException(
+                PurchasesException(error = error)
+            )
+        },
+        onSuccess = { eligibleWinBackOffers ->
+            continuation.resume(eligibleWinBackOffers)
+        }
+    )
+}
+
+/**
+ * Fetches the win-back offers that a subscriber is eligible for on a given package.
+ *
+ * iOS only. Requires iOS 18.0+ and StoreKit 2 and throws an error if
+ * these requirements aren't met.
+ *
+ * @param packageToCheck: The package to check for eligible win-back offers on.
+ *
+ * @throws PurchasesException in case of an error.
+ *
+ * @return A [List] of eligible [WinBackOffer]s.
+ */
+@Throws(PurchasesException::class, CancellationException::class)
+public suspend fun Purchases.awaitEligibleWinBackOffersForPackage(
+    packageToCheck: Package
+): List<WinBackOffer> = suspendCoroutine { continuation ->
+    getEligibleWinBackOffersForPackage(
+        packageToCheck = packageToCheck,
+        onError = { error ->
+            continuation.resumeWithException(
+                PurchasesException(error = error)
+            )
+        },
+        onSuccess = { eligibleWinBackOffers ->
+            continuation.resume(eligibleWinBackOffers)
+        }
+    )
+}
+
+/**
+ * Purchases a product with a given win-back offer. If you are using the Offerings system, use the
+ * overload with a [Package] parameter instead.
+ *
+ * iOS only. Requires iOS 18.0+ and StoreKit 2 and returns a result with an
+ * error if these requirements aren't met.
+ *
+ * @param storeProduct: The product to purchase
+ * @param winBackOffer: The win-back offer to apply to the purchase
+ *
+ * @return A [SuccessfulPurchase] if the purchase is successful
+ *
+ * @see [awaitEligibleWinBackOffersForProduct]
+ */
+@Throws(PurchasesTransactionException::class, CancellationException::class)
+public suspend fun Purchases.awaitPurchase(
+    storeProduct: StoreProduct,
+    winBackOffer: WinBackOffer
+): SuccessfulPurchase = suspendCoroutine { continuation ->
+    purchase(
+        storeProduct = storeProduct,
+        winBackOffer = winBackOffer,
+        onError = { error, userCancelled ->
+            continuation.resumeWithException(
+                PurchasesTransactionException(error, userCancelled)
+            )
+        },
+        onSuccess = { storeTransaction, customerInfo ->
+            continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo))
+        }
+    )
+}
+
+/**
+ * Purchases a package with a given win-back offer.
+ *
+ * iOS only. Requires iOS 18.0+ and StoreKit 2 and returns a result with an
+ * error if these requirements aren't met.
+ *
+ * @param packageToPurchase: The package to purchase
+ * @param winBackOffer: The win-back offer to apply to the purchase
+ *
+ * @return A [SuccessfulPurchase] if the purchase is successful
+ *
+ * @see [awaitEligibleWinBackOffersForPackage]
+ */
+@Throws(PurchasesTransactionException::class, CancellationException::class)
+public suspend fun Purchases.awaitPurchase(
+    packageToPurchase: Package,
+    winBackOffer: WinBackOffer
+): SuccessfulPurchase = suspendCoroutine { continuation ->
+    purchase(
+        packageToPurchase = packageToPurchase,
+        winBackOffer = winBackOffer,
+        onError = { error, userCancelled ->
+            continuation.resumeWithException(PurchasesTransactionException(error, userCancelled))
+        },
+        onSuccess = { storeTransaction, customerInfo ->
+            continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo))
+        }
     )
 }
 

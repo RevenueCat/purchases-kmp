@@ -14,6 +14,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -37,7 +38,6 @@ import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
 import com.revenuecat.purchases.kmp.ktx.awaitCustomerInfo
 import com.revenuecat.purchases.kmp.models.CustomerInfo
-import com.revenuecat.purchases.kmp.models.Offering
 import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.StoreProduct
@@ -52,7 +52,7 @@ import kotlinx.coroutines.flow.onStart
 
 @Composable
 fun MainScreen(
-    onShowPaywallClick: (offering: Offering?, footer: Boolean) -> Unit,
+    navigateTo: (Screen) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -140,9 +140,17 @@ fun MainScreen(
                 Spacer(modifier = Modifier.size(8.dp))
                 OfferingsSection(
                     state = offeringsState,
-                    onShowPaywallClick = onShowPaywallClick,
+                    navigateTo = navigateTo,
                     modifier = Modifier.fillMaxWidth(),
                 )
+
+                Spacer(modifier = Modifier.size(16.dp))
+                TextButton(
+                    onClick = { navigateTo(Screen.WinBackTesting) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Win-Back Offer Testing")
+                }
             }
         }
     }

@@ -126,6 +126,10 @@ abstract interface com.revenuecat.purchases.kmp.models/SubscriptionOptions { // 
     abstract val introOffer // com.revenuecat.purchases.kmp.models/SubscriptionOptions.introOffer|{}introOffer[0]
         abstract fun <get-introOffer>(): com.revenuecat.purchases.kmp.models/SubscriptionOption? // com.revenuecat.purchases.kmp.models/SubscriptionOptions.introOffer.<get-introOffer>|<get-introOffer>(){}[0]
 }
+abstract interface com.revenuecat.purchases.kmp.models/WinBackOffer { // com.revenuecat.purchases.kmp.models/WinBackOffer|null[0]
+    abstract val discount // com.revenuecat.purchases.kmp.models/WinBackOffer.discount|{}discount[0]
+        abstract fun <get-discount>(): com.revenuecat.purchases.kmp.models/StoreProductDiscount // com.revenuecat.purchases.kmp.models/WinBackOffer.discount.<get-discount>|<get-discount>(){}[0]
+}
 final class com.revenuecat.purchases.kmp.models/CustomerInfo { // com.revenuecat.purchases.kmp.models/CustomerInfo|null[0]
     constructor <init>(kotlin.collections/Set<kotlin/String>, kotlin.collections/Map<kotlin/String, kotlin/Long?>, kotlin.collections/Map<kotlin/String, kotlin/Long?>, kotlin.collections/Set<kotlin/String>, com.revenuecat.purchases.kmp.models/EntitlementInfos, kotlin/Long, kotlin/Long?, kotlin/String?, kotlin.collections/List<com.revenuecat.purchases.kmp.models/Transaction>, kotlin/String, kotlin/String?, kotlin/Long?, kotlin/Long) // com.revenuecat.purchases.kmp.models/CustomerInfo.<init>|<init>(kotlin.collections.Set<kotlin.String>;kotlin.collections.Map<kotlin.String,kotlin.Long?>;kotlin.collections.Map<kotlin.String,kotlin.Long?>;kotlin.collections.Set<kotlin.String>;com.revenuecat.purchases.kmp.models.EntitlementInfos;kotlin.Long;kotlin.Long?;kotlin.String?;kotlin.collections.List<com.revenuecat.purchases.kmp.models.Transaction>;kotlin.String;kotlin.String?;kotlin.Long?;kotlin.Long){}[0]
     final val activeSubscriptions // com.revenuecat.purchases.kmp.models/CustomerInfo.activeSubscriptions|{}activeSubscriptions[0]
@@ -335,6 +339,7 @@ final enum class com.revenuecat.purchases.kmp.models/DiscountPaymentMode : kotli
 final enum class com.revenuecat.purchases.kmp.models/DiscountType : kotlin/Enum<com.revenuecat.purchases.kmp.models/DiscountType> { // com.revenuecat.purchases.kmp.models/DiscountType|null[0]
     enum entry INTRODUCTORY // com.revenuecat.purchases.kmp.models/DiscountType.INTRODUCTORY|null[0]
     enum entry PROMOTIONAL // com.revenuecat.purchases.kmp.models/DiscountType.PROMOTIONAL|null[0]
+    enum entry WINBACK // com.revenuecat.purchases.kmp.models/DiscountType.WINBACK|null[0]
     final fun valueOf(kotlin/String): com.revenuecat.purchases.kmp.models/DiscountType // com.revenuecat.purchases.kmp.models/DiscountType.valueOf|valueOf#static(kotlin.String){}[0]
     final fun values(): kotlin/Array<com.revenuecat.purchases.kmp.models/DiscountType> // com.revenuecat.purchases.kmp.models/DiscountType.values|values#static(){}[0]
     final val entries // com.revenuecat.purchases.kmp.models/DiscountType.entries|#static{}entries[0]
@@ -436,6 +441,7 @@ final enum class com.revenuecat.purchases.kmp.models/PurchasesErrorCode : kotlin
     enum entry CustomerInfoError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.CustomerInfoError|null[0]
     enum entry EmptySubscriberAttributesError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.EmptySubscriberAttributesError|null[0]
     enum entry FeatureNotAvailableInCustomEntitlementsComputationMode // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.FeatureNotAvailableInCustomEntitlementsComputationMode|null[0]
+    enum entry FeatureNotSupportedWithStoreKit1 // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.FeatureNotSupportedWithStoreKit1|null[0]
     enum entry IneligibleError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.IneligibleError|null[0]
     enum entry InsufficientPermissionsError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.InsufficientPermissionsError|null[0]
     enum entry InvalidAppUserIdError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.InvalidAppUserIdError|null[0]

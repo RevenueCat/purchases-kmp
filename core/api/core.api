@@ -29,6 +29,8 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun getCustomerInfo (Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public static synthetic fun getCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 	public final fun getDelegate ()Lcom/revenuecat/purchases/kmp/PurchasesDelegate;
+	public final fun getEligibleWinBackOffersForPackage (Lcom/revenuecat/purchases/kmp/models/Package;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public final fun getEligibleWinBackOffersForProduct (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public static final fun getForceUniversalAppStore ()Z
 	public static final fun getLogHandler ()Lcom/revenuecat/purchases/kmp/LogHandler;
 	public static final fun getLogLevel ()Lcom/revenuecat/purchases/kmp/LogLevel;
@@ -45,8 +47,10 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun logIn (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
 	public final fun logOut (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
+	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/Package;Lcom/revenuecat/purchases/kmp/models/WinBackOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/ReplacementMode;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
+	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/WinBackOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/ReplacementMode;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/ReplacementMode;)V
 	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/ReplacementMode;ILjava/lang/Object;)V
@@ -185,14 +189,18 @@ public final class com/revenuecat/purchases/kmp/UpdatedCustomerInfoDelegate : co
 public final class com/revenuecat/purchases/kmp/ktx/CoroutinesKt {
 	public static final fun awaitCustomerInfo (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun awaitCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
+	public static final fun awaitEligibleWinBackOffersForPackage (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/Package;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitEligibleWinBackOffersForProduct (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitGetProducts (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitLogIn (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitLogOut (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitOfferings (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPromotionalOffer (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/Package;Lcom/revenuecat/purchases/kmp/models/WinBackOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lcom/revenuecat/purchases/kmp/models/WinBackOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/Package;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;

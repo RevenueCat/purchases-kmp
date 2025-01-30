@@ -42,7 +42,8 @@ private class PurchasesErrorCodeAPI {
             PurchasesErrorCode.InvalidPromotionalOfferError,
             PurchasesErrorCode.OfflineConnectionError,
             PurchasesErrorCode.SignatureVerificationError,
-            PurchasesErrorCode.FeatureNotAvailableInCustomEntitlementsComputationMode -> {
+            PurchasesErrorCode.FeatureNotAvailableInCustomEntitlementsComputationMode,
+            PurchasesErrorCode.FeatureNotSupportedWithStoreKit1 -> {
             }
         }.exhaustive
     }
