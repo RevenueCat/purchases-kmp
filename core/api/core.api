@@ -189,8 +189,8 @@ public final class com/revenuecat/purchases/kmp/UpdatedCustomerInfoDelegate : co
 public final class com/revenuecat/purchases/kmp/ktx/CoroutinesKt {
 	public static final fun awaitCustomerInfo (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun awaitCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
-	public static final fun awaitGetEligibleWinBackOffersForPackage (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/Package;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitGetEligibleWinBackOffersForProduct (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitEligibleWinBackOffersForPackage (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/Package;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitEligibleWinBackOffersForProduct (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitGetProducts (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitLogIn (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitLogOut (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;

@@ -372,7 +372,7 @@ public suspend fun Purchases.awaitPurchase(
  * @return A [List] of eligible [WinBackOffer]s.
  */
 @Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.awaitGetEligibleWinBackOffersForProduct(
+public suspend fun Purchases.awaitEligibleWinBackOffersForProduct(
     storeProduct: StoreProduct
 ): List<WinBackOffer> = suspendCoroutine { continuation ->
     getEligibleWinBackOffersForProduct(
@@ -401,7 +401,7 @@ public suspend fun Purchases.awaitGetEligibleWinBackOffersForProduct(
  * @return A [List] of eligible [WinBackOffer]s.
  */
 @Throws(PurchasesException::class, CancellationException::class)
-public suspend fun Purchases.awaitGetEligibleWinBackOffersForPackage(
+public suspend fun Purchases.awaitEligibleWinBackOffersForPackage(
     packageToCheck: Package
 ): List<WinBackOffer> = suspendCoroutine { continuation ->
     getEligibleWinBackOffersForPackage(
@@ -429,7 +429,7 @@ public suspend fun Purchases.awaitGetEligibleWinBackOffersForPackage(
  *
  * @return A [SuccessfulPurchase] if the purchase is successful
  *
- * @see [awaitGetEligibleWinBackOffersForProduct]
+ * @see [awaitEligibleWinBackOffersForProduct]
  */
 @Throws(PurchasesTransactionException::class, CancellationException::class)
 public suspend fun Purchases.awaitPurchase(
@@ -461,7 +461,7 @@ public suspend fun Purchases.awaitPurchase(
  *
  * @return A [SuccessfulPurchase] if the purchase is successful
  *
- * @see [awaitGetEligibleWinBackOffersForPackage]
+ * @see [awaitEligibleWinBackOffersForPackage]
  */
 @Throws(PurchasesTransactionException::class, CancellationException::class)
 public suspend fun Purchases.awaitPurchase(

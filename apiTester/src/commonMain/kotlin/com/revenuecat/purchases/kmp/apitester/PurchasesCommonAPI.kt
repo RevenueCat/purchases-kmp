@@ -8,14 +8,14 @@ import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.configure
 import com.revenuecat.purchases.kmp.either.FailedPurchase
-import com.revenuecat.purchases.kmp.either.awaitGetEligibleWinBackOffersForPackageEither
-import com.revenuecat.purchases.kmp.either.awaitGetEligibleWinBackOffersForProductEither
+import com.revenuecat.purchases.kmp.either.awaitEligibleWinBackOffersForPackageEither
+import com.revenuecat.purchases.kmp.either.awaitEligibleWinBackOffersForProductEither
 import com.revenuecat.purchases.kmp.either.awaitGetProductsEither
 import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
 import com.revenuecat.purchases.kmp.either.awaitPurchaseEither
 import com.revenuecat.purchases.kmp.ktx.SuccessfulPurchase
-import com.revenuecat.purchases.kmp.ktx.awaitGetEligibleWinBackOffersForPackage
-import com.revenuecat.purchases.kmp.ktx.awaitGetEligibleWinBackOffersForProduct
+import com.revenuecat.purchases.kmp.ktx.awaitEligibleWinBackOffersForPackage
+import com.revenuecat.purchases.kmp.ktx.awaitEligibleWinBackOffersForProduct
 import com.revenuecat.purchases.kmp.ktx.awaitGetProducts
 import com.revenuecat.purchases.kmp.ktx.awaitOfferings
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
@@ -34,8 +34,8 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
-import com.revenuecat.purchases.kmp.result.awaitGetEligibleWinBackOffersForPackageResult
-import com.revenuecat.purchases.kmp.result.awaitGetEligibleWinBackOffersForProductResult
+import com.revenuecat.purchases.kmp.result.awaitEligibleWinBackOffersForPackageResult
+import com.revenuecat.purchases.kmp.result.awaitEligibleWinBackOffersForProductResult
 import com.revenuecat.purchases.kmp.result.awaitGetProductsResult
 import com.revenuecat.purchases.kmp.result.awaitOfferingsResult
 import com.revenuecat.purchases.kmp.result.awaitPurchaseResult
@@ -171,7 +171,7 @@ private class PurchasesCommonAPI {
 
         val getProductsResult: List<StoreProduct> = purchases.awaitGetProducts(listOf("product"))
 
-        val eligibleWinBackOffersForProduct: List<WinBackOffer> = purchases.awaitGetEligibleWinBackOffersForProduct(
+        val eligibleWinBackOffersForProduct: List<WinBackOffer> = purchases.awaitEligibleWinBackOffersForProduct(
             storeProduct = storeProduct
         )
 
@@ -180,7 +180,7 @@ private class PurchasesCommonAPI {
             winBackOffer = winBackOffer
         )
 
-        val eligibleWinBackOffersForPackage: List<WinBackOffer> = purchases.awaitGetEligibleWinBackOffersForPackage(
+        val eligibleWinBackOffersForPackage: List<WinBackOffer> = purchases.awaitEligibleWinBackOffersForPackage(
             packageToCheck = packageToPurchase
         )
 
@@ -227,7 +227,7 @@ private class PurchasesCommonAPI {
         val getProductsResult: Result<List<StoreProduct>> =
             purchases.awaitGetProductsResult(listOf("product"))
 
-        val eligibleWinBackOffersForProduct: Result<List<WinBackOffer>> = purchases.awaitGetEligibleWinBackOffersForProductResult(
+        val eligibleWinBackOffersForProduct: Result<List<WinBackOffer>> = purchases.awaitEligibleWinBackOffersForProductResult(
             storeProduct = storeProduct
         )
 
@@ -236,7 +236,7 @@ private class PurchasesCommonAPI {
             winBackOffer = winBackOffer
         )
 
-        val eligibleWinBackOffersForPackage: Result<List<WinBackOffer>> = purchases.awaitGetEligibleWinBackOffersForPackageResult(
+        val eligibleWinBackOffersForPackage: Result<List<WinBackOffer>> = purchases.awaitEligibleWinBackOffersForPackageResult(
             packageToCheck = packageToPurchase
         )
 
@@ -286,7 +286,7 @@ private class PurchasesCommonAPI {
         val getProductsResult: Either<PurchasesError, List<StoreProduct>> =
             purchases.awaitGetProductsEither(listOf("product"))
 
-        val eligibleWinBackOffersForProduct: Either<PurchasesError, List<WinBackOffer>> = purchases.awaitGetEligibleWinBackOffersForProductEither(
+        val eligibleWinBackOffersForProduct: Either<PurchasesError, List<WinBackOffer>> = purchases.awaitEligibleWinBackOffersForProductEither(
             storeProduct = storeProduct
         )
 
@@ -295,7 +295,7 @@ private class PurchasesCommonAPI {
             winBackOffer = winBackOffer
         )
 
-        val eligibleWinBackOffersForPackage: Either<PurchasesError, List<WinBackOffer>> = purchases.awaitGetEligibleWinBackOffersForPackageEither(
+        val eligibleWinBackOffersForPackage: Either<PurchasesError, List<WinBackOffer>> = purchases.awaitEligibleWinBackOffersForPackageEither(
             packageToCheck = packageToPurchase
         )
 

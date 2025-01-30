@@ -11,7 +11,6 @@ import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
-import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.PurchasesException
 import com.revenuecat.purchases.kmp.models.PurchasesTransactionException
 import com.revenuecat.purchases.kmp.models.StoreProduct
@@ -329,7 +328,7 @@ public suspend fun Purchases.awaitPurchaseResult(
  * @return A [Result] containing a [List] of eligible [WinBackOffer]s if successful, and
  * [PurchasesException] in case of a failure.
  */
-public suspend fun Purchases.awaitGetEligibleWinBackOffersForProductResult(
+public suspend fun Purchases.awaitEligibleWinBackOffersForProductResult(
     storeProduct: StoreProduct
 ): Result<List<WinBackOffer>> = suspendCoroutine { continuation ->
     getEligibleWinBackOffersForProduct(
@@ -354,7 +353,7 @@ public suspend fun Purchases.awaitGetEligibleWinBackOffersForProductResult(
  * @return A [Result] containing a [List] of eligible [WinBackOffer]s if successful, and
  * [PurchasesException] in case of a failure.
  */
-public suspend fun Purchases.awaitGetEligibleWinBackOffersForPackageResult(
+public suspend fun Purchases.awaitEligibleWinBackOffersForPackageResult(
     packageToCheck: Package
 ): Result<List<WinBackOffer>> = suspendCoroutine { continuation ->
     getEligibleWinBackOffersForPackage(
@@ -381,7 +380,7 @@ public suspend fun Purchases.awaitGetEligibleWinBackOffersForPackageResult(
  * @return A [Result] containing [SuccessfulPurchase] if successful, and
  * [PurchasesTransactionException] in case of a failure.
  *
- * @see [awaitGetEligibleWinBackOffersForProductResult]
+ * @see [awaitEligibleWinBackOffersForProductResult]
  */
 public suspend fun Purchases.awaitPurchaseResult(
     storeProduct: StoreProduct,
@@ -411,7 +410,7 @@ public suspend fun Purchases.awaitPurchaseResult(
  * @return A [Result] containing [SuccessfulPurchase] if successful, and
  * [PurchasesTransactionException] in case of a failure.
  *
- * @see [awaitGetEligibleWinBackOffersForPackageResult]
+ * @see [awaitEligibleWinBackOffersForPackageResult]
  */
 public suspend fun Purchases.awaitPurchaseResult(
     packageToPurchase: Package,

@@ -6,8 +6,6 @@ import arrow.core.right
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.ktx.SuccessfulLogin
 import com.revenuecat.purchases.kmp.ktx.SuccessfulPurchase
-import com.revenuecat.purchases.kmp.ktx.awaitGetEligibleWinBackOffersForPackage
-import com.revenuecat.purchases.kmp.ktx.awaitGetEligibleWinBackOffersForProduct
 import com.revenuecat.purchases.kmp.ktx.awaitPromotionalOffer
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
@@ -17,15 +15,12 @@ import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.PurchasesError
-import com.revenuecat.purchases.kmp.models.PurchasesException
-import com.revenuecat.purchases.kmp.models.PurchasesTransactionException
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 /**
@@ -349,7 +344,7 @@ public suspend fun Purchases.awaitPurchaseEither(
  * @return An [Either.Right] containing a [List] of [WinBackOffer]s if successful,
  * an [Either.Left] containing a [PurchasesError] in case of a failure.
  */
-public suspend fun Purchases.awaitGetEligibleWinBackOffersForProductEither(
+public suspend fun Purchases.awaitEligibleWinBackOffersForProductEither(
     storeProduct: StoreProduct
 ): Either<PurchasesError, List<WinBackOffer>> = suspendCoroutine { continuation ->
     getEligibleWinBackOffersForProduct(
@@ -374,7 +369,7 @@ public suspend fun Purchases.awaitGetEligibleWinBackOffersForProductEither(
  * @return An [Either.Right] containing a [List] of [WinBackOffer]s if successful,
  * an [Either.Left] containing a [PurchasesError] in case of a failure.
  */
-public suspend fun Purchases.awaitGetEligibleWinBackOffersForPackageEither(
+public suspend fun Purchases.awaitEligibleWinBackOffersForPackageEither(
     packageToCheck: Package,
 ): Either<PurchasesError, List<WinBackOffer>> = suspendCoroutine { continuation ->
     getEligibleWinBackOffersForPackage(
@@ -401,7 +396,7 @@ public suspend fun Purchases.awaitGetEligibleWinBackOffersForPackageEither(
  * @return An [Either.Right] containing a [SuccessfulPurchase],
  * an [Either.Left] containing a [FailedPurchase] in case of a failure.
  *
- * @see [awaitGetEligibleWinBackOffersForProductEither]
+ * @see [awaitEligibleWinBackOffersForProductEither]
  */
 public suspend fun Purchases.awaitPurchaseEither(
     storeProduct: StoreProduct,
@@ -431,7 +426,7 @@ public suspend fun Purchases.awaitPurchaseEither(
  * @return An [Either.Right] containing a [SuccessfulPurchase],
  * an [Either.Left] containing a [FailedPurchase] in case of a failure.
  *
- * @see [awaitGetEligibleWinBackOffersForPackageEither]
+ * @see [awaitEligibleWinBackOffersForPackageEither]
  */
 public suspend fun Purchases.awaitPurchaseEither(
     packageToPurchase: Package,
