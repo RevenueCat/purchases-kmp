@@ -4,6 +4,7 @@ import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
+import com.revenuecat.purchases.kmp.models.IntroEligibility
 import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
@@ -357,6 +358,15 @@ public suspend fun Purchases.awaitPurchase(
             continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo))
         },
     )
+}
+
+@Throws(CancellationException::class)
+public suspend fun Purchases.awaitTrialOrIntroductoryPriceEligibility(
+    products: List<StoreProduct>
+): Map<StoreProduct, IntroEligibility> = suspendCoroutine { continuation ->
+    checkTrialOrIntroductoryPriceEligibility(products) { result ->
+        continuation.resume(result)
+    }
 }
 
 /**

@@ -4,6 +4,7 @@ import com.revenuecat.purchases.kmp.PurchasesConfiguration.Builder
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomerInfo
+import com.revenuecat.purchases.kmp.models.IntroEligibility
 import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
@@ -410,6 +411,11 @@ public expect class Purchases {
         productID: String,
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (storeTransaction: StoreTransaction) -> Unit,
+    )
+
+    public fun checkTrialOrIntroductoryPriceEligibility(
+        products: List<StoreProduct>,
+        callback: (Map<StoreProduct, IntroEligibility>) -> Unit,
     )
 
     /**

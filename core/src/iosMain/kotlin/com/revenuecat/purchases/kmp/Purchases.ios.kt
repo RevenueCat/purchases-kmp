@@ -3,6 +3,7 @@ package com.revenuecat.purchases.kmp
 import cocoapods.PurchasesHybridCommon.IOSAPIAvailabilityChecker
 import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
 import cocoapods.PurchasesHybridCommon.RCCustomerInfo
+import cocoapods.PurchasesHybridCommon.RCIntroEligibility
 import cocoapods.PurchasesHybridCommon.RCPurchaseParamsBuilder
 import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
@@ -12,9 +13,11 @@ import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
 import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
+import com.revenuecat.purchases.kmp.ktx.mapEntriesNotNull
 import com.revenuecat.purchases.kmp.mappings.buildStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toHybridString
+import com.revenuecat.purchases.kmp.mappings.toIntroEligibility
 import com.revenuecat.purchases.kmp.mappings.toIosCacheFetchPolicy
 import com.revenuecat.purchases.kmp.mappings.toIosPackage
 import com.revenuecat.purchases.kmp.mappings.toIosPromotionalOffer
@@ -31,6 +34,7 @@ import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.DangerousSettings
+import com.revenuecat.purchases.kmp.models.IntroEligibility
 import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
@@ -336,6 +340,23 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 }
             }
         )
+    }
+
+    public actual fun checkTrialOrIntroductoryPriceEligibility(
+        products: List<StoreProduct>,
+        callback: (Map<StoreProduct, IntroEligibility>) -> Unit,
+    ) {
+        val productsById = products.associateBy { it.id }
+        iosPurchases.checkTrialOrIntroDiscountEligibility(productsById.keys.toList()) { map ->
+            val eligibilityByProduct =
+                map.orEmpty().mapEntriesNotNull { (productId, iosEligibility) ->
+                    productsById[productId as String]?.let { product ->
+                        product to (iosEligibility as RCIntroEligibility).toIntroEligibility()
+                    }
+                }
+
+            callback(eligibilityByProduct)
+        }
     }
 
     public actual fun getEligibleWinBackOffersForProduct(

@@ -27,6 +27,7 @@ import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.DangerousSettings
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
+import com.revenuecat.purchases.kmp.models.IntroEligibility
 import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
@@ -310,6 +311,17 @@ public actual class Purchases private constructor(private val androidPurchases: 
                 underlyingErrorMessage = "recordPurchase() is not supported on Android."
             )
         )
+    }
+
+    public actual fun checkTrialOrIntroductoryPriceEligibility(
+        products: List<StoreProduct>,
+        callback: (Map<StoreProduct, IntroEligibility>) -> Unit,
+    ) {
+        logHandler.v(
+            tag = "Purchases",
+            msg = "`checkTrialOrIntroductoryPriceEligibility()` is only available on iOS."
+        )
+        callback(emptyMap())
     }
 
     public actual fun getEligibleWinBackOffersForProduct(
