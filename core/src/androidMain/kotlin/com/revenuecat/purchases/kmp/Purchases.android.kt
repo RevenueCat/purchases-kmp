@@ -321,7 +321,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
             tag = "Purchases",
             msg = "`checkTrialOrIntroductoryPriceEligibility()` is only available on iOS."
         )
-        callback(emptyMap())
+        callback(products.associateWith { IntroEligibility(IntroEligibility.Status.UNKNOWN) })
     }
 
     public actual fun getEligibleWinBackOffersForProduct(
