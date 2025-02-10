@@ -117,6 +117,22 @@ public final class com/revenuecat/purchases/kmp/models/InstallmentsInfo {
 	public final fun getRenewalCommitmentPaymentsCount ()I
 }
 
+public final class com/revenuecat/purchases/kmp/models/IntroEligibility {
+	public fun <init> (Lcom/revenuecat/purchases/kmp/models/IntroEligibility$Status;)V
+	public final fun getDescription ()Ljava/lang/String;
+	public final fun getStatus ()Lcom/revenuecat/purchases/kmp/models/IntroEligibility$Status;
+}
+
+public final class com/revenuecat/purchases/kmp/models/IntroEligibility$Status : java/lang/Enum {
+	public static final field ELIGIBLE Lcom/revenuecat/purchases/kmp/models/IntroEligibility$Status;
+	public static final field INELIGIBLE Lcom/revenuecat/purchases/kmp/models/IntroEligibility$Status;
+	public static final field NO_INTRO_OFFER_EXISTS Lcom/revenuecat/purchases/kmp/models/IntroEligibility$Status;
+	public static final field UNKNOWN Lcom/revenuecat/purchases/kmp/models/IntroEligibility$Status;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/IntroEligibility$Status;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/IntroEligibility$Status;
+}
+
 public final class com/revenuecat/purchases/kmp/models/OfferPaymentMode : java/lang/Enum {
 	public static final field DISCOUNTED_RECURRING_PAYMENT Lcom/revenuecat/purchases/kmp/models/OfferPaymentMode;
 	public static final field FREE_TRIAL Lcom/revenuecat/purchases/kmp/models/OfferPaymentMode;
