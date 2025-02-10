@@ -14,7 +14,7 @@ public class PaywallOptions private constructor(
     /**
      * Whether to display a close button on the paywall screen. Only available when using
      * [Paywall] and original template paywalls.
-     * Ignored when using [OriginalTemplatePaywallFooter] or V2 paywalls. Defaults to false.
+     * Ignored when using [OriginalTemplatePaywallFooter] or V2 Paywalls. Defaults to false.
      */
     public val shouldDisplayDismissButton: Boolean,
     /**
