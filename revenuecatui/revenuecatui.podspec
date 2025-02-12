@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'revenuecatui'
-    spec.version                  = '1.4.0-SNAPSHOT'
+    spec.version                  = '1.5.0-SNAPSHOT'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
     spec.vendored_frameworks      = 'build/cocoapods/framework/revenuecatui.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '15.0'
-    spec.dependency 'PurchasesHybridCommonUI', '13.17.0'
+    spec.dependency 'PurchasesHybridCommonUI', '13.17.1'
                 
     if !Dir.exist?('build/cocoapods/framework/revenuecatui.framework') || Dir.empty?('build/cocoapods/framework/revenuecatui.framework')
         raise "
