@@ -433,7 +433,7 @@ public expect class Purchases {
      * For more information, see
      * [our documentation](https://www.revenuecat.com/docs/subscription-guidance/subscription-offers/ios-subscription-offers).
      */
-    public fun checkTrialOrIntroductoryPriceEligibility(
+    public fun checkTrialOrIntroPriceEligibility(
         products: List<StoreProduct>,
         callback: (Map<StoreProduct, IntroEligibility>) -> Unit,
     )

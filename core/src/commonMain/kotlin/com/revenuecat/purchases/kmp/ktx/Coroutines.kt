@@ -381,10 +381,10 @@ public suspend fun Purchases.awaitPurchase(
  * [our documentation](https://www.revenuecat.com/docs/subscription-guidance/subscription-offers/ios-subscription-offers).
  */
 @Throws(CancellationException::class)
-public suspend fun Purchases.awaitTrialOrIntroductoryPriceEligibility(
+public suspend fun Purchases.awaitTrialOrIntroPriceEligibility(
     products: List<StoreProduct>
 ): Map<StoreProduct, IntroEligibility> = suspendCoroutine { continuation ->
-    checkTrialOrIntroductoryPriceEligibility(products) { result ->
+    checkTrialOrIntroPriceEligibility(products) { result ->
         continuation.resume(result)
     }
 }

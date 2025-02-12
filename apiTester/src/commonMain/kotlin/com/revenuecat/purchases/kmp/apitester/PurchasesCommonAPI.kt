@@ -19,7 +19,7 @@ import com.revenuecat.purchases.kmp.ktx.awaitEligibleWinBackOffersForProduct
 import com.revenuecat.purchases.kmp.ktx.awaitGetProducts
 import com.revenuecat.purchases.kmp.ktx.awaitOfferings
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
-import com.revenuecat.purchases.kmp.ktx.awaitTrialOrIntroductoryPriceEligibility
+import com.revenuecat.purchases.kmp.ktx.awaitTrialOrIntroPriceEligibility
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.DangerousSettings
@@ -174,7 +174,7 @@ private class PurchasesCommonAPI {
         val getProductsResult: List<StoreProduct> = purchases.awaitGetProducts(listOf("product"))
 
         val eligibleIntroOffers: Map<StoreProduct, IntroEligibility> =
-            purchases.awaitTrialOrIntroductoryPriceEligibility(listOf(storeProduct))
+            purchases.awaitTrialOrIntroPriceEligibility(listOf(storeProduct))
 
         val eligibleWinBackOffersForProduct: List<WinBackOffer> = purchases.awaitEligibleWinBackOffersForProduct(
             storeProduct = storeProduct
@@ -384,7 +384,7 @@ private class PurchasesCommonAPI {
         purchases: Purchases,
         storeProducts: List<StoreProduct>,
     ) {
-        purchases.checkTrialOrIntroductoryPriceEligibility(
+        purchases.checkTrialOrIntroPriceEligibility(
             products = storeProducts,
             callback = { introEligibilityMap: Map<StoreProduct, IntroEligibility> ->
 

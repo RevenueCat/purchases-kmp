@@ -342,7 +342,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         )
     }
 
-    public actual fun checkTrialOrIntroductoryPriceEligibility(
+    public actual fun checkTrialOrIntroPriceEligibility(
         products: List<StoreProduct>,
         callback: (Map<StoreProduct, IntroEligibility>) -> Unit,
     ) {
