@@ -1,8 +1,14 @@
 package com.revenuecat.purchases.kmp.models
 
+/**
+ * Holds the introductory price status. iOS only.
+ */
 public class IntroEligibility(
     public val status: Status,
 ) {
+    /**
+     * The introductory price eligibility status. iOS only.
+     */
     public enum class Status {
         UNKNOWN,
         INELIGIBLE,

@@ -360,6 +360,26 @@ public suspend fun Purchases.awaitPurchase(
     )
 }
 
+/**
+ * iOS only. Android always returns [IntroEligibility.Status.UNKNOWN].
+ *
+ * Computes whether or not a user is eligible for the introductory pricing period of a given
+ * [products]. You should use this method to determine whether or not you show the user the
+ * normal product price or the introductory price. This also applies to trials. (Trials are
+ * considered a type of introductory pricing.)
+ *
+ * **Note**
+ *
+ * Subscription groups are automatically collected for determining eligibility. If RevenueCat
+ * can't definitively compute the eligibility, most likely because of missing group information,
+ * it will return [IntroEligibility.Status.UNKNOWN]. The best course of action on unknown status
+ * is to display the non-intro pricing, to not create a misleading situation. To avoid this,
+ * make sure you are testing with the latest version of iOS so that the subscription group can
+ * be collected by the SDK.
+ *
+ * For more information, see
+ * [our documentation](https://www.revenuecat.com/docs/subscription-guidance/subscription-offers/ios-subscription-offers).
+ */
 @Throws(CancellationException::class)
 public suspend fun Purchases.awaitTrialOrIntroductoryPriceEligibility(
     products: List<StoreProduct>
