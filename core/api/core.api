@@ -21,7 +21,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public static final field Companion Lcom/revenuecat/purchases/kmp/Purchases$Companion;
 	public synthetic fun <init> (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public static final fun canMakePayments (Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
-	public final fun checkTrialOrIntroductoryPriceEligibility (Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
+	public final fun checkTrialOrIntroPriceEligibility (Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
 	public final fun close ()V
 	public final fun collectDeviceIdentifiers ()V
 	public static final fun configure (Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;)Lcom/revenuecat/purchases/kmp/Purchases;
@@ -210,7 +210,7 @@ public final class com/revenuecat/purchases/kmp/ktx/CoroutinesKt {
 	public static final fun awaitRestore (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitSyncAttributesAndOfferingsIfNeeded (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitSyncPurchases (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-	public static final fun awaitTrialOrIntroductoryPriceEligibility (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitTrialOrIntroPriceEligibility (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/revenuecat/purchases/kmp/ktx/SuccessfulLogin {
