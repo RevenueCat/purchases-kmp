@@ -10,7 +10,7 @@ import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.ktx.awaitTrialOrIntroPriceEligibility
-import com.revenuecat.purchases.kmp.models.IntroEligibility
+import com.revenuecat.purchases.kmp.models.IntroEligibilityStatus
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
 import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
@@ -48,10 +48,9 @@ internal fun StoreProductRow(
                 } ?: Text(text = "introductoryDiscount: null")
                 StoreProductDiscountsRow(discounts = product.discounts)
 
-                val introEligibilityStatus by produceState<IntroEligibility.Status?>(null) {
+                val introEligibilityStatus by produceState<IntroEligibilityStatus?>(null) {
                     value = Purchases.sharedInstance
                         .awaitTrialOrIntroPriceEligibility(listOf(product))[product]
-                        ?.status
                 }
                 Text(text = "introEligibilityStatus: ${introEligibilityStatus ?: "Loading..."}")
             }

@@ -25,7 +25,7 @@ import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.DangerousSettings
 import com.revenuecat.purchases.kmp.models.EntitlementVerificationMode
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
-import com.revenuecat.purchases.kmp.models.IntroEligibility
+import com.revenuecat.purchases.kmp.models.IntroEligibilityStatus
 import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
@@ -173,7 +173,7 @@ private class PurchasesCommonAPI {
 
         val getProductsResult: List<StoreProduct> = purchases.awaitGetProducts(listOf("product"))
 
-        val eligibleIntroOffers: Map<StoreProduct, IntroEligibility> =
+        val eligibleIntroOffers: Map<StoreProduct, IntroEligibilityStatus> =
             purchases.awaitTrialOrIntroPriceEligibility(listOf(storeProduct))
 
         val eligibleWinBackOffersForProduct: List<WinBackOffer> = purchases.awaitEligibleWinBackOffersForProduct(
@@ -386,7 +386,7 @@ private class PurchasesCommonAPI {
     ) {
         purchases.checkTrialOrIntroPriceEligibility(
             products = storeProducts,
-            callback = { introEligibilityMap: Map<StoreProduct, IntroEligibility> ->
+            callback = { introEligibilityMap: Map<StoreProduct, IntroEligibilityStatus> ->
 
             }
         )
