@@ -364,6 +364,16 @@ final enum class com.revenuecat.purchases.kmp.models/GoogleReplacementMode : com
     final val entries // com.revenuecat.purchases.kmp.models/GoogleReplacementMode.entries|#static{}entries[0]
         final fun <get-entries>(): kotlin.enums/EnumEntries<com.revenuecat.purchases.kmp.models/GoogleReplacementMode> // com.revenuecat.purchases.kmp.models/GoogleReplacementMode.entries.<get-entries>|<get-entries>#static(){}[0]
 }
+final enum class com.revenuecat.purchases.kmp.models/IntroEligibilityStatus : kotlin/Enum<com.revenuecat.purchases.kmp.models/IntroEligibilityStatus> { // com.revenuecat.purchases.kmp.models/IntroEligibilityStatus|null[0]
+    enum entry ELIGIBLE // com.revenuecat.purchases.kmp.models/IntroEligibilityStatus.ELIGIBLE|null[0]
+    enum entry INELIGIBLE // com.revenuecat.purchases.kmp.models/IntroEligibilityStatus.INELIGIBLE|null[0]
+    enum entry NO_INTRO_OFFER_EXISTS // com.revenuecat.purchases.kmp.models/IntroEligibilityStatus.NO_INTRO_OFFER_EXISTS|null[0]
+    enum entry UNKNOWN // com.revenuecat.purchases.kmp.models/IntroEligibilityStatus.UNKNOWN|null[0]
+    final fun valueOf(kotlin/String): com.revenuecat.purchases.kmp.models/IntroEligibilityStatus // com.revenuecat.purchases.kmp.models/IntroEligibilityStatus.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<com.revenuecat.purchases.kmp.models/IntroEligibilityStatus> // com.revenuecat.purchases.kmp.models/IntroEligibilityStatus.values|values#static(){}[0]
+    final val entries // com.revenuecat.purchases.kmp.models/IntroEligibilityStatus.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<com.revenuecat.purchases.kmp.models/IntroEligibilityStatus> // com.revenuecat.purchases.kmp.models/IntroEligibilityStatus.entries.<get-entries>|<get-entries>#static(){}[0]
+}
 final enum class com.revenuecat.purchases.kmp.models/OfferPaymentMode : kotlin/Enum<com.revenuecat.purchases.kmp.models/OfferPaymentMode> { // com.revenuecat.purchases.kmp.models/OfferPaymentMode|null[0]
     enum entry DISCOUNTED_RECURRING_PAYMENT // com.revenuecat.purchases.kmp.models/OfferPaymentMode.DISCOUNTED_RECURRING_PAYMENT|null[0]
     enum entry FREE_TRIAL // com.revenuecat.purchases.kmp.models/OfferPaymentMode.FREE_TRIAL|null[0]
