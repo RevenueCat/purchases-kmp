@@ -380,7 +380,7 @@ private class PurchasesCommonAPI {
         val handler = Purchases.logHandler
     }
 
-    fun checkFetchingTrialOrIntroductoryPriceEligibility(
+    fun checkFetchingTrialOrIntroPriceEligibility(
         purchases: Purchases,
         storeProducts: List<StoreProduct>,
     ) {
