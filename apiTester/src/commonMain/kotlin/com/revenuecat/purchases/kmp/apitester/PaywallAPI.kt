@@ -3,6 +3,7 @@ package com.revenuecat.purchases.kmp.apitester
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import com.revenuecat.purchases.kmp.ui.revenuecatui.Paywall
+import com.revenuecat.purchases.kmp.ui.revenuecatui.OriginalTemplatePaywallFooter
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallFooter
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallOptions
 
@@ -17,6 +18,10 @@ private class PaywallAPI {
 
     @Composable
     fun checkFooter(options: PaywallOptions) {
+        OriginalTemplatePaywallFooter(options = options)
+        OriginalTemplatePaywallFooter(options = options) { paddingValues: PaddingValues ->
+
+        }
         PaywallFooter(options = options)
         PaywallFooter(options = options) { paddingValues: PaddingValues ->
 
