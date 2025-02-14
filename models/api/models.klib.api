@@ -410,6 +410,7 @@ final enum class com.revenuecat.purchases.kmp.models/PackageType : kotlin/Enum<c
 final enum class com.revenuecat.purchases.kmp.models/PeriodType : kotlin/Enum<com.revenuecat.purchases.kmp.models/PeriodType> { // com.revenuecat.purchases.kmp.models/PeriodType|null[0]
     enum entry INTRO // com.revenuecat.purchases.kmp.models/PeriodType.INTRO|null[0]
     enum entry NORMAL // com.revenuecat.purchases.kmp.models/PeriodType.NORMAL|null[0]
+    enum entry PREPAID // com.revenuecat.purchases.kmp.models/PeriodType.PREPAID|null[0]
     enum entry TRIAL // com.revenuecat.purchases.kmp.models/PeriodType.TRIAL|null[0]
     final fun valueOf(kotlin/String): com.revenuecat.purchases.kmp.models/PeriodType // com.revenuecat.purchases.kmp.models/PeriodType.valueOf|valueOf#static(kotlin.String){}[0]
     final fun values(): kotlin/Array<com.revenuecat.purchases.kmp.models/PeriodType> // com.revenuecat.purchases.kmp.models/PeriodType.values|values#static(){}[0]
