@@ -31,6 +31,7 @@ internal fun AndroidPeriodType.toPeriodType(): PeriodType =
         AndroidPeriodType.NORMAL -> PeriodType.NORMAL
         AndroidPeriodType.INTRO -> PeriodType.INTRO
         AndroidPeriodType.TRIAL -> PeriodType.TRIAL
+        AndroidPeriodType.PREPAID -> PeriodType.PREPAID
     }
 
 internal fun AndroidOwnershipType.toOwnershipType(): OwnershipType =

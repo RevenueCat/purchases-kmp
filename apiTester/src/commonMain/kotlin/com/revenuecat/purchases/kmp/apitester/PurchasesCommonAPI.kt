@@ -19,11 +19,13 @@ import com.revenuecat.purchases.kmp.ktx.awaitEligibleWinBackOffersForProduct
 import com.revenuecat.purchases.kmp.ktx.awaitGetProducts
 import com.revenuecat.purchases.kmp.ktx.awaitOfferings
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
+import com.revenuecat.purchases.kmp.ktx.awaitTrialOrIntroPriceEligibility
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.DangerousSettings
 import com.revenuecat.purchases.kmp.models.EntitlementVerificationMode
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
+import com.revenuecat.purchases.kmp.models.IntroEligibilityStatus
 import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
@@ -170,6 +172,9 @@ private class PurchasesCommonAPI {
         )
 
         val getProductsResult: List<StoreProduct> = purchases.awaitGetProducts(listOf("product"))
+
+        val eligibleIntroOffers: Map<StoreProduct, IntroEligibilityStatus> =
+            purchases.awaitTrialOrIntroPriceEligibility(listOf(storeProduct))
 
         val eligibleWinBackOffersForProduct: List<WinBackOffer> = purchases.awaitEligibleWinBackOffersForProduct(
             storeProduct = storeProduct
@@ -373,6 +378,18 @@ private class PurchasesCommonAPI {
             override fun e(tag: String, msg: String, throwable: Throwable?) {}
         }
         val handler = Purchases.logHandler
+    }
+
+    fun checkFetchingTrialOrIntroPriceEligibility(
+        purchases: Purchases,
+        storeProducts: List<StoreProduct>,
+    ) {
+        purchases.checkTrialOrIntroPriceEligibility(
+            products = storeProducts,
+            callback = { introEligibilityMap: Map<StoreProduct, IntroEligibilityStatus> ->
+
+            }
+        )
     }
 
     fun checkFetchingEligibleWinBackOffers(

@@ -4,6 +4,7 @@ import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
+import com.revenuecat.purchases.kmp.models.IntroEligibilityStatus
 import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
@@ -357,6 +358,35 @@ public suspend fun Purchases.awaitPurchase(
             continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo))
         },
     )
+}
+
+/**
+ * iOS only. Android always returns [IntroEligibilityStatus.UNKNOWN].
+ *
+ * Computes whether or not a user is eligible for the introductory pricing period of a given
+ * [products]. You should use this method to determine whether or not you show the user the
+ * normal product price or the introductory price. This also applies to trials. (Trials are
+ * considered a type of introductory pricing.)
+ *
+ * **Note**
+ *
+ * Subscription groups are automatically collected for determining eligibility. If RevenueCat
+ * can't definitively compute the eligibility, most likely because of missing group information,
+ * it will return [IntroEligibilityStatus.UNKNOWN]. The best course of action on unknown status
+ * is to display the non-intro pricing, to not create a misleading situation. To avoid this,
+ * make sure you are testing with the latest version of iOS so that the subscription group can
+ * be collected by the SDK.
+ *
+ * For more information, see
+ * [our documentation](https://www.revenuecat.com/docs/subscription-guidance/subscription-offers/ios-subscription-offers).
+ */
+@Throws(CancellationException::class)
+public suspend fun Purchases.awaitTrialOrIntroPriceEligibility(
+    products: List<StoreProduct>
+): Map<StoreProduct, IntroEligibilityStatus> = suspendCoroutine { continuation ->
+    checkTrialOrIntroPriceEligibility(products) { result ->
+        continuation.resume(result)
+    }
 }
 
 /**
