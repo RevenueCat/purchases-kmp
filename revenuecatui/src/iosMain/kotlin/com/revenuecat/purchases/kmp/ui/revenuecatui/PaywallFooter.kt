@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
  * A Paywall footer.
  */
 @Composable
-public actual fun PaywallFooter(
+public actual fun OriginalTemplatePaywallFooter(
     options: PaywallOptions,
     mainContent: @Composable ((PaddingValues) -> Unit)?,
 ) {

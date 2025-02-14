@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import com.revenuecat.purchases.kmp.ui.revenuecatui.Paywall
-import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallFooter
+import com.revenuecat.purchases.kmp.ui.revenuecatui.OriginalTemplatePaywallFooter
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallOptions
 
 @Composable
@@ -55,7 +55,7 @@ fun App() {
                         shouldDisplayDismissButton = true
                         listener = loggingListener
                     }
-                    PaywallFooter(options) { contentPadding ->
+                    OriginalTemplatePaywallFooter(options) { contentPadding ->
                         CustomPaywallContent(
                             onBackClick = { navigateTo(Screen.Main) },
                             modifier = Modifier
