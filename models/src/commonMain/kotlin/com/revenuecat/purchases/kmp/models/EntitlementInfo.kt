@@ -1,7 +1,5 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.kmp.models.VerificationResult
-
 /**
  * This object gives you access to all of the information about the status of a user's entitlements.
  */
@@ -159,6 +157,11 @@ public enum class PeriodType {
      * If the entitlement is under a trial period.
      */
     TRIAL,
+
+    /**
+     * If the entitlement is under a prepaid period.
+     */
+    PREPAID,
 }
 
 /**

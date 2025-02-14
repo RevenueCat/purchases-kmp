@@ -9,7 +9,8 @@ private class PeriodTypeAPI {
             PeriodType.NORMAL,
             PeriodType.INTRO,
             PeriodType.TRIAL,
-            -> {
+            PeriodType.PREPAID,
+                -> {
             }
         }.exhaustive
     }
