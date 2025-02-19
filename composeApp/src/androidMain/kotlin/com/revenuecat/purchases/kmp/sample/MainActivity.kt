@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         urlString = intent.dataString
 
         setContent {
-            App(urlString = urlString, urlProcessed = { urlString = null })
+            App(urlString = urlString)
         }
     }
 
@@ -31,5 +31,5 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App(urlString = null, urlProcessed = {})
+    App(urlString = null)
 }

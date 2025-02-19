@@ -29,10 +29,10 @@ import com.revenuecat.purchases.kmp.ui.revenuecatui.OriginalTemplatePaywallFoote
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallOptions
 
 @Composable
-fun App(urlString: String?, urlProcessed: () -> Unit) {
+fun App(urlString: String?) {
     MaterialTheme {
         if (urlString != null) {
-            ProcessDeepLink(urlString, urlProcessed)
+            ProcessDeepLink(urlString)
         }
         Column(
             modifier = Modifier
@@ -105,12 +105,14 @@ private fun CustomPaywallContent(
 }
 
 @Composable
-private fun ProcessDeepLink(urlString: String, urlProcessed: () -> Unit) {
+private fun ProcessDeepLink(urlString: String) {
+    var alreadyProcessed by remember { mutableStateOf(false) }
     var alertMessage by remember { mutableStateOf<String?>(null) }
 
     val webPurchaseRedemption = Purchases.parseAsWebPurchaseRedemption(urlString)
-    if (webPurchaseRedemption != null && Purchases.isConfigured) {
+    if (!alreadyProcessed && webPurchaseRedemption != null && Purchases.isConfigured) {
         Purchases.sharedInstance.redeemWebPurchase(webPurchaseRedemption) { result ->
+            alreadyProcessed = true
             alertMessage = when (result) {
                 is RedeemWebPurchaseListener.Result.Error ->
                     "Error redeeming web purchase: ${result.error.message}"
@@ -128,7 +130,7 @@ private fun ProcessDeepLink(urlString: String, urlProcessed: () -> Unit) {
 
     alertMessage?.let {
         AlertDialog(
-            onDismissRequest = { urlProcessed() },
+            onDismissRequest = { alertMessage = null },
             title = { Text("Web Purchase Redemption result") },
             text = { Text(it) },
             buttons = {
@@ -138,7 +140,7 @@ private fun ProcessDeepLink(urlString: String, urlProcessed: () -> Unit) {
                 ) {
                     Button(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = { urlProcessed() }
+                        onClick = { alertMessage = null }
                     ) {
                         Text("Dismiss")
                     }
