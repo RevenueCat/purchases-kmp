@@ -9,7 +9,6 @@ java = "1.8"
 kotlin = "1.9.23"
 revenuecat-common = "13.18.1"
 revenuecat-kmp = "1.6.0-SNAPSHOT"
-rinku = "1.3.1"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -23,8 +22,6 @@ kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.0" }
 revenuecat-common = { module = "com.revenuecat.purchases:purchases-hybrid-common", version.ref = "revenuecat-common" }
 revenuecat-commonUi = { module = "com.revenuecat.purchases:purchases-hybrid-common-ui", version.ref = "revenuecat-common" }
-rinku = { module = "dev.theolm:rinku", version.ref = "rinku" }
-rinku-compose-ext = { module = "dev.theolm:rinku-compose-ext", version.ref = "rinku" }
 
 [plugins]
 adamko-dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version = "2.3.1" }
