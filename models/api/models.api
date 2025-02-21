@@ -308,6 +308,7 @@ public final class com/revenuecat/purchases/kmp/models/PurchasesErrorCode : java
 	public static final field ConfigurationError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field CustomerInfoError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field EmptySubscriberAttributesError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field ExpiredWebPurchaseToken Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field FeatureNotAvailableInCustomEntitlementsComputationMode Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field FeatureNotSupportedWithStoreKit1 Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field IneligibleError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
@@ -318,6 +319,7 @@ public final class com/revenuecat/purchases/kmp/models/PurchasesErrorCode : java
 	public static final field InvalidPromotionalOfferError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field InvalidReceiptError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field InvalidSubscriberAttributesError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field InvalidWebPurchaseToken Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field LogOutWithAnonymousUserError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field MissingReceiptFileError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field NetworkError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
@@ -329,6 +331,7 @@ public final class com/revenuecat/purchases/kmp/models/PurchasesErrorCode : java
 	public static final field ProductDiscountMissingSubscriptionGroupIdentifierError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field ProductNotAvailableForPurchaseError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field ProductRequestTimedOut Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field PurchaseBelongsToOtherUser Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field PurchaseCancelledError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field PurchaseInvalidError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field PurchaseNotAllowedError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
@@ -374,6 +377,55 @@ public final class com/revenuecat/purchases/kmp/models/RecurrenceMode : java/lan
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/RecurrenceMode;
 	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/RecurrenceMode;
+}
+
+public abstract interface class com/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener {
+	public abstract fun handleResult (Lcom/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result;)V
+}
+
+public abstract class com/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result {
+	public final fun isSuccess ()Z
+}
+
+public final class com/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$Error : com/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result {
+	public fun <init> (Lcom/revenuecat/purchases/kmp/models/PurchasesError;)V
+	public final fun component1 ()Lcom/revenuecat/purchases/kmp/models/PurchasesError;
+	public final fun copy (Lcom/revenuecat/purchases/kmp/models/PurchasesError;)Lcom/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$Error;
+	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$Error;Lcom/revenuecat/purchases/kmp/models/PurchasesError;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$Error;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Lcom/revenuecat/purchases/kmp/models/PurchasesError;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$Expired : com/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$Expired;
+	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$Expired;Ljava/lang/String;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$Expired;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getObfuscatedEmail ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$InvalidToken : com/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result {
+	public static final field INSTANCE Lcom/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$InvalidToken;
+}
+
+public final class com/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$PurchaseBelongsToOtherUser : com/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result {
+	public static final field INSTANCE Lcom/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$PurchaseBelongsToOtherUser;
+}
+
+public final class com/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$Success : com/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result {
+	public fun <init> (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)V
+	public final fun component1 ()Lcom/revenuecat/purchases/kmp/models/CustomerInfo;
+	public final fun copy (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)Lcom/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$Success;
+	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$Success;Lcom/revenuecat/purchases/kmp/models/CustomerInfo;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener$Result$Success;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCustomerInfo ()Lcom/revenuecat/purchases/kmp/models/CustomerInfo;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public abstract interface class com/revenuecat/purchases/kmp/models/ReplacementMode {
@@ -489,6 +541,11 @@ public final class com/revenuecat/purchases/kmp/models/VerificationResult : java
 	public final fun isVerified ()Z
 	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/VerificationResult;
 	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/VerificationResult;
+}
+
+public final class com/revenuecat/purchases/kmp/models/WebPurchaseRedemption {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun getRedemptionUrl ()Ljava/lang/String;
 }
 
 public abstract interface class com/revenuecat/purchases/kmp/models/WinBackOffer {

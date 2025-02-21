@@ -43,7 +43,10 @@ private class PurchasesErrorCodeAPI {
             PurchasesErrorCode.OfflineConnectionError,
             PurchasesErrorCode.SignatureVerificationError,
             PurchasesErrorCode.FeatureNotAvailableInCustomEntitlementsComputationMode,
-            PurchasesErrorCode.FeatureNotSupportedWithStoreKit1 -> {
+            PurchasesErrorCode.FeatureNotSupportedWithStoreKit1,
+            PurchasesErrorCode.InvalidWebPurchaseToken,
+            PurchasesErrorCode.PurchaseBelongsToOtherUser,
+            PurchasesErrorCode.ExpiredWebPurchaseToken -> {
             }
         }.exhaustive
     }

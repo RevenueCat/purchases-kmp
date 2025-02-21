@@ -103,4 +103,16 @@ public enum class PurchasesErrorCode(public val code: Int, public val descriptio
         "This feature is not supported when using StoreKit 1. " +
                 "Configure the SDK to use StoreKit 2 to use this feature."
     ),
+    InvalidWebPurchaseToken(
+        39,
+        "The link you provided does not contain a valid purchase token.",
+    ),
+    PurchaseBelongsToOtherUser(
+        40,
+        "The web purchase already belongs to other user.",
+    ),
+    ExpiredWebPurchaseToken(
+        41,
+        "The link you provided has expired. A new one will be sent to the email used to make the purchase.",
+    ),
 }
