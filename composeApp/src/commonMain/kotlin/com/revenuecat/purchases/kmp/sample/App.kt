@@ -13,6 +13,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,11 +30,15 @@ import com.revenuecat.purchases.kmp.ui.revenuecatui.OriginalTemplatePaywallFoote
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallOptions
 
 @Composable
-fun App(urlString: String?) {
+fun App() {
     MaterialTheme {
-        if (urlString != null) {
-            ProcessDeepLink(urlString)
+        var urlString: String? by remember { mutableStateOf(null) }
+        LaunchedEffect(Unit) {
+            deepLinkFlow.collect { url ->
+                urlString = url
+            }
         }
+        urlString?.let { ProcessDeepLink(it) }
         Column(
             modifier = Modifier
                 .fillMaxSize(),

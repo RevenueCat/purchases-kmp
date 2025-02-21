@@ -5,31 +5,27 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 class MainActivity : ComponentActivity() {
-    private var urlString by mutableStateOf<String?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        urlString = intent.dataString
+        intent.dataString?.let { handleDeepLink(it) }
 
         setContent {
-            App(urlString = urlString)
+            App()
         }
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        urlString = intent.dataString
+        intent.dataString?.let { handleDeepLink(it) }
     }
 }
 
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App(urlString = null)
+    App()
 }
