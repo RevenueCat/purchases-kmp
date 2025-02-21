@@ -2,6 +2,7 @@ package com.revenuecat.purchases.kmp.mappings
 
 import cocoapods.PurchasesHybridCommon.RCAmazon
 import cocoapods.PurchasesHybridCommon.RCAppStore
+import cocoapods.PurchasesHybridCommon.RCBilling
 import cocoapods.PurchasesHybridCommon.RCEntitlementInfo
 import cocoapods.PurchasesHybridCommon.RCIntro
 import cocoapods.PurchasesHybridCommon.RCMacAppStore
@@ -52,6 +53,7 @@ internal fun IosStore.toStore(): Store =
         RCPromotional -> Store.PROMOTIONAL
         RCUnknownStore -> Store.UNKNOWN_STORE
         RCAmazon -> Store.AMAZON
+        RCBilling -> Store.RC_BILLING
         else -> error("Unknown IosStore: $this")
     }
 
