@@ -131,11 +131,6 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         private fun DangerousSettings.toIosDangerousSettings(): IosDangerousSettings =
             IosDangerousSettings(autoSyncPurchases)
 
-        /**
-         * Given a url string, parses the link and returns a [WebPurchaseRedemption], which can
-         * be used to redeem a web purchase using [Purchases.redeemWebPurchase]
-         * @return A parsed version of the link or null if it's not a valid RevenueCat web purchase redemption link.
-         */
         public actual fun parseAsWebPurchaseRedemption(url: String): WebPurchaseRedemption? {
             return if (RCCommonFunctionality.isWebPurchaseRedemptionURL(url)) {
                 WebPurchaseRedemption(url)

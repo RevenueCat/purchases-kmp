@@ -58,6 +58,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/ReplacementMode;ILjava/lang/Object;)V
 	public static synthetic fun purchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/ReplacementMode;ILjava/lang/Object;)V
 	public final fun recordPurchase (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public final fun redeemWebPurchase (Lcom/revenuecat/purchases/kmp/models/WebPurchaseRedemption;Lcom/revenuecat/purchases/kmp/models/RedeemWebPurchaseListener;)V
 	public final fun restorePurchases (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun setAd (Ljava/lang/String;)V
 	public final fun setAdGroup (Ljava/lang/String;)V
@@ -104,6 +105,7 @@ public final class com/revenuecat/purchases/kmp/Purchases$Companion {
 	public final fun getSharedInstance ()Lcom/revenuecat/purchases/kmp/Purchases;
 	public final fun getSimulatesAskToBuyInSandbox ()Z
 	public final fun isConfigured ()Z
+	public final fun parseAsWebPurchaseRedemption (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/WebPurchaseRedemption;
 	public final fun setForceUniversalAppStore (Z)V
 	public final fun setLogHandler (Lcom/revenuecat/purchases/kmp/LogHandler;)V
 	public final fun setLogLevel (Lcom/revenuecat/purchases/kmp/LogLevel;)V

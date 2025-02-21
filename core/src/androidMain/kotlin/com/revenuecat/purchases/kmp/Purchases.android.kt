@@ -526,7 +526,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
             // accepting strings once it's available.
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(webPurchaseRedemption.redemptionUrl))
             AndroidPurchases.parseAsWebPurchaseRedemption(intent)
-        } catch (@Suppress("TooGenericExceptionCaught") e: Throwable) {
+        } catch (_: Throwable) {
             respondInvalidUrlError()
             return
         }

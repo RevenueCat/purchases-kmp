@@ -103,9 +103,9 @@ public expect class Purchases {
         )
 
         /**
-         * Given a url string, parses the link and returns a [WebPurchaseRedemption], which can
+         * Given a url string, parses it and returns a [WebPurchaseRedemption], which can
          * be used to redeem a web purchase using [Purchases.redeemWebPurchase]
-         * @return A parsed version of the link or null if it's not a valid RevenueCat web purchase redemption link.
+         * @return A parsed [WebPurchaseRedemption] or null if it's not a valid RevenueCat web purchase redemption url.
          */
         public fun parseAsWebPurchaseRedemption(url: String): WebPurchaseRedemption?
     }
