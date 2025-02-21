@@ -11,7 +11,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        intent.dataString?.let { handleDeepLink(it) }
+        intent.dataString?.let { DeepLinkHandler.handleDeepLink(it) }
 
         setContent {
             App()
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        intent.dataString?.let { handleDeepLink(it) }
+        intent.dataString?.let { DeepLinkHandler.handleDeepLink(it) }
     }
 }
 

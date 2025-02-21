@@ -34,7 +34,7 @@ fun App() {
     MaterialTheme {
         var urlString: String? by remember { mutableStateOf(null) }
         LaunchedEffect(Unit) {
-            deepLinkFlow.collect { url ->
+            DeepLinkHandler.deepLinkFlow.collect { url ->
                 urlString = url
             }
         }

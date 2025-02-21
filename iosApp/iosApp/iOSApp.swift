@@ -15,13 +15,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        DeepLinkHandlerKt.handleDeepLink(url: url.absoluteString)
+        DeepLinkHandler.shared.handleDeepLink(url: url.absoluteString)
         return true
     }
 
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         if let url = userActivity.webpageURL?.absoluteString {
-            DeepLinkHandlerKt.handleDeepLink(url: url)
+            DeepLinkHandler.shared.handleDeepLink(url: url)
         }
         return true
     }
