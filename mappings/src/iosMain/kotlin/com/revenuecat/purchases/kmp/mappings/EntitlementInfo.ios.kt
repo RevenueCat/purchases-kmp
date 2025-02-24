@@ -7,6 +7,7 @@ import cocoapods.PurchasesHybridCommon.RCEntitlementInfo
 import cocoapods.PurchasesHybridCommon.RCIntro
 import cocoapods.PurchasesHybridCommon.RCMacAppStore
 import cocoapods.PurchasesHybridCommon.RCNormal
+import cocoapods.PurchasesHybridCommon.RCPrepaid
 import cocoapods.PurchasesHybridCommon.RCPlayStore
 import cocoapods.PurchasesHybridCommon.RCPromotional
 import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypeFamilyShared
@@ -62,6 +63,7 @@ internal fun IosPeriodType.toPeriodType(): PeriodType =
         RCNormal -> PeriodType.NORMAL
         RCIntro -> PeriodType.INTRO
         RCTrial -> PeriodType.TRIAL
+        RCPrepaid -> PeriodType.PREPAID
         else -> error("Unknown IosPeriodType: $this")
     }
 
