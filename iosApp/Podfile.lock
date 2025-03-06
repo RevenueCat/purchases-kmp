@@ -1,30 +1,46 @@
 PODS:
-  - PurchasesHybridCommon (13.21.0):
-    - RevenueCat (= 5.18.0)
-  - PurchasesHybridCommonUI (13.21.0):
-    - PurchasesHybridCommon (= 13.21.0)
-    - RevenueCatUI (= 5.18.0)
-  - RevenueCat (5.18.0)
-  - RevenueCatUI (5.18.0):
-    - RevenueCat (= 5.18.0)
+  - PurchasesHybridCommon (13.22.1):
+    - RevenueCat (= 5.19.0)
+  - PurchasesHybridCommonUI (13.22.1):
+    - PurchasesHybridCommon (= 13.22.1)
+    - RevenueCatUI (= 5.19.0)
+  - RevenueCat (5.19.0)
+  - RevenueCatUI (5.19.0):
+    - RevenueCat (= 5.19.0)
 
 DEPENDENCIES:
-  - PurchasesHybridCommon (= 13.21.0)
-  - PurchasesHybridCommonUI (= 13.21.0)
+  - PurchasesHybridCommon (from `https://github.com/revenuecat/purchases-hybrid-common`, branch `chore/public-initialiser`)
+  - PurchasesHybridCommonUI (from `https://github.com/revenuecat/purchases-hybrid-common`, branch `chore/public-initialiser`)
+  - RevenueCat (= 5.19.0)
+  - RevenueCatUI (= 5.19.0)
 
 SPEC REPOS:
   trunk:
-    - PurchasesHybridCommon
-    - PurchasesHybridCommonUI
     - RevenueCat
     - RevenueCatUI
 
-SPEC CHECKSUMS:
-  PurchasesHybridCommon: 9691d74a051f30858360d78936d59dc14575014e
-  PurchasesHybridCommonUI: 19a14aea9521c58814d2fba56f584ec58363c12c
-  RevenueCat: e825836f5d6baa870c53d7281be25a5fd91abd91
-  RevenueCatUI: f52648672be46e692955aab397a4a491f8aa196f
+EXTERNAL SOURCES:
+  PurchasesHybridCommon:
+    :branch: chore/public-initialiser
+    :git: https://github.com/revenuecat/purchases-hybrid-common
+  PurchasesHybridCommonUI:
+    :branch: chore/public-initialiser
+    :git: https://github.com/revenuecat/purchases-hybrid-common
 
-PODFILE CHECKSUM: 4a5ae8a16d80b6958c02ec60ff5364830db17f51
+CHECKOUT OPTIONS:
+  PurchasesHybridCommon:
+    :commit: 45976b820a3cf2299e8f93e2e9911e818bc6a7f0
+    :git: https://github.com/revenuecat/purchases-hybrid-common
+  PurchasesHybridCommonUI:
+    :commit: 45976b820a3cf2299e8f93e2e9911e818bc6a7f0
+    :git: https://github.com/revenuecat/purchases-hybrid-common
+
+SPEC CHECKSUMS:
+  PurchasesHybridCommon: 7b6078714560d3a7d58ebd830ae20891a5aa5e89
+  PurchasesHybridCommonUI: aea1ff9e16af7bfa17c07cd304e04dc0aedace9e
+  RevenueCat: 4be87c151dff652d2a5b7af46073db11f01ad93f
+  RevenueCatUI: 79372219c99e2d08eed0a0607004ca0872a17fd5
+
+PODFILE CHECKSUM: 8047d89ef247d54d5eb1fe993d3b155049e587c5
 
 COCOAPODS: 1.16.2

@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.RedeemWebPurchaseListener
+import com.revenuecat.purchases.kmp.ui.revenuecatui.CustomerCenter
 import com.revenuecat.purchases.kmp.ui.revenuecatui.Paywall
 import com.revenuecat.purchases.kmp.ui.revenuecatui.OriginalTemplatePaywallFooter
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallOptions
@@ -83,6 +84,12 @@ fun App() {
                 is Screen.WinBackTesting -> WinBackTestingScreen(
                     navigateTo = navigateTo
                 )
+
+                is Screen.CustomerCenter -> {
+                    CustomerCenter(
+                        onDismiss = { navigateTo(Screen.Main) },
+                    )
+                }
             }
         }
     }

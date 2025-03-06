@@ -151,6 +151,14 @@ fun MainScreen(
                 ) {
                     Text("Win-Back Offer Testing")
                 }
+
+                Spacer(modifier = Modifier.size(16.dp))
+                TextButton(
+                    onClick = { navigateTo(Screen.CustomerCenter) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Customer Center")
+                }
             }
         }
     }
