@@ -6,8 +6,6 @@ target 'iosApp' do
   # use_frameworks!
 
   # Pods for iosApp
-  pod 'RevenueCat', '5.19.0'
-  pod 'RevenueCatUI', '5.19.0'
   pod 'PurchasesHybridCommon', git: 'https://github.com/revenuecat/purchases-hybrid-common', branch: 'chore/public-initialiser'
   pod 'PurchasesHybridCommonUI', git: 'https://github.com/revenuecat/purchases-hybrid-common', branch: 'chore/public-initialiser'
 end
