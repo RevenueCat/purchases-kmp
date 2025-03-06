@@ -398,12 +398,15 @@ workflows:
             - github-bot-public
 
   # This workflow runs for any commit to main, as well as for any other
-  # branch with an open PR. This is controlled by the "Only build pull requests"
-  # setting on CircleCI. 
-  on-any-branch:
+  # branch with an open PR, except for release branches. This is controlled 
+  # by the "Only build pull requests" setting on CircleCI. 
+  on-non-release-branch:
     when:
-      not:
-        equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+      and:
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - not:
+            matches: { pattern: "^release/.+$", value: << pipeline.git.branch >> }
     jobs:
       - revenuecat/danger:
           context: danger-bot
