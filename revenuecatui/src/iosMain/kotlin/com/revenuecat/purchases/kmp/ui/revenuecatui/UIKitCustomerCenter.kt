@@ -28,9 +28,6 @@ internal fun UIKitCustomerCenter(
 
     UIKitViewController(
         modifier = modifier.layout { measurable, constraints ->
-            println(measurable)
-            println(constraints)
-
             val placeable = measurable.measure(
                 if (constraints.minHeight == 0 && constraints.maxHeight > 0)
                     constraints.copy(minHeight = intrinsicContentSizePx)
