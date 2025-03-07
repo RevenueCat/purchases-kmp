@@ -8,5 +8,6 @@ sealed interface Screen {
     data class Paywall(val offering: Offering?) : Screen
     data class PaywallFooter(val offering: Offering?) : Screen
     data object WinBackTesting : Screen
+    data object CustomerCenter : Screen
 
 }

@@ -1,3 +1,7 @@
+public final class com/revenuecat/purchases/kmp/ui/revenuecatui/CustomerCenterKt {
+	public static final fun CustomerCenter (Landroidx/compose/ui/Modifier;Lkotlin/jvm/functions/Function0;Landroidx/compose/runtime/Composer;II)V
+}
+
 public final class com/revenuecat/purchases/kmp/ui/revenuecatui/OriginalTemplatePaywallFooterKt {
 	public static final fun OriginalTemplatePaywallFooter (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallOptions;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
 }
