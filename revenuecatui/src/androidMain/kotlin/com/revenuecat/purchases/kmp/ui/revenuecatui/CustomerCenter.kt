@@ -11,6 +11,6 @@ public actual fun CustomerCenter(
     onDismiss: () -> Unit
 ): Unit =
     RcCustomerCenter(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
         onDismiss = onDismiss
     )

@@ -23,8 +23,7 @@ internal fun UIKitCustomerCenter(
     // Intrinsic content size from UIKit
     var intrinsicContentSizePx by remember { mutableStateOf(0) }
 
-    // Keep a reference to the CustomerCenterUIViewController and IosCustomerCenterDelegate across recompositions
-    val viewControllerWrapper = remember { CustomerCenterUIViewControllerWrapper(null) }
+    // Keep a reference to IosCustomerCenterDelegate across recompositions
     val delegate = remember { IosCustomerCenterDelegate(onDismiss) }
 
     UIKitViewController(
@@ -40,18 +39,12 @@ internal fun UIKitCustomerCenter(
             }
         },
         factory = {
-            val viewController = CustomerCenterUIViewController()
-
-            viewController
-                .also { it.setDelegate(delegate) }
-                .also { it.setOnCloseHandler({
-                    onDismiss()
-                }) }
-                .also {
-                    it.view.getIntrinsicContentSizeOfFirstSubView()
-                        ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
-                }
-                .also { viewControllerWrapper.value = it }
+            CustomerCenterUIViewController().apply {
+                setDelegate(delegate)
+                setOnCloseHandler(onDismiss)
+                view.getIntrinsicContentSizeOfFirstSubView()
+                    ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
+            }
         },
     )
 }
@@ -66,8 +59,6 @@ private fun UIView.getIntrinsicContentSize(): Int {
 private fun UIView.getIntrinsicContentSizeOfFirstSubView(): Int? =
     (subviews.firstOrNull() as? UIView)?.getIntrinsicContentSize()
 
-// Wrapper class for CustomerCenterUIViewController
-private class CustomerCenterUIViewControllerWrapper(var value: CustomerCenterUIViewController?)
 
 internal class IosCustomerCenterDelegate(
     private val onDismiss: () -> Unit
