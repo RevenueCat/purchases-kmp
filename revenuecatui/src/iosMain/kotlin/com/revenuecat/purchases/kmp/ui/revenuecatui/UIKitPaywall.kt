@@ -91,16 +91,6 @@ internal fun UIKitPaywall(
     )
 }
 
-private fun UIView.getIntrinsicContentSize(): Int {
-    var size: Int? = null
-    memScoped { size = intrinsicContentSize.ptr.pointed.height.toInt() }
-    return size!!
-}
-
-private fun UIView.getIntrinsicContentSizeOfFirstSubView(): Int? =
-    (subviews.firstOrNull() as? UIView)?.getIntrinsicContentSize()
-
-
 /**
  * Can be [remembered][remember] before the RCPaywallViewController is instantiated, so as to
  * "reserve" a spot in the Compose slot table.

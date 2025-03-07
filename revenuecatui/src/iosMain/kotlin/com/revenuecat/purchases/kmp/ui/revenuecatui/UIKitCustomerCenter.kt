@@ -49,17 +49,6 @@ internal fun UIKitCustomerCenter(
     )
 }
 
-// Helper to get intrinsic height from UIKit view
-private fun UIView.getIntrinsicContentSize(): Int {
-    var size: Int? = null
-    memScoped { size = intrinsicContentSize.ptr.pointed.height.toInt() }
-    return size!!
-}
-
-private fun UIView.getIntrinsicContentSizeOfFirstSubView(): Int? =
-    (subviews.firstOrNull() as? UIView)?.getIntrinsicContentSize()
-
-
 internal class IosCustomerCenterDelegate(
     private val onDismiss: () -> Unit
 ) : RCCustomerCenterViewControllerDelegateWrapperProtocol, NSObject() {
