@@ -7,7 +7,7 @@ ios-deploymentTarget-core = "13.0"
 ios-deploymentTarget-ui = "15.0"
 java = "1.8"
 kotlin = "1.9.23"
-revenuecat-common = "13.22.1"
+revenuecat-common = "13.23.0"
 revenuecat-kmp = "1.7.0-SNAPSHOT"
 
 [libraries]

@@ -43,14 +43,14 @@ internal fun UIKitCustomerCenter(
             val viewController = CustomerCenterUIViewController()
 
             viewController
-                .also {
-                    it.view.getIntrinsicContentSizeOfFirstSubView()
-                        ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
-                }
                 .also { it.setDelegate(delegate) }
                 .also { it.setOnCloseHandler({
                     onDismiss()
                 }) }
+                .also {
+                    it.view.getIntrinsicContentSizeOfFirstSubView()
+                        ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
+                }
                 .also { viewControllerWrapper.value = it }
         },
     )
