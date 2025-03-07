@@ -7,9 +7,10 @@ import com.revenuecat.purchases.ui.revenuecatui.customercenter.CustomerCenter as
 
 @Composable
 public actual fun CustomerCenter(
+    modifier: Modifier,
     onDismiss: () -> Unit
 ): Unit =
     RcCustomerCenter(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         onDismiss = onDismiss
     )

@@ -6,9 +6,10 @@ import androidx.compose.ui.Modifier
 
 @Composable
 public actual fun CustomerCenter(
+    modifier: Modifier,
     onDismiss: () -> Unit
 ): Unit =
     UIKitCustomerCenter(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         onDismiss = onDismiss
     )
