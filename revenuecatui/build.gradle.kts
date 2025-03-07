@@ -29,7 +29,7 @@ kotlin {
 
         pod("PurchasesHybridCommonUI") {
             version = libs.versions.revenuecat.common.get()
-  	    extraOpts += listOf("-compiler-option", "-fmodules")
+            extraOpts += listOf("-compiler-option", "-fmodules")
         }
     }
 }
