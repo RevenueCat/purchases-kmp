@@ -87,6 +87,7 @@ fun App() {
 
                 is Screen.CustomerCenter -> {
                     CustomerCenter(
+                        modifier = Modifier.fillMaxSize(),
                         onDismiss = { navigateTo(Screen.Main) },
                     )
                 }

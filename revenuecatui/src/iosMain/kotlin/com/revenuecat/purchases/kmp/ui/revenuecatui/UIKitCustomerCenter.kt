@@ -28,6 +28,9 @@ internal fun UIKitCustomerCenter(
 
     UIKitViewController(
         modifier = modifier.layout { measurable, constraints ->
+            println(measurable)
+            println(constraints)
+
             val placeable = measurable.measure(
                 if (constraints.minHeight == 0 && constraints.maxHeight > 0)
                     constraints.copy(minHeight = intrinsicContentSizePx)
@@ -39,7 +42,8 @@ internal fun UIKitCustomerCenter(
             }
         },
         factory = {
-            CustomerCenterUIViewController().apply {
+            CustomerCenterUIViewController()
+                .apply {
                 setDelegate(delegate)
                 setOnCloseHandler(onDismiss)
                 view.getIntrinsicContentSizeOfFirstSubView()

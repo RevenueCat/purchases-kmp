@@ -9,5 +9,6 @@ private fun UIView.getIntrinsicContentSize(): Int {
     memScoped { size = intrinsicContentSize.ptr.pointed.height.toInt() }
     return size!!
 }
-public fun UIView.getIntrinsicContentSizeOfFirstSubView(): Int? =
+
+internal fun UIView.getIntrinsicContentSizeOfFirstSubView(): Int? =
     (subviews.firstOrNull() as? UIView)?.getIntrinsicContentSize()
