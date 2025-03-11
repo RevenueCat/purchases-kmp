@@ -5,20 +5,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.UIKitInteropProperties
 import androidx.compose.ui.viewinterop.UIKitViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallFooterViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
 import com.revenuecat.purchases.kmp.mappings.toIosOffering
-import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.pointed
 import objcnames.classes.RCOffering
-import platform.UIKit.UIView
 
 @Composable
 internal fun UIKitPaywall(
@@ -96,28 +91,3 @@ internal fun UIKitPaywall(
  * "reserve" a spot in the Compose slot table.
  */
 private class ViewControllerWrapper(var value: RCPaywallViewController?)
-
-/**
- * Uses NonCooperative UIKitInteropInteractionMode if available, for snappy scrolling.
- */
-@OptIn(ExperimentalComposeUiApi::class)
-private fun nonCooperativeUiKitInteropPropertiesNonExperimental(): UIKitInteropProperties =
-    try {
-        // This UIKitInteropProperties constructor and the UIKitInteropInteractionMode type are
-        // experimental at the time of writing. We try to use them, but this could fail if we're
-        // linked against a newer version of CMP that changed this API. If so, we fall back to the
-        // non-experimental constructor.
-        // In that scenario, there's an added delay when scrolling the paywall.
-        UIKitInteropProperties(
-            // Not importing this type on purpose, because it is experimental, and we want to catch
-            // any linkage errors here.
-            interactionMode = androidx.compose.ui.viewinterop.UIKitInteropInteractionMode.NonCooperative,
-        )
-    } catch (e: Error) {
-        // It would actually throw an IrLinkageError, but that type is internal, so we're catching
-        // its supertype instead (which is basically a Throwable).
-        UIKitInteropProperties(
-            isInteractive = true,
-            isNativeAccessibilityEnabled = false,
-        )
-    }

@@ -1,6 +1,10 @@
 package com.revenuecat.purchases.kmp.ui.revenuecatui
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
@@ -8,9 +12,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitViewController
 import cocoapods.PurchasesHybridCommonUI.CustomerCenterUIViewController
 import cocoapods.PurchasesHybridCommonUI.RCCustomerCenterViewControllerDelegateWrapperProtocol
-import kotlinx.cinterop.memScoped
-import kotlinx.cinterop.pointed
-import platform.UIKit.UIView
 import platform.darwin.NSObject
 
 @Composable
@@ -47,6 +48,7 @@ internal fun UIKitCustomerCenter(
                     ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
             }
         },
+        properties = nonCooperativeUiKitInteropPropertiesNonExperimental()
     )
 }
 
