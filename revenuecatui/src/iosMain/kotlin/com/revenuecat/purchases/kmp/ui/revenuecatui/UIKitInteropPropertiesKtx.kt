@@ -6,7 +6,10 @@ import androidx.compose.ui.viewinterop.UIKitInteropProperties
 /**
  * Set UIKitInteropProperties without having to opt-in to experimental APIs.
  *
- * @param nonCooperativeInteractionMode Uses NonCooperative UIKitInteropInteractionMode if available, for snappy scrolling.
+ * @param nonCooperativeInteractionMode Uses NonCooperative UIKitInteropInteractionMode if
+ * available, for snappy scrolling.
+ * @param isNativeAccessibilityEnabled Enables the native accessibility features of the underlying
+ * UIKit view.
  */
 @OptIn(ExperimentalComposeUiApi::class)
 internal fun uiKitInteropPropertiesNonExperimental(
