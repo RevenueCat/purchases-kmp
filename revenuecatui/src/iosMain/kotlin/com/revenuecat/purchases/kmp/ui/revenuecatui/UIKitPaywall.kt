@@ -82,7 +82,10 @@ internal fun UIKitPaywall(
                 .apply { setDelegate(delegate) }
                 .also { viewControllerWrapper.value = it }
         },
-        properties = nonCooperativeUiKitInteropPropertiesNonExperimental()
+        properties = uiKitInteropPropertiesNonExperimental(
+            nonCooperativeInteractionMode = true,
+            isNativeAccessibilityEnabled = true,
+        )
     )
 }
 
