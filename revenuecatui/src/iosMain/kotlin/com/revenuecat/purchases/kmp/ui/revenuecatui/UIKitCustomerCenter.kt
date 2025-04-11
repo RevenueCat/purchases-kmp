@@ -48,7 +48,10 @@ internal fun UIKitCustomerCenter(
                     ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
             }
         },
-        properties = nonCooperativeUiKitInteropPropertiesNonExperimental()
+        properties = uiKitInteropPropertiesNonExperimental(
+            nonCooperativeInteractionMode = true,
+            isNativeAccessibilityEnabled = true,
+        )
     )
 }
 
