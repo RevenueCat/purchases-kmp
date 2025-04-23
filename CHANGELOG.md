@@ -1,3 +1,8 @@
+## 1.7.6+13.28.1
+## RevenueCat SDK
+### 🐞 Bugfixes
+* Enables accessibility features in iOS Paywalls and Customer Center (#373) via JayShortway (@JayShortway)
+
 ## 1.7.5+13.28.1
 ## RevenueCat SDK
 ### 📦 Dependency Updates
