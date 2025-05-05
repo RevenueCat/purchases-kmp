@@ -336,6 +336,11 @@ final class com.revenuecat.purchases.kmp.models/StoreTransaction { // com.revenu
     final val transactionId // com.revenuecat.purchases.kmp.models/StoreTransaction.transactionId|{}transactionId[0]
         final fun <get-transactionId>(): kotlin/String? // com.revenuecat.purchases.kmp.models/StoreTransaction.transactionId.<get-transactionId>|<get-transactionId>(){}[0]
 }
+final class com.revenuecat.purchases.kmp.models/Storefront { // com.revenuecat.purchases.kmp.models/Storefront|null[0]
+    constructor <init>(kotlin/String) // com.revenuecat.purchases.kmp.models/Storefront.<init>|<init>(kotlin.String){}[0]
+    final val countryCode // com.revenuecat.purchases.kmp.models/Storefront.countryCode|{}countryCode[0]
+        final fun <get-countryCode>(): kotlin/String // com.revenuecat.purchases.kmp.models/Storefront.countryCode.<get-countryCode>|<get-countryCode>(){}[0]
+}
 final class com.revenuecat.purchases.kmp.models/Transaction { // com.revenuecat.purchases.kmp.models/Transaction|null[0]
     constructor <init>(kotlin/String, kotlin/String, kotlin/Long) // com.revenuecat.purchases.kmp.models/Transaction.<init>|<init>(kotlin.String;kotlin.String;kotlin.Long){}[0]
     final val productIdentifier // com.revenuecat.purchases.kmp.models/Transaction.productIdentifier|{}productIdentifier[0]
