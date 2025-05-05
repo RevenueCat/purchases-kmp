@@ -6,8 +6,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.datetime.allExpirationInstants
 import com.revenuecat.purchases.kmp.datetime.allPurchaseInstants
 import com.revenuecat.purchases.kmp.datetime.firstSeenInstant
@@ -15,6 +21,7 @@ import com.revenuecat.purchases.kmp.datetime.latestExpirationInstant
 import com.revenuecat.purchases.kmp.datetime.originalPurchaseInstant
 import com.revenuecat.purchases.kmp.datetime.requestInstant
 import com.revenuecat.purchases.kmp.models.CustomerInfo
+import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.sample.AsyncState
 import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
 
@@ -23,6 +30,14 @@ internal fun CustomerInfoSection(
     state: AsyncState<CustomerInfo>,
     modifier: Modifier = Modifier
 ) {
+    var storefront by remember {
+        mutableStateOf<Storefront?>(null)
+    }
+    LaunchedEffect(Unit) {
+        Purchases.sharedInstance.getStorefront { result ->
+            storefront = result
+        }
+    }
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Center,
@@ -43,6 +58,7 @@ internal fun CustomerInfoSection(
                     Text(text = "originalPurchaseInstant: ${state.value.originalPurchaseInstant}")
                     Text(text = "requestInstant: ${state.value.requestInstant}")
                     Text(text = "managementUrlString: ${state.value.managementUrlString}")
+                    Text(text = "storefrontCountryCode: ${storefront?.countryCode}")
                     CollapsibleStringsRow(
                         strings = state.value.activeSubscriptions,
                         label = "activeSubscriptions"
