@@ -42,6 +42,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public static final fun getSharedInstance ()Lcom/revenuecat/purchases/kmp/Purchases;
 	public static final fun getSimulatesAskToBuyInSandbox ()Z
 	public final fun getStore ()Lcom/revenuecat/purchases/kmp/models/Store;
+	public final fun getStorefront (Lkotlin/jvm/functions/Function1;)V
 	public final fun invalidateCustomerInfoCache ()V
 	public final fun isAnonymous ()Z
 	public static final fun isConfigured ()Z
