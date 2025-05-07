@@ -1,12 +1,12 @@
 [versions]
-agp = "8.4.1"
-android-compileSdk = "34"
+agp = "8.9.0"
+android-compileSdk = "35"
 android-minSdk = "21"
-android-targetSdk = "34"
+android-targetSdk = "35"
 ios-deploymentTarget-core = "13.0"
 ios-deploymentTarget-ui = "15.0"
 java = "1.8"
-kotlin = "1.9.23"
+kotlin = "2.1.10"
 revenuecat-common = "13.29.1"
 revenuecat-kmp = "1.8.0-SNAPSHOT"
 
@@ -30,8 +30,9 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 codingfeline-buildkonfig = { id = "com.codingfeline.buildkonfig", version = "0.15.1" }
 iurysouza-modulegraph = { id = "dev.iurysouza.modulegraph", version = "0.10.0" }
-jetbrains-compose = { id = "org.jetbrains.compose", version = "1.7.0" }
+jetbrains-compose = { id = "org.jetbrains.compose", version = "1.8.0" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-kotlinx-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.15.0-Beta.2" }
+kotlinx-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.17.0" }
 vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.29.0" }
