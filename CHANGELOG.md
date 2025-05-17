@@ -1,3 +1,13 @@
+## 1.7.8+13.32.0
+## RevenueCat SDK
+### 📦 Dependency Updates
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 13.32.0 (#393) via RevenueCat Git Bot (@RCGitBot)
+  * [iOS 5.24.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.24.0)
+  * [iOS 5.23.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.23.0)
+
+### 🔄 Other Changes
+* Bump fastlane from 2.227.1 to 2.227.2 (#390) via dependabot[bot] (@dependabot[bot])
+
 ## 1.7.7+13.29.1
 ## RevenueCat SDK
 ### 📦 Dependency Updates
