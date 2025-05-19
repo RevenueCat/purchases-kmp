@@ -498,6 +498,11 @@ public final class com/revenuecat/purchases/kmp/models/StoreTransaction {
 	public final fun getTransactionId ()Ljava/lang/String;
 }
 
+public final class com/revenuecat/purchases/kmp/models/Storefront {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun getCountryCode ()Ljava/lang/String;
+}
+
 public abstract interface class com/revenuecat/purchases/kmp/models/SubscriptionOption {
 	public abstract fun getId ()Ljava/lang/String;
 	public abstract fun getInstallmentsInfo ()Lcom/revenuecat/purchases/kmp/models/InstallmentsInfo;

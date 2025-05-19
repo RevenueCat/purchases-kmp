@@ -16,6 +16,7 @@ import com.revenuecat.purchases.kmp.models.StoreMessageType
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
+import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
@@ -134,6 +135,13 @@ public expect class Purchases {
      * The currently configured store
      */
     public val store: Store
+
+    /**
+     * Gets the user's current store [Storefront].
+     *
+     * Returns null if the information could not be obtained.
+     */
+    public fun getStorefront(callback: (storefront: Storefront?) -> Unit)
 
     /**
      * This method will send all the purchases to the RevenueCat backend. Call this when using your

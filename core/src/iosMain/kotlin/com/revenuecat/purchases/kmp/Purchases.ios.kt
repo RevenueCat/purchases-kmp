@@ -31,6 +31,7 @@ import com.revenuecat.purchases.kmp.mappings.toPromotionalOffer
 import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
 import com.revenuecat.purchases.kmp.mappings.toStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
+import com.revenuecat.purchases.kmp.mappings.toStorefront
 import com.revenuecat.purchases.kmp.mappings.toWinBackOffer
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
@@ -49,6 +50,7 @@ import com.revenuecat.purchases.kmp.models.StoreMessageType
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
+import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
@@ -161,6 +163,16 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
     public actual val store: Store
         get() = Store.APP_STORE
+
+    public actual fun getStorefront(callback: ((Storefront?) -> Unit)) {
+        iosPurchases.getStorefrontWithCompletionHandler { storefront ->
+            if (storefront == null) {
+                callback(null)
+            } else {
+                callback(storefront.toStorefront())
+            }
+        }
+    }
 
     public actual fun syncPurchases(
         onError: (error: PurchasesError) -> Unit,
