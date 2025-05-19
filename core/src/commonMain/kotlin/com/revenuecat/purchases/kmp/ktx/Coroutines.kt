@@ -13,6 +13,7 @@ import com.revenuecat.purchases.kmp.models.PurchasesTransactionException
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
+import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import kotlin.coroutines.cancellation.CancellationException
@@ -581,4 +582,15 @@ public suspend fun Purchases.awaitCustomerInfo(
         onError = { continuation.resumeWithException(PurchasesException(it)) },
         onSuccess = { continuation.resume(it) },
     )
+}
+
+/**
+ * Gets the user's current store [Storefront].
+ *
+ * Returns null if the information could not be obtained.
+ */
+public suspend fun Purchases.awaitStorefront(): Storefront? = suspendCoroutine { continuation ->
+    getStorefront {
+        continuation.resume(it)
+    }
 }

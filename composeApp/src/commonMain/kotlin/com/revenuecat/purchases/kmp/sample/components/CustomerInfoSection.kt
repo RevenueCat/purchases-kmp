@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -30,12 +31,9 @@ internal fun CustomerInfoSection(
     state: AsyncState<CustomerInfo>,
     modifier: Modifier = Modifier
 ) {
-    var storefront by remember {
-        mutableStateOf<Storefront?>(null)
-    }
-    LaunchedEffect(Unit) {
+    val storefront = produceState<Storefront?>(initialValue = null) {
         Purchases.sharedInstance.getStorefront { result ->
-            storefront = result
+            value = result
         }
     }
     Column(
@@ -58,7 +56,7 @@ internal fun CustomerInfoSection(
                     Text(text = "originalPurchaseInstant: ${state.value.originalPurchaseInstant}")
                     Text(text = "requestInstant: ${state.value.requestInstant}")
                     Text(text = "managementUrlString: ${state.value.managementUrlString}")
-                    Text(text = "storefrontCountryCode: ${storefront?.countryCode}")
+                    Text(text = "storefrontCountryCode: ${storefront.value?.countryCode}")
                     CollapsibleStringsRow(
                         strings = state.value.activeSubscriptions,
                         label = "activeSubscriptions"

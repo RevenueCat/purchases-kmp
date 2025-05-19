@@ -136,6 +136,11 @@ public expect class Purchases {
      */
     public val store: Store
 
+    /**
+     * Gets the user's current store [Storefront].
+     *
+     * Returns null if the information could not be obtained.
+     */
     public fun getStorefront(callback: (storefront: Storefront?) -> Unit)
 
     /**
