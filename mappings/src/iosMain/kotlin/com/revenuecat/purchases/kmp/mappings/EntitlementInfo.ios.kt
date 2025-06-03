@@ -7,6 +7,7 @@ import cocoapods.PurchasesHybridCommon.RCEntitlementInfo
 import cocoapods.PurchasesHybridCommon.RCIntro
 import cocoapods.PurchasesHybridCommon.RCMacAppStore
 import cocoapods.PurchasesHybridCommon.RCNormal
+import cocoapods.PurchasesHybridCommon.RCPaddle
 import cocoapods.PurchasesHybridCommon.RCPrepaid
 import cocoapods.PurchasesHybridCommon.RCPlayStore
 import cocoapods.PurchasesHybridCommon.RCPromotional
