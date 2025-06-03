@@ -15,6 +15,7 @@ private class StoreAPI {
             Store.AMAZON,
             Store.RC_BILLING,
             Store.EXTERNAL,
+            Store.PADDLE,
             -> {
             }
         }.exhaustive

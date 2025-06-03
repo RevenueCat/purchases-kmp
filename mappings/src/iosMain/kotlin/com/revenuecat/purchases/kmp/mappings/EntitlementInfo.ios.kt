@@ -55,6 +55,7 @@ internal fun IosStore.toStore(): Store =
         RCUnknownStore -> Store.UNKNOWN_STORE
         RCAmazon -> Store.AMAZON
         RCBilling -> Store.RC_BILLING
+        RCPaddle -> Store.PADDLE
         else -> error("Unknown IosStore: $this")
     }
 
