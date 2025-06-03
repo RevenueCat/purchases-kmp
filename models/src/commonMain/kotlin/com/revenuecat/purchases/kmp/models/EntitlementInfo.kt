@@ -137,6 +137,11 @@ public enum class Store {
      * For entitlements granted via RevenueCat's External Purchases API.
      */
     EXTERNAL,
+
+    /**
+     * For entitlements granted via Paddle.
+     */
+    PADDLE,
 }
 
 /**
