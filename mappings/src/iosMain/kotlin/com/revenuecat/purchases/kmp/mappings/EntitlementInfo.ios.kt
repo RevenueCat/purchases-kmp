@@ -7,6 +7,7 @@ import cocoapods.PurchasesHybridCommon.RCEntitlementInfo
 import cocoapods.PurchasesHybridCommon.RCIntro
 import cocoapods.PurchasesHybridCommon.RCMacAppStore
 import cocoapods.PurchasesHybridCommon.RCNormal
+import cocoapods.PurchasesHybridCommon.RCPaddle
 import cocoapods.PurchasesHybridCommon.RCPrepaid
 import cocoapods.PurchasesHybridCommon.RCPlayStore
 import cocoapods.PurchasesHybridCommon.RCPromotional
@@ -55,6 +56,7 @@ internal fun IosStore.toStore(): Store =
         RCUnknownStore -> Store.UNKNOWN_STORE
         RCAmazon -> Store.AMAZON
         RCBilling -> Store.RC_BILLING
+        RCPaddle -> Store.PADDLE
         else -> error("Unknown IosStore: $this")
     }
 

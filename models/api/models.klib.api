@@ -561,6 +561,7 @@ final enum class com.revenuecat.purchases.kmp.models/Store : kotlin/Enum<com.rev
     enum entry APP_STORE // com.revenuecat.purchases.kmp.models/Store.APP_STORE|null[0]
     enum entry EXTERNAL // com.revenuecat.purchases.kmp.models/Store.EXTERNAL|null[0]
     enum entry MAC_APP_STORE // com.revenuecat.purchases.kmp.models/Store.MAC_APP_STORE|null[0]
+    enum entry PADDLE // com.revenuecat.purchases.kmp.models/Store.PADDLE|null[0]
     enum entry PLAY_STORE // com.revenuecat.purchases.kmp.models/Store.PLAY_STORE|null[0]
     enum entry PROMOTIONAL // com.revenuecat.purchases.kmp.models/Store.PROMOTIONAL|null[0]
     enum entry RC_BILLING // com.revenuecat.purchases.kmp.models/Store.RC_BILLING|null[0]

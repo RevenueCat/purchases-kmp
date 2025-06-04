@@ -437,6 +437,7 @@ public final class com/revenuecat/purchases/kmp/models/Store : java/lang/Enum {
 	public static final field APP_STORE Lcom/revenuecat/purchases/kmp/models/Store;
 	public static final field EXTERNAL Lcom/revenuecat/purchases/kmp/models/Store;
 	public static final field MAC_APP_STORE Lcom/revenuecat/purchases/kmp/models/Store;
+	public static final field PADDLE Lcom/revenuecat/purchases/kmp/models/Store;
 	public static final field PLAY_STORE Lcom/revenuecat/purchases/kmp/models/Store;
 	public static final field PROMOTIONAL Lcom/revenuecat/purchases/kmp/models/Store;
 	public static final field RC_BILLING Lcom/revenuecat/purchases/kmp/models/Store;
