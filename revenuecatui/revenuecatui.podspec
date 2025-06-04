@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'revenuecatui'
-    spec.version                  = '1.9.0-SNAPSHOT'
+    spec.version                  = '1.8.1+13.33.0'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
