@@ -2,10 +2,7 @@ package com.revenuecat.purchases.kmp.ui.revenuecatui
 
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
-import kotlinx.cinterop.CValue
-import kotlinx.cinterop.useContents
-import platform.CoreGraphics.CGRect
-import platform.CoreGraphics.CGRectMake
+import platform.UIKit.NSLayoutConstraint
 import platform.UIKit.UIViewController
 
 /**
@@ -17,27 +14,63 @@ internal class ConstrainingViewController<T: UIViewController>(
     private val density: Density,
 ) : UIViewController(nibName = null, bundle = null) {
 
-    var constraints: Constraints? = null
+    private var activeConstraints: List<NSLayoutConstraint> = emptyList()
+    private var _constraints: Constraints? = null
+    
+    var constraints: Constraints?
+        get() = _constraints
+        set(value) {
+            _constraints = value
+            updateNSLayoutConstraints()
+        }
 
     override fun viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(constrainedViewController.view)
+        
+        // Set up the constrained view for Auto Layout
+        constrainedViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Update constraints in case they were set before viewDidLoad
+        updateNSLayoutConstraints()
     }
 
-    override fun viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        val currentConstraints = constraints ?: return
-
-        view.setFrame(view.frame.satisfy(currentConstraints))
-    }
-
-    private fun CValue<CGRect>.satisfy(constraints: Constraints): CValue<CGRect> = useContents {
-        CGRectMake(
-            x = origin.x,
-            y = origin.y,
-            width = constraints.fixedWidthPt ?: size.width,
-            height = constraints.fixedHeightPt ?: size.height,
-        )
+    private fun updateNSLayoutConstraints() {
+        // Only proceed if the view is loaded
+        if (!isViewLoaded()) return
+        
+        // Deactivate and clear existing constraints
+        NSLayoutConstraint.deactivateConstraints(activeConstraints)
+        activeConstraints = emptyList()
+        
+        val currentConstraints = _constraints ?: return
+        val constrainedView = constrainedViewController.view
+        
+        val newConstraints = mutableListOf<NSLayoutConstraint>()
+        
+        // Add width constraint if we have a fixed width
+        currentConstraints.fixedWidthPt?.let { width ->
+            newConstraints.add(
+                constrainedView.widthAnchor.constraintEqualToConstant(width)
+            )
+        }
+        
+        // Add height constraint if we have a fixed height
+        currentConstraints.fixedHeightPt?.let { height ->
+            newConstraints.add(
+                constrainedView.heightAnchor.constraintEqualToConstant(height)
+            )
+        }
+        
+        // Center the constrained view in the container
+        newConstraints.addAll(listOf(
+            constrainedView.centerXAnchor.constraintEqualToAnchor(view.centerXAnchor),
+            constrainedView.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor)
+        ))
+        
+        // Activate the new constraints
+        NSLayoutConstraint.activateConstraints(newConstraints)
+        activeConstraints = newConstraints
     }
 
     private val Constraints.fixedWidthPt: Double?
