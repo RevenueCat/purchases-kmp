@@ -14,6 +14,7 @@ import cocoapods.PurchasesHybridCommonUI.RCPaywallFooterViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
 import com.revenuecat.purchases.kmp.mappings.toIosOffering
 import objcnames.classes.RCOffering
+import platform.UIKit.NSLayoutConstraint
 
 @Composable
 internal fun UIKitPaywall(
@@ -31,7 +32,7 @@ internal fun UIKitPaywall(
     // We remember this wrapper so we can keep a reference to RCPaywallViewController, even during
     // recompositions. RCPaywallViewController itself is not yet instantiated here.
     val viewControllerWrapper = remember {
-        ViewControllerWrapper<ConstrainingViewController<RCPaywallViewController>>(null)
+        ViewControllerWrapper<RCPaywallViewController>(null)
     }
 
     // Keeping references to avoid them being deallocated.
@@ -41,7 +42,7 @@ internal fun UIKitPaywall(
         IosPaywallDelegate(options.listener) {
             // UIKit reports that our height was updated, so we're updating intrinsicContentSizePx
             // to force a new measurement phase (below).
-            viewControllerWrapper.constrainedViewController?.view
+            viewControllerWrapper.wrapped?.view
                 ?.getIntrinsicContentSizeOfFirstSubView()
                 ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
         }
@@ -55,7 +56,7 @@ internal fun UIKitPaywall(
                 constraints.copy(minHeight = intrinsicContentSizePx)
             else constraints
 
-            viewControllerWrapper.wrapped?.constraints = constraintsToUse
+            viewControllerWrapper.applyConstraints(constraintsToUse, density)
             val placeable = measurable.measure(constraintsToUse)
 
             layout(placeable.width, placeable.height) {
@@ -80,12 +81,15 @@ internal fun UIKitPaywall(
                     // The first subview has an actual intrinsic content size. We keep a reference
                     // so we can use it in our measurement phase (above).
                     it.view.getIntrinsicContentSizeOfFirstSubView()
-                        ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
+                        ?.also {
+                            intrinsicContentSizePx = with(density) { it.dp.roundToPx() }
+                            println("TESTING [paywallViewController] intrinsicContentSizePx: $intrinsicContentSizePx")
+                        }
                 }
                 .apply { setDelegate(delegate) }
-
-            ConstrainingViewController(paywallViewController, density)
-                .also { viewControllerWrapper.wrapped = it }
+                .also {
+                    viewControllerWrapper.wrapped = it
+                }
         },
         properties = uiKitInteropPropertiesNonExperimental(
             nonCooperativeInteractionMode = true,
