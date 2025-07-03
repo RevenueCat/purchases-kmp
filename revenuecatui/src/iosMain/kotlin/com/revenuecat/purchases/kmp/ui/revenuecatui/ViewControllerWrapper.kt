@@ -23,6 +23,8 @@ internal class ViewControllerWrapper<T: UIViewController>(var wrapped: T?) {
         NSLayoutConstraint.deactivateConstraints(activeConstraints)
         activeConstraints = emptyList()
 
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+
         val newConstraints = mutableListOf<NSLayoutConstraint>()
 
         // Add width constraint if we have a fixed width
