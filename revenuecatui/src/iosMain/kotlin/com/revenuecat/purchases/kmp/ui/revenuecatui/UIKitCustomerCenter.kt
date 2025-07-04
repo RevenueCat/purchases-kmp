@@ -25,10 +25,10 @@ internal fun UIKitCustomerCenter(
     // Intrinsic content size from UIKit
     var intrinsicContentSizePx by remember { mutableStateOf(0) }
 
-    // We remember this wrapper so we can keep a reference to CustomerCenterUIViewController, even
+    // We remember this wrapper so we can keep a reference to ConstrainingViewController, even
     // during recompositions. CustomerCenterUIViewController itself is not yet instantiated here.
     val viewControllerWrapper = remember {
-        ViewControllerWrapper<CustomerCenterUIViewController>(null)
+        ViewControllerWrapper<ConstrainingViewController<CustomerCenterUIViewController>>(null)
     }
 
     // Keep a reference to IosCustomerCenterDelegate across recompositions
@@ -42,7 +42,7 @@ internal fun UIKitCustomerCenter(
                 constraints.copy(minHeight = min(intrinsicContentSizePx, constraints.maxHeight))
             else constraints
 
-            viewControllerWrapper.applyConstraints(constraintsToUse, density)
+            viewControllerWrapper.wrapped?.constraints = constraintsToUse
             val placeable = measurable.measure(constraintsToUse)
 
             layout(placeable.width, placeable.height) {
@@ -50,18 +50,16 @@ internal fun UIKitCustomerCenter(
             }
         },
         factory = {
-            CustomerCenterUIViewController()
+            val customerCenterViewController = CustomerCenterUIViewController()
                 .apply {
-                    setDelegate(delegate)
-                    setOnCloseHandler(onDismiss)
-                    view.getIntrinsicContentSizeOfFirstSubView()
-                        ?.also {
-                            intrinsicContentSizePx = with(density) { it.dp.roundToPx() }
-                            println("TESTING [paywallViewController] intrinsicContentSizePx: $intrinsicContentSizePx")
-                        }
-                }.also {
-                    viewControllerWrapper.wrapped = it
-                }
+                setDelegate(delegate)
+                setOnCloseHandler(onDismiss)
+                view.getIntrinsicContentSizeOfFirstSubView()
+                    ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
+            }
+
+            ConstrainingViewController(customerCenterViewController, density)
+                .also { viewControllerWrapper.wrapped = it }
         },
         properties = uiKitInteropPropertiesNonExperimental(
             nonCooperativeInteractionMode = true,
