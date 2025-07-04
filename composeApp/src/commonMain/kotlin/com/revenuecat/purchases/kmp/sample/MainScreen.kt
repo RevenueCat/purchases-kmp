@@ -239,7 +239,9 @@ private fun ImmediatelyShowFooter(
             shape = RoundedCornerShape(size = 16.dp)
         ).padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
-        Row {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Switch(
                 checked = checked,
                 onCheckedChange = onCheckedChange,
