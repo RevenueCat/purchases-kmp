@@ -14,6 +14,7 @@ import cocoapods.PurchasesHybridCommonUI.RCPaywallFooterViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
 import com.revenuecat.purchases.kmp.mappings.toIosOffering
 import objcnames.classes.RCOffering
+import platform.UIKit.NSLayoutConstraint
 
 @Composable
 internal fun UIKitPaywall(
@@ -30,7 +31,9 @@ internal fun UIKitPaywall(
 
     // We remember this wrapper so we can keep a reference to RCPaywallViewController, even during
     // recompositions. RCPaywallViewController itself is not yet instantiated here.
-    val viewControllerWrapper = remember { ViewControllerWrapper(null) }
+    val viewControllerWrapper = remember {
+        ViewControllerWrapper<RCPaywallViewController>(null)
+    }
 
     // Keeping references to avoid them being deallocated.
     val dismissRequestedHandler: (RCPaywallViewController?) -> Unit =
@@ -39,7 +42,7 @@ internal fun UIKitPaywall(
         IosPaywallDelegate(options.listener) {
             // UIKit reports that our height was updated, so we're updating intrinsicContentSizePx
             // to force a new measurement phase (below).
-            viewControllerWrapper.value?.view
+            viewControllerWrapper.wrapped?.view
                 ?.getIntrinsicContentSizeOfFirstSubView()
                 ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
         }
@@ -47,20 +50,21 @@ internal fun UIKitPaywall(
 
     UIKitViewController(
         modifier = modifier.layout { measurable, constraints ->
-            val placeable = measurable.measure(
-                if (constraints.minHeight == 0 && constraints.maxHeight > 0)
-                // We are being asked to wrap our own content height. We will use the measurement
-                // done by UIKit.
-                    constraints.copy(minHeight = intrinsicContentSizePx)
-                else constraints
-            )
+            val constraintsToUse = if (constraints.minHeight == 0 && constraints.maxHeight > 0)
+            // We are being asked to wrap our own content height. We will use the measurement
+            // done by UIKit.
+                constraints.copy(minHeight = intrinsicContentSizePx)
+            else constraints
+
+            viewControllerWrapper.applyConstraints(constraintsToUse, density)
+            val placeable = measurable.measure(constraintsToUse)
 
             layout(placeable.width, placeable.height) {
                 placeable.placeRelative(0, 0)
             }
         },
         factory = {
-            val viewController = if (footer) RCPaywallFooterViewController(
+            val paywallViewController = if (footer) RCPaywallFooterViewController(
                 offering = options.offering?.toIosOffering() as? RCOffering,
                 displayCloseButton = options.shouldDisplayDismissButton,
                 shouldBlockTouchEvents = false,
@@ -72,15 +76,20 @@ internal fun UIKitPaywall(
                 dismissRequestedHandler = dismissRequestedHandler,
             )
 
-            viewController
+            paywallViewController
                 .also {
                     // The first subview has an actual intrinsic content size. We keep a reference
                     // so we can use it in our measurement phase (above).
                     it.view.getIntrinsicContentSizeOfFirstSubView()
-                        ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
+                        ?.also {
+                            intrinsicContentSizePx = with(density) { it.dp.roundToPx() }
+                            println("TESTING [paywallViewController] intrinsicContentSizePx: $intrinsicContentSizePx")
+                        }
                 }
                 .apply { setDelegate(delegate) }
-                .also { viewControllerWrapper.value = it }
+                .also {
+                    viewControllerWrapper.wrapped = it
+                }
         },
         properties = uiKitInteropPropertiesNonExperimental(
             nonCooperativeInteractionMode = true,
@@ -88,9 +97,3 @@ internal fun UIKitPaywall(
         )
     )
 }
-
-/**
- * Can be [remembered][remember] before the RCPaywallViewController is instantiated, so as to
- * "reserve" a spot in the Compose slot table.
- */
-private class ViewControllerWrapper(var value: RCPaywallViewController?)
