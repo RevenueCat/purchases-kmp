@@ -14,7 +14,7 @@ import cocoapods.PurchasesHybridCommonUI.RCPaywallFooterViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
 import com.revenuecat.purchases.kmp.mappings.toIosOffering
 import objcnames.classes.RCOffering
-import platform.UIKit.NSLayoutConstraint
+import kotlin.math.min
 
 @Composable
 internal fun UIKitPaywall(
@@ -53,7 +53,7 @@ internal fun UIKitPaywall(
             val constraintsToUse = if (constraints.minHeight == 0 && constraints.maxHeight > 0)
             // We are being asked to wrap our own content height. We will use the measurement
             // done by UIKit.
-                constraints.copy(minHeight = intrinsicContentSizePx)
+                constraints.copy(minHeight = min(intrinsicContentSizePx, constraints.maxHeight))
             else constraints
 
             viewControllerWrapper.applyConstraints(constraintsToUse, density)
