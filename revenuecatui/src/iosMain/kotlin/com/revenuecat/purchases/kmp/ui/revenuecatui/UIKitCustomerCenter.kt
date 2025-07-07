@@ -39,10 +39,7 @@ internal fun UIKitCustomerCenter(
                     setDelegate(delegate)
                     setOnCloseHandler(onDismiss)
                     view.getIntrinsicContentSizeOfFirstSubView()
-                        ?.also {
-                            intrinsicContentSizePx = with(density) { it.dp.roundToPx() }
-                            println("TESTING [paywallViewController] intrinsicContentSizePx: $intrinsicContentSizePx")
-                        }
+                        ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
                 }.also {
                     viewControllerWrapper.wrapped = it
                 }

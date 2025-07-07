@@ -65,10 +65,7 @@ internal fun UIKitPaywall(
                     // The first subview has an actual intrinsic content size. We keep a reference
                     // so we can use it in our measurement phase (above).
                     it.view.getIntrinsicContentSizeOfFirstSubView()
-                        ?.also {
-                            intrinsicContentSizePx = with(density) { it.dp.roundToPx() }
-                            println("TESTING [paywallViewController] intrinsicContentSizePx: $intrinsicContentSizePx")
-                        }
+                        ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
                 }
                 .apply { setDelegate(delegate) }
                 .also {
