@@ -20,7 +20,24 @@ import com.revenuecat.purchases.kmp.ui.revenuecatui.getIntrinsicContentSizeOfFir
 import platform.UIKit.NSLayoutConstraint
 import platform.UIKit.UIViewController
 
+/**
+ * Improves layout behavior for UIKit ViewControllers when:
+ * - the content size is not fixed, or
+ * - the content size is animated.
+ *
+ * @param state Use [rememberLayoutViewControllerState] to get a state instance.
+ */
+internal fun Modifier.layoutViewController(
+    state: LayoutViewControllerState
+): Modifier = this then LayoutViewControllerElement(
+    viewControllerProvider = { state.viewController },
+    intrinsicContentHeightProvider = { state.intrinsicContentHeight },
+)
 
+/**
+ * @param getIntrinsicContentHeight A function that returns the intrinsic content height of the
+ * ViewController. Defaults to the intrinsic content height of the first subview.
+ */
 @Composable
 internal fun rememberLayoutViewControllerState(
     getIntrinsicContentHeight: UIViewController.() -> Dp = {
@@ -51,19 +68,6 @@ internal class LayoutViewControllerState(
         if (intrinsicContentHeight != null) this.intrinsicContentHeight = intrinsicContentHeight
     }
 }
-
-
-/**
- * Improves layout behavior for UIKit ViewControllers when:
- * - the content size is not fixed, or
- * - the content size is animated.
- */
-internal fun Modifier.layoutViewController(
-    state: LayoutViewControllerState
-): Modifier = this then LayoutViewControllerElement(
-    viewControllerProvider = { state.viewController },
-    intrinsicContentHeightProvider = { state.intrinsicContentHeight },
-)
 
 private data class LayoutViewControllerElement(
     val viewControllerProvider: () -> UIViewController?,
