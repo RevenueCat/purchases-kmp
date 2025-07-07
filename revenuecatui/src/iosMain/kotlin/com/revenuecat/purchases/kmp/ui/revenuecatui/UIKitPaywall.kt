@@ -17,9 +17,6 @@ internal fun UIKitPaywall(
     footer: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    // We remember this wrapper so we can keep a reference to RCPaywallViewController, even during
-    // recompositions. RCPaywallViewController itself is not yet instantiated here.
-    val viewControllerWrapper = remember { ViewControllerWrapper(null) }
     val layoutViewControllerState = rememberLayoutViewControllerState()
 
     // Keeping references to avoid them being deallocated.
@@ -49,10 +46,7 @@ internal fun UIKitPaywall(
 
             paywallViewController
                 .apply { setDelegate(delegate) }
-                .also {
-                    layoutViewControllerState.setViewController(it)
-                    viewControllerWrapper.wrapped = it
-                }
+                .also { layoutViewControllerState.setViewController(it) }
         },
         properties = uiKitInteropPropertiesNonExperimental(
             nonCooperativeInteractionMode = true,

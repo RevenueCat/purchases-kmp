@@ -15,9 +15,6 @@ internal fun UIKitCustomerCenter(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit
 ) {
-    // We remember this wrapper so we can keep a reference to CustomerCenterUIViewController, even
-    // during recompositions. CustomerCenterUIViewController itself is not yet instantiated here.
-    val viewControllerWrapper = remember { ViewControllerWrapper(null) }
     val layoutViewControllerState = rememberLayoutViewControllerState()
 
     // Keep a reference to IosCustomerCenterDelegate across recompositions
@@ -32,7 +29,6 @@ internal fun UIKitCustomerCenter(
                     setOnCloseHandler(onDismiss)
                 }.also {
                     layoutViewControllerState.setViewController(it)
-                    viewControllerWrapper.wrapped = it
                 }
         },
         properties = uiKitInteropPropertiesNonExperimental(
