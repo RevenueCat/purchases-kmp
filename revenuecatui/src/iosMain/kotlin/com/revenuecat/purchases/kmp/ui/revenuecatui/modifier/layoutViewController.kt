@@ -61,23 +61,16 @@ private class LayoutViewController<T: UIViewController>(
     ): List<NSLayoutConstraint> {
         view.translatesAutoresizingMaskIntoConstraints = false
 
-        val newConstraints = mutableListOf<NSLayoutConstraint>()
+        val newConstraints = buildList {
+            constraints
+                .fixedWidthPt(density)
+                ?.also { width -> add(view.widthAnchor.constraintEqualToConstant(width)) }
 
-        // Add width constraint if we have a fixed width
-        constraints.fixedWidthPt(density)?.let { width ->
-            newConstraints.add(
-                view.widthAnchor.constraintEqualToConstant(width)
-            )
+            constraints
+                .fixedHeightPt(density)
+                ?.also { height -> add(view.heightAnchor.constraintEqualToConstant(height)) }
         }
 
-        // Add height constraint if we have a fixed height
-        constraints.fixedHeightPt(density)?.let { height ->
-            newConstraints.add(
-                view.heightAnchor.constraintEqualToConstant(height)
-            )
-        }
-
-        // Activate and return the new constraints
         NSLayoutConstraint.activateConstraints(newConstraints)
         return newConstraints
     }
