@@ -14,7 +14,7 @@ import cocoapods.PurchasesHybridCommonUI.RCPaywallFooterViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
 import com.revenuecat.purchases.kmp.mappings.toIosOffering
 import objcnames.classes.RCOffering
-import kotlin.math.min
+import platform.UIKit.UIViewController
 
 @Composable
 internal fun UIKitPaywall(
@@ -49,22 +49,7 @@ internal fun UIKitPaywall(
     }
 
     UIKitViewController(
-        modifier = modifier.layout { measurable, constraints ->
-            val constraintsToUse = if (!constraints.hasFixedHeight)
-// We are being asked to wrap our own content height. We will use the measurement
-// done by UIKit.
-                min(intrinsicContentSizePx, constraints.maxHeight).let { height ->
-                    constraints.copy(minHeight = height, maxHeight = height)
-                }
-            else constraints
-
-            viewControllerWrapper.applyConstraints(constraintsToUse, density)
-            val placeable = measurable.measure(constraintsToUse)
-
-            layout(placeable.width, placeable.height) {
-                placeable.placeRelative(0, 0)
-            }
-        },
+        modifier = modifier.layoutViewController(viewControllerWrapper) { intrinsicContentSizePx },
         factory = {
             val paywallViewController = if (footer) RCPaywallFooterViewController(
                 offering = options.offering?.toIosOffering() as? RCOffering,
@@ -98,4 +83,24 @@ internal fun UIKitPaywall(
             isNativeAccessibilityEnabled = true,
         )
     )
+}
+
+internal fun <T: UIViewController> Modifier.layoutViewController(
+    viewControllerWrapper: ViewControllerWrapper<T>,
+    intrinsicContentSizePx: () -> Int,
+): Modifier = layout { measurable, constraints ->
+    // Check if we are being asked to wrap our own content height. If so, we will use the
+    // measurement done by UIKit.
+    val constraintsToUse = if (!constraints.hasFixedHeight)
+        intrinsicContentSizePx()
+            .coerceAtMost(constraints.maxHeight)
+            .let { height -> constraints.copy(minHeight = height, maxHeight = height) }
+    else constraints
+
+    viewControllerWrapper.applyConstraints(constraintsToUse, this)
+    val placeable = measurable.measure(constraintsToUse)
+
+    layout(placeable.width, placeable.height) {
+        placeable.placeRelative(0, 0)
+    }
 }
