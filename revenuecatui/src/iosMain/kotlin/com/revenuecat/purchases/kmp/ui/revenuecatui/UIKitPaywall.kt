@@ -33,7 +33,6 @@ internal fun UIKitPaywall(
     // recompositions. RCPaywallViewController itself is not yet instantiated here.
     val viewControllerWrapper = remember { ViewControllerWrapper(null) }
     val layoutViewControllerState = rememberLayoutViewControllerState(
-        viewController = { viewControllerWrapper.wrapped },
         intrinsicContentSizePx = { intrinsicContentSizePx },
     )
 
@@ -74,6 +73,7 @@ internal fun UIKitPaywall(
                 }
                 .apply { setDelegate(delegate) }
                 .also {
+                    layoutViewControllerState.setViewController(it)
                     viewControllerWrapper.wrapped = it
                 }
         },

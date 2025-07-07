@@ -29,7 +29,6 @@ internal fun UIKitCustomerCenter(
     // during recompositions. CustomerCenterUIViewController itself is not yet instantiated here.
     val viewControllerWrapper = remember { ViewControllerWrapper(null) }
     val layoutViewControllerState = rememberLayoutViewControllerState(
-        viewController = { viewControllerWrapper.wrapped },
         intrinsicContentSizePx = { intrinsicContentSizePx },
     )
 
@@ -46,6 +45,7 @@ internal fun UIKitCustomerCenter(
                     view.getIntrinsicContentSizeOfFirstSubView()
                         ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
                 }.also {
+                    layoutViewControllerState.setViewController(it)
                     viewControllerWrapper.wrapped = it
                 }
         },

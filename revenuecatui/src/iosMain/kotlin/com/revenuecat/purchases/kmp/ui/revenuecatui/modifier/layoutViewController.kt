@@ -39,19 +39,24 @@ internal class LayoutViewControllerState2(
 
 @Composable
 internal fun rememberLayoutViewControllerState(
-    viewController: () -> UIViewController?,
     intrinsicContentSizePx: () -> Int,
 ): LayoutViewControllerState = remember {
     LayoutViewControllerState(
-        viewController = viewController,
         intrinsicContentSizePx = intrinsicContentSizePx,
     )
 }
 
+@Stable
 internal class LayoutViewControllerState(
-    val viewController: () -> UIViewController?,
     val intrinsicContentSizePx: () -> Int,
-)
+) {
+    internal var viewController: UIViewController? = null
+        private set
+
+    fun setViewController(viewController: UIViewController) {
+        this.viewController = viewController
+    }
+}
 
 
 /**
@@ -62,7 +67,7 @@ internal class LayoutViewControllerState(
 internal fun Modifier.layoutViewController(
     state: LayoutViewControllerState
 ) = this then LayoutViewControllerElement(
-    viewControllerProvider = state.viewController,
+    viewControllerProvider = { state.viewController },
     intrinsicContentSizePx = state.intrinsicContentSizePx
 )
 
