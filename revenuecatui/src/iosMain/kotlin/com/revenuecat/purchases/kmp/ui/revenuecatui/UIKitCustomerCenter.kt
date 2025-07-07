@@ -12,6 +12,7 @@ import androidx.compose.ui.viewinterop.UIKitViewController
 import cocoapods.PurchasesHybridCommonUI.CustomerCenterUIViewController
 import cocoapods.PurchasesHybridCommonUI.RCCustomerCenterViewControllerDelegateWrapperProtocol
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewController
+import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState
 import platform.darwin.NSObject
 
 @Composable
@@ -27,15 +28,16 @@ internal fun UIKitCustomerCenter(
     // We remember this wrapper so we can keep a reference to CustomerCenterUIViewController, even
     // during recompositions. CustomerCenterUIViewController itself is not yet instantiated here.
     val viewControllerWrapper = remember { ViewControllerWrapper(null) }
+    val layoutViewControllerState = rememberLayoutViewControllerState(
+        viewController = { viewControllerWrapper.wrapped },
+        intrinsicContentSizePx = { intrinsicContentSizePx },
+    )
 
     // Keep a reference to IosCustomerCenterDelegate across recompositions
     val delegate = remember { IosCustomerCenterDelegate(onDismiss) }
 
     UIKitViewController(
-        modifier = modifier.layoutViewController(
-            viewController = { viewControllerWrapper.wrapped },
-            intrinsicContentSizePx = { intrinsicContentSizePx }
-        ),
+        modifier = modifier.layoutViewController(layoutViewControllerState),
         factory = {
             CustomerCenterUIViewController()
                 .apply {

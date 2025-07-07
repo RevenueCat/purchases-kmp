@@ -13,6 +13,7 @@ import cocoapods.PurchasesHybridCommonUI.RCPaywallFooterViewController
 import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
 import com.revenuecat.purchases.kmp.mappings.toIosOffering
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewController
+import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState
 import objcnames.classes.RCOffering
 
 @Composable
@@ -31,6 +32,10 @@ internal fun UIKitPaywall(
     // We remember this wrapper so we can keep a reference to RCPaywallViewController, even during
     // recompositions. RCPaywallViewController itself is not yet instantiated here.
     val viewControllerWrapper = remember { ViewControllerWrapper(null) }
+    val layoutViewControllerState = rememberLayoutViewControllerState(
+        viewController = { viewControllerWrapper.wrapped },
+        intrinsicContentSizePx = { intrinsicContentSizePx },
+    )
 
     // Keeping references to avoid them being deallocated.
     val dismissRequestedHandler: (RCPaywallViewController?) -> Unit =
@@ -46,10 +51,7 @@ internal fun UIKitPaywall(
     }
 
     UIKitViewController(
-        modifier = modifier.layoutViewController(
-            viewController = { viewControllerWrapper.wrapped },
-            intrinsicContentSizePx = { intrinsicContentSizePx }
-        ),
+        modifier = modifier.layoutViewController(layoutViewControllerState),
         factory = {
             val paywallViewController = if (footer) RCPaywallFooterViewController(
                 offering = options.offering?.toIosOffering() as? RCOffering,

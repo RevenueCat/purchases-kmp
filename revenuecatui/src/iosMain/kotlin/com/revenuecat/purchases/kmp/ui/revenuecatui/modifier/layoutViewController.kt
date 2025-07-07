@@ -1,5 +1,8 @@
 package com.revenuecat.purchases.kmp.ui.revenuecatui.modifier
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.layout.MeasureResult
@@ -11,15 +14,57 @@ import androidx.compose.ui.unit.Density
 import platform.UIKit.NSLayoutConstraint
 import platform.UIKit.UIViewController
 
+
+
+@Stable
+internal class LayoutViewControllerState2(
+    private val getIntrinsicContentHeight: UIViewController.() -> Int,
+) {
+
+    internal var viewController: UIViewController? = null
+        private set
+    internal var intrinsicContentHeightPx: Int = 0
+        private set
+
+    fun setViewController(viewController: UIViewController) {
+        this.viewController = viewController
+        updateIntrinsicContentHeight()
+    }
+
+    fun updateIntrinsicContentHeight() {
+        viewController?.getIntrinsicContentHeight()?.let { this.intrinsicContentHeightPx = it }
+    }
+
+}
+
+@Composable
+internal fun rememberLayoutViewControllerState(
+    viewController: () -> UIViewController?,
+    intrinsicContentSizePx: () -> Int,
+): LayoutViewControllerState = remember {
+    LayoutViewControllerState(
+        viewController = viewController,
+        intrinsicContentSizePx = intrinsicContentSizePx,
+    )
+}
+
+internal class LayoutViewControllerState(
+    val viewController: () -> UIViewController?,
+    val intrinsicContentSizePx: () -> Int,
+)
+
+
 /**
  * Improves layout behavior for UIKit ViewControllers when:
  * - the content size is not fixed, or
  * - the content size is animated.
  */
 internal fun Modifier.layoutViewController(
-    viewController: () -> UIViewController?,
-    intrinsicContentSizePx: () -> Int,
-) = this then LayoutViewControllerElement(viewController, intrinsicContentSizePx)
+    state: LayoutViewControllerState
+) = this then LayoutViewControllerElement(
+    viewControllerProvider = state.viewController,
+    intrinsicContentSizePx = state.intrinsicContentSizePx
+)
 
 private class LayoutViewController(
     var viewControllerProvider: () -> UIViewController?,
