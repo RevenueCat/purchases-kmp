@@ -24,7 +24,6 @@ import platform.UIKit.UIViewController
 @Composable
 internal fun rememberLayoutViewControllerState(
     getIntrinsicContentHeight: UIViewController.() -> Dp = {
-        println("TESTING getIntrinsicContentHeight, ${view.subviews.size} subviews")
         view.getIntrinsicContentSizeOfFirstSubView()?.dp ?: 0.dp
     },
 ): LayoutViewControllerState = remember {
@@ -43,19 +42,13 @@ internal class LayoutViewControllerState(
         private set
 
     fun setViewController(viewController: UIViewController) {
-        println("TESTING setViewController, ${viewController.view.subviews.size} subviews")
         this.viewController = viewController
         updateIntrinsicContentHeight()
     }
 
     fun updateIntrinsicContentHeight() {
         val intrinsicContentHeight = viewController?.getIntrinsicContentHeight()
-        println("TESTING updateIntrinsicContentHeight, intrinsicContentHeight: $intrinsicContentHeight")
-
-        if (intrinsicContentHeight != null) {
-            this.intrinsicContentHeight = intrinsicContentHeight
-            return
-        }
+        if (intrinsicContentHeight != null) this.intrinsicContentHeight = intrinsicContentHeight
     }
 }
 
@@ -65,36 +58,30 @@ internal class LayoutViewControllerState(
  * - the content size is not fixed, or
  * - the content size is animated.
  */
-@Composable
 internal fun Modifier.layoutViewController(
     state: LayoutViewControllerState
 ): Modifier = this then LayoutViewControllerElement(
     viewControllerProvider = { state.viewController },
-    intrinsicContentHeight = state.intrinsicContentHeight,
     intrinsicContentHeightProvider = { state.intrinsicContentHeight },
 )
 
 private data class LayoutViewControllerElement(
     val viewControllerProvider: () -> UIViewController?,
-    val intrinsicContentHeight: Dp,
     val intrinsicContentHeightProvider: () -> Dp,
 ) : ModifierNodeElement<LayoutViewController>() {
 
     override fun create() = LayoutViewController(
         viewControllerProvider = viewControllerProvider,
-        intrinsicContentHeight = intrinsicContentHeight,
         intrinsicContentHeightProvider = intrinsicContentHeightProvider,
     )
 
     override fun update(node: LayoutViewController) {
-        println("TESTING update intrinsicContentHeight, from${node.intrinsicContentHeight} to ${intrinsicContentHeight}")
-        node.intrinsicContentHeight = intrinsicContentHeight
+        // Not needed. Everything is read lazily.
     }
 }
 
 private class LayoutViewController(
     val viewControllerProvider: () -> UIViewController?,
-    var intrinsicContentHeight: Dp,
     val intrinsicContentHeightProvider: () -> Dp,
 ) : LayoutModifierNode, Modifier.Node() {
 
@@ -104,7 +91,6 @@ private class LayoutViewController(
         measurable: Measurable,
         constraints: Constraints,
     ): MeasureResult {
-        println("TESTING measure, intrinsicContentHeight: ${intrinsicContentHeight}")
         // Check if we are being asked to wrap our own content height. If so, we will use the
         // measurement done by UIKit.
         val constraintsToUse = if (!constraints.hasFixedHeight)
@@ -115,14 +101,12 @@ private class LayoutViewController(
         else constraints
 
         val viewController = viewControllerProvider()
-        if (viewController != null && viewController.isViewLoaded()) {
-            // Deactivate and clear existing constraints
+        if (viewController?.isViewLoaded() == true) {
             NSLayoutConstraint.deactivateConstraints(activeConstraints)
             activeConstraints = viewController.applyConstraints(constraintsToUse, this)
         }
 
         val placeable = measurable.measure(constraintsToUse)
-
         return layout(placeable.width, placeable.height) {
             placeable.placeRelative(0, 0)
         }
