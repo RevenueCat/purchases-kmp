@@ -218,8 +218,8 @@ def get_phc_version
 # to Sonatype's snapshots repository, otherwise it will be published to Maven Central.
 #
 # This requires the following environment variables to be set:
-# - SONATYPE_NEXUS_TOKEN_USERNAME
-# - SONATYPE_NEXUS_TOKEN_PASSWORD
+# - MAVEN_CENTRAL_PORTAL_USERNAME
+# - MAVEN_CENTRAL_PORTAL_PASSWORD
 # - SIGNING_GPG_IN_MEMORY
 # - GPG_SIGNING_KEY_PW_NEW
 #
@@ -228,8 +228,8 @@ def get_phc_version
 def publish
   version = current_version_number
   UI.verbose("Publishing #{version}")
-  ENV["ORG_GRADLE_PROJECT_mavenCentralUsername"] = ENV["SONATYPE_NEXUS_TOKEN_USERNAME"]
-  ENV["ORG_GRADLE_PROJECT_mavenCentralPassword"] = ENV["SONATYPE_NEXUS_TOKEN_PASSWORD"]
+  ENV["ORG_GRADLE_PROJECT_mavenCentralUsername"] = ENV["MAVEN_CENTRAL_PORTAL_USERNAME"]
+  ENV["ORG_GRADLE_PROJECT_mavenCentralPassword"] = ENV["MAVEN_CENTRAL_PORTAL_PASSWORD"]
   ENV["ORG_GRADLE_PROJECT_signingInMemoryKey"] = ENV["SIGNING_GPG_IN_MEMORY"]
   ENV["ORG_GRADLE_PROJECT_signingInMemoryKeyPassword"] = ENV["GPG_SIGNING_KEY_PW_NEW"]
   # Sonatype has a tendency to timeout. Default is 1 minute. This sets it to 5.
