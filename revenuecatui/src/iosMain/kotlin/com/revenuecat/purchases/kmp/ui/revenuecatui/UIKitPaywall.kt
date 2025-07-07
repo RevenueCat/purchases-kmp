@@ -50,10 +50,12 @@ internal fun UIKitPaywall(
 
     UIKitViewController(
         modifier = modifier.layout { measurable, constraints ->
-            val constraintsToUse = if (constraints.minHeight == 0 && constraints.maxHeight > 0)
-            // We are being asked to wrap our own content height. We will use the measurement
-            // done by UIKit.
-                constraints.copy(minHeight = min(intrinsicContentSizePx, constraints.maxHeight))
+            val constraintsToUse = if (!constraints.hasFixedHeight)
+// We are being asked to wrap our own content height. We will use the measurement
+// done by UIKit.
+                min(intrinsicContentSizePx, constraints.maxHeight).let { height ->
+                    constraints.copy(minHeight = height, maxHeight = height)
+                }
             else constraints
 
             viewControllerWrapper.applyConstraints(constraintsToUse, density)
