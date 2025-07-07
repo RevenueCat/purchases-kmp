@@ -8,7 +8,6 @@ import androidx.compose.ui.node.LayoutModifierNode
 import androidx.compose.ui.node.ModifierNodeElement
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
-import com.revenuecat.purchases.kmp.ui.revenuecatui.ViewControllerWrapper
 import platform.UIKit.NSLayoutConstraint
 import platform.UIKit.UIViewController
 
@@ -18,12 +17,12 @@ import platform.UIKit.UIViewController
  * - the content size is animated.
  */
 internal fun Modifier.layoutViewController(
-    viewControllerWrapper: ViewControllerWrapper,
+    viewController: () -> UIViewController?,
     intrinsicContentSizePx: () -> Int,
-) = this then LayoutViewControllerElement(viewControllerWrapper, intrinsicContentSizePx)
+) = this then LayoutViewControllerElement(viewController, intrinsicContentSizePx)
 
 private class LayoutViewController(
-    var viewControllerWrapper: ViewControllerWrapper,
+    var viewControllerProvider: () -> UIViewController?,
     var intrinsicContentSizePx: () -> Int,
 ) : LayoutModifierNode, Modifier.Node() {
 
@@ -41,7 +40,7 @@ private class LayoutViewController(
                 .let { height -> constraints.copy(minHeight = height, maxHeight = height) }
         else constraints
 
-        val viewController = viewControllerWrapper.wrapped
+        val viewController = viewControllerProvider()
         if (viewController != null && viewController.isViewLoaded()) {
             // Deactivate and clear existing constraints
             NSLayoutConstraint.deactivateConstraints(activeConstraints)
@@ -85,16 +84,16 @@ private class LayoutViewController(
 }
 
 private data class LayoutViewControllerElement(
-    val viewControllerWrapper: ViewControllerWrapper,
+    val viewControllerProvider: () -> UIViewController?,
     val intrinsicContentSizePx: () -> Int,
 ) : ModifierNodeElement<LayoutViewController>() {
     override fun create() = LayoutViewController(
-        viewControllerWrapper = viewControllerWrapper,
+        viewControllerProvider = viewControllerProvider,
         intrinsicContentSizePx = intrinsicContentSizePx,
     )
 
     override fun update(node: LayoutViewController) {
-        node.viewControllerWrapper = viewControllerWrapper
+        node.viewControllerProvider = viewControllerProvider
         node.intrinsicContentSizePx = intrinsicContentSizePx
     }
 }

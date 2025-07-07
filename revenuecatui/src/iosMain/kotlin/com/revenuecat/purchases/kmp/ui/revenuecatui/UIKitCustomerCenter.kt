@@ -32,7 +32,10 @@ internal fun UIKitCustomerCenter(
     val delegate = remember { IosCustomerCenterDelegate(onDismiss) }
 
     UIKitViewController(
-        modifier = modifier.layoutViewController(viewControllerWrapper) { intrinsicContentSizePx },
+        modifier = modifier.layoutViewController(
+            viewController = { viewControllerWrapper.wrapped },
+            intrinsicContentSizePx = { intrinsicContentSizePx }
+        ),
         factory = {
             CustomerCenterUIViewController()
                 .apply {

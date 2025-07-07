@@ -46,7 +46,10 @@ internal fun UIKitPaywall(
     }
 
     UIKitViewController(
-        modifier = modifier.layoutViewController(viewControllerWrapper) { intrinsicContentSizePx },
+        modifier = modifier.layoutViewController(
+            viewController = { viewControllerWrapper.wrapped },
+            intrinsicContentSizePx = { intrinsicContentSizePx }
+        ),
         factory = {
             val paywallViewController = if (footer) RCPaywallFooterViewController(
                 offering = options.offering?.toIosOffering() as? RCOffering,
