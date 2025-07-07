@@ -30,9 +30,7 @@ internal fun UIKitPaywall(
 
     // We remember this wrapper so we can keep a reference to RCPaywallViewController, even during
     // recompositions. RCPaywallViewController itself is not yet instantiated here.
-    val viewControllerWrapper = remember {
-        ViewControllerWrapper<RCPaywallViewController>(null)
-    }
+    val viewControllerWrapper = remember { ViewControllerWrapper(null) }
 
     // Keeping references to avoid them being deallocated.
     val dismissRequestedHandler: (RCPaywallViewController?) -> Unit =

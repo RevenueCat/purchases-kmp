@@ -17,13 +17,13 @@ import platform.UIKit.UIViewController
  * - the content size is not fixed, or
  * - the content size is animated.
  */
-internal fun <T: UIViewController> Modifier.layoutViewController(
-    viewControllerWrapper: ViewControllerWrapper<T>,
+internal fun Modifier.layoutViewController(
+    viewControllerWrapper: ViewControllerWrapper,
     intrinsicContentSizePx: () -> Int,
 ) = this then LayoutViewControllerElement(viewControllerWrapper, intrinsicContentSizePx)
 
-private class LayoutViewController<T: UIViewController>(
-    var viewControllerWrapper: ViewControllerWrapper<T>,
+private class LayoutViewController(
+    var viewControllerWrapper: ViewControllerWrapper,
     var intrinsicContentSizePx: () -> Int,
 ) : LayoutModifierNode, Modifier.Node() {
 
@@ -84,16 +84,16 @@ private class LayoutViewController<T: UIViewController>(
         else null
 }
 
-private data class LayoutViewControllerElement<T: UIViewController>(
-    val viewControllerWrapper: ViewControllerWrapper<T>,
+private data class LayoutViewControllerElement(
+    val viewControllerWrapper: ViewControllerWrapper,
     val intrinsicContentSizePx: () -> Int,
-) : ModifierNodeElement<LayoutViewController<T>>() {
+) : ModifierNodeElement<LayoutViewController>() {
     override fun create() = LayoutViewController(
         viewControllerWrapper = viewControllerWrapper,
         intrinsicContentSizePx = intrinsicContentSizePx,
     )
 
-    override fun update(node: LayoutViewController<T>) {
+    override fun update(node: LayoutViewController) {
         node.viewControllerWrapper = viewControllerWrapper
         node.intrinsicContentSizePx = intrinsicContentSizePx
     }

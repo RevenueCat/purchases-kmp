@@ -26,9 +26,7 @@ internal fun UIKitCustomerCenter(
 
     // We remember this wrapper so we can keep a reference to CustomerCenterUIViewController, even
     // during recompositions. CustomerCenterUIViewController itself is not yet instantiated here.
-    val viewControllerWrapper = remember {
-        ViewControllerWrapper<CustomerCenterUIViewController>(null)
-    }
+    val viewControllerWrapper = remember { ViewControllerWrapper(null) }
 
     // Keep a reference to IosCustomerCenterDelegate across recompositions
     val delegate = remember { IosCustomerCenterDelegate(onDismiss) }
