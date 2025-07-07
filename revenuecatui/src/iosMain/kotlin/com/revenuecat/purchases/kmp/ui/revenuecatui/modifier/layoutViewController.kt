@@ -74,8 +74,26 @@ internal fun Modifier.layoutViewController(
     intrinsicContentHeightProvider = { state.intrinsicContentHeight },
 )
 
+private data class LayoutViewControllerElement(
+    val viewControllerProvider: () -> UIViewController?,
+    val intrinsicContentHeight: Dp,
+    val intrinsicContentHeightProvider: () -> Dp,
+) : ModifierNodeElement<LayoutViewController>() {
+
+    override fun create() = LayoutViewController(
+        viewControllerProvider = viewControllerProvider,
+        intrinsicContentHeight = intrinsicContentHeight,
+        intrinsicContentHeightProvider = intrinsicContentHeightProvider,
+    )
+
+    override fun update(node: LayoutViewController) {
+        println("TESTING update intrinsicContentHeight, from${node.intrinsicContentHeight} to ${intrinsicContentHeight}")
+        node.intrinsicContentHeight = intrinsicContentHeight
+    }
+}
+
 private class LayoutViewController(
-    var viewControllerProvider: () -> UIViewController?,
+    val viewControllerProvider: () -> UIViewController?,
     var intrinsicContentHeight: Dp,
     val intrinsicContentHeightProvider: () -> Dp,
 ) : LayoutModifierNode, Modifier.Node() {
@@ -137,35 +155,4 @@ private class LayoutViewController(
     private fun Constraints.fixedHeightPt(density: Density): Double? =
         if (hasBoundedHeight && hasFixedHeight) with(density) { maxHeight.toDp().value.toDouble() }
         else null
-}
-
-private data class LayoutViewControllerElement(
-    val viewControllerProvider: () -> UIViewController?,
-    val intrinsicContentHeight: Dp,
-) : ModifierNodeElement<LayoutViewController>() {
-
-    private var intrinsicContentHeightProvider: () -> Dp = { intrinsicContentHeight }
-
-    constructor(
-        viewControllerProvider: () -> UIViewController?,
-        intrinsicContentHeight: Dp,
-        intrinsicContentHeightProvider: () -> Dp
-    ): this(
-        viewControllerProvider = viewControllerProvider,
-        intrinsicContentHeight = intrinsicContentHeight,
-    ) {
-        this.intrinsicContentHeightProvider = intrinsicContentHeightProvider
-    }
-
-    override fun create() = LayoutViewController(
-        viewControllerProvider = viewControllerProvider,
-        intrinsicContentHeight = intrinsicContentHeight,
-        intrinsicContentHeightProvider = intrinsicContentHeightProvider,
-    )
-
-    override fun update(node: LayoutViewController) {
-        println("TESTING update intrinsicContentHeight, from${node.intrinsicContentHeight} to ${intrinsicContentHeight}")
-        node.viewControllerProvider = viewControllerProvider
-        node.intrinsicContentHeight = intrinsicContentHeight
-    }
 }
