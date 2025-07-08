@@ -1,6 +1,9 @@
 package com.revenuecat.purchases.kmp.sample
 
 import WinBackTestingScreen
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection.Companion.Left
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,8 +29,8 @@ import androidx.compose.ui.unit.dp
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.RedeemWebPurchaseListener
 import com.revenuecat.purchases.kmp.ui.revenuecatui.CustomerCenter
-import com.revenuecat.purchases.kmp.ui.revenuecatui.Paywall
 import com.revenuecat.purchases.kmp.ui.revenuecatui.OriginalTemplatePaywallFooter
+import com.revenuecat.purchases.kmp.ui.revenuecatui.Paywall
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallOptions
 
 @Composable
@@ -39,27 +42,32 @@ fun App() {
                 urlString = url
             }
         }
+        var screen by remember { mutableStateOf<Screen>(Screen.Main) }
         urlString?.let { ProcessDeepLink(it) }
-        Column(
+        AnimatedContent(
+            targetState = screen,
             modifier = Modifier
                 .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+            transitionSpec = {
+                slideIntoContainer(towards = Left) togetherWith slideOutOfContainer(towards = Left)
+            }
+        ) { currentScreen ->
             val loggingListener = rememberLoggingPaywallListener()
-            var screen by remember { mutableStateOf<Screen>(Screen.Main) }
             val navigateTo = { destination: Screen -> screen = destination }
 
-            when (val currentScreen = screen) {
+            when (currentScreen) {
                 is Screen.Main -> MainScreen(
                     navigateTo = navigateTo,
                     modifier = Modifier.fillMaxSize()
                 )
 
                 is Screen.Paywall -> {
-                    val options = PaywallOptions(dismissRequest = { navigateTo(Screen.Main) }) {
-                        offering = currentScreen.offering
-                        shouldDisplayDismissButton = true
-                        listener = loggingListener
+                    val options = remember{
+                        PaywallOptions(dismissRequest = { navigateTo(Screen.Main) }) {
+                            offering = currentScreen.offering
+                            shouldDisplayDismissButton = true
+                            listener = loggingListener
+                        }
                     }
                     Paywall(options)
                 }

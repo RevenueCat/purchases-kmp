@@ -1,17 +1,13 @@
 package com.revenuecat.purchases.kmp.ui.revenuecatui
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.layout
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitViewController
 import cocoapods.PurchasesHybridCommonUI.CustomerCenterUIViewController
 import cocoapods.PurchasesHybridCommonUI.RCCustomerCenterViewControllerDelegateWrapperProtocol
+import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewController
+import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState
 import platform.darwin.NSObject
 
 @Composable
@@ -19,34 +15,21 @@ internal fun UIKitCustomerCenter(
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit
 ) {
-    val density = LocalDensity.current
-
-    // Intrinsic content size from UIKit
-    var intrinsicContentSizePx by remember { mutableStateOf(0) }
+    val layoutViewControllerState = rememberLayoutViewControllerState()
 
     // Keep a reference to IosCustomerCenterDelegate across recompositions
     val delegate = remember { IosCustomerCenterDelegate(onDismiss) }
 
     UIKitViewController(
-        modifier = modifier.layout { measurable, constraints ->
-            val placeable = measurable.measure(
-                if (constraints.minHeight == 0 && constraints.maxHeight > 0)
-                    constraints.copy(minHeight = intrinsicContentSizePx)
-                else constraints
-            )
-
-            layout(placeable.width, placeable.height) {
-                placeable.placeRelative(0, 0)
-            }
-        },
+        modifier = modifier.layoutViewController(layoutViewControllerState),
         factory = {
             CustomerCenterUIViewController()
                 .apply {
-                setDelegate(delegate)
-                setOnCloseHandler(onDismiss)
-                view.getIntrinsicContentSizeOfFirstSubView()
-                    ?.also { intrinsicContentSizePx = with(density) { it.dp.roundToPx() } }
-            }
+                    setDelegate(delegate)
+                    setOnCloseHandler(onDismiss)
+                }.also {
+                    layoutViewControllerState.setViewController(it)
+                }
         },
         properties = uiKitInteropPropertiesNonExperimental(
             nonCooperativeInteractionMode = true,

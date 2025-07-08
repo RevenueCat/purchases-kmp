@@ -3,6 +3,7 @@ package com.revenuecat.purchases.kmp.sample
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.material.TextField
@@ -61,6 +63,7 @@ fun MainScreen(
             .padding(all = 16.dp)
     ) {
         var isConfigured by remember { mutableStateOf(Purchases.isConfigured) }
+        var immediatelyShowPaywallFooterAfterConfiguring by remember { mutableStateOf(false) }
 
         AnimatedContent(targetState = isConfigured) { configured ->
             if (!configured) Column {
@@ -99,7 +102,19 @@ fun MainScreen(
 
                 ConfigurationTip(modifier = Modifier.fillMaxWidth())
 
+                Spacer(modifier = Modifier.size(16.dp))
+
+                ImmediatelyShowFooter(
+                    checked = immediatelyShowPaywallFooterAfterConfiguring,
+                    onCheckedChange = { immediatelyShowPaywallFooterAfterConfiguring = it },
+                )
+
             } else Column {
+                LaunchedEffect(Unit) {
+                    if (immediatelyShowPaywallFooterAfterConfiguring) {
+                        navigateTo(Screen.PaywallFooter(offering = null))
+                    }
+                }
                 var offeringsState: AsyncState<Offerings> by remember {
                     mutableStateOf(AsyncState.Loading)
                 }
@@ -210,6 +225,43 @@ private fun ConfigurationTip(modifier: Modifier = Modifier) {
         Text(text = "revenuecat.apiKey.google", fontFamily = FontFamily.Monospace)
         Text(text = "revenuecat.apiKey.apple", fontFamily = FontFamily.Monospace)
         Text(text = "revenuecat.appUserId", fontFamily = FontFamily.Monospace)
+    }
+}
+
+@Composable
+private fun ImmediatelyShowFooter(
+    checked: Boolean,
+    onCheckedChange: ((Boolean) -> Unit)?,
+) {
+    Column(
+        modifier = Modifier.background(
+            color = Color.Blue.copy(alpha = 0.07f),
+            shape = RoundedCornerShape(size = 16.dp)
+        ).padding(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Switch(
+                checked = checked,
+                onCheckedChange = onCheckedChange,
+            )
+            Spacer(modifier = Modifier.size(4.dp))
+            Text(
+                text = "Immediately show paywall footer after configuring.",
+                modifier = Modifier.weight(1f),
+                textAlign = TextAlign.Start,
+                style = MaterialTheme.typography.body1,
+            )
+        }
+        Spacer(modifier = Modifier.size(8.dp))
+        Text(
+            text = "This is useful if you want to test size animations when the " +
+                    "footer goes from the loading to loaded state.",
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Start,
+            style = MaterialTheme.typography.caption,
+        )
     }
 }
 
