@@ -15,8 +15,10 @@ import androidx.compose.ui.node.ModifierNodeElement
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import com.revenuecat.purchases.kmp.ui.revenuecatui.getIntrinsicContentSizeOfFirstSubView
+import com.revenuecat.purchases.kmp.ui.revenuecatui.getIntrinsicContentHeightOfFirstSubView
+import com.revenuecat.purchases.kmp.ui.revenuecatui.getIntrinsicContentWidthOfFirstSubView
 import platform.UIKit.NSLayoutConstraint
 import platform.UIKit.UIViewController
 
@@ -31,52 +33,77 @@ internal fun Modifier.layoutViewController(
     state: LayoutViewControllerState
 ): Modifier = this then LayoutViewControllerElement(
     viewControllerProvider = { state.viewController },
-    intrinsicContentHeightProvider = { state.intrinsicContentHeight },
+    intrinsicContentSizeProvider = { state.intrinsicContentSize },
 )
 
 /**
  * @param getIntrinsicContentHeight A function that returns the intrinsic content height of the
  * ViewController. Defaults to the intrinsic content height of the first subview.
+ * @param getIntrinsicContentWidth A function that returns the intrinsic content width of the
+ * ViewController. Defaults to the intrinsic content width of the first subview.
  */
 @Composable
 internal fun rememberLayoutViewControllerState(
     getIntrinsicContentHeight: UIViewController.() -> Dp = {
-        view.getIntrinsicContentSizeOfFirstSubView()?.dp ?: 0.dp
+        view.getIntrinsicContentHeightOfFirstSubView()?.dp ?: 0.dp
+    },
+    getIntrinsicContentWidth: UIViewController.() -> Dp = {
+        view.getIntrinsicContentWidthOfFirstSubView()?.dp ?: 0.dp
     },
 ): LayoutViewControllerState = remember {
     LayoutViewControllerState(
         getIntrinsicContentHeight = getIntrinsicContentHeight,
+        getIntrinsicContentWidth = getIntrinsicContentWidth,
     )
 }
 
 @Stable
 internal class LayoutViewControllerState(
     private val getIntrinsicContentHeight: UIViewController.() -> Dp,
-    ) {
+    private val getIntrinsicContentWidth: UIViewController.() -> Dp,
+ ) {
     internal var viewController: UIViewController? = null
         private set
-    internal var intrinsicContentHeight: Dp by mutableStateOf(0.dp)
+    internal var intrinsicContentSize: DpSize by mutableStateOf(DpSize(width = 0.dp, height = 0.dp))
         private set
 
     fun setViewController(viewController: UIViewController) {
         this.viewController = viewController
-        updateIntrinsicContentHeight()
+        updateIntrinsicContentSize()
     }
 
-    fun updateIntrinsicContentHeight() {
+    fun updateIntrinsicContentSize() {
         val intrinsicContentHeight = viewController?.getIntrinsicContentHeight()
-        if (intrinsicContentHeight != null) this.intrinsicContentHeight = intrinsicContentHeight
+        val intrinsicContentWidth = viewController?.getIntrinsicContentWidth()
+
+        when {
+            intrinsicContentHeight != null && intrinsicContentWidth != null ->
+                intrinsicContentSize = DpSize(
+                    width = intrinsicContentWidth,
+                    height = intrinsicContentHeight
+                )
+            intrinsicContentHeight != null ->
+                intrinsicContentSize = DpSize(
+                    width = intrinsicContentSize.width,
+                    height = intrinsicContentHeight
+                )
+            intrinsicContentWidth != null ->
+                intrinsicContentSize = DpSize(
+                    width = intrinsicContentWidth,
+                    height = intrinsicContentSize.height
+                )
+        }
     }
 }
 
 private data class LayoutViewControllerElement(
     val viewControllerProvider: () -> UIViewController?,
-    val intrinsicContentHeightProvider: () -> Dp,
+    val intrinsicContentSizeProvider: () -> DpSize,
 ) : ModifierNodeElement<LayoutViewController>() {
 
     override fun create() = LayoutViewController(
         viewControllerProvider = viewControllerProvider,
-        intrinsicContentHeightProvider = intrinsicContentHeightProvider,
+        intrinsicContentSizeProvider = intrinsicContentSizeProvider,
     )
 
     override fun update(node: LayoutViewController) {
@@ -86,7 +113,7 @@ private data class LayoutViewControllerElement(
 
 private class LayoutViewController(
     val viewControllerProvider: () -> UIViewController?,
-    val intrinsicContentHeightProvider: () -> Dp,
+    val intrinsicContentSizeProvider: () -> DpSize,
 ) : LayoutModifierNode, Modifier.Node() {
 
     var activeConstraints: List<NSLayoutConstraint> = emptyList()
@@ -95,14 +122,28 @@ private class LayoutViewController(
         measurable: Measurable,
         constraints: Constraints,
     ): MeasureResult {
-        // Check if we are being asked to wrap our own content height. If so, we will use the
+        // Check if we are being asked to wrap our own content size. If so, we will use the
         // measurement done by UIKit.
-        val constraintsToUse = if (!constraints.hasFixedHeight)
-            intrinsicContentHeightProvider()
+        val intrinsicContentSize = intrinsicContentSizeProvider()
+        val intrinsicContentHeight = if (!constraints.hasFixedHeight)
+            intrinsicContentSize
+                .height
                 .roundToPx()
                 .coerceAtMost(constraints.maxHeight)
-                .let { height -> constraints.copy(minHeight = height, maxHeight = height) }
-        else constraints
+        else null
+        val intrinsicContentWidth = if (!constraints.hasFixedWidth)
+            intrinsicContentSize
+                .width
+                .roundToPx()
+                .coerceAtMost(constraints.maxWidth)
+        else null
+
+        val constraintsToUse = Constraints(
+            minWidth = intrinsicContentWidth ?: constraints.minWidth,
+            maxWidth = intrinsicContentWidth ?: constraints.maxWidth,
+            minHeight = intrinsicContentHeight ?: constraints.minHeight,
+            maxHeight = intrinsicContentHeight ?: constraints.maxHeight,
+        )
 
         val viewController = viewControllerProvider()
         if (viewController?.isViewLoaded() == true) {

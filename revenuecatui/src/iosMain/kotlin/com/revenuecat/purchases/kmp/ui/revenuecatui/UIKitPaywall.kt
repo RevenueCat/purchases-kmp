@@ -25,7 +25,7 @@ internal fun UIKitPaywall(
     val delegate = remember(options.listener) {
         IosPaywallDelegate(
             listener = options.listener,
-            onHeightChange = { layoutViewControllerState.updateIntrinsicContentHeight() }
+            onHeightChange = { layoutViewControllerState.updateIntrinsicContentSize() }
         )
     }
 
