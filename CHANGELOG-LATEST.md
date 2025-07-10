@@ -1,10 +1,17 @@
 ## RevenueCat SDK
+### 🐞 Bugfixes
+* Fixes Paywall and Customer Center transition animations on iOS (#427) via JayShortway (@JayShortway)
 ### 📦 Dependency Updates
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 14.0.2 (#429) via RevenueCat Git Bot (@RCGitBot)
-  * [iOS 5.30.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.30.0)
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 14.2.0 (#439) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 8.22.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.22.0)
+  * [Android 8.21.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.21.0)
+  * [iOS 5.32.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.32.0)
+  * [iOS 5.31.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.31.0)
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 14.1.0 (#437) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 8.22.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.22.0)
+  * [Android 8.21.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.21.0)
+  * [iOS 5.32.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.32.0)
+  * [iOS 5.31.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.31.0)
 
 ### 🔄 Other Changes
-* Enables SNAPSHOT publishing to Maven Central Portal (#431) via JayShortway (@JayShortway)
-* Migrates publishing to Central Portal. (#430) via JayShortway (@JayShortway)
-* Update workflows/issue-notifications.yml@v2 (#428) via Josh Holtz (@joshdholtz)
-* Add GitHub Issue Action Ack (#425) via Josh Holtz (@joshdholtz)
+* Bump danger from 9.5.1 to 9.5.3 (#436) via dependabot[bot] (@dependabot[bot])
