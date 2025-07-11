@@ -25,7 +25,7 @@ revenuecat-commonUi = { module = "com.revenuecat.purchases:purchases-hybrid-comm
 
 [plugins]
 adamko-dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version = "2.3.1" }
-arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.6" }
+arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.8" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 codingfeline-buildkonfig = { id = "com.codingfeline.buildkonfig", version = "0.15.1" }
