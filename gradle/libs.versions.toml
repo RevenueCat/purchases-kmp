@@ -1,14 +1,14 @@
 [versions]
-agp = "8.9.0"
-android-compileSdk = "35"
+agp = "8.11.1"
+android-compileSdk = "34"
 android-minSdk = "21"
 android-targetSdk = "35"
 ios-deploymentTarget-core = "13.0"
 ios-deploymentTarget-ui = "15.0"
 java = "1.8"
 kotlin = "2.1.10"
-revenuecat-common = "13.29.1"
-revenuecat-kmp = "1.8.0-SNAPSHOT"
+revenuecat-common = "15.0.0"
+revenuecat-kmp = "1.9.0-SNAPSHOT"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -35,4 +35,4 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.17.0" }
-vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.29.0" }
+vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version = "0.33.0" }

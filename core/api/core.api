@@ -42,6 +42,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public static final fun getSharedInstance ()Lcom/revenuecat/purchases/kmp/Purchases;
 	public static final fun getSimulatesAskToBuyInSandbox ()Z
 	public final fun getStore ()Lcom/revenuecat/purchases/kmp/models/Store;
+	public final fun getStorefront (Lkotlin/jvm/functions/Function1;)V
 	public final fun invalidateCustomerInfoCache ()V
 	public final fun isAnonymous ()Z
 	public static final fun isConfigured ()Z
@@ -210,6 +211,7 @@ public final class com/revenuecat/purchases/kmp/ktx/CoroutinesKt {
 	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun awaitPurchase$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/GoogleReplacementMode;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun awaitRestore (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitStorefront (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitSyncAttributesAndOfferingsIfNeeded (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitSyncPurchases (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitTrialOrIntroPriceEligibility (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;

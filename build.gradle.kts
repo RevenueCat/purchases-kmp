@@ -3,7 +3,6 @@
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import com.vanniktech.maven.publish.MavenPublishPlugin
 import com.vanniktech.maven.publish.SonatypeHost
-import dev.iurysouza.modulegraph.LinkText
 import dev.iurysouza.modulegraph.Orientation
 import io.gitlab.arturbosch.detekt.Detekt
 import org.gradle.configurationcache.extensions.capitalized
@@ -29,7 +28,7 @@ allprojects {
 
     plugins.withType<MavenPublishPlugin> {
         configure<MavenPublishBaseExtension> {
-            publishToMavenCentral(SonatypeHost.DEFAULT, automaticRelease = true)
+            publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
             signAllPublications()
 
             // We override the artifact ID of :revenuecatui for consistency with the other SDKs. We

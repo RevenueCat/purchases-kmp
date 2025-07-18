@@ -14,6 +14,7 @@ public fun AndroidStore.toStore(): Store =
         AndroidStore.AMAZON -> Store.AMAZON
         AndroidStore.RC_BILLING -> Store.RC_BILLING
         AndroidStore.EXTERNAL -> Store.EXTERNAL
+        AndroidStore.PADDLE -> Store.PADDLE
     }
 
 public fun Store.toAndroidStore(): AndroidStore =
@@ -27,4 +28,5 @@ public fun Store.toAndroidStore(): AndroidStore =
         Store.AMAZON -> AndroidStore.AMAZON
         Store.RC_BILLING -> AndroidStore.RC_BILLING
         Store.EXTERNAL -> AndroidStore.EXTERNAL
+        Store.PADDLE -> AndroidStore.PADDLE
     }
