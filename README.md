@@ -64,7 +64,7 @@ This codelab is a step-by-step tutorial designed to help you learn and master th
 
 ## Requirements
 - Java 8+
-- Kotlin 1.9.0+
+- Kotlin 2.1.0+
 - Android 5.0+ (API level 21+)
 - iOS 13.0+ 
 
