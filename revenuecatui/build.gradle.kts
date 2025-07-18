@@ -1,6 +1,7 @@
 plugins {
     id("revenuecat-public-library")
     alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.cocoapods)
 }
 
