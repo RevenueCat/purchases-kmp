@@ -733,6 +733,28 @@ final class com.revenuecat.purchases.kmp.models/Transaction { // com.revenuecat.
         final fun <get-transactionIdentifier>(): kotlin/String // com.revenuecat.purchases.kmp.models/Transaction.transactionIdentifier.<get-transactionIdentifier>|<get-transactionIdentifier>(){}[0]
 }
 
+final class com.revenuecat.purchases.kmp.models/VirtualCurrencies { // com.revenuecat.purchases.kmp.models/VirtualCurrencies|null[0]
+    constructor <init>(kotlin.collections/Map<kotlin/String, com.revenuecat.purchases.kmp.models/VirtualCurrency>) // com.revenuecat.purchases.kmp.models/VirtualCurrencies.<init>|<init>(kotlin.collections.Map<kotlin.String,com.revenuecat.purchases.kmp.models.VirtualCurrency>){}[0]
+
+    final val all // com.revenuecat.purchases.kmp.models/VirtualCurrencies.all|{}all[0]
+        final fun <get-all>(): kotlin.collections/Map<kotlin/String, com.revenuecat.purchases.kmp.models/VirtualCurrency> // com.revenuecat.purchases.kmp.models/VirtualCurrencies.all.<get-all>|<get-all>(){}[0]
+
+    final fun get(kotlin/String): com.revenuecat.purchases.kmp.models/VirtualCurrency? // com.revenuecat.purchases.kmp.models/VirtualCurrencies.get|get(kotlin.String){}[0]
+}
+
+final class com.revenuecat.purchases.kmp.models/VirtualCurrency { // com.revenuecat.purchases.kmp.models/VirtualCurrency|null[0]
+    constructor <init>(kotlin/Int, kotlin/String, kotlin/String, kotlin/String?) // com.revenuecat.purchases.kmp.models/VirtualCurrency.<init>|<init>(kotlin.Int;kotlin.String;kotlin.String;kotlin.String?){}[0]
+
+    final val balance // com.revenuecat.purchases.kmp.models/VirtualCurrency.balance|{}balance[0]
+        final fun <get-balance>(): kotlin/Int // com.revenuecat.purchases.kmp.models/VirtualCurrency.balance.<get-balance>|<get-balance>(){}[0]
+    final val code // com.revenuecat.purchases.kmp.models/VirtualCurrency.code|{}code[0]
+        final fun <get-code>(): kotlin/String // com.revenuecat.purchases.kmp.models/VirtualCurrency.code.<get-code>|<get-code>(){}[0]
+    final val name // com.revenuecat.purchases.kmp.models/VirtualCurrency.name|{}name[0]
+        final fun <get-name>(): kotlin/String // com.revenuecat.purchases.kmp.models/VirtualCurrency.name.<get-name>|<get-name>(){}[0]
+    final val serverDescription // com.revenuecat.purchases.kmp.models/VirtualCurrency.serverDescription|{}serverDescription[0]
+        final fun <get-serverDescription>(): kotlin/String? // com.revenuecat.purchases.kmp.models/VirtualCurrency.serverDescription.<get-serverDescription>|<get-serverDescription>(){}[0]
+}
+
 final class com.revenuecat.purchases.kmp.models/WebPurchaseRedemption { // com.revenuecat.purchases.kmp.models/WebPurchaseRedemption|null[0]
     constructor <init>(kotlin/String) // com.revenuecat.purchases.kmp.models/WebPurchaseRedemption.<init>|<init>(kotlin.String){}[0]
 

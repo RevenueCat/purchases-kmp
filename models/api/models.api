@@ -549,6 +549,20 @@ public final class com/revenuecat/purchases/kmp/models/VerificationResult : java
 	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/VerificationResult;
 }
 
+public final class com/revenuecat/purchases/kmp/models/VirtualCurrencies {
+	public fun <init> (Ljava/util/Map;)V
+	public final fun get (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/VirtualCurrency;
+	public final fun getAll ()Ljava/util/Map;
+}
+
+public final class com/revenuecat/purchases/kmp/models/VirtualCurrency {
+	public fun <init> (ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getBalance ()I
+	public final fun getCode ()Ljava/lang/String;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getServerDescription ()Ljava/lang/String;
+}
+
 public final class com/revenuecat/purchases/kmp/models/WebPurchaseRedemption {
 	public fun <init> (Ljava/lang/String;)V
 	public final fun getRedemptionUrl ()Ljava/lang/String;
