@@ -15,6 +15,7 @@ import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.VirtualCurrencies
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.coroutines.resume
@@ -593,4 +594,17 @@ public suspend fun Purchases.awaitStorefront(): Storefront? = suspendCoroutine {
     getStorefront {
         continuation.resume(it)
     }
+}
+
+/**
+ * Fetches the virtual currencies for the current subscriber.
+ *
+ * @throws PurchasesException in case of an error.
+ */
+@Throws(PurchasesException::class, CancellationException::class)
+public suspend fun Purchases.awaitVirtualCurrencies(): VirtualCurrencies = suspendCoroutine { continuation ->
+    getVirtualCurrencies(
+        onError = { continuation.resumeWithException(PurchasesException(it)) },
+        onSuccess = { continuation.resume(it) }
+    )
 }
