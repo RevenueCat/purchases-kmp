@@ -792,10 +792,29 @@ public expect class Purchases {
         listener: RedeemWebPurchaseListener,
     )
 
+    /**
+     * Fetches the virtual currencies for the current subscriber.
+     */
     public fun getVirtualCurrencies(
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (virtualCurrencies: VirtualCurrencies) -> Unit,
     )
+
+    /**
+     * Invalidates the cache for virtual currencies.
+     *
+     * This is useful for cases where a virtual currency's balance might have been updated
+     * outside of the app, like if you decreased a user's balance from the user spending a virtual currency,
+     * or if you increased the balance from your backend using the server APIs.
+     */
+    public fun invalidateVirtualCurrenciesCache()
+
+    /**
+     * The currently cached [VirtualCurrencies] if one is available.
+     * This value will remain null until virtual currencies have been fetched at
+     * least once with [Purchases.getVirtualCurrencies] or an equivalent function.
+     */
+    public fun getCachedVirtualCurrencies(): VirtualCurrencies?
 }
 
 /**

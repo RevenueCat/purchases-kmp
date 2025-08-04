@@ -60,14 +60,12 @@ fun VirtualCurrencyTestingScreen(
         )
     }
 
-    // Comment out these unimplemented functions as requested
-    /*
     fun invalidateVirtualCurrenciesCache() {
         loading = true
         clearVirtualCurrencies()
         
         try {
-            // await Purchases.sharedInstance.invalidateVirtualCurrenciesCache()
+            Purchases.sharedInstance.invalidateVirtualCurrenciesCache()
         } catch (err: Exception) {
             val errorMessage = err.message ?: "Unknown error"
             println("Error invalidating virtual currencies cache: $err")
@@ -82,12 +80,12 @@ fun VirtualCurrencyTestingScreen(
         clearVirtualCurrencies()
         
         try {
-            // val cachedVirtualCurrencies = Purchases.sharedInstance.getCachedVirtualCurrencies()
-            // if (cachedVirtualCurrencies == null) {
-            //     virtualCurrencies = "Cached virtual currencies are null."
-            // } else {
-            //     virtualCurrencies = cachedVirtualCurrencies
-            // }
+             val cachedVirtualCurrencies = Purchases.sharedInstance.getCachedVirtualCurrencies()
+             if (cachedVirtualCurrencies == null) {
+                 virtualCurrencies = "Cached virtual currencies are null."
+             } else {
+                 virtualCurrencies = cachedVirtualCurrencies
+             }
         } catch (err: Exception) {
             val errorMessage = err.message ?: "Unknown error"
             println("Error fetching cached virtual currencies: $err")
@@ -96,7 +94,6 @@ fun VirtualCurrencyTestingScreen(
             loading = false
         }
     }
-    */
 
     Column(
         modifier = Modifier
@@ -133,8 +130,6 @@ fun VirtualCurrencyTestingScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Comment out these buttons since the methods are unimplemented
-        /*
         Button(
             onClick = { invalidateVirtualCurrenciesCache() },
             enabled = !loading,
@@ -152,7 +147,6 @@ fun VirtualCurrencyTestingScreen(
         ) {
             Text("Fetch Cached Virtual Currencies")
         }
-        */
 
         Spacer(modifier = Modifier.height(20.dp))
 

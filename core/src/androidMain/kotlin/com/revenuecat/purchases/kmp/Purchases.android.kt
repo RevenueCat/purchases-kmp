@@ -50,6 +50,7 @@ import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.VirtualCurrencies
+import com.revenuecat.purchases.kmp.models.VirtualCurrency
 import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
@@ -64,6 +65,7 @@ import java.net.URL
 import com.revenuecat.purchases.DangerousSettings as AndroidDangerousSettings
 import com.revenuecat.purchases.Purchases as AndroidPurchases
 import com.revenuecat.purchases.hybridcommon.configure as commonConfigure
+import com.revenuecat.purchases.virtualcurrencies.VirtualCurrencies as AndroidVirtualCurrencies
 
 public actual class Purchases private constructor(private val androidPurchases: AndroidPurchases) {
     public actual companion object {
@@ -567,6 +569,13 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onError = { onError(it.toPurchasesError()) },
         onSuccess = { onSuccess(it.toVirtualCurrencies()) }
     )
+
+    public actual fun invalidateVirtualCurrenciesCache(): Unit = androidPurchases.invalidateVirtualCurrenciesCache()
+
+    public actual fun getCachedVirtualCurrencies(): VirtualCurrencies? {
+        val cachedVirtualCurrencies: AndroidVirtualCurrencies? = androidPurchases.cachedVirtualCurrencies
+        return cachedVirtualCurrencies?.toVirtualCurrencies()
+    }
 
     private fun StoreMessageType.toInAppMessageTypeOrNull(): InAppMessageType? =
         when (this) {
