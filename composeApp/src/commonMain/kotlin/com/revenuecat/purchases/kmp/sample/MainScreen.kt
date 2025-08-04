@@ -174,6 +174,14 @@ fun MainScreen(
                 ) {
                     Text("Customer Center")
                 }
+
+                Spacer(modifier = Modifier.size(16.dp))
+                TextButton(
+                    onClick = { navigateTo(Screen.VirtualCurrencyTesting) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Virtual Currency Testing")
+                }
             }
         }
     }
