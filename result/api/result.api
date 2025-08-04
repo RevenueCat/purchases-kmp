@@ -21,5 +21,6 @@ public final class com/revenuecat/purchases/kmp/result/ResultKt {
 	public static final fun awaitRestoreResult (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitSyncAttributesAndOfferingsIfNeededResult (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitSyncPurchasesResult (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitVirtualCurrenciesResult (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
