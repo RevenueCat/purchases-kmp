@@ -1,5 +1,8 @@
 package com.revenuecat.purchases.kmp.models
 
+/**
+ * The VirtualCurrencies object contains all the virtual currencies associated to the user.
+ */
 public class VirtualCurrencies(
     /**
      * Map of all VirtualCurrency objects keyed by virtual currency code.
