@@ -8,6 +8,7 @@ import com.revenuecat.purchases.getCustomerInfoWith
 import com.revenuecat.purchases.getOfferingsWith
 import com.revenuecat.purchases.getProductsWith
 import com.revenuecat.purchases.getStorefrontCountryCodeWith
+import com.revenuecat.purchases.getVirtualCurrenciesWith
 import com.revenuecat.purchases.hybridcommon.isWebPurchaseRedemptionURL
 import com.revenuecat.purchases.kmp.di.AndroidProvider
 import com.revenuecat.purchases.kmp.di.requireActivity
@@ -26,6 +27,7 @@ import com.revenuecat.purchases.kmp.mappings.toPurchasesError
 import com.revenuecat.purchases.kmp.mappings.toStore
 import com.revenuecat.purchases.kmp.mappings.toStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
+import com.revenuecat.purchases.kmp.mappings.toVirtualCurrencies
 import com.revenuecat.purchases.kmp.mappings.toWebPurchaseResult
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
@@ -47,6 +49,7 @@ import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.VirtualCurrencies
 import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
@@ -556,6 +559,14 @@ public actual class Purchases private constructor(private val androidPurchases: 
             listener.handleResult(result.toWebPurchaseResult())
         }
     }
+
+    public actual fun getVirtualCurrencies(
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (virtualCurrencies: VirtualCurrencies) -> Unit,
+    ): Unit = androidPurchases.getVirtualCurrenciesWith(
+        onError = { onError(it.toPurchasesError()) },
+        onSuccess = { onSuccess(it.toVirtualCurrencies()) }
+    )
 
     private fun StoreMessageType.toInAppMessageTypeOrNull(): InAppMessageType? =
         when (this) {

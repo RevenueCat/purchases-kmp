@@ -18,6 +18,7 @@ import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.VirtualCurrencies
 import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import kotlin.jvm.JvmSynthetic
@@ -789,6 +790,11 @@ public expect class Purchases {
     public fun redeemWebPurchase(
         webPurchaseRedemption: WebPurchaseRedemption,
         listener: RedeemWebPurchaseListener,
+    )
+
+    public fun getVirtualCurrencies(
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (virtualCurrencies: VirtualCurrencies) -> Unit,
     )
 }
 
