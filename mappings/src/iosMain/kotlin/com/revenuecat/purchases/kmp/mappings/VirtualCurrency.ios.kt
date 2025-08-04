@@ -4,7 +4,6 @@ import com.revenuecat.purchases.kmp.models.VirtualCurrency
 import cocoapods.PurchasesHybridCommon.RCVirtualCurrency as IosVirtualCurrency
 
 public fun IosVirtualCurrency.toVirtualCurrency(): VirtualCurrency {
-    @Suppress("UNCHECKED_CAST")
     return VirtualCurrency(
         balance = balance().toInt(),
         name = name(),
