@@ -99,6 +99,10 @@ fun App() {
                         onDismiss = { navigateTo(Screen.Main) },
                     )
                 }
+
+                is Screen.VirtualCurrencyTesting -> VirtualCurrencyTestingScreen(
+                    navigateTo = navigateTo
+                )
             }
         }
     }

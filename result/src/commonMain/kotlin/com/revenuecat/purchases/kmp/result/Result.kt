@@ -17,6 +17,7 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.VirtualCurrencies
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -503,3 +504,17 @@ public suspend fun Purchases.awaitCustomerInfoResult(
         onSuccess = { continuation.resume(Result.success(it)) },
     )
 }
+
+/**
+ * Fetches the virtual currencies for the current subscriber.
+ *
+ * @return A [Result] containing [VirtualCurrencies] if successful, and [PurchasesException] in case of
+ * a failure.
+ */
+public suspend fun Purchases.awaitVirtualCurrenciesResult(): Result<VirtualCurrencies> =
+    suspendCoroutine { continuation ->
+        getVirtualCurrencies(
+            onError = { continuation.resume(Result.failure(PurchasesException(it))) },
+            onSuccess = { continuation.resume(Result.success(it)) }
+        )
+    }

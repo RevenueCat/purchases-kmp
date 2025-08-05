@@ -13,6 +13,7 @@ import com.revenuecat.purchases.kmp.either.awaitEligibleWinBackOffersForProductE
 import com.revenuecat.purchases.kmp.either.awaitGetProductsEither
 import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
 import com.revenuecat.purchases.kmp.either.awaitPurchaseEither
+import com.revenuecat.purchases.kmp.either.awaitVirtualCurrenciesEither
 import com.revenuecat.purchases.kmp.ktx.SuccessfulPurchase
 import com.revenuecat.purchases.kmp.ktx.awaitEligibleWinBackOffersForPackage
 import com.revenuecat.purchases.kmp.ktx.awaitEligibleWinBackOffersForProduct
@@ -20,6 +21,7 @@ import com.revenuecat.purchases.kmp.ktx.awaitGetProducts
 import com.revenuecat.purchases.kmp.ktx.awaitOfferings
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
 import com.revenuecat.purchases.kmp.ktx.awaitTrialOrIntroPriceEligibility
+import com.revenuecat.purchases.kmp.ktx.awaitVirtualCurrencies
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.DangerousSettings
@@ -35,10 +37,12 @@ import com.revenuecat.purchases.kmp.models.StoreKitVersion
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.VirtualCurrencies
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.result.awaitEligibleWinBackOffersForPackageResult
 import com.revenuecat.purchases.kmp.result.awaitEligibleWinBackOffersForProductResult
 import com.revenuecat.purchases.kmp.result.awaitGetProductsResult
+import com.revenuecat.purchases.kmp.result.awaitVirtualCurrenciesResult
 import com.revenuecat.purchases.kmp.result.awaitOfferingsResult
 import com.revenuecat.purchases.kmp.result.awaitPurchaseResult
 
@@ -63,6 +67,11 @@ private class PurchasesCommonAPI {
         purchases.restorePurchases(
             onError = { error: PurchasesError -> },
             onSuccess = { customerInfo: CustomerInfo -> }
+        )
+
+        purchases.getVirtualCurrencies(
+            onError = { error: PurchasesError -> },
+            onSuccess = { virtualCurrencies: VirtualCurrencies -> }
         )
 
         val appUserID: String = purchases.appUserID
@@ -193,6 +202,8 @@ private class PurchasesCommonAPI {
             packageToPurchase = packageToPurchase,
             winBackOffer = winBackOffer
         )
+
+        val virtualCurrencies: VirtualCurrencies = purchases.awaitVirtualCurrencies()
     }
 
     suspend fun checkCoroutinesResult(
@@ -249,6 +260,8 @@ private class PurchasesCommonAPI {
             packageToPurchase = packageToPurchase,
             winBackOffer = winBackOffer
         )
+
+        val virtualCurrenciesResult: Result<VirtualCurrencies> = purchases.awaitVirtualCurrenciesResult()
     }
 
     suspend fun checkCoroutinesEither(
@@ -308,6 +321,8 @@ private class PurchasesCommonAPI {
             packageToPurchase = packageToPurchase,
             winBackOffer = winBackOffer
         )
+
+        val virtualCurrenciesEither: Either<PurchasesError, VirtualCurrencies> = purchases.awaitVirtualCurrenciesEither()
     }
 
     @Suppress("ForbiddenComment")

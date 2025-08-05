@@ -8,6 +8,7 @@ import cocoapods.PurchasesHybridCommon.RCPurchaseParamsBuilder
 import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
 import cocoapods.PurchasesHybridCommon.RCStoreProduct
 import cocoapods.PurchasesHybridCommon.RCStoreTransaction
+import cocoapods.PurchasesHybridCommon.RCVirtualCurrencies
 import cocoapods.PurchasesHybridCommon.configureWithAPIKey
 import cocoapods.PurchasesHybridCommon.isWebPurchaseRedemptionURL
 import cocoapods.PurchasesHybridCommon.parseAsWebPurchaseRedemptionWithUrlString
@@ -32,6 +33,7 @@ import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
 import com.revenuecat.purchases.kmp.mappings.toStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toStorefront
+import com.revenuecat.purchases.kmp.mappings.toVirtualCurrencies
 import com.revenuecat.purchases.kmp.mappings.toWinBackOffer
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
@@ -52,6 +54,8 @@ import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.VirtualCurrencies
+import com.revenuecat.purchases.kmp.models.VirtualCurrency
 import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
@@ -770,5 +774,20 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                 )
             )
         }
+    }
+
+    public actual fun getVirtualCurrencies(
+        onError: (error: PurchasesError) -> Unit,
+        onSuccess: (virtualCurrencies: VirtualCurrencies) -> Unit,
+    ): Unit = iosPurchases.getVirtualCurrenciesWithCompletion { virtualCurrencies, error ->
+        if (error != null) { onError(error.toPurchasesErrorOrThrow()) }
+        else onSuccess(virtualCurrencies?.toVirtualCurrencies() ?: error("Expected a non-null RCVirtualCurrencies"))
+    }
+
+    public actual fun invalidateVirtualCurrenciesCache(): Unit = iosPurchases.invalidateVirtualCurrenciesCache()
+
+    public actual fun getCachedVirtualCurrencies(): VirtualCurrencies? {
+        val cachedVirtualCurrencies: RCVirtualCurrencies? = iosPurchases.cachedVirtualCurrencies()
+        return cachedVirtualCurrencies?.toVirtualCurrencies()
     }
 }
