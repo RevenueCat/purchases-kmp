@@ -29,17 +29,25 @@ import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.VirtualCurrencies
 
+enum class VirtualCurrencyFunction(val displayName: String) {
+    GET_VIRTUAL_CURRENCIES("getVirtualCurrencies()"),
+    GET_CACHED_VIRTUAL_CURRENCIES("getCachedVirtualCurrencies()"),
+    INVALIDATE_VIRTUAL_CURRENCIES_CACHE("invalidateVirtualCurrenciesCache()")
+}
+
 @Composable
 fun VirtualCurrencyTestingScreen(
     navigateTo: (Screen) -> Unit
 ) {
-    var virtualCurrencies by remember { mutableStateOf<Any?>(null) }
+    var virtualCurrencies by remember { mutableStateOf<VirtualCurrencies?>(null) }
     var loading by remember { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
+    var calledFunction by remember { mutableStateOf<VirtualCurrencyFunction?>(null) }
 
     fun clearVirtualCurrencies() {
         virtualCurrencies = null
         error = null
+        calledFunction = null
     }
 
     fun fetchVirtualCurrencies() {
@@ -51,10 +59,12 @@ fun VirtualCurrencyTestingScreen(
                 val errorMessage = purchasesError.message
                 println("Error fetching virtual currencies: $purchasesError")
                 error = errorMessage
+                calledFunction = VirtualCurrencyFunction.GET_VIRTUAL_CURRENCIES
                 loading = false
             },
             onSuccess = { currencies: VirtualCurrencies ->
                 virtualCurrencies = currencies
+                calledFunction = VirtualCurrencyFunction.GET_VIRTUAL_CURRENCIES
                 loading = false
             }
         )
@@ -64,22 +74,17 @@ fun VirtualCurrencyTestingScreen(
         loading = true
         clearVirtualCurrencies()
         Purchases.sharedInstance.invalidateVirtualCurrenciesCache()
+        calledFunction = VirtualCurrencyFunction.INVALIDATE_VIRTUAL_CURRENCIES_CACHE
         loading = false
     }
 
     fun fetchCachedVirtualCurrencies() {
         loading = true
         clearVirtualCurrencies()
-
-         val cachedVirtualCurrencies = Purchases.sharedInstance.getCachedVirtualCurrencies()
-         if (cachedVirtualCurrencies == null) {
-             virtualCurrencies = "Cached virtual currencies are null."
-         } else {
-             virtualCurrencies = cachedVirtualCurrencies
-         }
-
+        val cachedVirtualCurrencies = Purchases.sharedInstance.getCachedVirtualCurrencies()
+        virtualCurrencies = cachedVirtualCurrencies
+        calledFunction = VirtualCurrencyFunction.GET_CACHED_VIRTUAL_CURRENCIES
         loading = false
-
     }
 
     Column(
@@ -156,7 +161,7 @@ fun VirtualCurrencyTestingScreen(
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        virtualCurrencies?.let { currencies ->
+        if (virtualCurrencies != null || calledFunction != null) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -171,36 +176,34 @@ fun VirtualCurrencyTestingScreen(
                         text = "Virtual Currencies:",
                         style = MaterialTheme.typography.h6
                     )
+                    calledFunction?.let { function ->
+                        Text(
+                            text = "Called function: ${function.displayName}",
+                            style = MaterialTheme.typography.caption,
+                            color = Color.Gray
+                        )
+                    }
                     Spacer(modifier = Modifier.height(8.dp))
                     
-                    when (currencies) {
-                        is String -> {
+                    virtualCurrencies?.let { currencies ->
+                        if (currencies.all.isEmpty()) {
                             Text(
-                                text = currencies,
+                                text = "Virtual currencies are empty.",
                                 style = MaterialTheme.typography.body2
                             )
-                        }
-                        is VirtualCurrencies -> {
-                            if (currencies.all.isEmpty()) {
-                                Text(
-                                    text = "Virtual currencies are empty.",
-                                    style = MaterialTheme.typography.body2
-                                )
-                            } else {
-                                Text(
-                                    text = formatVirtualCurrencies(currencies),
-                                    fontFamily = FontFamily.Monospace,
-                                    style = MaterialTheme.typography.body2,
-                                    color = Color.Black.copy(alpha = 0.7f)
-                                )
-                            }
-                        }
-                        else -> {
+                        } else {
                             Text(
-                                text = currencies.toString(),
+                                text = formatVirtualCurrencies(currencies),
                                 fontFamily = FontFamily.Monospace,
                                 style = MaterialTheme.typography.body2,
                                 color = Color.Black.copy(alpha = 0.7f)
+                            )
+                        }
+                    } ?: run {
+                        if (calledFunction != VirtualCurrencyFunction.INVALIDATE_VIRTUAL_CURRENCIES_CACHE) {
+                            Text(
+                                text = "Virtual currencies are null.",
+                                style = MaterialTheme.typography.body2
                             )
                         }
                     }
@@ -209,7 +212,7 @@ fun VirtualCurrencyTestingScreen(
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        if (virtualCurrencies != null || error != null) {
+        if (virtualCurrencies != null || error != null || calledFunction != null) {
             Button(
                 onClick = { clearVirtualCurrencies() },
                 modifier = Modifier.fillMaxWidth()
