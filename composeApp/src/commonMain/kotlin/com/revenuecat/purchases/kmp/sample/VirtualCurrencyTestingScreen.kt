@@ -63,36 +63,23 @@ fun VirtualCurrencyTestingScreen(
     fun invalidateVirtualCurrenciesCache() {
         loading = true
         clearVirtualCurrencies()
-        
-        try {
-            Purchases.sharedInstance.invalidateVirtualCurrenciesCache()
-        } catch (err: Exception) {
-            val errorMessage = err.message ?: "Unknown error"
-            println("Error invalidating virtual currencies cache: $err")
-            error = errorMessage
-        } finally {
-            loading = false
-        }
+        Purchases.sharedInstance.invalidateVirtualCurrenciesCache()
+        loading = false
     }
 
     fun fetchCachedVirtualCurrencies() {
         loading = true
         clearVirtualCurrencies()
-        
-        try {
-             val cachedVirtualCurrencies = Purchases.sharedInstance.getCachedVirtualCurrencies()
-             if (cachedVirtualCurrencies == null) {
-                 virtualCurrencies = "Cached virtual currencies are null."
-             } else {
-                 virtualCurrencies = cachedVirtualCurrencies
-             }
-        } catch (err: Exception) {
-            val errorMessage = err.message ?: "Unknown error"
-            println("Error fetching cached virtual currencies: $err")
-            error = errorMessage
-        } finally {
-            loading = false
-        }
+
+         val cachedVirtualCurrencies = Purchases.sharedInstance.getCachedVirtualCurrencies()
+         if (cachedVirtualCurrencies == null) {
+             virtualCurrencies = "Cached virtual currencies are null."
+         } else {
+             virtualCurrencies = cachedVirtualCurrencies
+         }
+
+        loading = false
+
     }
 
     Column(
