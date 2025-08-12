@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.revenuecat.purchases.kmp.sample.components
 
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +17,7 @@ import com.revenuecat.purchases.kmp.models.EntitlementInfo
 import com.revenuecat.purchases.kmp.models.EntitlementInfos
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
 import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
+import kotlin.time.ExperimentalTime
 
 @Composable
 internal fun EntitlementInfosRow(

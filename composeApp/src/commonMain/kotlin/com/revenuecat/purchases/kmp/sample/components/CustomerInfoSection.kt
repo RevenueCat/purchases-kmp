@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.revenuecat.purchases.kmp.sample.components
 
 import androidx.compose.foundation.layout.Arrangement
@@ -6,12 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.revenuecat.purchases.kmp.Purchases
@@ -25,6 +22,7 @@ import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.sample.AsyncState
 import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
+import kotlin.time.ExperimentalTime
 
 @Composable
 internal fun CustomerInfoSection(

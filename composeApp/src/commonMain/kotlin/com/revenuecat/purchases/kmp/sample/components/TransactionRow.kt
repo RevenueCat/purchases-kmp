@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.revenuecat.purchases.kmp.sample.components
 
 import androidx.compose.foundation.layout.Arrangement
@@ -10,6 +12,7 @@ import com.revenuecat.purchases.kmp.datetime.purchaseInstant
 import com.revenuecat.purchases.kmp.models.Transaction
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
 import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
+import kotlin.time.ExperimentalTime
 
 @Composable
 internal fun TransactionsRow(
