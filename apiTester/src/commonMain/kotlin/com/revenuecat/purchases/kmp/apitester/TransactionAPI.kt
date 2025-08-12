@@ -1,8 +1,11 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.datetime.purchaseInstant
 import com.revenuecat.purchases.kmp.models.Transaction
-import kotlinx.datetime.Instant
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class TransactionAPI {
