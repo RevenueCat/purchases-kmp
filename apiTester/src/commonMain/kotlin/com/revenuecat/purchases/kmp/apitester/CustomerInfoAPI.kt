@@ -1,4 +1,5 @@
 @file:Suppress("unused", "UNUSED_VARIABLE")
+@file:OptIn(ExperimentalTime::class)
 
 package com.revenuecat.purchases.kmp.apitester
 
@@ -11,7 +12,8 @@ import com.revenuecat.purchases.kmp.datetime.requestInstant
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.EntitlementInfos
 import com.revenuecat.purchases.kmp.models.Transaction
-import kotlinx.datetime.Instant
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 private class CustomerInfoAPI {
     fun check(customerInfo: CustomerInfo) {

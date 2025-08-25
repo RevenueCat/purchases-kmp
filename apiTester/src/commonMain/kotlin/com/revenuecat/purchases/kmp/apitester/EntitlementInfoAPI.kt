@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTime::class)
+
 package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.datetime.billingIssueDetectedAtInstant
@@ -6,7 +8,8 @@ import com.revenuecat.purchases.kmp.datetime.latestPurchaseInstant
 import com.revenuecat.purchases.kmp.datetime.originalPurchaseInstant
 import com.revenuecat.purchases.kmp.datetime.unsubscribeDetectedAtInstant
 import com.revenuecat.purchases.kmp.models.EntitlementInfo
-import kotlinx.datetime.Instant
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class EntitlementInfoAPI {
