@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
     spec.vendored_frameworks      = 'build/cocoapods/framework/Purchases.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target    = '13.0'
-    spec.dependency 'PurchasesHybridCommon', '17.0.0'
+    spec.dependency 'PurchasesHybridCommon', '17.1.0'
                 
     if !Dir.exist?('build/cocoapods/framework/Purchases.framework') || Dir.empty?('build/cocoapods/framework/Purchases.framework')
         raise "
