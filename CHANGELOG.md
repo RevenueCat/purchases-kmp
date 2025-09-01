@@ -1,5 +1,9 @@
 ## 2.1.1+17.0.0
 ## RevenueCat SDK
+> [!WARNING]  
+> If you don't have any login system in your app, please make sure your one-time purchase products have been correctly configured in the RevenueCat dashboard as either consumable or non-consumable. If they're incorrectly configured as consumables, RevenueCat will consume these purchases. This means that users won't be able to restore them from version 2.0.0 onward.
+> Non-consumables are products that are meant to be bought only once, for example, lifetime subscriptions.
+
 ### 📦 Dependency Updates
 * [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.0.0 (#474) via RevenueCat Git Bot (@RCGitBot)
   * [Android 9.3.2](https://github.com/RevenueCat/purchases-android/releases/tag/9.3.2)
@@ -11,6 +15,10 @@
 
 ## 2.1.0+16.2.0
 ## RevenueCat SDK
+> [!WARNING]  
+> If you don't have any login system in your app, please make sure your one-time purchase products have been correctly configured in the RevenueCat dashboard as either consumable or non-consumable. If they're incorrectly configured as consumables, RevenueCat will consume these purchases. This means that users won't be able to restore them from version 2.0.0 onward.
+> Non-consumables are products that are meant to be bought only once, for example, lifetime subscriptions.
+
 ### ✨ New Features
 * Virtual Currency Support (#460) via Will Taylor (@fire-at-will)
 ### 📦 Dependency Updates
@@ -28,6 +36,10 @@
 
 ## 2.0.1+16.0.2
 ## RevenueCat SDK
+> [!WARNING]  
+> If you don't have any login system in your app, please make sure your one-time purchase products have been correctly configured in the RevenueCat dashboard as either consumable or non-consumable. If they're incorrectly configured as consumables, RevenueCat will consume these purchases. This means that users won't be able to restore them from version 2.0.0 onward.
+> Non-consumables are products that are meant to be bought only once, for example, lifetime subscriptions.
+
 ### 📦 Dependency Updates
 * [AUTOMATIC BUMP] Updates purchases-hybrid-common to 16.0.2 (#454) via RevenueCat Git Bot (@RCGitBot)
   * [Android 9.1.2](https://github.com/RevenueCat/purchases-android/releases/tag/9.1.2)
