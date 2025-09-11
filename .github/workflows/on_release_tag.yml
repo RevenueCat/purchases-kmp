@@ -1,9 +1,6 @@
 name: On release tag
 
-on:
-  push:
-    tags:
-      - 'force_deploy'
+on: push
 
 jobs:
   generate-api-reference:
