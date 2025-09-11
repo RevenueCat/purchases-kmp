@@ -1,6 +1,9 @@
 name: On release tag
 
-on: push
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+\+?[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   generate-api-reference:
