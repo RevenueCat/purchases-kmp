@@ -60,7 +60,6 @@ internal object AndroidProvider : Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityDestroyed(activity: Activity) {
-        println("TESTING onActivityDestroyed called with $activity, current activity is ${AndroidProvider.activity}")
         if (activity == AndroidProvider.activity) AndroidProvider.activity = null
     }
 }
