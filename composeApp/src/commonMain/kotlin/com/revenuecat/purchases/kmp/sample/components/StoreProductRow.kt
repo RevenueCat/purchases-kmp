@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
@@ -27,6 +28,17 @@ internal fun StoreProductRow(
                 modifier = Modifier.padding(start = DefaultPaddingHorizontal),
                 verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
             ) {
+                TextButton(
+                    onClick = {
+                        Purchases.sharedInstance.purchase(
+                            storeProduct = product,
+                            onError = { _, _ -> println("Failed to purchase $product") },
+                            onSuccess = { _, _ -> println("Successfully purchased $product") },
+                        )
+                    }
+                ) {
+                    Text(text = "Purchase")
+                }
                 Text(text = "title: ${product.title}")
                 Text(text = "description: ${product.localizedDescription}")
                 Text(text = "type: ${product.type}")
