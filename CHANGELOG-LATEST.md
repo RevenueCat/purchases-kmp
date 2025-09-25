@@ -4,13 +4,9 @@
 
 
 ## RevenueCat SDK
-### 📦 Dependency Updates
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.7.0 (#497) via RevenueCat Git Bot (@RCGitBot)
-  * [Android 9.7.0](https://github.com/RevenueCat/purchases-android/releases/tag/9.7.0)
-  * [iOS 5.39.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.39.0)
+### 🐞 Bugfixes
+* Fixes a potential crash on Android when calling `purchase()` in rapid succession (#505) via JayShortway (@JayShortway)
 
 ### 🔄 Other Changes
-* Bump fastlane-plugin-revenuecat_internal from `489faef` to `a6dc551` (#496) via dependabot[bot] (@dependabot[bot])
-* Update bundle dependencies (#495) via Cesar de la Vega (@vegaro)
-* Update wrapper-validation to 4 and force run (#494) via Cesar de la Vega (@vegaro)
-* Update Gradle wrapper validation action version (#492) via Cesar de la Vega (@vegaro)
+* Updates fastlane-plugin-revenuecat_internal to e1c0e04. (#507) via JayShortway (@JayShortway)
+* Bump fastlane-plugin-revenuecat_internal from `a6dc551` to `6d539b3` (#503) via dependabot[bot] (@dependabot[bot])
