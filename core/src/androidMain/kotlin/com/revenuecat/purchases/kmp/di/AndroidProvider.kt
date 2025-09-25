@@ -38,7 +38,17 @@ internal object AndroidProvider : Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityPaused(activity: Activity) {
-        if (activity == AndroidProvider.activity) AndroidProvider.activity = null
+        // Noop
+        //
+        // If we were to set AndroidProvider.activity to null here, calling purchase() twice in
+        // rapid succession would crash because the second invocation of purchase() would find a
+        // null activity.
+        //
+        // If we leave AndroidProvider.activity set to the paused activity, the second invocation of
+        // purchase() will return an OperationAlreadyInProgressError as expected, and doesn't crash.
+        //
+        // In the purchase flow, onActivityCreated will be called right after onActivityPaused with
+        // the ProxyBillingActivity, which will then be set as the current activity.
     }
 
     override fun onActivityStopped(activity: Activity) {
