@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
 import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
@@ -43,6 +45,17 @@ internal fun PackageRow(
                 modifier = Modifier.padding(start = DefaultPaddingHorizontal),
                 verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
             ) {
+                TextButton(
+                    onClick = {
+                        Purchases.sharedInstance.purchase(
+                            packageToPurchase = pkg,
+                            onError = { _, _ -> println("Failed to purchase $pkg") },
+                            onSuccess = { _, _ -> println("Successfully purchased $pkg") },
+                        )
+                    }
+                ) {
+                    Text(text = "Purchase")
+                }
                 Text(text = "type: ${pkg.packageType}")
                 PresentedOfferingContextRow(context = pkg.presentedOfferingContext)
                 StoreProductRow(product = pkg.storeProduct)
