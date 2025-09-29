@@ -26,16 +26,22 @@ public final class com/revenuecat/purchases/kmp/models/CustomerInfo {
 	public fun <init> (Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Ljava/util/Set;Lcom/revenuecat/purchases/kmp/models/EntitlementInfos;JLjava/lang/Long;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Long;J)V
 	public final fun getActiveSubscriptions ()Ljava/util/Set;
 	public final fun getAllExpirationDateMillis ()Ljava/util/Map;
+	public final fun getAllExpirationDates ()Ljava/util/Map;
 	public final fun getAllPurchaseDateMillis ()Ljava/util/Map;
+	public final fun getAllPurchaseDates ()Ljava/util/Map;
 	public final fun getAllPurchasedProductIdentifiers ()Ljava/util/Set;
 	public final fun getEntitlements ()Lcom/revenuecat/purchases/kmp/models/EntitlementInfos;
+	public final fun getFirstSeen ()Lkotlin/time/Instant;
 	public final fun getFirstSeenMillis ()J
+	public final fun getLatestExpirationDate ()Lkotlin/time/Instant;
 	public final fun getLatestExpirationDateMillis ()Ljava/lang/Long;
 	public final fun getManagementUrlString ()Ljava/lang/String;
 	public final fun getNonSubscriptionTransactions ()Ljava/util/List;
 	public final fun getOriginalAppUserId ()Ljava/lang/String;
 	public final fun getOriginalApplicationVersion ()Ljava/lang/String;
+	public final fun getOriginalPurchaseDate ()Lkotlin/time/Instant;
 	public final fun getOriginalPurchaseDateMillis ()Ljava/lang/Long;
+	public final fun getRequestDate ()Lkotlin/time/Instant;
 	public final fun getRequestDateMillis ()J
 }
 
@@ -66,16 +72,21 @@ public final class com/revenuecat/purchases/kmp/models/DiscountType : java/lang/
 
 public final class com/revenuecat/purchases/kmp/models/EntitlementInfo {
 	public fun <init> (Ljava/lang/String;ZZLcom/revenuecat/purchases/kmp/models/PeriodType;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;Lcom/revenuecat/purchases/kmp/models/Store;Ljava/lang/String;Ljava/lang/String;ZLjava/lang/Long;Ljava/lang/Long;Lcom/revenuecat/purchases/kmp/models/OwnershipType;Lcom/revenuecat/purchases/kmp/models/VerificationResult;)V
+	public final fun getBillingIssueDetectedAt ()Lkotlin/time/Instant;
 	public final fun getBillingIssueDetectedAtMillis ()Ljava/lang/Long;
+	public final fun getExpirationDate ()Lkotlin/time/Instant;
 	public final fun getExpirationDateMillis ()Ljava/lang/Long;
 	public final fun getIdentifier ()Ljava/lang/String;
+	public final fun getLatestPurchaseDate ()Lkotlin/time/Instant;
 	public final fun getLatestPurchaseDateMillis ()Ljava/lang/Long;
+	public final fun getOriginalPurchaseDate ()Lkotlin/time/Instant;
 	public final fun getOriginalPurchaseDateMillis ()Ljava/lang/Long;
 	public final fun getOwnershipType ()Lcom/revenuecat/purchases/kmp/models/OwnershipType;
 	public final fun getPeriodType ()Lcom/revenuecat/purchases/kmp/models/PeriodType;
 	public final fun getProductIdentifier ()Ljava/lang/String;
 	public final fun getProductPlanIdentifier ()Ljava/lang/String;
 	public final fun getStore ()Lcom/revenuecat/purchases/kmp/models/Store;
+	public final fun getUnsubscribeDetectedAt ()Lkotlin/time/Instant;
 	public final fun getUnsubscribeDetectedAtMillis ()Ljava/lang/Long;
 	public final fun getVerification ()Lcom/revenuecat/purchases/kmp/models/VerificationResult;
 	public final fun getWillRenew ()Z
@@ -534,6 +545,7 @@ public abstract interface class com/revenuecat/purchases/kmp/models/Subscription
 public final class com/revenuecat/purchases/kmp/models/Transaction {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;J)V
 	public final fun getProductIdentifier ()Ljava/lang/String;
+	public final fun getPurchaseDate ()Lkotlin/time/Instant;
 	public final fun getPurchaseDateMillis ()J
 	public final fun getTransactionIdentifier ()Ljava/lang/String;
 }
