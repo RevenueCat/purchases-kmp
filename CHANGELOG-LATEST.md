@@ -1,17 +1,14 @@
+> [!WARNING]  
+> If you don't have any login system in your app, please make sure your one-time purchase products have been correctly configured in the RevenueCat dashboard as either consumable or non-consumable. If they're incorrectly configured as consumables, RevenueCat will consume these purchases. This means that users won't be able to restore them from version 2.0.0 onward.
+> Non-consumables are products that are meant to be bought only once, for example, lifetime subscriptions.
+
+
 ## RevenueCat SDK
-### 🐞 Bugfixes
-* Fixes Paywall and Customer Center transition animations on iOS (#427) via JayShortway (@JayShortway)
 ### 📦 Dependency Updates
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 14.2.0 (#439) via RevenueCat Git Bot (@RCGitBot)
-  * [Android 8.22.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.22.0)
-  * [Android 8.21.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.21.0)
-  * [iOS 5.32.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.32.0)
-  * [iOS 5.31.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.31.0)
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 14.1.0 (#437) via RevenueCat Git Bot (@RCGitBot)
-  * [Android 8.22.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.22.0)
-  * [Android 8.21.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.21.0)
-  * [iOS 5.32.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.32.0)
-  * [iOS 5.31.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.31.0)
+* Updates purchases-hybrid-common to 14.3.0 (#512) via Antonio Pallares (@ajpallares)
+  * [Android 8.24.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.24.0)
+  * [Android 8.23.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.23.0)
+  * [Android 8.22.1](https://github.com/RevenueCat/purchases-android/releases/tag/8.22.1)
 
 ### 🔄 Other Changes
-* Bump danger from 9.5.1 to 9.5.3 (#436) via dependabot[bot] (@dependabot[bot])
+* [v1] Prepare for next release (#513) via Antonio Pallares (@ajpallares)
