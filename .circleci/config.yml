@@ -476,7 +476,8 @@ workflows:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
         # Only run this workflow when the action is "build" (the default), 
         # so it doesn't run for other actions like "bump" on a release branch,
-        # which should only trigger the release train workflow but not this one.
+        # which should only open the release PR but not deploy it.
+        # (Deployment happens after the hold job is approved on the release PR.)
         - equal: [ build, << pipeline.parameters.action >> ] 
     jobs:
       - detekt
