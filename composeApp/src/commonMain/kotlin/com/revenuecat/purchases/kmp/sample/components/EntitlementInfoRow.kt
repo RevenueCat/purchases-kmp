@@ -6,15 +6,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.revenuecat.purchases.kmp.datetime.billingIssueDetectedAtInstant
-import com.revenuecat.purchases.kmp.datetime.expirationInstant
-import com.revenuecat.purchases.kmp.datetime.latestPurchaseInstant
-import com.revenuecat.purchases.kmp.datetime.originalPurchaseInstant
-import com.revenuecat.purchases.kmp.datetime.unsubscribeDetectedAtInstant
 import com.revenuecat.purchases.kmp.models.EntitlementInfo
 import com.revenuecat.purchases.kmp.models.EntitlementInfos
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
 import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
+import kotlin.time.ExperimentalTime
 
 @Composable
 internal fun EntitlementInfosRow(
@@ -40,6 +36,7 @@ internal fun EntitlementInfosRow(
     )
 }
 
+@OptIn(ExperimentalTime::class)
 @Composable
 internal fun EntitlementInfoRow(
     info: EntitlementInfo,
@@ -55,8 +52,8 @@ internal fun EntitlementInfoRow(
             ) {
                 Text(text = "isActive: ${info.isActive}")
                 Text(text = "willRenew: ${info.willRenew}")
-                Text(text = "latestPurchaseInstant: ${info.latestPurchaseInstant}")
-                Text(text = "originalPurchaseInstant: ${info.originalPurchaseInstant}")
+                Text(text = "latestPurchaseInstant: ${info.latestPurchaseDate}")
+                Text(text = "originalPurchaseInstant: ${info.originalPurchaseDate}")
                 Text(text = "isSandbox: ${info.isSandbox}")
                 Text(text = "store: ${info.store}")
                 Text(text = "verification: ${info.verification}")
@@ -64,9 +61,9 @@ internal fun EntitlementInfoRow(
                 Text(text = "periodType: ${info.periodType}")
                 Text(text = "productIdentifier: ${info.productIdentifier}")
                 Text(text = "productPlanIdentifier: ${info.productPlanIdentifier}")
-                Text(text = "expirationInstant: ${info.expirationInstant}")
-                Text(text = "unsubscribeDetectedAtInstant: ${info.unsubscribeDetectedAtInstant}")
-                Text(text = "billingIssueDetectedAtInstant: ${info.billingIssueDetectedAtInstant}")
+                Text(text = "expirationInstant: ${info.expirationDate}")
+                Text(text = "unsubscribeDetectedAtInstant: ${info.unsubscribeDetectedAt}")
+                Text(text = "billingIssueDetectedAtInstant: ${info.billingIssueDetectedAt}")
             }
         },
     )
