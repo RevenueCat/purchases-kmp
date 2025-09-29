@@ -474,8 +474,10 @@ workflows:
         - matches: { pattern: "^release/.+$", value: << pipeline.git.branch >> }
         - not:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-        - not:
-            equal: [ bump, << pipeline.parameters.action >> ]
+        # Only run this workflow when the action is "build" (the default), 
+        # so it doesn't run for other actions like "bump" on a release branch,
+        # which should only trigger the release train workflow but not this one.
+        - equal: [ build, << pipeline.parameters.action >> ] 
     jobs:
       - detekt
       - build-libraries-android
