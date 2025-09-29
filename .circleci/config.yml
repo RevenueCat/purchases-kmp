@@ -474,6 +474,8 @@ workflows:
         - matches: { pattern: "^release/.+$", value: << pipeline.git.branch >> }
         - not:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - not:
+            equal: [ bump, << pipeline.parameters.action >> ]
     jobs:
       - detekt
       - build-libraries-android
