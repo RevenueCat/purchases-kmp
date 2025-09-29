@@ -159,6 +159,17 @@ Using the SDK with your own IAP code is still supported in v2. Other than updati
 * Add Codelab instruction on the README file (#446) via Jaewoong Eum (@skydoves)
 * Adjusts Renovate setup in line with our other repos. (#444) via JayShortway (@JayShortway)
 
+## 1.9.0+14.3.0
+## RevenueCat SDK
+### 📦 Dependency Updates
+* Updates purchases-hybrid-common to 14.3.0 (#512) via Antonio Pallares (@ajpallares)
+  * [Android 8.24.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.24.0)
+  * [Android 8.23.0](https://github.com/RevenueCat/purchases-android/releases/tag/8.23.0)
+  * [Android 8.22.1](https://github.com/RevenueCat/purchases-android/releases/tag/8.22.1)
+
+### 🔄 Other Changes
+* [v1] Prepare for next release (#513) via Antonio Pallares (@ajpallares)
+
 ## 1.8.7+14.2.0
 ## RevenueCat SDK
 ### 🐞 Bugfixes
