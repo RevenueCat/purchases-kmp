@@ -6,10 +6,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.revenuecat.purchases.kmp.datetime.purchaseInstant
 import com.revenuecat.purchases.kmp.models.Transaction
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
 import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
+import kotlin.time.ExperimentalTime
 
 @Composable
 internal fun TransactionsRow(
@@ -31,6 +31,7 @@ internal fun TransactionsRow(
     )
 }
 
+@OptIn(ExperimentalTime::class)
 @Composable
 internal fun TransactionRow(
     transaction: Transaction,
@@ -44,7 +45,7 @@ internal fun TransactionRow(
                 verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
             ) {
                 Text(text = "productIdentifier: ${transaction.productIdentifier}")
-                Text(text = "purchaseInstant: ${transaction.purchaseInstant}")
+                Text(text = "purchaseDate: ${transaction.purchaseDate}")
             }
         },
         modifier = modifier,
