@@ -1,5 +1,8 @@
 package com.revenuecat.purchases.kmp.models
 
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
+
 /**
  * This object gives you access to all of the information about the status of a user's entitlements.
  */
@@ -87,7 +90,56 @@ public class EntitlementInfo(
      * [VerificationResult.NOT_REQUESTED].
      */
     public val verification: VerificationResult
-)
+) {
+
+    /**
+     * Nullable on iOS only not on Android. The latest purchase or renewal instant for the
+     * entitlement.
+     */
+    @ExperimentalTime
+    public val latestPurchaseDate: Instant? by lazy {
+        latestPurchaseDateMillis?.let { Instant.fromEpochMilliseconds(it) }
+    }
+
+    /**
+     * Nullable on iOS only not on Android. The first instant this entitlement was purchased.
+     */
+    @ExperimentalTime
+    public val originalPurchaseDate: Instant? by lazy {
+        originalPurchaseDateMillis?.let { Instant.fromEpochMilliseconds(it) }
+    }
+
+    /**
+     * The expiration instant for the entitlement, can be `null` for lifetime access. If the
+     * [periodType] is [PeriodType.TRIAL], this is the trial expiration instant.
+     */
+    @ExperimentalTime
+    public val expirationDate: Instant? by lazy {
+        expirationDateMillis?.let { Instant.fromEpochMilliseconds(it) }
+    }
+
+    /**
+     * The instant an unsubscribe was detected. Can be `null`.
+     *
+     * Note: Entitlement may still be active even if user has unsubscribed. Check the [isActive]
+     * property.
+     */
+    @ExperimentalTime
+    public val unsubscribeDetectedAt: Instant? by lazy {
+        unsubscribeDetectedAtMillis?.let { Instant.fromEpochMilliseconds(it) }
+    }
+
+    /**
+     * The instant a billing issue was detected. Can be `null` if there is no billing issue or an issue
+     * has been resolved. Note: Entitlement may still be active even if there is a billing issue.
+     * Check the [isActive] property.
+     */
+    @ExperimentalTime
+    public val billingIssueDetectedAt: Instant? by lazy {
+        billingIssueDetectedAtMillis?.let { Instant.fromEpochMilliseconds(it) }
+    }
+
+}
 
 /**
  * Enum of supported stores

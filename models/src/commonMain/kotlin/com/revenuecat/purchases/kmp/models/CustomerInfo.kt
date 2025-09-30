@@ -1,5 +1,8 @@
 package com.revenuecat.purchases.kmp.models
 
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
+
 /**
  * Class containing all information regarding the customer.
  */
@@ -88,4 +91,66 @@ public class CustomerInfo(
      * Date when this info was requested in milliseconds since the Unix epoch.
      */
     public val requestDateMillis: Long,
-)
+) {
+
+
+    /**
+     * Map of productIds to expiration dates.
+     *  * For Google subscriptions, productIds are `subscriptionId:basePlanId`.
+     *  * For Amazon subscriptions, productsIds are `termSku`.
+     */
+    @ExperimentalTime
+    public val allExpirationDates: Map<String, Instant?> by lazy {
+        allExpirationDateMillis.mapValues { (_, millis) ->
+            millis?.let { Instant.fromEpochMilliseconds(it) }
+        }
+    }
+
+    /**
+     * Map of productIds to purchase dates.
+     *  * For Google subscriptions, productIds are `subscriptionId:basePlanId`.
+     *  * For Google and Amazon INAPPs, productsIds are simply `productId`.
+     *  * For Amazon subscriptions, productsIds are `termSku`.
+     */
+    @ExperimentalTime
+    public val allPurchaseDates: Map<String, Instant?> by lazy {
+        allPurchaseDateMillis.mapValues { (_, millis) ->
+            millis?.let { Instant.fromEpochMilliseconds(it) }
+        }
+    }
+
+    /**
+     * The moment this user was first seen in RevenueCat.
+     */
+    @ExperimentalTime
+    public val firstSeen: Instant by lazy {
+        Instant.fromEpochMilliseconds(firstSeenMillis)
+    }
+
+    /**
+     * The latest expiration instant of all purchased productIds.
+     */
+    @ExperimentalTime
+    public val latestExpirationDate: Instant? by lazy {
+        latestExpirationDateMillis?.let { Instant.fromEpochMilliseconds(it) }
+    }
+
+    /**
+     * The purchase date for the version of the application when the user bought the app. Use this
+     * for grandfathering users when migrating to subscriptions. This can be null, see
+     * `Purchases.restorePurchases`.
+     */
+    @ExperimentalTime
+    public val originalPurchaseDate: Instant? by lazy {
+        originalPurchaseDateMillis?.let { Instant.fromEpochMilliseconds(it) }
+    }
+
+    /**
+     * The moment when this info was requested.
+     */
+    @ExperimentalTime
+    public val requestDate: Instant by lazy {
+        Instant.fromEpochMilliseconds(requestDateMillis)
+    }
+
+}
