@@ -1,0 +1,3 @@
+[submodule "upstream/purchases-ios"]
+	path = upstream/purchases-ios
+	url = git@github.com:RevenueCat/purchases-ios.git
