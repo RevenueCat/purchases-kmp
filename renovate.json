@@ -4,5 +4,11 @@
   "git-submodules": {
     "enabled": true,
     "versioning": "semver"
-  }
+  },
+  "packageRules": [
+    {
+      "matchManagers": ["git-submodules"],
+      "enabled": true
+    }
+  ]
 }
