@@ -40,4 +40,5 @@ internal fun RcPurchasesErrorCode.toPurchasesErrorCode(): PurchasesErrorCode =
         RcPurchasesErrorCode.EmptySubscriberAttributesError -> PurchasesErrorCode.EmptySubscriberAttributesError
         RcPurchasesErrorCode.CustomerInfoError -> PurchasesErrorCode.CustomerInfoError
         RcPurchasesErrorCode.SignatureVerificationError -> PurchasesErrorCode.SignatureVerificationError
+        RcPurchasesErrorCode.TestStoreSimulatedPurchaseError -> PurchasesErrorCode.TestStoreSimulatedPurchaseError
     }

@@ -351,6 +351,7 @@ public final class com/revenuecat/purchases/kmp/models/PurchasesErrorCode : java
 	public static final field SignatureVerificationError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field StoreProblemError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field SystemInfoError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
+	public static final field TestStoreSimulatedPurchaseError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field UnexpectedBackendResponseError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field UnknownBackendError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
 	public static final field UnknownError Lcom/revenuecat/purchases/kmp/models/PurchasesErrorCode;
@@ -453,6 +454,7 @@ public final class com/revenuecat/purchases/kmp/models/Store : java/lang/Enum {
 	public static final field PROMOTIONAL Lcom/revenuecat/purchases/kmp/models/Store;
 	public static final field RC_BILLING Lcom/revenuecat/purchases/kmp/models/Store;
 	public static final field STRIPE Lcom/revenuecat/purchases/kmp/models/Store;
+	public static final field TEST_STORE Lcom/revenuecat/purchases/kmp/models/Store;
 	public static final field UNKNOWN_STORE Lcom/revenuecat/purchases/kmp/models/Store;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Store;
