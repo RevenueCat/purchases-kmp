@@ -50,6 +50,10 @@ private fun Long.toPurchasesErrorCode(): PurchasesErrorCode =
         35L -> PurchasesErrorCode.OfflineConnectionError
         36L -> PurchasesErrorCode.FeatureNotAvailableInCustomEntitlementsComputationMode
         37L -> PurchasesErrorCode.SignatureVerificationError
+        38L -> PurchasesErrorCode.FeatureNotSupportedWithStoreKit1
+        39L -> PurchasesErrorCode.InvalidWebPurchaseToken
+        40L -> PurchasesErrorCode.PurchaseBelongsToOtherUser
+        41L -> PurchasesErrorCode.ExpiredWebPurchaseToken
         42L -> PurchasesErrorCode.TestStoreSimulatedPurchaseError
         else -> error("Unexpected ErrorCode: $this")
 }
