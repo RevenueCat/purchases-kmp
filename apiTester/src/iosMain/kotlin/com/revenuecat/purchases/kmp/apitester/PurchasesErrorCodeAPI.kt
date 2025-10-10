@@ -47,6 +47,7 @@ private class PurchasesErrorCodeAPI {
             PurchasesErrorCode.InvalidWebPurchaseToken,
             PurchasesErrorCode.PurchaseBelongsToOtherUser,
             PurchasesErrorCode.ExpiredWebPurchaseToken,
+            PurchasesErrorCode.TestStoreSimulatedPurchaseError,
                 -> {}
         }.exhaustive
     }

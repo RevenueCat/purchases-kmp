@@ -194,6 +194,11 @@ public enum class Store {
      * For entitlements granted via Paddle.
      */
     PADDLE,
+
+    /**
+     * For entitlements granted via RevenueCat's Test Store.
+     */
+    TEST_STORE,
 }
 
 /**

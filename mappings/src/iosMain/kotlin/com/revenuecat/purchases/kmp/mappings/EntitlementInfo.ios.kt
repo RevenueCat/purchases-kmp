@@ -15,6 +15,7 @@ import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypeFamilyShared
 import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypePurchased
 import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypeUnknown
 import cocoapods.PurchasesHybridCommon.RCStripe
+import cocoapods.PurchasesHybridCommon.RCTestStore
 import cocoapods.PurchasesHybridCommon.RCTrial
 import cocoapods.PurchasesHybridCommon.RCUnknownStore
 import com.revenuecat.purchases.kmp.mappings.ktx.toEpochMilliseconds
@@ -57,6 +58,7 @@ internal fun IosStore.toStore(): Store =
         RCAmazon -> Store.AMAZON
         RCBilling -> Store.RC_BILLING
         RCPaddle -> Store.PADDLE
+        RCTestStore -> Store.TEST_STORE
         else -> error("Unknown IosStore: $this")
     }
 

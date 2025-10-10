@@ -46,8 +46,9 @@ private class PurchasesErrorCodeAPI {
             PurchasesErrorCode.FeatureNotSupportedWithStoreKit1,
             PurchasesErrorCode.InvalidWebPurchaseToken,
             PurchasesErrorCode.PurchaseBelongsToOtherUser,
-            PurchasesErrorCode.ExpiredWebPurchaseToken -> {
-            }
+            PurchasesErrorCode.ExpiredWebPurchaseToken,
+            PurchasesErrorCode.TestStoreSimulatedPurchaseError,
+                 -> {}
         }.exhaustive
     }
 }

@@ -115,4 +115,5 @@ public enum class PurchasesErrorCode(public val code: Int, public val descriptio
         41,
         "The link you provided has expired. A new one will be sent to the email used to make the purchase.",
     ),
+    TestStoreSimulatedPurchaseError(42, "Purchase failure simulated successfully in Test Store."),
 }
