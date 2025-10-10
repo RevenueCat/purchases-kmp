@@ -227,6 +227,7 @@ final enum class com.revenuecat.purchases.kmp.models/PurchasesErrorCode : kotlin
     enum entry SignatureVerificationError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.SignatureVerificationError|null[0]
     enum entry StoreProblemError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.StoreProblemError|null[0]
     enum entry SystemInfoError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.SystemInfoError|null[0]
+    enum entry TestStoreSimulatedPurchaseError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.TestStoreSimulatedPurchaseError|null[0]
     enum entry UnexpectedBackendResponseError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.UnexpectedBackendResponseError|null[0]
     enum entry UnknownBackendError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.UnknownBackendError|null[0]
     enum entry UnknownError // com.revenuecat.purchases.kmp.models/PurchasesErrorCode.UnknownError|null[0]
@@ -266,6 +267,7 @@ final enum class com.revenuecat.purchases.kmp.models/Store : kotlin/Enum<com.rev
     enum entry PROMOTIONAL // com.revenuecat.purchases.kmp.models/Store.PROMOTIONAL|null[0]
     enum entry RC_BILLING // com.revenuecat.purchases.kmp.models/Store.RC_BILLING|null[0]
     enum entry STRIPE // com.revenuecat.purchases.kmp.models/Store.STRIPE|null[0]
+    enum entry TEST_STORE // com.revenuecat.purchases.kmp.models/Store.TEST_STORE|null[0]
     enum entry UNKNOWN_STORE // com.revenuecat.purchases.kmp.models/Store.UNKNOWN_STORE|null[0]
 
     final val entries // com.revenuecat.purchases.kmp.models/Store.entries|#static{}entries[0]
