@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
     spec.vendored_frameworks      = 'build/cocoapods/framework/revenuecatui.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target    = '15.0'
-    spec.dependency 'PurchasesHybridCommonUI', '17.10.0'
+    spec.dependency 'PurchasesHybridCommonUI', '17.11.0'
                 
     if !Dir.exist?('build/cocoapods/framework/revenuecatui.framework') || Dir.empty?('build/cocoapods/framework/revenuecatui.framework')
         raise "
