@@ -1,4 +1,4 @@
 [submodule "upstream/purchases-ios"]
 	path = upstream/purchases-ios
 	url = git@github.com:RevenueCat/purchases-ios.git
-	branch = 5.45.0
+	branch = 5.46.0
