@@ -10,8 +10,17 @@ import androidx.startup.Initializer
  * 1. To call static Purchases methods that need a Context, such as
  * [canMakePayments][com.revenuecat.purchases.Purchases.canMakePayments].
  * 2. To keep track of the current Activity, which is needed to make purchases.
+ *
+ * If you need to use RevenueCat in your own [Initializer], make sure to add [PurchasesInitializer]
+ * to its dependencies like so:
+ *
+ * ```kotlin
+ * override fun dependencies(): List<Class<out Initializer<*>>> = listOf(
+ *     PurchasesInitializer::class.java
+ * )
+ * ```
  */
-internal class PurchasesInitializer : Initializer<Unit> {
+public class PurchasesInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
         AndroidProvider.application = context.applicationContext as Application
