@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import androidx.startup.Initializer
-import com.revenuecat.purchases.kmp.di.PurchasesApplicationProvider
+import com.revenuecat.purchases.kmp.PurchasesApplicationProvider
 
 private class PurchasesApplicationProviderAPI {
 

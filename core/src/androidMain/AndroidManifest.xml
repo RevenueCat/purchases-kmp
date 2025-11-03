@@ -10,7 +10,7 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.revenuecat.purchases.kmp.di.PurchasesInitializer"
+                android:name="com.revenuecat.purchases.kmp.PurchasesApplicationProvider"
                 android:value="androidx.startup" />
         </provider>
 
