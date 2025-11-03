@@ -117,6 +117,13 @@ public final class com/revenuecat/purchases/kmp/Purchases$Companion {
 	public final fun setSimulatesAskToBuyInSandbox (Z)V
 }
 
+public final class com/revenuecat/purchases/kmp/PurchasesApplicationProvider : androidx/startup/Initializer {
+	public fun <init> ()V
+	public synthetic fun create (Landroid/content/Context;)Ljava/lang/Object;
+	public fun create (Landroid/content/Context;)V
+	public fun dependencies ()Ljava/util/List;
+}
+
 public final class com/revenuecat/purchases/kmp/PurchasesConfiguration {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/PurchasesAreCompletedBy;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/StoreKitVersion;ZLcom/revenuecat/purchases/kmp/models/Store;ZLcom/revenuecat/purchases/kmp/models/DangerousSettings;Lcom/revenuecat/purchases/kmp/models/EntitlementVerificationMode;Ljava/lang/Boolean;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getApiKey ()Ljava/lang/String;

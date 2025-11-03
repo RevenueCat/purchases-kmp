@@ -12,8 +12,8 @@ kotlin {
             api(projects.models)
         }
         androidMain.dependencies {
+            api(libs.androidx.startup)
             implementation(libs.revenuecat.common)
-            implementation(libs.androidx.startup)
             implementation(projects.mappings)
         }
         iosMain.dependencies {

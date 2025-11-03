@@ -10,7 +10,7 @@ import com.revenuecat.purchases.kmp.di.AndroidProvider.application
  * Provides references to the Android framework objects: the [Application] and current [Activity].
  * [application] should be set once, in a ContentProvider or Initializer.
  *
- * @see PurchasesInitializer
+ * @see com.revenuecat.purchases.kmp.PurchasesApplicationProvider
  */
 @SuppressLint("StaticFieldLeak") // Not leaking, `currentActivity` is cleared appropriately.
 internal object AndroidProvider : Application.ActivityLifecycleCallbacks {
