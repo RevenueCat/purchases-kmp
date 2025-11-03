@@ -52,6 +52,9 @@ kotlin {
             implementation(projects.revenuecatui)
             implementation(projects.result)
         }
+        androidMain.dependencies {
+            implementation(libs.androidx.startup)
+        }
     }
 }
 
