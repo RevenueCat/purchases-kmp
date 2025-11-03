@@ -1,3 +1,19 @@
+## 2.2.5+17.13.0
+> [!WARNING]  
+> If you don't have any login system in your app, please make sure your one-time purchase products have been correctly configured in the RevenueCat dashboard as either consumable or non-consumable. If they're incorrectly configured as consumables, RevenueCat will consume these purchases. This means that users won't be able to restore them from version 2.0.0 onward.
+> Non-consumables are products that are meant to be bought only once, for example, lifetime subscriptions.
+
+
+## RevenueCat SDK
+### 🐞 Bugfixes
+* Makes `PurchasesApplicationProvider` public so you can configure RevenueCat in AndroidX Startup `Initializer`s (#553) via JayShortway (@JayShortway)
+### 📦 Dependency Updates
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.13.0 (#552) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 9.12.1](https://github.com/RevenueCat/purchases-android/releases/tag/9.12.1)
+  * [iOS 5.46.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.46.0)
+  * [iOS 5.45.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.45.1)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.46.0 (#550) via RevenueCat Git Bot (@RCGitBot)
+
 ## 2.2.4+17.12.0
 > [!WARNING]  
 > If you don't have any login system in your app, please make sure your one-time purchase products have been correctly configured in the RevenueCat dashboard as either consumable or non-consumable. If they're incorrectly configured as consumables, RevenueCat will consume these purchases. This means that users won't be able to restore them from version 2.0.0 onward.
