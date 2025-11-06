@@ -4,11 +4,7 @@
 
 
 ## RevenueCat SDK
-### 🐞 Bugfixes
-* Makes `PurchasesApplicationProvider` public so you can configure RevenueCat in AndroidX Startup `Initializer`s (#553) via JayShortway (@JayShortway)
 ### 📦 Dependency Updates
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.13.0 (#552) via RevenueCat Git Bot (@RCGitBot)
-  * [Android 9.12.1](https://github.com/RevenueCat/purchases-android/releases/tag/9.12.1)
-  * [iOS 5.46.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.46.0)
-  * [iOS 5.45.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.45.1)
-* [RENOVATE] Update dependency upstream/purchases-ios to v5.46.0 (#550) via RevenueCat Git Bot (@RCGitBot)
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.16.0 (#562) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 9.12.2](https://github.com/RevenueCat/purchases-android/releases/tag/9.12.2)
+  * [iOS 5.46.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.46.1)
