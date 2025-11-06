@@ -9,12 +9,6 @@
 * [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.16.0 (#562) via RevenueCat Git Bot (@RCGitBot)
   * [Android 9.12.2](https://github.com/RevenueCat/purchases-android/releases/tag/9.12.2)
   * [iOS 5.46.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.46.1)
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.15.1 (#559) via RevenueCat Git Bot (@RCGitBot)
-  * [Android 9.12.2](https://github.com/RevenueCat/purchases-android/releases/tag/9.12.2)
-  * [iOS 5.46.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.46.1)
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.14.0 (#557) via RevenueCat Git Bot (@RCGitBot)
-  * [Android 9.12.2](https://github.com/RevenueCat/purchases-android/releases/tag/9.12.2)
-  * [iOS 5.46.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.46.1)
 
 ## 2.2.5+17.13.0
 > [!WARNING]  
