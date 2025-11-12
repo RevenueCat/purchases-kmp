@@ -5,6 +5,7 @@
 
 ## RevenueCat SDK
 ### 📦 Dependency Updates
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.16.1 (#566) via RevenueCat Git Bot (@RCGitBot)
-  * [iOS 5.46.3](https://github.com/RevenueCat/purchases-ios/releases/tag/5.46.3)
-  * [iOS 5.46.2](https://github.com/RevenueCat/purchases-ios/releases/tag/5.46.2)
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.17.0 (#569) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 9.13.0](https://github.com/RevenueCat/purchases-android/releases/tag/9.13.0)
+  * [iOS 5.47.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.47.0)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.47.0 (#565) via RevenueCat Git Bot (@RCGitBot)
