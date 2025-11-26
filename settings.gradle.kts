@@ -4,6 +4,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 pluginManagement {
     includeBuild("build-logic")
     repositories {
+        maven("https://packages.jetbrains.team/maven/p/kt/dev")
         google()
         gradlePluginPortal()
         mavenCentral()
@@ -12,6 +13,7 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
+        maven("https://packages.jetbrains.team/maven/p/kt/dev")
         google()
         mavenCentral()
     }
