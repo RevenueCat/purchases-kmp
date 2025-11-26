@@ -2,7 +2,6 @@ plugins {
     id("revenuecat-public-library")
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.kotlin.cocoapods)
 }
 
 kotlin {
@@ -24,15 +23,12 @@ kotlin {
         }
     }
 
-    cocoapods {
-        version = libs.versions.revenuecat.kmp.get()
-        ios.deploymentTarget = libs.versions.ios.deploymentTarget.ui.get()
-
-        pod("PurchasesHybridCommonUI") {
-            version = libs.versions.revenuecat.common.get()
-            extraOpts += listOf("-compiler-option", "-fmodules")
-            packageName = "swiftPMImport.com.revenuecat.purchases.revenuecatui"
-        }
+    swiftPMDependencies {
+        `package`(
+            url = url("https://github.com/RevenueCat/purchases-hybrid-common.git"),
+            version = exact(libs.versions.revenuecat.common.get()),
+            products = listOf(product("PurchasesHybridCommonUI")),
+        )
     }
 }
 
