@@ -55,6 +55,13 @@ kotlin {
             implementation(libs.androidx.activity.compose)
         }
     }
+
+    swiftPMDependencies {
+        xcodeProjectPathForKmpIJPlugin.set(
+            layout.projectDirectory.file("../iosApp/iosApp.xcodeproj")
+        )
+    }
+
 }
 
 android {

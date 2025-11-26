@@ -22,3 +22,6 @@ vendor/
 
 # Share IssueNavigationConfiguration
 !.idea/vcs.xml
+
+# KMP SPM import
+.swiftpm
