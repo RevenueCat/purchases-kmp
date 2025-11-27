@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.ui.revenuecatui
 
-import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
-import cocoapods.PurchasesHybridCommonUI.RCPaywallViewControllerDelegateProtocol
+import swiftPMImport.com.revenuecat.purchases.revenuecatui.RCPaywallViewController
+import swiftPMImport.com.revenuecat.purchases.revenuecatui.RCPaywallViewControllerDelegateProtocol
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toPackage
 import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
@@ -13,9 +13,9 @@ import kotlinx.cinterop.pointed
 import platform.CoreGraphics.CGSize
 import platform.Foundation.NSError
 import platform.darwin.NSObject
-import cocoapods.PurchasesHybridCommon.RCCustomerInfo as PhcCustomerInfo
-import cocoapods.PurchasesHybridCommon.RCPackage as PhcPackage
-import cocoapods.PurchasesHybridCommon.RCStoreTransaction as PhcStoreTransaction
+import swiftPMImport.com.revenuecat.purchases.models.RCCustomerInfo as PhcCustomerInfo
+import swiftPMImport.com.revenuecat.purchases.models.RCPackage as PhcPackage
+import swiftPMImport.com.revenuecat.purchases.models.RCStoreTransaction as PhcStoreTransaction
 import objcnames.classes.RCCustomerInfo as ObjcNamesCustomerInfo
 import objcnames.classes.RCPackage as ObjcNamesPackage
 import objcnames.classes.RCStoreTransaction as ObjcNamesStoreTransaction

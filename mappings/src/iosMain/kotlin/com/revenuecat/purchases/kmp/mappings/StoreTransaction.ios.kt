@@ -2,7 +2,7 @@ package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.mappings.ktx.toEpochMilliseconds
 import com.revenuecat.purchases.kmp.models.StoreTransaction
-import cocoapods.PurchasesHybridCommon.RCStoreTransaction as IosStoreTransaction
+import swiftPMImport.com.revenuecat.purchases.models.RCStoreTransaction as IosStoreTransaction
 
 public fun IosStoreTransaction.toStoreTransaction(): StoreTransaction =
     StoreTransaction(

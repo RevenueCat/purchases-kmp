@@ -27,6 +27,7 @@ kotlin {
         pod("PurchasesHybridCommon") {
             version = libs.versions.revenuecat.common.get()
             extraOpts += listOf("-compiler-option", "-fmodules")
+            packageName = "swiftPMImport.com.revenuecat.purchases.models"
         }
     }
 }

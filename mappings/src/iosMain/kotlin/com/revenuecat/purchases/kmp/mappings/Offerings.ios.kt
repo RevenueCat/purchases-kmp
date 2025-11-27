@@ -1,10 +1,10 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import cocoapods.PurchasesHybridCommon.currentOfferingForPlacement
+import swiftPMImport.com.revenuecat.purchases.models.currentOfferingForPlacement
 import com.revenuecat.purchases.kmp.mappings.ktx.mapEntries
 import com.revenuecat.purchases.kmp.models.Offerings
-import cocoapods.PurchasesHybridCommon.RCOffering as IosOffering
-import cocoapods.PurchasesHybridCommon.RCOfferings as IosOfferings
+import swiftPMImport.com.revenuecat.purchases.models.RCOffering as IosOffering
+import swiftPMImport.com.revenuecat.purchases.models.RCOfferings as IosOfferings
 
 public fun IosOfferings.toOfferings(): Offerings =
     Offerings(

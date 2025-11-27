@@ -1,9 +1,9 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import cocoapods.PurchasesHybridCommon.RCVirtualCurrency
+import swiftPMImport.com.revenuecat.purchases.models.RCVirtualCurrency
 import com.revenuecat.purchases.kmp.mappings.ktx.mapEntries
 import com.revenuecat.purchases.kmp.models.VirtualCurrencies
-import cocoapods.PurchasesHybridCommon.RCVirtualCurrencies as IosVirtualCurrencies
+import swiftPMImport.com.revenuecat.purchases.models.RCVirtualCurrencies as IosVirtualCurrencies
 
 public fun IosVirtualCurrencies.toVirtualCurrencies(): VirtualCurrencies {
     return VirtualCurrencies(

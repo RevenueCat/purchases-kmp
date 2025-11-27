@@ -3,17 +3,17 @@ package com.revenuecat.purchases.kmp.mappings
 import com.revenuecat.purchases.kmp.models.PackageType
 import com.revenuecat.purchases.kmp.models.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.models.StoreProduct
-import cocoapods.PurchasesHybridCommon.RCPackage as NativeIosPackage
-import cocoapods.PurchasesHybridCommon.RCPackageType as IosPackageType
-import cocoapods.PurchasesHybridCommon.RCPackageTypeAnnual as IosPackageTypeAnnual
-import cocoapods.PurchasesHybridCommon.RCPackageTypeCustom as IosPackageTypeCustom
-import cocoapods.PurchasesHybridCommon.RCPackageTypeLifetime as IosPackageTypeLifetime
-import cocoapods.PurchasesHybridCommon.RCPackageTypeMonthly as IosPackageTypeMonthly
-import cocoapods.PurchasesHybridCommon.RCPackageTypeSixMonth as IosPackageTypeSixMonth
-import cocoapods.PurchasesHybridCommon.RCPackageTypeThreeMonth as IosPackageTypeThreeMonth
-import cocoapods.PurchasesHybridCommon.RCPackageTypeTwoMonth as IosPackageTypeTwoMonth
-import cocoapods.PurchasesHybridCommon.RCPackageTypeUnknown as IosPackageTypeUnknown
-import cocoapods.PurchasesHybridCommon.RCPackageTypeWeekly as IosPackageTypeWeekly
+import swiftPMImport.com.revenuecat.purchases.models.RCPackage as NativeIosPackage
+import swiftPMImport.com.revenuecat.purchases.models.RCPackageType as IosPackageType
+import swiftPMImport.com.revenuecat.purchases.models.RCPackageTypeAnnual as IosPackageTypeAnnual
+import swiftPMImport.com.revenuecat.purchases.models.RCPackageTypeCustom as IosPackageTypeCustom
+import swiftPMImport.com.revenuecat.purchases.models.RCPackageTypeLifetime as IosPackageTypeLifetime
+import swiftPMImport.com.revenuecat.purchases.models.RCPackageTypeMonthly as IosPackageTypeMonthly
+import swiftPMImport.com.revenuecat.purchases.models.RCPackageTypeSixMonth as IosPackageTypeSixMonth
+import swiftPMImport.com.revenuecat.purchases.models.RCPackageTypeThreeMonth as IosPackageTypeThreeMonth
+import swiftPMImport.com.revenuecat.purchases.models.RCPackageTypeTwoMonth as IosPackageTypeTwoMonth
+import swiftPMImport.com.revenuecat.purchases.models.RCPackageTypeUnknown as IosPackageTypeUnknown
+import swiftPMImport.com.revenuecat.purchases.models.RCPackageTypeWeekly as IosPackageTypeWeekly
 import com.revenuecat.purchases.kmp.models.Package as RCPackage
 
 public fun NativeIosPackage.toPackage(): RCPackage = IosPackage(this)

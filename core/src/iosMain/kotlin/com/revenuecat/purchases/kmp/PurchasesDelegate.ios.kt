@@ -1,10 +1,10 @@
 package com.revenuecat.purchases.kmp
 
-import cocoapods.PurchasesHybridCommon.RCCustomerInfo
-import cocoapods.PurchasesHybridCommon.RCPurchases
-import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
-import cocoapods.PurchasesHybridCommon.RCStoreProduct
-import cocoapods.PurchasesHybridCommon.RCStoreTransaction
+import swiftPMImport.com.revenuecat.purchases.models.RCCustomerInfo
+import swiftPMImport.com.revenuecat.purchases.models.RCPurchases
+import swiftPMImport.com.revenuecat.purchases.models.RCPurchasesDelegateProtocol
+import swiftPMImport.com.revenuecat.purchases.models.RCStoreProduct
+import swiftPMImport.com.revenuecat.purchases.models.RCStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
 import com.revenuecat.purchases.kmp.mappings.toStoreProduct

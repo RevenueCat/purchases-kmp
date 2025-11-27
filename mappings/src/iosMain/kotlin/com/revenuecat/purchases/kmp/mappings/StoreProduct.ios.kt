@@ -10,8 +10,8 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.SubscriptionOptions
-import cocoapods.PurchasesHybridCommon.RCStoreProduct as NativeIosStoreProduct
-import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount as IosStoreProductDiscount
+import swiftPMImport.com.revenuecat.purchases.models.RCStoreProduct as NativeIosStoreProduct
+import swiftPMImport.com.revenuecat.purchases.models.RCStoreProductDiscount as IosStoreProductDiscount
 
 public fun NativeIosStoreProduct.toStoreProduct(): StoreProduct =
     IosStoreProduct(this)

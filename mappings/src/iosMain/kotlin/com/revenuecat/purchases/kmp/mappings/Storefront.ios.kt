@@ -1,6 +1,6 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import cocoapods.PurchasesHybridCommon.RCStorefront
+import swiftPMImport.com.revenuecat.purchases.models.RCStorefront
 import com.revenuecat.purchases.kmp.models.Storefront
 
 public fun RCStorefront.toStorefront(): Storefront =

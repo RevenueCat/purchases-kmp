@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.models.VirtualCurrency
-import cocoapods.PurchasesHybridCommon.RCVirtualCurrency as IosVirtualCurrency
+import swiftPMImport.com.revenuecat.purchases.models.RCVirtualCurrency as IosVirtualCurrency
 
 public fun IosVirtualCurrency.toVirtualCurrency(): VirtualCurrency {
     return VirtualCurrency(
