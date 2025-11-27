@@ -2,7 +2,7 @@ package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.models.ProductType
 import com.revenuecat.purchases.kmp.models.PurchasingData
-import cocoapods.PurchasesHybridCommon.RCStoreProduct as NativeIosStoreProduct
+import swiftPMImport.com.revenuecat.purchases.models.RCStoreProduct as NativeIosStoreProduct
 
 internal class IosPurchasingData(
     product: NativeIosStoreProduct

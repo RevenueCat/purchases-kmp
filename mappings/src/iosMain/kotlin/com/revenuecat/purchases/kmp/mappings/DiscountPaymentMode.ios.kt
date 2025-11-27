@@ -1,10 +1,10 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import cocoapods.PurchasesHybridCommon.RCPaymentModeFreeTrial
-import cocoapods.PurchasesHybridCommon.RCPaymentModePayAsYouGo
-import cocoapods.PurchasesHybridCommon.RCPaymentModePayUpFront
+import swiftPMImport.com.revenuecat.purchases.models.RCPaymentModeFreeTrial
+import swiftPMImport.com.revenuecat.purchases.models.RCPaymentModePayAsYouGo
+import swiftPMImport.com.revenuecat.purchases.models.RCPaymentModePayUpFront
 import com.revenuecat.purchases.kmp.models.DiscountPaymentMode
-import cocoapods.PurchasesHybridCommon.RCPaymentMode as IosDiscountPaymentMode
+import swiftPMImport.com.revenuecat.purchases.models.RCPaymentMode as IosDiscountPaymentMode
 
 internal fun IosDiscountPaymentMode.toDiscountPaymentMode(): DiscountPaymentMode =
     when (this) {

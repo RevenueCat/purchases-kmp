@@ -1,11 +1,11 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriod as IosPeriod
-import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnit as IosPeriodUnit
-import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnitDay
-import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnitMonth
-import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnitWeek
-import cocoapods.PurchasesHybridCommon.RCSubscriptionPeriodUnitYear
+import swiftPMImport.com.revenuecat.purchases.models.RCSubscriptionPeriod as IosPeriod
+import swiftPMImport.com.revenuecat.purchases.models.RCSubscriptionPeriodUnit as IosPeriodUnit
+import swiftPMImport.com.revenuecat.purchases.models.RCSubscriptionPeriodUnitDay
+import swiftPMImport.com.revenuecat.purchases.models.RCSubscriptionPeriodUnitMonth
+import swiftPMImport.com.revenuecat.purchases.models.RCSubscriptionPeriodUnitWeek
+import swiftPMImport.com.revenuecat.purchases.models.RCSubscriptionPeriodUnitYear
 import com.revenuecat.purchases.kmp.models.Period
 import com.revenuecat.purchases.kmp.models.PeriodUnit
 

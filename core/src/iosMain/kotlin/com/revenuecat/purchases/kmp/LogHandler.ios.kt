@@ -1,11 +1,11 @@
 package com.revenuecat.purchases.kmp
 
-import cocoapods.PurchasesHybridCommon.RCLogLevel
-import cocoapods.PurchasesHybridCommon.RCLogLevelDebug
-import cocoapods.PurchasesHybridCommon.RCLogLevelError
-import cocoapods.PurchasesHybridCommon.RCLogLevelInfo
-import cocoapods.PurchasesHybridCommon.RCLogLevelVerbose
-import cocoapods.PurchasesHybridCommon.RCLogLevelWarn
+import swiftPMImport.com.revenuecat.purchases.models.RCLogLevel
+import swiftPMImport.com.revenuecat.purchases.models.RCLogLevelDebug
+import swiftPMImport.com.revenuecat.purchases.models.RCLogLevelError
+import swiftPMImport.com.revenuecat.purchases.models.RCLogLevelInfo
+import swiftPMImport.com.revenuecat.purchases.models.RCLogLevelVerbose
+import swiftPMImport.com.revenuecat.purchases.models.RCLogLevelWarn
 
 private typealias IosLogHandler = (RCLogLevel, String?) -> Unit
 

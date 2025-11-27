@@ -1,8 +1,8 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import cocoapods.PurchasesHybridCommon.RCStoreProduct
-import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount
-import cocoapods.PurchasesHybridCommon.priceAmount
+import swiftPMImport.com.revenuecat.purchases.models.RCStoreProduct
+import swiftPMImport.com.revenuecat.purchases.models.RCStoreProductDiscount
+import swiftPMImport.com.revenuecat.purchases.models.priceAmount
 import com.revenuecat.purchases.kmp.models.Price
 
 internal fun RCStoreProduct.toPrice(): Price =
