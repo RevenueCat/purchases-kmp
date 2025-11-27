@@ -1,10 +1,10 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import cocoapods.PurchasesHybridCommon.RCStoreProduct
-import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount
-import cocoapods.PurchasesHybridCommon.priceAmount
 import com.revenuecat.purchases.kmp.models.Price
 import platform.Foundation.NSDecimalNumber
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProduct
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProductDiscount
+import swiftPMImport.com.revenuecat.purchases.kn.core.priceAmount
 
 internal fun RCStoreProduct.toPrice(): Price =
     Price(

@@ -2,8 +2,8 @@ package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.models.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.models.PresentedOfferingTargetingContext
-import cocoapods.PurchasesHybridCommon.RCPresentedOfferingContext as IosPresentedOfferingContext
-import cocoapods.PurchasesHybridCommon.RCTargetingContext as IosPresentedOfferingTargetingContext
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCPresentedOfferingContext as IosPresentedOfferingContext
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCTargetingContext as IosPresentedOfferingTargetingContext
 
 internal fun IosPresentedOfferingContext.toPresentedOfferingContext() = PresentedOfferingContext(
     offeringIdentifier = offeringIdentifier(),

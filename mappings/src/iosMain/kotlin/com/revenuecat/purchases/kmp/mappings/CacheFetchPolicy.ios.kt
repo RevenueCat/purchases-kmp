@@ -1,11 +1,11 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicyCachedOrFetched
-import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicyFetchCurrent
-import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicyFromCacheOnly
-import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicyNotStaleCachedOrFetched
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
-import cocoapods.PurchasesHybridCommon.RCCacheFetchPolicy as IosCacheFetchPolicy
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCCacheFetchPolicyCachedOrFetched
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCCacheFetchPolicyFetchCurrent
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCCacheFetchPolicyFromCacheOnly
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCCacheFetchPolicyNotStaleCachedOrFetched
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCCacheFetchPolicy as IosCacheFetchPolicy
 
 public fun CacheFetchPolicy.toIosCacheFetchPolicy(): IosCacheFetchPolicy =
     when (this) {

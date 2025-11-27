@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.UIKitViewController
-import cocoapods.PurchasesHybridCommonUI.CustomerCenterUIViewController
-import cocoapods.PurchasesHybridCommonUI.RCCustomerCenterViewControllerDelegateWrapperProtocol
+import swiftPMImport.com.revenuecat.purchases.kn.ui.CustomerCenterUIViewController
+import swiftPMImport.com.revenuecat.purchases.kn.ui.RCCustomerCenterViewControllerDelegateWrapperProtocol
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewController
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState
 import platform.darwin.NSObject
