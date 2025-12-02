@@ -148,15 +148,15 @@ public final class com/revenuecat/purchases/kmp/models/OfferPaymentMode : java/l
 }
 
 public abstract interface class com/revenuecat/purchases/kmp/models/Offering {
-	public abstract fun get (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Package;
+	public fun get (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Package;
 	public abstract fun getAnnual ()Lcom/revenuecat/purchases/kmp/models/Package;
 	public abstract fun getAvailablePackages ()Ljava/util/List;
 	public abstract fun getIdentifier ()Ljava/lang/String;
 	public abstract fun getLifetime ()Lcom/revenuecat/purchases/kmp/models/Package;
 	public abstract fun getMetadata ()Ljava/util/Map;
-	public abstract fun getMetadataString (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun getMetadataString (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public abstract fun getMonthly ()Lcom/revenuecat/purchases/kmp/models/Package;
-	public abstract fun getPackage (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Package;
+	public fun getPackage (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/Package;
 	public abstract fun getServerDescription ()Ljava/lang/String;
 	public abstract fun getSixMonth ()Lcom/revenuecat/purchases/kmp/models/Package;
 	public abstract fun getThreeMonth ()Lcom/revenuecat/purchases/kmp/models/Package;
