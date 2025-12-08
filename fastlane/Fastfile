@@ -15,11 +15,7 @@ PATH_CHANGELOG_LATEST = './CHANGELOG-LATEST.md'
 PATH_CHANGELOG = './CHANGELOG.md'
 PATH_VERSIONS = './VERSIONS.md'
 FILES_WITH_SDK_VERSION = {
-  './gradle/libs.versions.toml' => ["revenuecat-kmp = \"{x}\""],
-  './core/core.podspec' => ["spec.version                  = '{x}'"],
-  './mappings/mappings.podspec' => ["spec.version                  = '{x}'"],
-  './models/models.podspec' => ["spec.version                  = '{x}'"],
-  './revenuecatui/revenuecatui.podspec' => ["spec.version                  = '{x}'"]
+  './gradle/libs.versions.toml' => ["revenuecat-kmp = \"{x}\""]
 }
 
 desc "Bumps version, edits changelog, and creates pull request"
@@ -85,11 +81,10 @@ lane :update_hybrid_common do |options|
   UI.message("ℹ️  Setting Purchases Hybrid Common version: #{new_phc_version}")
   files_to_update = {
     "gradle/libs.versions.toml" => ["revenuecat-common = \"{x}\""],
-    "core/core.podspec" => ["spec.dependency 'PurchasesHybridCommon', '{x}'"],
-    "mappings/mappings.podspec" => ["spec.dependency 'PurchasesHybridCommon', '{x}'"],
-    "models/models.podspec" => ["spec.dependency 'PurchasesHybridCommon', '{x}'"],
-    "revenuecatui/revenuecatui.podspec" => ["spec.dependency 'PurchasesHybridCommonUI', '{x}'"],
-    "iosApp/Podfile" => ["  pod 'PurchasesHybridCommon', '{x}'", "  pod 'PurchasesHybridCommonUI', '{x}'"],
+    "iosApp/_internal_linkage_SwiftPMImport/subpackages/_core/Package.swift" => ["exact: \"{x}\","],
+    "iosApp/_internal_linkage_SwiftPMImport/subpackages/_mappings/Package.swift" => ["exact: \"{x}\","],
+    "iosApp/_internal_linkage_SwiftPMImport/subpackages/_models/Package.swift" => ["exact: \"{x}\","],
+    "iosApp/_internal_linkage_SwiftPMImport/subpackages/_revenuecatui/Package.swift" => ["exact: \"{x}\","],
   }
 
   if dry_run
@@ -105,16 +100,19 @@ lane :update_hybrid_common do |options|
     open_pr: options[:open_pr] || false,
     automatic_release: options[:automatic_release] || false
   )
-  # Making sure Podfile.lock is updated.
-  podfile = "iosApp/Podfile"
-  cocoapods(
-    podfile: podfile,
-    repo_update: true
+  # Making sure Package.resolved is updated.
+  spm(
+    command: "resolve",
+    package_path: "iosApp/_internal_linkage_SwiftPMImport",
+  )
+  spm(
+    command: "resolve",
+    package_path: "iosApp/iosApp.xcodeproj/project.xcworkspace/xcshareddata/swiftpm",
   )
   if options[:open_pr]
     git_commit(
-      path: ["#{podfile}.lock"],
-      message: "Updates Podfile.lock",
+      path: [package_resolved],
+      message: "Updates Package.resolved",
       skip_git_hooks: true
     )
     push_to_git_remote(
@@ -185,13 +183,13 @@ def get_phc_version
     .captures[0]
   UI.user_error!("Android PHC version not found.") if android_phc_version.nil?
   
-  ios_phc_version = File.read("../core/core.podspec")
-    .match("spec.dependency 'PurchasesHybridCommon', '(.*)'")
+  ios_phc_version = File.read("../iosApp/_internal_linkage_SwiftPMImport/subpackages/_core/Package.swift")
+    .match("exact: \"(.*)\",")
     .captures[0]
   UI.user_error!("iOS PHC version not found.") if ios_phc_version.nil?
 
-  ios_phc_ui_version = File.read("../revenuecatui/revenuecatui.podspec")
-    .match("spec.dependency 'PurchasesHybridCommonUI', '(.*)'")
+  ios_phc_ui_version = File.read("../iosApp/_internal_linkage_SwiftPMImport/subpackages/_revenuecatui/Package.swift")
+    .match("exact: \"(.*)\",")
     .captures[0]
   UI.user_error!("iOS PHC UI version not found.") if ios_phc_ui_version.nil?
   
