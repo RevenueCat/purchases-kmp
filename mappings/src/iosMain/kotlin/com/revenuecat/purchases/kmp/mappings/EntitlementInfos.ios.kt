@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import cocoapods.PurchasesHybridCommon.RCEntitlementInfo
-import cocoapods.PurchasesHybridCommon.RCEntitlementInfos
+import swiftPMImport.com.revenuecat.purchases.models.RCEntitlementInfo
+import swiftPMImport.com.revenuecat.purchases.models.RCEntitlementInfos
 import com.revenuecat.purchases.kmp.mappings.ktx.mapEntries
 import com.revenuecat.purchases.kmp.models.EntitlementInfos
 

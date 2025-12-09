@@ -2,7 +2,7 @@ package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.WinBackOffer
-import cocoapods.PurchasesHybridCommon.RCWinBackOffer as NativeIosWinBackOffer
+import swiftPMImport.com.revenuecat.purchases.models.RCWinBackOffer as NativeIosWinBackOffer
 
 public fun NativeIosWinBackOffer.toWinBackOffer(): WinBackOffer =
     IosWinBackOffer(this)

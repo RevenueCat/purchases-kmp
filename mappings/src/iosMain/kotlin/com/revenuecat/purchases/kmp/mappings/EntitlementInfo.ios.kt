@@ -1,31 +1,31 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import cocoapods.PurchasesHybridCommon.RCAmazon
-import cocoapods.PurchasesHybridCommon.RCAppStore
-import cocoapods.PurchasesHybridCommon.RCBilling
-import cocoapods.PurchasesHybridCommon.RCEntitlementInfo
-import cocoapods.PurchasesHybridCommon.RCIntro
-import cocoapods.PurchasesHybridCommon.RCMacAppStore
-import cocoapods.PurchasesHybridCommon.RCNormal
-import cocoapods.PurchasesHybridCommon.RCPaddle
-import cocoapods.PurchasesHybridCommon.RCPrepaid
-import cocoapods.PurchasesHybridCommon.RCPlayStore
-import cocoapods.PurchasesHybridCommon.RCPromotional
-import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypeFamilyShared
-import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypePurchased
-import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipTypeUnknown
-import cocoapods.PurchasesHybridCommon.RCStripe
-import cocoapods.PurchasesHybridCommon.RCTestStore
-import cocoapods.PurchasesHybridCommon.RCTrial
-import cocoapods.PurchasesHybridCommon.RCUnknownStore
+import swiftPMImport.com.revenuecat.purchases.models.RCAmazon
+import swiftPMImport.com.revenuecat.purchases.models.RCAppStore
+import swiftPMImport.com.revenuecat.purchases.models.RCBilling
+import swiftPMImport.com.revenuecat.purchases.models.RCEntitlementInfo
+import swiftPMImport.com.revenuecat.purchases.models.RCIntro
+import swiftPMImport.com.revenuecat.purchases.models.RCMacAppStore
+import swiftPMImport.com.revenuecat.purchases.models.RCNormal
+import swiftPMImport.com.revenuecat.purchases.models.RCPaddle
+import swiftPMImport.com.revenuecat.purchases.models.RCPrepaid
+import swiftPMImport.com.revenuecat.purchases.models.RCPlayStore
+import swiftPMImport.com.revenuecat.purchases.models.RCPromotional
+import swiftPMImport.com.revenuecat.purchases.models.RCPurchaseOwnershipTypeFamilyShared
+import swiftPMImport.com.revenuecat.purchases.models.RCPurchaseOwnershipTypePurchased
+import swiftPMImport.com.revenuecat.purchases.models.RCPurchaseOwnershipTypeUnknown
+import swiftPMImport.com.revenuecat.purchases.models.RCStripe
+import swiftPMImport.com.revenuecat.purchases.models.RCTestStore
+import swiftPMImport.com.revenuecat.purchases.models.RCTrial
+import swiftPMImport.com.revenuecat.purchases.models.RCUnknownStore
 import com.revenuecat.purchases.kmp.mappings.ktx.toEpochMilliseconds
 import com.revenuecat.purchases.kmp.models.EntitlementInfo
 import com.revenuecat.purchases.kmp.models.OwnershipType
 import com.revenuecat.purchases.kmp.models.PeriodType
 import com.revenuecat.purchases.kmp.models.Store
-import cocoapods.PurchasesHybridCommon.RCPeriodType as IosPeriodType
-import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipType as IosOwnershipType
-import cocoapods.PurchasesHybridCommon.RCStore as IosStore
+import swiftPMImport.com.revenuecat.purchases.models.RCPeriodType as IosPeriodType
+import swiftPMImport.com.revenuecat.purchases.models.RCPurchaseOwnershipType as IosOwnershipType
+import swiftPMImport.com.revenuecat.purchases.models.RCStore as IosStore
 
 internal fun RCEntitlementInfo.toEntitlementInfo(): EntitlementInfo {
     return EntitlementInfo(

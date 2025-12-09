@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.UIKitViewController
-import cocoapods.PurchasesHybridCommonUI.RCPaywallFooterViewController
-import cocoapods.PurchasesHybridCommonUI.RCPaywallViewController
+import swiftPMImport.com.revenuecat.purchases.revenuecatui.RCPaywallFooterViewController
+import swiftPMImport.com.revenuecat.purchases.revenuecatui.RCPaywallViewController
 import com.revenuecat.purchases.kmp.mappings.toIosOffering
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewController
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState

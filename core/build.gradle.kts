@@ -2,7 +2,6 @@ import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 
 plugins {
     id("revenuecat-public-library")
-    alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.codingfeline.buildkonfig)
 }
 
@@ -29,19 +28,12 @@ kotlin {
         }
     }
 
-    cocoapods {
-        version = libs.versions.revenuecat.kmp.get()
-        ios.deploymentTarget = libs.versions.ios.deploymentTarget.core.get()
-
-        framework {
-            baseName = "Purchases"
-            isStatic = true
-        }
-
-        pod("PurchasesHybridCommon") {
-            version = libs.versions.revenuecat.common.get()
-            extraOpts += listOf("-compiler-option", "-fmodules")
-        }
+    swiftPMDependencies {
+        `package`(
+            url = url("https://github.com/RevenueCat/purchases-hybrid-common.git"),
+            version = exact(libs.versions.revenuecat.common.get()),
+            products = listOf(product("PurchasesHybridCommon")),
+        )
     }
 }
 

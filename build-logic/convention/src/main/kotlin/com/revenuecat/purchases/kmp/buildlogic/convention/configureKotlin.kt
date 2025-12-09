@@ -4,6 +4,7 @@ import com.revenuecat.purchases.kmp.buildlogic.ktx.getVersion
 import com.revenuecat.purchases.kmp.buildlogic.ktx.versionCatalog
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 internal fun Project.configureKotlin() {
@@ -11,8 +12,8 @@ internal fun Project.configureKotlin() {
         // Compilation targets:
         androidTarget {
             compilations.all {
-                kotlinOptions {
-                    jvmTarget = versionCatalog.getVersion("java")
+                this@androidTarget.compilerOptions {
+                    jvmTarget.value(JvmTarget.fromTarget(versionCatalog.getVersion("java")))
                 }
             }
 
