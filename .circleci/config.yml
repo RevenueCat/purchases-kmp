@@ -117,10 +117,10 @@ executors:
   ruby3:
     docker:
       - image: cimg/ruby:3.3.0
-  xcode15:
+  xcode16:
     macos:
-      xcode: 15.4.0
-    resource_class: macos.m1.medium.gen1
+      xcode: 16.4.0
+    resource_class: m4pro.medium
     environment:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
       # freshly installed.
@@ -129,7 +129,7 @@ executors:
 jobs:
   update-purchases-hybrid-common-version:
     description: "Opens a PR updating the purchases-hybrid-common dependency to the latest version."
-    executor: xcode15
+    executor: xcode16
     steps:
       - checkout
       - revenuecat/install-gem-mac-dependencies:
@@ -174,7 +174,7 @@ jobs:
           destination: detekt
 
   validate-binary-compatibility:
-    executor: xcode15
+    executor: xcode16
     steps:
       - install-android-sdk-on-macos
       - checkout
@@ -208,7 +208,7 @@ jobs:
       - save-incremental-gradle-build-to-workspace
 
   build-libraries-ios:
-    executor: xcode15
+    executor: xcode16
     steps:
       - checkout
       - restore-gradle-user-home-directory-from-cache
@@ -249,7 +249,7 @@ jobs:
       - save-incremental-gradle-build-to-workspace
 
   build-sample-ios:
-    executor: xcode15
+    executor: xcode16
     steps:
       - checkout
       - restore-gradle-user-home-directory-from-cache
@@ -288,7 +288,7 @@ jobs:
       - save-incremental-gradle-build-to-workspace
 
   public-api-tests-ios:
-    executor: xcode15
+    executor: xcode16
     steps:
       - checkout
       - restore-gradle-user-home-directory-from-cache
@@ -327,7 +327,7 @@ jobs:
       - save-incremental-gradle-build-to-workspace
 
   unit-tests-ios:
-    executor: xcode15
+    executor: xcode16
     steps:
       - checkout
       - restore-gradle-user-home-directory-from-cache
@@ -347,7 +347,7 @@ jobs:
 
   publish:
     description: "Publishes the SDK, either a SNAPSHOT or release version."
-    executor: xcode15
+    executor: xcode16
     parameters:
       snapshot:
         description: Whether to publish a SNAPSHOT version. Will publish a final release if set to false.
