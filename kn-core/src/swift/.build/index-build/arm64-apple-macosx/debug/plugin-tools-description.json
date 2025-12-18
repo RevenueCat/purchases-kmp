@@ -1,0 +1,236 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.AdditionalSwift-arm64-apple-macosx15.0-debug.module" : {
+      "executable" : "/Applications/Xcode-16.4.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/sources",
+      "importPath" : "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/joop/Development/purchases-kmp/kn-core/src/swift/Sources/AdditionalSwift/AppleApiAvailability.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/swift-version-239F2A40393FBBF.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "AdditionalSwift",
+      "moduleOutputPath" : "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/Modules/AdditionalSwift.swiftmodule",
+      "objects" : [
+        "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/AppleApiAvailability.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.15",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j14",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-module-cache-path",
+        "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/AdditionalSwift-Swift.h",
+        "-swift-version",
+        "5",
+        "-Xfrontend",
+        "-experimental-lazy-typecheck",
+        "-Xfrontend",
+        "-experimental-skip-all-function-bodies",
+        "-Xfrontend",
+        "-experimental-allow-module-with-compiler-errors",
+        "-Xfrontend",
+        "-empty-abi-descriptor",
+        "-sdk",
+        "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-F",
+        "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-F",
+        "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-I",
+        "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "swift"
+      ],
+      "outputFileMapPath" : "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/Modules/AdditionalSwift.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : true,
+      "sources" : [
+        "/Users/joop/Development/purchases-kmp/kn-core/src/swift/Sources/AdditionalSwift/AppleApiAvailability.swift"
+      ],
+      "tempsPath" : "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "AdditionalSwift" : [
+      "/Applications/Xcode-16.4.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "AdditionalSwift",
+      "-package-name",
+      "swift",
+      "-incremental",
+      "-c",
+      "/Users/joop/Development/purchases-kmp/kn-core/src/swift/Sources/AdditionalSwift/AppleApiAvailability.swift",
+      "-I",
+      "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx10.15",
+      "-enable-batch-mode",
+      "-index-store-path",
+      "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j14",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-module-cache-path",
+      "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/AdditionalSwift-Swift.h",
+      "-swift-version",
+      "5",
+      "-Xfrontend",
+      "-experimental-lazy-typecheck",
+      "-Xfrontend",
+      "-experimental-skip-all-function-bodies",
+      "-Xfrontend",
+      "-experimental-allow-module-with-compiler-errors",
+      "-Xfrontend",
+      "-empty-abi-descriptor",
+      "-sdk",
+      "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-F",
+      "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-F",
+      "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-I",
+      "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "swift",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode-16.4.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "AdditionalSwift" : [
+
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+
+  },
+  "traitConfiguration" : {
+    "enableAllTraits" : false
+  },
+  "writeCommands" : {
+    "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/joop/Development/purchases-kmp/kn-core/src/swift/Sources/AdditionalSwift/AppleApiAvailability.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/sources"
+    },
+    "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/swift-version-239F2A40393FBBF.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode-16.4.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/swift-version-239F2A40393FBBF.txt"
+    }
+  }
+}

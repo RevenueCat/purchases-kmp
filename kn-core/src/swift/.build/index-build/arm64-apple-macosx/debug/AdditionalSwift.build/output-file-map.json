@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/master.swiftdeps"
+  },
+  "/Users/joop/Development/purchases-kmp/kn-core/src/swift/Sources/AdditionalSwift/AppleApiAvailability.swift": {
+    "dependencies": "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/AppleApiAvailability.d",
+    "object": "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/AppleApiAvailability.swift.o",
+    "swiftmodule": "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/AppleApiAvailability~partial.swiftmodule",
+    "swift-dependencies": "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/AppleApiAvailability.swiftdeps"
+  }
+}
