@@ -1,0 +1,47 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "AdditionalSwift-arm64-apple-macosx15.0-debug.module": ["<AdditionalSwift-arm64-apple-macosx15.0-debug.module>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "main": ["<AdditionalSwift-arm64-apple-macosx15.0-debug.module>"]
+  "test": ["<AdditionalSwift-arm64-apple-macosx15.0-debug.module>"]
+default: "main"
+nodes:
+  "/Users/joop/Development/purchases-kmp/kn-core/src/swift/Sources/AdditionalSwift/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+commands:
+  "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/joop/Development/purchases-kmp/kn-core/src/swift/Sources/AdditionalSwift/AppleApiAvailability.swift"]
+    outputs: ["/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/sources"]
+    description: "Write auxiliary file /Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/sources"
+
+  "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/swift-version-239F2A40393FBBF.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Applications/Xcode-16.4.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"]
+    outputs: ["/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/swift-version-239F2A40393FBBF.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/swift-version-239F2A40393FBBF.txt"
+
+  "<AdditionalSwift-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/Modules/AdditionalSwift.swiftmodule"]
+    outputs: ["<AdditionalSwift-arm64-apple-macosx15.0-debug.module>"]
+
+  "C.AdditionalSwift-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/joop/Development/purchases-kmp/kn-core/src/swift/Sources/AdditionalSwift/AppleApiAvailability.swift","/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/swift-version-239F2A40393FBBF.txt","/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/sources"]
+    outputs: ["/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/Modules/AdditionalSwift.swiftmodule"]
+    description: "Compiling Swift Module 'AdditionalSwift' (1 sources)"
+    args: ["/Applications/Xcode-16.4.0.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","AdditionalSwift","-emit-dependencies","-emit-module","-emit-module-path","/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/Modules/AdditionalSwift.swiftmodule","-output-file-map","/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/output-file-map.json","-parse-as-library","-incremental","@/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/sources","-I","/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx10.15","-enable-batch-mode","-index-store-path","/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j14","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/AdditionalSwift-Swift.h","-swift-version","5","-Xfrontend","-experimental-lazy-typecheck","-Xfrontend","-experimental-skip-all-function-bodies","-Xfrontend","-experimental-allow-module-with-compiler-errors","-Xfrontend","-empty-abi-descriptor","-sdk","/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk","-F","/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk","-Xcc","-F","-Xcc","/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode-16.4.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","swift"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/joop/Development/purchases-kmp/kn-core/src/swift/Sources/AdditionalSwift/","/Users/joop/Development/purchases-kmp/kn-core/src/swift/Package.swift","/Users/joop/Development/purchases-kmp/kn-core/src/swift/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

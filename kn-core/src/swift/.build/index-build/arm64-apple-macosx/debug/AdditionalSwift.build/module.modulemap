@@ -1,0 +1,4 @@
+module AdditionalSwift {
+    header "/Users/joop/Development/purchases-kmp/kn-core/src/swift/.build/index-build/arm64-apple-macosx/debug/AdditionalSwift.build/AdditionalSwift-Swift.h"
+    requires objc
+}
