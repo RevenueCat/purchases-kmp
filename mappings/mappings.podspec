@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'mappings'
-    spec.version                  = '2.2.13+17.23.0'
+    spec.version                  = '2.2.14+17.24.0'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
