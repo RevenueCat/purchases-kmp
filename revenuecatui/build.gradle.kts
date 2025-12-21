@@ -1,8 +1,12 @@
 plugins {
-    id("revenuecat-public-library")
+    id("revenuecat-library")
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.cocoapods)
+}
+
+revenueCat {
+    dokka = true
 }
 
 kotlin {
