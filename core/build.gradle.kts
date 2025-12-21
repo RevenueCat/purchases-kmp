@@ -1,9 +1,13 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 
 plugins {
-    id("revenuecat-public-library")
+    id("revenuecat-library")
     alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.codingfeline.buildkonfig)
+}
+
+revenueCat {
+    dokka = true
 }
 
 kotlin {
