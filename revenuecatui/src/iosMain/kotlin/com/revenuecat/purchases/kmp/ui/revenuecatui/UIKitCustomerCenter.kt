@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.UIKitViewController
-import swiftPMImport.com.revenuecat.purchases.kn.ui.CustomerCenterUIViewController
+import swiftPMImport.com.revenuecat.purchases.kn.ui
 import swiftPMImport.com.revenuecat.purchases.kn.ui.RCCustomerCenterViewControllerDelegateWrapperProtocol
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewController
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState
