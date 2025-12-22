@@ -1,29 +1,15 @@
 package com.revenuecat.purchases.kmp
 
-import swiftPMImport.com.revenuecat.purchases.kn.core.IOSAPIAvailabilityChecker
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCCommonFunctionality
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomerInfo
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCIntroEligibility
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchaseParamsBuilder
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchasesDelegateProtocol
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProduct
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreTransaction
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCVirtualCurrencies
-import swiftPMImport.com.revenuecat.purchases.kn.core.configureWithAPIKey
-import swiftPMImport.com.revenuecat.purchases.kn.core.isWebPurchaseRedemptionURL
-import swiftPMImport.com.revenuecat.purchases.kn.core.parseAsWebPurchaseRedemptionWithUrlString
-import swiftPMImport.com.revenuecat.purchases.kn.core.recordPurchaseForProductID
-import swiftPMImport.com.revenuecat.purchases.kn.core.setAirshipChannelID
-import swiftPMImport.com.revenuecat.purchases.kn.core.setOnesignalUserID
-import swiftPMImport.com.revenuecat.purchases.kn.core.showStoreMessagesForTypes
 import com.revenuecat.purchases.kmp.ktx.mapEntriesNotNull
-import com.revenuecat.purchases.kmp.mappings.buildStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
-import com.revenuecat.purchases.kmp.mappings.toHybridString
 import com.revenuecat.purchases.kmp.mappings.toIntroEligibilityStatus
 import com.revenuecat.purchases.kmp.mappings.toIosCacheFetchPolicy
+import com.revenuecat.purchases.kmp.mappings.toIosEntitlementVerificationMode
 import com.revenuecat.purchases.kmp.mappings.toIosPackage
 import com.revenuecat.purchases.kmp.mappings.toIosPromotionalOffer
+import com.revenuecat.purchases.kmp.mappings.toIosPurchasesAreCompletedBy
+import com.revenuecat.purchases.kmp.mappings.toIosStoreKitVersion
+import com.revenuecat.purchases.kmp.mappings.toIosStoreMessageTypes
 import com.revenuecat.purchases.kmp.mappings.toIosStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toIosStoreProductDiscount
 import com.revenuecat.purchases.kmp.mappings.toIosWinBackOffer
@@ -55,12 +41,29 @@ import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.VirtualCurrencies
-import com.revenuecat.purchases.kmp.models.VirtualCurrency
 import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import platform.Foundation.NSError
 import platform.Foundation.NSURL
+import platform.Foundation.NSUserDefaults
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCConfiguration
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomerInfo
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCIntroEligibility
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCPlatformInfo
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchaseParamsBuilder
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchasesDelegateProtocol
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProduct
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreTransaction
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCVirtualCurrencies
+import swiftPMImport.com.revenuecat.purchases.kn.core.additional.AppleApiAvailability
+import swiftPMImport.com.revenuecat.purchases.kn.core.configureWithConfiguration
+import swiftPMImport.com.revenuecat.purchases.kn.core.enableAdServicesAttributionTokenCollection
+import swiftPMImport.com.revenuecat.purchases.kn.core.parseAsWebPurchaseRedemption
+import swiftPMImport.com.revenuecat.purchases.kn.core.recordPurchaseForProductID
+import swiftPMImport.com.revenuecat.purchases.kn.core.setAirshipChannelID
+import swiftPMImport.com.revenuecat.purchases.kn.core.setOnesignalUserID
+import swiftPMImport.com.revenuecat.purchases.kn.core.showStoreMessagesForTypes
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCDangerousSettings as IosDangerousSettings
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchases as IosPurchases
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCWinBackOffer as NativeIosWinBackOffer
@@ -98,25 +101,33 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
         public actual fun configure(
             configuration: PurchasesConfiguration
-        ): Purchases {
-            checkCommonVersion()
-
-            return with(configuration) {
-                IosPurchases.configureWithAPIKey(
-                    apiKey = apiKey,
-                    appUserID = appUserId,
-                    purchasesAreCompletedBy = purchasesAreCompletedBy.toHybridString(),
-                    userDefaultsSuiteName = userDefaultsSuiteName,
-                    platformFlavor = BuildKonfig.platformFlavor,
-                    platformFlavorVersion = frameworkVersion,
-                    storeKitVersion = storeKitVersion.toHybridString(),
-                    dangerousSettings = dangerousSettings.toIosDangerousSettings(),
-                    shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
-                    verificationMode = verificationMode.name,
-                )
-            }.let { Purchases(it) }
-                .also { _sharedInstance = it }
-        }
+        ): Purchases = with(configuration) {
+            IosPurchases.configureWithConfiguration(
+                configuration = RCConfiguration.builderWithAPIKey(apiKey)
+                    .withAppUserID(appUserId)
+                    .apply {
+                        purchasesAreCompletedBy.toIosPurchasesAreCompletedBy().also {
+                            withPurchasesAreCompletedBy(
+                                purchasesAreCompletedBy = it.purchasesAreCompletedBy,
+                                storeKitVersion = it.storeKitVersion
+                            )
+                        }
+                    }
+                    .withUserDefaults(NSUserDefaults(suiteName = userDefaultsSuiteName))
+                    .withPlatformInfo(
+                        RCPlatformInfo(
+                            flavor = BuildKonfig.platformFlavor,
+                            version = frameworkVersion
+                        )
+                    )
+                    .withStoreKitVersion(storeKitVersion.toIosStoreKitVersion())
+                    .withDangerousSettings(dangerousSettings.toIosDangerousSettings())
+                    .withShowStoreMessagesAutomatically(showInAppMessagesAutomatically)
+                    .withEntitlementVerificationMode(verificationMode.toIosEntitlementVerificationMode())
+                    .build()
+            )
+        }.let { Purchases(it) }
+            .also { _sharedInstance = it }
 
         public actual fun canMakePayments(
             features: List<BillingFeature>,
@@ -125,20 +136,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             callback(IosPurchases.canMakePayments())
         }
 
-        private fun checkCommonVersion() {
-            val expected = BuildKonfig.revenuecatCommonVersion
-            val actual = RCCommonFunctionality.hybridCommonVersion()
-            check(actual == expected) {
-                "Unexpected version of PurchasesHybridCommon ('$actual'). Make sure to use " +
-                        "'$expected' exactly."
-            }
-        }
-
         private fun DangerousSettings.toIosDangerousSettings(): IosDangerousSettings =
             IosDangerousSettings(autoSyncPurchases)
 
         public actual fun parseAsWebPurchaseRedemption(url: String): WebPurchaseRedemption? {
-            return if (RCCommonFunctionality.isWebPurchaseRedemptionURL(url)) {
+            return if (IosPurchases.parseAsWebPurchaseRedemption(NSURL(string = url)) != null) {
                 WebPurchaseRedemption(url)
             } else {
                 null
@@ -334,40 +336,23 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         onError: (error: PurchasesError) -> Unit,
         onSuccess: (storeTransaction: StoreTransaction) -> Unit,
     ) {
-        RCCommonFunctionality.recordPurchaseForProductID(
-            productID,
-            completion = { storeTransactionMap, error ->
-                if (error != null) {
-                    onError(error.error().toPurchasesErrorOrThrow())
-                    return@recordPurchaseForProductID
-                }
-
-                if (storeTransactionMap == null) {
-                    onError(
-                        PurchasesError(
-                            code = PurchasesErrorCode.UnknownError,
-                            underlyingErrorMessage =
-                            "Expected storeTransactionMap to be non-null when error is non-null."
-                        )
-                    )
-                } else {
-                    val storeTransactionMappingResult = buildStoreTransaction(
-                        storeTransactionMap = storeTransactionMap
-                    )
-                    storeTransactionMappingResult.onSuccess {
-                        onSuccess(it)
-                    }
-                    storeTransactionMappingResult.onFailure {
-                        onError(
-                            PurchasesError(
-                                code = PurchasesErrorCode.UnknownError,
-                                underlyingErrorMessage = it.message
-                            )
-                        )
-                    }
-                }
+        iosPurchases.recordPurchaseForProductID(productID) { storeTransaction, error ->
+            if (error != null) {
+                onError(error.toPurchasesErrorOrThrow())
+                return@recordPurchaseForProductID
             }
-        )
+            if (storeTransaction == null) {
+                onError(
+                    PurchasesError(
+                        code = PurchasesErrorCode.UnknownError,
+                        underlyingErrorMessage =
+                        "Expected a non-null RCStoreTransaction when error is non-null."
+                    )
+                )
+            } else {
+                onSuccess(storeTransaction.toStoreTransaction())
+            }
+        }
     }
 
     public actual fun checkTrialOrIntroPriceEligibility(
@@ -395,7 +380,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
         // interoperability drops the @available(osVersion) requirements, and you can technically
         // call functions with an @available from any OS version in KMP
-        if (!IOSAPIAvailabilityChecker().isWinBackOfferAPIAvailable()) {
+        if (!AppleApiAvailability().isWinBackOfferAPIAvailable()) {
             onError(
                 PurchasesError(
                     PurchasesErrorCode.UnsupportedError,
@@ -441,7 +426,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
         // interoperability drops the @available(osVersion) requirements, and you can technically
         // call functions with an @available from any OS version in KMP
-        if (!IOSAPIAvailabilityChecker().isWinBackOfferAPIAvailable()) {
+        if (!AppleApiAvailability().isWinBackOfferAPIAvailable()) {
             onError(
                 PurchasesError(
                     PurchasesErrorCode.UnsupportedError,
@@ -488,7 +473,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
         // interoperability drops the @available(osVersion) requirements, and you can technically
         // call functions with an @available from any OS version in KMP
-        if (!IOSAPIAvailabilityChecker().isWinBackOfferAPIAvailable()) {
+        if (!AppleApiAvailability().isWinBackOfferAPIAvailable()) {
             onError(
                 PurchasesError(
                     PurchasesErrorCode.UnsupportedError,
@@ -545,7 +530,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
         // interoperability drops the @available(osVersion) requirements, and you can technically
         // call functions with an @available from any OS version in KMP
-        if (!IOSAPIAvailabilityChecker().isWinBackOfferAPIAvailable()) {
+        if (!AppleApiAvailability().isWinBackOfferAPIAvailable()) {
             onError(
                 PurchasesError(
                     PurchasesErrorCode.UnsupportedError,
@@ -630,17 +615,9 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
     public actual fun showInAppMessagesIfNeeded(
         messageTypes: List<StoreMessageType>,
-    ): Unit = RCCommonFunctionality.showStoreMessagesForTypes(
-        rawValues = messageTypes.mapTo(mutableSetOf()) { type ->
-            when (type) {
-                StoreMessageType.BILLING_ISSUES -> 0
-                StoreMessageType.PRICE_INCREASE_CONSENT -> 1
-                StoreMessageType.GENERIC -> 2
-                StoreMessageType.WIN_BACK_OFFER -> 3
-            }
-        },
-        completion = { }
-    )
+    ) {
+        iosPurchases.showStoreMessagesForTypes(messageTypes.toIosStoreMessageTypes()) {}
+    }
 
     public actual fun invalidateCustomerInfoCache(): Unit =
         iosPurchases.invalidateCustomerInfoCache()
@@ -667,10 +644,10 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         iosPurchases.setOnesignalID(onesignalID)
 
     public actual fun setOnesignalUserID(onesignalUserID: String?): Unit =
-        RCCommonFunctionality.setOnesignalUserID(onesignalUserID)
+        iosPurchases.attribution().setOnesignalUserID(onesignalUserID)
 
     public actual fun setAirshipChannelID(airshipChannelID: String?): Unit =
-        RCCommonFunctionality.setAirshipChannelID(airshipChannelID)
+        iosPurchases.attribution().setAirshipChannelID(airshipChannelID)
 
     public actual fun setFirebaseAppInstanceID(firebaseAppInstanceID: String?): Unit =
         iosPurchases.setFirebaseAppInstanceID(firebaseAppInstanceID)
@@ -712,8 +689,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         iosPurchases.setCreative(creative)
 
     public actual fun enableAdServicesAttributionTokenCollection() {
-        if (IOSAPIAvailabilityChecker().isEnableAdServicesAttributionTokenCollectionAPIAvailable())
-            RCCommonFunctionality.enableAdServicesAttributionTokenCollection()
+        if (AppleApiAvailability().isEnableAdServicesAttributionTokenCollectionAPIAvailable())
+            iosPurchases.attribution().enableAdServicesAttributionTokenCollection()
         else logHandler.d(
             tag = "Purchases",
             msg = "`enableAdServicesAttributionTokenCollection()` is only available on iOS 14.3 " +
@@ -725,8 +702,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         webPurchaseRedemption: WebPurchaseRedemption,
         listener: RedeemWebPurchaseListener,
     ) {
-        val nativeWebPurchaseRedemption = RCCommonFunctionality.parseAsWebPurchaseRedemptionWithUrlString(
-            webPurchaseRedemption.redemptionUrl,
+        val nativeWebPurchaseRedemption = IosPurchases.parseAsWebPurchaseRedemption(
+            url = NSURL(string = webPurchaseRedemption.redemptionUrl)
         )
         if (nativeWebPurchaseRedemption == null) {
             listener.handleResult(RedeemWebPurchaseListener.Result.Error(
