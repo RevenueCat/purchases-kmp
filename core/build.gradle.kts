@@ -2,7 +2,6 @@ import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 
 plugins {
     id("revenuecat-library")
-    alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.codingfeline.buildkonfig)
 }
 
@@ -21,6 +20,7 @@ kotlin {
             implementation(projects.mappings)
         }
         iosMain.dependencies {
+            implementation(projects.knCore)
             implementation(projects.mappings)
         }
 
@@ -30,22 +30,6 @@ kotlin {
         }
         androidUnitTest.dependencies {
             implementation(libs.kotlin.test.junit)
-        }
-    }
-
-    cocoapods {
-        version = libs.versions.revenuecat.kmp.get()
-        ios.deploymentTarget = libs.versions.ios.deploymentTarget.core.get()
-
-        framework {
-            baseName = "Purchases"
-            isStatic = true
-        }
-
-        pod("PurchasesHybridCommon") {
-            version = libs.versions.revenuecat.common.get()
-            extraOpts += listOf("-compiler-option", "-fmodules")
-            packageName = "swiftPMImport.com.revenuecat.purchases.kn.core"
         }
     }
 }

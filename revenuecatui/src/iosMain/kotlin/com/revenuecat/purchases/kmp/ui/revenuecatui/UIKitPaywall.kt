@@ -4,12 +4,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.UIKitViewController
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallFooterViewController
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallViewController
 import com.revenuecat.purchases.kmp.mappings.toIosOffering
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewController
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCOffering
+import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallFooterViewController
+import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallViewController
+import swiftPMImport.com.revenuecat.purchases.kn.ui.RCOffering as RCOfferingFromKnUi
 
 @Composable
 internal fun UIKitPaywall(
@@ -33,12 +33,12 @@ internal fun UIKitPaywall(
         modifier = modifier.layoutViewController(layoutViewControllerState),
         factory = {
             val paywallViewController = if (footer) RCPaywallFooterViewController(
-                offering = options.offering?.toIosOffering() as? RCOffering,
+                offering = options.offering?.toIosOffering() as? RCOfferingFromKnUi,
                 displayCloseButton = options.shouldDisplayDismissButton,
                 shouldBlockTouchEvents = false,
                 dismissRequestedHandler = dismissRequestedHandler,
             ) else RCPaywallViewController(
-                offering = options.offering?.toIosOffering() as? RCOffering,
+                offering = options.offering?.toIosOffering() as? RCOfferingFromKnUi,
                 displayCloseButton = options.shouldDisplayDismissButton,
                 shouldBlockTouchEvents = false,
                 dismissRequestedHandler = dismissRequestedHandler,

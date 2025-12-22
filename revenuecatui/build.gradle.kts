@@ -2,7 +2,6 @@ plugins {
     id("revenuecat-library")
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.kotlin.cocoapods)
 }
 
 revenueCat {
@@ -24,18 +23,9 @@ kotlin {
             implementation(projects.mappings)
         }
         iosMain.dependencies {
+            implementation(projects.knCore)
+            implementation(projects.knUi)
             implementation(projects.mappings)
-        }
-    }
-
-    cocoapods {
-        version = libs.versions.revenuecat.kmp.get()
-        ios.deploymentTarget = libs.versions.ios.deploymentTarget.ui.get()
-
-        pod("PurchasesHybridCommonUI") {
-            version = libs.versions.revenuecat.common.get()
-            extraOpts += listOf("-compiler-option", "-fmodules")
-            packageName = "swiftPMImport.com.revenuecat.purchases.kn.ui"
         }
     }
 }
