@@ -18,6 +18,12 @@ kotlin {
                     ) { return 0; }
                 """.trimIndent()
             )
+
+            swiftPackage(
+                path = file("src/swift"),
+                target = "AdditionalSwift",
+                packageName = "swiftPMImport.com.revenuecat.purchases.kn.core.additional"
+            )
         }
     }
 }
