@@ -15,7 +15,10 @@ import platform.Foundation.NSError
 import platform.darwin.NSObject
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomerInfo
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCPackage
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreTransaction 
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreTransaction
+import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPackage as RCPackageFromKnUi
+import swiftPMImport.com.revenuecat.purchases.kn.ui.RCCustomerInfo as RCCustomerInfoFromKnUi
+import swiftPMImport.com.revenuecat.purchases.kn.ui.RCStoreTransaction as RCStoreTransactionFromKnUi
 
 internal class IosPaywallDelegate(
     private val listener: PaywallListener?,
@@ -26,22 +29,22 @@ internal class IosPaywallDelegate(
     @Suppress("CAST_NEVER_SUCCEEDS")
     override fun paywallViewController(
         controller: RCPaywallViewController,
-        didStartPurchaseWithPackage: RCPackage
+        didStartPurchaseWithPackage: RCPackageFromKnUi
     ) {
         listener?.onPurchaseStarted(
-            didStartPurchaseWithPackage.toPackage()
+            (didStartPurchaseWithPackage as RCPackage).toPackage()
         )
     }
 
     @Suppress("CAST_NEVER_SUCCEEDS")
     override fun paywallViewController(
         controller: RCPaywallViewController,
-        didFinishPurchasingWithCustomerInfo: RCCustomerInfo,
-        transaction: RCStoreTransaction?
+        didFinishPurchasingWithCustomerInfo: RCCustomerInfoFromKnUi,
+        transaction: RCStoreTransactionFromKnUi?
     ) {
         listener?.onPurchaseCompleted(
-            (didFinishPurchasingWithCustomerInfo).toCustomerInfo(),
-            transaction?.toStoreTransaction()!! // FIXME
+            (didFinishPurchasingWithCustomerInfo as RCCustomerInfo).toCustomerInfo(),
+            (transaction as RCStoreTransaction?)?.toStoreTransaction()!! // FIXME
         )
     }
 
@@ -65,10 +68,10 @@ internal class IosPaywallDelegate(
     @Suppress("CAST_NEVER_SUCCEEDS", "PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun paywallViewController(
         controller: RCPaywallViewController,
-        didFinishRestoringWithCustomerInfo: RCCustomerInfo
+        didFinishRestoringWithCustomerInfo: RCCustomerInfoFromKnUi
     ) {
         listener?.onRestoreCompleted(
-            (didFinishRestoringWithCustomerInfo).toCustomerInfo()
+            (didFinishRestoringWithCustomerInfo as RCCustomerInfo).toCustomerInfo()
         )
     }
 
