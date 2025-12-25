@@ -9,7 +9,7 @@ import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallViewController
 import com.revenuecat.purchases.kmp.mappings.toIosOffering
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewController
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState
-import objcnames.classes.RCOffering
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCOffering
 
 @Composable
 internal fun UIKitPaywall(
