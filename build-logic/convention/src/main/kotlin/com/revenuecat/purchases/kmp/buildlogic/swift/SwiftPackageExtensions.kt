@@ -59,15 +59,18 @@ fun KotlinDependencyHandler.swiftPackage(
         )
     
     val sourceSetName = getSourceSetName()
-    registry.add(
-        SwiftDependency(
-            packagePath = path,
-            target = target,
-            packageName = packageName,
-            sourceSetName = sourceSetName,
-            customDeclarations = customDeclarations
-        )
+    val dependency = SwiftDependency(
+        packagePath = path,
+        target = target,
+        packageName = packageName,
+        sourceSetName = sourceSetName,
+        customDeclarations = customDeclarations
     )
+    registry.add(dependency)
+    
+    // Also register to the global registry for cross-project dependency detection
+    val globalRegistry = project.getOrCreateGlobalSwiftRegistry()
+    globalRegistry.register(target, project, dependency)
 }
 
 private fun KotlinDependencyHandler.getSourceSetName(): String {

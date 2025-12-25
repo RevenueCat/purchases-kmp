@@ -7,6 +7,7 @@ plugins {
 kotlin {
     sourceSets {
         iosMain.dependencies {
+            //api(projects.knCore)
             swiftPackage(
                 path = rootProject.file("upstream/purchases-ios"),
                 target = "RevenueCatUI",

@@ -32,24 +32,29 @@ private fun Project.configureAllSwiftDependencies(dependencies: List<SwiftDepend
 
     // We need to find the source directory of each Swift target.
     val targetSourceDirs = mutableMapOf<SwiftDependency, File>()
+    val targetSwiftDependencies = mutableMapOf<SwiftDependency, List<String>>()
+    
     dependenciesByPackageDir.forEach { (packageDir, deps) ->
         val packageInfo = getSwiftPackageInfo(packageDir)
         deps.forEach { dep ->
             targetSourceDirs[dep] = packageInfo.getTargetSourceDir(dep.target, packageDir)
+            targetSwiftDependencies[dep] = packageInfo.getTargetDependencies(dep.target)
         }
     }
 
     dependencies.forEach { dependency ->
         val targetSourceDir = targetSourceDirs[dependency]
             ?: error("Could not resolve source directory for target ${dependency.target}")
-        configureSwiftDependency(kotlin, dependency, targetSourceDir)
+        val swiftDependencies = targetSwiftDependencies[dependency] ?: emptyList()
+        configureSwiftDependency(kotlin, dependency, targetSourceDir, swiftDependencies)
     }
 }
 
 private fun Project.configureSwiftDependency(
     kotlin: KotlinMultiplatformExtension,
     dependency: SwiftDependency,
-    targetSourceDir: File
+    targetSourceDir: File,
+    swiftDependencies: List<String>
 ) {
     // Register a task to generate the cinterop .def file
     val defFile = layout.buildDirectory.file("generated/cinterop/${dependency.target}.def")
@@ -61,6 +66,18 @@ private fun Project.configureSwiftDependency(
         dependency.customDeclarations?.let { customDeclarations.set(it) }
         this.toolchainPath.set(getToolchainPath())
         this.defFile.set(defFile)
+    }
+
+    // Find which Swift dependencies are owned by other projects
+    val globalRegistry = getOrCreateGlobalSwiftRegistry()
+    val moduleDependencies = swiftDependencies.mapNotNull { depTarget ->
+        val owner = globalRegistry.findOwner(depTarget)
+        // Only include if it's in a different project
+        if (owner != null && owner.project != this) {
+            owner
+        } else {
+            null
+        }
     }
 
     kotlin.targets.withType<KotlinNativeTarget> {
@@ -84,23 +101,36 @@ private fun Project.configureSwiftDependency(
 
         val sdkPath = getSdkPath(konanTarget)
 
+        // Collect module paths: our own output + outputs from dependencies in other projects
+        val dependencyModulePaths = moduleDependencies.map { dep ->
+            dep.project.layout.buildDirectory
+                .dir("swift-packages/${dep.dependency.target}/${konanTarget.name}")
+                .get().asFile
+        }
+        val allModulePaths = listOf(swiftOutputDir) + dependencyModulePaths
+
         mainCompilation.cinterops.create(dependency.target) {
             defFile(defFile)
             extraOpts("-libraryPath", swiftOutputDir.absolutePath)
 
+            // Add -I flags for all module paths (own + dependencies)
             compilerOpts(
                 "-fmodules",
-                "-I", swiftOutputDir.absolutePath,
-                "-isysroot", sdkPath
+                "-isysroot", sdkPath,
+                *allModulePaths.flatMap { listOf("-I", it.absolutePath) }.toTypedArray()
             )
 
             // Make sure we generate the .def file and compile Swift before cinterop runs.
             tasks.named(interopProcessingTaskName).configure {
                 dependsOn(generateDefTask)
                 dependsOn(swiftBuildTask)
-                // Rerun cinterop if the .def file or header changes.
-                inputs.file(swiftBuildTask.flatMap { it.outputDir.file(it.headerName.get()) })
-                inputs.file(defFile)
+
+                // Add task dependencies for Swift builds from other projects
+                moduleDependencies.forEach { dep ->
+                    val taskSuffix = getTaskSuffix(konanTarget)
+                    val depTaskName = "compileSwift${dep.dependency.target}$taskSuffix"
+                    dependsOn(dep.project.tasks.named(depTaskName))
+                }
             }
         }
     }
@@ -158,25 +188,7 @@ private fun Project.registerSwiftBuildTask(
     dependency: SwiftDependency,
     targetSourceDir: File
 ): TaskProvider<SwiftBuildTask> {
-    val taskSuffix = when (kotlinTarget.konanTarget) {
-        // iOS
-        KonanTarget.IOS_ARM64 -> "IosArm64"
-        KonanTarget.IOS_SIMULATOR_ARM64 -> "IosSimulatorArm64"
-        KonanTarget.IOS_X64 -> "IosX64"
-        // macOS
-        KonanTarget.MACOS_ARM64 -> "MacosArm64"
-        KonanTarget.MACOS_X64 -> "MacosX64"
-        // tvOS
-        KonanTarget.TVOS_ARM64 -> "TvosArm64"
-        KonanTarget.TVOS_SIMULATOR_ARM64 -> "TvosSimulatorArm64"
-        KonanTarget.TVOS_X64 -> "TvosX64"
-        // watchOS
-        KonanTarget.WATCHOS_ARM64 -> "WatchosArm64"
-        KonanTarget.WATCHOS_SIMULATOR_ARM64 -> "WatchosSimulatorArm64"
-        KonanTarget.WATCHOS_X64 -> "WatchosX64"
-        KonanTarget.WATCHOS_DEVICE_ARM64 -> "WatchosDeviceArm64"
-        else -> error("Unexpected target: ${kotlinTarget.konanTarget}")
-    }
+    val taskSuffix = getTaskSuffix(kotlinTarget.konanTarget)
     val taskName = "compileSwift${dependency.target}$taskSuffix"
 
     return tasks.register(taskName, SwiftBuildTask::class.java) {
@@ -190,8 +202,32 @@ private fun Project.registerSwiftBuildTask(
         packageDir.set(dependency.packageDir)
         this.targetSourceDir.set(targetSourceDir)
         outputDir.set(layout.buildDirectory.dir("swift-packages/${dependency.target}/${kotlinTarget.konanTarget.name}"))
-        scratchDir.set(layout.buildDirectory.dir("swift-packages/.build"))
+        // Use a shared scratch directory at root project level for SPM build cache sharing
+        scratchDir.set(rootProject.layout.buildDirectory.dir("swift-packages/.build"))
     }
+}
+
+/**
+ * Get the task name suffix for a given Konan target.
+ */
+private fun getTaskSuffix(konanTarget: KonanTarget): String = when (konanTarget) {
+    // iOS
+    KonanTarget.IOS_ARM64 -> "IosArm64"
+    KonanTarget.IOS_SIMULATOR_ARM64 -> "IosSimulatorArm64"
+    KonanTarget.IOS_X64 -> "IosX64"
+    // macOS
+    KonanTarget.MACOS_ARM64 -> "MacosArm64"
+    KonanTarget.MACOS_X64 -> "MacosX64"
+    // tvOS
+    KonanTarget.TVOS_ARM64 -> "TvosArm64"
+    KonanTarget.TVOS_SIMULATOR_ARM64 -> "TvosSimulatorArm64"
+    KonanTarget.TVOS_X64 -> "TvosX64"
+    // watchOS
+    KonanTarget.WATCHOS_ARM64 -> "WatchosArm64"
+    KonanTarget.WATCHOS_SIMULATOR_ARM64 -> "WatchosSimulatorArm64"
+    KonanTarget.WATCHOS_X64 -> "WatchosX64"
+    KonanTarget.WATCHOS_DEVICE_ARM64 -> "WatchosDeviceArm64"
+    else -> error("Unexpected target: $konanTarget")
 }
 
 /**
@@ -300,7 +336,8 @@ private class SwiftPackageInfo(
 ) {
     data class TargetInfo(
         val name: String,
-        val path: String?
+        val path: String?,
+        val targetDependencies: List<String>
     )
 
     fun getTargetSourceDir(targetName: String, packageDir: File): File {
@@ -309,6 +346,15 @@ private class SwiftPackageInfo(
 
         val relativePath = target.path ?: "Sources/$targetName"
         return packageDir.resolve(relativePath)
+    }
+
+    /**
+     * Get the list of target dependencies for a given target.
+     */
+    fun getTargetDependencies(targetName: String): List<String> {
+        val target = targets.find { it.name == targetName }
+            ?: error("Target '$targetName' not found in Package.swift. Available targets: ${targets.map { it.name }}")
+        return target.targetDependencies
     }
 
     companion object {
@@ -322,9 +368,13 @@ private class SwiftPackageInfo(
             val targetsJson = parsed["targets"] as? List<Map<String, Any>> ?: emptyList()
 
             val targets = targetsJson.map { targetJson ->
+                // Parse target dependencies from the JSON
+                val dependencies = targetJson["target_dependencies"] as? List<String> ?: emptyList()
+                
                 TargetInfo(
                     name = targetJson["name"] as String,
-                    path = targetJson["path"] as? String
+                    path = targetJson["path"] as? String,
+                    targetDependencies = dependencies
                 )
             }
 
