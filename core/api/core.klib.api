@@ -52,8 +52,6 @@ final class com.revenuecat.purchases.kmp.ktx/SuccessfulPurchase { // com.revenue
 }
 
 final class com.revenuecat.purchases.kmp/AdTracker { // com.revenuecat.purchases.kmp/AdTracker|null[0]
-    constructor <init>() // com.revenuecat.purchases.kmp/AdTracker.<init>|<init>(){}[0]
-
     final fun trackAdDisplayed(com.revenuecat.purchases.kmp.models/AdDisplayedData) // com.revenuecat.purchases.kmp/AdTracker.trackAdDisplayed|trackAdDisplayed(com.revenuecat.purchases.kmp.models.AdDisplayedData){}[0]
     final fun trackAdFailedToLoad(com.revenuecat.purchases.kmp.models/AdFailedToLoadData) // com.revenuecat.purchases.kmp/AdTracker.trackAdFailedToLoad|trackAdFailedToLoad(com.revenuecat.purchases.kmp.models.AdFailedToLoadData){}[0]
     final fun trackAdLoaded(com.revenuecat.purchases.kmp.models/AdLoadedData) // com.revenuecat.purchases.kmp/AdTracker.trackAdLoaded|trackAdLoaded(com.revenuecat.purchases.kmp.models.AdLoadedData){}[0]
