@@ -81,6 +81,10 @@ abstract class SwiftBuildTask @Inject constructor(
 
         execOperations.exec {
             workingDir = packageDir.get().asFile
+            // Avoids trying to use the iOS SDK to parse the Package.swift when building from Xcode.
+            // Swift compilation still uses the correct SDK because of the -Xswiftc -sdk arguments.
+            // This environment change is only scoped to this subprocess.
+            environment("SDKROOT", "")
             commandLine(
                 "xcrun", "swift", "build",
                 "--target", targetName,

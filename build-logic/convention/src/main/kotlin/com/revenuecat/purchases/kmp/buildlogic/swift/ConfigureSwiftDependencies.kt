@@ -321,10 +321,22 @@ private fun KonanTarget.getTriple(): String = when (this) {
  * Runs `swift package describe --type json` and parses the output.
  */
 private fun Project.getSwiftPackageInfo(packageDir: File): SwiftPackageInfo {
-    val output = providers.exec {
+    val result = providers.exec {
         workingDir = packageDir
-        commandLine("swift", "package", "describe", "--type", "json")
-    }.standardOutput.asText.get()
+        commandLine("xcrun", "swift", "package", "describe", "--type", "json")
+        isIgnoreExitValue = true
+        // Avoids trying to use the iOS SDK to parse the Package.swift when building from Xcode.
+        // This environment change is only scoped to this subprocess.
+        environment("SDKROOT", "")
+    }
+
+    val exitCode = result.result.get().exitValue
+    if (exitCode != 0) {
+        val stderr = result.standardError.asText.get()
+        error("Failed to run 'swift package describe' in $packageDir (exit code $exitCode): $stderr")
+    }
+
+    val output = result.standardOutput.asText.get()
     return SwiftPackageInfo.parse(output)
 }
 
