@@ -17,6 +17,8 @@ tasks.withType<KotlinCompile>().configureEach {
 }
 
 dependencies {
+    compileOnly(libs.compose.gradlePlugin)
+
     implementation(libs.android.gradlePlugin)
     implementation(libs.detekt.gradlePlugin)
     implementation(libs.dokkatoo.gradlePlugin)
