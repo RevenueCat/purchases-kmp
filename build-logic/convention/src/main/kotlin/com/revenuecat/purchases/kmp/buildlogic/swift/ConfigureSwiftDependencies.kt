@@ -1,13 +1,18 @@
 package com.revenuecat.purchases.kmp.buildlogic.swift
 
 import com.revenuecat.purchases.kmp.buildlogic.swift.model.SwiftDependency
+import com.revenuecat.purchases.kmp.buildlogic.swift.model.SwiftPackageInfo
 import com.revenuecat.purchases.kmp.buildlogic.swift.model.getSwiftPackageInfo
 import com.revenuecat.purchases.kmp.buildlogic.swift.task.GenerateDefFileTask
+import com.revenuecat.purchases.kmp.buildlogic.swift.task.ProcessSwiftResourcesTask
 import com.revenuecat.purchases.kmp.buildlogic.swift.task.SwiftBuildTask
 import org.gradle.api.Project
+import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.compose.ComposeExtension
+import org.jetbrains.compose.resources.ResourcesExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.konan.target.KonanTarget
@@ -30,26 +35,71 @@ private fun Project.configureAllSwiftDependencies(dependencies: List<SwiftDepend
     val kotlin = extensions.findByType(KotlinMultiplatformExtension::class.java)
         ?: error("Kotlin Multiplatform plugin must be applied before configuring Swift dependencies")
 
-    // Group dependencies by packageDir to avoid running `swift package describe` multiple times
-    val dependenciesByPackageDir = dependencies.groupBy { it.packageDir }
+    val packageInfos = dependencies
+        .groupBy { it.packageDir }
+        .mapValues { (packageDir, _) -> getSwiftPackageInfo(packageDir) }
 
-    // We need to find the source directory of each Swift target.
-    val targetSourceDirs = mutableMapOf<SwiftDependency, File>()
-    val targetSwiftDependencies = mutableMapOf<SwiftDependency, List<String>>()
-    
-    dependenciesByPackageDir.forEach { (packageDir, deps) ->
-        val packageInfo = getSwiftPackageInfo(packageDir)
-        deps.forEach { dep ->
-            targetSourceDirs[dep] = packageInfo.getTargetSourceDir(dep.target, packageDir)
-            targetSwiftDependencies[dep] = packageInfo.getTargetDependencies(dep.target)
+    val resourcesConfigured = mutableSetOf<String>()
+    dependencies.forEach { dependency ->
+        val packageInfo = packageInfos[dependency.packageDir]
+            ?: error("Could not find package info for ${dependency.packageDir}")
+        val targetSourceDir = packageInfo.getTargetSourceDir(dependency.target, dependency.packageDir)
+        val swiftDependencies = packageInfo.getTargetDependencies(dependency.target)
+        
+        configureSwiftDependency(kotlin, dependency, targetSourceDir, swiftDependencies)
+        
+        if (dependency.target !in resourcesConfigured) {
+            configureSwiftResources(dependency, packageInfo)
+            resourcesConfigured.add(dependency.target)
         }
     }
+}
 
-    dependencies.forEach { dependency ->
-        val targetSourceDir = targetSourceDirs[dependency]
-            ?: error("Could not resolve source directory for target ${dependency.target}")
-        val swiftDependencies = targetSwiftDependencies[dependency] ?: emptyList()
-        configureSwiftDependency(kotlin, dependency, targetSourceDir, swiftDependencies)
+/**
+ * Configures Swift package resources processing to include in the .klib via Compose Resources.
+ */
+private fun Project.configureSwiftResources(
+    dependency: SwiftDependency,
+    packageInfo: SwiftPackageInfo
+) {
+    val resources = packageInfo.getTargetResources(dependency.target)
+    if (resources.isEmpty()) return
+
+    val composeExtension = extensions.findByType(ComposeExtension::class.java)
+    
+    if (composeExtension == null) {
+        logger.info(
+            "Skipping ${resources.size} resources in Swift target '${dependency.target}' " +
+                    "because the Compose Gradle plugin is not applied."
+        )
+        return
+    }
+    
+    val resourcesExtension = (composeExtension as ExtensionAware).extensions
+        .findByType(ResourcesExtension::class.java)
+    
+    if (resourcesExtension == null) {
+        logger.info(
+            "Skipping ${resources.size} resources in Swift target '${dependency.target}' " +
+                    "because the Compose Resources extension was not found."
+        )
+        return
+    }
+    
+    val taskName = "processSwiftResources${dependency.target}"
+    val processResourcesTask = tasks.register(taskName, ProcessSwiftResourcesTask::class.java) {
+        platformVersions.set(packageInfo.platformVersions)
+        this.resources.set(resources)
+        sourceSetName.set(dependency.sourceSetName)
+        outputDir.set(layout.buildDirectory.dir("swift-resources/${dependency.target}"))
+        resourceFiles.from(resources.map { File(it.path) })
+    }
+    with(resourcesExtension) {
+        packageOfResClass = "${dependency.packageName}.resources"
+        customDirectory(
+            sourceSetName = dependency.sourceSetName,
+            directoryProvider = processResourcesTask.map { it.outputDir.get() }
+        )
     }
 }
 
