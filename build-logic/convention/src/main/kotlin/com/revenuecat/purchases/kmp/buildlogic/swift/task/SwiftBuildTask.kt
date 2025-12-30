@@ -1,4 +1,4 @@
-package com.revenuecat.purchases.kmp.buildlogic.swift
+package com.revenuecat.purchases.kmp.buildlogic.swift.task
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
@@ -11,6 +11,7 @@ import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 import org.gradle.process.ExecOperations
+import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
 /**
@@ -132,7 +133,7 @@ abstract class SwiftBuildTask @Inject constructor(
     }
 
     private fun getSdkPath(sdk: String): String {
-        val output = java.io.ByteArrayOutputStream()
+        val output = ByteArrayOutputStream()
         execOperations.exec {
             commandLine("xcrun", "--sdk", sdk, "--show-sdk-path")
             standardOutput = output

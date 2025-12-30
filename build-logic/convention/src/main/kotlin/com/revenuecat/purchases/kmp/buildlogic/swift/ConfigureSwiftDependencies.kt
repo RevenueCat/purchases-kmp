@@ -1,6 +1,9 @@
 package com.revenuecat.purchases.kmp.buildlogic.swift
 
-import groovy.json.JsonSlurper
+import com.revenuecat.purchases.kmp.buildlogic.swift.model.SwiftDependency
+import com.revenuecat.purchases.kmp.buildlogic.swift.model.getSwiftPackageInfo
+import com.revenuecat.purchases.kmp.buildlogic.swift.task.GenerateDefFileTask
+import com.revenuecat.purchases.kmp.buildlogic.swift.task.SwiftBuildTask
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskProvider
@@ -94,7 +97,7 @@ private fun Project.configureSwiftDependency(
 
         val sdkPath = getSdkPath(konanTarget)
 
-        // Collect module paths: our own output + outputs from dependencies in other projects
+        // Collect module paths: our own output + outputs from Swift dependencies in other projects
         val dependencyModulePaths = moduleDependencies.map { dep ->
             dep.project.layout.buildDirectory
                 .dir("swift-packages/${dep.dependency.target}/${konanTarget.name}")
@@ -162,12 +165,8 @@ private fun KonanTarget.isAppleTarget(): Boolean =
 private fun KotlinNativeTarget.includesSourceSet(sourceSetName: String): Boolean {
     val targetName = this.name
 
-    // Direct match
-    if (sourceSetName == "${targetName}Main") {
-        return true
-    }
+    if (sourceSetName == "${targetName}Main") return true
 
-    // Check hierarchical source sets based on naming conventions
     return when (sourceSetName) {
         "appleMain" -> targetName.startsWith("ios") ||
                 targetName.startsWith("macos") ||
@@ -258,9 +257,7 @@ private fun Project.getSwiftConfiguration(): String {
 
     val taskNames = gradle.startParameter.taskNames
     val isPublishing = taskNames.any { it.contains("publish", ignoreCase = true) }
-    if (isPublishing) {
-        return "release"
-    }
+    if (isPublishing) return "release"
 
     return "debug"
 }
@@ -314,82 +311,4 @@ private fun KonanTarget.getTriple(): String = when (this) {
     KonanTarget.WATCHOS_SIMULATOR_ARM64 -> "arm64-apple-watchos-simulator"
     KonanTarget.WATCHOS_ARM64, KonanTarget.WATCHOS_DEVICE_ARM64 -> "arm64-apple-watchos"
     else -> error("Unsupported target: $this")
-}
-
-/**
- * Runs `swift package describe --type json` and parses the output.
- */
-private fun Project.getSwiftPackageInfo(packageDir: File): SwiftPackageInfo {
-    val result = providers.exec {
-        workingDir = packageDir
-        commandLine("xcrun", "swift", "package", "describe", "--type", "json")
-        isIgnoreExitValue = true
-        // Avoids trying to use the iOS SDK to parse the Package.swift when building from Xcode.
-        // This environment change is only scoped to this subprocess.
-        environment("SDKROOT", "")
-    }
-
-    val exitCode = result.result.get().exitValue
-    if (exitCode != 0) {
-        val stderr = result.standardError.asText.get()
-        error("Failed to run 'swift package describe' in $packageDir (exit code $exitCode): $stderr")
-    }
-
-    val output = result.standardOutput.asText.get()
-    return SwiftPackageInfo.parse(output)
-}
-
-/**
- * Parsed information from `swift package describe --type json`.
- */
-private class SwiftPackageInfo(
-    private val targets: List<TargetInfo>
-) {
-    data class TargetInfo(
-        val name: String,
-        val path: String?,
-        val targetDependencies: List<String>
-    )
-
-    fun getTargetSourceDir(targetName: String, packageDir: File): File {
-        val target = targets.find { it.name == targetName }
-            ?: error("Target '$targetName' not found in Package.swift. Available targets: ${targets.map { it.name }}")
-
-        val relativePath = target.path ?: "Sources/$targetName"
-        return packageDir.resolve(relativePath)
-    }
-
-    /**
-     * Get the list of target dependencies for a given target.
-     */
-    fun getTargetDependencies(targetName: String): List<String> {
-        val target = targets.find { it.name == targetName }
-            ?: error("Target '$targetName' not found in Package.swift. Available targets: ${targets.map { it.name }}")
-        return target.targetDependencies
-    }
-
-    companion object {
-
-        /**
-         * Parses output from `swift package describe --type json` into a [SwiftPackageInfo].
-         */
-        @Suppress("UNCHECKED_CAST")
-        fun parse(json: String): SwiftPackageInfo {
-            val parsed = JsonSlurper().parseText(json) as Map<String, Any>
-            val targetsJson = parsed["targets"] as? List<Map<String, Any>> ?: emptyList()
-
-            val targets = targetsJson.map { targetJson ->
-                // Parse target dependencies from the JSON
-                val dependencies = targetJson["target_dependencies"] as? List<String> ?: emptyList()
-                
-                TargetInfo(
-                    name = targetJson["name"] as String,
-                    path = targetJson["path"] as? String,
-                    targetDependencies = dependencies
-                )
-            }
-
-            return SwiftPackageInfo(targets)
-        }
-    }
 }

@@ -1,13 +1,11 @@
 package com.revenuecat.purchases.kmp.buildlogic.swift
 
+import com.revenuecat.purchases.kmp.buildlogic.swift.model.SwiftDependency
 import org.gradle.api.Project
 
 /**
  * A global registry that tracks all Swift targets declared across all Gradle projects.
- * This is used to:
- * 1. Auto-detect module dependencies between Swift targets
- * 2. Avoid duplicate compilations by sharing the SPM build cache
- * 3. Wire up task dependencies between projects
+ * This is mainly used to auto-detect module dependencies between Swift targets.
  *
  * This registry is created on the root project and accessed by all subprojects.
  */
@@ -62,4 +60,3 @@ internal fun Project.getOrCreateGlobalSwiftRegistry(): GlobalSwiftPackageRegistr
     return rootProject.extensions.findByType(GlobalSwiftPackageRegistry::class.java)
         ?: rootProject.extensions.create("globalSwiftPackageRegistry", GlobalSwiftPackageRegistry::class.java)
 }
-

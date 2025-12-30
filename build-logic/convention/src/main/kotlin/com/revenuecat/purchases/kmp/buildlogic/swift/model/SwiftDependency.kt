@@ -1,4 +1,4 @@
-package com.revenuecat.purchases.kmp.buildlogic.swift
+package com.revenuecat.purchases.kmp.buildlogic.swift.model
 
 import java.io.File
 

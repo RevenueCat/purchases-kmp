@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.buildlogic.swift
 
+import com.revenuecat.purchases.kmp.buildlogic.swift.model.SwiftDependency
 import org.gradle.api.Project
-import org.intellij.lang.annotations.Language
 import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import java.io.File
@@ -20,31 +20,16 @@ open class SwiftPackageRegistry {
 /**
  * Adds a Swift package dependency to the project.
  *
- * This function can be called from any Kotlin source set's dependencies block,
- * but is typically used in iOS source sets (e.g., `iosMain`).
+ * This function should be called in a dependencies block of a Kotlin source set belonging to an
+ * Apple target, such as `iosMain`.
  *
- * Usage:
- * ```
- * kotlin {
- *     sourceSets {
- *         iosMain.dependencies {
- *             swiftPackage(
- *                 path = rootProject.file("upstream/purchases-ios"),
- *                 target = "RevenueCat",
- *                 packageName = "com.revenuecat.purchases"
- *             )
- *         }
- *     }
- * }
- * ```
- *
- * @param path Path to the Swift package directory (containing `Package.swift`)
- *             or to the `Package.swift` file itself.
+ * @param path Path to the Swift package directory (containing `Package.swift`) or to the
+ * `Package.swift` file itself.
  * @param target The Swift target name to build and generate bindings for.
  * @param packageName The Kotlin package name for the generated cinterop bindings.
- * @param customDeclarations Optional declarations to include in the .def file.
- *                           Use this to force cinterop binding generation for types not otherwise
- *                           referenced in the public API of the Swift [target].
+ * @param customDeclarations Optional declarations to include in the .def file. Use this to force
+ * cinterop binding generation for types not otherwise referenced in the public API of the Swift
+ * [target].
  */
 fun KotlinDependencyHandler.swiftPackage(
     path: File,

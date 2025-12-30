@@ -1,4 +1,4 @@
-package com.revenuecat.purchases.kmp.buildlogic.swift
+package com.revenuecat.purchases.kmp.buildlogic.swift.task
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
@@ -57,8 +57,8 @@ abstract class GenerateDefFileTask : DefaultTask() {
         file.parentFile.mkdirs()
 
         val toolchain = toolchainPath.get()
-        // We add a hash of the Swift source directory to force cinterop to re-run when 
-        // Swift source changes, even if the changes are non-public. This is necessary 
+        // We add a hash of the Swift source directory to force cinterop to re-run when
+        // Swift source changes, even if the changes are non-public. This is necessary
         // because we found using inputs.file() on the cinterop task directly causes
         // failures when building debug after release (e.g. publishToMavenLocal). This
         // seems related to the cinterop commonizer.
@@ -88,7 +88,7 @@ abstract class GenerateDefFileTask : DefaultTask() {
     private fun computeSourceHash(): String {
         val sourceDir = swiftSourceDir.get().asFile
         val digest = MessageDigest.getInstance("MD5")
-        
+
         sourceDir.walkTopDown()
             .filter { it.isFile && it.extension == "swift" }
             .sortedBy { it.relativeTo(sourceDir).path }
@@ -96,7 +96,7 @@ abstract class GenerateDefFileTask : DefaultTask() {
                 digest.update(file.relativeTo(sourceDir).path.toByteArray())
                 digest.update(file.readBytes())
             }
-        
+
         return digest.digest().joinToString("") { "%02x".format(it) }
     }
 }
