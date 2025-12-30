@@ -3,6 +3,7 @@ package com.revenuecat.purchases.kmp.buildlogic.swift
 import groovy.json.JsonSlurper
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -71,27 +72,19 @@ private fun Project.configureSwiftDependency(
     // Find which Swift dependencies are owned by other projects
     val globalRegistry = getOrCreateGlobalSwiftRegistry()
     val moduleDependencies = swiftDependencies.mapNotNull { depTarget ->
-        val owner = globalRegistry.findOwner(depTarget)
-        // Only include if it's in a different project
-        if (owner != null && owner.project != this) {
-            owner
-        } else {
-            null
-        }
+        globalRegistry.findOwner(depTarget)
+            // Only include dependencies from other projects
+            ?.takeIf { it.project != this  }
     }
 
     kotlin.targets.withType<KotlinNativeTarget> {
         // Skip this target if it doesn't include the source set this dependency is added to.
-        if (!includesSourceSet(dependency.sourceSetName)) {
-            return@withType
-        }
+        if (!includesSourceSet(dependency.sourceSetName)) return@withType
 
-        if (!konanTarget.isAppleTarget()) {
-            error(
-                "swiftPackage() was called from source set '${dependency.sourceSetName}', " +
-                        "but only Apple targets are supported."
-            )
-        }
+        if (!konanTarget.isAppleTarget()) error(
+            "swiftPackage() was called from source set '${dependency.sourceSetName}', " +
+                    "but only Apple targets are supported."
+        )
 
         val mainCompilation = compilations.getByName("main")
         val swiftBuildTask = registerSwiftBuildTask(this, dependency, targetSourceDir)
@@ -120,10 +113,19 @@ private fun Project.configureSwiftDependency(
                 *allModulePaths.flatMap { listOf("-I", it.absolutePath) }.toTypedArray()
             )
 
-            // Make sure we generate the .def file and compile Swift before cinterop runs.
             tasks.named(interopProcessingTaskName).configure {
+                // Make sure we generate the .def file and compile Swift before cinterop runs.
                 dependsOn(generateDefTask)
                 dependsOn(swiftBuildTask)
+
+                // Rerun cinterop if the .def file or static library changes.
+                // We're intentionally using the entire static library as input and not just the
+                // header, because otherwise we would need to run a clean build to pick up any
+                // non-public changes in Swift.
+                inputs.file(swiftBuildTask.flatMap { it.outputDir.file(it.libraryName.get()) })
+                    .withPathSensitivity(PathSensitivity.RELATIVE)
+                inputs.file(defFile)
+                    .withPathSensitivity(PathSensitivity.RELATIVE)
 
                 // Add task dependencies for Swift builds from other projects
                 moduleDependencies.forEach { dep ->
