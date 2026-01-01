@@ -1,12 +1,17 @@
 package com.revenuecat.purchases.kmp.buildlogic.swift
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
+import java.security.MessageDigest
 
 /**
  * Gradle task that generates a cinterop .def file for a Swift package.
@@ -37,6 +42,11 @@ abstract class GenerateDefFileTask : DefaultTask() {
     @get:Input
     abstract val toolchainPath: Property<String>
 
+    /** The Swift source directory - used to compute a hash for cache invalidation */
+    @get:InputDirectory
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val swiftSourceDir: DirectoryProperty
+
     /** The output .def file */
     @get:OutputFile
     abstract val defFile: RegularFileProperty
@@ -47,8 +57,15 @@ abstract class GenerateDefFileTask : DefaultTask() {
         file.parentFile.mkdirs()
 
         val toolchain = toolchainPath.get()
+        // We add a hash of the Swift source directory to force cinterop to re-run when 
+        // Swift source changes, even if the changes are non-public. This is necessary 
+        // because we found using inputs.file() on the cinterop task directly causes
+        // failures when building debug after release (e.g. publishToMavenLocal). This
+        // seems related to the cinterop commonizer.
+        val sourceHash = computeSourceHash()
 
         val baseContent = """
+            # sourceHash=$sourceHash
             language = Objective-C
             package = ${packageName.get()}
             modules = ${moduleName.get()}
@@ -66,5 +83,20 @@ abstract class GenerateDefFileTask : DefaultTask() {
         }
 
         file.writeText(content)
+    }
+
+    private fun computeSourceHash(): String {
+        val sourceDir = swiftSourceDir.get().asFile
+        val digest = MessageDigest.getInstance("MD5")
+        
+        sourceDir.walkTopDown()
+            .filter { it.isFile && it.extension == "swift" }
+            .sortedBy { it.relativeTo(sourceDir).path }
+            .forEach { file ->
+                digest.update(file.relativeTo(sourceDir).path.toByteArray())
+                digest.update(file.readBytes())
+            }
+        
+        return digest.digest().joinToString("") { "%02x".format(it) }
     }
 }

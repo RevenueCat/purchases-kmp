@@ -3,7 +3,6 @@ package com.revenuecat.purchases.kmp.buildlogic.swift
 import groovy.json.JsonSlurper
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -66,6 +65,7 @@ private fun Project.configureSwiftDependency(
         libraryName.set(dependency.libraryName)
         dependency.customDeclarations?.let { customDeclarations.set(it) }
         this.toolchainPath.set(getToolchainPath())
+        this.swiftSourceDir.set(targetSourceDir)
         this.defFile.set(defFile)
     }
 
@@ -118,14 +118,11 @@ private fun Project.configureSwiftDependency(
                 dependsOn(generateDefTask)
                 dependsOn(swiftBuildTask)
 
-                // Rerun cinterop if the .def file or static library changes.
-                // We're intentionally using the entire static library as input and not just the
-                // header, because otherwise we would need to run a clean build to pick up any
-                // non-public changes in Swift.
-                inputs.file(swiftBuildTask.flatMap { it.outputDir.file(it.libraryName.get()) })
-                    .withPathSensitivity(PathSensitivity.RELATIVE)
-                inputs.file(defFile)
-                    .withPathSensitivity(PathSensitivity.RELATIVE)
+                // We're not configuring the static library as input because somehow it causes build 
+                // failures when building debug after release (e.g. publishToMavenLocal). It seems to 
+                // have something to do with the cinterop commonizer.
+                // As a workaround we're adding the static library's checksum to the def file in GenerateDefFileTask.
+                // This has the same effect of picking up any changes in Swift regardless of whether they're public.
 
                 // Add task dependencies for Swift builds from other projects
                 moduleDependencies.forEach { dep ->
