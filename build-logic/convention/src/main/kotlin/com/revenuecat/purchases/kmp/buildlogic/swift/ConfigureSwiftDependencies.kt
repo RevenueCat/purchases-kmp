@@ -252,6 +252,7 @@ private fun Project.registerSwiftBuildTask(
         outputDir.set(layout.buildDirectory.dir("swift-packages/${dependency.target}/${kotlinTarget.konanTarget.name}"))
         // Use a shared scratch directory at root project level for SPM build cache sharing
         scratchDir.set(rootProject.layout.buildDirectory.dir("swift-packages/.build"))
+        swiftSettingsArgs.set(dependency.swiftSettings?.toCommandLineArgs() ?: emptyList())
     }
 }
 
