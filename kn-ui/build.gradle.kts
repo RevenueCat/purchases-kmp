@@ -1,3 +1,4 @@
+import com.revenuecat.purchases.kmp.buildlogic.swift.model.SwiftSettings
 import com.revenuecat.purchases.kmp.buildlogic.swift.swiftPackage
 
 plugins {
@@ -18,7 +19,10 @@ kotlin {
             swiftPackage(
                 path = rootProject.file("upstream/purchases-ios"),
                 target = "RevenueCatUI",
-                packageName = "swiftPMImport.com.revenuecat.purchases.kn.ui"
+                packageName = "swiftPMImport.com.revenuecat.purchases.kn.ui",
+                swiftSettings = SwiftSettings {
+                    define("COMPOSE_RESOURCES")
+                }
             )
         }
     }
