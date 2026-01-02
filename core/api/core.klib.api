@@ -93,6 +93,7 @@ final class com.revenuecat.purchases.kmp/Purchases { // com.revenuecat.purchases
     final fun setAd(kotlin/String?) // com.revenuecat.purchases.kmp/Purchases.setAd|setAd(kotlin.String?){}[0]
     final fun setAdGroup(kotlin/String?) // com.revenuecat.purchases.kmp/Purchases.setAdGroup|setAdGroup(kotlin.String?){}[0]
     final fun setAdjustID(kotlin/String?) // com.revenuecat.purchases.kmp/Purchases.setAdjustID|setAdjustID(kotlin.String?){}[0]
+    final fun setAirbridgeDeviceID(kotlin/String?) // com.revenuecat.purchases.kmp/Purchases.setAirbridgeDeviceID|setAirbridgeDeviceID(kotlin.String?){}[0]
     final fun setAirshipChannelID(kotlin/String?) // com.revenuecat.purchases.kmp/Purchases.setAirshipChannelID|setAirshipChannelID(kotlin.String?){}[0]
     final fun setAppsflyerID(kotlin/String?) // com.revenuecat.purchases.kmp/Purchases.setAppsflyerID|setAppsflyerID(kotlin.String?){}[0]
     final fun setAttributes(kotlin.collections/Map<kotlin/String, kotlin/String?>) // com.revenuecat.purchases.kmp/Purchases.setAttributes|setAttributes(kotlin.collections.Map<kotlin.String,kotlin.String?>){}[0]

@@ -67,6 +67,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun setAd (Ljava/lang/String;)V
 	public final fun setAdGroup (Ljava/lang/String;)V
 	public final fun setAdjustID (Ljava/lang/String;)V
+	public final fun setAirbridgeDeviceID (Ljava/lang/String;)V
 	public final fun setAirshipChannelID (Ljava/lang/String;)V
 	public final fun setAppsflyerID (Ljava/lang/String;)V
 	public final fun setAttributes (Ljava/util/Map;)V
