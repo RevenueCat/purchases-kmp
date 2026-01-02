@@ -94,11 +94,13 @@ private fun Project.configureSwiftResources(
         outputDir.set(layout.buildDirectory.dir("swift-resources/${dependency.target}"))
         resourceFiles.from(resources.map { File(it.path) })
     }
-    
-    resourcesExtension.customDirectory(
-        sourceSetName = dependency.sourceSetName,
-        directoryProvider = processResourcesTask.map { it.outputDir.get() }
-    )
+    with(resourcesExtension) {
+        packageOfResClass = "${dependency.packageName}.resources"
+        customDirectory(
+            sourceSetName = dependency.sourceSetName,
+            directoryProvider = processResourcesTask.map { it.outputDir.get() }
+        )
+    }
 }
 
 private fun Project.configureSwiftDependency(
