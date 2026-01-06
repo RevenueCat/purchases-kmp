@@ -1,6 +1,10 @@
 plugins {
-    id("revenuecat-public-library")
+    id("revenuecat-library")
     alias(libs.plugins.kotlin.cocoapods)
+}
+
+revenueCat {
+    dokka = true
 }
 
 kotlin {

@@ -1,5 +1,9 @@
 plugins {
-    id("revenuecat-public-library")
+    id("revenuecat-library")
+}
+
+revenueCat {
+    dokka = true
 }
 
 kotlin {
