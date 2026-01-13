@@ -65,6 +65,10 @@ internal fun CustomerInfoSection(
                         label = "allExpirationDates"
                     )
                     EntitlementInfosRow(infos = state.value.entitlements)
+                    SubscriptionInfoMapRow(
+                        subscriptions = state.value.subscriptionsByProductIdentifier,
+                        label = "subscriptionsByProductIdentifier"
+                    )
                     TransactionsRow(
                         transactions = state.value.nonSubscriptionTransactions,
                         label = "nonSubscriptionTransactions"
