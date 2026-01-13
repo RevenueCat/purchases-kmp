@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.mappings
 
+import com.revenuecat.purchases.kmp.mappings.ktx.mapEntries
 import com.revenuecat.purchases.kmp.mappings.ktx.toEpochMilliseconds
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import platform.Foundation.dictionaryWithValuesForKeys
@@ -21,6 +22,9 @@ public fun IosCustomerInfo.toCustomerInfo(): CustomerInfo {
         firstSeenMillis = firstSeen().toEpochMilliseconds(),
         latestExpirationDateMillis = latestExpirationDate()?.toEpochMilliseconds(),
         managementUrlString = managementURL()?.absoluteString,
+        subscriptionsByProductIdentifier = subscriptionsByProductIdentifier()
+            .filter { (key, value) -> key != null && value != null }
+            .mapEntries { (key, info) -> key as String to info!!.toSubscriptionInfo() },
         nonSubscriptionTransactions = nonSubscriptions().map {
             val map = (it as NSObject)
                 .dictionaryWithValuesForKeys(

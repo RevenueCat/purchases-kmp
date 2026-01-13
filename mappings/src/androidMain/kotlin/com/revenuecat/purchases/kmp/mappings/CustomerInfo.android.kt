@@ -13,10 +13,13 @@ public fun AndroidCustomerInfo.toCustomerInfo(): CustomerInfo {
         firstSeenMillis = firstSeen.time,
         latestExpirationDateMillis = latestExpirationDate?.time,
         managementUrlString = managementURL?.toString(),
+        subscriptionsByProductIdentifier = subscriptionsByProductIdentifier.mapValues { (_, info) ->
+            info.toSubscriptionInfo()
+        },
         nonSubscriptionTransactions = nonSubscriptionTransactions.map { it.toTransaction() },
         originalAppUserId = originalAppUserId,
         originalApplicationVersion = null,
         originalPurchaseDateMillis = originalPurchaseDate?.time,
-        requestDateMillis = requestDate.time
+        requestDateMillis = requestDate.time,
     )
 }
