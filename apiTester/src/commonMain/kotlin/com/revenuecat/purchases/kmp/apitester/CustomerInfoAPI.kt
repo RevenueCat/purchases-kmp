@@ -10,6 +10,7 @@ import com.revenuecat.purchases.kmp.datetime.originalPurchaseInstant
 import com.revenuecat.purchases.kmp.datetime.requestInstant
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.EntitlementInfos
+import com.revenuecat.purchases.kmp.models.SubscriptionInfo
 import com.revenuecat.purchases.kmp.models.Transaction
 import kotlin.time.ExperimentalTime
 
@@ -23,6 +24,7 @@ private class CustomerInfoAPI {
             val ledm: Long? = latestExpirationDateMillis
             val lei: kotlinx.datetime.Instant? = latestExpirationInstant
             val led: kotlin.time.Instant? = latestExpirationDate
+            val si: Map<String, SubscriptionInfo> = subscriptionsByProductIdentifier
             val nst: List<Transaction> = nonSubscriptionTransactions
             val opdm: Long? = originalPurchaseDateMillis
             val opi: kotlinx.datetime.Instant? = originalPurchaseInstant

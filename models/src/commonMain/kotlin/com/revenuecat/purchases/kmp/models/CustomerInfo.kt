@@ -62,6 +62,11 @@ public class CustomerInfo(
     public val managementUrlString: String?,
 
     /**
+     * Map of productIds to subscription info.
+     */
+    public val subscriptionsByProductIdentifier: Map<String, SubscriptionInfo>,
+
+    /**
      * List of all non subscription transactions. Use this to fetch the history of
      * non-subscription purchases.
      */
