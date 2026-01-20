@@ -19,19 +19,19 @@ import com.revenuecat.purchases.ads.events.types.AdRevenuePrecision as AndroidAd
 
 @ExperimentalRevenueCatApi
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
-internal fun AdMediatorName.toAndroid(): AndroidAdMediatorName {
+public fun AdMediatorName.toAndroid(): AndroidAdMediatorName {
     return AndroidAdMediatorName.fromString(this.value)
 }
 
 @ExperimentalRevenueCatApi
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
-internal fun AdRevenuePrecision.toAndroid(): AndroidAdRevenuePrecision {
+public fun AdRevenuePrecision.toAndroid(): AndroidAdRevenuePrecision {
     return AndroidAdRevenuePrecision.fromString(this.value)
 }
 
 @ExperimentalRevenueCatApi
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
-internal fun AdDisplayedData.toAndroid(): AndroidAdDisplayedData {
+public fun AdDisplayedData.toAndroid(): AndroidAdDisplayedData {
     return AndroidAdDisplayedData(
         networkName = networkName,
         mediatorName = mediatorName.toAndroid(),
@@ -43,7 +43,7 @@ internal fun AdDisplayedData.toAndroid(): AndroidAdDisplayedData {
 
 @ExperimentalRevenueCatApi
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
-internal fun AdOpenedData.toAndroid(): AndroidAdOpenedData {
+public fun AdOpenedData.toAndroid(): AndroidAdOpenedData {
     return AndroidAdOpenedData(
         networkName = networkName,
         mediatorName = mediatorName.toAndroid(),
@@ -55,7 +55,7 @@ internal fun AdOpenedData.toAndroid(): AndroidAdOpenedData {
 
 @ExperimentalRevenueCatApi
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
-internal fun AdRevenueData.toAndroid(): AndroidAdRevenueData {
+public fun AdRevenueData.toAndroid(): AndroidAdRevenueData {
     return AndroidAdRevenueData(
         networkName = networkName,
         mediatorName = mediatorName.toAndroid(),
@@ -70,7 +70,7 @@ internal fun AdRevenueData.toAndroid(): AndroidAdRevenueData {
 
 @ExperimentalRevenueCatApi
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
-internal fun AdLoadedData.toAndroid(): AndroidAdLoadedData {
+public fun AdLoadedData.toAndroid(): AndroidAdLoadedData {
     return AndroidAdLoadedData(
         networkName = networkName,
         mediatorName = mediatorName.toAndroid(),
@@ -82,7 +82,7 @@ internal fun AdLoadedData.toAndroid(): AndroidAdLoadedData {
 
 @ExperimentalRevenueCatApi
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
-internal fun AdFailedToLoadData.toAndroid(): AndroidAdFailedToLoadData {
+public fun AdFailedToLoadData.toAndroid(): AndroidAdFailedToLoadData {
     return AndroidAdFailedToLoadData(
         networkName = networkName,
         mediatorName = mediatorName.toAndroid(),
