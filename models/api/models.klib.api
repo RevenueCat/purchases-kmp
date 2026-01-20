@@ -6,6 +6,10 @@
 // - Show declarations: true
 
 // Library unique name: <com.revenuecat.purchases:models>
+open annotation class com.revenuecat.purchases.kmp/ExperimentalRevenueCatApi : kotlin/Annotation { // com.revenuecat.purchases.kmp/ExperimentalRevenueCatApi|null[0]
+    constructor <init>() // com.revenuecat.purchases.kmp/ExperimentalRevenueCatApi.<init>|<init>(){}[0]
+}
+
 final enum class com.revenuecat.purchases.kmp.models/BillingFeature : kotlin/Enum<com.revenuecat.purchases.kmp.models/BillingFeature> { // com.revenuecat.purchases.kmp.models/BillingFeature|null[0]
     enum entry PRICE_CHANGE_CONFIRMATION // com.revenuecat.purchases.kmp.models/BillingFeature.PRICE_CHANGE_CONFIRMATION|null[0]
     enum entry SUBSCRIPTIONS // com.revenuecat.purchases.kmp.models/BillingFeature.SUBSCRIPTIONS|null[0]
@@ -520,6 +524,140 @@ sealed interface com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy { /
     }
 }
 
+final class com.revenuecat.purchases.kmp.models/AdDisplayedData { // com.revenuecat.purchases.kmp.models/AdDisplayedData|null[0]
+    constructor <init>(kotlin/String, com.revenuecat.purchases.kmp.models/AdMediatorName, kotlin/String?, kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp.models/AdDisplayedData.<init>|<init>(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;kotlin.String?;kotlin.String;kotlin.String){}[0]
+
+    final val adUnitId // com.revenuecat.purchases.kmp.models/AdDisplayedData.adUnitId|{}adUnitId[0]
+        final fun <get-adUnitId>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdDisplayedData.adUnitId.<get-adUnitId>|<get-adUnitId>(){}[0]
+    final val impressionId // com.revenuecat.purchases.kmp.models/AdDisplayedData.impressionId|{}impressionId[0]
+        final fun <get-impressionId>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdDisplayedData.impressionId.<get-impressionId>|<get-impressionId>(){}[0]
+    final val mediatorName // com.revenuecat.purchases.kmp.models/AdDisplayedData.mediatorName|{}mediatorName[0]
+        final fun <get-mediatorName>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdDisplayedData.mediatorName.<get-mediatorName>|<get-mediatorName>(){}[0]
+    final val networkName // com.revenuecat.purchases.kmp.models/AdDisplayedData.networkName|{}networkName[0]
+        final fun <get-networkName>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdDisplayedData.networkName.<get-networkName>|<get-networkName>(){}[0]
+    final val placement // com.revenuecat.purchases.kmp.models/AdDisplayedData.placement|{}placement[0]
+        final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdDisplayedData.placement.<get-placement>|<get-placement>(){}[0]
+
+    final fun component1(): kotlin/String // com.revenuecat.purchases.kmp.models/AdDisplayedData.component1|component1(){}[0]
+    final fun component2(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdDisplayedData.component2|component2(){}[0]
+    final fun component3(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdDisplayedData.component3|component3(){}[0]
+    final fun component4(): kotlin/String // com.revenuecat.purchases.kmp.models/AdDisplayedData.component4|component4(){}[0]
+    final fun component5(): kotlin/String // com.revenuecat.purchases.kmp.models/AdDisplayedData.component5|component5(){}[0]
+    final fun copy(kotlin/String = ..., com.revenuecat.purchases.kmp.models/AdMediatorName = ..., kotlin/String? = ..., kotlin/String = ..., kotlin/String = ...): com.revenuecat.purchases.kmp.models/AdDisplayedData // com.revenuecat.purchases.kmp.models/AdDisplayedData.copy|copy(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;kotlin.String?;kotlin.String;kotlin.String){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdDisplayedData.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdDisplayedData.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdDisplayedData.toString|toString(){}[0]
+}
+
+final class com.revenuecat.purchases.kmp.models/AdFailedToLoadData { // com.revenuecat.purchases.kmp.models/AdFailedToLoadData|null[0]
+    constructor <init>(kotlin/String, com.revenuecat.purchases.kmp.models/AdMediatorName, kotlin/String?, kotlin/String, kotlin/Int?) // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.<init>|<init>(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;kotlin.String?;kotlin.String;kotlin.Int?){}[0]
+
+    final val adUnitId // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.adUnitId|{}adUnitId[0]
+        final fun <get-adUnitId>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.adUnitId.<get-adUnitId>|<get-adUnitId>(){}[0]
+    final val mediatorErrorCode // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.mediatorErrorCode|{}mediatorErrorCode[0]
+        final fun <get-mediatorErrorCode>(): kotlin/Int? // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.mediatorErrorCode.<get-mediatorErrorCode>|<get-mediatorErrorCode>(){}[0]
+    final val mediatorName // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.mediatorName|{}mediatorName[0]
+        final fun <get-mediatorName>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.mediatorName.<get-mediatorName>|<get-mediatorName>(){}[0]
+    final val networkName // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.networkName|{}networkName[0]
+        final fun <get-networkName>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.networkName.<get-networkName>|<get-networkName>(){}[0]
+    final val placement // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.placement|{}placement[0]
+        final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.placement.<get-placement>|<get-placement>(){}[0]
+
+    final fun component1(): kotlin/String // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.component1|component1(){}[0]
+    final fun component2(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.component2|component2(){}[0]
+    final fun component3(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.component3|component3(){}[0]
+    final fun component4(): kotlin/String // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.component4|component4(){}[0]
+    final fun component5(): kotlin/Int? // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.component5|component5(){}[0]
+    final fun copy(kotlin/String = ..., com.revenuecat.purchases.kmp.models/AdMediatorName = ..., kotlin/String? = ..., kotlin/String = ..., kotlin/Int? = ...): com.revenuecat.purchases.kmp.models/AdFailedToLoadData // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.copy|copy(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;kotlin.String?;kotlin.String;kotlin.Int?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.toString|toString(){}[0]
+}
+
+final class com.revenuecat.purchases.kmp.models/AdLoadedData { // com.revenuecat.purchases.kmp.models/AdLoadedData|null[0]
+    constructor <init>(kotlin/String, com.revenuecat.purchases.kmp.models/AdMediatorName, kotlin/String?, kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp.models/AdLoadedData.<init>|<init>(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;kotlin.String?;kotlin.String;kotlin.String){}[0]
+
+    final val adUnitId // com.revenuecat.purchases.kmp.models/AdLoadedData.adUnitId|{}adUnitId[0]
+        final fun <get-adUnitId>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdLoadedData.adUnitId.<get-adUnitId>|<get-adUnitId>(){}[0]
+    final val impressionId // com.revenuecat.purchases.kmp.models/AdLoadedData.impressionId|{}impressionId[0]
+        final fun <get-impressionId>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdLoadedData.impressionId.<get-impressionId>|<get-impressionId>(){}[0]
+    final val mediatorName // com.revenuecat.purchases.kmp.models/AdLoadedData.mediatorName|{}mediatorName[0]
+        final fun <get-mediatorName>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdLoadedData.mediatorName.<get-mediatorName>|<get-mediatorName>(){}[0]
+    final val networkName // com.revenuecat.purchases.kmp.models/AdLoadedData.networkName|{}networkName[0]
+        final fun <get-networkName>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdLoadedData.networkName.<get-networkName>|<get-networkName>(){}[0]
+    final val placement // com.revenuecat.purchases.kmp.models/AdLoadedData.placement|{}placement[0]
+        final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdLoadedData.placement.<get-placement>|<get-placement>(){}[0]
+
+    final fun component1(): kotlin/String // com.revenuecat.purchases.kmp.models/AdLoadedData.component1|component1(){}[0]
+    final fun component2(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdLoadedData.component2|component2(){}[0]
+    final fun component3(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdLoadedData.component3|component3(){}[0]
+    final fun component4(): kotlin/String // com.revenuecat.purchases.kmp.models/AdLoadedData.component4|component4(){}[0]
+    final fun component5(): kotlin/String // com.revenuecat.purchases.kmp.models/AdLoadedData.component5|component5(){}[0]
+    final fun copy(kotlin/String = ..., com.revenuecat.purchases.kmp.models/AdMediatorName = ..., kotlin/String? = ..., kotlin/String = ..., kotlin/String = ...): com.revenuecat.purchases.kmp.models/AdLoadedData // com.revenuecat.purchases.kmp.models/AdLoadedData.copy|copy(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;kotlin.String?;kotlin.String;kotlin.String){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdLoadedData.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdLoadedData.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdLoadedData.toString|toString(){}[0]
+}
+
+final class com.revenuecat.purchases.kmp.models/AdOpenedData { // com.revenuecat.purchases.kmp.models/AdOpenedData|null[0]
+    constructor <init>(kotlin/String, com.revenuecat.purchases.kmp.models/AdMediatorName, kotlin/String?, kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp.models/AdOpenedData.<init>|<init>(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;kotlin.String?;kotlin.String;kotlin.String){}[0]
+
+    final val adUnitId // com.revenuecat.purchases.kmp.models/AdOpenedData.adUnitId|{}adUnitId[0]
+        final fun <get-adUnitId>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdOpenedData.adUnitId.<get-adUnitId>|<get-adUnitId>(){}[0]
+    final val impressionId // com.revenuecat.purchases.kmp.models/AdOpenedData.impressionId|{}impressionId[0]
+        final fun <get-impressionId>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdOpenedData.impressionId.<get-impressionId>|<get-impressionId>(){}[0]
+    final val mediatorName // com.revenuecat.purchases.kmp.models/AdOpenedData.mediatorName|{}mediatorName[0]
+        final fun <get-mediatorName>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdOpenedData.mediatorName.<get-mediatorName>|<get-mediatorName>(){}[0]
+    final val networkName // com.revenuecat.purchases.kmp.models/AdOpenedData.networkName|{}networkName[0]
+        final fun <get-networkName>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdOpenedData.networkName.<get-networkName>|<get-networkName>(){}[0]
+    final val placement // com.revenuecat.purchases.kmp.models/AdOpenedData.placement|{}placement[0]
+        final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdOpenedData.placement.<get-placement>|<get-placement>(){}[0]
+
+    final fun component1(): kotlin/String // com.revenuecat.purchases.kmp.models/AdOpenedData.component1|component1(){}[0]
+    final fun component2(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdOpenedData.component2|component2(){}[0]
+    final fun component3(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdOpenedData.component3|component3(){}[0]
+    final fun component4(): kotlin/String // com.revenuecat.purchases.kmp.models/AdOpenedData.component4|component4(){}[0]
+    final fun component5(): kotlin/String // com.revenuecat.purchases.kmp.models/AdOpenedData.component5|component5(){}[0]
+    final fun copy(kotlin/String = ..., com.revenuecat.purchases.kmp.models/AdMediatorName = ..., kotlin/String? = ..., kotlin/String = ..., kotlin/String = ...): com.revenuecat.purchases.kmp.models/AdOpenedData // com.revenuecat.purchases.kmp.models/AdOpenedData.copy|copy(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;kotlin.String?;kotlin.String;kotlin.String){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdOpenedData.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdOpenedData.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdOpenedData.toString|toString(){}[0]
+}
+
+final class com.revenuecat.purchases.kmp.models/AdRevenueData { // com.revenuecat.purchases.kmp.models/AdRevenueData|null[0]
+    constructor <init>(kotlin/String, com.revenuecat.purchases.kmp.models/AdMediatorName, kotlin/String?, kotlin/String, kotlin/String, kotlin/Long, kotlin/String, com.revenuecat.purchases.kmp.models/AdRevenuePrecision) // com.revenuecat.purchases.kmp.models/AdRevenueData.<init>|<init>(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;kotlin.String?;kotlin.String;kotlin.String;kotlin.Long;kotlin.String;com.revenuecat.purchases.kmp.models.AdRevenuePrecision){}[0]
+
+    final val adUnitId // com.revenuecat.purchases.kmp.models/AdRevenueData.adUnitId|{}adUnitId[0]
+        final fun <get-adUnitId>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenueData.adUnitId.<get-adUnitId>|<get-adUnitId>(){}[0]
+    final val currency // com.revenuecat.purchases.kmp.models/AdRevenueData.currency|{}currency[0]
+        final fun <get-currency>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenueData.currency.<get-currency>|<get-currency>(){}[0]
+    final val impressionId // com.revenuecat.purchases.kmp.models/AdRevenueData.impressionId|{}impressionId[0]
+        final fun <get-impressionId>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenueData.impressionId.<get-impressionId>|<get-impressionId>(){}[0]
+    final val mediatorName // com.revenuecat.purchases.kmp.models/AdRevenueData.mediatorName|{}mediatorName[0]
+        final fun <get-mediatorName>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdRevenueData.mediatorName.<get-mediatorName>|<get-mediatorName>(){}[0]
+    final val networkName // com.revenuecat.purchases.kmp.models/AdRevenueData.networkName|{}networkName[0]
+        final fun <get-networkName>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenueData.networkName.<get-networkName>|<get-networkName>(){}[0]
+    final val placement // com.revenuecat.purchases.kmp.models/AdRevenueData.placement|{}placement[0]
+        final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdRevenueData.placement.<get-placement>|<get-placement>(){}[0]
+    final val precision // com.revenuecat.purchases.kmp.models/AdRevenueData.precision|{}precision[0]
+        final fun <get-precision>(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenueData.precision.<get-precision>|<get-precision>(){}[0]
+    final val revenueMicros // com.revenuecat.purchases.kmp.models/AdRevenueData.revenueMicros|{}revenueMicros[0]
+        final fun <get-revenueMicros>(): kotlin/Long // com.revenuecat.purchases.kmp.models/AdRevenueData.revenueMicros.<get-revenueMicros>|<get-revenueMicros>(){}[0]
+
+    final fun component1(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenueData.component1|component1(){}[0]
+    final fun component2(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdRevenueData.component2|component2(){}[0]
+    final fun component3(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdRevenueData.component3|component3(){}[0]
+    final fun component4(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenueData.component4|component4(){}[0]
+    final fun component5(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenueData.component5|component5(){}[0]
+    final fun component6(): kotlin/Long // com.revenuecat.purchases.kmp.models/AdRevenueData.component6|component6(){}[0]
+    final fun component7(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenueData.component7|component7(){}[0]
+    final fun component8(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenueData.component8|component8(){}[0]
+    final fun copy(kotlin/String = ..., com.revenuecat.purchases.kmp.models/AdMediatorName = ..., kotlin/String? = ..., kotlin/String = ..., kotlin/String = ..., kotlin/Long = ..., kotlin/String = ..., com.revenuecat.purchases.kmp.models/AdRevenuePrecision = ...): com.revenuecat.purchases.kmp.models/AdRevenueData // com.revenuecat.purchases.kmp.models/AdRevenueData.copy|copy(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;kotlin.String?;kotlin.String;kotlin.String;kotlin.Long;kotlin.String;com.revenuecat.purchases.kmp.models.AdRevenuePrecision){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdRevenueData.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdRevenueData.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenueData.toString|toString(){}[0]
+}
+
 final class com.revenuecat.purchases.kmp.models/CustomerInfo { // com.revenuecat.purchases.kmp.models/CustomerInfo|null[0]
     constructor <init>(kotlin.collections/Set<kotlin/String>, kotlin.collections/Map<kotlin/String, kotlin/Long?>, kotlin.collections/Map<kotlin/String, kotlin/Long?>, kotlin.collections/Set<kotlin/String>, com.revenuecat.purchases.kmp.models/EntitlementInfos, kotlin/Long, kotlin/Long?, kotlin/String?, kotlin.collections/Map<kotlin/String, com.revenuecat.purchases.kmp.models/SubscriptionInfo>, kotlin.collections/List<com.revenuecat.purchases.kmp.models/Transaction>, kotlin/String, kotlin/String?, kotlin/Long?, kotlin/Long) // com.revenuecat.purchases.kmp.models/CustomerInfo.<init>|<init>(kotlin.collections.Set<kotlin.String>;kotlin.collections.Map<kotlin.String,kotlin.Long?>;kotlin.collections.Map<kotlin.String,kotlin.Long?>;kotlin.collections.Set<kotlin.String>;com.revenuecat.purchases.kmp.models.EntitlementInfos;kotlin.Long;kotlin.Long?;kotlin.String?;kotlin.collections.Map<kotlin.String,com.revenuecat.purchases.kmp.models.SubscriptionInfo>;kotlin.collections.List<com.revenuecat.purchases.kmp.models.Transaction>;kotlin.String;kotlin.String?;kotlin.Long?;kotlin.Long){}[0]
 
@@ -847,6 +985,46 @@ final class com.revenuecat.purchases.kmp.models/WebPurchaseRedemption { // com.r
 
     final val redemptionUrl // com.revenuecat.purchases.kmp.models/WebPurchaseRedemption.redemptionUrl|{}redemptionUrl[0]
         final fun <get-redemptionUrl>(): kotlin/String // com.revenuecat.purchases.kmp.models/WebPurchaseRedemption.redemptionUrl.<get-redemptionUrl>|<get-redemptionUrl>(){}[0]
+}
+
+final value class com.revenuecat.purchases.kmp.models/AdMediatorName { // com.revenuecat.purchases.kmp.models/AdMediatorName|null[0]
+    constructor <init>(kotlin/String) // com.revenuecat.purchases.kmp.models/AdMediatorName.<init>|<init>(kotlin.String){}[0]
+
+    final val value // com.revenuecat.purchases.kmp.models/AdMediatorName.value|{}value[0]
+        final fun <get-value>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdMediatorName.value.<get-value>|<get-value>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdMediatorName.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdMediatorName.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdMediatorName.toString|toString(){}[0]
+
+    final object Companion { // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion|null[0]
+        final val AD_MOB // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion.AD_MOB|{}AD_MOB[0]
+            final fun <get-AD_MOB>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion.AD_MOB.<get-AD_MOB>|<get-AD_MOB>(){}[0]
+        final val APP_LOVIN // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion.APP_LOVIN|{}APP_LOVIN[0]
+            final fun <get-APP_LOVIN>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion.APP_LOVIN.<get-APP_LOVIN>|<get-APP_LOVIN>(){}[0]
+    }
+}
+
+final value class com.revenuecat.purchases.kmp.models/AdRevenuePrecision { // com.revenuecat.purchases.kmp.models/AdRevenuePrecision|null[0]
+    constructor <init>(kotlin/String) // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.<init>|<init>(kotlin.String){}[0]
+
+    final val value // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.value|{}value[0]
+        final fun <get-value>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.value.<get-value>|<get-value>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.toString|toString(){}[0]
+
+    final object Companion { // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion|null[0]
+        final val ESTIMATED // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.ESTIMATED|{}ESTIMATED[0]
+            final fun <get-ESTIMATED>(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.ESTIMATED.<get-ESTIMATED>|<get-ESTIMATED>(){}[0]
+        final val EXACT // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.EXACT|{}EXACT[0]
+            final fun <get-EXACT>(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.EXACT.<get-EXACT>|<get-EXACT>(){}[0]
+        final val PUBLISHER_DEFINED // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.PUBLISHER_DEFINED|{}PUBLISHER_DEFINED[0]
+            final fun <get-PUBLISHER_DEFINED>(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.PUBLISHER_DEFINED.<get-PUBLISHER_DEFINED>|<get-PUBLISHER_DEFINED>(){}[0]
+        final val UNKNOWN // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.UNKNOWN|{}UNKNOWN[0]
+            final fun <get-UNKNOWN>(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.UNKNOWN.<get-UNKNOWN>|<get-UNKNOWN>(){}[0]
+    }
 }
 
 open class com.revenuecat.purchases.kmp.models/PurchasesException : kotlin/Exception { // com.revenuecat.purchases.kmp.models/PurchasesException|null[0]
