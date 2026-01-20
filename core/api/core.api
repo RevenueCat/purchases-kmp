@@ -96,6 +96,11 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun syncAmazonPurchase (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;)V
 	public final fun syncAttributesAndOfferingsIfNeeded (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun syncPurchases (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public final fun trackAdDisplayed (Lcom/revenuecat/purchases/kmp/models/AdDisplayedData;)V
+	public final fun trackAdFailedToLoad (Lcom/revenuecat/purchases/kmp/models/AdFailedToLoadData;)V
+	public final fun trackAdLoaded (Lcom/revenuecat/purchases/kmp/models/AdLoadedData;)V
+	public final fun trackAdOpened (Lcom/revenuecat/purchases/kmp/models/AdOpenedData;)V
+	public final fun trackAdRevenue (Lcom/revenuecat/purchases/kmp/models/AdRevenueData;)V
 }
 
 public final class com/revenuecat/purchases/kmp/Purchases$Companion {
