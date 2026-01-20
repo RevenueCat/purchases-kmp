@@ -35,6 +35,11 @@ import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toStorefront
 import com.revenuecat.purchases.kmp.mappings.toVirtualCurrencies
 import com.revenuecat.purchases.kmp.mappings.toWinBackOffer
+import com.revenuecat.purchases.kmp.models.AdDisplayedData
+import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
+import com.revenuecat.purchases.kmp.models.AdLoadedData
+import com.revenuecat.purchases.kmp.models.AdOpenedData
+import com.revenuecat.purchases.kmp.models.AdRevenueData
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomerInfo
@@ -790,4 +795,24 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         val cachedVirtualCurrencies: RCVirtualCurrencies? = iosPurchases.cachedVirtualCurrencies()
         return cachedVirtualCurrencies?.toVirtualCurrencies()
     }
+
+    @ExperimentalRevenueCatApi
+    public actual fun trackAdDisplayed(data: AdDisplayedData): Unit =
+        error("Ad tracking is not yet supported in iOS KMP")
+
+    @ExperimentalRevenueCatApi
+    public actual fun trackAdOpened(data: AdOpenedData): Unit =
+        error("Ad tracking is not yet supported in iOS KMP")
+
+    @ExperimentalRevenueCatApi
+    public actual fun trackAdRevenue(data: AdRevenueData): Unit =
+        error("Ad tracking is not yet supported in iOS KMP")
+
+    @ExperimentalRevenueCatApi
+    public actual fun trackAdLoaded(data: AdLoadedData): Unit =
+        error("Ad tracking is not yet supported in iOS KMP")
+
+    @ExperimentalRevenueCatApi
+    public actual fun trackAdFailedToLoad(data: AdFailedToLoadData): Unit =
+        error("Ad tracking is not yet supported in iOS KMP")
 }

@@ -18,6 +18,11 @@ import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.AdDisplayedData
+import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
+import com.revenuecat.purchases.kmp.models.AdLoadedData
+import com.revenuecat.purchases.kmp.models.AdOpenedData
+import com.revenuecat.purchases.kmp.models.AdRevenueData
 import com.revenuecat.purchases.kmp.models.VirtualCurrencies
 import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
@@ -815,6 +820,46 @@ public expect class Purchases {
      * least once with [Purchases.getVirtualCurrencies] or an equivalent function.
      */
     public fun getCachedVirtualCurrencies(): VirtualCurrencies?
+
+    /**
+     * Tracks an ad displayed event.
+     *
+     * @param data The ad display event data.
+     */
+    @ExperimentalRevenueCatApi
+    public fun trackAdDisplayed(data: AdDisplayedData)
+
+    /**
+     * Tracks an ad opened event.
+     *
+     * @param data The ad open event data.
+     */
+    @ExperimentalRevenueCatApi
+    public fun trackAdOpened(data: AdOpenedData)
+
+    /**
+     * Tracks an ad revenue event.
+     *
+     * @param data The ad revenue event data.
+     */
+    @ExperimentalRevenueCatApi
+    public fun trackAdRevenue(data: AdRevenueData)
+
+    /**
+     * Tracks an ad loaded event.
+     *
+     * @param data The ad loaded event data.
+     */
+    @ExperimentalRevenueCatApi
+    public fun trackAdLoaded(data: AdLoadedData)
+
+    /**
+     * Tracks an ad failed to load event.
+     *
+     * @param data The ad failed to load event data.
+     */
+    @ExperimentalRevenueCatApi
+    public fun trackAdFailedToLoad(data: AdFailedToLoadData)
 }
 
 /**
