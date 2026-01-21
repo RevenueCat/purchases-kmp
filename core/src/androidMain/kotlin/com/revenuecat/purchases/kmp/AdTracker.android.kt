@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp
 
+import com.revenuecat.purchases.ads.events.AdTracker as AndroidAdTracker
 import com.revenuecat.purchases.kmp.mappings.toAndroid
 import com.revenuecat.purchases.kmp.models.AdDisplayedData
 import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
@@ -13,7 +14,7 @@ import com.revenuecat.purchases.kmp.models.AdRevenueData
 @ExperimentalRevenueCatApi
 @OptIn(com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI::class)
 public actual class AdTracker internal constructor(
-    private val androidAdTracker: com.revenuecat.purchases.ads.events.AdTracker
+    private val androidAdTracker: AndroidAdTracker
 ) {
     public actual fun trackAdDisplayed(data: AdDisplayedData) {
         androidAdTracker.trackAdDisplayed(data.toAndroid())
