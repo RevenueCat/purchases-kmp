@@ -15,13 +15,13 @@ import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
  * @property precision The precision of the revenue value. See [AdRevenuePrecision].
  */
 @ExperimentalRevenueCatApi
-public data class AdRevenueData(
-    val networkName: String,
-    val mediatorName: AdMediatorName,
-    val placement: String?,
-    val adUnitId: String,
-    val impressionId: String,
-    val revenueMicros: Long,
-    val currency: String,
-    val precision: AdRevenuePrecision,
+public class AdRevenueData(
+    public val networkName: String,
+    public val mediatorName: AdMediatorName,
+    public val placement: String?,
+    public val adUnitId: String,
+    public val impressionId: String,
+    public val revenueMicros: Long,
+    public val currency: String,
+    public val precision: AdRevenuePrecision,
 )

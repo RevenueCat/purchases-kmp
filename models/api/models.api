@@ -3,59 +3,29 @@ public abstract interface annotation class com/revenuecat/purchases/kmp/Experime
 
 public final class com/revenuecat/purchases/kmp/models/AdDisplayedData {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2-WzqQsPc ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun copy-oL2956Y (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/AdDisplayedData;
-	public static synthetic fun copy-oL2956Y$default (Lcom/revenuecat/purchases/kmp/models/AdDisplayedData;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/models/AdDisplayedData;
-	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAdUnitId ()Ljava/lang/String;
 	public final fun getImpressionId ()Ljava/lang/String;
 	public final fun getMediatorName-WzqQsPc ()Ljava/lang/String;
 	public final fun getNetworkName ()Ljava/lang/String;
 	public final fun getPlacement ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdFailedToLoadData {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2-WzqQsPc ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/Integer;
-	public final fun copy-oL2956Y (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;)Lcom/revenuecat/purchases/kmp/models/AdFailedToLoadData;
-	public static synthetic fun copy-oL2956Y$default (Lcom/revenuecat/purchases/kmp/models/AdFailedToLoadData;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/models/AdFailedToLoadData;
-	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAdUnitId ()Ljava/lang/String;
 	public final fun getMediatorErrorCode ()Ljava/lang/Integer;
 	public final fun getMediatorName-WzqQsPc ()Ljava/lang/String;
 	public final fun getNetworkName ()Ljava/lang/String;
 	public final fun getPlacement ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdLoadedData {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2-WzqQsPc ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun copy-oL2956Y (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/AdLoadedData;
-	public static synthetic fun copy-oL2956Y$default (Lcom/revenuecat/purchases/kmp/models/AdLoadedData;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/models/AdLoadedData;
-	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAdUnitId ()Ljava/lang/String;
 	public final fun getImpressionId ()Ljava/lang/String;
 	public final fun getMediatorName-WzqQsPc ()Ljava/lang/String;
 	public final fun getNetworkName ()Ljava/lang/String;
 	public final fun getPlacement ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdMediatorName {
@@ -80,36 +50,15 @@ public final class com/revenuecat/purchases/kmp/models/AdMediatorName$Companion 
 
 public final class com/revenuecat/purchases/kmp/models/AdOpenedData {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2-WzqQsPc ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun copy-oL2956Y (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/AdOpenedData;
-	public static synthetic fun copy-oL2956Y$default (Lcom/revenuecat/purchases/kmp/models/AdOpenedData;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/models/AdOpenedData;
-	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAdUnitId ()Ljava/lang/String;
 	public final fun getImpressionId ()Ljava/lang/String;
 	public final fun getMediatorName-WzqQsPc ()Ljava/lang/String;
 	public final fun getNetworkName ()Ljava/lang/String;
 	public final fun getPlacement ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdRevenueData {
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2-WzqQsPc ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()J
-	public final fun component7 ()Ljava/lang/String;
-	public final fun component8-C-W9r9E ()Ljava/lang/String;
-	public final fun copy-ZQn8f88 (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/AdRevenueData;
-	public static synthetic fun copy-ZQn8f88$default (Lcom/revenuecat/purchases/kmp/models/AdRevenueData;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/models/AdRevenueData;
-	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAdUnitId ()Ljava/lang/String;
 	public final fun getCurrency ()Ljava/lang/String;
 	public final fun getImpressionId ()Ljava/lang/String;
@@ -118,8 +67,6 @@ public final class com/revenuecat/purchases/kmp/models/AdRevenueData {
 	public final fun getPlacement ()Ljava/lang/String;
 	public final fun getPrecision-C-W9r9E ()Ljava/lang/String;
 	public final fun getRevenueMicros ()J
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdRevenuePrecision {
