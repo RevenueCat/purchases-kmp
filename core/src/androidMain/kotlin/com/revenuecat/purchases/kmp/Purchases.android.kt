@@ -2,6 +2,7 @@ package com.revenuecat.purchases.kmp
 
 import android.content.Intent
 import android.net.Uri
+import com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI
 import com.revenuecat.purchases.PurchaseParams
 import com.revenuecat.purchases.common.PlatformInfo
 import com.revenuecat.purchases.getCustomerInfoWith
@@ -585,7 +586,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
 
     @ExperimentalRevenueCatApi
     public actual val adTracker: AdTracker by lazy {
-        @OptIn(com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI::class)
+        @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
         AdTracker(androidPurchases.adTracker)
     }
 

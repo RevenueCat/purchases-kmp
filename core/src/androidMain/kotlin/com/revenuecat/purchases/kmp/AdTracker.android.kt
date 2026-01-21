@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp
 
+import com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI
 import com.revenuecat.purchases.ads.events.AdTracker as AndroidAdTracker
 import com.revenuecat.purchases.kmp.mappings.toAndroid
 import com.revenuecat.purchases.kmp.models.AdDisplayedData
@@ -12,7 +13,7 @@ import com.revenuecat.purchases.kmp.models.AdRevenueData
  * Android implementation of [AdTracker] that delegates to the native Android SDK.
  */
 @ExperimentalRevenueCatApi
-@OptIn(com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI::class)
+@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
 public actual class AdTracker internal constructor(
     private val androidAdTracker: AndroidAdTracker
 ) {
