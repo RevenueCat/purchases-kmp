@@ -1,9 +1,12 @@
 ## RevenueCat SDK
+### ✨ New Features
+* Adds richer `SubscriptionInfo` to `CustomerInfo` (#633) via JayShortway (@JayShortway)
 ### 📦 Dependency Updates
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.26.1 (#621) via RevenueCat Git Bot (@RCGitBot)
-  * [Android 9.18.1](https://github.com/RevenueCat/purchases-android/releases/tag/9.18.1)
-  * [iOS 5.52.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.52.1)
-* [RENOVATE] Update dependency upstream/purchases-ios to v5.52.1 (#623) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.55.1 (#637) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.54.0 (#631) via RevenueCat Git Bot (@RCGitBot)
 
 ### 🔄 Other Changes
-* Merges Gradle convention plugins (#624) via JayShortway (@JayShortway)
+* Convert ad event model data classes to regular classes (#642) via Pol Miro (@polmiro)
+* Expose ad tracking APIs in KMP SDK for Android (#640) via Pol Miro (@polmiro)
+* Bump fastlane from 2.231.0 to 2.231.1 (#641) via dependabot[bot] (@dependabot[bot])
+* Bump fastlane from 2.230.0 to 2.231.0 (#638) via dependabot[bot] (@dependabot[bot])
