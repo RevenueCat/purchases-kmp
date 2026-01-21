@@ -12,10 +12,10 @@ import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
  * @property mediatorErrorCode The mediator error code.
  */
 @ExperimentalRevenueCatApi
-public data class AdFailedToLoadData(
-    val networkName: String,
-    val mediatorName: AdMediatorName,
-    val placement: String?,
-    val adUnitId: String,
-    val mediatorErrorCode: Int?,
+public class AdFailedToLoadData(
+    public val networkName: String,
+    public val mediatorName: AdMediatorName,
+    public val placement: String?,
+    public val adUnitId: String,
+    public val mediatorErrorCode: Int?,
 )
