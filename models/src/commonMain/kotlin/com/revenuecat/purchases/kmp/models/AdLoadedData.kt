@@ -12,10 +12,10 @@ import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
  * @property impressionId The impression ID.
  */
 @ExperimentalRevenueCatApi
-public data class AdLoadedData(
-    val networkName: String,
-    val mediatorName: AdMediatorName,
-    val placement: String?,
-    val adUnitId: String,
-    val impressionId: String,
+public class AdLoadedData(
+    public val networkName: String,
+    public val mediatorName: AdMediatorName,
+    public val placement: String?,
+    public val adUnitId: String,
+    public val impressionId: String,
 )
