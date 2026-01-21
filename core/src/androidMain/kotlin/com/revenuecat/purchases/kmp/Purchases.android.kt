@@ -584,33 +584,9 @@ public actual class Purchases private constructor(private val androidPurchases: 
     }
 
     @ExperimentalRevenueCatApi
-    @OptIn(com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI::class)
-    public actual fun trackAdDisplayed(data: AdDisplayedData) {
-        androidPurchases.adTracker.trackAdDisplayed(data.toAndroid())
-    }
-
-    @ExperimentalRevenueCatApi
-    @OptIn(com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI::class)
-    public actual fun trackAdOpened(data: AdOpenedData) {
-        androidPurchases.adTracker.trackAdOpened(data.toAndroid())
-    }
-
-    @ExperimentalRevenueCatApi
-    @OptIn(com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI::class)
-    public actual fun trackAdRevenue(data: AdRevenueData) {
-        androidPurchases.adTracker.trackAdRevenue(data.toAndroid())
-    }
-
-    @ExperimentalRevenueCatApi
-    @OptIn(com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI::class)
-    public actual fun trackAdLoaded(data: AdLoadedData) {
-        androidPurchases.adTracker.trackAdLoaded(data.toAndroid())
-    }
-
-    @ExperimentalRevenueCatApi
-    @OptIn(com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI::class)
-    public actual fun trackAdFailedToLoad(data: AdFailedToLoadData) {
-        androidPurchases.adTracker.trackAdFailedToLoad(data.toAndroid())
+    public actual val adTracker: AdTracker by lazy {
+        @OptIn(com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI::class)
+        AdTracker(androidPurchases.adTracker)
     }
 
     private fun StoreMessageType.toInAppMessageTypeOrNull(): InAppMessageType? =

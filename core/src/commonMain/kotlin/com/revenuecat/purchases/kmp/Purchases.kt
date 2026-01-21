@@ -18,11 +18,6 @@ import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
-import com.revenuecat.purchases.kmp.models.AdDisplayedData
-import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
-import com.revenuecat.purchases.kmp.models.AdLoadedData
-import com.revenuecat.purchases.kmp.models.AdOpenedData
-import com.revenuecat.purchases.kmp.models.AdRevenueData
 import com.revenuecat.purchases.kmp.models.VirtualCurrencies
 import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
@@ -822,44 +817,14 @@ public expect class Purchases {
     public fun getCachedVirtualCurrencies(): VirtualCurrencies?
 
     /**
-     * Tracks an ad displayed event.
+     * Provides access to ad tracking functionality.
      *
-     * @param data The ad display event data.
+     * Use this to track ad impressions, clicks, revenue, and loading states.
+     * All ad tracking functionality is experimental and requires opt-in with
+     * [@ExperimentalRevenueCatApi].
      */
     @ExperimentalRevenueCatApi
-    public fun trackAdDisplayed(data: AdDisplayedData)
-
-    /**
-     * Tracks an ad opened event.
-     *
-     * @param data The ad open event data.
-     */
-    @ExperimentalRevenueCatApi
-    public fun trackAdOpened(data: AdOpenedData)
-
-    /**
-     * Tracks an ad revenue event.
-     *
-     * @param data The ad revenue event data.
-     */
-    @ExperimentalRevenueCatApi
-    public fun trackAdRevenue(data: AdRevenueData)
-
-    /**
-     * Tracks an ad loaded event.
-     *
-     * @param data The ad loaded event data.
-     */
-    @ExperimentalRevenueCatApi
-    public fun trackAdLoaded(data: AdLoadedData)
-
-    /**
-     * Tracks an ad failed to load event.
-     *
-     * @param data The ad failed to load event data.
-     */
-    @ExperimentalRevenueCatApi
-    public fun trackAdFailedToLoad(data: AdFailedToLoadData)
+    public val adTracker: AdTracker
 }
 
 /**

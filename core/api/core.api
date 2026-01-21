@@ -1,3 +1,11 @@
+public final class com/revenuecat/purchases/kmp/AdTracker {
+	public final fun trackAdDisplayed (Lcom/revenuecat/purchases/kmp/models/AdDisplayedData;)V
+	public final fun trackAdFailedToLoad (Lcom/revenuecat/purchases/kmp/models/AdFailedToLoadData;)V
+	public final fun trackAdLoaded (Lcom/revenuecat/purchases/kmp/models/AdLoadedData;)V
+	public final fun trackAdOpened (Lcom/revenuecat/purchases/kmp/models/AdOpenedData;)V
+	public final fun trackAdRevenue (Lcom/revenuecat/purchases/kmp/models/AdRevenueData;)V
+}
+
 public abstract interface class com/revenuecat/purchases/kmp/LogHandler {
 	public abstract fun d (Ljava/lang/String;Ljava/lang/String;)V
 	public abstract fun e (Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)V
@@ -26,6 +34,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun collectDeviceIdentifiers ()V
 	public static final fun configure (Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;)Lcom/revenuecat/purchases/kmp/Purchases;
 	public final fun enableAdServicesAttributionTokenCollection ()V
+	public final fun getAdTracker ()Lcom/revenuecat/purchases/kmp/AdTracker;
 	public final fun getAppUserID ()Ljava/lang/String;
 	public final fun getCachedVirtualCurrencies ()Lcom/revenuecat/purchases/kmp/models/VirtualCurrencies;
 	public final fun getCustomerInfo (Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
@@ -96,11 +105,6 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun syncAmazonPurchase (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;)V
 	public final fun syncAttributesAndOfferingsIfNeeded (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun syncPurchases (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
-	public final fun trackAdDisplayed (Lcom/revenuecat/purchases/kmp/models/AdDisplayedData;)V
-	public final fun trackAdFailedToLoad (Lcom/revenuecat/purchases/kmp/models/AdFailedToLoadData;)V
-	public final fun trackAdLoaded (Lcom/revenuecat/purchases/kmp/models/AdLoadedData;)V
-	public final fun trackAdOpened (Lcom/revenuecat/purchases/kmp/models/AdOpenedData;)V
-	public final fun trackAdRevenue (Lcom/revenuecat/purchases/kmp/models/AdRevenueData;)V
 }
 
 public final class com/revenuecat/purchases/kmp/Purchases$Companion {

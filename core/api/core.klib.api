@@ -51,7 +51,19 @@ final class com.revenuecat.purchases.kmp.ktx/SuccessfulPurchase { // com.revenue
         final fun <get-storeTransaction>(): com.revenuecat.purchases.kmp.models/StoreTransaction // com.revenuecat.purchases.kmp.ktx/SuccessfulPurchase.storeTransaction.<get-storeTransaction>|<get-storeTransaction>(){}[0]
 }
 
+final class com.revenuecat.purchases.kmp/AdTracker { // com.revenuecat.purchases.kmp/AdTracker|null[0]
+    constructor <init>() // com.revenuecat.purchases.kmp/AdTracker.<init>|<init>(){}[0]
+
+    final fun trackAdDisplayed(com.revenuecat.purchases.kmp.models/AdDisplayedData) // com.revenuecat.purchases.kmp/AdTracker.trackAdDisplayed|trackAdDisplayed(com.revenuecat.purchases.kmp.models.AdDisplayedData){}[0]
+    final fun trackAdFailedToLoad(com.revenuecat.purchases.kmp.models/AdFailedToLoadData) // com.revenuecat.purchases.kmp/AdTracker.trackAdFailedToLoad|trackAdFailedToLoad(com.revenuecat.purchases.kmp.models.AdFailedToLoadData){}[0]
+    final fun trackAdLoaded(com.revenuecat.purchases.kmp.models/AdLoadedData) // com.revenuecat.purchases.kmp/AdTracker.trackAdLoaded|trackAdLoaded(com.revenuecat.purchases.kmp.models.AdLoadedData){}[0]
+    final fun trackAdOpened(com.revenuecat.purchases.kmp.models/AdOpenedData) // com.revenuecat.purchases.kmp/AdTracker.trackAdOpened|trackAdOpened(com.revenuecat.purchases.kmp.models.AdOpenedData){}[0]
+    final fun trackAdRevenue(com.revenuecat.purchases.kmp.models/AdRevenueData) // com.revenuecat.purchases.kmp/AdTracker.trackAdRevenue|trackAdRevenue(com.revenuecat.purchases.kmp.models.AdRevenueData){}[0]
+}
+
 final class com.revenuecat.purchases.kmp/Purchases { // com.revenuecat.purchases.kmp/Purchases|null[0]
+    final val adTracker // com.revenuecat.purchases.kmp/Purchases.adTracker|{}adTracker[0]
+        final fun <get-adTracker>(): com.revenuecat.purchases.kmp/AdTracker // com.revenuecat.purchases.kmp/Purchases.adTracker.<get-adTracker>|<get-adTracker>(){}[0]
     final val appUserID // com.revenuecat.purchases.kmp/Purchases.appUserID|{}appUserID[0]
         final fun <get-appUserID>(): kotlin/String // com.revenuecat.purchases.kmp/Purchases.appUserID.<get-appUserID>|<get-appUserID>(){}[0]
     final val isAnonymous // com.revenuecat.purchases.kmp/Purchases.isAnonymous|{}isAnonymous[0]
@@ -115,11 +127,6 @@ final class com.revenuecat.purchases.kmp/Purchases { // com.revenuecat.purchases
     final fun syncAmazonPurchase(kotlin/String, kotlin/String, kotlin/String, kotlin/String?, kotlin/Double?) // com.revenuecat.purchases.kmp/Purchases.syncAmazonPurchase|syncAmazonPurchase(kotlin.String;kotlin.String;kotlin.String;kotlin.String?;kotlin.Double?){}[0]
     final fun syncAttributesAndOfferingsIfNeeded(kotlin/Function1<com.revenuecat.purchases.kmp.models/PurchasesError, kotlin/Unit>, kotlin/Function1<com.revenuecat.purchases.kmp.models/Offerings, kotlin/Unit>) // com.revenuecat.purchases.kmp/Purchases.syncAttributesAndOfferingsIfNeeded|syncAttributesAndOfferingsIfNeeded(kotlin.Function1<com.revenuecat.purchases.kmp.models.PurchasesError,kotlin.Unit>;kotlin.Function1<com.revenuecat.purchases.kmp.models.Offerings,kotlin.Unit>){}[0]
     final fun syncPurchases(kotlin/Function1<com.revenuecat.purchases.kmp.models/PurchasesError, kotlin/Unit>, kotlin/Function1<com.revenuecat.purchases.kmp.models/CustomerInfo, kotlin/Unit>) // com.revenuecat.purchases.kmp/Purchases.syncPurchases|syncPurchases(kotlin.Function1<com.revenuecat.purchases.kmp.models.PurchasesError,kotlin.Unit>;kotlin.Function1<com.revenuecat.purchases.kmp.models.CustomerInfo,kotlin.Unit>){}[0]
-    final fun trackAdDisplayed(com.revenuecat.purchases.kmp.models/AdDisplayedData) // com.revenuecat.purchases.kmp/Purchases.trackAdDisplayed|trackAdDisplayed(com.revenuecat.purchases.kmp.models.AdDisplayedData){}[0]
-    final fun trackAdFailedToLoad(com.revenuecat.purchases.kmp.models/AdFailedToLoadData) // com.revenuecat.purchases.kmp/Purchases.trackAdFailedToLoad|trackAdFailedToLoad(com.revenuecat.purchases.kmp.models.AdFailedToLoadData){}[0]
-    final fun trackAdLoaded(com.revenuecat.purchases.kmp.models/AdLoadedData) // com.revenuecat.purchases.kmp/Purchases.trackAdLoaded|trackAdLoaded(com.revenuecat.purchases.kmp.models.AdLoadedData){}[0]
-    final fun trackAdOpened(com.revenuecat.purchases.kmp.models/AdOpenedData) // com.revenuecat.purchases.kmp/Purchases.trackAdOpened|trackAdOpened(com.revenuecat.purchases.kmp.models.AdOpenedData){}[0]
-    final fun trackAdRevenue(com.revenuecat.purchases.kmp.models/AdRevenueData) // com.revenuecat.purchases.kmp/Purchases.trackAdRevenue|trackAdRevenue(com.revenuecat.purchases.kmp.models.AdRevenueData){}[0]
 
     final object Companion { // com.revenuecat.purchases.kmp/Purchases.Companion|null[0]
         final val isConfigured // com.revenuecat.purchases.kmp/Purchases.Companion.isConfigured|{}isConfigured[0]

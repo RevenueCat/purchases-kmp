@@ -797,22 +797,5 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     }
 
     @ExperimentalRevenueCatApi
-    public actual fun trackAdDisplayed(data: AdDisplayedData): Unit =
-        error("Ad tracking is not yet supported in iOS KMP")
-
-    @ExperimentalRevenueCatApi
-    public actual fun trackAdOpened(data: AdOpenedData): Unit =
-        error("Ad tracking is not yet supported in iOS KMP")
-
-    @ExperimentalRevenueCatApi
-    public actual fun trackAdRevenue(data: AdRevenueData): Unit =
-        error("Ad tracking is not yet supported in iOS KMP")
-
-    @ExperimentalRevenueCatApi
-    public actual fun trackAdLoaded(data: AdLoadedData): Unit =
-        error("Ad tracking is not yet supported in iOS KMP")
-
-    @ExperimentalRevenueCatApi
-    public actual fun trackAdFailedToLoad(data: AdFailedToLoadData): Unit =
-        error("Ad tracking is not yet supported in iOS KMP")
+    public actual val adTracker: AdTracker by lazy { AdTracker() }
 }
