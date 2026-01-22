@@ -1,3 +1,96 @@
+public abstract interface annotation class com/revenuecat/purchases/kmp/ExperimentalRevenueCatApi : java/lang/annotation/Annotation {
+}
+
+public final class com/revenuecat/purchases/kmp/models/AdDisplayedData {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAdUnitId ()Ljava/lang/String;
+	public final fun getImpressionId ()Ljava/lang/String;
+	public final fun getMediatorName-WzqQsPc ()Ljava/lang/String;
+	public final fun getNetworkName ()Ljava/lang/String;
+	public final fun getPlacement ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/models/AdFailedToLoadData {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAdUnitId ()Ljava/lang/String;
+	public final fun getMediatorErrorCode ()Ljava/lang/Integer;
+	public final fun getMediatorName-WzqQsPc ()Ljava/lang/String;
+	public final fun getNetworkName ()Ljava/lang/String;
+	public final fun getPlacement ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/models/AdLoadedData {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAdUnitId ()Ljava/lang/String;
+	public final fun getImpressionId ()Ljava/lang/String;
+	public final fun getMediatorName-WzqQsPc ()Ljava/lang/String;
+	public final fun getNetworkName ()Ljava/lang/String;
+	public final fun getPlacement ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/models/AdMediatorName {
+	public static final field Companion Lcom/revenuecat/purchases/kmp/models/AdMediatorName$Companion;
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/AdMediatorName;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/models/AdMediatorName$Companion {
+	public final fun getAD_MOB-WzqQsPc ()Ljava/lang/String;
+	public final fun getAPP_LOVIN-WzqQsPc ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/models/AdOpenedData {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAdUnitId ()Ljava/lang/String;
+	public final fun getImpressionId ()Ljava/lang/String;
+	public final fun getMediatorName-WzqQsPc ()Ljava/lang/String;
+	public final fun getNetworkName ()Ljava/lang/String;
+	public final fun getPlacement ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/models/AdRevenueData {
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAdUnitId ()Ljava/lang/String;
+	public final fun getCurrency ()Ljava/lang/String;
+	public final fun getImpressionId ()Ljava/lang/String;
+	public final fun getMediatorName-WzqQsPc ()Ljava/lang/String;
+	public final fun getNetworkName ()Ljava/lang/String;
+	public final fun getPlacement ()Ljava/lang/String;
+	public final fun getPrecision-C-W9r9E ()Ljava/lang/String;
+	public final fun getRevenueMicros ()J
+}
+
+public final class com/revenuecat/purchases/kmp/models/AdRevenuePrecision {
+	public static final field Companion Lcom/revenuecat/purchases/kmp/models/AdRevenuePrecision$Companion;
+	public static final synthetic fun box-impl (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/AdRevenuePrecision;
+	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public static fun hashCode-impl (Ljava/lang/String;)I
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/models/AdRevenuePrecision$Companion {
+	public final fun getESTIMATED-C-W9r9E ()Ljava/lang/String;
+	public final fun getEXACT-C-W9r9E ()Ljava/lang/String;
+	public final fun getPUBLISHER_DEFINED-C-W9r9E ()Ljava/lang/String;
+	public final fun getUNKNOWN-C-W9r9E ()Ljava/lang/String;
+}
+
 public final class com/revenuecat/purchases/kmp/models/BillingFeature : java/lang/Enum {
 	public static final field PRICE_CHANGE_CONFIRMATION Lcom/revenuecat/purchases/kmp/models/BillingFeature;
 	public static final field SUBSCRIPTIONS Lcom/revenuecat/purchases/kmp/models/BillingFeature;

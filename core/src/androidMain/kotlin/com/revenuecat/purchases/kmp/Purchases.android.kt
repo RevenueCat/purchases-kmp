@@ -2,6 +2,7 @@ package com.revenuecat.purchases.kmp
 
 import android.content.Intent
 import android.net.Uri
+import com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI
 import com.revenuecat.purchases.PurchaseParams
 import com.revenuecat.purchases.common.PlatformInfo
 import com.revenuecat.purchases.getCustomerInfoWith
@@ -13,6 +14,7 @@ import com.revenuecat.purchases.hybridcommon.isWebPurchaseRedemptionURL
 import com.revenuecat.purchases.kmp.di.AndroidProvider
 import com.revenuecat.purchases.kmp.di.requireActivity
 import com.revenuecat.purchases.kmp.di.requireApplication
+import com.revenuecat.purchases.kmp.mappings.toAndroid
 import com.revenuecat.purchases.kmp.mappings.toAndroidBillingFeature
 import com.revenuecat.purchases.kmp.mappings.toAndroidCacheFetchPolicy
 import com.revenuecat.purchases.kmp.mappings.toAndroidGoogleReplacementMode
@@ -29,6 +31,11 @@ import com.revenuecat.purchases.kmp.mappings.toStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toVirtualCurrencies
 import com.revenuecat.purchases.kmp.mappings.toWebPurchaseResult
+import com.revenuecat.purchases.kmp.models.AdDisplayedData
+import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
+import com.revenuecat.purchases.kmp.models.AdLoadedData
+import com.revenuecat.purchases.kmp.models.AdOpenedData
+import com.revenuecat.purchases.kmp.models.AdRevenueData
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomerInfo
@@ -575,6 +582,12 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual fun getCachedVirtualCurrencies(): VirtualCurrencies? {
         val cachedVirtualCurrencies: AndroidVirtualCurrencies? = androidPurchases.cachedVirtualCurrencies
         return cachedVirtualCurrencies?.toVirtualCurrencies()
+    }
+
+    @ExperimentalRevenueCatApi
+    public actual val adTracker: AdTracker by lazy {
+        @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+        AdTracker(androidPurchases.adTracker)
     }
 
     private fun StoreMessageType.toInAppMessageTypeOrNull(): InAppMessageType? =

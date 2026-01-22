@@ -815,6 +815,16 @@ public expect class Purchases {
      * least once with [Purchases.getVirtualCurrencies] or an equivalent function.
      */
     public fun getCachedVirtualCurrencies(): VirtualCurrencies?
+
+    /**
+     * Provides access to ad tracking functionality.
+     *
+     * Use this to track ad impressions, clicks, revenue, and loading states.
+     * All ad tracking functionality is experimental and requires opt-in with
+     * [@ExperimentalRevenueCatApi].
+     */
+    @ExperimentalRevenueCatApi
+    public val adTracker: AdTracker
 }
 
 /**
