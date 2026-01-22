@@ -10,5 +10,6 @@ sealed interface Screen {
     data object WinBackTesting : Screen
     data object CustomerCenter : Screen
     data object VirtualCurrencyTesting : Screen
+    data object AdTracking : Screen
 
 }
