@@ -8,7 +8,7 @@ ios-deploymentTarget-ui = "15.0"
 java = "1.8"
 kotlin = "2.1.21"
 revenuecat-common = "17.28.1"
-revenuecat-kmp = "2.4.0-SNAPSHOT"
+revenuecat-kmp = "2.3.1+17.28.1"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
