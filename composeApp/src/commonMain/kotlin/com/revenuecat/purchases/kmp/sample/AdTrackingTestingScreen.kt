@@ -34,6 +34,7 @@ import com.revenuecat.purchases.kmp.models.AdMediatorName
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
 import com.revenuecat.purchases.kmp.models.AdRevenuePrecision
+import kotlinx.datetime.Clock
 
 enum class AdTrackingFunction(val displayName: String) {
     TRACK_AD_DISPLAYED("trackAdDisplayed()"),
@@ -64,7 +65,7 @@ fun AdTrackingTestingScreen(
                 mediatorName = AdMediatorName.AD_MOB,
                 placement = "home_banner",
                 adUnitId = "ca-app-pub-1234567890",
-                impressionId = "test-impression-${System.currentTimeMillis()}"
+                impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}"
             )
             Purchases.sharedInstance.adTracker.trackAdDisplayed(data)
             statusMessage = "Ad displayed event tracked successfully!"
@@ -84,7 +85,7 @@ fun AdTrackingTestingScreen(
                 mediatorName = AdMediatorName.AD_MOB,
                 placement = "home_banner",
                 adUnitId = "ca-app-pub-1234567890",
-                impressionId = "test-impression-${System.currentTimeMillis()}"
+                impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}"
             )
             Purchases.sharedInstance.adTracker.trackAdOpened(data)
             statusMessage = "Ad opened event tracked successfully!"
@@ -104,7 +105,7 @@ fun AdTrackingTestingScreen(
                 mediatorName = AdMediatorName.APP_LOVIN,
                 placement = "rewarded_video",
                 adUnitId = "ca-app-pub-1234567890",
-                impressionId = "test-impression-${System.currentTimeMillis()}",
+                impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}",
                 revenueMicros = 5000000L, // $5.00 in micros
                 currency = "USD",
                 precision = AdRevenuePrecision.EXACT
@@ -127,7 +128,7 @@ fun AdTrackingTestingScreen(
                 mediatorName = AdMediatorName.AD_MOB,
                 placement = "interstitial",
                 adUnitId = "ca-app-pub-1234567890",
-                impressionId = "test-impression-${System.currentTimeMillis()}"
+                impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}"
             )
             Purchases.sharedInstance.adTracker.trackAdLoaded(data)
             statusMessage = "Ad loaded event tracked successfully!"
