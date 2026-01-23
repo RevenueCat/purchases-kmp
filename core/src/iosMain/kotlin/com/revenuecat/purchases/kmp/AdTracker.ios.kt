@@ -75,7 +75,7 @@ public actual class AdTracker {
             "placement" to data.placement,
             "adUnitId" to data.adUnitId,
             "impressionId" to data.impressionId,
-            "revenueMicros" to NSNumber(data.revenueMicros),
+            "revenueMicros" to NSNumber(long = data.revenueMicros),
             "currency" to data.currency,
             "precision" to data.precision.value
         )
@@ -119,7 +119,7 @@ public actual class AdTracker {
             put("mediatorName", data.mediatorName.value)
             put("placement", data.placement)
             put("adUnitId", data.adUnitId)
-            data.mediatorErrorCode?.let { put("mediatorErrorCode", NSNumber(it)) }
+            data.mediatorErrorCode?.let { put("mediatorErrorCode", NSNumber(int = it)) }
         }
 
         RCCommonFunctionality.trackAdFailedToLoad(adData) { error ->
