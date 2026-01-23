@@ -1,33 +1,30 @@
 PODS:
-  - PurchasesHybridCommon (17.28.1):
-    - RevenueCat (= 5.55.2)
-  - PurchasesHybridCommonUI (17.28.1):
-    - PurchasesHybridCommon (= 17.28.1)
-    - RevenueCatUI (= 5.55.2)
-  - RevenueCat (5.55.2)
-  - RevenueCatUI (5.55.2):
-    - RevenueCat (= 5.55.2)
+  - PurchasesHybridCommon (17.26.1):
+    - RevenueCat (= 5.52.1)
+  - PurchasesHybridCommonUI (17.26.1):
+    - PurchasesHybridCommon (= 17.26.1)
+    - RevenueCatUI (= 5.52.1)
+  - RevenueCat (5.52.1)
+  - RevenueCatUI (5.52.1):
+    - RevenueCat (= 5.52.1)
 
 DEPENDENCIES:
-  - PurchasesHybridCommon (from `/Users/polmiroomella/workspaces/ADS-4/purchases-hybrid-common`)
-  - PurchasesHybridCommonUI (= 17.28.1)
+  - PurchasesHybridCommon (= 17.26.1)
+  - PurchasesHybridCommonUI (= 17.26.1)
 
 SPEC REPOS:
   trunk:
+    - PurchasesHybridCommon
     - PurchasesHybridCommonUI
     - RevenueCat
     - RevenueCatUI
 
-EXTERNAL SOURCES:
-  PurchasesHybridCommon:
-    :path: "/Users/polmiroomella/workspaces/ADS-4/purchases-hybrid-common"
-
 SPEC CHECKSUMS:
-  PurchasesHybridCommon: 57e9e2fd474a726c41f61d5359f1bc05d89d9be8
-  PurchasesHybridCommonUI: ad685a661cc19fb45f1d7448f5890b399e177e14
-  RevenueCat: b5605778017c179315e60b8921ed158b3428688c
-  RevenueCatUI: ee8109669a5abf52df099788a0f961abdd2b5b09
+  PurchasesHybridCommon: a0923adc952779f2174ff699bfdf275f4af13aa5
+  PurchasesHybridCommonUI: 660dde7782b0a577e41945c8c061216052eca075
+  RevenueCat: c3d07077a0cc70b7c90a5a6072d60f9905d2dbc0
+  RevenueCatUI: cf72c82fae460b511a069f266429ea03db45722d
 
-PODFILE CHECKSUM: d95d4ba4966b6626b4d10ff40ca66563e0a96b8e
+PODFILE CHECKSUM: defda23b5371d3d4f87a57c07a2e49ef05a9897a
 
 COCOAPODS: 1.16.2

@@ -27,9 +27,6 @@ kotlin {
         pod("PurchasesHybridCommon") {
             version = libs.versions.revenuecat.common.get()
             extraOpts += listOf("-compiler-option", "-fmodules")
-            source = git("https://github.com/RevenueCat/purchases-hybrid-common") {
-                branch = "add-ios-ad-tracking-bridge"
-            }
         }
     }
 }
