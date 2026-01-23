@@ -689,6 +689,9 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun setAppsflyerID(appsflyerID: String?): Unit =
         iosPurchases.setAppsflyerID(appsflyerID)
 
+    public actual fun setAirbridgeDeviceID(airbridgeDeviceID: String?): Unit =
+        iosPurchases.setAirbridgeDeviceID(airbridgeDeviceID)
+
     public actual fun setFBAnonymousID(fbAnonymousID: String?): Unit =
         iosPurchases.setFBAnonymousID(fbAnonymousID)
 
