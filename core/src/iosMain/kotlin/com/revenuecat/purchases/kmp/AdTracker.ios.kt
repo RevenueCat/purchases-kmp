@@ -37,7 +37,7 @@ public actual class AdTracker {
 
         RCCommonFunctionality.trackAdDisplayed(adData) { error ->
             error?.let {
-                Purchases.logHandler.e("Purchases", "Failed to track ad displayed: ${it.message}", null)
+                Purchases.logHandler.e("Purchases", "Failed to track ad displayed: ${it.message()}", null)
             }
         }
     }
@@ -58,7 +58,7 @@ public actual class AdTracker {
 
         RCCommonFunctionality.trackAdOpened(adData) { error ->
             error?.let {
-                Purchases.logHandler.e("Purchases", "Failed to track ad opened: ${it.message}", null)
+                Purchases.logHandler.e("Purchases", "Failed to track ad opened: ${it.message()}", null)
             }
         }
     }
@@ -82,7 +82,7 @@ public actual class AdTracker {
 
         RCCommonFunctionality.trackAdRevenue(adData) { error ->
             error?.let {
-                Purchases.logHandler.e("Purchases", "Failed to track ad revenue: ${it.message}", null)
+                Purchases.logHandler.e("Purchases", "Failed to track ad revenue: ${it.message()}", null)
             }
         }
     }
@@ -103,7 +103,7 @@ public actual class AdTracker {
 
         RCCommonFunctionality.trackAdLoaded(adData) { error ->
             error?.let {
-                Purchases.logHandler.e("Purchases", "Failed to track ad loaded: ${it.message}", null)
+                Purchases.logHandler.e("Purchases", "Failed to track ad loaded: ${it.message()}", null)
             }
         }
     }
@@ -124,7 +124,7 @@ public actual class AdTracker {
 
         RCCommonFunctionality.trackAdFailedToLoad(adData) { error ->
             error?.let {
-                Purchases.logHandler.e("Purchases", "Failed to track ad failed to load: ${it.message}", null)
+                Purchases.logHandler.e("Purchases", "Failed to track ad failed to load: ${it.message()}", null)
             }
         }
     }
