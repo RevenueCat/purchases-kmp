@@ -6,6 +6,6 @@ target 'iosApp' do
   # use_frameworks!
 
   # Pods for iosApp
-  pod 'PurchasesHybridCommon', '17.28.1'
+  pod 'PurchasesHybridCommon', :path => '/Users/polmiroomella/workspaces/ADS-4/purchases-hybrid-common'
   pod 'PurchasesHybridCommonUI', '17.28.1'
 end
