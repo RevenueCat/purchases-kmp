@@ -703,6 +703,14 @@ public expect class Purchases {
     public fun setAdjustID(adjustID: String?)
 
     /**
+     * Subscriber attribute associated with the Airbridge Device Id for the user
+     * Required for the RevenueCat Airbridge integration
+     *
+     * @param airbridgeDeviceID null or an empty string will delete the subscriber attribute
+     */
+    public fun setAirbridgeDeviceID(airbridgeDeviceID: String?)
+
+    /**
      * Subscriber attribute associated with the AppsFlyer Id for the user
      * Required for the RevenueCat AppsFlyer integration
      *

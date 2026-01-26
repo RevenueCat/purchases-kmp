@@ -13,6 +13,7 @@ import cocoapods.PurchasesHybridCommon.configureWithAPIKey
 import cocoapods.PurchasesHybridCommon.isWebPurchaseRedemptionURL
 import cocoapods.PurchasesHybridCommon.parseAsWebPurchaseRedemptionWithUrlString
 import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
+import cocoapods.PurchasesHybridCommon.setAirbridgeDeviceID
 import cocoapods.PurchasesHybridCommon.setAirshipChannelID
 import cocoapods.PurchasesHybridCommon.setOnesignalUserID
 import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
@@ -688,6 +689,9 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
     public actual fun setAppsflyerID(appsflyerID: String?): Unit =
         iosPurchases.setAppsflyerID(appsflyerID)
+
+    public actual fun setAirbridgeDeviceID(airbridgeDeviceID: String?): Unit =
+        RCCommonFunctionality.setAirbridgeDeviceID(airbridgeDeviceID)
 
     public actual fun setFBAnonymousID(fbAnonymousID: String?): Unit =
         iosPurchases.setFBAnonymousID(fbAnonymousID)

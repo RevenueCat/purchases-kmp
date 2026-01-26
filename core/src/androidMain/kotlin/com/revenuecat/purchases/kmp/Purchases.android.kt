@@ -491,6 +491,9 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual fun setAirshipChannelID(airshipChannelID: String?): Unit =
         androidPurchases.setAirshipChannelID(airshipChannelID)
 
+    public actual fun setAirbridgeDeviceID(airbridgeDeviceID: String?): Unit =
+        androidPurchases.setAirbridgeDeviceID(airbridgeDeviceID)
+
     public actual fun setFirebaseAppInstanceID(firebaseAppInstanceID: String?): Unit =
         androidPurchases.setFirebaseAppInstanceID(firebaseAppInstanceID)
 
