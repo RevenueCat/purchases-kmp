@@ -1,16 +1,16 @@
 PODS:
-  - PurchasesHybridCommon (17.26.1):
-    - RevenueCat (= 5.52.1)
-  - PurchasesHybridCommonUI (17.26.1):
-    - PurchasesHybridCommon (= 17.26.1)
-    - RevenueCatUI (= 5.52.1)
-  - RevenueCat (5.52.1)
-  - RevenueCatUI (5.52.1):
-    - RevenueCat (= 5.52.1)
+  - PurchasesHybridCommon (17.30.0):
+    - RevenueCat (= 5.56.0)
+  - PurchasesHybridCommonUI (17.30.0):
+    - PurchasesHybridCommon (= 17.30.0)
+    - RevenueCatUI (= 5.56.0)
+  - RevenueCat (5.56.0)
+  - RevenueCatUI (5.56.0):
+    - RevenueCat (= 5.56.0)
 
 DEPENDENCIES:
-  - PurchasesHybridCommon (= 17.26.1)
-  - PurchasesHybridCommonUI (= 17.26.1)
+  - PurchasesHybridCommon (= 17.30.0)
+  - PurchasesHybridCommonUI (= 17.30.0)
 
 SPEC REPOS:
   trunk:
@@ -20,11 +20,11 @@ SPEC REPOS:
     - RevenueCatUI
 
 SPEC CHECKSUMS:
-  PurchasesHybridCommon: a0923adc952779f2174ff699bfdf275f4af13aa5
-  PurchasesHybridCommonUI: 660dde7782b0a577e41945c8c061216052eca075
-  RevenueCat: c3d07077a0cc70b7c90a5a6072d60f9905d2dbc0
-  RevenueCatUI: cf72c82fae460b511a069f266429ea03db45722d
+  PurchasesHybridCommon: c00f6ce5933b9928e99766a45c9e53c0a5a03240
+  PurchasesHybridCommonUI: 3aed98f646f9f7f6915a12908766d468412be064
+  RevenueCat: 9e2a13bead55198a72272ff105a7265e9510cd11
+  RevenueCatUI: 2200b8ec1cadb1c69c6f05452144184f929eadef
 
-PODFILE CHECKSUM: defda23b5371d3d4f87a57c07a2e49ef05a9897a
+PODFILE CHECKSUM: 3b1d814e72a48285f85091674d71bc9ca816add2
 
 COCOAPODS: 1.16.2
