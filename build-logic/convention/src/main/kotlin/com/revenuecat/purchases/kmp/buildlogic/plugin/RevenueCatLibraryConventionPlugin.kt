@@ -2,6 +2,7 @@ package com.revenuecat.purchases.kmp.buildlogic.plugin
 
 import com.revenuecat.purchases.kmp.buildlogic.convention.configureAndroid
 import com.revenuecat.purchases.kmp.buildlogic.convention.configureKotlin
+import com.revenuecat.purchases.kmp.buildlogic.swift.configureSwiftDependencies
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -24,6 +25,7 @@ class RevenueCatLibraryConventionPlugin : Plugin<Project> {
 
         configureKotlin()
         configureAndroid()
+        configureSwiftDependencies()
 
         // Disable dokka if needed.
         afterEvaluate {
