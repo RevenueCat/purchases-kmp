@@ -29,6 +29,7 @@ import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.AdDisplayedData
 import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
+import com.revenuecat.purchases.kmp.models.AdFormat
 import com.revenuecat.purchases.kmp.models.AdLoadedData
 import com.revenuecat.purchases.kmp.models.AdMediatorName
 import com.revenuecat.purchases.kmp.models.AdOpenedData
@@ -63,6 +64,7 @@ fun AdTrackingTestingScreen(
             val data = AdDisplayedData(
                 networkName = "TestNetwork",
                 mediatorName = AdMediatorName.AD_MOB,
+                adFormat = AdFormat.BANNER,
                 placement = "home_banner",
                 adUnitId = "ca-app-pub-1234567890",
                 impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}"
@@ -83,6 +85,7 @@ fun AdTrackingTestingScreen(
             val data = AdOpenedData(
                 networkName = "TestNetwork",
                 mediatorName = AdMediatorName.AD_MOB,
+                adFormat = AdFormat.BANNER,
                 placement = "home_banner",
                 adUnitId = "ca-app-pub-1234567890",
                 impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}"
@@ -103,6 +106,7 @@ fun AdTrackingTestingScreen(
             val data = AdRevenueData(
                 networkName = "TestNetwork",
                 mediatorName = AdMediatorName.APP_LOVIN,
+                adFormat = AdFormat.REWARDED,
                 placement = "rewarded_video",
                 adUnitId = "ca-app-pub-1234567890",
                 impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}",
@@ -126,6 +130,7 @@ fun AdTrackingTestingScreen(
             val data = AdLoadedData(
                 networkName = "TestNetwork",
                 mediatorName = AdMediatorName.AD_MOB,
+                adFormat = AdFormat.INTERSTITIAL,
                 placement = "interstitial",
                 adUnitId = "ca-app-pub-1234567890",
                 impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}"
@@ -146,6 +151,7 @@ fun AdTrackingTestingScreen(
             val data = AdFailedToLoadData(
                 networkName = "TestNetwork",
                 mediatorName = AdMediatorName.APP_LOVIN,
+                adFormat = AdFormat.BANNER,
                 placement = "banner",
                 adUnitId = "ca-app-pub-1234567890",
                 mediatorErrorCode = 404
