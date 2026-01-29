@@ -36,10 +36,26 @@ class AdEventTypesTest {
     }
 
     @Test
+    fun `AdFormat with predefined value`() {
+        val banner = AdFormat.BANNER
+        assertEquals("banner", banner.value)
+
+        val interstitial = AdFormat.INTERSTITIAL
+        assertEquals("interstitial", interstitial.value)
+    }
+
+    @Test
+    fun `AdFormat with custom value`() {
+        val custom = AdFormat("custom_format")
+        assertEquals("custom_format", custom.value)
+    }
+
+    @Test
     fun `AdDisplayedData can be constructed`() {
         val data = AdDisplayedData(
             networkName = "TestNetwork",
             mediatorName = AdMediatorName.AD_MOB,
+            adFormat = AdFormat.BANNER,
             placement = "banner",
             adUnitId = "ad-unit-123",
             impressionId = "impression-456",
@@ -48,6 +64,7 @@ class AdEventTypesTest {
         assertNotNull(data)
         assertEquals("TestNetwork", data.networkName)
         assertEquals(AdMediatorName.AD_MOB, data.mediatorName)
+        assertEquals(AdFormat.BANNER, data.adFormat)
         assertEquals("banner", data.placement)
         assertEquals("ad-unit-123", data.adUnitId)
         assertEquals("impression-456", data.impressionId)
@@ -58,6 +75,7 @@ class AdEventTypesTest {
         val data = AdRevenueData(
             networkName = "TestNetwork",
             mediatorName = AdMediatorName.APP_LOVIN,
+            adFormat = AdFormat.INTERSTITIAL,
             placement = "interstitial",
             adUnitId = "ad-unit-789",
             impressionId = "impression-012",
@@ -67,6 +85,7 @@ class AdEventTypesTest {
         )
 
         assertNotNull(data)
+        assertEquals(AdFormat.INTERSTITIAL, data.adFormat)
         assertEquals(1000000L, data.revenueMicros)
         assertEquals("USD", data.currency)
         assertEquals(AdRevenuePrecision.EXACT, data.precision)
@@ -77,12 +96,14 @@ class AdEventTypesTest {
         val data = AdFailedToLoadData(
             networkName = "TestNetwork",
             mediatorName = AdMediatorName.AD_MOB,
+            adFormat = AdFormat.REWARDED,
             placement = null,
             adUnitId = "ad-unit-999",
             mediatorErrorCode = null,
         )
 
         assertNotNull(data)
+        assertEquals(AdFormat.REWARDED, data.adFormat)
         assertEquals(null, data.mediatorErrorCode)
         assertEquals(null, data.placement)
     }

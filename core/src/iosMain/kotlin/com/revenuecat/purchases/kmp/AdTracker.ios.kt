@@ -30,16 +30,13 @@ public actual class AdTracker {
         val adData = mapOf<Any?, Any?>(
             "networkName" to data.networkName,
             "mediatorName" to data.mediatorName.value,
+            "adFormat" to data.adFormat.value,
             "placement" to data.placement,
             "adUnitId" to data.adUnitId,
             "impressionId" to data.impressionId
         )
 
-        RCCommonFunctionality.trackAdDisplayed(adData) { error ->
-            error?.let {
-                Purchases.logHandler.e("Purchases", "Failed to track ad displayed: ${it.message()}", null)
-            }
-        }
+        RCCommonFunctionality.trackAdDisplayed(adData)
     }
 
     public actual fun trackAdOpened(data: AdOpenedData) {
@@ -51,16 +48,13 @@ public actual class AdTracker {
         val adData = mapOf<Any?, Any?>(
             "networkName" to data.networkName,
             "mediatorName" to data.mediatorName.value,
+            "adFormat" to data.adFormat.value,
             "placement" to data.placement,
             "adUnitId" to data.adUnitId,
             "impressionId" to data.impressionId
         )
 
-        RCCommonFunctionality.trackAdOpened(adData) { error ->
-            error?.let {
-                Purchases.logHandler.e("Purchases", "Failed to track ad opened: ${it.message()}", null)
-            }
-        }
+        RCCommonFunctionality.trackAdOpened(adData)
     }
 
     public actual fun trackAdRevenue(data: AdRevenueData) {
@@ -72,6 +66,7 @@ public actual class AdTracker {
         val adData = mapOf<Any?, Any?>(
             "networkName" to data.networkName,
             "mediatorName" to data.mediatorName.value,
+            "adFormat" to data.adFormat.value,
             "placement" to data.placement,
             "adUnitId" to data.adUnitId,
             "impressionId" to data.impressionId,
@@ -80,11 +75,7 @@ public actual class AdTracker {
             "precision" to data.precision.value
         )
 
-        RCCommonFunctionality.trackAdRevenue(adData) { error ->
-            error?.let {
-                Purchases.logHandler.e("Purchases", "Failed to track ad revenue: ${it.message()}", null)
-            }
-        }
+        RCCommonFunctionality.trackAdRevenue(adData)
     }
 
     public actual fun trackAdLoaded(data: AdLoadedData) {
@@ -96,16 +87,13 @@ public actual class AdTracker {
         val adData = mapOf<Any?, Any?>(
             "networkName" to data.networkName,
             "mediatorName" to data.mediatorName.value,
+            "adFormat" to data.adFormat.value,
             "placement" to data.placement,
             "adUnitId" to data.adUnitId,
             "impressionId" to data.impressionId
         )
 
-        RCCommonFunctionality.trackAdLoaded(adData) { error ->
-            error?.let {
-                Purchases.logHandler.e("Purchases", "Failed to track ad loaded: ${it.message()}", null)
-            }
-        }
+        RCCommonFunctionality.trackAdLoaded(adData)
     }
 
     public actual fun trackAdFailedToLoad(data: AdFailedToLoadData) {
@@ -117,15 +105,12 @@ public actual class AdTracker {
         val adData = buildMap<Any?, Any?> {
             put("networkName", data.networkName)
             put("mediatorName", data.mediatorName.value)
+            put("adFormat", data.adFormat.value)
             put("placement", data.placement)
             put("adUnitId", data.adUnitId)
             data.mediatorErrorCode?.let { put("mediatorErrorCode", NSNumber(int = it)) }
         }
 
-        RCCommonFunctionality.trackAdFailedToLoad(adData) { error ->
-            error?.let {
-                Purchases.logHandler.e("Purchases", "Failed to track ad failed to load: ${it.message()}", null)
-            }
-        }
+        RCCommonFunctionality.trackAdFailedToLoad(adData)
     }
 }
