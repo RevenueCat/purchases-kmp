@@ -182,6 +182,14 @@ fun MainScreen(
                 ) {
                     Text("Virtual Currency Testing")
                 }
+
+                Spacer(modifier = Modifier.size(16.dp))
+                TextButton(
+                    onClick = { navigateTo(Screen.AdTracking) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Ad Tracking Testing")
+                }
             }
         }
     }

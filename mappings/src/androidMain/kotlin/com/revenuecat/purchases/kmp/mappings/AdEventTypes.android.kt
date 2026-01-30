@@ -4,6 +4,7 @@ import com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI
 import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.models.AdDisplayedData
 import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
+import com.revenuecat.purchases.kmp.models.AdFormat
 import com.revenuecat.purchases.kmp.models.AdLoadedData
 import com.revenuecat.purchases.kmp.models.AdMediatorName
 import com.revenuecat.purchases.kmp.models.AdOpenedData
@@ -11,6 +12,7 @@ import com.revenuecat.purchases.kmp.models.AdRevenueData
 import com.revenuecat.purchases.kmp.models.AdRevenuePrecision
 import com.revenuecat.purchases.ads.events.types.AdDisplayedData as AndroidAdDisplayedData
 import com.revenuecat.purchases.ads.events.types.AdFailedToLoadData as AndroidAdFailedToLoadData
+import com.revenuecat.purchases.ads.events.types.AdFormat as AndroidAdFormat
 import com.revenuecat.purchases.ads.events.types.AdLoadedData as AndroidAdLoadedData
 import com.revenuecat.purchases.ads.events.types.AdMediatorName as AndroidAdMediatorName
 import com.revenuecat.purchases.ads.events.types.AdOpenedData as AndroidAdOpenedData
@@ -31,10 +33,17 @@ public fun AdRevenuePrecision.toAndroid(): AndroidAdRevenuePrecision {
 
 @ExperimentalRevenueCatApi
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+public fun AdFormat.toAndroid(): AndroidAdFormat {
+    return AndroidAdFormat.fromString(this.value)
+}
+
+@ExperimentalRevenueCatApi
+@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
 public fun AdDisplayedData.toAndroid(): AndroidAdDisplayedData {
     return AndroidAdDisplayedData(
         networkName = networkName,
         mediatorName = mediatorName.toAndroid(),
+        adFormat = adFormat.toAndroid(),
         placement = placement,
         adUnitId = adUnitId,
         impressionId = impressionId,
@@ -47,6 +56,7 @@ public fun AdOpenedData.toAndroid(): AndroidAdOpenedData {
     return AndroidAdOpenedData(
         networkName = networkName,
         mediatorName = mediatorName.toAndroid(),
+        adFormat = adFormat.toAndroid(),
         placement = placement,
         adUnitId = adUnitId,
         impressionId = impressionId,
@@ -59,6 +69,7 @@ public fun AdRevenueData.toAndroid(): AndroidAdRevenueData {
     return AndroidAdRevenueData(
         networkName = networkName,
         mediatorName = mediatorName.toAndroid(),
+        adFormat = adFormat.toAndroid(),
         placement = placement,
         adUnitId = adUnitId,
         impressionId = impressionId,
@@ -74,6 +85,7 @@ public fun AdLoadedData.toAndroid(): AndroidAdLoadedData {
     return AndroidAdLoadedData(
         networkName = networkName,
         mediatorName = mediatorName.toAndroid(),
+        adFormat = adFormat.toAndroid(),
         placement = placement,
         adUnitId = adUnitId,
         impressionId = impressionId,
@@ -86,6 +98,7 @@ public fun AdFailedToLoadData.toAndroid(): AndroidAdFailedToLoadData {
     return AndroidAdFailedToLoadData(
         networkName = networkName,
         mediatorName = mediatorName.toAndroid(),
+        adFormat = adFormat.toAndroid(),
         placement = placement,
         adUnitId = adUnitId,
         mediatorErrorCode = mediatorErrorCode,
