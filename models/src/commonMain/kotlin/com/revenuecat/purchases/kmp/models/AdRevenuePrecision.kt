@@ -1,7 +1,6 @@
 package com.revenuecat.purchases.kmp.models
 
 import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
-import kotlin.jvm.JvmInline
 
 /**
  * Represents the precision level of ad revenue values reported by ad networks.
@@ -10,8 +9,7 @@ import kotlin.jvm.JvmInline
  * This enum helps distinguish between exact reported values and estimates.
  */
 @ExperimentalRevenueCatApi
-@JvmInline
-public value class AdRevenuePrecision(public val value: String) {
+public class AdRevenuePrecision(public val value: String) {
     public companion object {
         /**
          * The revenue value is exact and confirmed by the ad network.
