@@ -558,6 +558,32 @@ final class com.revenuecat.purchases.kmp.models/AdFailedToLoadData { // com.reve
         final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.placement.<get-placement>|<get-placement>(){}[0]
 }
 
+final class com.revenuecat.purchases.kmp.models/AdFormat { // com.revenuecat.purchases.kmp.models/AdFormat|null[0]
+    constructor <init>(kotlin/String) // com.revenuecat.purchases.kmp.models/AdFormat.<init>|<init>(kotlin.String){}[0]
+
+    final val value // com.revenuecat.purchases.kmp.models/AdFormat.value|{}value[0]
+        final fun <get-value>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdFormat.value.<get-value>|<get-value>(){}[0]
+
+    final object Companion { // com.revenuecat.purchases.kmp.models/AdFormat.Companion|null[0]
+        final val APP_OPEN // com.revenuecat.purchases.kmp.models/AdFormat.Companion.APP_OPEN|{}APP_OPEN[0]
+            final fun <get-APP_OPEN>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.APP_OPEN.<get-APP_OPEN>|<get-APP_OPEN>(){}[0]
+        final val BANNER // com.revenuecat.purchases.kmp.models/AdFormat.Companion.BANNER|{}BANNER[0]
+            final fun <get-BANNER>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.BANNER.<get-BANNER>|<get-BANNER>(){}[0]
+        final val INTERSTITIAL // com.revenuecat.purchases.kmp.models/AdFormat.Companion.INTERSTITIAL|{}INTERSTITIAL[0]
+            final fun <get-INTERSTITIAL>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.INTERSTITIAL.<get-INTERSTITIAL>|<get-INTERSTITIAL>(){}[0]
+        final val MREC // com.revenuecat.purchases.kmp.models/AdFormat.Companion.MREC|{}MREC[0]
+            final fun <get-MREC>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.MREC.<get-MREC>|<get-MREC>(){}[0]
+        final val NATIVE // com.revenuecat.purchases.kmp.models/AdFormat.Companion.NATIVE|{}NATIVE[0]
+            final fun <get-NATIVE>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.NATIVE.<get-NATIVE>|<get-NATIVE>(){}[0]
+        final val OTHER // com.revenuecat.purchases.kmp.models/AdFormat.Companion.OTHER|{}OTHER[0]
+            final fun <get-OTHER>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.OTHER.<get-OTHER>|<get-OTHER>(){}[0]
+        final val REWARDED // com.revenuecat.purchases.kmp.models/AdFormat.Companion.REWARDED|{}REWARDED[0]
+            final fun <get-REWARDED>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.REWARDED.<get-REWARDED>|<get-REWARDED>(){}[0]
+        final val REWARDED_INTERSTITIAL // com.revenuecat.purchases.kmp.models/AdFormat.Companion.REWARDED_INTERSTITIAL|{}REWARDED_INTERSTITIAL[0]
+            final fun <get-REWARDED_INTERSTITIAL>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.REWARDED_INTERSTITIAL.<get-REWARDED_INTERSTITIAL>|<get-REWARDED_INTERSTITIAL>(){}[0]
+    }
+}
+
 final class com.revenuecat.purchases.kmp.models/AdLoadedData { // com.revenuecat.purchases.kmp.models/AdLoadedData|null[0]
     constructor <init>(kotlin/String, com.revenuecat.purchases.kmp.models/AdMediatorName, com.revenuecat.purchases.kmp.models/AdFormat, kotlin/String?, kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp.models/AdLoadedData.<init>|<init>(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;com.revenuecat.purchases.kmp.models.AdFormat;kotlin.String?;kotlin.String;kotlin.String){}[0]
 
@@ -942,36 +968,6 @@ final class com.revenuecat.purchases.kmp.models/WebPurchaseRedemption { // com.r
 
     final val redemptionUrl // com.revenuecat.purchases.kmp.models/WebPurchaseRedemption.redemptionUrl|{}redemptionUrl[0]
         final fun <get-redemptionUrl>(): kotlin/String // com.revenuecat.purchases.kmp.models/WebPurchaseRedemption.redemptionUrl.<get-redemptionUrl>|<get-redemptionUrl>(){}[0]
-}
-
-final value class com.revenuecat.purchases.kmp.models/AdFormat { // com.revenuecat.purchases.kmp.models/AdFormat|null[0]
-    constructor <init>(kotlin/String) // com.revenuecat.purchases.kmp.models/AdFormat.<init>|<init>(kotlin.String){}[0]
-
-    final val value // com.revenuecat.purchases.kmp.models/AdFormat.value|{}value[0]
-        final fun <get-value>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdFormat.value.<get-value>|<get-value>(){}[0]
-
-    final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdFormat.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdFormat.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdFormat.toString|toString(){}[0]
-
-    final object Companion { // com.revenuecat.purchases.kmp.models/AdFormat.Companion|null[0]
-        final val APP_OPEN // com.revenuecat.purchases.kmp.models/AdFormat.Companion.APP_OPEN|{}APP_OPEN[0]
-            final fun <get-APP_OPEN>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.APP_OPEN.<get-APP_OPEN>|<get-APP_OPEN>(){}[0]
-        final val BANNER // com.revenuecat.purchases.kmp.models/AdFormat.Companion.BANNER|{}BANNER[0]
-            final fun <get-BANNER>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.BANNER.<get-BANNER>|<get-BANNER>(){}[0]
-        final val INTERSTITIAL // com.revenuecat.purchases.kmp.models/AdFormat.Companion.INTERSTITIAL|{}INTERSTITIAL[0]
-            final fun <get-INTERSTITIAL>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.INTERSTITIAL.<get-INTERSTITIAL>|<get-INTERSTITIAL>(){}[0]
-        final val MREC // com.revenuecat.purchases.kmp.models/AdFormat.Companion.MREC|{}MREC[0]
-            final fun <get-MREC>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.MREC.<get-MREC>|<get-MREC>(){}[0]
-        final val NATIVE // com.revenuecat.purchases.kmp.models/AdFormat.Companion.NATIVE|{}NATIVE[0]
-            final fun <get-NATIVE>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.NATIVE.<get-NATIVE>|<get-NATIVE>(){}[0]
-        final val OTHER // com.revenuecat.purchases.kmp.models/AdFormat.Companion.OTHER|{}OTHER[0]
-            final fun <get-OTHER>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.OTHER.<get-OTHER>|<get-OTHER>(){}[0]
-        final val REWARDED // com.revenuecat.purchases.kmp.models/AdFormat.Companion.REWARDED|{}REWARDED[0]
-            final fun <get-REWARDED>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.REWARDED.<get-REWARDED>|<get-REWARDED>(){}[0]
-        final val REWARDED_INTERSTITIAL // com.revenuecat.purchases.kmp.models/AdFormat.Companion.REWARDED_INTERSTITIAL|{}REWARDED_INTERSTITIAL[0]
-            final fun <get-REWARDED_INTERSTITIAL>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.REWARDED_INTERSTITIAL.<get-REWARDED_INTERSTITIAL>|<get-REWARDED_INTERSTITIAL>(){}[0]
-    }
 }
 
 final value class com.revenuecat.purchases.kmp.models/AdMediatorName { // com.revenuecat.purchases.kmp.models/AdMediatorName|null[0]
