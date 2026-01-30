@@ -70,7 +70,7 @@ public final class com/revenuecat/purchases/kmp/models/AdOpenedData {
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdRevenueData {
-	public synthetic fun <init> (Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/AdMediatorName;Lcom/revenuecat/purchases/kmp/models/AdFormat;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/AdMediatorName;Lcom/revenuecat/purchases/kmp/models/AdFormat;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Lcom/revenuecat/purchases/kmp/models/AdRevenuePrecision;)V
 	public final fun getAdFormat ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
 	public final fun getAdUnitId ()Ljava/lang/String;
 	public final fun getCurrency ()Ljava/lang/String;
@@ -78,30 +78,21 @@ public final class com/revenuecat/purchases/kmp/models/AdRevenueData {
 	public final fun getMediatorName ()Lcom/revenuecat/purchases/kmp/models/AdMediatorName;
 	public final fun getNetworkName ()Ljava/lang/String;
 	public final fun getPlacement ()Ljava/lang/String;
-	public final fun getPrecision-C-W9r9E ()Ljava/lang/String;
+	public final fun getPrecision ()Lcom/revenuecat/purchases/kmp/models/AdRevenuePrecision;
 	public final fun getRevenueMicros ()J
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdRevenuePrecision {
 	public static final field Companion Lcom/revenuecat/purchases/kmp/models/AdRevenuePrecision$Companion;
-	public static final synthetic fun box-impl (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/AdRevenuePrecision;
-	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
-	public fun equals (Ljava/lang/Object;)Z
-	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
-	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public fun <init> (Ljava/lang/String;)V
 	public final fun getValue ()Ljava/lang/String;
-	public fun hashCode ()I
-	public static fun hashCode-impl (Ljava/lang/String;)I
-	public fun toString ()Ljava/lang/String;
-	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
-	public final synthetic fun unbox-impl ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdRevenuePrecision$Companion {
-	public final fun getESTIMATED-C-W9r9E ()Ljava/lang/String;
-	public final fun getEXACT-C-W9r9E ()Ljava/lang/String;
-	public final fun getPUBLISHER_DEFINED-C-W9r9E ()Ljava/lang/String;
-	public final fun getUNKNOWN-C-W9r9E ()Ljava/lang/String;
+	public final fun getESTIMATED ()Lcom/revenuecat/purchases/kmp/models/AdRevenuePrecision;
+	public final fun getEXACT ()Lcom/revenuecat/purchases/kmp/models/AdRevenuePrecision;
+	public final fun getPUBLISHER_DEFINED ()Lcom/revenuecat/purchases/kmp/models/AdRevenuePrecision;
+	public final fun getUNKNOWN ()Lcom/revenuecat/purchases/kmp/models/AdRevenuePrecision;
 }
 
 public final class com/revenuecat/purchases/kmp/models/BillingFeature : java/lang/Enum {

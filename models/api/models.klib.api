@@ -655,6 +655,24 @@ final class com.revenuecat.purchases.kmp.models/AdRevenueData { // com.revenueca
         final fun <get-revenueMicros>(): kotlin/Long // com.revenuecat.purchases.kmp.models/AdRevenueData.revenueMicros.<get-revenueMicros>|<get-revenueMicros>(){}[0]
 }
 
+final class com.revenuecat.purchases.kmp.models/AdRevenuePrecision { // com.revenuecat.purchases.kmp.models/AdRevenuePrecision|null[0]
+    constructor <init>(kotlin/String) // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.<init>|<init>(kotlin.String){}[0]
+
+    final val value // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.value|{}value[0]
+        final fun <get-value>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.value.<get-value>|<get-value>(){}[0]
+
+    final object Companion { // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion|null[0]
+        final val ESTIMATED // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.ESTIMATED|{}ESTIMATED[0]
+            final fun <get-ESTIMATED>(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.ESTIMATED.<get-ESTIMATED>|<get-ESTIMATED>(){}[0]
+        final val EXACT // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.EXACT|{}EXACT[0]
+            final fun <get-EXACT>(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.EXACT.<get-EXACT>|<get-EXACT>(){}[0]
+        final val PUBLISHER_DEFINED // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.PUBLISHER_DEFINED|{}PUBLISHER_DEFINED[0]
+            final fun <get-PUBLISHER_DEFINED>(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.PUBLISHER_DEFINED.<get-PUBLISHER_DEFINED>|<get-PUBLISHER_DEFINED>(){}[0]
+        final val UNKNOWN // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.UNKNOWN|{}UNKNOWN[0]
+            final fun <get-UNKNOWN>(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.UNKNOWN.<get-UNKNOWN>|<get-UNKNOWN>(){}[0]
+    }
+}
+
 final class com.revenuecat.purchases.kmp.models/CustomerInfo { // com.revenuecat.purchases.kmp.models/CustomerInfo|null[0]
     constructor <init>(kotlin.collections/Set<kotlin/String>, kotlin.collections/Map<kotlin/String, kotlin/Long?>, kotlin.collections/Map<kotlin/String, kotlin/Long?>, kotlin.collections/Set<kotlin/String>, com.revenuecat.purchases.kmp.models/EntitlementInfos, kotlin/Long, kotlin/Long?, kotlin/String?, kotlin.collections/Map<kotlin/String, com.revenuecat.purchases.kmp.models/SubscriptionInfo>, kotlin.collections/List<com.revenuecat.purchases.kmp.models/Transaction>, kotlin/String, kotlin/String?, kotlin/Long?, kotlin/Long) // com.revenuecat.purchases.kmp.models/CustomerInfo.<init>|<init>(kotlin.collections.Set<kotlin.String>;kotlin.collections.Map<kotlin.String,kotlin.Long?>;kotlin.collections.Map<kotlin.String,kotlin.Long?>;kotlin.collections.Set<kotlin.String>;com.revenuecat.purchases.kmp.models.EntitlementInfos;kotlin.Long;kotlin.Long?;kotlin.String?;kotlin.collections.Map<kotlin.String,com.revenuecat.purchases.kmp.models.SubscriptionInfo>;kotlin.collections.List<com.revenuecat.purchases.kmp.models.Transaction>;kotlin.String;kotlin.String?;kotlin.Long?;kotlin.Long){}[0]
 
@@ -982,28 +1000,6 @@ final class com.revenuecat.purchases.kmp.models/WebPurchaseRedemption { // com.r
 
     final val redemptionUrl // com.revenuecat.purchases.kmp.models/WebPurchaseRedemption.redemptionUrl|{}redemptionUrl[0]
         final fun <get-redemptionUrl>(): kotlin/String // com.revenuecat.purchases.kmp.models/WebPurchaseRedemption.redemptionUrl.<get-redemptionUrl>|<get-redemptionUrl>(){}[0]
-}
-
-final value class com.revenuecat.purchases.kmp.models/AdRevenuePrecision { // com.revenuecat.purchases.kmp.models/AdRevenuePrecision|null[0]
-    constructor <init>(kotlin/String) // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.<init>|<init>(kotlin.String){}[0]
-
-    final val value // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.value|{}value[0]
-        final fun <get-value>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.value.<get-value>|<get-value>(){}[0]
-
-    final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.toString|toString(){}[0]
-
-    final object Companion { // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion|null[0]
-        final val ESTIMATED // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.ESTIMATED|{}ESTIMATED[0]
-            final fun <get-ESTIMATED>(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.ESTIMATED.<get-ESTIMATED>|<get-ESTIMATED>(){}[0]
-        final val EXACT // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.EXACT|{}EXACT[0]
-            final fun <get-EXACT>(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.EXACT.<get-EXACT>|<get-EXACT>(){}[0]
-        final val PUBLISHER_DEFINED // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.PUBLISHER_DEFINED|{}PUBLISHER_DEFINED[0]
-            final fun <get-PUBLISHER_DEFINED>(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.PUBLISHER_DEFINED.<get-PUBLISHER_DEFINED>|<get-PUBLISHER_DEFINED>(){}[0]
-        final val UNKNOWN // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.UNKNOWN|{}UNKNOWN[0]
-            final fun <get-UNKNOWN>(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.UNKNOWN.<get-UNKNOWN>|<get-UNKNOWN>(){}[0]
-    }
 }
 
 open class com.revenuecat.purchases.kmp.models/PurchasesException : kotlin/Exception { // com.revenuecat.purchases.kmp.models/PurchasesException|null[0]
