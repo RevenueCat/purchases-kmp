@@ -2,8 +2,8 @@ public abstract interface annotation class com/revenuecat/purchases/kmp/Experime
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdDisplayedData {
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getAdFormat-AVhMwwk ()Ljava/lang/String;
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/AdFormat;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAdFormat ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
 	public final fun getAdUnitId ()Ljava/lang/String;
 	public final fun getImpressionId ()Ljava/lang/String;
 	public final fun getMediatorName-WzqQsPc ()Ljava/lang/String;
@@ -12,8 +12,8 @@ public final class com/revenuecat/purchases/kmp/models/AdDisplayedData {
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdFailedToLoadData {
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getAdFormat-AVhMwwk ()Ljava/lang/String;
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/AdFormat;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAdFormat ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
 	public final fun getAdUnitId ()Ljava/lang/String;
 	public final fun getMediatorErrorCode ()Ljava/lang/Integer;
 	public final fun getMediatorName-WzqQsPc ()Ljava/lang/String;
@@ -23,33 +23,24 @@ public final class com/revenuecat/purchases/kmp/models/AdFailedToLoadData {
 
 public final class com/revenuecat/purchases/kmp/models/AdFormat {
 	public static final field Companion Lcom/revenuecat/purchases/kmp/models/AdFormat$Companion;
-	public static final synthetic fun box-impl (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/AdFormat;
-	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
-	public fun equals (Ljava/lang/Object;)Z
-	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
-	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
+	public fun <init> (Ljava/lang/String;)V
 	public final fun getValue ()Ljava/lang/String;
-	public fun hashCode ()I
-	public static fun hashCode-impl (Ljava/lang/String;)I
-	public fun toString ()Ljava/lang/String;
-	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
-	public final synthetic fun unbox-impl ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdFormat$Companion {
-	public final fun getAPP_OPEN-AVhMwwk ()Ljava/lang/String;
-	public final fun getBANNER-AVhMwwk ()Ljava/lang/String;
-	public final fun getINTERSTITIAL-AVhMwwk ()Ljava/lang/String;
-	public final fun getMREC-AVhMwwk ()Ljava/lang/String;
-	public final fun getNATIVE-AVhMwwk ()Ljava/lang/String;
-	public final fun getOTHER-AVhMwwk ()Ljava/lang/String;
-	public final fun getREWARDED-AVhMwwk ()Ljava/lang/String;
-	public final fun getREWARDED_INTERSTITIAL-AVhMwwk ()Ljava/lang/String;
+	public final fun getAPP_OPEN ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
+	public final fun getBANNER ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
+	public final fun getINTERSTITIAL ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
+	public final fun getMREC ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
+	public final fun getNATIVE ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
+	public final fun getOTHER ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
+	public final fun getREWARDED ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
+	public final fun getREWARDED_INTERSTITIAL ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdLoadedData {
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getAdFormat-AVhMwwk ()Ljava/lang/String;
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/AdFormat;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAdFormat ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
 	public final fun getAdUnitId ()Ljava/lang/String;
 	public final fun getImpressionId ()Ljava/lang/String;
 	public final fun getMediatorName-WzqQsPc ()Ljava/lang/String;
@@ -78,8 +69,8 @@ public final class com/revenuecat/purchases/kmp/models/AdMediatorName$Companion 
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdOpenedData {
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getAdFormat-AVhMwwk ()Ljava/lang/String;
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/AdFormat;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAdFormat ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
 	public final fun getAdUnitId ()Ljava/lang/String;
 	public final fun getImpressionId ()Ljava/lang/String;
 	public final fun getMediatorName-WzqQsPc ()Ljava/lang/String;
@@ -88,8 +79,8 @@ public final class com/revenuecat/purchases/kmp/models/AdOpenedData {
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdRevenueData {
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getAdFormat-AVhMwwk ()Ljava/lang/String;
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/AdFormat;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JLjava/lang/String;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAdFormat ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
 	public final fun getAdUnitId ()Ljava/lang/String;
 	public final fun getCurrency ()Ljava/lang/String;
 	public final fun getImpressionId ()Ljava/lang/String;

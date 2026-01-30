@@ -1,14 +1,12 @@
 package com.revenuecat.purchases.kmp.models
 
 import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
-import kotlin.jvm.JvmInline
 
 /**
  * Common ad format types.
  */
 @ExperimentalRevenueCatApi
-@JvmInline
-public value class AdFormat(public val value: String) {
+public class AdFormat(public val value: String) {
     public companion object {
         public val OTHER: AdFormat = AdFormat("other")
         public val BANNER: AdFormat = AdFormat("banner")
