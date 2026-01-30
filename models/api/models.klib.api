@@ -601,6 +601,20 @@ final class com.revenuecat.purchases.kmp.models/AdLoadedData { // com.revenuecat
         final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdLoadedData.placement.<get-placement>|<get-placement>(){}[0]
 }
 
+final class com.revenuecat.purchases.kmp.models/AdMediatorName { // com.revenuecat.purchases.kmp.models/AdMediatorName|null[0]
+    constructor <init>(kotlin/String) // com.revenuecat.purchases.kmp.models/AdMediatorName.<init>|<init>(kotlin.String){}[0]
+
+    final val value // com.revenuecat.purchases.kmp.models/AdMediatorName.value|{}value[0]
+        final fun <get-value>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdMediatorName.value.<get-value>|<get-value>(){}[0]
+
+    final object Companion { // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion|null[0]
+        final val AD_MOB // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion.AD_MOB|{}AD_MOB[0]
+            final fun <get-AD_MOB>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion.AD_MOB.<get-AD_MOB>|<get-AD_MOB>(){}[0]
+        final val APP_LOVIN // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion.APP_LOVIN|{}APP_LOVIN[0]
+            final fun <get-APP_LOVIN>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion.APP_LOVIN.<get-APP_LOVIN>|<get-APP_LOVIN>(){}[0]
+    }
+}
+
 final class com.revenuecat.purchases.kmp.models/AdOpenedData { // com.revenuecat.purchases.kmp.models/AdOpenedData|null[0]
     constructor <init>(kotlin/String, com.revenuecat.purchases.kmp.models/AdMediatorName, com.revenuecat.purchases.kmp.models/AdFormat, kotlin/String?, kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp.models/AdOpenedData.<init>|<init>(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;com.revenuecat.purchases.kmp.models.AdFormat;kotlin.String?;kotlin.String;kotlin.String){}[0]
 
@@ -968,24 +982,6 @@ final class com.revenuecat.purchases.kmp.models/WebPurchaseRedemption { // com.r
 
     final val redemptionUrl // com.revenuecat.purchases.kmp.models/WebPurchaseRedemption.redemptionUrl|{}redemptionUrl[0]
         final fun <get-redemptionUrl>(): kotlin/String // com.revenuecat.purchases.kmp.models/WebPurchaseRedemption.redemptionUrl.<get-redemptionUrl>|<get-redemptionUrl>(){}[0]
-}
-
-final value class com.revenuecat.purchases.kmp.models/AdMediatorName { // com.revenuecat.purchases.kmp.models/AdMediatorName|null[0]
-    constructor <init>(kotlin/String) // com.revenuecat.purchases.kmp.models/AdMediatorName.<init>|<init>(kotlin.String){}[0]
-
-    final val value // com.revenuecat.purchases.kmp.models/AdMediatorName.value|{}value[0]
-        final fun <get-value>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdMediatorName.value.<get-value>|<get-value>(){}[0]
-
-    final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdMediatorName.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdMediatorName.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdMediatorName.toString|toString(){}[0]
-
-    final object Companion { // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion|null[0]
-        final val AD_MOB // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion.AD_MOB|{}AD_MOB[0]
-            final fun <get-AD_MOB>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion.AD_MOB.<get-AD_MOB>|<get-AD_MOB>(){}[0]
-        final val APP_LOVIN // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion.APP_LOVIN|{}APP_LOVIN[0]
-            final fun <get-APP_LOVIN>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion.APP_LOVIN.<get-APP_LOVIN>|<get-APP_LOVIN>(){}[0]
-    }
 }
 
 final value class com.revenuecat.purchases.kmp.models/AdRevenuePrecision { // com.revenuecat.purchases.kmp.models/AdRevenuePrecision|null[0]
