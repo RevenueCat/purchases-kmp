@@ -37,6 +37,9 @@ tasks.test {
         events("passed", "skipped", "failed")
         showStandardStreams = true
     }
+    // Provide the main project root directory to tests (build-logic is a composite build,
+    // so rootProject.rootDir refers to build-logic, not the main project)
+    systemProperty("mainProjectDir", rootProject.rootDir.parentFile.absolutePath)
 }
 
 gradlePlugin {

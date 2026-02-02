@@ -189,17 +189,13 @@ private data class SwiftPackageConfig(
 )
 
 private fun setupBaseProject(projectDir: File) {
+    val mainProjectDir = File(System.getProperty("mainProjectDir")
+        ?: error("rootProjectDir system property not set."))
+    val mainProjectVersionCatalog = mainProjectDir.resolve("gradle/libs.versions.toml")
+    
     projectDir.resolve("gradle").apply {
         mkdirs()
-        resolve("libs.versions.toml").writeText(
-            // language=toml
-            """
-            [versions]
-            android-compileSdk = "35"
-            android-minSdk = "21"
-            java = "1.8"
-            """.trimIndent()
-        )
+        resolve("libs.versions.toml").writeText(mainProjectVersionCatalog.readText())
     }
 
     projectDir.resolve("settings.gradle.kts").writeText(
