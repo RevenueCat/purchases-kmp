@@ -345,6 +345,20 @@ jobs:
       - save-kotlin-native-compiler-to-cache
       - save-incremental-gradle-build-to-workspace
 
+  unit-tests-build-logic:
+    executor: xcode16
+    steps:
+      - checkout
+      - restore-gradle-user-home-directory-from-cache
+      - attach-workspace-at-working-directory
+      - run:
+          name: Execute unit tests for build-logic
+          command: ./gradlew :build-logic:convention:test
+      - store_test_results:
+          path: build-logic/convention/build/test-results
+      - save-gradle-user-home-directory-to-cache
+      - save-incremental-gradle-build-to-workspace
+
   publish:
     description: "Publishes the SDK, either a SNAPSHOT or release version."
     executor: xcode16
@@ -411,6 +425,7 @@ workflows:
       - revenuecat/danger:
           context: danger-bot
       - detekt
+      - unit-tests-build-logic
       - build-libraries-android
       - build-libraries-ios
       - build-sample-android:
@@ -476,6 +491,7 @@ workflows:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
       - detekt
+      - unit-tests-build-logic
       - build-libraries-android
       - build-libraries-ios
       - build-sample-android:
@@ -498,6 +514,7 @@ workflows:
           type: approval
           requires:
             - detekt
+            - unit-tests-build-logic
             - build-sample-android
             - build-sample-ios
             - public-api-tests-android
