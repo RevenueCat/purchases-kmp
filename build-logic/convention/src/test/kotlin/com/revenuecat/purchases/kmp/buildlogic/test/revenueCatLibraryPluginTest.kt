@@ -53,7 +53,8 @@ class RevenueCatLibraryPluginTestContext(
                 relativePath = relativePath,
                 targetName = targetName,
                 kotlinPackageName = kotlinPackageName,
-                kotlinSourceSet = kotlinSourceSet
+                kotlinSourceSet = kotlinSourceSet,
+                hasResources = handle.hasResources
             )
         )
 
@@ -92,13 +93,20 @@ class RevenueCatLibraryPluginTestContext(
                 """
         }
 
+        val needsCompose = swiftPackageConfigs.any { it.hasResources }
+        val composePlugin = if (needsCompose) {
+            """
+                id("org.jetbrains.compose")
+                id("org.jetbrains.kotlin.plugin.compose")"""
+        } else ""
+
         projectDir.resolve("build.gradle.kts").writeText(
             // language=kotlin
             """
             import com.revenuecat.purchases.kmp.buildlogic.swift.swiftPackage
             
             plugins {
-                id("revenuecat-library")
+                id("revenuecat-library")$composePlugin
             }
             
             kotlin {
@@ -117,7 +125,11 @@ class RevenueCatLibraryPluginTestContext(
     }
 }
 
-class SwiftTargetHandle(private val sourcesDir: File, val name: String) {
+class SwiftTargetHandle(
+    private val sourcesDir: File,
+    val name: String,
+    val resources: SwiftResourcesHandle
+) {
 
     fun readSourceFile(relativePath: String): String = sourceFile(relativePath).readText()
 
@@ -135,11 +147,37 @@ class SwiftTargetHandle(private val sourcesDir: File, val name: String) {
     private fun sourceFile(relativePath: String): File = sourcesDir.resolve(relativePath)
 }
 
+class SwiftResourcesHandle(private val resourcesDir: File) {
+
+    fun writeResourceFile(relativePath: String, contents: String) {
+        resourceFile(relativePath).apply {
+            parentFile.mkdirs()
+            writeText(contents)
+        }
+    }
+
+    fun deleteResourceFile(relativePath: String) {
+        resourceFile(relativePath).delete()
+    }
+
+    fun renameResourceFile(oldRelativePath: String, newRelativePath: String) {
+        val oldFile = resourceFile(oldRelativePath)
+        val newFile = resourceFile(newRelativePath)
+        newFile.parentFile.mkdirs()
+        oldFile.renameTo(newFile)
+    }
+
+    private fun resourceFile(relativePath: String): File = resourcesDir.resolve(relativePath)
+}
+
 class SwiftPackageBuilder(
     private val packageDir: File,
     private val targetName: String
 ) {
     private val sourcesDir = packageDir.resolve("Sources/$targetName").also { it.mkdirs() }
+    private val resourcesDir = packageDir.resolve("Sources/$targetName/Resources")
+    private val resourceFiles = mutableListOf<String>()
+    private var defaultLocale: String? = null
 
     fun writeSourceFile(relativePath: String, @Language("swift") contents: String) {
         sourcesDir.resolve(relativePath).apply {
@@ -148,7 +186,57 @@ class SwiftPackageBuilder(
         }
     }
 
+    fun writeResourceFile(relativePath: String, contents: String) {
+        resourcesDir.mkdirs()
+        resourcesDir.resolve(relativePath).apply {
+            parentFile.mkdirs()
+            writeText(contents)
+        }
+        if (!resourceFiles.contains(relativePath)) {
+            resourceFiles.add(relativePath)
+        }
+    }
+
+    fun writeLocalizedStrings(locale: String, contents: String) {
+        resourcesDir.mkdirs()
+        val localeDir = resourcesDir.resolve("$locale.lproj")
+        localeDir.mkdirs()
+        localeDir.resolve("Localizable.strings").writeText(contents)
+        val relativePath = "$locale.lproj/Localizable.strings"
+        if (!resourceFiles.contains(relativePath)) {
+            resourceFiles.add(relativePath)
+        }
+        // Set the first locale as the default localization
+        if (defaultLocale == null) {
+            defaultLocale = locale
+        }
+    }
+
+    fun writeAssetCatalog(name: String, configure: AssetCatalogBuilder.() -> Unit) {
+        resourcesDir.mkdirs()
+        val xcassetsDir = resourcesDir.resolve(name)
+        xcassetsDir.mkdirs()
+        // Write root Contents.json
+        xcassetsDir.resolve("Contents.json").writeText(
+            """{"info":{"author":"xcode","version":1}}"""
+        )
+        AssetCatalogBuilder(xcassetsDir).configure()
+        if (!resourceFiles.contains(name)) {
+            resourceFiles.add(name)
+        }
+    }
+
     internal fun build(): SwiftPackageHandle {
+        val hasResources = resourceFiles.isNotEmpty()
+        
+        val resourcesDecl = if (hasResources) {
+            ", resources: [.process(\"Resources\")]"
+        } else ""
+        
+        val defaultLocalizationDecl = if (defaultLocale != null) {
+            "\n    defaultLocalization: \"$defaultLocale\","
+        } else ""
+
         // Write Package.swift
         packageDir.resolve("Package.swift").writeText(
             // language=swift
@@ -157,35 +245,60 @@ class SwiftPackageBuilder(
             import PackageDescription
             
             let package = Package(
-                name: "${packageDir.name}",
+                name: "${packageDir.name}",$defaultLocalizationDecl
                 platforms: [.iOS(.v14)],
                 products: [
                     .library(name: "$targetName", targets: ["$targetName"])
                 ],
                 targets: [
-                    .target(name: "$targetName", path: "Sources/$targetName")
+                    .target(name: "$targetName", path: "Sources/$targetName"$resourcesDecl)
                 ]
             )
             """.trimIndent()
         )
 
         return SwiftPackageHandle(
-            target = SwiftTargetHandle(sourcesDir, targetName)
+            target = SwiftTargetHandle(
+                sourcesDir = sourcesDir,
+                name = targetName,
+                resources = SwiftResourcesHandle(resourcesDir)
+            ),
+            hasResources = hasResources
         )
     }
 }
 
+class AssetCatalogBuilder(private val xcassetsDir: File) {
+    fun addImageSet(name: String, @Language("svg") svgContent: String) {
+        val imagesetDir = xcassetsDir.resolve("$name.imageset")
+        imagesetDir.mkdirs()
+        imagesetDir.resolve("Contents.json").writeText(
+            """{"images":[{"filename":"$name.svg","idiom":"universal"}],"info":{"author":"xcode","version":1}}"""
+        )
+        imagesetDir.resolve("$name.svg").writeText(svgContent)
+    }
+}
+
 class SwiftPackageHandle(
-    val target: SwiftTargetHandle
+    val target: SwiftTargetHandle,
+    internal val hasResources: Boolean
 ) {
     val cinteropTaskName: String get() = ":cinterop${target.name}IosSimulatorArm64"
+    val processResourcesTaskName: String get() = ":processSwiftResources${target.name}"
+    
+    /**
+     * Returns the output directory where processed resources are placed.
+     */
+    fun getResourceOutputDir(projectDir: File): File =
+        projectDir.resolve("build/swift-resources/${target.name}/files")
 }
 
 private data class SwiftPackageConfig(
     val relativePath: String,
     val targetName: String,
     val kotlinPackageName: String,
-    val kotlinSourceSet: String
+    val kotlinSourceSet: String,
+    val hasResources: Boolean = false
 )
 
 private fun setupBaseProject(projectDir: File) {
