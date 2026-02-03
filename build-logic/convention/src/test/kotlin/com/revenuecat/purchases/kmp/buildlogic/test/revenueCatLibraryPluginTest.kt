@@ -177,6 +177,7 @@ class SwiftPackageBuilder(
     private val sourcesDir = packageDir.resolve("Sources/$targetName").also { it.mkdirs() }
     private val resourcesDir = packageDir.resolve("Sources/$targetName/Resources")
     private val resourceFiles = mutableListOf<String>()
+    private var defaultLocale: String? = null
 
     fun writeSourceFile(relativePath: String, @Language("swift") contents: String) {
         sourcesDir.resolve(relativePath).apply {
@@ -196,11 +197,44 @@ class SwiftPackageBuilder(
         }
     }
 
+    fun writeLocalizedStrings(locale: String, contents: String) {
+        resourcesDir.mkdirs()
+        val localeDir = resourcesDir.resolve("$locale.lproj")
+        localeDir.mkdirs()
+        localeDir.resolve("Localizable.strings").writeText(contents)
+        val relativePath = "$locale.lproj/Localizable.strings"
+        if (!resourceFiles.contains(relativePath)) {
+            resourceFiles.add(relativePath)
+        }
+        // Set the first locale as the default localization
+        if (defaultLocale == null) {
+            defaultLocale = locale
+        }
+    }
+
+    fun writeAssetCatalog(name: String, configure: AssetCatalogBuilder.() -> Unit) {
+        resourcesDir.mkdirs()
+        val xcassetsDir = resourcesDir.resolve(name)
+        xcassetsDir.mkdirs()
+        // Write root Contents.json
+        xcassetsDir.resolve("Contents.json").writeText(
+            """{"info":{"author":"xcode","version":1}}"""
+        )
+        AssetCatalogBuilder(xcassetsDir).configure()
+        if (!resourceFiles.contains(name)) {
+            resourceFiles.add(name)
+        }
+    }
+
     internal fun build(): SwiftPackageHandle {
         val hasResources = resourceFiles.isNotEmpty()
         
         val resourcesDecl = if (hasResources) {
             ", resources: [.process(\"Resources\")]"
+        } else ""
+        
+        val defaultLocalizationDecl = if (defaultLocale != null) {
+            "\n    defaultLocalization: \"$defaultLocale\","
         } else ""
 
         // Write Package.swift
@@ -211,7 +245,7 @@ class SwiftPackageBuilder(
             import PackageDescription
             
             let package = Package(
-                name: "${packageDir.name}",
+                name: "${packageDir.name}",$defaultLocalizationDecl
                 platforms: [.iOS(.v14)],
                 products: [
                     .library(name: "$targetName", targets: ["$targetName"])
@@ -234,12 +268,29 @@ class SwiftPackageBuilder(
     }
 }
 
+class AssetCatalogBuilder(private val xcassetsDir: File) {
+    fun addImageSet(name: String, @Language("svg") svgContent: String) {
+        val imagesetDir = xcassetsDir.resolve("$name.imageset")
+        imagesetDir.mkdirs()
+        imagesetDir.resolve("Contents.json").writeText(
+            """{"images":[{"filename":"$name.svg","idiom":"universal"}],"info":{"author":"xcode","version":1}}"""
+        )
+        imagesetDir.resolve("$name.svg").writeText(svgContent)
+    }
+}
+
 class SwiftPackageHandle(
     val target: SwiftTargetHandle,
     internal val hasResources: Boolean
 ) {
     val cinteropTaskName: String get() = ":cinterop${target.name}IosSimulatorArm64"
     val processResourcesTaskName: String get() = ":processSwiftResources${target.name}"
+    
+    /**
+     * Returns the output directory where processed resources are placed.
+     */
+    fun getResourceOutputDir(projectDir: File): File =
+        projectDir.resolve("build/swift-resources/${target.name}/files")
 }
 
 private data class SwiftPackageConfig(
