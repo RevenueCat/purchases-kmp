@@ -60,111 +60,81 @@ fun AdTrackingTestingScreen(
     }
 
     fun trackAdDisplayed() {
-        try {
-            val data = AdDisplayedData(
-                networkName = "TestNetwork",
-                mediatorName = AdMediatorName.AD_MOB,
-                adFormat = AdFormat.BANNER,
-                placement = "home_banner",
-                adUnitId = "ca-app-pub-1234567890",
-                impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}"
-            )
-            Purchases.sharedInstance.adTracker.trackAdDisplayed(data)
-            statusMessage = "Ad displayed event tracked successfully!"
-            lastTrackedFunction = AdTrackingFunction.TRACK_AD_DISPLAYED
-            messageColor = Color.Green
-        } catch (e: Exception) {
-            statusMessage = "Error: ${e.message}"
-            lastTrackedFunction = AdTrackingFunction.TRACK_AD_DISPLAYED
-            messageColor = Color.Red
-        }
+        val data = AdDisplayedData(
+            networkName = "TestNetwork",
+            mediatorName = AdMediatorName.AD_MOB,
+            adFormat = AdFormat.BANNER,
+            placement = "home_banner",
+            adUnitId = "ca-app-pub-1234567890",
+            impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}"
+        )
+        Purchases.sharedInstance.adTracker.trackAdDisplayed(data)
+        statusMessage = "Ad displayed event tracked successfully!"
+        lastTrackedFunction = AdTrackingFunction.TRACK_AD_DISPLAYED
+        messageColor = Color.Green
     }
 
     fun trackAdOpened() {
-        try {
-            val data = AdOpenedData(
-                networkName = "TestNetwork",
-                mediatorName = AdMediatorName.AD_MOB,
-                adFormat = AdFormat.BANNER,
-                placement = "home_banner",
-                adUnitId = "ca-app-pub-1234567890",
-                impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}"
-            )
-            Purchases.sharedInstance.adTracker.trackAdOpened(data)
-            statusMessage = "Ad opened event tracked successfully!"
-            lastTrackedFunction = AdTrackingFunction.TRACK_AD_OPENED
-            messageColor = Color.Green
-        } catch (e: Exception) {
-            statusMessage = "Error: ${e.message}"
-            lastTrackedFunction = AdTrackingFunction.TRACK_AD_OPENED
-            messageColor = Color.Red
-        }
+        val data = AdOpenedData(
+            networkName = "TestNetwork",
+            mediatorName = AdMediatorName.AD_MOB,
+            adFormat = AdFormat.BANNER,
+            placement = "home_banner",
+            adUnitId = "ca-app-pub-1234567890",
+            impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}"
+        )
+        Purchases.sharedInstance.adTracker.trackAdOpened(data)
+        statusMessage = "Ad opened event tracked successfully!"
+        lastTrackedFunction = AdTrackingFunction.TRACK_AD_OPENED
+        messageColor = Color.Green
     }
 
     fun trackAdRevenue() {
-        try {
-            val data = AdRevenueData(
-                networkName = "TestNetwork",
-                mediatorName = AdMediatorName.APP_LOVIN,
-                adFormat = AdFormat.REWARDED,
-                placement = "rewarded_video",
-                adUnitId = "ca-app-pub-1234567890",
-                impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}",
-                revenueMicros = 5000000L, // $5.00 in micros
-                currency = "USD",
-                precision = AdRevenuePrecision.EXACT
-            )
-            Purchases.sharedInstance.adTracker.trackAdRevenue(data)
-            statusMessage = "Ad revenue event tracked successfully!\nRevenue: $5.00 USD (5,000,000 micros)\nPrecision: EXACT"
-            lastTrackedFunction = AdTrackingFunction.TRACK_AD_REVENUE
-            messageColor = Color.Green
-        } catch (e: Exception) {
-            statusMessage = "Error: ${e.message}"
-            lastTrackedFunction = AdTrackingFunction.TRACK_AD_REVENUE
-            messageColor = Color.Red
-        }
+        val data = AdRevenueData(
+            networkName = "TestNetwork",
+            mediatorName = AdMediatorName.APP_LOVIN,
+            adFormat = AdFormat.REWARDED,
+            placement = "rewarded_video",
+            adUnitId = "ca-app-pub-1234567890",
+            impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}",
+            revenueMicros = 5000000L, // $5.00 in micros
+            currency = "USD",
+            precision = AdRevenuePrecision.EXACT
+        )
+        Purchases.sharedInstance.adTracker.trackAdRevenue(data)
+        statusMessage = "Ad revenue event tracked successfully!\nRevenue: $5.00 USD (5,000,000 micros)\nPrecision: EXACT"
+        lastTrackedFunction = AdTrackingFunction.TRACK_AD_REVENUE
+        messageColor = Color.Green
     }
 
     fun trackAdLoaded() {
-        try {
-            val data = AdLoadedData(
-                networkName = "TestNetwork",
-                mediatorName = AdMediatorName.AD_MOB,
-                adFormat = AdFormat.INTERSTITIAL,
-                placement = "interstitial",
-                adUnitId = "ca-app-pub-1234567890",
-                impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}"
-            )
-            Purchases.sharedInstance.adTracker.trackAdLoaded(data)
-            statusMessage = "Ad loaded event tracked successfully!"
-            lastTrackedFunction = AdTrackingFunction.TRACK_AD_LOADED
-            messageColor = Color.Green
-        } catch (e: Exception) {
-            statusMessage = "Error: ${e.message}"
-            lastTrackedFunction = AdTrackingFunction.TRACK_AD_LOADED
-            messageColor = Color.Red
-        }
+        val data = AdLoadedData(
+            networkName = "TestNetwork",
+            mediatorName = AdMediatorName.AD_MOB,
+            adFormat = AdFormat.INTERSTITIAL,
+            placement = "interstitial",
+            adUnitId = "ca-app-pub-1234567890",
+            impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}"
+        )
+        Purchases.sharedInstance.adTracker.trackAdLoaded(data)
+        statusMessage = "Ad loaded event tracked successfully!"
+        lastTrackedFunction = AdTrackingFunction.TRACK_AD_LOADED
+        messageColor = Color.Green
     }
 
     fun trackAdFailedToLoad() {
-        try {
-            val data = AdFailedToLoadData(
-                networkName = "TestNetwork",
-                mediatorName = AdMediatorName.APP_LOVIN,
-                adFormat = AdFormat.BANNER,
-                placement = "banner",
-                adUnitId = "ca-app-pub-1234567890",
-                mediatorErrorCode = 404
-            )
-            Purchases.sharedInstance.adTracker.trackAdFailedToLoad(data)
-            statusMessage = "Ad failed to load event tracked successfully!\nError code: 404"
-            lastTrackedFunction = AdTrackingFunction.TRACK_AD_FAILED_TO_LOAD
-            messageColor = Color.Green
-        } catch (e: Exception) {
-            statusMessage = "Error: ${e.message}"
-            lastTrackedFunction = AdTrackingFunction.TRACK_AD_FAILED_TO_LOAD
-            messageColor = Color.Red
-        }
+        val data = AdFailedToLoadData(
+            networkName = "TestNetwork",
+            mediatorName = AdMediatorName.APP_LOVIN,
+            adFormat = AdFormat.BANNER,
+            placement = "banner",
+            adUnitId = "ca-app-pub-1234567890",
+            mediatorErrorCode = 404
+        )
+        Purchases.sharedInstance.adTracker.trackAdFailedToLoad(data)
+        statusMessage = "Ad failed to load event tracked successfully!\nError code: 404"
+        lastTrackedFunction = AdTrackingFunction.TRACK_AD_FAILED_TO_LOAD
+        messageColor = Color.Green
     }
 
     Column(
