@@ -119,7 +119,6 @@ class AdEventTypesMappingsTest {
     @Test
     fun `AdFailedToLoadData converts to Android type`() {
         val kmpData = AdFailedToLoadData(
-            networkName = "TestNetwork",
             mediatorName = AdMediatorName.AD_MOB,
             placement = "banner",
             adUnitId = "ad-unit-444",
@@ -129,7 +128,6 @@ class AdEventTypesMappingsTest {
         val androidData = kmpData.toAndroid()
 
         assertNotNull(androidData)
-        assertEquals("TestNetwork", androidData.networkName)
         assertEquals("AdMob", androidData.mediatorName.value)
         assertEquals("banner", androidData.placement)
         assertEquals("ad-unit-444", androidData.adUnitId)
@@ -139,7 +137,6 @@ class AdEventTypesMappingsTest {
     @Test
     fun `AdFailedToLoadData with null error code converts to Android type`() {
         val kmpData = AdFailedToLoadData(
-            networkName = "TestNetwork",
             mediatorName = AdMediatorName.APP_LOVIN,
             placement = null,
             adUnitId = "ad-unit-555",

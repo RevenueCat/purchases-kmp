@@ -111,7 +111,6 @@ public actual class AdTracker {
         }
 
         val adData = buildMap<Any?, Any?> {
-            put(KEY_NETWORK_NAME, data.networkName)
             put(KEY_MEDIATOR_NAME, data.mediatorName.value)
             put(KEY_AD_FORMAT, data.adFormat.value)
             put(KEY_PLACEMENT, data.placement)

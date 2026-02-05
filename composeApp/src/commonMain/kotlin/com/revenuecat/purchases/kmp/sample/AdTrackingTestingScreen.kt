@@ -124,7 +124,6 @@ fun AdTrackingTestingScreen(
 
     fun trackAdFailedToLoad() {
         val data = AdFailedToLoadData(
-            networkName = "TestNetwork",
             mediatorName = AdMediatorName.APP_LOVIN,
             adFormat = AdFormat.BANNER,
             placement = "banner",

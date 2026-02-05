@@ -94,7 +94,6 @@ class AdEventTypesTest {
     @Test
     fun `AdFailedToLoadData with null error code`() {
         val data = AdFailedToLoadData(
-            networkName = "TestNetwork",
             mediatorName = AdMediatorName.AD_MOB,
             adFormat = AdFormat.REWARDED,
             placement = null,

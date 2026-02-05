@@ -96,7 +96,6 @@ public fun AdLoadedData.toAndroid(): AndroidAdLoadedData {
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
 public fun AdFailedToLoadData.toAndroid(): AndroidAdFailedToLoadData {
     return AndroidAdFailedToLoadData(
-        networkName = networkName,
         mediatorName = mediatorName.toAndroid(),
         adFormat = adFormat.toAndroid(),
         placement = placement,
