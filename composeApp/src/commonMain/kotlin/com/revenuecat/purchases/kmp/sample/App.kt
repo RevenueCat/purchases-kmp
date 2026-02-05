@@ -103,6 +103,10 @@ fun App() {
                 is Screen.VirtualCurrencyTesting -> VirtualCurrencyTestingScreen(
                     navigateTo = navigateTo
                 )
+
+                is Screen.AdTracking -> AdTrackingTestingScreen(
+                    navigateTo = navigateTo
+                )
             }
         }
     }
