@@ -15,9 +15,6 @@ import com.revenuecat.purchases.kmp.models.AdRevenueData
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSNumber
 
-/**
- * iOS implementation of [AdTracker] that bridges to CommonFunctionality.
- */
 @ExperimentalRevenueCatApi
 @OptIn(ExperimentalForeignApi::class)
 public actual class AdTracker {
