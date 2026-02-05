@@ -15,6 +15,17 @@ import com.revenuecat.purchases.kmp.models.AdRevenueData
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSNumber
 
+private const val KEY_NETWORK_NAME = "networkName"
+private const val KEY_MEDIATOR_NAME = "mediatorName"
+private const val KEY_AD_FORMAT = "adFormat"
+private const val KEY_PLACEMENT = "placement"
+private const val KEY_AD_UNIT_ID = "adUnitId"
+private const val KEY_IMPRESSION_ID = "impressionId"
+private const val KEY_REVENUE_MICROS = "revenueMicros"
+private const val KEY_CURRENCY = "currency"
+private const val KEY_PRECISION = "precision"
+private const val KEY_MEDIATOR_ERROR_CODE = "mediatorErrorCode"
+
 @ExperimentalRevenueCatApi
 @OptIn(ExperimentalForeignApi::class)
 public actual class AdTracker {
@@ -25,12 +36,12 @@ public actual class AdTracker {
         }
 
         val adData = mapOf<Any?, Any?>(
-            "networkName" to data.networkName,
-            "mediatorName" to data.mediatorName.value,
-            "adFormat" to data.adFormat.value,
-            "placement" to data.placement,
-            "adUnitId" to data.adUnitId,
-            "impressionId" to data.impressionId
+            KEY_NETWORK_NAME to data.networkName,
+            KEY_MEDIATOR_NAME to data.mediatorName.value,
+            KEY_AD_FORMAT to data.adFormat.value,
+            KEY_PLACEMENT to data.placement,
+            KEY_AD_UNIT_ID to data.adUnitId,
+            KEY_IMPRESSION_ID to data.impressionId
         )
 
         RCCommonFunctionality.trackAdDisplayed(adData)
@@ -43,12 +54,12 @@ public actual class AdTracker {
         }
 
         val adData = mapOf<Any?, Any?>(
-            "networkName" to data.networkName,
-            "mediatorName" to data.mediatorName.value,
-            "adFormat" to data.adFormat.value,
-            "placement" to data.placement,
-            "adUnitId" to data.adUnitId,
-            "impressionId" to data.impressionId
+            KEY_NETWORK_NAME to data.networkName,
+            KEY_MEDIATOR_NAME to data.mediatorName.value,
+            KEY_AD_FORMAT to data.adFormat.value,
+            KEY_PLACEMENT to data.placement,
+            KEY_AD_UNIT_ID to data.adUnitId,
+            KEY_IMPRESSION_ID to data.impressionId
         )
 
         RCCommonFunctionality.trackAdOpened(adData)
@@ -61,15 +72,15 @@ public actual class AdTracker {
         }
 
         val adData = mapOf<Any?, Any?>(
-            "networkName" to data.networkName,
-            "mediatorName" to data.mediatorName.value,
-            "adFormat" to data.adFormat.value,
-            "placement" to data.placement,
-            "adUnitId" to data.adUnitId,
-            "impressionId" to data.impressionId,
-            "revenueMicros" to NSNumber(long = data.revenueMicros),
-            "currency" to data.currency,
-            "precision" to data.precision.value
+            KEY_NETWORK_NAME to data.networkName,
+            KEY_MEDIATOR_NAME to data.mediatorName.value,
+            KEY_AD_FORMAT to data.adFormat.value,
+            KEY_PLACEMENT to data.placement,
+            KEY_AD_UNIT_ID to data.adUnitId,
+            KEY_IMPRESSION_ID to data.impressionId,
+            KEY_REVENUE_MICROS to NSNumber(long = data.revenueMicros),
+            KEY_CURRENCY to data.currency,
+            KEY_PRECISION to data.precision.value
         )
 
         RCCommonFunctionality.trackAdRevenue(adData)
@@ -82,12 +93,12 @@ public actual class AdTracker {
         }
 
         val adData = mapOf<Any?, Any?>(
-            "networkName" to data.networkName,
-            "mediatorName" to data.mediatorName.value,
-            "adFormat" to data.adFormat.value,
-            "placement" to data.placement,
-            "adUnitId" to data.adUnitId,
-            "impressionId" to data.impressionId
+            KEY_NETWORK_NAME to data.networkName,
+            KEY_MEDIATOR_NAME to data.mediatorName.value,
+            KEY_AD_FORMAT to data.adFormat.value,
+            KEY_PLACEMENT to data.placement,
+            KEY_AD_UNIT_ID to data.adUnitId,
+            KEY_IMPRESSION_ID to data.impressionId
         )
 
         RCCommonFunctionality.trackAdLoaded(adData)
@@ -100,12 +111,12 @@ public actual class AdTracker {
         }
 
         val adData = buildMap<Any?, Any?> {
-            put("networkName", data.networkName)
-            put("mediatorName", data.mediatorName.value)
-            put("adFormat", data.adFormat.value)
-            put("placement", data.placement)
-            put("adUnitId", data.adUnitId)
-            data.mediatorErrorCode?.let { put("mediatorErrorCode", NSNumber(int = it)) }
+            put(KEY_NETWORK_NAME, data.networkName)
+            put(KEY_MEDIATOR_NAME, data.mediatorName.value)
+            put(KEY_AD_FORMAT, data.adFormat.value)
+            put(KEY_PLACEMENT, data.placement)
+            put(KEY_AD_UNIT_ID, data.adUnitId)
+            data.mediatorErrorCode?.let { put(KEY_MEDIATOR_ERROR_CODE, NSNumber(int = it)) }
         }
 
         RCCommonFunctionality.trackAdFailedToLoad(adData)
