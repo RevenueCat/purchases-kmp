@@ -2,10 +2,12 @@ package com.revenuecat.purchases.kmp.buildlogic.swift.task
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
@@ -69,6 +71,11 @@ abstract class SwiftBuildTask @Inject constructor(
     @get:Internal
     abstract val scratchDir: DirectoryProperty
 
+    /** Additional Swift compiler arguments (from SwiftSettings). */
+    @get:Input
+    @get:Optional
+    abstract val swiftSettingsArgs: ListProperty<String>
+
     @TaskAction
     fun build() {
         val targetOutputDir = outputDir.get().asFile
@@ -79,6 +86,7 @@ abstract class SwiftBuildTask @Inject constructor(
         val tripleValue = triple.get()
         val targetName = swiftTarget.get()
         val configValue = configuration.get()
+        val extraSwiftArgs = swiftSettingsArgs.getOrElse(emptyList())
 
         execOperations.exec {
             workingDir = packageDir.get().asFile
@@ -87,18 +95,20 @@ abstract class SwiftBuildTask @Inject constructor(
             // This environment change is only scoped to this subprocess.
             environment("SDKROOT", "")
             commandLine(
-                "xcrun", "swift", "build",
-                "--target", targetName,
-                "--configuration", configValue,
-                "--triple", tripleValue,
-                "--scratch-path", scratchPath.absolutePath,
-                "-Xswiftc", "-sdk",
-                "-Xswiftc", sdkPath,
-                "-Xcc", "-isysroot",
-                "-Xcc", sdkPath,
-                "-Xswiftc", "-emit-objc-header",
-                "-Xswiftc", "-emit-objc-header-path",
-                "-Xswiftc", targetOutputDir.resolve(headerName.get()).absolutePath
+                listOf(
+                    "xcrun", "swift", "build",
+                    "--target", targetName,
+                    "--configuration", configValue,
+                    "--triple", tripleValue,
+                    "--scratch-path", scratchPath.absolutePath,
+                    "-Xswiftc", "-sdk",
+                    "-Xswiftc", sdkPath,
+                    "-Xcc", "-isysroot",
+                    "-Xcc", sdkPath,
+                    "-Xswiftc", "-emit-objc-header",
+                    "-Xswiftc", "-emit-objc-header-path",
+                    "-Xswiftc", targetOutputDir.resolve(headerName.get()).absolutePath
+                ) + extraSwiftArgs
             )
         }
 

@@ -65,6 +65,10 @@ internal fun StoreProductRow(
                         .awaitTrialOrIntroPriceEligibility(listOf(product))[product]
                 }
                 Text(text = "introEligibilityStatus: ${introEligibilityStatus ?: "Loading..."}")
+
+                PriceRow(price = product.pricePerWeek, label = "pricePerWeek")
+                PriceRow(price = product.pricePerMonth, label = "pricePerMonth")
+                PriceRow(price = product.pricePerYear, label = "pricePerYear")
             }
         },
         modifier = modifier,

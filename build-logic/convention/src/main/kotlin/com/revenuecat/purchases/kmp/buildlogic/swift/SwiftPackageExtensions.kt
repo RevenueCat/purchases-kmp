@@ -1,6 +1,7 @@
 package com.revenuecat.purchases.kmp.buildlogic.swift
 
 import com.revenuecat.purchases.kmp.buildlogic.swift.model.SwiftDependency
+import com.revenuecat.purchases.kmp.buildlogic.swift.model.SwiftSettings
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
@@ -30,12 +31,19 @@ open class SwiftPackageRegistry {
  * @param customDeclarations Optional declarations to include in the .def file. Use this to force
  * cinterop binding generation for types not otherwise referenced in the public API of the Swift
  * [target].
+ * @param swiftSettings Swift compiler settings. Use [SwiftSettings] DSL:
+ * ```kotlin
+ * swiftSettings = SwiftSettings {
+ *     define("MY_FLAG")
+ * }
+ * ```
  */
 fun KotlinDependencyHandler.swiftPackage(
     path: File,
     target: String,
     packageName: String,
-    customDeclarations: String? = null
+    customDeclarations: String? = null,
+    swiftSettings: SwiftSettings? = null,
 ) {
     val registry = project.extensions.findByType(SwiftPackageRegistry::class.java)
         ?: error(
@@ -49,7 +57,8 @@ fun KotlinDependencyHandler.swiftPackage(
         target = target,
         packageName = packageName,
         sourceSetName = sourceSetName,
-        customDeclarations = customDeclarations
+        customDeclarations = customDeclarations,
+        swiftSettings = swiftSettings,
     )
     registry.add(dependency)
     

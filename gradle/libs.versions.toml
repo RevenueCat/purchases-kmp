@@ -13,7 +13,7 @@ junit = "5.10.0"
 kotlin = "2.1.21"
 mavenPublish = "0.33.0"
 revenuecat-common = "17.33.1"
-revenuecat-kmp = "2.5.0-SNAPSHOT"
+revenuecat-kmp = "2.6.0-SNAPSHOT"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
