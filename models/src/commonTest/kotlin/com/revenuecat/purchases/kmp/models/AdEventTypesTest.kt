@@ -71,6 +71,20 @@ class AdEventTypesTest {
     }
 
     @Test
+    fun `AdDisplayedData can be constructed with null networkName`() {
+        val data = AdDisplayedData(
+            mediatorName = AdMediatorName.AD_MOB,
+            adFormat = AdFormat.BANNER,
+            placement = "banner",
+            adUnitId = "ad-unit-123",
+            impressionId = "impression-456",
+        )
+
+        assertNotNull(data)
+        assertEquals(null, data.networkName)
+    }
+
+    @Test
     fun `AdRevenueData can be constructed with all fields`() {
         val data = AdRevenueData(
             networkName = "TestNetwork",
@@ -89,6 +103,23 @@ class AdEventTypesTest {
         assertEquals(1000000L, data.revenueMicros)
         assertEquals("USD", data.currency)
         assertEquals(AdRevenuePrecision.EXACT, data.precision)
+    }
+
+    @Test
+    fun `AdRevenueData can be constructed with null networkName`() {
+        val data = AdRevenueData(
+            mediatorName = AdMediatorName.APP_LOVIN,
+            adFormat = AdFormat.INTERSTITIAL,
+            placement = "interstitial",
+            adUnitId = "ad-unit-789",
+            impressionId = "impression-012",
+            revenueMicros = 1000000L,
+            currency = "USD",
+            precision = AdRevenuePrecision.EXACT,
+        )
+
+        assertNotNull(data)
+        assertEquals(null, data.networkName)
     }
 
     @Test
