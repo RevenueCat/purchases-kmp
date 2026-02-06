@@ -1,5 +1,11 @@
 package com.revenuecat.purchases.kmp.mappings
 
+import cocoapods.PurchasesHybridCommon.pricePerMonthAmount
+import cocoapods.PurchasesHybridCommon.pricePerMonthString
+import cocoapods.PurchasesHybridCommon.pricePerWeekAmount
+import cocoapods.PurchasesHybridCommon.pricePerWeekString
+import cocoapods.PurchasesHybridCommon.pricePerYearAmount
+import cocoapods.PurchasesHybridCommon.pricePerYearString
 import com.revenuecat.purchases.kmp.models.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.models.Period
 import com.revenuecat.purchases.kmp.models.Price
@@ -36,4 +42,26 @@ private class IosStoreProduct(val wrapped: NativeIosStoreProduct): StoreProduct 
         wrapped.introductoryDiscount()?.toStoreProductDiscount()
     override val purchasingData: PurchasingData = IosPurchasingData(wrapped)
     override val presentedOfferingContext: PresentedOfferingContext? = null
+
+    override val pricePerWeek: Price? by lazy {
+        priceOrNull(
+            currencyCode = price.currencyCode,
+            formatted = wrapped.pricePerWeekString(),
+            amountDecimal = wrapped.pricePerWeekAmount(),
+        )
+    }
+    override val pricePerMonth: Price? by lazy {
+        priceOrNull(
+            currencyCode = price.currencyCode,
+            formatted = wrapped.pricePerMonthString(),
+            amountDecimal = wrapped.pricePerMonthAmount(),
+        )
+    }
+    override val pricePerYear: Price? by lazy {
+        priceOrNull(
+            currencyCode = price.currencyCode,
+            formatted = wrapped.pricePerYearString(),
+            amountDecimal = wrapped.pricePerYearAmount(),
+        )
+    }
 }

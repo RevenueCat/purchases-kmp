@@ -588,6 +588,9 @@ public abstract interface class com/revenuecat/purchases/kmp/models/StoreProduct
 	public abstract fun getPeriod ()Lcom/revenuecat/purchases/kmp/models/Period;
 	public abstract fun getPresentedOfferingContext ()Lcom/revenuecat/purchases/kmp/models/PresentedOfferingContext;
 	public abstract fun getPrice ()Lcom/revenuecat/purchases/kmp/models/Price;
+	public abstract fun getPricePerMonth ()Lcom/revenuecat/purchases/kmp/models/Price;
+	public abstract fun getPricePerWeek ()Lcom/revenuecat/purchases/kmp/models/Price;
+	public abstract fun getPricePerYear ()Lcom/revenuecat/purchases/kmp/models/Price;
 	public abstract fun getPurchasingData ()Lcom/revenuecat/purchases/kmp/models/PurchasingData;
 	public abstract fun getSubscriptionOptions ()Lcom/revenuecat/purchases/kmp/models/SubscriptionOptions;
 	public abstract fun getTitle ()Ljava/lang/String;
