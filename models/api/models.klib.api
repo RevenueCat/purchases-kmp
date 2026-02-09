@@ -531,7 +531,7 @@ sealed interface com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy { /
 }
 
 final class com.revenuecat.purchases.kmp.models/AdDisplayedData { // com.revenuecat.purchases.kmp.models/AdDisplayedData|null[0]
-    constructor <init>(kotlin/String, com.revenuecat.purchases.kmp.models/AdMediatorName, com.revenuecat.purchases.kmp.models/AdFormat, kotlin/String?, kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp.models/AdDisplayedData.<init>|<init>(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;com.revenuecat.purchases.kmp.models.AdFormat;kotlin.String?;kotlin.String;kotlin.String){}[0]
+    constructor <init>(kotlin/String? = ..., com.revenuecat.purchases.kmp.models/AdMediatorName, com.revenuecat.purchases.kmp.models/AdFormat, kotlin/String?, kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp.models/AdDisplayedData.<init>|<init>(kotlin.String?;com.revenuecat.purchases.kmp.models.AdMediatorName;com.revenuecat.purchases.kmp.models.AdFormat;kotlin.String?;kotlin.String;kotlin.String){}[0]
 
     final val adFormat // com.revenuecat.purchases.kmp.models/AdDisplayedData.adFormat|{}adFormat[0]
         final fun <get-adFormat>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdDisplayedData.adFormat.<get-adFormat>|<get-adFormat>(){}[0]
@@ -542,13 +542,13 @@ final class com.revenuecat.purchases.kmp.models/AdDisplayedData { // com.revenue
     final val mediatorName // com.revenuecat.purchases.kmp.models/AdDisplayedData.mediatorName|{}mediatorName[0]
         final fun <get-mediatorName>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdDisplayedData.mediatorName.<get-mediatorName>|<get-mediatorName>(){}[0]
     final val networkName // com.revenuecat.purchases.kmp.models/AdDisplayedData.networkName|{}networkName[0]
-        final fun <get-networkName>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdDisplayedData.networkName.<get-networkName>|<get-networkName>(){}[0]
+        final fun <get-networkName>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdDisplayedData.networkName.<get-networkName>|<get-networkName>(){}[0]
     final val placement // com.revenuecat.purchases.kmp.models/AdDisplayedData.placement|{}placement[0]
         final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdDisplayedData.placement.<get-placement>|<get-placement>(){}[0]
 }
 
 final class com.revenuecat.purchases.kmp.models/AdFailedToLoadData { // com.revenuecat.purchases.kmp.models/AdFailedToLoadData|null[0]
-    constructor <init>(kotlin/String, com.revenuecat.purchases.kmp.models/AdMediatorName, com.revenuecat.purchases.kmp.models/AdFormat, kotlin/String?, kotlin/String, kotlin/Int?) // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.<init>|<init>(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;com.revenuecat.purchases.kmp.models.AdFormat;kotlin.String?;kotlin.String;kotlin.Int?){}[0]
+    constructor <init>(com.revenuecat.purchases.kmp.models/AdMediatorName, com.revenuecat.purchases.kmp.models/AdFormat, kotlin/String?, kotlin/String, kotlin/Int?) // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.<init>|<init>(com.revenuecat.purchases.kmp.models.AdMediatorName;com.revenuecat.purchases.kmp.models.AdFormat;kotlin.String?;kotlin.String;kotlin.Int?){}[0]
 
     final val adFormat // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.adFormat|{}adFormat[0]
         final fun <get-adFormat>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.adFormat.<get-adFormat>|<get-adFormat>(){}[0]
@@ -558,8 +558,6 @@ final class com.revenuecat.purchases.kmp.models/AdFailedToLoadData { // com.reve
         final fun <get-mediatorErrorCode>(): kotlin/Int? // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.mediatorErrorCode.<get-mediatorErrorCode>|<get-mediatorErrorCode>(){}[0]
     final val mediatorName // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.mediatorName|{}mediatorName[0]
         final fun <get-mediatorName>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.mediatorName.<get-mediatorName>|<get-mediatorName>(){}[0]
-    final val networkName // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.networkName|{}networkName[0]
-        final fun <get-networkName>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.networkName.<get-networkName>|<get-networkName>(){}[0]
     final val placement // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.placement|{}placement[0]
         final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdFailedToLoadData.placement.<get-placement>|<get-placement>(){}[0]
 }
@@ -591,7 +589,7 @@ final class com.revenuecat.purchases.kmp.models/AdFormat { // com.revenuecat.pur
 }
 
 final class com.revenuecat.purchases.kmp.models/AdLoadedData { // com.revenuecat.purchases.kmp.models/AdLoadedData|null[0]
-    constructor <init>(kotlin/String, com.revenuecat.purchases.kmp.models/AdMediatorName, com.revenuecat.purchases.kmp.models/AdFormat, kotlin/String?, kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp.models/AdLoadedData.<init>|<init>(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;com.revenuecat.purchases.kmp.models.AdFormat;kotlin.String?;kotlin.String;kotlin.String){}[0]
+    constructor <init>(kotlin/String? = ..., com.revenuecat.purchases.kmp.models/AdMediatorName, com.revenuecat.purchases.kmp.models/AdFormat, kotlin/String?, kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp.models/AdLoadedData.<init>|<init>(kotlin.String?;com.revenuecat.purchases.kmp.models.AdMediatorName;com.revenuecat.purchases.kmp.models.AdFormat;kotlin.String?;kotlin.String;kotlin.String){}[0]
 
     final val adFormat // com.revenuecat.purchases.kmp.models/AdLoadedData.adFormat|{}adFormat[0]
         final fun <get-adFormat>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdLoadedData.adFormat.<get-adFormat>|<get-adFormat>(){}[0]
@@ -602,7 +600,7 @@ final class com.revenuecat.purchases.kmp.models/AdLoadedData { // com.revenuecat
     final val mediatorName // com.revenuecat.purchases.kmp.models/AdLoadedData.mediatorName|{}mediatorName[0]
         final fun <get-mediatorName>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdLoadedData.mediatorName.<get-mediatorName>|<get-mediatorName>(){}[0]
     final val networkName // com.revenuecat.purchases.kmp.models/AdLoadedData.networkName|{}networkName[0]
-        final fun <get-networkName>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdLoadedData.networkName.<get-networkName>|<get-networkName>(){}[0]
+        final fun <get-networkName>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdLoadedData.networkName.<get-networkName>|<get-networkName>(){}[0]
     final val placement // com.revenuecat.purchases.kmp.models/AdLoadedData.placement|{}placement[0]
         final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdLoadedData.placement.<get-placement>|<get-placement>(){}[0]
 }
@@ -622,7 +620,7 @@ final class com.revenuecat.purchases.kmp.models/AdMediatorName { // com.revenuec
 }
 
 final class com.revenuecat.purchases.kmp.models/AdOpenedData { // com.revenuecat.purchases.kmp.models/AdOpenedData|null[0]
-    constructor <init>(kotlin/String, com.revenuecat.purchases.kmp.models/AdMediatorName, com.revenuecat.purchases.kmp.models/AdFormat, kotlin/String?, kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp.models/AdOpenedData.<init>|<init>(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;com.revenuecat.purchases.kmp.models.AdFormat;kotlin.String?;kotlin.String;kotlin.String){}[0]
+    constructor <init>(kotlin/String? = ..., com.revenuecat.purchases.kmp.models/AdMediatorName, com.revenuecat.purchases.kmp.models/AdFormat, kotlin/String?, kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp.models/AdOpenedData.<init>|<init>(kotlin.String?;com.revenuecat.purchases.kmp.models.AdMediatorName;com.revenuecat.purchases.kmp.models.AdFormat;kotlin.String?;kotlin.String;kotlin.String){}[0]
 
     final val adFormat // com.revenuecat.purchases.kmp.models/AdOpenedData.adFormat|{}adFormat[0]
         final fun <get-adFormat>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdOpenedData.adFormat.<get-adFormat>|<get-adFormat>(){}[0]
@@ -633,13 +631,13 @@ final class com.revenuecat.purchases.kmp.models/AdOpenedData { // com.revenuecat
     final val mediatorName // com.revenuecat.purchases.kmp.models/AdOpenedData.mediatorName|{}mediatorName[0]
         final fun <get-mediatorName>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdOpenedData.mediatorName.<get-mediatorName>|<get-mediatorName>(){}[0]
     final val networkName // com.revenuecat.purchases.kmp.models/AdOpenedData.networkName|{}networkName[0]
-        final fun <get-networkName>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdOpenedData.networkName.<get-networkName>|<get-networkName>(){}[0]
+        final fun <get-networkName>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdOpenedData.networkName.<get-networkName>|<get-networkName>(){}[0]
     final val placement // com.revenuecat.purchases.kmp.models/AdOpenedData.placement|{}placement[0]
         final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdOpenedData.placement.<get-placement>|<get-placement>(){}[0]
 }
 
 final class com.revenuecat.purchases.kmp.models/AdRevenueData { // com.revenuecat.purchases.kmp.models/AdRevenueData|null[0]
-    constructor <init>(kotlin/String, com.revenuecat.purchases.kmp.models/AdMediatorName, com.revenuecat.purchases.kmp.models/AdFormat, kotlin/String?, kotlin/String, kotlin/String, kotlin/Long, kotlin/String, com.revenuecat.purchases.kmp.models/AdRevenuePrecision) // com.revenuecat.purchases.kmp.models/AdRevenueData.<init>|<init>(kotlin.String;com.revenuecat.purchases.kmp.models.AdMediatorName;com.revenuecat.purchases.kmp.models.AdFormat;kotlin.String?;kotlin.String;kotlin.String;kotlin.Long;kotlin.String;com.revenuecat.purchases.kmp.models.AdRevenuePrecision){}[0]
+    constructor <init>(kotlin/String? = ..., com.revenuecat.purchases.kmp.models/AdMediatorName, com.revenuecat.purchases.kmp.models/AdFormat, kotlin/String?, kotlin/String, kotlin/String, kotlin/Long, kotlin/String, com.revenuecat.purchases.kmp.models/AdRevenuePrecision) // com.revenuecat.purchases.kmp.models/AdRevenueData.<init>|<init>(kotlin.String?;com.revenuecat.purchases.kmp.models.AdMediatorName;com.revenuecat.purchases.kmp.models.AdFormat;kotlin.String?;kotlin.String;kotlin.String;kotlin.Long;kotlin.String;com.revenuecat.purchases.kmp.models.AdRevenuePrecision){}[0]
 
     final val adFormat // com.revenuecat.purchases.kmp.models/AdRevenueData.adFormat|{}adFormat[0]
         final fun <get-adFormat>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdRevenueData.adFormat.<get-adFormat>|<get-adFormat>(){}[0]
@@ -652,7 +650,7 @@ final class com.revenuecat.purchases.kmp.models/AdRevenueData { // com.revenueca
     final val mediatorName // com.revenuecat.purchases.kmp.models/AdRevenueData.mediatorName|{}mediatorName[0]
         final fun <get-mediatorName>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdRevenueData.mediatorName.<get-mediatorName>|<get-mediatorName>(){}[0]
     final val networkName // com.revenuecat.purchases.kmp.models/AdRevenueData.networkName|{}networkName[0]
-        final fun <get-networkName>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenueData.networkName.<get-networkName>|<get-networkName>(){}[0]
+        final fun <get-networkName>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdRevenueData.networkName.<get-networkName>|<get-networkName>(){}[0]
     final val placement // com.revenuecat.purchases.kmp.models/AdRevenueData.placement|{}placement[0]
         final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdRevenueData.placement.<get-placement>|<get-placement>(){}[0]
     final val precision // com.revenuecat.purchases.kmp.models/AdRevenueData.precision|{}precision[0]

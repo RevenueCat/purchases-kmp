@@ -61,7 +61,7 @@ fun AdTrackingTestingScreen(
 
     fun trackAdDisplayed() {
         val data = AdDisplayedData(
-            networkName = "TestNetwork",
+            networkName = null,
             mediatorName = AdMediatorName.AD_MOB,
             adFormat = AdFormat.BANNER,
             placement = "home_banner",
@@ -76,7 +76,7 @@ fun AdTrackingTestingScreen(
 
     fun trackAdOpened() {
         val data = AdOpenedData(
-            networkName = "TestNetwork",
+            networkName = null,
             mediatorName = AdMediatorName.AD_MOB,
             adFormat = AdFormat.BANNER,
             placement = "home_banner",
@@ -91,7 +91,7 @@ fun AdTrackingTestingScreen(
 
     fun trackAdRevenue() {
         val data = AdRevenueData(
-            networkName = "TestNetwork",
+            networkName = null,
             mediatorName = AdMediatorName.APP_LOVIN,
             adFormat = AdFormat.REWARDED,
             placement = "rewarded_video",
@@ -109,7 +109,7 @@ fun AdTrackingTestingScreen(
 
     fun trackAdLoaded() {
         val data = AdLoadedData(
-            networkName = "TestNetwork",
+            networkName = null,
             mediatorName = AdMediatorName.AD_MOB,
             adFormat = AdFormat.INTERSTITIAL,
             placement = "interstitial",
@@ -124,7 +124,6 @@ fun AdTrackingTestingScreen(
 
     fun trackAdFailedToLoad() {
         val data = AdFailedToLoadData(
-            networkName = "TestNetwork",
             mediatorName = AdMediatorName.APP_LOVIN,
             adFormat = AdFormat.BANNER,
             placement = "banner",

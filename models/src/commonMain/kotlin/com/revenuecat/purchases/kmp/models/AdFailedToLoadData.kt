@@ -5,7 +5,6 @@ import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 /**
  * Data for tracking when an ad has failed to load.
  *
- * @property networkName The name of the ad network.
  * @property mediatorName The name of the ad mediator. See [AdMediatorName] for common values.
  * @property adFormat The format of the ad. See [AdFormat] for common values.
  * @property placement The placement of the ad, if available.
@@ -14,7 +13,6 @@ import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
  */
 @ExperimentalRevenueCatApi
 public class AdFailedToLoadData(
-    public val networkName: String,
     public val mediatorName: AdMediatorName,
     public val adFormat: AdFormat,
     public val placement: String?,

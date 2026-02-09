@@ -35,14 +35,14 @@ public actual class AdTracker {
             return
         }
 
-        val adData = mapOf<Any?, Any?>(
-            KEY_NETWORK_NAME to data.networkName,
-            KEY_MEDIATOR_NAME to data.mediatorName.value,
-            KEY_AD_FORMAT to data.adFormat.value,
-            KEY_PLACEMENT to data.placement,
-            KEY_AD_UNIT_ID to data.adUnitId,
-            KEY_IMPRESSION_ID to data.impressionId
-        )
+        val adData = buildMap<Any?, Any?> {
+            data.networkName?.let { put(KEY_NETWORK_NAME, it) }
+            put(KEY_MEDIATOR_NAME, data.mediatorName.value)
+            put(KEY_AD_FORMAT, data.adFormat.value)
+            put(KEY_PLACEMENT, data.placement)
+            put(KEY_AD_UNIT_ID, data.adUnitId)
+            put(KEY_IMPRESSION_ID, data.impressionId)
+        }
 
         RCCommonFunctionality.trackAdDisplayed(adData)
     }
@@ -53,14 +53,14 @@ public actual class AdTracker {
             return
         }
 
-        val adData = mapOf<Any?, Any?>(
-            KEY_NETWORK_NAME to data.networkName,
-            KEY_MEDIATOR_NAME to data.mediatorName.value,
-            KEY_AD_FORMAT to data.adFormat.value,
-            KEY_PLACEMENT to data.placement,
-            KEY_AD_UNIT_ID to data.adUnitId,
-            KEY_IMPRESSION_ID to data.impressionId
-        )
+        val adData = buildMap<Any?, Any?> {
+            data.networkName?.let { put(KEY_NETWORK_NAME, it) }
+            put(KEY_MEDIATOR_NAME, data.mediatorName.value)
+            put(KEY_AD_FORMAT, data.adFormat.value)
+            put(KEY_PLACEMENT, data.placement)
+            put(KEY_AD_UNIT_ID, data.adUnitId)
+            put(KEY_IMPRESSION_ID, data.impressionId)
+        }
 
         RCCommonFunctionality.trackAdOpened(adData)
     }
@@ -71,17 +71,17 @@ public actual class AdTracker {
             return
         }
 
-        val adData = mapOf<Any?, Any?>(
-            KEY_NETWORK_NAME to data.networkName,
-            KEY_MEDIATOR_NAME to data.mediatorName.value,
-            KEY_AD_FORMAT to data.adFormat.value,
-            KEY_PLACEMENT to data.placement,
-            KEY_AD_UNIT_ID to data.adUnitId,
-            KEY_IMPRESSION_ID to data.impressionId,
-            KEY_REVENUE_MICROS to NSNumber(long = data.revenueMicros),
-            KEY_CURRENCY to data.currency,
-            KEY_PRECISION to data.precision.value
-        )
+        val adData = buildMap<Any?, Any?> {
+            data.networkName?.let { put(KEY_NETWORK_NAME, it) }
+            put(KEY_MEDIATOR_NAME, data.mediatorName.value)
+            put(KEY_AD_FORMAT, data.adFormat.value)
+            put(KEY_PLACEMENT, data.placement)
+            put(KEY_AD_UNIT_ID, data.adUnitId)
+            put(KEY_IMPRESSION_ID, data.impressionId)
+            put(KEY_REVENUE_MICROS, NSNumber(long = data.revenueMicros))
+            put(KEY_CURRENCY, data.currency)
+            put(KEY_PRECISION, data.precision.value)
+        }
 
         RCCommonFunctionality.trackAdRevenue(adData)
     }
@@ -92,14 +92,14 @@ public actual class AdTracker {
             return
         }
 
-        val adData = mapOf<Any?, Any?>(
-            KEY_NETWORK_NAME to data.networkName,
-            KEY_MEDIATOR_NAME to data.mediatorName.value,
-            KEY_AD_FORMAT to data.adFormat.value,
-            KEY_PLACEMENT to data.placement,
-            KEY_AD_UNIT_ID to data.adUnitId,
-            KEY_IMPRESSION_ID to data.impressionId
-        )
+        val adData = buildMap<Any?, Any?> {
+            data.networkName?.let { put(KEY_NETWORK_NAME, it) }
+            put(KEY_MEDIATOR_NAME, data.mediatorName.value)
+            put(KEY_AD_FORMAT, data.adFormat.value)
+            put(KEY_PLACEMENT, data.placement)
+            put(KEY_AD_UNIT_ID, data.adUnitId)
+            put(KEY_IMPRESSION_ID, data.impressionId)
+        }
 
         RCCommonFunctionality.trackAdLoaded(adData)
     }
@@ -111,7 +111,6 @@ public actual class AdTracker {
         }
 
         val adData = buildMap<Any?, Any?> {
-            put(KEY_NETWORK_NAME, data.networkName)
             put(KEY_MEDIATOR_NAME, data.mediatorName.value)
             put(KEY_AD_FORMAT, data.adFormat.value)
             put(KEY_PLACEMENT, data.placement)
