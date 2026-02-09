@@ -1,22 +1,22 @@
 package com.revenuecat.purchases.kmp
 
-import cocoapods.PurchasesHybridCommon.IOSAPIAvailabilityChecker
-import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
-import cocoapods.PurchasesHybridCommon.RCCustomerInfo
-import cocoapods.PurchasesHybridCommon.RCIntroEligibility
-import cocoapods.PurchasesHybridCommon.RCPurchaseParamsBuilder
-import cocoapods.PurchasesHybridCommon.RCPurchasesDelegateProtocol
-import cocoapods.PurchasesHybridCommon.RCStoreProduct
-import cocoapods.PurchasesHybridCommon.RCStoreTransaction
-import cocoapods.PurchasesHybridCommon.RCVirtualCurrencies
-import cocoapods.PurchasesHybridCommon.configureWithAPIKey
-import cocoapods.PurchasesHybridCommon.isWebPurchaseRedemptionURL
-import cocoapods.PurchasesHybridCommon.parseAsWebPurchaseRedemptionWithUrlString
-import cocoapods.PurchasesHybridCommon.recordPurchaseForProductID
-import cocoapods.PurchasesHybridCommon.setAirbridgeDeviceID
-import cocoapods.PurchasesHybridCommon.setAirshipChannelID
-import cocoapods.PurchasesHybridCommon.setOnesignalUserID
-import cocoapods.PurchasesHybridCommon.showStoreMessagesForTypes
+import swiftPMImport.com.revenuecat.purchases.kn.core.IOSAPIAvailabilityChecker
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCCommonFunctionality
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomerInfo
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCIntroEligibility
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchaseParamsBuilder
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchasesDelegateProtocol
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProduct
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreTransaction
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCVirtualCurrencies
+import swiftPMImport.com.revenuecat.purchases.kn.core.configureWithAPIKey
+import swiftPMImport.com.revenuecat.purchases.kn.core.isWebPurchaseRedemptionURL
+import swiftPMImport.com.revenuecat.purchases.kn.core.parseAsWebPurchaseRedemptionWithUrlString
+import swiftPMImport.com.revenuecat.purchases.kn.core.recordPurchaseForProductID
+import swiftPMImport.com.revenuecat.purchases.kn.core.setAirbridgeDeviceID
+import swiftPMImport.com.revenuecat.purchases.kn.core.setAirshipChannelID
+import swiftPMImport.com.revenuecat.purchases.kn.core.setOnesignalUserID
+import swiftPMImport.com.revenuecat.purchases.kn.core.showStoreMessagesForTypes
 import com.revenuecat.purchases.kmp.ktx.mapEntriesNotNull
 import com.revenuecat.purchases.kmp.mappings.buildStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
@@ -67,9 +67,9 @@ import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import platform.Foundation.NSError
 import platform.Foundation.NSURL
-import cocoapods.PurchasesHybridCommon.RCDangerousSettings as IosDangerousSettings
-import cocoapods.PurchasesHybridCommon.RCPurchases as IosPurchases
-import cocoapods.PurchasesHybridCommon.RCWinBackOffer as NativeIosWinBackOffer
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCDangerousSettings as IosDangerousSettings
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchases as IosPurchases
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCWinBackOffer as NativeIosWinBackOffer
 
 public actual class Purchases private constructor(private val iosPurchases: IosPurchases) {
     public actual companion object {

@@ -1,13 +1,7 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import cocoapods.PurchasesHybridCommon.pricePerMonthAmount
-import cocoapods.PurchasesHybridCommon.pricePerMonthString
-import cocoapods.PurchasesHybridCommon.pricePerWeekAmount
-import cocoapods.PurchasesHybridCommon.pricePerWeekString
-import cocoapods.PurchasesHybridCommon.pricePerYearAmount
-import cocoapods.PurchasesHybridCommon.pricePerYearString
-import com.revenuecat.purchases.kmp.models.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.models.Period
+import com.revenuecat.purchases.kmp.models.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.models.Price
 import com.revenuecat.purchases.kmp.models.ProductCategory
 import com.revenuecat.purchases.kmp.models.ProductType
@@ -16,8 +10,14 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.SubscriptionOptions
-import cocoapods.PurchasesHybridCommon.RCStoreProduct as NativeIosStoreProduct
-import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount as IosStoreProductDiscount
+import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerMonthAmount
+import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerMonthString
+import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerWeekAmount
+import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerWeekString
+import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerYearAmount
+import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerYearString
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProduct as NativeIosStoreProduct
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProductDiscount as IosStoreProductDiscount
 
 public fun NativeIosStoreProduct.toStoreProduct(): StoreProduct =
     IosStoreProduct(this)

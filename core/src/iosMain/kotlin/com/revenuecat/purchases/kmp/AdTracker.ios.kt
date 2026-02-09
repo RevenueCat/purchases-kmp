@@ -1,12 +1,12 @@
 package com.revenuecat.purchases.kmp
 
-import cocoapods.PurchasesHybridCommon.IOSAPIAvailabilityChecker
-import cocoapods.PurchasesHybridCommon.RCCommonFunctionality
-import cocoapods.PurchasesHybridCommon.trackAdDisplayed
-import cocoapods.PurchasesHybridCommon.trackAdFailedToLoad
-import cocoapods.PurchasesHybridCommon.trackAdLoaded
-import cocoapods.PurchasesHybridCommon.trackAdOpened
-import cocoapods.PurchasesHybridCommon.trackAdRevenue
+import swiftPMImport.com.revenuecat.purchases.kn.core.IOSAPIAvailabilityChecker
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCCommonFunctionality
+import swiftPMImport.com.revenuecat.purchases.kn.core.trackAdDisplayed
+import swiftPMImport.com.revenuecat.purchases.kn.core.trackAdFailedToLoad
+import swiftPMImport.com.revenuecat.purchases.kn.core.trackAdLoaded
+import swiftPMImport.com.revenuecat.purchases.kn.core.trackAdOpened
+import swiftPMImport.com.revenuecat.purchases.kn.core.trackAdRevenue
 import com.revenuecat.purchases.kmp.models.AdDisplayedData
 import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
 import com.revenuecat.purchases.kmp.models.AdLoadedData

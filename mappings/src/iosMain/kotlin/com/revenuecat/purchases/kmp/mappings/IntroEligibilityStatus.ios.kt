@@ -1,12 +1,12 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import cocoapods.PurchasesHybridCommon.RCIntroEligibility
-import cocoapods.PurchasesHybridCommon.RCIntroEligibilityStatus
-import cocoapods.PurchasesHybridCommon.RCIntroEligibilityStatusEligible
-import cocoapods.PurchasesHybridCommon.RCIntroEligibilityStatusIneligible
-import cocoapods.PurchasesHybridCommon.RCIntroEligibilityStatusNoIntroOfferExists
-import cocoapods.PurchasesHybridCommon.RCIntroEligibilityStatusUnknown
 import com.revenuecat.purchases.kmp.models.IntroEligibilityStatus
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCIntroEligibility
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCIntroEligibilityStatus
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCIntroEligibilityStatusEligible
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCIntroEligibilityStatusIneligible
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCIntroEligibilityStatusNoIntroOfferExists
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCIntroEligibilityStatusUnknown
 
 public fun RCIntroEligibility.toIntroEligibilityStatus(): IntroEligibilityStatus =
     status().toIntroEligibilityStatus()
