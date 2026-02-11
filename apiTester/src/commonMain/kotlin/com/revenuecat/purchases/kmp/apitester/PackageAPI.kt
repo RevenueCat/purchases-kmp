@@ -13,6 +13,7 @@ private class PackageAPI {
             val product: StoreProduct = storeProduct
             // FIXME re-enable in SDK-3529
             // val presentedOfferingContext: PresentedOfferingContext = presentedOfferingContext
+            val webCheckoutUrl: String? = webCheckoutUrl
         }
     }
 }

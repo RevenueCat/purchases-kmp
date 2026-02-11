@@ -25,6 +25,7 @@ private class IosPackage(val iosPackage: NativeIosPackage): RCPackage {
     override val packageType: PackageType = iosPackage.packageType().toPackageType()
     override val storeProduct: StoreProduct = iosPackage.storeProduct().toStoreProduct()
     override val presentedOfferingContext: PresentedOfferingContext = iosPackage.presentedOfferingContext().toPresentedOfferingContext()
+    override val webCheckoutUrl: String? = iosPackage.webCheckoutUrl()?.absoluteString
 }
 
 private fun IosPackageType.toPackageType(): PackageType =

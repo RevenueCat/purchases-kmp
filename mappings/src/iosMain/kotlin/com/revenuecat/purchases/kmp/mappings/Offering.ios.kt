@@ -30,4 +30,5 @@ private class IosOffering(val iosOffering: NativeIosOffering): Offering {
     override val twoMonth: Package? by lazy { iosOffering.twoMonth()?.toPackage() }
     override val monthly: Package? by lazy { iosOffering.monthly()?.toPackage() }
     override val weekly: Package? by lazy { iosOffering.weekly()?.toPackage() }
+    override val webCheckoutUrl: String? by lazy { iosOffering.webCheckoutUrl()?.absoluteString }
 }

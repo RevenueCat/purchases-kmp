@@ -61,6 +61,11 @@ public interface Offering {
     public val weekly: Package?
 
     /**
+     * URL to use for web checkout for this offering. Null if not available.
+     */
+    public val webCheckoutUrl: String?
+
+    /**
      * Retrieves a specific package by identifier, use this to access custom package types configured
      * in the RevenueCat dashboard
      */
