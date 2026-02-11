@@ -37,13 +37,6 @@ commands:
           name: Install Android SDK platform tools
           command: sdkmanager "platform-tools"
 
-  install-cocoapods-on-macos:
-    steps:
-      - run:
-          name: Install CocoaPods
-          command: bundle exec pod install --repo-update
-          working_directory: iosApp
-
   save-kotlin-native-compiler-to-cache:
     steps:
       - run:
@@ -81,7 +74,7 @@ commands:
       - persist_to_workspace:
           name: Save incremental Gradle build to workspace
           root: ./
-          paths: 
+          paths:
             - .gradle
             # This doesn't support directory glob patterns (**), unfortunately.
             - build
@@ -216,7 +209,6 @@ jobs:
       - attach-workspace-at-working-directory
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
-      - install-cocoapods-on-macos
       - run:
           name: Build libraries for iOS
           command: |
@@ -257,15 +249,23 @@ jobs:
       - attach-workspace-at-working-directory
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
-      - install-cocoapods-on-macos
       - run:
-          name: Build sample app for iOS
+          name: Build Kotlin code for iOS sample app for every architecture
           command: |
             tasks=()
             for arch in Arm64 SimulatorArm64 X64; do
               tasks+=(":composeApp:compileKotlinIos$arch")
             done
             ./gradlew "${tasks[@]}"
+      - run:
+          name: Build iOS sample app
+          command: |
+            xcodebuild \
+              -project iosApp/iosApp.xcodeproj \
+              -scheme iosApp \
+              -configuration Debug \
+              -sdk iphonesimulator \
+              build;
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
       - save-incremental-gradle-build-to-workspace
@@ -296,7 +296,6 @@ jobs:
       - attach-workspace-at-working-directory
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
-      - install-cocoapods-on-macos
       - run:
           name: Test public API for iOS
           command: |
@@ -371,7 +370,6 @@ jobs:
       - install-android-sdk-on-macos
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
-      - install-cocoapods-on-macos
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - when:
