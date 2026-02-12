@@ -262,6 +262,7 @@ public abstract interface class com/revenuecat/purchases/kmp/models/Offering {
 	public abstract fun getSixMonth ()Lcom/revenuecat/purchases/kmp/models/Package;
 	public abstract fun getThreeMonth ()Lcom/revenuecat/purchases/kmp/models/Package;
 	public abstract fun getTwoMonth ()Lcom/revenuecat/purchases/kmp/models/Package;
+	public abstract fun getWebCheckoutUrl ()Ljava/lang/String;
 	public abstract fun getWeekly ()Lcom/revenuecat/purchases/kmp/models/Package;
 }
 
@@ -295,6 +296,7 @@ public abstract interface class com/revenuecat/purchases/kmp/models/Package {
 	public abstract fun getPackageType ()Lcom/revenuecat/purchases/kmp/models/PackageType;
 	public abstract fun getPresentedOfferingContext ()Lcom/revenuecat/purchases/kmp/models/PresentedOfferingContext;
 	public abstract fun getStoreProduct ()Lcom/revenuecat/purchases/kmp/models/StoreProduct;
+	public abstract fun getWebCheckoutUrl ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/PackageType : java/lang/Enum {
