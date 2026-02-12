@@ -394,6 +394,8 @@ abstract interface com.revenuecat.purchases.kmp.models/Offering { // com.revenue
         abstract fun <get-threeMonth>(): com.revenuecat.purchases.kmp.models/Package? // com.revenuecat.purchases.kmp.models/Offering.threeMonth.<get-threeMonth>|<get-threeMonth>(){}[0]
     abstract val twoMonth // com.revenuecat.purchases.kmp.models/Offering.twoMonth|{}twoMonth[0]
         abstract fun <get-twoMonth>(): com.revenuecat.purchases.kmp.models/Package? // com.revenuecat.purchases.kmp.models/Offering.twoMonth.<get-twoMonth>|<get-twoMonth>(){}[0]
+    abstract val webCheckoutUrl // com.revenuecat.purchases.kmp.models/Offering.webCheckoutUrl|{}webCheckoutUrl[0]
+        abstract fun <get-webCheckoutUrl>(): kotlin/String? // com.revenuecat.purchases.kmp.models/Offering.webCheckoutUrl.<get-webCheckoutUrl>|<get-webCheckoutUrl>(){}[0]
     abstract val weekly // com.revenuecat.purchases.kmp.models/Offering.weekly|{}weekly[0]
         abstract fun <get-weekly>(): com.revenuecat.purchases.kmp.models/Package? // com.revenuecat.purchases.kmp.models/Offering.weekly.<get-weekly>|<get-weekly>(){}[0]
 
@@ -411,6 +413,8 @@ abstract interface com.revenuecat.purchases.kmp.models/Package { // com.revenuec
         abstract fun <get-presentedOfferingContext>(): com.revenuecat.purchases.kmp.models/PresentedOfferingContext // com.revenuecat.purchases.kmp.models/Package.presentedOfferingContext.<get-presentedOfferingContext>|<get-presentedOfferingContext>(){}[0]
     abstract val storeProduct // com.revenuecat.purchases.kmp.models/Package.storeProduct|{}storeProduct[0]
         abstract fun <get-storeProduct>(): com.revenuecat.purchases.kmp.models/StoreProduct // com.revenuecat.purchases.kmp.models/Package.storeProduct.<get-storeProduct>|<get-storeProduct>(){}[0]
+    abstract val webCheckoutUrl // com.revenuecat.purchases.kmp.models/Package.webCheckoutUrl|{}webCheckoutUrl[0]
+        abstract fun <get-webCheckoutUrl>(): kotlin/String? // com.revenuecat.purchases.kmp.models/Package.webCheckoutUrl.<get-webCheckoutUrl>|<get-webCheckoutUrl>(){}[0]
 }
 
 abstract interface com.revenuecat.purchases.kmp.models/PromotionalOffer { // com.revenuecat.purchases.kmp.models/PromotionalOffer|null[0]
