@@ -18,6 +18,7 @@ private class AndroidPackage(
     override val packageType: PackageType = wrapped.packageType.toPackageType()
     override val storeProduct: StoreProduct = wrapped.product.toStoreProduct()
     override val presentedOfferingContext: PresentedOfferingContext = wrapped.presentedOfferingContext.toPresentedOfferingContext()
+    override val webCheckoutUrl: String? = wrapped.webCheckoutURL?.toString()
 }
 
 private fun AndroidPackageType.toPackageType(): PackageType =
