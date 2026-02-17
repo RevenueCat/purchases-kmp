@@ -12,7 +12,7 @@ java = "1.8"
 junit = "5.10.0"
 kotlin = "2.1.21"
 mavenPublish = "0.33.0"
-revenuecat-common = "17.37.0"
+revenuecat-common = "17.40.0"
 revenuecat-kmp = "2.6.0-SNAPSHOT"
 
 [libraries]
