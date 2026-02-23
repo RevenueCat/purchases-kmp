@@ -69,6 +69,8 @@ import com.revenuecat.purchases.restorePurchasesWith
 import com.revenuecat.purchases.syncAttributesAndOfferingsIfNeededWith
 import com.revenuecat.purchases.syncPurchasesWith
 import java.net.URL
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 import com.revenuecat.purchases.DangerousSettings as AndroidDangerousSettings
 import com.revenuecat.purchases.Purchases as AndroidPurchases
 import com.revenuecat.purchases.hybridcommon.configure as commonConfigure
@@ -147,6 +149,13 @@ public actual class Purchases private constructor(private val androidPurchases: 
             context = AndroidProvider.requireApplication(),
             features = features.map { it.toAndroidBillingFeature() },
         ) { result -> callback(result) }
+
+        @JvmStatic
+        public actual suspend fun canMakePayments(
+            features: List<BillingFeature>
+        ): Boolean = suspendCoroutine { continuation ->
+            canMakePayments(features = features, callback = continuation::resume)
+        }
 
         private fun DangerousSettings.toAndroidDangerousSettings(): AndroidDangerousSettings =
             AndroidDangerousSettings(autoSyncPurchases)

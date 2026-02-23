@@ -105,6 +105,25 @@ public expect class Purchases {
         )
 
         /**
+         * Note: This method only works for the Google Play Store and App Store. There is no Amazon
+         * equivalent at this time. Calling from an Amazon-configured app will return true.
+         *
+         * Check if billing is supported for the current Play user (meaning IN-APP purchases are
+         * supported) and optionally, whether all features in the list of specified feature types
+         * are supported. This method is asynchronous since it requires a connected BillingClient.
+         *
+         * This is a convenience method for [canMakePayments] that wraps the callback via a suspending coroutine
+         *
+         * @param features Play Store only. A list of feature types to check for support. Feature
+         * types must be one of [BillingFeature]. By default, is an empty list and no specific
+         * feature support will be checked.
+         * @return result of the check
+         */
+        public suspend fun canMakePayments(
+            features: List<BillingFeature>
+        ): Boolean
+
+        /**
          * Given a url string, parses it and returns a [WebPurchaseRedemption], which can
          * be used to redeem a web purchase using [Purchases.redeemWebPurchase]
          * @return A parsed [WebPurchaseRedemption] or null if it's not a valid RevenueCat web purchase redemption url.
