@@ -1,7 +1,6 @@
 package com.revenuecat.automatedsdktests
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,11 +13,21 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-
+import com.revenuecat.purchases.kmp.configure
+import com.revenuecat.purchases.kmp.Purchases
+import com.revenuecat.purchases.kmp.PurchasesConfiguration
 
 @Composable
 @Preview
 fun App() {
+    LaunchedEffect(Unit) {
+        if (!Purchases.isConfigured) {
+            Purchases.configure(BuildKonfig.apiKey) {
+                appUserId = BuildKonfig.appUserId
+            }
+        }
+    }
+
     MaterialTheme {
         var showContent by remember { mutableStateOf(false) }
         Column(

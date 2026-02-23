@@ -16,7 +16,17 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
+    versionCatalogs {
+        create("rootLibs") {
+            from(files("../../gradle/libs.versions.toml"))
+        }
+    }
     repositories {
+        mavenLocal {
+            mavenContent {
+                includeGroup("com.revenuecat.purchases")
+            }
+        }
         google {
             mavenContent {
                 includeGroupAndSubgroups("androidx")
@@ -24,7 +34,11 @@ dependencyResolutionManagement {
                 includeGroupAndSubgroups("com.google")
             }
         }
-        mavenCentral()
+        mavenCentral {
+            mavenContent {
+                excludeGroup("com.revenuecat.purchases")
+            }
+        }
     }
 }
 

@@ -1,17 +1,20 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+import org.jetbrains.compose.internal.utils.getLocalProperty
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.buildkonfig)
 }
 
 kotlin {
     androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "11"
+            }
         }
     }
     
@@ -39,6 +42,8 @@ kotlin {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation("com.revenuecat.purchases:purchases-kmp-core:${rootLibs.versions.revenuecat.kmp.get()}")
+            implementation("com.revenuecat.purchases:purchases-kmp-ui:${rootLibs.versions.revenuecat.kmp.get()}")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -75,5 +80,24 @@ android {
 
 dependencies {
     debugImplementation(libs.compose.uiTooling)
+}
+
+buildkonfig {
+    packageName = "com.revenuecat.automatedsdktests"
+
+    defaultConfigs {
+        buildConfigField(STRING, "apiKey", "")
+        buildConfigField(STRING, "appUserId", project.rootProject.getLocalProperty("revenuecat.appUserId").orEmpty())
+    }
+    targetConfigs {
+        create("android") {
+            buildConfigField(STRING, "apiKey", project.rootProject.getLocalProperty("revenuecat.apiKey.google").orEmpty())
+        }
+        listOf("iosArm64", "iosSimulatorArm64").forEach { target ->
+            create(target) {
+                buildConfigField(STRING, "apiKey", project.rootProject.getLocalProperty("revenuecat.apiKey.apple").orEmpty())
+            }
+        }
+    }
 }
 
