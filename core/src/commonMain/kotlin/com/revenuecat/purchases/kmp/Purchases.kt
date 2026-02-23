@@ -120,7 +120,7 @@ public expect class Purchases {
          * @return result of the check
          */
         public suspend fun canMakePayments(
-            features: List<BillingFeature>
+            features: List<BillingFeature> = listOf()
         ): Boolean
 
         /**
