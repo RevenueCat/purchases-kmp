@@ -28,7 +28,6 @@ public final class com/revenuecat/purchases/kmp/LogLevel : java/lang/Enum {
 public final class com/revenuecat/purchases/kmp/Purchases {
 	public static final field Companion Lcom/revenuecat/purchases/kmp/Purchases$Companion;
 	public synthetic fun <init> (Lcom/revenuecat/purchases/Purchases;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public static final fun canMakePayments (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun canMakePayments (Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
 	public final fun checkTrialOrIntroPriceEligibility (Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
 	public final fun close ()V
@@ -110,7 +109,6 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 }
 
 public final class com/revenuecat/purchases/kmp/Purchases$Companion {
-	public final fun canMakePayments (Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun canMakePayments (Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
 	public static synthetic fun canMakePayments$default (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
 	public final fun configure (Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;)Lcom/revenuecat/purchases/kmp/Purchases;
@@ -213,6 +211,8 @@ public final class com/revenuecat/purchases/kmp/UpdatedCustomerInfoDelegate : co
 }
 
 public final class com/revenuecat/purchases/kmp/ktx/CoroutinesKt {
+	public static final fun awaitCanMakePayments (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun awaitCanMakePayments$default (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun awaitCustomerInfo (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun awaitCustomerInfo$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun awaitEligibleWinBackOffersForPackage (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/Package;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;

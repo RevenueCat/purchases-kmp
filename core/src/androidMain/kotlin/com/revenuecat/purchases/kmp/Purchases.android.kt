@@ -150,13 +150,6 @@ public actual class Purchases private constructor(private val androidPurchases: 
             features = features.map { it.toAndroidBillingFeature() },
         ) { result -> callback(result) }
 
-        @JvmStatic
-        public actual suspend fun canMakePayments(
-            features: List<BillingFeature>
-        ): Boolean = suspendCoroutine { continuation ->
-            canMakePayments(features = features, callback = continuation::resume)
-        }
-
         private fun DangerousSettings.toAndroidDangerousSettings(): AndroidDangerousSettings =
             AndroidDangerousSettings(autoSyncPurchases)
 

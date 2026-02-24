@@ -133,12 +133,6 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             callback(IosPurchases.canMakePayments())
         }
 
-        public actual suspend fun canMakePayments(
-            features: List<BillingFeature>
-        ): Boolean = suspendCoroutine { continuation ->
-            canMakePayments(features = features, callback = continuation::resume)
-        }
-
         private fun checkCommonVersion() {
             val expected = BuildKonfig.revenuecatCommonVersion
             val actual = RCCommonFunctionality.hybridCommonVersion()
