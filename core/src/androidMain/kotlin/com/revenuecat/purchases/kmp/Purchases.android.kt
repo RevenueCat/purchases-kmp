@@ -69,8 +69,6 @@ import com.revenuecat.purchases.restorePurchasesWith
 import com.revenuecat.purchases.syncAttributesAndOfferingsIfNeededWith
 import com.revenuecat.purchases.syncPurchasesWith
 import java.net.URL
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 import com.revenuecat.purchases.DangerousSettings as AndroidDangerousSettings
 import com.revenuecat.purchases.Purchases as AndroidPurchases
 import com.revenuecat.purchases.hybridcommon.configure as commonConfigure

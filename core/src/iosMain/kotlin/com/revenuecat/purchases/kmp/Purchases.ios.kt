@@ -67,8 +67,6 @@ import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import platform.Foundation.NSError
 import platform.Foundation.NSURL
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCDangerousSettings as IosDangerousSettings
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchases as IosPurchases
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCWinBackOffer as NativeIosWinBackOffer
