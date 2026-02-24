@@ -97,7 +97,7 @@ commands:
 parameters:
   action:
     type: enum
-    enum: [ build, upgrade-hybrid-common, bump ]
+    enum: [ build, upgrade-hybrid-common, bump, update-api-files ]
     default: build
   automatic:
     type: boolean
@@ -143,6 +143,24 @@ jobs:
             version:<< pipeline.parameters.version >> \
             open_pr:true \
             automatic_release:<< pipeline.parameters.automatic >>
+
+  update-api-files:
+    description: "Runs apiDump and creates a PR with updated API files if there are changes."
+    executor: xcode16
+    steps:
+      - install-android-sdk-on-macos
+      - checkout
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - revenuecat/trust-github-key
+      - revenuecat/setup-git-credentials
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - run:
+          name: Update API files
+          command: bundle exec fastlane update_api_files
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
 
   prepare-next-snapshot-version:
     description: "Opens a PR updating the SDK version to the next minor, appending -SNAPSHOT."
@@ -407,6 +425,15 @@ workflows:
       equal: [ upgrade-hybrid-common, << pipeline.parameters.action >> ]
     jobs:
       - update-purchases-hybrid-common-version:
+          context:
+            - git-user-ops
+            - github-bot-public
+
+  on-action-update-api-files:
+    when:
+      equal: [ update-api-files, << pipeline.parameters.action >> ]
+    jobs:
+      - update-api-files:
           context:
             - git-user-ops
             - github-bot-public
