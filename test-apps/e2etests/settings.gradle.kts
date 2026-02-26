@@ -24,7 +24,7 @@ dependencyResolutionManagement {
     repositories {
         mavenLocal {
             mavenContent {
-                includeGroup("com.revenuecat.purchases")
+                includeModuleByRegex("com\\.revenuecat\\.purchases", "purchases-kmp-.*")
             }
         }
         google {
@@ -36,7 +36,7 @@ dependencyResolutionManagement {
         }
         mavenCentral {
             mavenContent {
-                excludeGroup("com.revenuecat.purchases")
+                excludeModuleByRegex("com\\.revenuecat\\.purchases", "purchases-kmp-.*")
             }
         }
     }
