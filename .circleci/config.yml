@@ -18,7 +18,7 @@ version: 2.1
 
 orbs:
   android: circleci/android@2.5.0
-  revenuecat: revenuecat/sdks-common-config@3.0.0
+  revenuecat: revenuecat/sdks-common-config@3.11.0
 
 commands:
   install-android-sdk-on-macos:
@@ -413,6 +413,123 @@ jobs:
           name: "Create a GitHub release for the current version"
           command: bundle exec fastlane github_release_current_version
 
+  publish-to-maven-local:
+    executor: xcode16
+    steps:
+      - checkout
+      - install-android-sdk-on-macos
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - run:
+          name: Publish to mavenLocal
+          command: ./gradlew publishToMavenLocal
+      - persist_to_workspace:
+          root: ~/.m2
+          paths:
+            - repository/com/revenuecat
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
+
+  paywall-screenshots-ios:
+    executor: xcode16
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/.m2
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - run:
+          name: Build e2etests iOS app
+          working_directory: test-apps/e2etests
+          command: |
+            ./gradlew :composeApp:compileKotlinIosSimulatorArm64
+            xcodebuild -project iosApp/iosApp.xcodeproj \
+              -scheme iosApp \
+              -configuration Debug \
+              -sdk iphonesimulator \
+              -destination 'platform=iOS Simulator,name=iPhone 16' \
+              build
+      - revenuecat/install-maestro
+      - run:
+          name: Boot iOS Simulator
+          command: xcrun simctl boot "iPhone 16" || true
+      - run:
+          name: Install app on simulator
+          command: |
+            xcrun simctl install booted test-apps/e2etests/iosApp/build/Build/Products/Debug-iphonesimulator/iosApp.app
+      - run:
+          name: Run Maestro screenshot tests
+          command: |
+            while IFS= read -r offering_id; do
+              maestro test \
+                -e APP_ID=com.revenuecat.automatedsdktests \
+                -e OFFERING_ID="$offering_id" \
+                maestro/paywall-rendering/subflows/render-paywall.yaml
+            done < maestro/paywall-rendering/offerings.txt
+      - persist_to_workspace:
+          root: ~/.maestro
+          paths:
+            - screenshots
+      - store_artifacts:
+          path: ~/.maestro/screenshots
+          destination: paywall-screenshots-ios
+
+  paywall-screenshots-android:
+    executor: android202409
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/.m2
+      - restore-gradle-user-home-directory-from-cache
+      - android/create-avd:
+          avd-name: test-avd
+          install: true
+          system-image: system-images;android-34;google_apis;x86_64
+      - android/start-emulator:
+          avd-name: test-avd
+          post-emulator-launch-assemble-command: ""
+      - run:
+          name: Build e2etests Android app
+          working_directory: test-apps/e2etests
+          command: ./gradlew :composeApp:assembleDebug
+      - revenuecat/install-maestro
+      - run:
+          name: Install app on emulator
+          command: |
+            adb install test-apps/e2etests/composeApp/build/outputs/apk/debug/composeApp-debug.apk
+      - run:
+          name: Run Maestro screenshot tests
+          command: |
+            while IFS= read -r offering_id; do
+              maestro test \
+                -e APP_ID=com.revenuecat.automatedsdktests \
+                -e OFFERING_ID="$offering_id" \
+                maestro/paywall-rendering/subflows/render-paywall.yaml
+            done < maestro/paywall-rendering/offerings.txt
+      - persist_to_workspace:
+          root: ~/.maestro
+          paths:
+            - screenshots
+      - store_artifacts:
+          path: ~/.maestro/screenshots
+          destination: paywall-screenshots-android
+
+  upload-screenshots-to-emerge:
+    executor: jdk17
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/.maestro
+      - run:
+          name: Upload screenshots to EmergeTools
+          command: |
+            pip install emerge-upload
+            emerge upload snapshots \
+              --name "purchases-kmp-paywalls" \
+              --id "com.revenuecat.purchases-kmp.paywall-screenshots" \
+              --repo-name "RevenueCat/purchases-kmp" \
+              ~/.maestro/screenshots
+
 workflows:
   on-action-upgrade-hybrid-common:
     when:
@@ -456,6 +573,12 @@ workflows:
           # This would benefit from the incremental build output of build-libraries-android
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
+      - publish-to-maven-local:
+          requires: [build-libraries-ios]
+      - paywall-screenshots-ios:
+          requires: [publish-to-maven-local]
+      - paywall-screenshots-android:
+          requires: [publish-to-maven-local]
 
   on-main-branch:
     when:
@@ -522,6 +645,12 @@ workflows:
           # This would benefit from the incremental build output of build-libraries-android
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
+      - publish-to-maven-local:
+          requires: [build-libraries-ios]
+      - paywall-screenshots-ios:
+          requires: [publish-to-maven-local]
+      - paywall-screenshots-android:
+          requires: [publish-to-maven-local]
       - hold:
           type: approval
           requires:
@@ -534,6 +663,8 @@ workflows:
             - unit-tests-android
             - unit-tests-ios
             - validate-binary-compatibility
+            - paywall-screenshots-ios
+            - paywall-screenshots-android
       - revenuecat/tag-current-branch:
           requires:
             - hold
