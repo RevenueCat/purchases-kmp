@@ -434,7 +434,9 @@ workflows:
             - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
             - equal: [ "maestro_e2e_tests", << pipeline.schedule.name >> ]
     jobs:
-      - run-maestro-e2e-tests
+      - run-maestro-e2e-tests:
+          context:
+            - maestro-e2e-tests
 
   on-action-upgrade-hybrid-common:
     when:
