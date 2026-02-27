@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,6 +35,9 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
                 hasPro = info.entitlements.active.containsKey("pro")
             }
         )
+    }
+
+    DisposableEffect(Unit) {
         Purchases.sharedInstance.delegate = object : com.revenuecat.purchases.kmp.PurchasesDelegate {
             override fun onPurchasePromoProduct(
                 product: com.revenuecat.purchases.kmp.models.StoreProduct,
@@ -46,6 +50,9 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
             override fun onCustomerInfoUpdated(customerInfo: CustomerInfo) {
                 hasPro = customerInfo.entitlements.active.containsKey("pro")
             }
+        }
+        onDispose {
+            Purchases.sharedInstance.delegate = null
         }
     }
 
