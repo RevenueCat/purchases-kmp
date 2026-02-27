@@ -124,6 +124,16 @@ lane :update_hybrid_common do |options|
   end
 end
 
+desc "Run maestro E2E tests"
+lane :run_maestro_e2e_tests do
+  Dir.chdir("e2e-tests/MaestroTestApp") do
+    sh("sed -i '' 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_MAESTRO_E2E_API_KEY\"'/g' src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt")
+    sh("xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro' -derivedDataPath build CODE_SIGNING_ALLOWED=NO")
+    sh("xcrun simctl install booted build/Build/Products/Debug-iphonesimulator/MaestroTestApp.app")
+  end
+  sh("maestro test --format junit --output test_output/report.xml e2e-tests/maestro/")
+end
+
 desc "Opens a PR updating the SDK version to the next minor, appending -SNAPSHOT."
 lane :prepare_next_snapshot_version do |options|
   create_next_snapshot_version(

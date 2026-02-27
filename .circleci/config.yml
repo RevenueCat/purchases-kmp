@@ -389,6 +389,31 @@ jobs:
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
 
+  run-maestro-e2e-tests:
+    executor: xcode16
+    steps:
+      - checkout
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - revenuecat/install-maestro
+      - run:
+          name: Boot iOS Simulator
+          command: |
+            xcrun simctl boot "iPhone 16 Pro" || true
+            xcrun simctl bootstatus "iPhone 16 Pro" -b
+      - run:
+          name: Run Maestro E2E Tests
+          command: bundle exec fastlane run_maestro_e2e_tests
+          no_output_timeout: 15m
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
+      - store_test_results:
+          path: fastlane/test_output
+      - store_artifacts:
+          path: fastlane/test_output
+
   create-github-release:
     description: "Creates a GitHub release for the current version"
     executor: ruby3
@@ -402,6 +427,17 @@ jobs:
           command: bundle exec fastlane github_release_current_version
 
 workflows:
+  maestro-e2e-tests:
+    when:
+      or:
+        - and:
+            - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+            - equal: [ "maestro_e2e_tests", << pipeline.schedule.name >> ]
+    jobs:
+      - run-maestro-e2e-tests:
+          context:
+            - maestro-e2e-tests
+
   on-action-upgrade-hybrid-common:
     when:
       equal: [ upgrade-hybrid-common, << pipeline.parameters.action >> ]
