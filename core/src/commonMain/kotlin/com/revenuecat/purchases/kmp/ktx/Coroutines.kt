@@ -1,6 +1,7 @@
 package com.revenuecat.purchases.kmp.ktx
 
 import com.revenuecat.purchases.kmp.Purchases
+import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
@@ -606,5 +607,24 @@ public suspend fun Purchases.awaitVirtualCurrencies(): VirtualCurrencies = suspe
     getVirtualCurrencies(
         onError = { continuation.resumeWithException(PurchasesException(it)) },
         onSuccess = { continuation.resume(it) }
+    )
+}
+
+/**
+ * Check if billing is supported for the current Play user (meaning IN-APP purchases are
+ * supported) and optionally, whether all features in the list of specified feature types
+ * are supported. This method is asynchronous since it requires a connected BillingClient.
+ *
+ * @param features Play Store only. A list of feature types to check for support. Feature
+ * types must be one of [BillingFeature]. By default, is an empty list and no specific
+ * feature support will be checked.
+ * @return result of the check
+ */
+public suspend fun Purchases.Companion.awaitCanMakePayments(
+    features: List<BillingFeature> = listOf()
+): Boolean = suspendCoroutine { continuation ->
+    canMakePayments(
+        features = features,
+        callback = { continuation.resume(it) }
     )
 }
