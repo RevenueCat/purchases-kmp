@@ -28,6 +28,9 @@ private class StoreProductAPI {
             val introDiscount: StoreProductDiscount? = introductoryDiscount
             val purchasingData: PurchasingData = purchasingData
             val presentedOfferingContext: PresentedOfferingContext? = presentedOfferingContext
+            val pricePerWeek: Price? = pricePerWeek
+            val pricePerMonth: Price? = pricePerMonth
+            val pricePerYear: Price? = pricePerYear
         }
     }
 

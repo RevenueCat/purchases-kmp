@@ -1,10 +1,10 @@
 package com.revenuecat.purchases.kmp.mappings
 
+import com.revenuecat.purchases.kmp.mappings.ktx.mapEntries
 import com.revenuecat.purchases.kmp.models.Offering
 import com.revenuecat.purchases.kmp.models.Package
-import com.revenuecat.purchases.kmp.mappings.ktx.mapEntries
-import cocoapods.PurchasesHybridCommon.RCOffering as NativeIosOffering
-import cocoapods.PurchasesHybridCommon.RCPackage as NativeIosPackage
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCOffering as NativeIosOffering
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCPackage as NativeIosPackage
 
 public fun NativeIosOffering.toOffering(): Offering =
     IosOffering(this)
@@ -30,4 +30,5 @@ private class IosOffering(val iosOffering: NativeIosOffering): Offering {
     override val twoMonth: Package? by lazy { iosOffering.twoMonth()?.toPackage() }
     override val monthly: Package? by lazy { iosOffering.monthly()?.toPackage() }
     override val weekly: Package? by lazy { iosOffering.weekly()?.toPackage() }
+    override val webCheckoutUrl: String? by lazy { iosOffering.webCheckoutUrl()?.absoluteString }
 }

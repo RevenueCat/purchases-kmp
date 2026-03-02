@@ -1,3 +1,108 @@
+## 2.7.0+17.41.0
+## RevenueCat SDK
+### ✨ New Features
+* [EXTERNAL] feat: add coroutine method for canMakePayments, awaitCanMakePayments (#698) contributed by @TheRogue76 (#700) via Toni Rico (@tonidero)
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.59.2 (#695) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Bump fastlane-plugin-revenuecat_internal from `afc9219` to `ea6276c` (#696) via dependabot[bot] (@dependabot[bot])
+
+## 2.6.0+17.41.0
+## RevenueCat SDK
+### ✨ New Features
+* [SDK-4250] Add webCheckoutUrl to Offering and Package (#676) via Toni Rico (@tonidero)
+### 📦 Dependency Updates
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.41.0 (#691) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 9.22.0](https://github.com/RevenueCat/purchases-android/releases/tag/9.22.0)
+  * [Android 9.21.0](https://github.com/RevenueCat/purchases-android/releases/tag/9.21.0)
+  * [iOS 5.59.2](https://github.com/RevenueCat/purchases-ios/releases/tag/5.59.2)
+  * [iOS 5.59.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.59.1)
+  * [iOS 5.59.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.59.0)
+  * [iOS 5.58.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.58.1)
+  * [iOS 5.58.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.58.0)
+
+### 🔄 Other Changes
+* Bump fastlane-plugin-revenuecat_internal from `e6454e3` to `afc9219` (#686) via dependabot[bot] (@dependabot[bot])
+
+## 2.5.1+17.33.1
+## RevenueCat SDK
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.58.0 (#672) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Bump fastlane from 2.232.0 to 2.232.1 (#675) via dependabot[bot] (@dependabot[bot])
+* Adjusts the package name of generated Kotlin bindings (#668) via JayShortway (@JayShortway)
+* Update iosApp Podfile to PurchasesHybridCommon 17.33.1 (#674) via Pol Miro (@polmiro)
+* Remove networkName from AdFailedToLoad and make it nullable in other ad events (#666) via Pol Miro (@polmiro)
+* Bump fastlane from 2.231.1 to 2.232.0 (#673) via dependabot[bot] (@dependabot[bot])
+
+## 2.5.0+17.32.0
+## RevenueCat SDK
+### ✨ New Features
+* Adds pricePerPeriod functions to StoreProduct  (#131) via JayShortway (@JayShortway)
+### 📦 Dependency Updates
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.32.0 (#665) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 9.20.1](https://github.com/RevenueCat/purchases-android/releases/tag/9.20.1)
+  * [Android 9.20.0](https://github.com/RevenueCat/purchases-android/releases/tag/9.20.0)
+  * [Android 9.19.4](https://github.com/RevenueCat/purchases-android/releases/tag/9.19.4)
+  * [iOS 5.57.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.57.1)
+  * [iOS 5.57.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.57.0)
+  * [iOS 5.56.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.56.1)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.56.1 (#659) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Adds support for Swift compiler flags (#663) via JayShortway (@JayShortway)
+* Add iOS ad tracking API support (#648) via Pol Miro (@polmiro)
+* Adds support for Swift resources (#660) via JayShortway (@JayShortway)
+* Adds tests for `swiftPackage` (#626) via JayShortway (@JayShortway)
+* Allows declaring `swiftPackage` dependencies (#625) via JayShortway (@JayShortway)
+
+## 2.4.0+17.30.0
+## RevenueCat SDK
+### ✨ New Features
+* [EXTERNAL] Added the missing setAirbridgeDeviceID method (#617) via @FakeException (#649) via Rick (@rickvdl)
+### 📦 Dependency Updates
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.30.0 (#653) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 9.19.3](https://github.com/RevenueCat/purchases-android/releases/tag/9.19.3)
+  * [Android 9.19.2](https://github.com/RevenueCat/purchases-android/releases/tag/9.19.2)
+  * [iOS 5.56.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.56.0)
+  * [iOS 5.55.3](https://github.com/RevenueCat/purchases-ios/releases/tag/5.55.3)
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.29.0 (#652) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 9.19.3](https://github.com/RevenueCat/purchases-android/releases/tag/9.19.3)
+  * [Android 9.19.2](https://github.com/RevenueCat/purchases-android/releases/tag/9.19.2)
+  * [iOS 5.56.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.56.0)
+  * [iOS 5.55.3](https://github.com/RevenueCat/purchases-ios/releases/tag/5.55.3)
+* [RENOVATE] Update dependency gradle to v8.14.4 (#650) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.55.3 (#651) via RevenueCat Git Bot (@RCGitBot)
+
+## 2.3.1+17.28.1
+## RevenueCat SDK
+### 📦 Dependency Updates
+* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.28.1 (#639) via RevenueCat Git Bot (@RCGitBot)
+  * [Android 9.19.1](https://github.com/RevenueCat/purchases-android/releases/tag/9.19.1)
+  * [Android 9.19.0](https://github.com/RevenueCat/purchases-android/releases/tag/9.19.0)
+  * [iOS 5.55.2](https://github.com/RevenueCat/purchases-ios/releases/tag/5.55.2)
+  * [iOS 5.55.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.55.1)
+  * [iOS 5.55.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.55.0)
+  * [iOS 5.54.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.54.1)
+  * [iOS 5.54.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.54.0)
+  * [iOS 5.53.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.53.0)
+
+## 2.3.0+17.26.1
+## RevenueCat SDK
+### ✨ New Features
+* Adds richer `SubscriptionInfo` to `CustomerInfo` (#633) via JayShortway (@JayShortway)
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.55.1 (#637) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.54.0 (#631) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Convert ad event model data classes to regular classes (#642) via Pol Miro (@polmiro)
+* Expose ad tracking APIs in KMP SDK for Android (#640) via Pol Miro (@polmiro)
+* Bump fastlane from 2.231.0 to 2.231.1 (#641) via dependabot[bot] (@dependabot[bot])
+* Bump fastlane from 2.230.0 to 2.231.0 (#638) via dependabot[bot] (@dependabot[bot])
+
 ## 2.2.17+17.26.1
 ## RevenueCat SDK
 ### 📦 Dependency Updates

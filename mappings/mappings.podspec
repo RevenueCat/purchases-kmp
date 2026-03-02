@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'mappings'
-    spec.version                  = '2.3.0-SNAPSHOT'
+    spec.version                  = '2.8.0-SNAPSHOT'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
     spec.vendored_frameworks      = 'build/cocoapods/framework/mappings.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target    = '13.0'
-    spec.dependency 'PurchasesHybridCommon', '17.26.1'
+    spec.dependency 'PurchasesHybridCommon', '17.41.0'
                 
     if !Dir.exist?('build/cocoapods/framework/mappings.framework') || Dir.empty?('build/cocoapods/framework/mappings.framework')
         raise "

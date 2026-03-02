@@ -5,7 +5,7 @@ import com.revenuecat.purchases.kmp.mappings.ktx.toEpochMilliseconds
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import platform.Foundation.dictionaryWithValuesForKeys
 import platform.darwin.NSObject
-import cocoapods.PurchasesHybridCommon.RCCustomerInfo as IosCustomerInfo
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomerInfo as IosCustomerInfo
 
 public fun IosCustomerInfo.toCustomerInfo(): CustomerInfo {
     @Suppress("UNCHECKED_CAST")

@@ -1,11 +1,11 @@
 package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.models.VerificationResult
-import cocoapods.PurchasesHybridCommon.RCVerificationResult as IosVerificationResult
-import cocoapods.PurchasesHybridCommon.RCVerificationResultFailed as IosVerificationResultFailed
-import cocoapods.PurchasesHybridCommon.RCVerificationResultNotRequested as IosVerificationResultNotRequested
-import cocoapods.PurchasesHybridCommon.RCVerificationResultVerified as IosVerificationResultVerified
-import cocoapods.PurchasesHybridCommon.RCVerificationResultVerifiedOnDevice as IosVerificationResultVerifiedOnDevice
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCVerificationResult as IosVerificationResult
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCVerificationResultFailed as IosVerificationResultFailed
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCVerificationResultNotRequested as IosVerificationResultNotRequested
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCVerificationResultVerified as IosVerificationResultVerified
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCVerificationResultVerifiedOnDevice as IosVerificationResultVerifiedOnDevice
 
 internal fun IosVerificationResult.toVerificationResult(): VerificationResult =
     when (this) {

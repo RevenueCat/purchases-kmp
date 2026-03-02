@@ -27,4 +27,5 @@ private class AndroidOffering(val wrapped: NativeAndroidOffering): Offering {
     override val twoMonth: Package? by lazy { wrapped.twoMonth?.toPackage() }
     override val monthly: Package? by lazy { wrapped.monthly?.toPackage() }
     override val weekly: Package? by lazy { wrapped.weekly?.toPackage() }
+    override val webCheckoutUrl: String? by lazy { wrapped.webCheckoutURL?.toString() }
 }

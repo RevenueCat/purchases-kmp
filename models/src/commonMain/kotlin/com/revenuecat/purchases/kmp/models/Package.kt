@@ -24,6 +24,11 @@ public interface Package {
      * [PresentedOfferingContext] from which this package was obtained.
      */
     public val presentedOfferingContext: PresentedOfferingContext
+
+    /**
+     * URL to use for web checkout for this package. Null if not available.
+     */
+    public val webCheckoutUrl: String?
 }
 
 /**

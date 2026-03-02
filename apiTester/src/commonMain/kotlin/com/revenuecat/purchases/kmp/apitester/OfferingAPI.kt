@@ -17,6 +17,7 @@ private class OfferingAPI {
             val twoMonth: Package? = twoMonth
             val monthly: Package? = monthly
             val weekly: Package? = weekly
+            val webCheckoutUrl: String? = webCheckoutUrl
             val p1: Package? = offering[""]
             val p2: Package? = getPackage("")
             val metadata: Map<String, Any> = metadata

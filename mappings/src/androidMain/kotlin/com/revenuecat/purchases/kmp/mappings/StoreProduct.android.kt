@@ -32,4 +32,7 @@ private class AndroidStoreProduct(
     override val introductoryDiscount: StoreProductDiscount? = null
     override val purchasingData: PurchasingData = AndroidPurchasingData(wrapped.purchasingData)
     override val presentedOfferingContext: PresentedOfferingContext? = wrapped.presentedOfferingContext?.toPresentedOfferingContext()
+    override val pricePerWeek: Price? by lazy { wrapped.pricePerWeek()?.toPrice() }
+    override val pricePerMonth: Price? by lazy { wrapped.pricePerMonth()?.toPrice() }
+    override val pricePerYear: Price? by lazy { wrapped.pricePerYear()?.toPrice() }
 }

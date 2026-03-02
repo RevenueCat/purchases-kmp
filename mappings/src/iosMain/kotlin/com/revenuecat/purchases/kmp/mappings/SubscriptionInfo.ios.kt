@@ -1,8 +1,5 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import cocoapods.PurchasesHybridCommon.RCPeriodType
-import cocoapods.PurchasesHybridCommon.RCPurchaseOwnershipType
-import cocoapods.PurchasesHybridCommon.RCStore
 import com.revenuecat.purchases.kmp.mappings.ktx.toEpochMilliseconds
 import com.revenuecat.purchases.kmp.models.Price
 import com.revenuecat.purchases.kmp.models.SubscriptionInfo
@@ -10,6 +7,9 @@ import platform.Foundation.NSDate
 import platform.Foundation.NSURL
 import platform.Foundation.valueForKey
 import platform.darwin.NSObject
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCPeriodType
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchaseOwnershipType
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCStore
 
 internal fun Any.toSubscriptionInfo(): SubscriptionInfo {
     val obj = this as NSObject

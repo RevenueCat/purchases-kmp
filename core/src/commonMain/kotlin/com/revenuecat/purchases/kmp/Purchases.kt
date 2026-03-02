@@ -703,6 +703,14 @@ public expect class Purchases {
     public fun setAdjustID(adjustID: String?)
 
     /**
+     * Subscriber attribute associated with the Airbridge Device Id for the user
+     * Required for the RevenueCat Airbridge integration
+     *
+     * @param airbridgeDeviceID null or an empty string will delete the subscriber attribute
+     */
+    public fun setAirbridgeDeviceID(airbridgeDeviceID: String?)
+
+    /**
      * Subscriber attribute associated with the AppsFlyer Id for the user
      * Required for the RevenueCat AppsFlyer integration
      *
@@ -815,6 +823,16 @@ public expect class Purchases {
      * least once with [Purchases.getVirtualCurrencies] or an equivalent function.
      */
     public fun getCachedVirtualCurrencies(): VirtualCurrencies?
+
+    /**
+     * Provides access to ad tracking functionality.
+     *
+     * Use this to track ad impressions, clicks, revenue, and loading states.
+     * All ad tracking functionality is experimental and requires opt-in with
+     * [@ExperimentalRevenueCatApi].
+     */
+    @ExperimentalRevenueCatApi
+    public val adTracker: AdTracker
 }
 
 /**

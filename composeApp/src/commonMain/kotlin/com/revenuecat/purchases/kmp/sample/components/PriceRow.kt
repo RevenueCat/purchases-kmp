@@ -12,21 +12,22 @@ import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
 
 @Composable
 internal fun PriceRow(
-    price: Price,
+    price: Price?,
     modifier: Modifier = Modifier,
+    label: String = "price",
 ) {
     CollapsibleRow(
         modifier = modifier,
         collapsedContent = {
-            Text(text = "price: ${price.formatted}")
+            Text(text = "$label: ${price?.formatted}")
         },
         expandedContent = {
             Column(
                 modifier = Modifier.padding(start = DefaultPaddingHorizontal),
                 verticalArrangement = Arrangement.spacedBy(DefaultSpacingVertical),
             ) {
-                Text(text = "currencyCode: ${price.currencyCode}")
-                Text(text = "amountMicros: ${price.amountMicros}")
+                Text(text = "currencyCode: ${price?.currencyCode}")
+                Text(text = "amountMicros: ${price?.amountMicros}")
             }
         },
     )

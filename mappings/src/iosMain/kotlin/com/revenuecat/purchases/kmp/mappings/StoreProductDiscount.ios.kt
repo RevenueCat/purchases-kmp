@@ -5,7 +5,7 @@ import com.revenuecat.purchases.kmp.models.DiscountType
 import com.revenuecat.purchases.kmp.models.Period
 import com.revenuecat.purchases.kmp.models.Price
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
-import cocoapods.PurchasesHybridCommon.RCStoreProductDiscount as NativeIosStoreProductDiscount
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProductDiscount as NativeIosStoreProductDiscount
 
 public fun NativeIosStoreProductDiscount.toStoreProductDiscount(): StoreProductDiscount =
     IosStoreProductDiscount(this)
