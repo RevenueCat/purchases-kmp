@@ -44,6 +44,9 @@ internal fun OfferingsSection(
                                 navigateTo(Screen.Paywall(offering = offering))
                             }
                         },
+                        onShowPaywallWithPurchaseLogicClick = {
+                            navigateTo(Screen.PaywallWithPurchaseLogic(offering = offering))
+                        },
                         modifier = Modifier.fillMaxWidth(),
                     )
                 }
@@ -57,6 +60,7 @@ private fun OfferingRow(
     offering: Offering,
     isCurrent: Boolean,
     onShowPaywallClick: (footer: Boolean) -> Unit,
+    onShowPaywallWithPurchaseLogicClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CollapsibleRow(
@@ -70,7 +74,8 @@ private fun OfferingRow(
             ) {
                 PaywallsRow(
                     onShowFullscreenClick = { onShowPaywallClick(false) },
-                    onShowFooterClick = { onShowPaywallClick(true) }
+                    onShowFooterClick = { onShowPaywallClick(true) },
+                    onShowFullscreenWithPurchaseLogicClick = onShowPaywallWithPurchaseLogicClick,
                 )
 
                 Text(text = "serverDescription: ${offering.serverDescription}")
