@@ -22,6 +22,11 @@ public class PaywallOptions private constructor(
      */
     public val listener: PaywallListener?,
     /**
+     * Optional purchase logic for handling purchases and restores directly by your app
+     * instead of RevenueCat. Only used when `purchasesAreCompletedBy` is set to `MY_APP`.
+     */
+    public val purchaseLogic: PaywallPurchaseLogic?,
+    /**
      * Dismiss the paywall, i.e. remove the view, navigate to another screen, etc. Will be called
      * when the close button is pressed (if enabled) or when a purchase succeeds.
      */
@@ -32,6 +37,7 @@ public class PaywallOptions private constructor(
                 "offering=$offering, " +
                 "shouldDisplayDismissButton=$shouldDisplayDismissButton, " +
                 "listener=$listener, " +
+                "purchaseLogic=$purchaseLogic, " +
                 "dismissRequest=$dismissRequest" +
                 ")"
 
@@ -63,12 +69,19 @@ public class PaywallOptions private constructor(
         public var listener: PaywallListener? = null
 
         /**
+         * Optional purchase logic for handling purchases and restores directly by your app
+         * instead of RevenueCat. Only used when `purchasesAreCompletedBy` is set to `MY_APP`.
+         */
+        public var purchaseLogic: PaywallPurchaseLogic? = null
+
+        /**
          * Creates a [PaywallOptions] instance with the specified properties.
          */
         public fun build(): PaywallOptions = PaywallOptions(
             offering = offering,
             shouldDisplayDismissButton = shouldDisplayDismissButton,
             listener = listener,
+            purchaseLogic = purchaseLogic,
             dismissRequest = dismissRequest,
         )
     }
