@@ -72,6 +72,18 @@ fun App() {
                     Paywall(options)
                 }
 
+                is Screen.PaywallWithPurchaseLogic -> {
+                    val options = remember {
+                        PaywallOptions(dismissRequest = { navigateTo(Screen.Main) }) {
+                            offering = currentScreen.offering
+                            shouldDisplayDismissButton = true
+                            listener = loggingListener
+                            purchaseLogic = SamplePurchaseLogic()
+                        }
+                    }
+                    Paywall(options)
+                }
+
                 is Screen.PaywallFooter -> {
                     val options = PaywallOptions(dismissRequest = { navigateTo(Screen.Main) }) {
                         offering = currentScreen.offering
