@@ -18,7 +18,7 @@ version: 2.1
 
 orbs:
   android: circleci/android@2.5.0
-  revenuecat: revenuecat/sdks-common-config@3.0.0
+  revenuecat: revenuecat/sdks-common-config@3.13.0
 
 commands:
   install-android-sdk-on-macos:
