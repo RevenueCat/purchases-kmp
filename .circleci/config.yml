@@ -105,6 +105,19 @@ commands:
           name: Attach workspace at working directory
           at: ./
 
+  checkout-submodule:
+    description: "Checks out a git submodule."
+    parameters:
+      path:
+        type: string
+        default: ""
+    steps:
+      - run:
+          name: Check out submodule << parameters.path >>
+          command: |
+            git submodule init << parameters.path >>
+            git submodule update << parameters.path >>
+
 parameters:
   action:
     type: enum
@@ -170,9 +183,10 @@ jobs:
           command: bundle exec fastlane prepare_next_snapshot_version
 
   detekt:
-    executor: jdk17
+    executor: xcode16
     steps:
       - checkout
+      - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
       - run:
           name: Run Detekt on commonMain
@@ -190,6 +204,7 @@ jobs:
     steps:
       - install-android-sdk-on-macos
       - checkout
+      - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -223,6 +238,7 @@ jobs:
     executor: xcode16
     steps:
       - checkout
+      - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -265,6 +281,7 @@ jobs:
     executor: xcode16
     steps:
       - checkout
+      - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -305,6 +322,7 @@ jobs:
     executor: xcode16
     steps:
       - checkout
+      - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -345,6 +363,7 @@ jobs:
     executor: xcode16
     steps:
       - checkout
+      - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -364,6 +383,7 @@ jobs:
     executor: xcode16
     steps:
       - checkout
+      - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
       - attach-workspace-at-working-directory
       - run:
