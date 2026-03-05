@@ -10,6 +10,7 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskProvider
+import org.gradle.internal.os.OperatingSystem
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.compose.ComposeExtension
 import org.jetbrains.compose.resources.ResourcesExtension
@@ -26,6 +27,10 @@ fun Project.configureSwiftDependencies() {
 
     afterEvaluate {
         if (registry.packages.isNotEmpty()) {
+            if (!OperatingSystem.current().isMacOsX) {
+                logger.info("Skipping Swift dependency configuration on non-macOS host")
+                return@afterEvaluate
+            }
             configureAllSwiftDependencies(registry.packages)
         }
     }
