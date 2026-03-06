@@ -1,0 +1,12 @@
+appId: ${APP_ID}
+name: Render paywall for offering ${OFFERING_ID}
+
+---
+- clearState
+- launchApp:
+    arguments:
+      offering_id: ${OFFERING_ID}
+- extendedWaitUntil:
+    visible: ".*"
+    timeout: 15000
+- takeScreenshot: "${OFFERING_ID}"
