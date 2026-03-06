@@ -36,40 +36,26 @@ internal fun UIKitPaywall(
     modifier: Modifier = Modifier,
 ) {
     val layoutViewControllerState = rememberLayoutViewControllerState()
-    val usePurchaseLogicProxy = options.purchaseLogic != null && !footer
 
     if (options.purchaseLogic != null && footer) {
         println("[RevenueCat] Warning: purchaseLogic is not supported with PaywallFooter on iOS. " +
                 "The custom purchase logic will be ignored.")
     }
 
-    // Keeping references to avoid them being deallocated.
-    val dismissRequestedHandler: (RCPaywallViewController?) -> Unit =
-        remember(options.dismissRequest) { { options.dismissRequest() } }
-    val delegate = remember(options.listener) {
-        IosPaywallDelegate(
-            listener = options.listener,
-            onHeightChange = { layoutViewControllerState.updateIntrinsicContentSize() }
-        )
-    }
-
-    // For purchase logic path: use PaywallProxy + HybridPurchaseLogicBridge.
-    // The proxy must be retained because it sets itself as the VC's delegate (weak ref).
+    // PaywallProxy is used for all non-footer paywalls (with or without custom purchase logic).
+    // It creates the VC and sets itself as its delegate (weak ref), so retain it here.
     val coroutineScope = rememberCoroutineScope()
-    val proxy = remember(options.purchaseLogic) {
-        if (usePurchaseLogicProxy) PaywallProxy() else null
-    }
+    val proxy = remember { if (!footer) PaywallProxy() else null }
     val purchaseLogicBridge = remember(options.purchaseLogic, options.offering) {
-        if (usePurchaseLogicProxy) {
+        if (!footer) {
             options.purchaseLogic?.toHybridPurchaseLogicBridge(
                 packages = options.offering?.availablePackages.orEmpty(),
                 scope = coroutineScope,
             )
         } else null
     }
-    // Set a delegate on the proxy to handle dismiss and listener events.
     val proxyDelegate = remember(options.listener, options.dismissRequest) {
-        if (usePurchaseLogicProxy) {
+        if (!footer) {
             IosPaywallProxyDelegate(
                 listener = options.listener,
                 dismissRequest = options.dismissRequest,
@@ -86,14 +72,28 @@ internal fun UIKitPaywall(
         }
     }
 
+    // Footer path still uses direct VC constructors since PaywallProxy doesn't support
+    // PaywallViewCreationParams for footer views.
+    val dismissRequestedHandler: (RCPaywallViewController?) -> Unit =
+        remember(options.dismissRequest) { { options.dismissRequest() } }
+    val footerDelegate = remember(options.listener) {
+        if (footer) {
+            IosPaywallDelegate(
+                listener = options.listener,
+                onHeightChange = { layoutViewControllerState.updateIntrinsicContentSize() }
+            )
+        } else null
+    }
+
     UIKitViewController(
         modifier = modifier.layoutViewController(layoutViewControllerState),
         factory = {
-            if (usePurchaseLogicProxy && proxy != null && purchaseLogicBridge != null) {
-                // Use PaywallProxy path: proxy creates VC with performPurchase/performRestore
-                // and sets itself as the VC's delegate. Do NOT overwrite the delegate.
+            if (!footer && proxy != null) {
                 val params = PaywallViewCreationParams().apply {
-                    setPurchaseLogicBridge(purchaseLogicBridge)
+                    purchaseLogicBridge?.let { setPurchaseLogicBridge(it) }
+                    setDisplayCloseButton(
+                        platform.Foundation.NSNumber(bool = options.shouldDisplayDismissButton)
+                    )
                 }
                 val offering = options.offering?.toIosOffering()
                 if (offering != null) {
@@ -102,24 +102,12 @@ internal fun UIKitPaywall(
                 proxy.createPaywallViewWithParams(params)
                     .also { layoutViewControllerState.setViewController(it) }
             } else {
-                // Standard path: no purchase logic.
-                val paywallViewController = if (footer) {
-                    RCPaywallFooterViewController(
-                        offering = options.offering?.toIosOffering() as? RCOffering,
-                        displayCloseButton = options.shouldDisplayDismissButton,
-                        shouldBlockTouchEvents = false,
-                        dismissRequestedHandler = dismissRequestedHandler,
-                    )
-                } else {
-                    RCPaywallViewController(
-                        offering = options.offering?.toIosOffering() as? RCOffering,
-                        displayCloseButton = options.shouldDisplayDismissButton,
-                        shouldBlockTouchEvents = false,
-                        dismissRequestedHandler = dismissRequestedHandler,
-                    )
-                }
-                paywallViewController
-                    .apply { setDelegate(delegate) }
+                RCPaywallFooterViewController(
+                    offering = options.offering?.toIosOffering() as? RCOffering,
+                    displayCloseButton = options.shouldDisplayDismissButton,
+                    shouldBlockTouchEvents = false,
+                    dismissRequestedHandler = dismissRequestedHandler,
+                ).apply { setDelegate(footerDelegate) }
                     .also { layoutViewControllerState.setViewController(it) }
             }
         },
