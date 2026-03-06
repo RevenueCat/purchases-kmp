@@ -472,6 +472,7 @@ jobs:
       - run:
           name: Run Maestro screenshot tests
           command: |
+            mkdir -p ~/.maestro/screenshots
             for offering_id in default paywall_v1; do
               maestro test \
                 --output ~/.maestro/screenshots \
@@ -479,6 +480,15 @@ jobs:
                 -e OFFERING_ID="$offering_id" \
                 maestro/paywall-rendering/subflows/render-paywall.yaml
             done
+      - run:
+          name: Debug - find screenshots
+          when: always
+          command: |
+            echo "=== ~/.maestro contents ==="
+            find ~/.maestro -type f 2>/dev/null || echo "~/.maestro does not exist"
+            echo ""
+            echo "=== Any PNG files in home ==="
+            find ~ -name "*.png" -newer /tmp -type f 2>/dev/null | head -20 || true
       - persist_to_workspace:
           root: ~/.maestro
           paths:
@@ -513,6 +523,7 @@ jobs:
       - run:
           name: Run Maestro screenshot tests
           command: |
+            mkdir -p ~/.maestro/screenshots
             for offering_id in default paywall_v1; do
               maestro test \
                 --output ~/.maestro/screenshots \
@@ -520,6 +531,15 @@ jobs:
                 -e OFFERING_ID="$offering_id" \
                 maestro/paywall-rendering/subflows/render-paywall.yaml
             done
+      - run:
+          name: Debug - find screenshots
+          when: always
+          command: |
+            echo "=== ~/.maestro contents ==="
+            find ~/.maestro -type f 2>/dev/null || echo "~/.maestro does not exist"
+            echo ""
+            echo "=== Any PNG files in home ==="
+            find ~ -name "*.png" -newer /tmp -type f 2>/dev/null | head -20 || true
       - persist_to_workspace:
           root: ~/.maestro
           paths:
