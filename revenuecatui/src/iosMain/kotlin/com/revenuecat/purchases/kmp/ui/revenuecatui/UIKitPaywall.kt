@@ -9,6 +9,8 @@ import androidx.compose.ui.viewinterop.UIKitViewController
 import com.revenuecat.purchases.kmp.mappings.toIosOffering
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewController
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState
+import com.revenuecat.purchases.kmp.Purchases
+import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
 import kotlinx.cinterop.CValue
@@ -204,12 +206,19 @@ private fun PaywallPurchaseLogic.toHybridPurchaseLogicBridge(
                 val packageIdentifier = packageDict?.get("identifier") as? String
                 val rcPackage = packageIdentifier?.let { packagesByIdentifier[it] }
                     ?: error("Unable to find package with identifier: $packageIdentifier")
-                purchaseLogic.performPurchase(rcPackage)
+                val params = PaywallPurchaseLogicParams(
+                    rcPackage = rcPackage,
+                    oldProductId = null,
+                    replacementMode = null,
+                    subscriptionOption = null,
+                )
+                purchaseLogic.performPurchase(params)
             }
         },
         onPerformRestore = { eventData ->
             eventData.launchBridgeRequest(scope) {
-                purchaseLogic.performRestore()
+                val customerInfo = fetchCustomerInfo()
+                purchaseLogic.performRestore(customerInfo)
             }
         }
     )
@@ -250,10 +259,24 @@ private fun resolveResult(requestId: String, result: PurchaseLogicResult) {
         is PurchaseLogicResult.Error -> HybridPurchaseLogicBridge.resolveResultWithRequestId(
             requestId = requestId,
             resultString = HybridPurchaseLogicBridge.resultError(),
-            errorMessage = result.errorMessage,
+            errorMessage = result.errorDetails?.let {
+                it.underlyingErrorMessage ?: it.code.description
+            },
         )
     }
 }
+
+private suspend fun fetchCustomerInfo(): CustomerInfo =
+    kotlinx.coroutines.suspendCancellableCoroutine { continuation ->
+        Purchases.sharedInstance.getCustomerInfo(
+            onError = { error ->
+                continuation.resumeWith(Result.failure(Exception(error.message)))
+            },
+            onSuccess = { customerInfo ->
+                continuation.resumeWith(Result.success(customerInfo))
+            },
+        )
+    }
 
 private fun Map<Any?, *>.toPurchasesError(): PurchasesError = PurchasesError(
     code = PurchasesErrorCode.UnknownError,
