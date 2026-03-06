@@ -6,14 +6,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.UIKitViewController
-import com.revenuecat.purchases.kmp.mappings.toIosOffering
-import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewController
-import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState
 import com.revenuecat.purchases.kmp.Purchases
+import com.revenuecat.purchases.kmp.mappings.toIosOffering
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
+import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewController
+import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState
 import kotlinx.cinterop.CValue
 import kotlinx.cinterop.ObjCSignatureOverride
 import kotlinx.cinterop.memScoped
@@ -26,7 +26,6 @@ import platform.darwin.NSObject
 import swiftPMImport.com.revenuecat.purchases.kn.ui.HybridPurchaseLogicBridge
 import swiftPMImport.com.revenuecat.purchases.kn.ui.PaywallProxy
 import swiftPMImport.com.revenuecat.purchases.kn.ui.PaywallViewCreationParams
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCOffering
 import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallFooterViewController
 import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallViewController
 import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallViewControllerDelegateWrapperProtocol
@@ -40,8 +39,10 @@ internal fun UIKitPaywall(
     val layoutViewControllerState = rememberLayoutViewControllerState()
 
     if (options.purchaseLogic != null && footer) {
-        println("[RevenueCat] Warning: purchaseLogic is not supported with PaywallFooter on iOS. " +
-                "The custom purchase logic will be ignored.")
+        println(
+            "[RevenueCat] Warning: purchaseLogic is not supported with PaywallFooter on iOS. " +
+                    "The custom purchase logic will be ignored."
+        )
     }
 
     // PaywallProxy is used for all non-footer paywalls (with or without custom purchase logic).
@@ -194,8 +195,9 @@ private fun PaywallPurchaseLogic.toHybridPurchaseLogicBridge(
         onPerformPurchase = { eventData ->
             eventData.launchBridgeRequest(scope) { requestId ->
                 @Suppress("UNCHECKED_CAST")
-                val packageDict = eventData?.get(HybridPurchaseLogicBridge.eventKeyPackageBeingPurchased())
-                    as? Map<Any?, *>
+                val packageDict =
+                    eventData?.get(HybridPurchaseLogicBridge.eventKeyPackageBeingPurchased())
+                            as? Map<Any?, *>
                 val packageIdentifier = packageDict?.get("identifier") as? String
                 val rcPackage = packageIdentifier?.let { packagesByIdentifier[it] }
                     ?: error("Unable to find package with identifier: $packageIdentifier")
@@ -242,10 +244,12 @@ private fun resolveResult(requestId: String, result: PurchaseLogicResult) {
             requestId = requestId,
             resultString = HybridPurchaseLogicBridge.resultSuccess(),
         )
+
         is PurchaseLogicResult.Cancellation -> HybridPurchaseLogicBridge.resolveResultWithRequestId(
             requestId = requestId,
             resultString = HybridPurchaseLogicBridge.resultCancellation(),
         )
+
         is PurchaseLogicResult.Error -> HybridPurchaseLogicBridge.resolveResultWithRequestId(
             requestId = requestId,
             resultString = HybridPurchaseLogicBridge.resultError(),

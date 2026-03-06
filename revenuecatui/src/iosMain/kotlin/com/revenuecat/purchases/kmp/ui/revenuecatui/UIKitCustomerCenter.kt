@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.UIKitViewController
-import swiftPMImport.com.revenuecat.purchases.kn.ui.CustomerCenterUIViewController
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCCustomerCenterViewControllerDelegateWrapperProtocol
+import swiftPMImport.com.revenuecat.purchases.kn.ui.RCCustomerCenterViewControllerDelegateProtocol
+import swiftPMImport.com.revenuecat.purchases.kn.ui.RCCustomerCenterViewController
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewController
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState
 import platform.darwin.NSObject
@@ -23,11 +23,8 @@ internal fun UIKitCustomerCenter(
     UIKitViewController(
         modifier = modifier.layoutViewController(layoutViewControllerState),
         factory = {
-            CustomerCenterUIViewController()
-                .apply {
-                    setDelegate(delegate)
-                    setOnCloseHandler(onDismiss)
-                }.also {
+            RCCustomerCenterViewController(delegate = delegate)
+                .also {
                     layoutViewControllerState.setViewController(it)
                 }
         },
@@ -38,11 +35,11 @@ internal fun UIKitCustomerCenter(
     )
 }
 
-internal class IosCustomerCenterDelegate(
+private class IosCustomerCenterDelegate(
     private val onDismiss: () -> Unit
-) : RCCustomerCenterViewControllerDelegateWrapperProtocol, NSObject() {
+) : RCCustomerCenterViewControllerDelegateProtocol, NSObject() {
 
-    override fun customerCenterViewControllerWasDismissed(controller: CustomerCenterUIViewController) {
+    override fun customerCenterViewControllerWasDismissed(controller: RCCustomerCenterViewController) {
         onDismiss()
     }
 }

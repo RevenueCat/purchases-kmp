@@ -10,12 +10,12 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.SubscriptionOptions
-import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerMonthAmount
-import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerMonthString
-import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerWeekAmount
-import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerWeekString
-import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerYearAmount
-import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerYearString
+import swiftPMImport.com.revenuecat.purchases.kn.core.localizedPricePerMonth
+import swiftPMImport.com.revenuecat.purchases.kn.core.localizedPricePerWeek
+import swiftPMImport.com.revenuecat.purchases.kn.core.localizedPricePerYear
+import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerMonth
+import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerWeek
+import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerYear
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProduct as NativeIosStoreProduct
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProductDiscount as IosStoreProductDiscount
 
@@ -46,22 +46,22 @@ private class IosStoreProduct(val wrapped: NativeIosStoreProduct): StoreProduct 
     override val pricePerWeek: Price? by lazy {
         priceOrNull(
             currencyCode = price.currencyCode,
-            formatted = wrapped.pricePerWeekString(),
-            amountDecimal = wrapped.pricePerWeekAmount(),
+            formatted = wrapped.localizedPricePerWeek(),
+            amountDecimal = wrapped.pricePerWeek(),
         )
     }
     override val pricePerMonth: Price? by lazy {
         priceOrNull(
             currencyCode = price.currencyCode,
-            formatted = wrapped.pricePerMonthString(),
-            amountDecimal = wrapped.pricePerMonthAmount(),
+            formatted = wrapped.localizedPricePerMonth(),
+            amountDecimal = wrapped.pricePerMonth(),
         )
     }
     override val pricePerYear: Price? by lazy {
         priceOrNull(
             currencyCode = price.currencyCode,
-            formatted = wrapped.pricePerYearString(),
-            amountDecimal = wrapped.pricePerYearAmount(),
+            formatted = wrapped.localizedPricePerYear(),
+            amountDecimal = wrapped.pricePerYear(),
         )
     }
 }
