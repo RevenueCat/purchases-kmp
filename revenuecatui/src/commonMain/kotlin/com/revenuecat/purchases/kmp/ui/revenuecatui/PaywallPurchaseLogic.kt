@@ -3,8 +3,6 @@ package com.revenuecat.purchases.kmp.ui.revenuecatui
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PurchasesError
-import com.revenuecat.purchases.kmp.models.ReplacementMode
-import com.revenuecat.purchases.kmp.models.SubscriptionOption
 
 /**
  * Interface for handling in-app purchases and restorations directly by the application
@@ -41,79 +39,12 @@ public interface PaywallPurchaseLogic {
 /**
  * Parameters provided to [PaywallPurchaseLogic] when a paywall initiates a purchase.
  *
- * Contains the package to purchase along with information about product changes
- * (upgrades/downgrades) and the specific subscription option (offer) to use, as configured
- * in the paywall.
- *
- * Use [Builder] to create an instance:
- * ```kotlin
- * val params = PaywallPurchaseLogicParams.Builder(rcPackage)
- *     .oldProductId("com.example.old_product")
- *     .subscriptionOption(subscriptionOption)
- *     .build()
- * ```
- *
  * @property rcPackage The package representing the in-app product that the user intends
  * to purchase.
- * @property oldProductId The product ID of the currently active subscription being replaced
- * when the user is upgrading or downgrading. Null if this is a new purchase rather than a
- * product change.
- * @property replacementMode The replacement mode to use for this product change, as configured
- * in the paywall. Null if this is a new purchase or the store does not support replacement modes.
- * @property subscriptionOption The specific subscription option (offer) to use for this purchase,
- * as configured in the paywall. Null if no specific offer is configured or the product is not
- * a subscription.
  */
 public class PaywallPurchaseLogicParams internal constructor(
     public val rcPackage: Package,
-    public val oldProductId: String?,
-    public val replacementMode: ReplacementMode?,
-    public val subscriptionOption: SubscriptionOption?,
-) {
-    /**
-     * Builder for creating [PaywallPurchaseLogicParams].
-     *
-     * @param rcPackage The package representing the in-app product that the user intends
-     * to purchase.
-     */
-    public class Builder(private val rcPackage: Package) {
-        private var oldProductId: String? = null
-        private var replacementMode: ReplacementMode? = null
-        private var subscriptionOption: SubscriptionOption? = null
-
-        /**
-         * Sets the product ID of the currently active subscription being replaced
-         * (for upgrades/downgrades).
-         */
-        public fun oldProductId(oldProductId: String): Builder = apply {
-            this.oldProductId = oldProductId
-        }
-
-        /**
-         * Sets the replacement mode for this product change.
-         */
-        public fun replacementMode(replacementMode: ReplacementMode?): Builder = apply {
-            this.replacementMode = replacementMode
-        }
-
-        /**
-         * Sets the specific subscription option (offer) to use for this purchase.
-         */
-        public fun subscriptionOption(subscriptionOption: SubscriptionOption?): Builder = apply {
-            this.subscriptionOption = subscriptionOption
-        }
-
-        /**
-         * Builds the [PaywallPurchaseLogicParams] instance.
-         */
-        public fun build(): PaywallPurchaseLogicParams = PaywallPurchaseLogicParams(
-            rcPackage = rcPackage,
-            oldProductId = oldProductId,
-            replacementMode = replacementMode,
-            subscriptionOption = subscriptionOption,
-        )
-    }
-}
+)
 
 /**
  * Represents the result of a purchase or restore attempt made by custom app-based code

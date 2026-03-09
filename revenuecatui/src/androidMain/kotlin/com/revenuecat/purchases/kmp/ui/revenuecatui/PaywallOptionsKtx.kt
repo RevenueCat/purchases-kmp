@@ -9,10 +9,8 @@ import com.revenuecat.purchases.kmp.mappings.toAndroidOffering
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toPackage
 import com.revenuecat.purchases.kmp.mappings.toPurchasesError
+import com.revenuecat.purchases.kmp.models.PurchasesError as KmpPurchasesError
 import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
-import com.revenuecat.purchases.kmp.mappings.toSubscriptionOption
-import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
-import com.revenuecat.purchases.models.GoogleReplacementMode as AndroidGoogleReplacementMode
 import com.revenuecat.purchases.models.StoreTransaction
 import com.revenuecat.purchases.ui.revenuecatui.PaywallPurchaseLogic as AndroidPaywallPurchaseLogic
 import com.revenuecat.purchases.ui.revenuecatui.PaywallPurchaseLogicParams as AndroidPaywallPurchaseLogicParams
@@ -40,10 +38,6 @@ private class PurchaseLogicWrapper(
     ): AndroidPurchaseLogicResult {
         val kmpParams = PaywallPurchaseLogicParams(
             rcPackage = params.rcPackage.toPackage(),
-            oldProductId = params.oldProductId,
-            replacementMode = (params.replacementMode as? AndroidGoogleReplacementMode)
-                ?.toGoogleReplacementMode(),
-            subscriptionOption = params.subscriptionOption?.toSubscriptionOption(),
         )
         return when (val result = purchaseLogic.performPurchase(kmpParams)) {
             is PurchaseLogicResult.Success -> AndroidPurchaseLogicResult.Success
@@ -69,16 +63,7 @@ private class PurchaseLogicWrapper(
     }
 }
 
-private fun AndroidGoogleReplacementMode.toGoogleReplacementMode(): GoogleReplacementMode =
-    when (this) {
-        AndroidGoogleReplacementMode.WITHOUT_PRORATION -> GoogleReplacementMode.WITHOUT_PRORATION
-        AndroidGoogleReplacementMode.WITH_TIME_PRORATION -> GoogleReplacementMode.WITH_TIME_PRORATION
-        AndroidGoogleReplacementMode.CHARGE_PRORATED_PRICE -> GoogleReplacementMode.CHARGE_PRORATED_PRICE
-        AndroidGoogleReplacementMode.CHARGE_FULL_PRICE -> GoogleReplacementMode.CHARGE_FULL_PRICE
-        AndroidGoogleReplacementMode.DEFERRED -> GoogleReplacementMode.DEFERRED
-    }
-
-private fun com.revenuecat.purchases.kmp.models.PurchasesError.toAndroidPurchasesError(): PurchasesError =
+private fun KmpPurchasesError.toAndroidPurchasesError(): PurchasesError =
     PurchasesError(
         PurchasesErrorCode.UnknownError,
         underlyingErrorMessage ?: code.description,

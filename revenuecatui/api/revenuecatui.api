@@ -73,19 +73,7 @@ public abstract interface class com/revenuecat/purchases/kmp/ui/revenuecatui/Pay
 
 public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallPurchaseLogicParams {
 	public static final field $stable I
-	public final fun getOldProductId ()Ljava/lang/String;
 	public final fun getRcPackage ()Lcom/revenuecat/purchases/kmp/models/Package;
-	public final fun getReplacementMode ()Lcom/revenuecat/purchases/kmp/models/ReplacementMode;
-	public final fun getSubscriptionOption ()Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;
-}
-
-public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallPurchaseLogicParams$Builder {
-	public static final field $stable I
-	public fun <init> (Lcom/revenuecat/purchases/kmp/models/Package;)V
-	public final fun build ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallPurchaseLogicParams;
-	public final fun oldProductId (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallPurchaseLogicParams$Builder;
-	public final fun replacementMode (Lcom/revenuecat/purchases/kmp/models/ReplacementMode;)Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallPurchaseLogicParams$Builder;
-	public final fun subscriptionOption (Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;)Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallPurchaseLogicParams$Builder;
 }
 
 public abstract class com/revenuecat/purchases/kmp/ui/revenuecatui/PurchaseLogicResult {

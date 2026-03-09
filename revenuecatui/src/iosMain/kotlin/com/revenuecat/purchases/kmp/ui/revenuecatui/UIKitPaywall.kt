@@ -11,6 +11,7 @@ import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewControlle
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.CustomerInfo
+import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
 import kotlinx.cinterop.CValue
@@ -19,6 +20,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import platform.CoreGraphics.CGSize
 import platform.darwin.NSObject
 import swiftPMImport.com.revenuecat.purchases.kn.ui.HybridPurchaseLogicBridge
@@ -179,7 +181,7 @@ internal class IosPaywallProxyDelegate(
 }
 
 private fun PaywallPurchaseLogic.toHybridPurchaseLogicBridge(
-    packages: List<com.revenuecat.purchases.kmp.models.Package>,
+    packages: List<Package>,
     scope: CoroutineScope,
 ): HybridPurchaseLogicBridge {
     val purchaseLogic = this
@@ -196,9 +198,6 @@ private fun PaywallPurchaseLogic.toHybridPurchaseLogicBridge(
                     ?: error("Unable to find package with identifier: $packageIdentifier")
                 val params = PaywallPurchaseLogicParams(
                     rcPackage = rcPackage,
-                    oldProductId = null,
-                    replacementMode = null,
-                    subscriptionOption = null,
                 )
                 purchaseLogic.performPurchase(params)
             }
@@ -255,7 +254,7 @@ private fun resolveResult(requestId: String, result: PurchaseLogicResult) {
 }
 
 private suspend fun fetchCustomerInfo(): CustomerInfo =
-    kotlinx.coroutines.suspendCancellableCoroutine { continuation ->
+    suspendCancellableCoroutine { continuation ->
         Purchases.sharedInstance.getCustomerInfo(
             onError = { error ->
                 continuation.resumeWith(Result.failure(Exception(error.message)))
