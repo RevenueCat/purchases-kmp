@@ -190,6 +190,18 @@ fun MainScreen(
                 ) {
                     Text("Ad Tracking Testing")
                 }
+
+                Spacer(modifier = Modifier.size(16.dp))
+                TextButton(
+                    onClick = { Purchases.sharedInstance.presentCodeRedemptionSheet() },
+                    enabled = isCodeRedemptionSheetAvailable,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        if (isCodeRedemptionSheetAvailable) "Present Code Redemption Sheet"
+                        else "Present Code Redemption Sheet (iOS 14.0+ only)"
+                    )
+                }
             }
         }
     }

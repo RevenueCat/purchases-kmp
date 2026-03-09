@@ -533,6 +533,13 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual fun setCreative(creative: String?): Unit =
         androidPurchases.setCreative(creative)
 
+    public actual fun presentCodeRedemptionSheet() {
+        logHandler.v(
+            tag = "Purchases",
+            msg = "`presentCodeRedemptionSheet()` is only available on iOS 14.0 and up."
+        )
+    }
+
     public actual fun enableAdServicesAttributionTokenCollection() {
         logHandler.v(
             tag = "Purchases",
