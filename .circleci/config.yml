@@ -450,6 +450,11 @@ jobs:
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - run:
+          name: Write local.properties for e2etests
+          command: |
+            echo "revenuecat.apiKey.apple=${RC_PUBLIC_API_KEY_TEST_STORE}" > test-apps/e2etests/local.properties
+            echo "revenuecat.apiKey.google=${RC_PUBLIC_API_KEY_TEST_STORE}" >> test-apps/e2etests/local.properties
+      - run:
           name: Build e2etests iOS app
           working_directory: test-apps/e2etests
           command: |
@@ -509,6 +514,11 @@ jobs:
       - android/start-emulator:
           avd-name: test-avd
           post-emulator-launch-assemble-command: ""
+      - run:
+          name: Write local.properties for e2etests
+          command: |
+            echo "revenuecat.apiKey.apple=${RC_PUBLIC_API_KEY_TEST_STORE}" > test-apps/e2etests/local.properties
+            echo "revenuecat.apiKey.google=${RC_PUBLIC_API_KEY_TEST_STORE}" >> test-apps/e2etests/local.properties
       - run:
           name: Build e2etests Android app
           working_directory: test-apps/e2etests
@@ -607,8 +617,10 @@ workflows:
           requires: [build-libraries-ios]
       - paywall-screenshots-ios:
           requires: [publish-to-maven-local]
+          context: rc-project-automated-sdk-tests
       - paywall-screenshots-android:
           requires: [publish-to-maven-local]
+          context: rc-project-automated-sdk-tests
 
   on-main-branch:
     when:
@@ -679,8 +691,10 @@ workflows:
           requires: [build-libraries-ios]
       - paywall-screenshots-ios:
           requires: [publish-to-maven-local]
+          context: rc-project-automated-sdk-tests
       - paywall-screenshots-android:
           requires: [publish-to-maven-local]
+          context: rc-project-automated-sdk-tests
       - hold:
           type: approval
           requires:
