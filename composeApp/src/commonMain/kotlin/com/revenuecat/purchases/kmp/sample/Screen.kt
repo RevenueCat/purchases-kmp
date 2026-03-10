@@ -6,6 +6,7 @@ sealed interface Screen {
 
     data object Main : Screen
     data class Paywall(val offering: Offering?) : Screen
+    data class PaywallWithPurchaseLogic(val offering: Offering?) : Screen
     data class PaywallFooter(val offering: Offering?) : Screen
     data object WinBackTesting : Screen
     data object CustomerCenter : Screen
