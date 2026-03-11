@@ -489,9 +489,17 @@ jobs:
           when: always
           command: |
             mkdir -p /tmp/paywall-screenshots
-            find ~/.maestro/tests -name "*.png" -exec cp {} /tmp/paywall-screenshots/ \; 2>/dev/null || true
-            echo "Collected screenshots:"
-            ls -la /tmp/paywall-screenshots/
+            echo "=== All files in ~/.maestro/tests/ ==="
+            find ~/.maestro/tests -type f 2>/dev/null || echo "No files"
+            echo ""
+            echo "=== PNG files anywhere under project ==="
+            find ~/project -name "*.png" -type f 2>/dev/null | head -20 || echo "None"
+            echo ""
+            echo "=== PNG files in home (excluding Library/Caches) ==="
+            find ~ -name "*.png" -type f -not -path "*/Library/Caches/*" -not -path "*/.maestro/lib/*" 2>/dev/null | head -20 || echo "None"
+            echo ""
+            echo "=== Files matching offering IDs ==="
+            find / -name "default.*" -o -name "paywall_v1.*" 2>/dev/null | head -20 || echo "None"
       - persist_to_workspace:
           root: /tmp
           paths:
@@ -543,9 +551,17 @@ jobs:
           when: always
           command: |
             mkdir -p /tmp/paywall-screenshots
-            find ~/.maestro/tests -name "*.png" -exec cp {} /tmp/paywall-screenshots/ \; 2>/dev/null || true
-            echo "Collected screenshots:"
-            ls -la /tmp/paywall-screenshots/
+            echo "=== All files in ~/.maestro/tests/ ==="
+            find ~/.maestro/tests -type f 2>/dev/null || echo "No files"
+            echo ""
+            echo "=== PNG files anywhere under project ==="
+            find ~/project -name "*.png" -type f 2>/dev/null | head -20 || echo "None"
+            echo ""
+            echo "=== PNG files in home (excluding caches) ==="
+            find ~ -name "*.png" -type f -not -path "*/cache/*" -not -path "*/.maestro/lib/*" 2>/dev/null | head -20 || echo "None"
+            echo ""
+            echo "=== Files matching offering IDs ==="
+            find / -name "default.*" -o -name "paywall_v1.*" 2>/dev/null | head -20 || echo "None"
       - persist_to_workspace:
           root: /tmp
           paths:
