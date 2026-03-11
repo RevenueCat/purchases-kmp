@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
@@ -8,9 +10,9 @@ plugins {
 kotlin {
     // Compilation targets:
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = libs.versions.java.get()
+        compilerOptions {
+            compilations.all {
+                jvmTarget.set(JvmTarget.fromTarget(libs.versions.java.get()))
             }
         }
 
@@ -23,7 +25,7 @@ kotlin {
     // Compiler flags:
     targets.all {
         compilations.all {
-            compilerOptions.configure {
+            compileTaskProvider.get().compilerOptions {
                 freeCompilerArgs.apply {
                     add("-Xexpect-actual-classes")
                 }
