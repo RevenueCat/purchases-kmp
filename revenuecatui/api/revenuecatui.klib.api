@@ -16,6 +16,28 @@ abstract interface com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallListener 
     open fun onRestoreStarted() // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallListener.onRestoreStarted|onRestoreStarted(){}[0]
 }
 
+abstract interface com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallPurchaseLogic { // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallPurchaseLogic|null[0]
+    abstract suspend fun performPurchase(com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallPurchaseLogicParams): com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallPurchaseLogic.performPurchase|performPurchase(com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallPurchaseLogicParams){}[0]
+    abstract suspend fun performRestore(com.revenuecat.purchases.kmp.models/CustomerInfo): com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallPurchaseLogic.performRestore|performRestore(com.revenuecat.purchases.kmp.models.CustomerInfo){}[0]
+}
+
+abstract class com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult { // com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult|null[0]
+    final class Cancellation : com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult { // com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult.Cancellation|null[0]
+        constructor <init>() // com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult.Cancellation.<init>|<init>(){}[0]
+    }
+
+    final class Error : com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult { // com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult.Error|null[0]
+        constructor <init>(com.revenuecat.purchases.kmp.models/PurchasesError? = ...) // com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult.Error.<init>|<init>(com.revenuecat.purchases.kmp.models.PurchasesError?){}[0]
+
+        final val errorDetails // com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult.Error.errorDetails|{}errorDetails[0]
+            final fun <get-errorDetails>(): com.revenuecat.purchases.kmp.models/PurchasesError? // com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult.Error.errorDetails.<get-errorDetails>|<get-errorDetails>(){}[0]
+    }
+
+    final class Success : com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult { // com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult.Success|null[0]
+        constructor <init>() // com.revenuecat.purchases.kmp.ui.revenuecatui/PurchaseLogicResult.Success.<init>|<init>(){}[0]
+    }
+}
+
 final class com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions { // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions|null[0]
     final val dismissRequest // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.dismissRequest|{}dismissRequest[0]
         final fun <get-dismissRequest>(): kotlin/Function0<kotlin/Unit> // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.dismissRequest.<get-dismissRequest>|<get-dismissRequest>(){}[0]
@@ -23,6 +45,8 @@ final class com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions { // com
         final fun <get-listener>(): com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallListener? // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.listener.<get-listener>|<get-listener>(){}[0]
     final val offering // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.offering|{}offering[0]
         final fun <get-offering>(): com.revenuecat.purchases.kmp.models/Offering? // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.offering.<get-offering>|<get-offering>(){}[0]
+    final val purchaseLogic // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.purchaseLogic|{}purchaseLogic[0]
+        final fun <get-purchaseLogic>(): com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallPurchaseLogic? // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.purchaseLogic.<get-purchaseLogic>|<get-purchaseLogic>(){}[0]
     final val shouldDisplayDismissButton // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.shouldDisplayDismissButton|{}shouldDisplayDismissButton[0]
         final fun <get-shouldDisplayDismissButton>(): kotlin/Boolean // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.shouldDisplayDismissButton.<get-shouldDisplayDismissButton>|<get-shouldDisplayDismissButton>(){}[0]
 
@@ -40,6 +64,9 @@ final class com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions { // com
         final var offering // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.Builder.offering|{}offering[0]
             final fun <get-offering>(): com.revenuecat.purchases.kmp.models/Offering? // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.Builder.offering.<get-offering>|<get-offering>(){}[0]
             final fun <set-offering>(com.revenuecat.purchases.kmp.models/Offering?) // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.Builder.offering.<set-offering>|<set-offering>(com.revenuecat.purchases.kmp.models.Offering?){}[0]
+        final var purchaseLogic // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.Builder.purchaseLogic|{}purchaseLogic[0]
+            final fun <get-purchaseLogic>(): com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallPurchaseLogic? // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.Builder.purchaseLogic.<get-purchaseLogic>|<get-purchaseLogic>(){}[0]
+            final fun <set-purchaseLogic>(com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallPurchaseLogic?) // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.Builder.purchaseLogic.<set-purchaseLogic>|<set-purchaseLogic>(com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallPurchaseLogic?){}[0]
         final var shouldDisplayDismissButton // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.Builder.shouldDisplayDismissButton|{}shouldDisplayDismissButton[0]
             final fun <get-shouldDisplayDismissButton>(): kotlin/Boolean // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.Builder.shouldDisplayDismissButton.<get-shouldDisplayDismissButton>|<get-shouldDisplayDismissButton>(){}[0]
             final fun <set-shouldDisplayDismissButton>(kotlin/Boolean) // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.Builder.shouldDisplayDismissButton.<set-shouldDisplayDismissButton>|<set-shouldDisplayDismissButton>(kotlin.Boolean){}[0]
@@ -48,11 +75,22 @@ final class com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions { // com
     }
 }
 
+final class com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallPurchaseLogicParams { // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallPurchaseLogicParams|null[0]
+    final val rcPackage // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallPurchaseLogicParams.rcPackage|{}rcPackage[0]
+        final fun <get-rcPackage>(): com.revenuecat.purchases.kmp.models/Package // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallPurchaseLogicParams.rcPackage.<get-rcPackage>|<get-rcPackage>(){}[0]
+}
+
 final val com.revenuecat.purchases.kmp.ui.revenuecatui.modifier/com_revenuecat_purchases_kmp_ui_revenuecatui_modifier_LayoutViewControllerState$stableprop // com.revenuecat.purchases.kmp.ui.revenuecatui.modifier/com_revenuecat_purchases_kmp_ui_revenuecatui_modifier_LayoutViewControllerState$stableprop|#static{}com_revenuecat_purchases_kmp_ui_revenuecatui_modifier_LayoutViewControllerState$stableprop[0]
 final val com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_IosCustomerCenterDelegate$stableprop // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_IosCustomerCenterDelegate$stableprop|#static{}com_revenuecat_purchases_kmp_ui_revenuecatui_IosCustomerCenterDelegate$stableprop[0]
 final val com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_IosPaywallDelegate$stableprop // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_IosPaywallDelegate$stableprop|#static{}com_revenuecat_purchases_kmp_ui_revenuecatui_IosPaywallDelegate$stableprop[0]
+final val com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_IosPaywallProxyDelegate$stableprop // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_IosPaywallProxyDelegate$stableprop|#static{}com_revenuecat_purchases_kmp_ui_revenuecatui_IosPaywallProxyDelegate$stableprop[0]
 final val com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallOptions$stableprop // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallOptions$stableprop|#static{}com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallOptions$stableprop[0]
 final val com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallOptions_Builder$stableprop // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallOptions_Builder$stableprop|#static{}com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallOptions_Builder$stableprop[0]
+final val com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallPurchaseLogicParams$stableprop // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallPurchaseLogicParams$stableprop|#static{}com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallPurchaseLogicParams$stableprop[0]
+final val com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult$stableprop // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult$stableprop|#static{}com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult$stableprop[0]
+final val com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Cancellation$stableprop // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Cancellation$stableprop|#static{}com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Cancellation$stableprop[0]
+final val com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Error$stableprop // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Error$stableprop|#static{}com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Error$stableprop[0]
+final val com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Success$stableprop // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Success$stableprop|#static{}com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Success$stableprop[0]
 
 final fun com.revenuecat.purchases.kmp.ui.revenuecatui.modifier/com_revenuecat_purchases_kmp_ui_revenuecatui_modifier_LayoutViewControllerState$stableprop_getter(): kotlin/Int // com.revenuecat.purchases.kmp.ui.revenuecatui.modifier/com_revenuecat_purchases_kmp_ui_revenuecatui_modifier_LayoutViewControllerState$stableprop_getter|com_revenuecat_purchases_kmp_ui_revenuecatui_modifier_LayoutViewControllerState$stableprop_getter(){}[0]
 final fun com.revenuecat.purchases.kmp.ui.revenuecatui/CustomerCenter(androidx.compose.ui/Modifier?, kotlin/Function0<kotlin/Unit>, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // com.revenuecat.purchases.kmp.ui.revenuecatui/CustomerCenter|CustomerCenter(androidx.compose.ui.Modifier?;kotlin.Function0<kotlin.Unit>;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
@@ -62,5 +100,11 @@ final fun com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallFooter(com.revenue
 final fun com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions(kotlin/Function0<kotlin/Unit>, kotlin/Function1<com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions.Builder, kotlin/Unit> = ...): com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallOptions|PaywallOptions(kotlin.Function0<kotlin.Unit>;kotlin.Function1<com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallOptions.Builder,kotlin.Unit>){}[0]
 final fun com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_IosCustomerCenterDelegate$stableprop_getter(): kotlin/Int // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_IosCustomerCenterDelegate$stableprop_getter|com_revenuecat_purchases_kmp_ui_revenuecatui_IosCustomerCenterDelegate$stableprop_getter(){}[0]
 final fun com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_IosPaywallDelegate$stableprop_getter(): kotlin/Int // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_IosPaywallDelegate$stableprop_getter|com_revenuecat_purchases_kmp_ui_revenuecatui_IosPaywallDelegate$stableprop_getter(){}[0]
+final fun com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_IosPaywallProxyDelegate$stableprop_getter(): kotlin/Int // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_IosPaywallProxyDelegate$stableprop_getter|com_revenuecat_purchases_kmp_ui_revenuecatui_IosPaywallProxyDelegate$stableprop_getter(){}[0]
 final fun com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallOptions$stableprop_getter(): kotlin/Int // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallOptions$stableprop_getter|com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallOptions$stableprop_getter(){}[0]
 final fun com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallOptions_Builder$stableprop_getter(): kotlin/Int // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallOptions_Builder$stableprop_getter|com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallOptions_Builder$stableprop_getter(){}[0]
+final fun com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallPurchaseLogicParams$stableprop_getter(): kotlin/Int // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallPurchaseLogicParams$stableprop_getter|com_revenuecat_purchases_kmp_ui_revenuecatui_PaywallPurchaseLogicParams$stableprop_getter(){}[0]
+final fun com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult$stableprop_getter(): kotlin/Int // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult$stableprop_getter|com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult$stableprop_getter(){}[0]
+final fun com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Cancellation$stableprop_getter(): kotlin/Int // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Cancellation$stableprop_getter|com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Cancellation$stableprop_getter(){}[0]
+final fun com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Error$stableprop_getter(): kotlin/Int // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Error$stableprop_getter|com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Error$stableprop_getter(){}[0]
+final fun com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Success$stableprop_getter(): kotlin/Int // com.revenuecat.purchases.kmp.ui.revenuecatui/com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Success$stableprop_getter|com_revenuecat_purchases_kmp_ui_revenuecatui_PurchaseLogicResult_Success$stableprop_getter(){}[0]

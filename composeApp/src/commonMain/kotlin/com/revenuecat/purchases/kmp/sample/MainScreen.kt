@@ -37,6 +37,8 @@ import arrow.core.Either
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import com.revenuecat.purchases.kmp.PurchasesDelegate
+import com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
+import com.revenuecat.purchases.kmp.models.StoreKitVersion
 import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
 import com.revenuecat.purchases.kmp.ktx.awaitCustomerInfo
 import com.revenuecat.purchases.kmp.models.CustomerInfo
@@ -89,7 +91,15 @@ fun MainScreen(
                 Spacer(modifier = Modifier.size(8.dp))
                 Button(
                     onClick = {
-                        Purchases.configure(configuration.toPurchasesConfiguration())
+                        Purchases.configure(
+                            configuration.toPurchasesConfiguration {
+                                if (purchasesAreCompletedByMyApp) {
+                                    purchasesAreCompletedBy = PurchasesAreCompletedBy.MyApp(
+                                        StoreKitVersion.STOREKIT_2
+                                    )
+                                }
+                            }
+                        )
                         isConfigured = Purchases.isConfigured
                     },
                     modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -189,6 +199,18 @@ fun MainScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text("Ad Tracking Testing")
+                }
+
+                Spacer(modifier = Modifier.size(16.dp))
+                TextButton(
+                    onClick = { Purchases.sharedInstance.presentCodeRedemptionSheet() },
+                    enabled = isCodeRedemptionSheetAvailable,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        if (isCodeRedemptionSheetAvailable) "Present Code Redemption Sheet"
+                        else "Present Code Redemption Sheet (iOS 14.0+ only)"
+                    )
                 }
             }
         }

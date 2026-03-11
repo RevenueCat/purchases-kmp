@@ -785,6 +785,15 @@ public expect class Purchases {
     public fun setCreative(creative: String?)
 
     /**
+     * iOS 14.0+ only. Presents a code redemption sheet, useful for redeeming offer codes.
+     * Refer to https://docs.revenuecat.com/docs/ios-subscription-offers#offer-codes
+     * for more information on how to configure and use offer codes.
+     *
+     * On Android, this is a no-op.
+     */
+    public fun presentCodeRedemptionSheet()
+
+    /**
      * Enable automatic collection of Apple Search Ad attribution on iOS. Disabled by default.
      *
      * **Note:** this is only available on iOS 14.3 and up.
