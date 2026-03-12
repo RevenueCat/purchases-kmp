@@ -477,21 +477,15 @@ jobs:
       - run:
           name: Run Maestro screenshot tests
           command: |
-            mkdir -p /tmp/paywall-screenshots
-            for offering_id in default paywall_v1; do
-              maestro test \
-                -e APP_ID=com.revenuecat.automatedsdktests \
-                -e OFFERING_ID="$offering_id" \
-                maestro/paywall-rendering/subflows/render-paywall.yaml
-            done
+            maestro test \
+              -e APP_ID=com.revenuecat.automatedsdktests \
+              maestro/paywall-rendering/
       - run:
           name: Collect screenshots
           when: always
           command: |
             mkdir -p /tmp/paywall-screenshots
-            for offering_id in default paywall_v1; do
-              cp "${offering_id}.png" /tmp/paywall-screenshots/ 2>/dev/null || true
-            done
+            cp *.png /tmp/paywall-screenshots/ 2>/dev/null || true
             echo "Collected screenshots:"
             ls -la /tmp/paywall-screenshots/
       - persist_to_workspace:
@@ -541,19 +535,17 @@ jobs:
           command: |
             adb install test-apps/e2etests/composeApp/build/outputs/apk/debug/composeApp-debug.apk
       - run:
+          name: Dismiss system dialogs
+          command: |
+            adb shell input keyevent KEYCODE_ENTER 2>/dev/null || true
+            adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS 2>/dev/null || true
+            sleep 3
+      - run:
           name: Run Maestro screenshot tests
           command: |
-            mkdir -p /tmp/paywall-screenshots
-            for offering_id in default paywall_v1; do
-              # Dismiss any ANR or system dialogs
-              adb shell input keyevent KEYCODE_ENTER 2>/dev/null || true
-              adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS 2>/dev/null || true
-              sleep 3
-              maestro test \
-                -e APP_ID=com.revenuecat.automatedsdktests \
-                -e OFFERING_ID="$offering_id" \
-                maestro/paywall-rendering/subflows/render-paywall.yaml
-            done
+            maestro test \
+              -e APP_ID=com.revenuecat.automatedsdktests \
+              maestro/paywall-rendering/
       - run:
           name: Dump logcat
           when: always
@@ -566,9 +558,7 @@ jobs:
           when: always
           command: |
             mkdir -p /tmp/paywall-screenshots
-            for offering_id in default paywall_v1; do
-              cp "${offering_id}.png" /tmp/paywall-screenshots/ 2>/dev/null || true
-            done
+            cp *.png /tmp/paywall-screenshots/ 2>/dev/null || true
             echo "Collected screenshots:"
             ls -la /tmp/paywall-screenshots/
       - persist_to_workspace:

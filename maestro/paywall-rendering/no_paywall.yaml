@@ -1,0 +1,7 @@
+appId: ${APP_ID}
+
+---
+- runFlow:
+    file: subflows/render-paywall.yaml
+    env:
+      OFFERING_ID: no_paywall
