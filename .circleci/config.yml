@@ -452,7 +452,7 @@ jobs:
       - run:
           name: Write local.properties for e2etests
           command: |
-            echo "revenuecat.apiKey.apple=${RC_PUBLIC_API_KEY_TEST_STORE}" > test-apps/e2etests/local.properties
+            echo "revenuecat.apiKey.apple=${RC_PUBLIC_API_KEY_APP_STORE}" > test-apps/e2etests/local.properties
             echo "revenuecat.apiKey.google=${RC_PUBLIC_API_KEY_TEST_STORE}" >> test-apps/e2etests/local.properties
       - run:
           name: Build e2etests iOS app
@@ -517,9 +517,19 @@ jobs:
           avd-name: test-avd
           post-emulator-launch-assemble-command: ""
       - run:
+          name: Prepare emulator for screenshots
+          command: |
+            adb shell settings put global window_animation_scale 0.0
+            adb shell settings put global transition_animation_scale 0.0
+            adb shell settings put global animator_duration_scale 0.0
+            sleep 10
+            adb shell input keyevent KEYCODE_HOME
+            sleep 5
+            echo "Emulator ready"
+      - run:
           name: Write local.properties for e2etests
           command: |
-            echo "revenuecat.apiKey.apple=${RC_PUBLIC_API_KEY_TEST_STORE}" > test-apps/e2etests/local.properties
+            echo "revenuecat.apiKey.apple=${RC_PUBLIC_API_KEY_APP_STORE}" > test-apps/e2etests/local.properties
             echo "revenuecat.apiKey.google=${RC_PUBLIC_API_KEY_TEST_STORE}" >> test-apps/e2etests/local.properties
       - run:
           name: Build e2etests Android app
@@ -535,11 +545,22 @@ jobs:
           command: |
             mkdir -p /tmp/paywall-screenshots
             for offering_id in default paywall_v1; do
+              # Dismiss any ANR or system dialogs
+              adb shell input keyevent KEYCODE_ENTER 2>/dev/null || true
+              adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS 2>/dev/null || true
+              sleep 3
               maestro test \
                 -e APP_ID=com.revenuecat.automatedsdktests \
                 -e OFFERING_ID="$offering_id" \
                 maestro/paywall-rendering/subflows/render-paywall.yaml
             done
+      - run:
+          name: Dump logcat
+          when: always
+          command: |
+            adb logcat -d > /tmp/logcat.txt 2>&1 || true
+            echo "=== Last 100 lines of logcat ==="
+            tail -100 /tmp/logcat.txt
       - run:
           name: Collect screenshots
           when: always
@@ -554,6 +575,9 @@ jobs:
           root: /tmp
           paths:
             - paywall-screenshots
+      - store_artifacts:
+          path: /tmp/logcat.txt
+          destination: logcat.txt
       - store_artifacts:
           path: /tmp/paywall-screenshots
           destination: paywall-screenshots-android
