@@ -36,6 +36,7 @@ import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
 import com.revenuecat.purchases.kmp.models.AdLoadedData
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
+import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomerInfo
@@ -593,6 +594,16 @@ public actual class Purchases private constructor(private val androidPurchases: 
         val cachedVirtualCurrencies: AndroidVirtualCurrencies? = androidPurchases.cachedVirtualCurrencies
         return cachedVirtualCurrencies?.toVirtualCurrencies()
     }
+
+    @ExperimentalRevenueCatApi
+    @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+    public actual fun trackCustomPaywallImpression(
+        params: CustomPaywallImpressionParams,
+    ): Unit = androidPurchases.trackCustomPaywallImpression(
+        com.revenuecat.purchases.paywalls.events.CustomPaywallImpressionParams(
+            paywallId = params.paywallId,
+        )
+    )
 
     @ExperimentalRevenueCatApi
     public actual val adTracker: AdTracker by lazy {
