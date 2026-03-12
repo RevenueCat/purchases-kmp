@@ -199,6 +199,11 @@ public enum class Store {
      * For entitlements granted via RevenueCat's Test Store.
      */
     TEST_STORE,
+
+    /**
+     * For entitlements granted via the Galaxy store.
+     */
+    GALAXY,
 }
 
 /**
