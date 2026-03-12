@@ -19,6 +19,7 @@ import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.VirtualCurrencies
+import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
 import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import kotlin.jvm.JvmSynthetic
@@ -832,6 +833,20 @@ public expect class Purchases {
      * least once with [Purchases.getVirtualCurrencies] or an equivalent function.
      */
     public fun getCachedVirtualCurrencies(): VirtualCurrencies?
+
+    /**
+     * Tracks an impression for a custom paywall.
+     *
+     * Call this method when your custom paywall is displayed to the user.
+     * Each call creates a separate impression event. Call this once per paywall presentation,
+     * not in callbacks that may fire multiple times for the same display.
+     *
+     * @param params Parameters for the custom paywall impression event.
+     */
+    @ExperimentalRevenueCatApi
+    public fun trackCustomPaywallImpression(
+        params: CustomPaywallImpressionParams = CustomPaywallImpressionParams(),
+    )
 
     /**
      * Provides access to ad tracking functionality.
