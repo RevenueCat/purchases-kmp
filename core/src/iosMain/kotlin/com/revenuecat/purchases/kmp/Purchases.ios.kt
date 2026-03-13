@@ -810,7 +810,9 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         return cachedVirtualCurrencies?.toVirtualCurrencies()
     }
 
-    public actual fun trackCustomPaywallImpression(paywallId: String?) {
+    public actual fun trackCustomPaywallImpression(
+        params: com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams,
+    ) {
         if (!IOSAPIAvailabilityChecker().isCustomPaywallTrackingAPIAvailable()) {
             Purchases.logHandler.w(
                 "Purchases",
@@ -818,8 +820,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             )
             return
         }
-        val params = RCCustomPaywallImpressionParams(paywallId = paywallId)
-        iosPurchases.trackCustomPaywallImpression(params)
+        val iosParams = RCCustomPaywallImpressionParams(paywallId = params.paywallId)
+        iosPurchases.trackCustomPaywallImpression(iosParams)
     }
 
     @ExperimentalRevenueCatApi

@@ -37,6 +37,7 @@ import com.revenuecat.purchases.kmp.models.StoreKitVersion
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
 import com.revenuecat.purchases.kmp.models.VirtualCurrencies
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.result.awaitEligibleWinBackOffersForPackageResult
@@ -386,8 +387,9 @@ private class PurchasesCommonAPI {
 
     fun checkTrackCustomPaywallImpression(purchases: Purchases) {
         purchases.trackCustomPaywallImpression()
-        purchases.trackCustomPaywallImpression(paywallId = null)
-        purchases.trackCustomPaywallImpression(paywallId = "my-paywall")
+        purchases.trackCustomPaywallImpression(CustomPaywallImpressionParams())
+        purchases.trackCustomPaywallImpression(CustomPaywallImpressionParams(paywallId = null))
+        purchases.trackCustomPaywallImpression(CustomPaywallImpressionParams(paywallId = "my-paywall"))
     }
 
     fun checkLogHandler() {
