@@ -594,12 +594,11 @@ public actual class Purchases private constructor(private val androidPurchases: 
         return cachedVirtualCurrencies?.toVirtualCurrencies()
     }
 
+    @OptIn(com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI::class)
     public actual fun trackCustomPaywallImpression(paywallId: String?) {
-        val data = mutableMapOf<String, Any?>()
-        if (paywallId != null) {
-            data["paywallId"] = paywallId
-        }
-        com.revenuecat.purchases.hybridcommon.trackCustomPaywallImpression(data)
+        androidPurchases.trackCustomPaywallImpression(
+            com.revenuecat.purchases.paywalls.events.CustomPaywallImpressionParams(paywallId = paywallId)
+        )
     }
 
     @ExperimentalRevenueCatApi
