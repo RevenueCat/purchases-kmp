@@ -122,6 +122,13 @@ public final class com/revenuecat/purchases/kmp/models/CacheFetchPolicy$Companio
 	public final fun default ()Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;
 }
 
+public final class com/revenuecat/purchases/kmp/models/CustomPaywallImpressionParams {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getPaywallId ()Ljava/lang/String;
+}
+
 public final class com/revenuecat/purchases/kmp/models/CustomerInfo {
 	public fun <init> (Ljava/util/Set;Ljava/util/Map;Ljava/util/Map;Ljava/util/Set;Lcom/revenuecat/purchases/kmp/models/EntitlementInfos;JLjava/lang/Long;Ljava/lang/String;Ljava/util/Map;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Long;J)V
 	public final fun getActiveSubscriptions ()Ljava/util/Set;
