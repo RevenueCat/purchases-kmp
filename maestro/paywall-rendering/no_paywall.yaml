@@ -5,3 +5,4 @@ appId: ${APP_ID}
     file: subflows/render-paywall.yaml
     env:
       OFFERING_ID: no_paywall
+      WAIT_FOR_TEXT: "$49.99"

@@ -481,6 +481,24 @@ jobs:
               -e APP_ID=com.revenuecat.automatedsdktests \
               maestro/paywall-rendering/
       - run:
+          name: Dump simulator logs
+          when: always
+          command: |
+            echo "=== Crash reports ==="
+            find ~/Library/Logs/DiagnosticReports -name "*.ips" -o -name "*.crash" 2>/dev/null | head -5
+            for f in $(find ~/Library/Logs/DiagnosticReports -name "*.ips" -o -name "*.crash" 2>/dev/null | head -3); do
+              echo "--- $f ---"
+              head -80 "$f"
+              echo ""
+            done
+            echo "=== Simulator system log (last 200 lines) ==="
+            xcrun simctl spawn booted log show --last 2m --predicate 'processImagePath contains "e2etests" or processImagePath contains "automatedsdktests"' 2>/dev/null | tail -200 || true
+            echo ""
+            echo "=== App launch test ==="
+            xcrun simctl launch booted com.revenuecat.automatedsdktests 2>&1 || true
+            sleep 5
+            xcrun simctl spawn booted log show --last 30s --predicate 'processImagePath contains "e2etests" or processImagePath contains "automatedsdktests"' 2>/dev/null | tail -100 || true
+      - run:
           name: Collect screenshots
           when: always
           command: |

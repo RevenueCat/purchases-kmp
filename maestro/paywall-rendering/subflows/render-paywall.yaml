@@ -7,6 +7,6 @@ name: Render paywall for offering ${OFFERING_ID}
     arguments:
       offering_id: ${OFFERING_ID}
 - extendedWaitUntil:
-    visible: "Paywall v1 Icons"
+    visible: "${WAIT_FOR_TEXT}"
     timeout: 15000
 - takeScreenshot: "${OFFERING_ID}"
