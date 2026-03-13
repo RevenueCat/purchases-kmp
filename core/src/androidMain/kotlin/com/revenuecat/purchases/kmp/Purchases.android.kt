@@ -595,9 +595,13 @@ public actual class Purchases private constructor(private val androidPurchases: 
     }
 
     @OptIn(com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI::class)
-    public actual fun trackCustomPaywallImpression(paywallId: String?) {
+    public actual fun trackCustomPaywallImpression(
+        params: com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams,
+    ) {
         androidPurchases.trackCustomPaywallImpression(
-            com.revenuecat.purchases.paywalls.events.CustomPaywallImpressionParams(paywallId = paywallId)
+            com.revenuecat.purchases.paywalls.events.CustomPaywallImpressionParams(
+                paywallId = params.paywallId,
+            )
         )
     }
 

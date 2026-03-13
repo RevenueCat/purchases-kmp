@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.revenuecat.purchases.kmp.Purchases
+import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
 
 @Composable
 fun CustomPaywallTrackingScreen(
@@ -42,7 +43,8 @@ fun CustomPaywallTrackingScreen(
 
     fun trackImpressionWithId() {
         val testPaywallId = "test-custom-paywall-123"
-        Purchases.sharedInstance.trackCustomPaywallImpression(paywallId = testPaywallId)
+        val params = CustomPaywallImpressionParams(paywallId = testPaywallId)
+        Purchases.sharedInstance.trackCustomPaywallImpression(params)
         statusMessage = "Custom paywall impression tracked with paywallId: $testPaywallId"
         messageColor = Color.Green
     }

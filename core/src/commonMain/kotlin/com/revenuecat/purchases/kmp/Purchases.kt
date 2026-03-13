@@ -18,6 +18,7 @@ import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
 import com.revenuecat.purchases.kmp.models.VirtualCurrencies
 import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
@@ -838,9 +839,11 @@ public expect class Purchases {
      * Call this method when your custom paywall is displayed to a user.
      * This enables RevenueCat to track paywall impressions for analytics.
      *
-     * @param paywallId Optional identifier for the custom paywall being shown.
+     * @param params Parameters for the custom paywall impression event.
      */
-    public fun trackCustomPaywallImpression(paywallId: String? = null)
+    public fun trackCustomPaywallImpression(
+        params: CustomPaywallImpressionParams = CustomPaywallImpressionParams(),
+    )
 
     /**
      * Provides access to ad tracking functionality.

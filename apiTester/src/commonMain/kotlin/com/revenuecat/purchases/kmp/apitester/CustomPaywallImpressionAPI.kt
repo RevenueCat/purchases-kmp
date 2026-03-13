@@ -1,13 +1,24 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.Purchases
+import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class CustomPaywallImpressionAPI {
     fun check(purchases: Purchases) {
+        // CustomPaywallImpressionParams constructors
+        val defaultParams: CustomPaywallImpressionParams = CustomPaywallImpressionParams()
+        val paramsWithId: CustomPaywallImpressionParams =
+            CustomPaywallImpressionParams(paywallId = "my-paywall")
+        val paramsWithNull: CustomPaywallImpressionParams =
+            CustomPaywallImpressionParams(paywallId = null)
+
+        // CustomPaywallImpressionParams properties
+        val paywallId: String? = paramsWithId.paywallId
+
         // trackCustomPaywallImpression API
         purchases.trackCustomPaywallImpression()
-        purchases.trackCustomPaywallImpression(paywallId = null)
-        purchases.trackCustomPaywallImpression(paywallId = "my-paywall")
+        purchases.trackCustomPaywallImpression(defaultParams)
+        purchases.trackCustomPaywallImpression(paramsWithId)
     }
 }
