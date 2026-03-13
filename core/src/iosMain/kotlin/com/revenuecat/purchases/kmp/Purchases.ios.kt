@@ -1,7 +1,6 @@
 package com.revenuecat.purchases.kmp
 
 import swiftPMImport.com.revenuecat.purchases.kn.core.IOSAPIAvailabilityChecker
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomPaywallImpressionParams
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCCommonFunctionality
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomerInfo
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCIntroEligibility
@@ -18,6 +17,7 @@ import swiftPMImport.com.revenuecat.purchases.kn.core.setAirbridgeDeviceID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setAirshipChannelID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setOnesignalUserID
 import swiftPMImport.com.revenuecat.purchases.kn.core.showStoreMessagesForTypes
+import swiftPMImport.com.revenuecat.purchases.kn.core.trackCustomPaywallImpression
 import com.revenuecat.purchases.kmp.ktx.mapEntriesNotNull
 import com.revenuecat.purchases.kmp.mappings.buildStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
@@ -42,7 +42,6 @@ import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
 import com.revenuecat.purchases.kmp.models.AdLoadedData
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
-import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomerInfo
@@ -811,12 +810,18 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         return cachedVirtualCurrencies?.toVirtualCurrencies()
     }
 
-    @ExperimentalRevenueCatApi
-    public actual fun trackCustomPaywallImpression(
-        params: CustomPaywallImpressionParams,
-    ) {
-        val iosParams = RCCustomPaywallImpressionParams(paywallId = params.paywallId)
-        iosPurchases.trackCustomPaywallImpression(iosParams)
+    public actual fun trackCustomPaywallImpression(paywallId: String?) {
+        if (!IOSAPIAvailabilityChecker().isCustomPaywallTrackingAPIAvailable()) {
+            Purchases.logHandler.w(
+                "Purchases",
+                "Custom paywall tracking requires iOS 15.0+. Current API is unavailable."
+            )
+            return
+        }
+        val data = buildMap<Any?, Any?> {
+            paywallId?.let { put("paywallId", it) }
+        }
+        RCCommonFunctionality.trackCustomPaywallImpression(data)
     }
 
     @ExperimentalRevenueCatApi
