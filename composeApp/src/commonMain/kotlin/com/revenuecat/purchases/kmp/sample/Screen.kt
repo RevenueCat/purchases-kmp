@@ -12,5 +12,6 @@ sealed interface Screen {
     data object CustomerCenter : Screen
     data object VirtualCurrencyTesting : Screen
     data object AdTracking : Screen
+    data object CustomPaywallTracking : Screen
 
 }
