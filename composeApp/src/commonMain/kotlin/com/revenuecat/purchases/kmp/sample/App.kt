@@ -119,6 +119,10 @@ fun App() {
                 is Screen.AdTracking -> AdTrackingTestingScreen(
                     navigateTo = navigateTo
                 )
+
+                is Screen.CustomPaywallTracking -> CustomPaywallTrackingScreen(
+                    navigateTo = navigateTo
+                )
             }
         }
     }

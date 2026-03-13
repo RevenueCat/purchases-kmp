@@ -594,6 +594,17 @@ public actual class Purchases private constructor(private val androidPurchases: 
         return cachedVirtualCurrencies?.toVirtualCurrencies()
     }
 
+    @OptIn(com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI::class)
+    public actual fun trackCustomPaywallImpression(
+        params: com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams,
+    ) {
+        androidPurchases.trackCustomPaywallImpression(
+            com.revenuecat.purchases.paywalls.events.CustomPaywallImpressionParams(
+                paywallId = params.paywallId,
+            )
+        )
+    }
+
     @ExperimentalRevenueCatApi
     public actual val adTracker: AdTracker by lazy {
         @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
