@@ -384,6 +384,12 @@ private class PurchasesCommonAPI {
         )
     }
 
+    fun checkTrackCustomPaywallImpression(purchases: Purchases) {
+        purchases.trackCustomPaywallImpression()
+        purchases.trackCustomPaywallImpression(paywallId = null)
+        purchases.trackCustomPaywallImpression(paywallId = "my-paywall")
+    }
+
     fun checkLogHandler() {
         Purchases.logHandler = object : LogHandler {
             override fun v(tag: String, msg: String) {}
