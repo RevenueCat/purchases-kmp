@@ -27,6 +27,12 @@ public class PaywallOptions private constructor(
      */
     public val purchaseLogic: PaywallPurchaseLogic?,
     /**
+     * Custom variables to be applied to the paywall. These allow you to dynamically set
+     * text on your paywall from your app. Keys must match the variable names defined
+     * in your paywall configuration.
+     */
+    public val customVariables: Map<String, CustomVariableValue>,
+    /**
      * Dismiss the paywall, i.e. remove the view, navigate to another screen, etc. Will be called
      * when the close button is pressed (if enabled) or when a purchase succeeds.
      */
@@ -38,6 +44,7 @@ public class PaywallOptions private constructor(
                 "shouldDisplayDismissButton=$shouldDisplayDismissButton, " +
                 "listener=$listener, " +
                 "purchaseLogic=$purchaseLogic, " +
+                "customVariables=$customVariables, " +
                 "dismissRequest=$dismissRequest" +
                 ")"
 
@@ -75,6 +82,13 @@ public class PaywallOptions private constructor(
         public var purchaseLogic: PaywallPurchaseLogic? = null
 
         /**
+         * Custom variables to be applied to the paywall. These allow you to dynamically set
+         * text on your paywall from your app. Keys must match the variable names defined
+         * in your paywall configuration.
+         */
+        public var customVariables: Map<String, CustomVariableValue> = emptyMap()
+
+        /**
          * Creates a [PaywallOptions] instance with the specified properties.
          */
         public fun build(): PaywallOptions = PaywallOptions(
@@ -82,6 +96,7 @@ public class PaywallOptions private constructor(
             shouldDisplayDismissButton = shouldDisplayDismissButton,
             listener = listener,
             purchaseLogic = purchaseLogic,
+            customVariables = customVariables,
             dismissRequest = dismissRequest,
         )
     }
