@@ -7,4 +7,4 @@ onFlowError:
     file: subflows/render-paywall.yaml
     env:
       OFFERING_ID: paywall_v1_icons
-      WAIT_FOR_TEXT: ".*"
+      WAIT_FOR_TEXT: "Paywall v1 Icons"
