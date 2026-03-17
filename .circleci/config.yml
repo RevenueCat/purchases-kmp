@@ -481,6 +481,14 @@ jobs:
               -e APP_ID=com.revenuecat.automatedsdktests \
               maestro/paywall-rendering/
       - run:
+          name: Dump UI hierarchy
+          when: always
+          command: |
+            echo "=== iOS Accessibility hierarchy ==="
+            xcrun simctl spawn booted defaults read com.apple.Accessibility 2>/dev/null || true
+            echo ""
+            maestro hierarchy 2>/dev/null || true
+      - run:
           name: Dump simulator logs
           when: always
           command: |
@@ -564,6 +572,14 @@ jobs:
             maestro test \
               -e APP_ID=com.revenuecat.automatedsdktests \
               maestro/paywall-rendering/
+      - run:
+          name: Dump UI hierarchy
+          when: always
+          command: |
+            adb shell uiautomator dump /sdcard/ui_dump.xml 2>/dev/null || true
+            adb pull /sdcard/ui_dump.xml /tmp/ui_dump.xml 2>/dev/null || true
+            echo "=== Android UI hierarchy ==="
+            cat /tmp/ui_dump.xml 2>/dev/null || echo "Failed to dump UI"
       - run:
           name: Dump logcat
           when: always
