@@ -31,7 +31,6 @@ public final class com/revenuecat/purchases/kmp/models/AdFormat$Companion {
 	public final fun getAPP_OPEN ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
 	public final fun getBANNER ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
 	public final fun getINTERSTITIAL ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
-	public final fun getMREC ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
 	public final fun getNATIVE ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
 	public final fun getOTHER ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
 	public final fun getREWARDED ()Lcom/revenuecat/purchases/kmp/models/AdFormat;

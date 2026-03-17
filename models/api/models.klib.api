@@ -580,8 +580,6 @@ final class com.revenuecat.purchases.kmp.models/AdFormat { // com.revenuecat.pur
             final fun <get-BANNER>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.BANNER.<get-BANNER>|<get-BANNER>(){}[0]
         final val INTERSTITIAL // com.revenuecat.purchases.kmp.models/AdFormat.Companion.INTERSTITIAL|{}INTERSTITIAL[0]
             final fun <get-INTERSTITIAL>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.INTERSTITIAL.<get-INTERSTITIAL>|<get-INTERSTITIAL>(){}[0]
-        final val MREC // com.revenuecat.purchases.kmp.models/AdFormat.Companion.MREC|{}MREC[0]
-            final fun <get-MREC>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.MREC.<get-MREC>|<get-MREC>(){}[0]
         final val NATIVE // com.revenuecat.purchases.kmp.models/AdFormat.Companion.NATIVE|{}NATIVE[0]
             final fun <get-NATIVE>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.NATIVE.<get-NATIVE>|<get-NATIVE>(){}[0]
         final val OTHER // com.revenuecat.purchases.kmp.models/AdFormat.Companion.OTHER|{}OTHER[0]
