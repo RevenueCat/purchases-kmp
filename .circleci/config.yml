@@ -445,6 +445,7 @@ jobs:
     executor: xcode16
     steps:
       - checkout
+      - checkout-submodule
       - attach_workspace:
           at: ~/.m2
       - restore-gradle-user-home-directory-from-cache
@@ -474,6 +475,20 @@ jobs:
           name: Install app on simulator
           command: |
             xcrun simctl install booted test-apps/e2etests/iosApp/build/Build/Products/Debug-iphonesimulator/e2etests.app
+      - run:
+          name: Start StoreKit config file watcher
+          background: true
+          command: |
+            ruby upstream/purchases-ios/fastlane/storekit_config_file_watcher.rb \
+              com.revenuecat.automatedsdktests \
+              upstream/purchases-ios/Examples/rc-maestro/rc-maestro/Resources/StoreKit/app787ddb07e6.storekit
+      - run:
+          name: Prime StoreKit config
+          command: |
+            xcrun simctl launch booted com.revenuecat.automatedsdktests || true
+            sleep 5
+            xcrun simctl terminate booted com.revenuecat.automatedsdktests || true
+            sleep 2
       - run:
           name: Run Maestro screenshot tests
           command: |
