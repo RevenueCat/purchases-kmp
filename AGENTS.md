@@ -267,6 +267,7 @@ Releases are managed via Fastlane. See `RELEASING.md` for the full release proce
 Every PR must have exactly one of these labels:
 - **`pr:feat`** — A new feature
 - **`pr:fix`** — A bug fix
+- **`pr:RevenueCatUI`** — Changes to the `revenuecatui` module
 - **`pr:other`** — Anything else (docs, refactors, CI changes, etc.)
 
 Apply the label when creating the PR via `gh pr create --label <label>`.
