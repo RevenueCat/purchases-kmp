@@ -6,6 +6,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.UIKitViewController
+import com.revenuecat.purchases.kmp.mappings.buildCustomerInfo
+import com.revenuecat.purchases.kmp.mappings.buildStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toIosOffering
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewController
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState
@@ -154,6 +156,22 @@ internal class IosPaywallProxyDelegate(
     @Suppress("CONFLICTING_OVERLOADS", "PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun paywallViewController(
         controller: RCPaywallViewController,
+        didFinishPurchasingWithCustomerInfoDictionary: Map<Any?, *>,
+        transactionDictionary: Map<Any?, *>?
+    ) {
+        val listener = listener ?: return
+        val customerInfo = buildCustomerInfo(didFinishPurchasingWithCustomerInfoDictionary)
+            .getOrElse { return }
+        val storeTransaction = transactionDictionary
+            ?.let { buildStoreTransaction(it).getOrNull() }
+            ?: return
+        listener.onPurchaseCompleted(customerInfo, storeTransaction)
+    }
+
+    @ObjCSignatureOverride
+    @Suppress("CONFLICTING_OVERLOADS", "PARAMETER_NAME_CHANGED_ON_OVERRIDE")
+    override fun paywallViewController(
+        controller: RCPaywallViewController,
         didFailPurchasingWithErrorDictionary: Map<Any?, *>
     ) {
         listener?.onPurchaseError(didFailPurchasingWithErrorDictionary.toPurchasesError())
@@ -161,6 +179,18 @@ internal class IosPaywallProxyDelegate(
 
     override fun paywallViewControllerDidStartRestore(controller: RCPaywallViewController) {
         listener?.onRestoreStarted()
+    }
+
+    @ObjCSignatureOverride
+    @Suppress("CONFLICTING_OVERLOADS", "PARAMETER_NAME_CHANGED_ON_OVERRIDE")
+    override fun paywallViewController(
+        controller: RCPaywallViewController,
+        didFinishRestoringWithCustomerInfoDictionary: Map<Any?, *>
+    ) {
+        val listener = listener ?: return
+        val customerInfo = buildCustomerInfo(didFinishRestoringWithCustomerInfoDictionary)
+            .getOrElse { return }
+        listener.onRestoreCompleted(customerInfo)
     }
 
     @ObjCSignatureOverride
