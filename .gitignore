@@ -12,6 +12,9 @@ Pods
 .kotlin
 !.run
 
+# Claude Code
+.claude/
+
 # Fastlane
 fastlane/report.xml
 fastlane/.env
