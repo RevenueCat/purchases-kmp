@@ -7,4 +7,4 @@ onFlowError:
     file: subflows/render-paywall.yaml
     env:
       OFFERING_ID: no_paywall
-      WAIT_FOR_TEXT: "Purchase"
+      WAIT_FOR_TEXT: "Restore purchases"
