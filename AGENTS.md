@@ -262,6 +262,15 @@ Releases are managed via Fastlane. See `RELEASING.md` for the full release proce
 - Check the native SDKs (`purchases-android`, `purchases-ios`) for implementation reference
 - Use the `mappings` module for converting between native and KMP types
 
+## PR Labels
+
+Every PR must have exactly one of these labels:
+- **`pr:feat`** — A new feature
+- **`pr:fix`** — A bug fix
+- **`pr:other`** — Anything else (docs, refactors, CI changes, etc.)
+
+Apply the label when creating the PR via `gh pr create --label <label>`.
+
 ## PR Checklist
 
 - [ ] `./gradlew detektCommonMain` passes
