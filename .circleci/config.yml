@@ -30,6 +30,7 @@ commands:
             rbenv install -s 3.2.0
             rbenv global 3.2.0
             rbenv rehash
+            gem install cocoapods
 
   install-android-sdk-on-macos:
     description: Install the Android SDK on macOS
