@@ -16,6 +16,7 @@ public fun AndroidStore.toStore(): Store =
         AndroidStore.EXTERNAL -> Store.EXTERNAL
         AndroidStore.PADDLE -> Store.PADDLE
         AndroidStore.TEST_STORE -> Store.TEST_STORE
+        AndroidStore.GALAXY -> Store.GALAXY
     }
 
 public fun Store.toAndroidStore(): AndroidStore =
@@ -31,4 +32,5 @@ public fun Store.toAndroidStore(): AndroidStore =
         Store.EXTERNAL -> AndroidStore.EXTERNAL
         Store.PADDLE -> AndroidStore.PADDLE
         Store.TEST_STORE -> AndroidStore.TEST_STORE
+        Store.GALAXY -> AndroidStore.GALAXY
     }
