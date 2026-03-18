@@ -1,6 +1,7 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import com.revenuecat.purchases.kmp.models.Offering
+import com.revenuecat.purchases.kmp.ui.revenuecatui.CustomVariableValue
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallListener
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallOptions
 
@@ -14,8 +15,14 @@ private class PaywallOptionsAPI {
             this.offering = offering
             this.shouldDisplayDismissButton = true
             this.listener = listener
+            this.customVariables = mapOf(
+                "name" to CustomVariableValue.string("John"),
+                "level" to CustomVariableValue.number(5),
+                "isPremium" to CustomVariableValue.boolean(true),
+            )
         }
         val listener2: PaywallListener? = options.listener
         val dismissRequest: () -> Unit = options.dismissRequest
+        val customVariables: Map<String, CustomVariableValue> = options.customVariables
     }
 }
