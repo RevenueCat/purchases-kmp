@@ -12,13 +12,20 @@ private class CustomPaywallImpressionAPI {
             CustomPaywallImpressionParams(paywallId = "my-paywall")
         val paramsWithNull: CustomPaywallImpressionParams =
             CustomPaywallImpressionParams(paywallId = null)
+        val paramsWithOfferingId: CustomPaywallImpressionParams =
+            CustomPaywallImpressionParams(offeringId = "my-offering")
+        val paramsWithBoth: CustomPaywallImpressionParams =
+            CustomPaywallImpressionParams(paywallId = "my-paywall", offeringId = "my-offering")
 
         // CustomPaywallImpressionParams properties
         val paywallId: String? = paramsWithId.paywallId
+        val offeringId: String? = paramsWithOfferingId.offeringId
 
         // trackCustomPaywallImpression API
         purchases.trackCustomPaywallImpression()
         purchases.trackCustomPaywallImpression(defaultParams)
         purchases.trackCustomPaywallImpression(paramsWithId)
+        purchases.trackCustomPaywallImpression(paramsWithOfferingId)
+        purchases.trackCustomPaywallImpression(paramsWithBoth)
     }
 }

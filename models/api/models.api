@@ -123,8 +123,9 @@ public final class com/revenuecat/purchases/kmp/models/CacheFetchPolicy$Companio
 
 public final class com/revenuecat/purchases/kmp/models/CustomPaywallImpressionParams {
 	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getOfferingId ()Ljava/lang/String;
 	public final fun getPaywallId ()Ljava/lang/String;
 }
 

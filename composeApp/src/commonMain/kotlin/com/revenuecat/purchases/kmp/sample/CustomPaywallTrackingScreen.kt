@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
@@ -22,7 +23,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.revenuecat.purchases.kmp.Purchases
@@ -32,20 +32,26 @@ import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
 fun CustomPaywallTrackingScreen(
     navigateTo: (Screen) -> Unit
 ) {
+    var paywallId by remember { mutableStateOf("") }
+    var offeringId by remember { mutableStateOf("") }
     var statusMessage by remember { mutableStateOf<String?>(null) }
     var messageColor by remember { mutableStateOf(Color.Gray) }
 
-    fun trackImpressionWithoutId() {
-        Purchases.sharedInstance.trackCustomPaywallImpression()
-        statusMessage = "Custom paywall impression tracked (no paywallId)"
-        messageColor = Color.Green
-    }
+    fun trackImpression() {
+        val trimmedPaywallId = paywallId.trim().ifEmpty { null }
+        val trimmedOfferingId = offeringId.trim().ifEmpty { null }
 
-    fun trackImpressionWithId() {
-        val testPaywallId = "test-custom-paywall-123"
-        val params = CustomPaywallImpressionParams(paywallId = testPaywallId)
-        Purchases.sharedInstance.trackCustomPaywallImpression(params)
-        statusMessage = "Custom paywall impression tracked with paywallId: $testPaywallId"
+        if (trimmedPaywallId == null && trimmedOfferingId == null) {
+            Purchases.sharedInstance.trackCustomPaywallImpression()
+        } else {
+            Purchases.sharedInstance.trackCustomPaywallImpression(
+                CustomPaywallImpressionParams(
+                    paywallId = trimmedPaywallId,
+                    offeringId = trimmedOfferingId,
+                )
+            )
+        }
+        statusMessage = "Tracked (paywallId: ${trimmedPaywallId ?: "nil"}, offeringId: ${trimmedOfferingId ?: "nil"})"
         messageColor = Color.Green
     }
 
@@ -74,20 +80,31 @@ fun CustomPaywallTrackingScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Button(
-            onClick = { trackImpressionWithoutId() },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Track Impression (no paywallId)")
-        }
+        OutlinedTextField(
+            value = paywallId,
+            onValueChange = { paywallId = it },
+            label = { Text("Paywall ID (optional)") },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+        )
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        OutlinedTextField(
+            value = offeringId,
+            onValueChange = { offeringId = it },
+            label = { Text("Offering ID (optional)") },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         Button(
-            onClick = { trackImpressionWithId() },
+            onClick = { trackImpression() },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Track Impression (with paywallId)")
+            Text("Track Custom Paywall Impression")
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -107,44 +124,6 @@ fun CustomPaywallTrackingScreen(
                     text = message,
                     color = messageColor.copy(alpha = 0.8f),
                     style = MaterialTheme.typography.body2
-                )
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Button(
-                onClick = {
-                    statusMessage = null
-                },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Clear Status")
-            }
-        }
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        // Info section
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    color = Color.Blue.copy(alpha = 0.07f),
-                    shape = RoundedCornerShape(8.dp)
-                )
-                .padding(16.dp)
-        ) {
-            Column {
-                Text(
-                    text = "Testing Tips:",
-                    style = MaterialTheme.typography.h6
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "• Track impression without a paywallId or with one\n" +
-                            "• Each call creates a separate impression event\n" +
-                            "• Check the RevenueCat dashboard to verify events",
-                    style = MaterialTheme.typography.body2,
-                    color = Color.Black.copy(alpha = 0.7f)
                 )
             }
         }

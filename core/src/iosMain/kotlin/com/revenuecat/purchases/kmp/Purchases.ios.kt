@@ -820,7 +820,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             )
             return
         }
-        val iosParams = RCCustomPaywallImpressionParams(paywallId = params.paywallId)
+        val iosParams = RCCustomPaywallImpressionParams(paywallId = params.paywallId, offeringId = params.offeringId)
         iosPurchases.trackCustomPaywallImpression(iosParams)
     }
 
