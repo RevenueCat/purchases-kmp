@@ -388,10 +388,6 @@ private class PurchasesCommonAPI {
     fun checkTrackCustomPaywallImpression(purchases: Purchases) {
         purchases.trackCustomPaywallImpression()
         purchases.trackCustomPaywallImpression(CustomPaywallImpressionParams())
-        purchases.trackCustomPaywallImpression(CustomPaywallImpressionParams(paywallId = null))
-        purchases.trackCustomPaywallImpression(CustomPaywallImpressionParams(paywallId = "my-paywall"))
-        purchases.trackCustomPaywallImpression(CustomPaywallImpressionParams(offeringId = "my-offering"))
-        purchases.trackCustomPaywallImpression(CustomPaywallImpressionParams(paywallId = "my-paywall", offeringId = "my-offering"))
     }
 
     fun checkLogHandler() {

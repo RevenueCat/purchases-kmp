@@ -18,6 +18,7 @@ import swiftPMImport.com.revenuecat.purchases.kn.core.setAirshipChannelID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setOnesignalUserID
 import swiftPMImport.com.revenuecat.purchases.kn.core.showStoreMessagesForTypes
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomPaywallImpressionParams
+import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
 import com.revenuecat.purchases.kmp.ktx.mapEntriesNotNull
 import com.revenuecat.purchases.kmp.mappings.buildStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
@@ -811,7 +812,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     }
 
     public actual fun trackCustomPaywallImpression(
-        params: com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams,
+        params: CustomPaywallImpressionParams,
     ) {
         if (!IOSAPIAvailabilityChecker().isCustomPaywallTrackingAPIAvailable()) {
             Purchases.logHandler.w(
