@@ -17,7 +17,7 @@ import swiftPMImport.com.revenuecat.purchases.kn.core.setAirbridgeDeviceID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setAirshipChannelID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setOnesignalUserID
 import swiftPMImport.com.revenuecat.purchases.kn.core.showStoreMessagesForTypes
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomPaywallImpressionParams
+import swiftPMImport.com.revenuecat.purchases.kn.core.trackCustomPaywallImpression
 import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
 import com.revenuecat.purchases.kmp.ktx.mapEntriesNotNull
 import com.revenuecat.purchases.kmp.mappings.buildStoreTransaction
@@ -821,8 +821,10 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             )
             return
         }
-        val iosParams = RCCustomPaywallImpressionParams(paywallId = params.paywallId, offeringId = params.offeringId)
-        iosPurchases.trackCustomPaywallImpression(iosParams)
+        val data = mutableMapOf<Any?, Any?>()
+        params.paywallId?.let { data["paywallId"] = it }
+        params.offeringId?.let { data["offeringId"] = it }
+        RCCommonFunctionality.trackCustomPaywallImpression(data)
     }
 
     @ExperimentalRevenueCatApi
