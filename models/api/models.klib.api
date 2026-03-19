@@ -680,6 +680,15 @@ final class com.revenuecat.purchases.kmp.models/AdRevenuePrecision { // com.reve
     }
 }
 
+final class com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams { // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams|null[0]
+    constructor <init>(kotlin/String? = ..., kotlin/String? = ...) // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.<init>|<init>(kotlin.String?;kotlin.String?){}[0]
+
+    final val offeringId // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.offeringId|{}offeringId[0]
+        final fun <get-offeringId>(): kotlin/String? // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.offeringId.<get-offeringId>|<get-offeringId>(){}[0]
+    final val paywallId // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.paywallId|{}paywallId[0]
+        final fun <get-paywallId>(): kotlin/String? // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.paywallId.<get-paywallId>|<get-paywallId>(){}[0]
+}
+
 final class com.revenuecat.purchases.kmp.models/CustomerInfo { // com.revenuecat.purchases.kmp.models/CustomerInfo|null[0]
     constructor <init>(kotlin.collections/Set<kotlin/String>, kotlin.collections/Map<kotlin/String, kotlin/Long?>, kotlin.collections/Map<kotlin/String, kotlin/Long?>, kotlin.collections/Set<kotlin/String>, com.revenuecat.purchases.kmp.models/EntitlementInfos, kotlin/Long, kotlin/Long?, kotlin/String?, kotlin.collections/Map<kotlin/String, com.revenuecat.purchases.kmp.models/SubscriptionInfo>, kotlin.collections/List<com.revenuecat.purchases.kmp.models/Transaction>, kotlin/String, kotlin/String?, kotlin/Long?, kotlin/Long) // com.revenuecat.purchases.kmp.models/CustomerInfo.<init>|<init>(kotlin.collections.Set<kotlin.String>;kotlin.collections.Map<kotlin.String,kotlin.Long?>;kotlin.collections.Map<kotlin.String,kotlin.Long?>;kotlin.collections.Set<kotlin.String>;com.revenuecat.purchases.kmp.models.EntitlementInfos;kotlin.Long;kotlin.Long?;kotlin.String?;kotlin.collections.Map<kotlin.String,com.revenuecat.purchases.kmp.models.SubscriptionInfo>;kotlin.collections.List<com.revenuecat.purchases.kmp.models.Transaction>;kotlin.String;kotlin.String?;kotlin.Long?;kotlin.Long){}[0]
 

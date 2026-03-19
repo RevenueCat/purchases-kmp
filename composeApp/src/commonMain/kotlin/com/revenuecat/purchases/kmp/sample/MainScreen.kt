@@ -203,6 +203,14 @@ fun MainScreen(
 
                 Spacer(modifier = Modifier.size(16.dp))
                 TextButton(
+                    onClick = { navigateTo(Screen.CustomPaywallTracking) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Custom Paywall Tracking")
+                }
+
+                Spacer(modifier = Modifier.size(16.dp))
+                TextButton(
                     onClick = { Purchases.sharedInstance.presentCodeRedemptionSheet() },
                     enabled = isCodeRedemptionSheetAvailable,
                     modifier = Modifier.fillMaxWidth()

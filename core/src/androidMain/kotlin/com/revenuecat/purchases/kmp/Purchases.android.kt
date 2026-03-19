@@ -3,6 +3,8 @@ package com.revenuecat.purchases.kmp
 import android.content.Intent
 import android.net.Uri
 import com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI
+import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams as KmpCustomPaywallImpressionParams
+import com.revenuecat.purchases.paywalls.events.CustomPaywallImpressionParams as AndroidCustomPaywallImpressionParams
 import com.revenuecat.purchases.PurchaseParams
 import com.revenuecat.purchases.common.PlatformInfo
 import com.revenuecat.purchases.getCustomerInfoWith
@@ -592,6 +594,17 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual fun getCachedVirtualCurrencies(): VirtualCurrencies? {
         val cachedVirtualCurrencies: AndroidVirtualCurrencies? = androidPurchases.cachedVirtualCurrencies
         return cachedVirtualCurrencies?.toVirtualCurrencies()
+    }
+
+    public actual fun trackCustomPaywallImpression(
+        params: KmpCustomPaywallImpressionParams,
+    ) {
+        androidPurchases.trackCustomPaywallImpression(
+            AndroidCustomPaywallImpressionParams(
+                paywallId = params.paywallId,
+                offeringId = params.offeringId,
+            )
+        )
     }
 
     @ExperimentalRevenueCatApi
