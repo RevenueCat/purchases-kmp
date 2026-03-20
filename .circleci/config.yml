@@ -405,6 +405,26 @@ jobs:
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
 
+  tag-release-branch:
+    docker:
+      - image: cimg/ruby:3.3.0
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - checkout
+      - revenuecat/setup-git-credentials
+      - revenuecat/trust-github-key
+      - revenuecat/install-gem-unix-dependencies:
+          cache-version: v1
+      - run:
+          name: Check Release PR is approved
+          command: |
+            echo "Verifying that the release PR has been approved by an org member with write permissions."
+            echo "This check prevents tagging a release before the PR is properly reviewed."
+            bundle exec fastlane run validate_pr_approved
+      - run:
+          name: Tag branch
+          command: bundle exec fastlane tag_current_branch
+
   create-github-release:
     description: "Creates a GitHub release for the current version"
     executor: ruby3
@@ -538,7 +558,7 @@ workflows:
             - unit-tests-android
             - unit-tests-ios
             - validate-binary-compatibility
-      - revenuecat/tag-current-branch:
+      - tag-release-branch:
           requires:
             - hold
           context: git-user-ops
