@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'core'
-    spec.version                  = '2.9.0-SNAPSHOT'
+    spec.version                  = '2.10.0-SNAPSHOT'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
     spec.vendored_frameworks      = 'build/cocoapods/framework/Purchases.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target    = '13.0'
-    spec.dependency 'PurchasesHybridCommon', '17.51.0'
+    spec.dependency 'PurchasesHybridCommon', '17.52.0'
                 
     if !Dir.exist?('build/cocoapods/framework/Purchases.framework') || Dir.empty?('build/cocoapods/framework/Purchases.framework')
         raise "
