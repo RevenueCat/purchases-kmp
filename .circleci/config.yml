@@ -48,6 +48,12 @@ commands:
           name: Install Android SDK platform tools
           command: sdkmanager "platform-tools"
 
+  clean-cocoapods-cache:
+    steps:
+      - run:
+          name: Clean CocoaPods cache
+          command: rm -rf ~/Library/Caches/CocoaPods
+
   install-cocoapods-on-macos:
     steps:
       - run:
@@ -239,6 +245,7 @@ jobs:
       - pin-ruby-version
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
+      - clean-cocoapods-cache
       - install-cocoapods-on-macos
       - run:
           name: Build libraries for iOS
