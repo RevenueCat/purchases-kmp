@@ -18,7 +18,7 @@ version: 2.1
 
 orbs:
   android: circleci/android@2.5.0
-  revenuecat: revenuecat/sdks-common-config@3.13.0
+  revenuecat: revenuecat/sdks-common-config@3.16.0
 
 commands:
   pin-ruby-version:
@@ -554,5 +554,12 @@ workflows:
           context: maven-central-publishing
           <<: *release-tags-job
       - create-github-release:
+          context: github-bot-public
+          <<: *release-tags-job
+      - revenuecat/merge-release-pr:
+          repo_name: purchases-kmp
+          requires:
+            - publish
+            - create-github-release
           context: github-bot-public
           <<: *release-tags-job
