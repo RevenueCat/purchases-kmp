@@ -556,3 +556,10 @@ workflows:
       - create-github-release:
           context: github-bot-public
           <<: *release-tags-job
+      - revenuecat/merge-release-pr:
+          repo_name: purchases-kmp
+          requires:
+            - publish
+            - create-github-release
+          context: github-bot-public
+          <<: *release-tags-job
