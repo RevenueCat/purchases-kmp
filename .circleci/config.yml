@@ -136,6 +136,16 @@ executors:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
       # freshly installed.
       HOMEBREW_NO_AUTO_UPDATE: 1
+  xcode-versioned:
+    parameters:
+      xcode_version:
+        type: string
+    macos:
+      # circleci-lint: disable=unknown-xcode-version
+      xcode: << parameters.xcode_version >>
+    resource_class: m4pro.medium
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
 
 jobs:
   update-purchases-hybrid-common-version:
@@ -261,7 +271,7 @@ jobs:
       - save-gradle-user-home-directory-to-cache
       - save-incremental-gradle-build-to-workspace
 
-  build-sample-ios:
+  build-sample-ios-xcode16:
     executor: xcode16
     steps:
       - checkout
@@ -283,6 +293,33 @@ jobs:
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
       - save-incremental-gradle-build-to-workspace
+
+  build-ios-app-xcode26:
+    executor:
+      name: xcode-versioned
+      xcode_version: "26.3"
+    steps:
+      - checkout
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - attach-workspace-at-working-directory
+      - pin-ruby-version
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - install-cocoapods-on-macos
+      - run:
+          name: Build iosApp with Xcode 26.3
+          command: |
+            xcodebuild build \
+              -workspace iosApp.xcworkspace \
+              -scheme iosApp \
+              -sdk iphonesimulator \
+              -destination 'platform=iOS Simulator,name=iPhone 16' \
+              CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
+              | xcpretty
+          working_directory: iosApp
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
 
   public-api-tests-android:
     executor: android202409
@@ -446,7 +483,9 @@ workflows:
       - build-libraries-ios
       - build-sample-android:
           requires: [build-libraries-android]
-      - build-sample-ios:
+      - build-sample-ios-xcode16:
+          requires: [build-libraries-ios]
+      - build-ios-app-xcode26:
           requires: [build-libraries-ios]
       - public-api-tests-android:
           requires: [build-libraries-android]
@@ -512,7 +551,9 @@ workflows:
       - build-libraries-ios
       - build-sample-android:
           requires: [build-libraries-android]
-      - build-sample-ios:
+      - build-sample-ios-xcode16:
+          requires: [build-libraries-ios]
+      - build-ios-app-xcode26:
           requires: [build-libraries-ios]
       - public-api-tests-android:
           requires: [build-libraries-android]
@@ -532,7 +573,8 @@ workflows:
             - detekt
             - unit-tests-build-logic
             - build-sample-android
-            - build-sample-ios
+            - build-sample-ios-xcode16
+            - build-ios-app-xcode26
             - public-api-tests-android
             - public-api-tests-ios
             - unit-tests-android
