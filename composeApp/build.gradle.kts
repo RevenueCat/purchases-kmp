@@ -66,7 +66,7 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "com.revenuecat.purchases_sample"
+        applicationId = "com.revenuecat.paywall_tester"
         minSdk = 24
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
