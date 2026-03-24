@@ -558,6 +558,7 @@ workflows:
           <<: *release-tags-job
       - revenuecat/merge-release-pr:
           repo_name: purchases-kmp
+          version: << pipeline.git.tag >>
           requires:
             - publish
             - create-github-release
