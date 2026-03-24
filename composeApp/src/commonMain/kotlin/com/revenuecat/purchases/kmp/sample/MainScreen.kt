@@ -59,7 +59,6 @@ import kotlinx.coroutines.flow.onStart
 fun MainScreen(
     navigateTo: (Screen) -> Unit,
     customVariables: Map<String, CustomVariableValue> = emptyMap(),
-    onCustomVariablesChanged: (Map<String, CustomVariableValue>) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Column(

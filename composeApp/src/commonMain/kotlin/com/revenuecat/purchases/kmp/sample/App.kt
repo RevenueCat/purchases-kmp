@@ -61,7 +61,6 @@ fun App() {
                 is Screen.Main -> MainScreen(
                     navigateTo = navigateTo,
                     customVariables = customVariables,
-                    onCustomVariablesChanged = { customVariables = it },
                     modifier = Modifier.fillMaxSize()
                 )
 
