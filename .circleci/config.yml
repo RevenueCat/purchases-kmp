@@ -316,6 +316,22 @@ jobs:
     steps:
       - checkout
       - install-android-sdk-on-macos
+      - run:
+          name: Debug and fix Android SDK cmdline-tools structure
+          command: |
+            echo "ANDROID_HOME=$ANDROID_HOME"
+            echo "--- cmdline-tools dir ---"
+            ls -la "$ANDROID_HOME/cmdline-tools/" || echo "No cmdline-tools dir"
+            echo "--- SDK root ---"
+            ls -la "$ANDROID_HOME/"
+            # AGP expects cmdline-tools/latest/. Create the symlink if missing.
+            if [ ! -d "$ANDROID_HOME/cmdline-tools/latest" ]; then
+              VERSIONED=$(ls "$ANDROID_HOME/cmdline-tools/" | head -1)
+              echo "Creating latest symlink -> $VERSIONED"
+              ln -s "$ANDROID_HOME/cmdline-tools/$VERSIONED" "$ANDROID_HOME/cmdline-tools/latest"
+            fi
+            echo "--- cmdline-tools after fix ---"
+            ls -la "$ANDROID_HOME/cmdline-tools/"
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
