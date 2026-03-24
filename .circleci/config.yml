@@ -362,7 +362,8 @@ jobs:
             KMP_VERSION=$(sed -nE 's/^revenuecat-kmp = "([^"]+)".*/\1/p' gradle/libs.versions.toml)
             cd ciIntegrationTests
             ../gradlew compileKotlinIosSimulatorArm64 \
-              -PpurchasesKmpVersion="$KMP_VERSION"
+              -PpurchasesKmpVersion="$KMP_VERSION" \
+              --stacktrace
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
 
