@@ -313,7 +313,7 @@ jobs:
       - save-gradle-user-home-directory-to-cache
       - save-incremental-gradle-build-to-workspace
 
-  build-sample-ios-xcode16:
+  build-sample-ios:
     executor: xcode16
     steps:
       - checkout
@@ -525,7 +525,7 @@ workflows:
       - build-libraries-ios
       - build-sample-android:
           requires: [build-libraries-android]
-      - build-sample-ios-xcode16:
+      - build-sample-ios:
           requires: [build-libraries-ios]
       - build-ios-app-xcode26:
           requires: [build-libraries-ios]
@@ -593,7 +593,7 @@ workflows:
       - build-libraries-ios
       - build-sample-android:
           requires: [build-libraries-android]
-      - build-sample-ios-xcode16:
+      - build-sample-ios:
           requires: [build-libraries-ios]
       - build-ios-app-xcode26:
           requires: [build-libraries-ios]
@@ -615,7 +615,7 @@ workflows:
             - detekt
             - unit-tests-build-logic
             - build-sample-android
-            - build-sample-ios-xcode16
+            - build-sample-ios
             - build-ios-app-xcode26
             - public-api-tests-android
             - public-api-tests-ios
