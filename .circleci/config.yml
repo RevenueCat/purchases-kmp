@@ -280,13 +280,17 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - run:
-          name: Write local.properties with Android SDK path
+          name: Publish iOS libraries to mavenLocal
+          # Scoped to iOS publications only — avoids triggering Android SDK
+          # resolution (which isn't available on the macOS executor).
           command: |
-            SDK_DIR="${ANDROID_HOME:-$HOME/Library/Android/sdk}"
-            echo "sdk.dir=$SDK_DIR" > local.properties
-      - run:
-          name: Publish libraries to mavenLocal
-          command: ./gradlew publishToMavenLocal
+            tasks=()
+            for module in core revenuecatui datetime either result mappings models; do
+              for pub in IosArm64 IosSimulatorArm64 IosX64 KotlinMultiplatform; do
+                tasks+=(":$module:publish${pub}PublicationToMavenLocal")
+              done
+            done
+            ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
       - save-incremental-gradle-build-to-workspace
