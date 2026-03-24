@@ -250,11 +250,11 @@ jobs:
       - run:
           name: Install synthetic pods for iOS (sequential to avoid CocoaPods cache race)
           command: |
-            tasks=()
-            for module in core mappings models revenuecatui datetime either result; do
-              tasks+=(":$module:podInstallSyntheticIos")
-            done
-            ./gradlew --no-parallel "${tasks[@]}"
+            ./gradlew --no-parallel \
+              :core:podInstallSyntheticIos \
+              :mappings:podInstallSyntheticIos \
+              :models:podInstallSyntheticIos \
+              :revenuecatui:podInstallSyntheticIos
       - run:
           name: Build libraries for iOS
           command: |
