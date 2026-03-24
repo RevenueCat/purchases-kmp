@@ -46,15 +46,17 @@ import com.revenuecat.purchases.kmp.ui.revenuecatui.CustomVariableValue
 private enum class VariableType { String, Number, Boolean }
 
 private fun CustomVariableValue.typeLabel(): kotlin.String = when (this) {
-    is CustomVariableValue.StringValue -> "String"
-    is CustomVariableValue.NumberValue -> "Number"
-    is CustomVariableValue.BooleanValue -> "Boolean"
+    is CustomVariableValue.String -> "String"
+    is CustomVariableValue.Number -> "Number"
+    is CustomVariableValue.Boolean -> "Boolean"
+    else -> error("Unknown CustomVariableValue type: ${this::class.simpleName}")
 }
 
 private fun CustomVariableValue.displayValue(): kotlin.String = when (this) {
-    is CustomVariableValue.StringValue -> value
-    is CustomVariableValue.NumberValue -> if (value % 1.0 == 0.0) value.toLong().toString() else value.toString()
-    is CustomVariableValue.BooleanValue -> value.toString()
+    is CustomVariableValue.String -> value
+    is CustomVariableValue.Number -> if (value % 1.0 == 0.0) value.toLong().toString() else value.toString()
+    is CustomVariableValue.Boolean -> value.toString()
+    else -> error("Unknown CustomVariableValue type: ${this::class.simpleName}")
 }
 
 private val typeColors = mapOf(
@@ -219,9 +221,10 @@ private fun VariableDialog(
     var selectedType by remember {
         mutableStateOf(
             when (initialValue) {
-                is CustomVariableValue.StringValue -> VariableType.String
-                is CustomVariableValue.NumberValue -> VariableType.Number
-                is CustomVariableValue.BooleanValue -> VariableType.Boolean
+                is CustomVariableValue.String -> VariableType.String
+                is CustomVariableValue.Number -> VariableType.Number
+                is CustomVariableValue.Boolean -> VariableType.Boolean
+                else -> error("Unknown CustomVariableValue type: ${initialValue::class.simpleName}")
             }
         )
     }

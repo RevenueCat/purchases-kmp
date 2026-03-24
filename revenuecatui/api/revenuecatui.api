@@ -3,7 +3,7 @@ public abstract class com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariabl
 	public static final field Companion Lcom/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableValue$Companion;
 }
 
-public final class com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableValue$BooleanValue : com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableValue {
+public final class com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableValue$Boolean : com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableValue {
 	public static final field $stable I
 	public fun <init> (Z)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -19,7 +19,7 @@ public final class com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableVa
 	public final fun string (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableValue;
 }
 
-public final class com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableValue$NumberValue : com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableValue {
+public final class com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableValue$Number : com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableValue {
 	public static final field $stable I
 	public fun <init> (D)V
 	public fun <init> (F)V
@@ -31,7 +31,7 @@ public final class com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableVa
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableValue$StringValue : com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableValue {
+public final class com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableValue$String : com/revenuecat/purchases/kmp/ui/revenuecatui/CustomVariableValue {
 	public static final field $stable I
 	public fun <init> (Ljava/lang/String;)V
 	public fun equals (Ljava/lang/Object;)Z

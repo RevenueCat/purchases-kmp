@@ -4,64 +4,64 @@ package com.revenuecat.purchases.kmp.ui.revenuecatui
  * Represents a value for a custom paywall variable. Custom variables allow you to
  * dynamically set text on your paywall from your app.
  */
-public sealed class CustomVariableValue {
+public abstract class CustomVariableValue internal constructor() {
 
     /**
      * A string custom variable value.
      */
-    public class StringValue(public val value: String) : CustomVariableValue() {
+    public class String(public val value: kotlin.String) : CustomVariableValue() {
         override fun equals(other: Any?): kotlin.Boolean =
-            other is StringValue && value == other.value
+            other is String && value == other.value
 
         override fun hashCode(): Int = value.hashCode()
-        override fun toString(): String = "CustomVariableValue.StringValue(value=$value)"
+        override fun toString(): kotlin.String = "CustomVariableValue.String(value=$value)"
     }
 
     /**
      * A numeric custom variable value.
      */
-    public class NumberValue(public val value: Double) : CustomVariableValue() {
+    public class Number(public val value: kotlin.Double) : CustomVariableValue() {
         public constructor(value: Int) : this(value.toDouble())
         public constructor(value: Long) : this(value.toDouble())
         public constructor(value: Float) : this(value.toDouble())
 
         override fun equals(other: Any?): kotlin.Boolean =
-            other is NumberValue && value == other.value
+            other is Number && value == other.value
 
         override fun hashCode(): Int = value.hashCode()
-        override fun toString(): String = "CustomVariableValue.NumberValue(value=$value)"
+        override fun toString(): kotlin.String = "CustomVariableValue.Number(value=$value)"
     }
 
     /**
      * A boolean custom variable value.
      */
-    public class BooleanValue(public val value: Boolean) : CustomVariableValue() {
+    public class Boolean(public val value: kotlin.Boolean) : CustomVariableValue() {
         override fun equals(other: Any?): kotlin.Boolean =
-            other is BooleanValue && value == other.value
+            other is Boolean && value == other.value
 
         override fun hashCode(): Int = value.hashCode()
-        override fun toString(): String = "CustomVariableValue.BooleanValue(value=$value)"
+        override fun toString(): kotlin.String = "CustomVariableValue.Boolean(value=$value)"
     }
 
     public companion object {
         /**
          * Creates a string custom variable value.
          */
-        public fun string(value: String): CustomVariableValue = StringValue(value)
+        public fun string(value: kotlin.String): CustomVariableValue = String(value)
 
         /**
          * Creates a numeric custom variable value.
          */
-        public fun number(value: Double): CustomVariableValue = NumberValue(value)
+        public fun number(value: kotlin.Double): CustomVariableValue = Number(value)
 
         /**
          * Creates a numeric custom variable value from an integer.
          */
-        public fun number(value: Int): CustomVariableValue = NumberValue(value)
+        public fun number(value: Int): CustomVariableValue = Number(value)
 
         /**
          * Creates a boolean custom variable value.
          */
-        public fun boolean(value: Boolean): CustomVariableValue = BooleanValue(value)
+        public fun boolean(value: kotlin.Boolean): CustomVariableValue = Boolean(value)
     }
 }

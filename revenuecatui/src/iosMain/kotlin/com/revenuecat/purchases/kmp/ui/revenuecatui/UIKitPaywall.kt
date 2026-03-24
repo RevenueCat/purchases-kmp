@@ -276,11 +276,12 @@ private fun Map<Any?, *>.toPurchasesError(): PurchasesError = PurchasesError(
 private fun CValue<CGSize>.heightInt(): Int =
     memScoped { ptr.pointed.height.toInt() }
 
-private fun Map<String, CustomVariableValue>.toIosCustomVariables(): Map<Any?, Any> =
+private fun Map<String, CustomVariableValue>.toIosCustomVariables(): Map<String, Any> =
     entries.associate { (key, value) ->
         key to when (value) {
-            is CustomVariableValue.StringValue -> value.value as Any
-            is CustomVariableValue.NumberValue -> value.value as Any
-            is CustomVariableValue.BooleanValue -> value.value as Any
+            is CustomVariableValue.String -> value.value as Any
+            is CustomVariableValue.Number -> value.value as Any
+            is CustomVariableValue.Boolean -> value.value as Any
+            else -> error("Unknown CustomVariableValue type: ${value::class.simpleName}")
         }
     }

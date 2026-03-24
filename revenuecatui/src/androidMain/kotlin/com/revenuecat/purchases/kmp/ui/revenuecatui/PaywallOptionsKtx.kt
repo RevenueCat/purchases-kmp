@@ -32,12 +32,13 @@ private fun Map<String, CustomVariableValue>.toAndroidCustomVariables():
         Map<String, AndroidCustomVariableValue> =
     mapValues { (_, value) ->
         when (value) {
-            is CustomVariableValue.StringValue ->
+            is CustomVariableValue.String ->
                 AndroidCustomVariableValue.String(value.value)
-            is CustomVariableValue.NumberValue ->
+            is CustomVariableValue.Number ->
                 AndroidCustomVariableValue.Number(value.value)
-            is CustomVariableValue.BooleanValue ->
+            is CustomVariableValue.Boolean ->
                 AndroidCustomVariableValue.Boolean(value.value)
+            else -> error("Unknown CustomVariableValue type: ${value::class.simpleName}")
         }
     }
 
