@@ -350,11 +350,6 @@ jobs:
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - run:
-          name: Use JDK 21 (Kotlin 2.1.21 cannot parse JDK 25 version strings)
-          command: |
-            export JAVA_HOME=$(/usr/libexec/java_home -v 21)
-            echo "export JAVA_HOME=$JAVA_HOME" >> "$BASH_ENV"
-      - run:
           name: Compile ciIntegrationTests against purchases-kmp-core (Xcode 26.3)
           # Verifies issue #759: the KMP library was compiled with Xcode 16 (by
           # build-libraries-ios) and published to mavenLocal. Here we resolve and
