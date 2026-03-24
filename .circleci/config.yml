@@ -315,23 +315,6 @@ jobs:
       xcode_version: "26.3"
     steps:
       - checkout
-      - install-android-sdk-on-macos
-      - run:
-          name: Debug and fix Android SDK cmdline-tools structure
-          command: |
-            echo "ANDROID_HOME=$ANDROID_HOME"
-            echo "--- cmdline-tools dir ---"
-            ls -la "$ANDROID_HOME/cmdline-tools/" || echo "No cmdline-tools dir"
-            echo "--- SDK root ---"
-            ls -la "$ANDROID_HOME/"
-            # AGP expects cmdline-tools/latest/. Create the symlink if missing.
-            if [ ! -d "$ANDROID_HOME/cmdline-tools/latest" ]; then
-              VERSIONED=$(ls "$ANDROID_HOME/cmdline-tools/" | head -1)
-              echo "Creating latest symlink -> $VERSIONED"
-              ln -s "$ANDROID_HOME/cmdline-tools/$VERSIONED" "$ANDROID_HOME/cmdline-tools/latest"
-            fi
-            echo "--- cmdline-tools after fix ---"
-            ls -la "$ANDROID_HOME/cmdline-tools/"
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -340,6 +323,16 @@ jobs:
           cache-version: v1
       - install-cocoapods-on-macos
       - run:
+          name: Write local.properties with Android SDK path
+          command: |
+            # Use the machine's pre-installed Android SDK (same as xcode16 executor).
+            # Avoid install-android-sdk-on-macos: Homebrew cmdline-tools;25.0.2
+            # conflicts with AGP 8.x during Gradle project configuration.
+            SDK_DIR="${ANDROID_HOME:-$HOME/Library/Android/sdk}"
+            echo "sdk.dir=$SDK_DIR" > local.properties
+            echo "Android SDK at: $SDK_DIR"
+            ls "$SDK_DIR" 2>/dev/null || echo "WARNING: SDK dir not found at $SDK_DIR"
+      - run:
           name: Build iosApp with Xcode 26.3
           command: |
             xcodebuild build \
@@ -347,8 +340,7 @@ jobs:
               -scheme iosApp \
               -sdk iphonesimulator \
               -destination 'platform=iOS Simulator,name=iPhone 17' \
-              CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
-              ANDROID_HOME="$HOMEBREW_PREFIX/share/android-commandlinetools"
+              CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
           working_directory: iosApp
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
