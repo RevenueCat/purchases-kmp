@@ -98,12 +98,26 @@ commands:
       - persist_to_workspace:
           name: Save incremental Gradle build to workspace
           root: ./
-          paths: 
+          paths:
             - .gradle
             # This doesn't support directory glob patterns (**), unfortunately.
             - build
             - ./*/build
             - ./*/*/build
+
+  save-maven-local-to-workspace:
+    steps:
+      - persist_to_workspace:
+          name: Save mavenLocal purchases-kmp artifacts to workspace
+          root: ~/
+          paths:
+            - .m2/repository/com/revenuecat
+
+  attach-home-directory-from-workspace:
+    steps:
+      - attach_workspace:
+          name: Attach home directory from workspace
+          at: ~/
 
   attach-workspace-at-working-directory:
     steps:
@@ -265,9 +279,13 @@ jobs:
               done
             done
             ./gradlew "${tasks[@]}"
+      - run:
+          name: Publish libraries to mavenLocal
+          command: ./gradlew publishToMavenLocal
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
       - save-incremental-gradle-build-to-workspace
+      - save-maven-local-to-workspace
 
   build-sample-android:
     executor: android202409
@@ -318,30 +336,24 @@ jobs:
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
+      - attach-home-directory-from-workspace
       - pin-ruby-version
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
-      - install-cocoapods-on-macos
       - run:
-          name: Write local.properties with Android SDK path
+          name: Link ciIntegrationTests against purchases-kmp-core (Xcode 26.3)
+          # Reproduces issue #759: the KMP library was compiled with Xcode 16 (by
+          # build-libraries-ios) and published to mavenLocal. Here we consume that
+          # pre-built binary from a fresh consumer project and link it with Xcode
+          # 26.3, matching the exact scenario that triggers the linker error for
+          # end-users.
           command: |
-            # Use the machine's pre-installed Android SDK (same as xcode16 executor).
-            # Avoid install-android-sdk-on-macos: Homebrew cmdline-tools;25.0.2
-            # conflicts with AGP 8.x during Gradle project configuration.
-            SDK_DIR="${ANDROID_HOME:-$HOME/Library/Android/sdk}"
-            echo "sdk.dir=$SDK_DIR" > local.properties
-            echo "Android SDK at: $SDK_DIR"
-            ls "$SDK_DIR" 2>/dev/null || echo "WARNING: SDK dir not found at $SDK_DIR"
-      - run:
-          name: Build iosApp with Xcode 26.3
-          command: |
-            xcodebuild build \
-              -workspace iosApp.xcworkspace \
-              -scheme iosApp \
-              -sdk iphonesimulator \
-              -destination 'platform=iOS Simulator,name=iPhone 17' \
-              CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-          working_directory: iosApp
+            KMP_VERSION=$(sed -nE 's/^revenuecat-kmp = "([^"]+)".*/\1/p' gradle/libs.versions.toml)
+            cd ciIntegrationTests
+            ../gradlew --no-parallel \
+              podInstallSyntheticIos \
+              linkDebugFrameworkIosSimulatorArm64 \
+              -PpurchasesKmpVersion="$KMP_VERSION"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
 
