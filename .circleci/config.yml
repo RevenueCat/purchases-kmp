@@ -45,8 +45,8 @@ commands:
             echo 'export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"' >> "$BASH_ENV"
       - android/accept-licenses
       - run:
-          name: Install Android SDK platform tools
-          command: sdkmanager "platform-tools"
+          name: Install Android SDK components
+          command: sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
 
   clean-cocoapods-cache:
     steps:
