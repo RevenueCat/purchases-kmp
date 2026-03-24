@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.RedeemWebPurchaseListener
+import com.revenuecat.purchases.kmp.ui.revenuecatui.CustomVariableValue
 import com.revenuecat.purchases.kmp.ui.revenuecatui.CustomerCenter
 import com.revenuecat.purchases.kmp.ui.revenuecatui.OriginalTemplatePaywallFooter
 import com.revenuecat.purchases.kmp.ui.revenuecatui.Paywall
@@ -43,6 +44,7 @@ fun App() {
             }
         }
         var screen by remember { mutableStateOf<Screen>(Screen.Main) }
+        var customVariables by remember { mutableStateOf<Map<String, CustomVariableValue>>(emptyMap()) }
         urlString?.let { ProcessDeepLink(it) }
         AnimatedContent(
             targetState = screen,
@@ -58,7 +60,15 @@ fun App() {
             when (currentScreen) {
                 is Screen.Main -> MainScreen(
                     navigateTo = navigateTo,
+                    customVariables = customVariables,
                     modifier = Modifier.fillMaxSize()
+                )
+
+                is Screen.CustomVariablesEditor -> CustomVariablesEditorScreen(
+                    variables = customVariables,
+                    onVariablesChanged = { customVariables = it },
+                    onBack = { navigateTo(Screen.Main) },
+                    modifier = Modifier.fillMaxSize(),
                 )
 
                 is Screen.Paywall -> {
@@ -67,6 +77,7 @@ fun App() {
                             offering = currentScreen.offering
                             shouldDisplayDismissButton = true
                             listener = loggingListener
+                            this.customVariables = currentScreen.customVariables
                         }
                     }
                     Paywall(options)
@@ -79,6 +90,7 @@ fun App() {
                             shouldDisplayDismissButton = true
                             listener = loggingListener
                             purchaseLogic = SamplePurchaseLogic()
+                            this.customVariables = currentScreen.customVariables
                         }
                     }
                     Paywall(options)
@@ -89,6 +101,7 @@ fun App() {
                         offering = currentScreen.offering
                         shouldDisplayDismissButton = true
                         listener = loggingListener
+                        this.customVariables = currentScreen.customVariables
                     }
                     OriginalTemplatePaywallFooter(options) { contentPadding ->
                         CustomPaywallContent(
