@@ -315,6 +315,7 @@ jobs:
       xcode_version: "26.3"
     steps:
       - checkout
+      - install-android-sdk-on-macos
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
