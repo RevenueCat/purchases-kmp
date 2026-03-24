@@ -248,6 +248,14 @@ jobs:
       - clean-cocoapods-cache
       - install-cocoapods-on-macos
       - run:
+          name: Install synthetic pods for iOS (sequential to avoid CocoaPods cache race)
+          command: |
+            tasks=()
+            for module in core mappings models revenuecatui datetime either result; do
+              tasks+=(":$module:podInstallSyntheticIos")
+            done
+            ./gradlew --no-parallel "${tasks[@]}"
+      - run:
           name: Build libraries for iOS
           command: |
             tasks=()
