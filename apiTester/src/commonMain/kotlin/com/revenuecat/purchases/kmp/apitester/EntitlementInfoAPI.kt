@@ -1,12 +1,9 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.datetime.billingIssueDetectedAtInstant
-import com.revenuecat.purchases.kmp.datetime.expirationInstant
-import com.revenuecat.purchases.kmp.datetime.latestPurchaseInstant
-import com.revenuecat.purchases.kmp.datetime.originalPurchaseInstant
-import com.revenuecat.purchases.kmp.datetime.unsubscribeDetectedAtInstant
+
 import com.revenuecat.purchases.kmp.models.EntitlementInfo
 import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class EntitlementInfoAPI {
@@ -19,25 +16,20 @@ private class EntitlementInfoAPI {
             // FIXME re-enable in SDK-3530
             //  val periodType: PeriodType = periodType
             val latestPurchaseDateMillis: Long? = latestPurchaseDateMillis
-            val latestPurchaseInstant: kotlinx.datetime.Instant? = latestPurchaseInstant
-            val latestPurchaseDate: kotlin.time.Instant? = latestPurchaseDate
+            val latestPurchaseDate: Instant? = latestPurchaseDate
             val originalPurchaseDateMillis: Long? = originalPurchaseDateMillis
-            val originalPurchaseInstant: kotlinx.datetime.Instant? = originalPurchaseInstant
-            val originalPurchaseDate: kotlin.time.Instant? = originalPurchaseDate
+            val originalPurchaseDate: Instant? = originalPurchaseDate
             val expirationDateMillis: Long? = expirationDateMillis
-            val expirationInstant: kotlinx.datetime.Instant? = expirationInstant
-            val expirationDate: kotlin.time.Instant? = expirationDate
+            val expirationDate: Instant? = expirationDate
             // FIXME re-enable in SDK-3530
             //  val store: Store = store
             val productIdentifier: String = productIdentifier
             val productPlanIdentifier: String? = productPlanIdentifier
             val sandbox: Boolean = isSandbox
             val unsubscribeDetectedAtMillis: Long? = unsubscribeDetectedAtMillis
-            val unsubscribeDetectedAtInstant: kotlinx.datetime.Instant? = unsubscribeDetectedAtInstant
-            val unsubscribeDetectedAt: kotlin.time.Instant? = unsubscribeDetectedAt
+            val unsubscribeDetectedAt: Instant? = unsubscribeDetectedAt
             val billingIssueDetectedAtMillis: Long? = billingIssueDetectedAtMillis
-            val billingIssueDetectedAtInstant: kotlinx.datetime.Instant? = billingIssueDetectedAtInstant
-            val billingIssueDetectedAt: kotlin.time.Instant? = billingIssueDetectedAt
+            val billingIssueDetectedAt: Instant? = billingIssueDetectedAt
             // FIXME re-enable in SDK-3530
             //  val ownershipType: OwnershipType = ownershipType
             // FIXME re-enable in SDK-3530

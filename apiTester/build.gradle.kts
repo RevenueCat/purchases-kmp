@@ -49,7 +49,6 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.ui)
             implementation(projects.core)
-            implementation(projects.datetime)
             implementation(projects.either)
             implementation(projects.revenuecatui)
             implementation(projects.result)
