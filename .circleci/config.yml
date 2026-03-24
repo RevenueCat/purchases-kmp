@@ -280,6 +280,11 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - run:
+          name: Write local.properties with Android SDK path
+          command: |
+            SDK_DIR="${ANDROID_HOME:-$HOME/Library/Android/sdk}"
+            echo "sdk.dir=$SDK_DIR" > local.properties
+      - run:
           name: Publish libraries to mavenLocal
           command: ./gradlew publishToMavenLocal
       - save-gradle-user-home-directory-to-cache
