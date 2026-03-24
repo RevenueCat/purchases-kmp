@@ -276,7 +276,7 @@ private fun Map<Any?, *>.toPurchasesError(): PurchasesError = PurchasesError(
 private fun CValue<CGSize>.heightInt(): Int =
     memScoped { ptr.pointed.height.toInt() }
 
-private fun Map<String, CustomVariableValue>.toIosCustomVariables(): Map<String, Any> =
+private fun Map<String, CustomVariableValue>.toIosCustomVariables(): Map<Any?, Any> =
     entries.associate { (key, value) ->
         key to when (value) {
             is CustomVariableValue.String -> value.value as Any
