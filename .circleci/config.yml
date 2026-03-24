@@ -321,9 +321,8 @@ jobs:
               -workspace iosApp.xcworkspace \
               -scheme iosApp \
               -sdk iphonesimulator \
-              -destination 'platform=iOS Simulator,name=iPhone 16' \
-              CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
-              | xcpretty
+              -destination 'platform=iOS Simulator,name=iPhone 17' \
+              CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
           working_directory: iosApp
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
