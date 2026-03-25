@@ -405,6 +405,60 @@ jobs:
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
 
+  run-maestro-e2e-tests-ios:
+    executor: xcode16
+    steps:
+      - checkout
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - revenuecat/install-maestro
+      - run:
+          name: Boot iOS Simulator
+          command: |
+            xcrun simctl boot "iPhone 16 Pro" || true
+            xcrun simctl bootstatus "iPhone 16 Pro" -b
+      - run:
+          name: Run Maestro E2E Tests (iOS)
+          command: bundle exec fastlane run_maestro_e2e_tests_ios
+          no_output_timeout: 15m
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
+      - store_test_results:
+          path: fastlane/test_output
+      - store_artifacts:
+          path: fastlane/test_output
+
+  run-maestro-e2e-tests-android:
+    machine:
+      image: android:2024.11.1
+    resource_class: xlarge
+    steps:
+      - checkout
+      - run:
+          name: Install Ruby and Bundler
+          command: |
+            gem install bundler
+            bundle install
+      - revenuecat/install-maestro
+      - run:
+          name: Create and start Android emulator
+          command: |
+            sdkmanager "system-images;android-34;google_apis;x86_64"
+            echo "no" | avdmanager create avd -n test-e2e -k "system-images;android-34;google_apis;x86_64" --force
+            nohup emulator -avd test-e2e -no-audio -no-boot-anim -no-window -gpu swiftshader_indirect &
+            adb wait-for-device
+            adb shell input keyevent 82
+      - run:
+          name: Run Maestro E2E Tests (Android)
+          command: bundle exec fastlane run_maestro_e2e_tests_android
+          no_output_timeout: 15m
+      - store_test_results:
+          path: fastlane/test_output
+      - store_artifacts:
+          path: fastlane/test_output
+
   create-github-release:
     description: "Creates a GitHub release for the current version"
     executor: ruby3
@@ -418,6 +472,30 @@ jobs:
           command: bundle exec fastlane github_release_current_version
 
 workflows:
+  maestro-e2e-tests-ios:
+    when:
+      or:
+        - and:
+            - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+            - equal: [ "maestro_e2e_tests", << pipeline.schedule.name >> ]
+    jobs:
+      - run-maestro-e2e-tests-ios:
+          context:
+            - maestro-e2e-tests
+            - e2e-tests
+
+  maestro-e2e-tests-android:
+    when:
+      or:
+        - and:
+            - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+            - equal: [ "maestro_e2e_tests", << pipeline.schedule.name >> ]
+    jobs:
+      - run-maestro-e2e-tests-android:
+          context:
+            - maestro-e2e-tests
+            - e2e-tests
+
   on-action-upgrade-hybrid-common:
     when:
       equal: [ upgrade-hybrid-common, << pipeline.parameters.action >> ]
