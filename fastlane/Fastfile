@@ -131,7 +131,7 @@ lane :run_maestro_e2e_tests_ios do
     sh("xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro' -derivedDataPath build CODE_SIGNING_ALLOWED=NO")
     sh("xcrun simctl install booted build/Build/Products/Debug-iphonesimulator/MaestroTestApp.app")
   end
-  sh("maestro test --format junit --output test_output/report.xml e2e-tests/maestro/")
+  sh("maestro test -e MAESTRO_STORE=app_store --format junit --output test_output/report.xml e2e-tests/maestro/")
 end
 
 desc "Run maestro E2E tests on Android"
@@ -141,7 +141,7 @@ lane :run_maestro_e2e_tests_android do
     sh("./gradlew :composeApp:assembleDebug")
     sh("adb install composeApp/build/outputs/apk/debug/composeApp-debug.apk")
   end
-  sh("maestro test --format junit --output test_output/report.xml e2e-tests/maestro/")
+  sh("maestro test -e MAESTRO_STORE=test_store --format junit --output test_output/report.xml e2e-tests/maestro/")
 end
 
 desc "Opens a PR updating the SDK version to the next minor, appending -SNAPSHOT."
