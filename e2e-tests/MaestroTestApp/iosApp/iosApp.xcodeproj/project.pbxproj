@@ -292,7 +292,7 @@
 					"-framework",
 					MaestroTestApp,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.revenuecat.maestro.e2e;
+				PRODUCT_BUNDLE_IDENTIFIER = com.revenuecat.automatedsdktests;
 				PRODUCT_NAME = MaestroTestApp;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -324,7 +324,7 @@
 					"-framework",
 					MaestroTestApp,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.revenuecat.maestro.e2e;
+				PRODUCT_BUNDLE_IDENTIFIER = com.revenuecat.automatedsdktests;
 				PRODUCT_NAME = MaestroTestApp;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

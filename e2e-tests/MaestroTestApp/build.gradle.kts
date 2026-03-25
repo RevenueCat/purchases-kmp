@@ -48,13 +48,13 @@ kotlin {
 }
 
 android {
-    namespace = "com.revenuecat.maestro.e2e"
+    namespace = "com.revenuecat.automatedsdktests"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
     defaultConfig {
-        applicationId = "com.revenuecat.maestro.e2e"
+        applicationId = "com.revenuecat.automatedsdktests"
         minSdk = 24
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
