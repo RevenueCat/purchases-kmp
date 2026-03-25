@@ -37,6 +37,8 @@ import arrow.core.Either
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import com.revenuecat.purchases.kmp.PurchasesDelegate
+import com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
+import com.revenuecat.purchases.kmp.models.StoreKitVersion
 import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
 import com.revenuecat.purchases.kmp.ktx.awaitCustomerInfo
 import com.revenuecat.purchases.kmp.models.CustomerInfo
@@ -44,6 +46,7 @@ import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreTransaction
+import com.revenuecat.purchases.kmp.ui.revenuecatui.CustomVariableValue
 import com.revenuecat.purchases.kmp.sample.components.CustomerInfoSection
 import com.revenuecat.purchases.kmp.sample.components.OfferingsSection
 import kotlinx.coroutines.channels.awaitClose
@@ -55,6 +58,7 @@ import kotlinx.coroutines.flow.onStart
 @Composable
 fun MainScreen(
     navigateTo: (Screen) -> Unit,
+    customVariables: Map<String, CustomVariableValue> = emptyMap(),
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -89,7 +93,15 @@ fun MainScreen(
                 Spacer(modifier = Modifier.size(8.dp))
                 Button(
                     onClick = {
-                        Purchases.configure(configuration.toPurchasesConfiguration())
+                        Purchases.configure(
+                            configuration.toPurchasesConfiguration {
+                                if (purchasesAreCompletedByMyApp) {
+                                    purchasesAreCompletedBy = PurchasesAreCompletedBy.MyApp(
+                                        StoreKitVersion.STOREKIT_2
+                                    )
+                                }
+                            }
+                        )
                         isConfigured = Purchases.isConfigured
                     },
                     modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -156,8 +168,21 @@ fun MainScreen(
                 OfferingsSection(
                     state = offeringsState,
                     navigateTo = navigateTo,
+                    customVariables = customVariables,
                     modifier = Modifier.fillMaxWidth(),
                 )
+
+                Spacer(modifier = Modifier.size(16.dp))
+                TextButton(
+                    onClick = { navigateTo(Screen.CustomVariablesEditor) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    val count = customVariables.size
+                    Text(
+                        if (count > 0) "Custom Variables ($count)"
+                        else "Custom Variables"
+                    )
+                }
 
                 Spacer(modifier = Modifier.size(16.dp))
                 TextButton(
@@ -189,6 +214,26 @@ fun MainScreen(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text("Ad Tracking Testing")
+                }
+
+                Spacer(modifier = Modifier.size(16.dp))
+                TextButton(
+                    onClick = { navigateTo(Screen.CustomPaywallTracking) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Custom Paywall Tracking")
+                }
+
+                Spacer(modifier = Modifier.size(16.dp))
+                TextButton(
+                    onClick = { Purchases.sharedInstance.presentCodeRedemptionSheet() },
+                    enabled = isCodeRedemptionSheetAvailable,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        if (isCodeRedemptionSheetAvailable) "Present Code Redemption Sheet"
+                        else "Present Code Redemption Sheet (iOS 14.0+ only)"
+                    )
                 }
             }
         }

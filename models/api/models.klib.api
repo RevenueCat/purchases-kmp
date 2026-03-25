@@ -265,6 +265,7 @@ final enum class com.revenuecat.purchases.kmp.models/Store : kotlin/Enum<com.rev
     enum entry AMAZON // com.revenuecat.purchases.kmp.models/Store.AMAZON|null[0]
     enum entry APP_STORE // com.revenuecat.purchases.kmp.models/Store.APP_STORE|null[0]
     enum entry EXTERNAL // com.revenuecat.purchases.kmp.models/Store.EXTERNAL|null[0]
+    enum entry GALAXY // com.revenuecat.purchases.kmp.models/Store.GALAXY|null[0]
     enum entry MAC_APP_STORE // com.revenuecat.purchases.kmp.models/Store.MAC_APP_STORE|null[0]
     enum entry PADDLE // com.revenuecat.purchases.kmp.models/Store.PADDLE|null[0]
     enum entry PLAY_STORE // com.revenuecat.purchases.kmp.models/Store.PLAY_STORE|null[0]
@@ -579,8 +580,6 @@ final class com.revenuecat.purchases.kmp.models/AdFormat { // com.revenuecat.pur
             final fun <get-BANNER>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.BANNER.<get-BANNER>|<get-BANNER>(){}[0]
         final val INTERSTITIAL // com.revenuecat.purchases.kmp.models/AdFormat.Companion.INTERSTITIAL|{}INTERSTITIAL[0]
             final fun <get-INTERSTITIAL>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.INTERSTITIAL.<get-INTERSTITIAL>|<get-INTERSTITIAL>(){}[0]
-        final val MREC // com.revenuecat.purchases.kmp.models/AdFormat.Companion.MREC|{}MREC[0]
-            final fun <get-MREC>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.MREC.<get-MREC>|<get-MREC>(){}[0]
         final val NATIVE // com.revenuecat.purchases.kmp.models/AdFormat.Companion.NATIVE|{}NATIVE[0]
             final fun <get-NATIVE>(): com.revenuecat.purchases.kmp.models/AdFormat // com.revenuecat.purchases.kmp.models/AdFormat.Companion.NATIVE.<get-NATIVE>|<get-NATIVE>(){}[0]
         final val OTHER // com.revenuecat.purchases.kmp.models/AdFormat.Companion.OTHER|{}OTHER[0]
@@ -679,6 +678,15 @@ final class com.revenuecat.purchases.kmp.models/AdRevenuePrecision { // com.reve
         final val UNKNOWN // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.UNKNOWN|{}UNKNOWN[0]
             final fun <get-UNKNOWN>(): com.revenuecat.purchases.kmp.models/AdRevenuePrecision // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.UNKNOWN.<get-UNKNOWN>|<get-UNKNOWN>(){}[0]
     }
+}
+
+final class com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams { // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams|null[0]
+    constructor <init>(kotlin/String? = ..., kotlin/String? = ...) // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.<init>|<init>(kotlin.String?;kotlin.String?){}[0]
+
+    final val offeringId // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.offeringId|{}offeringId[0]
+        final fun <get-offeringId>(): kotlin/String? // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.offeringId.<get-offeringId>|<get-offeringId>(){}[0]
+    final val paywallId // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.paywallId|{}paywallId[0]
+        final fun <get-paywallId>(): kotlin/String? // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.paywallId.<get-paywallId>|<get-paywallId>(){}[0]
 }
 
 final class com.revenuecat.purchases.kmp.models/CustomerInfo { // com.revenuecat.purchases.kmp.models/CustomerInfo|null[0]

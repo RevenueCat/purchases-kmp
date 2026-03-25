@@ -3,6 +3,8 @@ package com.revenuecat.purchases.kmp
 import android.content.Intent
 import android.net.Uri
 import com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI
+import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams as KmpCustomPaywallImpressionParams
+import com.revenuecat.purchases.paywalls.events.CustomPaywallImpressionParams as AndroidCustomPaywallImpressionParams
 import com.revenuecat.purchases.PurchaseParams
 import com.revenuecat.purchases.common.PlatformInfo
 import com.revenuecat.purchases.getCustomerInfoWith
@@ -533,6 +535,13 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual fun setCreative(creative: String?): Unit =
         androidPurchases.setCreative(creative)
 
+    public actual fun presentCodeRedemptionSheet() {
+        logHandler.v(
+            tag = "Purchases",
+            msg = "`presentCodeRedemptionSheet()` is only available on iOS 14.0 and up."
+        )
+    }
+
     public actual fun enableAdServicesAttributionTokenCollection() {
         logHandler.v(
             tag = "Purchases",
@@ -585,6 +594,17 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual fun getCachedVirtualCurrencies(): VirtualCurrencies? {
         val cachedVirtualCurrencies: AndroidVirtualCurrencies? = androidPurchases.cachedVirtualCurrencies
         return cachedVirtualCurrencies?.toVirtualCurrencies()
+    }
+
+    public actual fun trackCustomPaywallImpression(
+        params: KmpCustomPaywallImpressionParams,
+    ) {
+        androidPurchases.trackCustomPaywallImpression(
+            AndroidCustomPaywallImpressionParams(
+                paywallId = params.paywallId,
+                offeringId = params.offeringId,
+            )
+        )
     }
 
     @ExperimentalRevenueCatApi

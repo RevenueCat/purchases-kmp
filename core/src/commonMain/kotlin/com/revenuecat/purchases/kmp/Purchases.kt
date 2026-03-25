@@ -18,6 +18,7 @@ import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
 import com.revenuecat.purchases.kmp.models.VirtualCurrencies
 import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
@@ -785,6 +786,15 @@ public expect class Purchases {
     public fun setCreative(creative: String?)
 
     /**
+     * iOS 14.0+ only. Presents a code redemption sheet, useful for redeeming offer codes.
+     * Refer to https://docs.revenuecat.com/docs/ios-subscription-offers#offer-codes
+     * for more information on how to configure and use offer codes.
+     *
+     * On Android, this is a no-op.
+     */
+    public fun presentCodeRedemptionSheet()
+
+    /**
      * Enable automatic collection of Apple Search Ad attribution on iOS. Disabled by default.
      *
      * **Note:** this is only available on iOS 14.3 and up.
@@ -823,6 +833,17 @@ public expect class Purchases {
      * least once with [Purchases.getVirtualCurrencies] or an equivalent function.
      */
     public fun getCachedVirtualCurrencies(): VirtualCurrencies?
+
+    /**
+     * Tracks an impression of a custom (non-RevenueCat) paywall.
+     * Call this method when your custom paywall is displayed to a user.
+     * This enables RevenueCat to track paywall impressions for analytics.
+     *
+     * @param params Parameters for the custom paywall impression event.
+     */
+    public fun trackCustomPaywallImpression(
+        params: CustomPaywallImpressionParams = CustomPaywallImpressionParams(),
+    )
 
     /**
      * Provides access to ad tracking functionality.

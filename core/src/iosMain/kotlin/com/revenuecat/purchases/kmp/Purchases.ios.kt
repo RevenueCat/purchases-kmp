@@ -17,6 +17,8 @@ import swiftPMImport.com.revenuecat.purchases.kn.core.setAirbridgeDeviceID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setAirshipChannelID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setOnesignalUserID
 import swiftPMImport.com.revenuecat.purchases.kn.core.showStoreMessagesForTypes
+import swiftPMImport.com.revenuecat.purchases.kn.core.trackCustomPaywallImpression
+import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
 import com.revenuecat.purchases.kmp.ktx.mapEntriesNotNull
 import com.revenuecat.purchases.kmp.mappings.buildStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
@@ -720,6 +722,15 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun setCreative(creative: String?): Unit =
         iosPurchases.setCreative(creative)
 
+    public actual fun presentCodeRedemptionSheet() {
+        if (IOSAPIAvailabilityChecker().isCodeRedemptionSheetAPIAvailable())
+            RCCommonFunctionality.presentCodeRedemptionSheet()
+        else logHandler.d(
+            tag = "Purchases",
+            msg = "`presentCodeRedemptionSheet()` is only available on iOS 14.0 and up."
+        )
+    }
+
     public actual fun enableAdServicesAttributionTokenCollection() {
         if (IOSAPIAvailabilityChecker().isEnableAdServicesAttributionTokenCollectionAPIAvailable())
             RCCommonFunctionality.enableAdServicesAttributionTokenCollection()
@@ -798,6 +809,22 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun getCachedVirtualCurrencies(): VirtualCurrencies? {
         val cachedVirtualCurrencies: RCVirtualCurrencies? = iosPurchases.cachedVirtualCurrencies()
         return cachedVirtualCurrencies?.toVirtualCurrencies()
+    }
+
+    public actual fun trackCustomPaywallImpression(
+        params: CustomPaywallImpressionParams,
+    ) {
+        if (!IOSAPIAvailabilityChecker().isCustomPaywallTrackingAPIAvailable()) {
+            Purchases.logHandler.w(
+                "Purchases",
+                "Custom paywall tracking requires iOS 15.0+. Current API is unavailable."
+            )
+            return
+        }
+        val data = mutableMapOf<Any?, Any?>()
+        params.paywallId?.let { data["paywallId"] = it }
+        params.offeringId?.let { data["offeringId"] = it }
+        RCCommonFunctionality.trackCustomPaywallImpression(data)
     }
 
     @ExperimentalRevenueCatApi

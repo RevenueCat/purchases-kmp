@@ -60,6 +60,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public static final fun isConfigured ()Z
 	public final fun logIn (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
 	public final fun logOut (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public final fun presentCodeRedemptionSheet ()V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/Package;Lcom/revenuecat/purchases/kmp/models/WinBackOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/Package;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;Ljava/lang/Boolean;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/ReplacementMode;)V
@@ -106,6 +107,8 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun syncAmazonPurchase (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Double;)V
 	public final fun syncAttributesAndOfferingsIfNeeded (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun syncPurchases (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public final fun trackCustomPaywallImpression (Lcom/revenuecat/purchases/kmp/models/CustomPaywallImpressionParams;)V
+	public static synthetic fun trackCustomPaywallImpression$default (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/CustomPaywallImpressionParams;ILjava/lang/Object;)V
 }
 
 public final class com/revenuecat/purchases/kmp/Purchases$Companion {

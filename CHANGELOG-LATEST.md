@@ -1,8 +1,11 @@
 ## RevenueCat SDK
-### ✨ New Features
-* [EXTERNAL] feat: add coroutine method for canMakePayments, awaitCanMakePayments (#698) contributed by @TheRogue76 (#700) via Toni Rico (@tonidero)
 ### 📦 Dependency Updates
-* [RENOVATE] Update dependency upstream/purchases-ios to v5.59.2 (#695) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.66.0 (#744) via RevenueCat Git Bot (@RCGitBot)
+
+## RevenueCatUI SDK
+### ✨ New Features
+* Add custom variables support for paywalls (#747) via Facundo Menzella (@facumenzella)
 
 ### 🔄 Other Changes
-* Bump fastlane-plugin-revenuecat_internal from `afc9219` to `ea6276c` (#696) via dependabot[bot] (@dependabot[bot])
+* Merge release PR after deploy (#761) via Antonio Pallares (@ajpallares)
+* Require PR approval before release tagging (#760) via Antonio Pallares (@ajpallares)

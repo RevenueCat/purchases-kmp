@@ -9,6 +9,8 @@ import swiftPMImport.com.revenuecat.purchases.kn.core.RCAmazon
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCAppStore
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCBilling
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCEntitlementInfo
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCExternal
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCGalaxy
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCIntro
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCMacAppStore
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCNormal
@@ -57,8 +59,10 @@ internal fun IosStore.toStore(): Store =
         RCUnknownStore -> Store.UNKNOWN_STORE
         RCAmazon -> Store.AMAZON
         RCBilling -> Store.RC_BILLING
+        RCExternal -> Store.EXTERNAL
         RCPaddle -> Store.PADDLE
         RCTestStore -> Store.TEST_STORE
+        RCGalaxy -> Store.GALAXY
         else -> error("Unknown IosStore: $this")
     }
 

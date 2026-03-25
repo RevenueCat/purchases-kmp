@@ -1,15 +1,19 @@
 package com.revenuecat.purchases.kmp.sample
 
 import com.revenuecat.purchases.kmp.models.Offering
+import com.revenuecat.purchases.kmp.ui.revenuecatui.CustomVariableValue
 
 sealed interface Screen {
 
     data object Main : Screen
-    data class Paywall(val offering: Offering?) : Screen
-    data class PaywallFooter(val offering: Offering?) : Screen
+    data class Paywall(val offering: Offering?, val customVariables: Map<String, CustomVariableValue> = emptyMap()) : Screen
+    data class PaywallWithPurchaseLogic(val offering: Offering?, val customVariables: Map<String, CustomVariableValue> = emptyMap()) : Screen
+    data class PaywallFooter(val offering: Offering?, val customVariables: Map<String, CustomVariableValue> = emptyMap()) : Screen
     data object WinBackTesting : Screen
     data object CustomerCenter : Screen
     data object VirtualCurrencyTesting : Screen
     data object AdTracking : Screen
+    data object CustomVariablesEditor : Screen
+    data object CustomPaywallTracking : Screen
 
 }
