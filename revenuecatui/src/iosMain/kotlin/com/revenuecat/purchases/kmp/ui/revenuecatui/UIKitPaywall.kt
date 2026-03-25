@@ -163,8 +163,11 @@ internal class IosPaywallProxyDelegate(
         val customerInfo = buildCustomerInfo(didFinishPurchasingWithCustomerInfoDictionary)
             .getOrElse { return }
         val storeTransaction = transactionDictionary
-            ?.let { buildStoreTransaction(it).getOrNull() }
-            ?: return
+            ?.let { buildStoreTransaction(it).getOrElse { return } }
+            ?: run {
+                println("[RevenueCat] Warning: purchase completed with no transaction — onPurchaseCompleted will not fire.")
+                return
+            }
         listener.onPurchaseCompleted(customerInfo, storeTransaction)
     }
 
