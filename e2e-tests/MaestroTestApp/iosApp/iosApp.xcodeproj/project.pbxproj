@@ -18,6 +18,7 @@
 		A200000300000003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A200000400000004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A200000500000005 /* MaestroTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MaestroTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A200000600000006 /* StoreKitConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreKitConfiguration.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +37,7 @@
 			children = (
 				A400000300000003 /* iosApp */,
 				A400000200000002 /* Products */,
+				A200000600000006 /* StoreKitConfiguration.storekit */,
 			);
 			sourceTree = "<group>";
 		};
