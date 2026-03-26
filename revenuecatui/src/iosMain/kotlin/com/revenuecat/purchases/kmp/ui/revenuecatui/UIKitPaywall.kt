@@ -162,7 +162,7 @@ private class PurchaseHandler(
 
     private fun PurchasesError.toNSError() = NSError(
         code = code.code.toLong(),
-        domain = "com.revenuecat.purchases",
+        domain = "com.revenuecat.purchases.kmp",
         userInfo = mapOf(NSLocalizedDescriptionKey to message),
     )
 }
