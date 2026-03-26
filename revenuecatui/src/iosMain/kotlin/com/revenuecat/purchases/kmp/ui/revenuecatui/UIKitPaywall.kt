@@ -86,6 +86,7 @@ private fun RCPaywallViewController.setCustomVariables(variables: Map<String, Cu
                 value = value.value,
                 forKey = key
             )
+            else -> error("Unknown CustomVariableValue type: ${value::class.simpleName}")
         }
     }
 }
