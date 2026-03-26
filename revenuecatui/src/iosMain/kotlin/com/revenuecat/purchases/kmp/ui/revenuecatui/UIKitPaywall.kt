@@ -11,10 +11,10 @@ import com.revenuecat.purchases.kmp.mappings.toIosOffering
 import com.revenuecat.purchases.kmp.mappings.toPackage
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.PurchasesError
+import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.layoutViewController
 import com.revenuecat.purchases.kmp.ui.revenuecatui.modifier.rememberLayoutViewControllerState
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import platform.Foundation.NSError
 import platform.Foundation.NSLocalizedDescriptionKey
@@ -23,6 +23,7 @@ import swiftPMImport.com.revenuecat.purchases.kn.core.RCPackage
 import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallFooterViewController
 import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallPurchaseHandlerProtocol
 import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallViewController
+import kotlin.coroutines.cancellation.CancellationException
 import swiftPMImport.com.revenuecat.purchases.kn.ui.RCOffering as RCOfferingFromKnUi
 import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPackage as RCPackageFromKnUi
 
@@ -105,15 +106,25 @@ private class PurchaseHandler(
 
     override fun performRestoreWithCompletion(completion: (success: Boolean, error: NSError?) -> Unit) {
         coroutineScope.launch {
-            var complete = false
+            var success = false
+            var error: NSError? = null
             try {
                 val result = purchaseLogic.performRestore(getCustomerInfo())
-                val error = (result as? PurchaseLogicResult.Error)?.errorDetails?.toNSError()
-                val success = result is PurchaseLogicResult.Success
-                completion(success, error)
-                complete = true
+                error = (result as? PurchaseLogicResult.Error)?.errorDetails?.toNSError()
+                success = result is PurchaseLogicResult.Success
+            } catch (e: CancellationException) {
+                error = PurchasesError(
+                    code = PurchasesErrorCode.UnknownError,
+                    underlyingErrorMessage = "Restore cancelled"
+                ).toNSError()
+                throw e
+            } catch (t: Throwable) {
+                error = PurchasesError(
+                    code = PurchasesErrorCode.UnknownError,
+                    underlyingErrorMessage = "Error performing restore: ${t.message}"
+                ).toNSError()
             } finally {
-                if (!complete) completion(!isActive, null)
+                completion(success, error)
             }
         }
     }
@@ -123,17 +134,28 @@ private class PurchaseHandler(
         completion: (userCancelled: Boolean, error: NSError?) -> Unit
     ) {
         coroutineScope.launch {
-            var complete = false
+            var userCancelled = false
+            var error: NSError? = null
             try {
                 val result = purchaseLogic.performPurchase(
                     PaywallPurchaseLogicParams((`package` as RCPackage).toPackage())
                 )
-                val error = (result as? PurchaseLogicResult.Error)?.errorDetails?.toNSError()
-                val cancelled = result is PurchaseLogicResult.Cancellation
-                completion(cancelled, error)
-                complete = true
+                error = (result as? PurchaseLogicResult.Error)?.errorDetails?.toNSError()
+                userCancelled = result is PurchaseLogicResult.Cancellation
+            } catch (e: CancellationException) {
+                error = PurchasesError(
+                    code = PurchasesErrorCode.PurchaseCancelledError,
+                    underlyingErrorMessage = "Purchase cancelled"
+                ).toNSError()
+                userCancelled = true
+                throw e
+            } catch (t: Throwable) {
+                error = PurchasesError(
+                    code = PurchasesErrorCode.UnknownError,
+                    underlyingErrorMessage = "Error performing purchase: ${t.message}"
+                ).toNSError()
             } finally {
-                if (!complete) completion(!isActive, null)
+                completion(userCancelled, error)
             }
         }
     }
@@ -143,4 +165,4 @@ private class PurchaseHandler(
         domain = "com.revenuecat.purchases",
         userInfo = mapOf(NSLocalizedDescriptionKey to message),
     )
- }
+}
