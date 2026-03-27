@@ -113,10 +113,6 @@ private class PurchaseHandler(
                 error = (result as? PurchaseLogicResult.Error)?.errorDetails?.toNSError()
                 success = result is PurchaseLogicResult.Success
             } catch (e: CancellationException) {
-                error = PurchasesError(
-                    code = PurchasesErrorCode.UnknownError,
-                    underlyingErrorMessage = "Restore cancelled"
-                ).toNSError()
                 throw e
             } catch (t: Throwable) {
                 error = PurchasesError(
@@ -143,10 +139,6 @@ private class PurchaseHandler(
                 error = (result as? PurchaseLogicResult.Error)?.errorDetails?.toNSError()
                 userCancelled = result is PurchaseLogicResult.Cancellation
             } catch (e: CancellationException) {
-                error = PurchasesError(
-                    code = PurchasesErrorCode.PurchaseCancelledError,
-                    underlyingErrorMessage = "Purchase cancelled"
-                ).toNSError()
                 userCancelled = true
                 throw e
             } catch (t: Throwable) {
