@@ -8,7 +8,7 @@ kotlin {
             api(projects.models)
         }
         androidMain.dependencies {
-            api(libs.revenuecat.common)
+            api(libs.revenuecat.android)
         }
         iosMain.dependencies {
             implementation(projects.knCore)
