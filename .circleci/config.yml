@@ -409,8 +409,11 @@ jobs:
     macos:
       xcode: 26.3.0
     resource_class: m4pro.medium
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
     steps:
       - checkout
+      - install-android-sdk-on-macos
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - restore-gradle-user-home-directory-from-cache
