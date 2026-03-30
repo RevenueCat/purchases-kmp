@@ -406,7 +406,9 @@ jobs:
       - save-kotlin-native-compiler-to-cache
 
   run-maestro-e2e-tests-ios:
-    executor: xcode16
+    macos:
+      xcode: 26.3.0
+    resource_class: m4pro.medium
     steps:
       - checkout
       - revenuecat/install-gem-mac-dependencies:
@@ -417,8 +419,8 @@ jobs:
       - run:
           name: Boot iOS Simulator
           command: |
-            xcrun simctl boot "iPhone 16 Pro" || true
-            xcrun simctl bootstatus "iPhone 16 Pro" -b
+            xcrun simctl boot "iPhone 17" || true
+            xcrun simctl bootstatus "iPhone 17" -b
       - run:
           name: Run Maestro E2E Tests (iOS)
           command: bundle exec fastlane run_maestro_e2e_tests_ios
