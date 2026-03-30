@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp
 
+
 import com.revenuecat.purchases.kmp.ktx.mapEntriesNotNull
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toIntroEligibilityStatus
@@ -49,6 +50,7 @@ import platform.Foundation.NSError
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDefaults
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCConfiguration
+import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomPaywallImpressionParams
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomerInfo
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCIntroEligibility
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCPlatformInfo
@@ -65,8 +67,8 @@ import swiftPMImport.com.revenuecat.purchases.kn.core.recordPurchaseForProductID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setAirbridgeDeviceID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setAirshipChannelID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setOnesignalUserID
-import swiftPMImport.com.revenuecat.purchases.kn.core.setPostHogUserID
 import swiftPMImport.com.revenuecat.purchases.kn.core.showStoreMessagesForTypes
+import swiftPMImport.com.revenuecat.purchases.kn.core.trackCustomPaywallImpression
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCDangerousSettings as IosDangerousSettings
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchases as IosPurchases
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCWinBackOffer as NativeIosWinBackOffer
@@ -698,8 +700,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         iosPurchases.setCreative(creative)
 
     public actual fun presentCodeRedemptionSheet() {
-        if (IOSAPIAvailabilityChecker().isCodeRedemptionSheetAPIAvailable())
-            RCCommonFunctionality.presentCodeRedemptionSheet()
+        if (AppleApiAvailability().isCodeRedemptionSheetAPIAvailable())
+            iosPurchases.presentCodeRedemptionSheet()
         else logHandler.d(
             tag = "Purchases",
             msg = "`presentCodeRedemptionSheet()` is only available on iOS 14.0 and up."
@@ -789,17 +791,19 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun trackCustomPaywallImpression(
         params: CustomPaywallImpressionParams,
     ) {
-        if (!IOSAPIAvailabilityChecker().isCustomPaywallTrackingAPIAvailable()) {
-            Purchases.logHandler.w(
+        if (!AppleApiAvailability().isCustomPaywallTrackingAPIAvailable()) {
+            logHandler.w(
                 "Purchases",
                 "Custom paywall tracking requires iOS 15.0+. Current API is unavailable."
             )
             return
         }
-        val data = mutableMapOf<Any?, Any?>()
-        params.paywallId?.let { data["paywallId"] = it }
-        params.offeringId?.let { data["offeringId"] = it }
-        RCCommonFunctionality.trackCustomPaywallImpression(data)
+        iosPurchases.trackCustomPaywallImpression(
+            RCCustomPaywallImpressionParams(
+                paywallId = params.paywallId,
+                offeringId = params.offeringId
+            )
+        )
     }
 
     @ExperimentalRevenueCatApi
