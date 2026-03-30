@@ -30,7 +30,7 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
 
     LaunchedEffect(Unit) {
         Purchases.sharedInstance.getCustomerInfo(
-            onError = { /* ignore */ },
+            onError = { error -> println("Failed to get customer info: ${error.message}") },
             onSuccess = { info ->
                 hasPro = info.entitlements.active.containsKey("pro")
             }
