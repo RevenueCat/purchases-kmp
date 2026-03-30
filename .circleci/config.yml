@@ -447,13 +447,13 @@ jobs:
           name: Build Maestro app (Android)
           command: bundle exec fastlane build_maestro_app_android
           no_output_timeout: 15m
-      - android/create_avd:
-          avd_name: test-e2e
-          system_image: system-images;android-34;google_apis;x86_64
+      - android/create-avd:
+          avd-name: test-e2e
+          system-image: system-images;android-34;google_apis;x86_64
           install: true
-      - android/start_emulator:
-          avd_name: test-e2e
-          post_emulator_launch_assemble_command: ""
+      - android/start-emulator:
+          avd-name: test-e2e
+          post-emulator-launch-assemble-command: ""
       - revenuecat/install-maestro
       - run:
           name: Run Maestro E2E Tests (Android)
