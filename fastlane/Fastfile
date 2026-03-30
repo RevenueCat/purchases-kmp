@@ -136,11 +136,9 @@ end
 
 desc "Run maestro E2E tests on Android"
 lane :run_maestro_e2e_tests_android do
-  Dir.chdir("e2e-tests/MaestroTestApp") do
-    sh("sed -i 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE\"'/g' src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt")
-    sh("./gradlew :composeApp:assembleDebug")
-    sh("adb install composeApp/build/outputs/apk/debug/composeApp-debug.apk")
-  end
+  sh("sed -i 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE\"'/g' e2e-tests/MaestroTestApp/src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt")
+  sh("./gradlew :e2e-tests:MaestroTestApp:assembleDebug")
+  sh("adb install e2e-tests/MaestroTestApp/build/outputs/apk/debug/MaestroTestApp-debug.apk")
   sh("maestro test --format junit --output test_output/report.xml e2e-tests/maestro/")
 end
 
