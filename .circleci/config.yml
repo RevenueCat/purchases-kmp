@@ -413,6 +413,12 @@ jobs:
       HOMEBREW_NO_AUTO_UPDATE: 1
     steps:
       - checkout
+      - run:
+          name: Install JDK 21 for Gradle
+          command: |
+            brew install openjdk@21
+            sudo ln -sfn "$(brew --prefix openjdk@21)/libexec/openjdk.jdk" /Library/Java/JavaVirtualMachines/openjdk-21.jdk
+            echo 'export JAVA_HOME=$(/usr/libexec/java_home -v 21)' >> "$BASH_ENV"
       - install-android-sdk-on-macos
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
