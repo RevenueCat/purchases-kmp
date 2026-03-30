@@ -35,9 +35,38 @@ public class AppleApiAvailability: NSObject {
         #endif
     }
 
+    /// Determines if the `presentCodeRedemptionSheet` API is available on the current device.
+    ///
+    /// - Returns: `true` if `presentCodeRedemptionSheet` is available, `false` otherwise.
+    @objc
+    public func isCodeRedemptionSheetAPIAvailable() -> Bool {
+        #if os(tvOS) || os(watchOS) || os(macOS) || targetEnvironment(macCatalyst)
+        return false
+        #else
+        if #available(iOS 14.0, visionOS 1.0, *) {
+            return true
+        } else {
+            return false
+        }
+        #endif
+    }
+
     @objc
     public func isAdTrackingAPIAvailable() -> Bool {
         if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    /// Determines if the Custom Paywall Tracking APIs are available on the current device.
+    ///
+    /// - Returns: `true` if the Custom Paywall Tracking APIs (trackCustomPaywallImpression) are available,
+    /// `false` otherwise.
+    @objc
+    public func isCustomPaywallTrackingAPIAvailable() -> Bool {
+        if #available(iOS 15.0, tvOS 15.0, macOS 12.0, watchOS 8.0, *) {
             return true
         } else {
             return false
