@@ -7,29 +7,38 @@ allprojects {
             enabled = false
         }
 
-        // Inject post_install hook into CocoaPods Podfiles to disable Xcode 26.3
-        // debug dylib creation. The debug dylib requires a _main symbol that doesn't
-        // exist in framework targets, causing linker failures.
+        // Inject ENABLE_DEBUG_DYLIB=NO into CocoaPods Podfiles to prevent Xcode 26.3
+        // from creating debug dylibs for framework targets (which lack _main).
+        val buildDirPath = layout.buildDirectory.get().asFile.absolutePath
+
         tasks.matching {
             it.name.lowercase().contains("podinstall")
         }.configureEach {
             doFirst {
-                val cocoaDir = File(project.buildDir, "cocoapods")
-                if (cocoaDir.exists()) {
-                    cocoaDir.walk().filter { it.name == "Podfile" }.forEach { podfile ->
-                        val content = podfile.readText()
-                        if (!content.contains("ENABLE_DEBUG_DYLIB")) {
-                            podfile.appendText("""
-
-post_install do |installer|
+                val settingsCode = """
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
       config.build_settings['ENABLE_DEBUG_DYLIB'] = 'NO'
       config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'dwarf'
     end
-  end
-end
-""")
+  end"""
+
+                val cocoaDir = File(buildDirPath, "cocoapods")
+                if (cocoaDir.exists()) {
+                    cocoaDir.walk().filter { it.name == "Podfile" }.forEach { podfile ->
+                        val content = podfile.readText()
+                        if (content.contains("ENABLE_DEBUG_DYLIB")) return@forEach
+
+                        if (content.contains("post_install do |installer|")) {
+                            val modified = content.replace(
+                                "post_install do |installer|",
+                                "post_install do |installer|" + settingsCode
+                            )
+                            podfile.writeText(modified)
+                        } else {
+                            podfile.appendText(
+                                "\npost_install do |installer|" + settingsCode + "\nend\n"
+                            )
                         }
                     }
                 }
