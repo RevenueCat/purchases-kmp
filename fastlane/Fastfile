@@ -129,7 +129,26 @@ lane :run_maestro_e2e_tests_ios do
   Dir.chdir("../e2e-tests/MaestroTestApp") do
     sh("sed -i '' 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE\"'/g' src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt")
     sh("pod cache clean --all")
-    sh("xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17' -derivedDataPath build CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=YES ARCHS=arm64 ENABLE_DEBUG_DYLIB=NO ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS=NO")
+    xcodebuild_cmd = "xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17' -derivedDataPath build CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=YES ARCHS=arm64 ENABLE_DEBUG_DYLIB=NO ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS=NO"
+    max_attempts = 3
+    attempt = 0
+    success = false
+    while attempt < max_attempts && !success
+      attempt += 1
+      begin
+        UI.message("xcodebuild attempt #{attempt}/#{max_attempts}")
+        sh(xcodebuild_cmd)
+        success = true
+      rescue => e
+        if attempt < max_attempts
+          UI.important("xcodebuild attempt #{attempt} failed, retrying in 5s...")
+          sleep 5
+        else
+          UI.error("xcodebuild failed after #{max_attempts} attempts")
+          raise e
+        end
+      end
+    end
     sh("xcrun simctl install booted build/Build/Products/Debug-iphonesimulator/MaestroTestApp.app")
   end
   sh("mkdir -p test_output")
