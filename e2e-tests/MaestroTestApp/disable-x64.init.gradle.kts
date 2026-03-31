@@ -9,71 +9,46 @@ allprojects {
 
         val buildDirPath = layout.buildDirectory.get().asFile.absolutePath
 
-        // Inject build settings into CocoaPods Podfiles via post_install hook
+        // After podInstall finishes (generates Podfile AND runs pod install),
+        // patch the generated Pods project to fix Xcode 26.3 issues.
+        // Using doLast ensures the Pods.xcodeproj already exists.
         tasks.matching {
             it.name.lowercase().contains("podinstall")
         }.configureEach {
-            doFirst {
-                val settingsCode = """
-  installer.pods_project.targets.each do |target|
-    target.build_configurations.each do |config|
-      config.build_settings['ENABLE_DEBUG_DYLIB'] = 'NO'
-      config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'dwarf'
-      config.build_settings['ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS'] = 'NO'
-      config.build_settings.delete('ASSETCATALOG_COMPILER_APPICON_NAME')
-      config.build_settings['ARCHS'] = 'arm64'
-      config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
-    end
-  end"""
-
+            doLast {
                 val cocoaDir = File(buildDirPath, "cocoapods")
-                if (cocoaDir.exists()) {
-                    cocoaDir.walk().filter { it.name == "Podfile" }.forEach { podfile ->
-                        val content = podfile.readText()
-                        if (content.contains("ENABLE_DEBUG_DYLIB")) return@forEach
+                if (!cocoaDir.exists()) {
+                    println("CI-init: cocoapods dir not found at ${cocoaDir.path}")
+                    return@doLast
+                }
 
-                        if (content.contains("post_install do |installer|")) {
-                            val modified = content.replace(
-                                "post_install do |installer|",
-                                "post_install do |installer|" + settingsCode
-                            )
-                            podfile.writeText(modified)
-                        } else {
-                            podfile.appendText(
-                                "\npost_install do |installer|" + settingsCode + "\nend\n"
-                            )
+                cocoaDir.walk()
+                    .filter { it.isFile && (it.extension == "xcconfig" || it.name == "project.pbxproj") }
+                    .forEach { file ->
+                        val original = file.readText()
+                        var modified = original
+
+                        // Resource bundle targets inherit ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
+                        // but have no AppIcon set, causing actool to fail. Remove it entirely.
+                        modified = modified.replace(
+                            Regex("""^.*ASSETCATALOG_COMPILER_APPICON_NAME.*\n?""", RegexOption.MULTILINE),
+                            ""
+                        )
+
+                        // Disable Xcode 26.3 debug dylib feature (causes _main not found errors)
+                        if (file.extension == "xcconfig" && !modified.contains("ENABLE_DEBUG_DYLIB")) {
+                            modified += "\nENABLE_DEBUG_DYLIB = NO\n"
+                            modified += "DEBUG_INFORMATION_FORMAT = dwarf\n"
+                            modified += "ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = NO\n"
+                            modified += "ONLY_ACTIVE_ARCH = YES\n"
+                            modified += "ARCHS = arm64\n"
+                        }
+
+                        if (modified != original) {
+                            file.writeText(modified)
+                            println("CI-init: patched ${file.path}")
                         }
                     }
-                }
-            }
-        }
-
-        // Remove ASSETCATALOG_COMPILER_APPICON_NAME from ALL config files before xcodebuild.
-        // Resource bundle targets inherit AppIcon but their xcassets don't contain one,
-        // causing actool to fail with "None of the input catalogs contained a matching
-        // app icon set named AppIcon". The setting can be in .xcconfig or project.pbxproj.
-        tasks.matching {
-            it.name.lowercase().contains("podbuild")
-        }.configureEach {
-            doFirst {
-                val cocoaDir = File(buildDirPath, "cocoapods")
-                if (cocoaDir.exists()) {
-                    cocoaDir.walk()
-                        .filter { it.isFile && (it.extension == "xcconfig" || it.name == "project.pbxproj") }
-                        .forEach { file ->
-                            val content = file.readText()
-                            if (content.contains("ASSETCATALOG_COMPILER_APPICON_NAME")) {
-                                val modified = content.replace(
-                                    Regex("""^.*ASSETCATALOG_COMPILER_APPICON_NAME.*$""", RegexOption.MULTILINE),
-                                    ""
-                                )
-                                file.writeText(modified)
-                                println("Removed ASSETCATALOG_COMPILER_APPICON_NAME from ${file.path}")
-                            }
-                        }
-                } else {
-                    println("WARNING: cocoapods dir does not exist at $buildDirPath/cocoapods")
-                }
             }
         }
     }
