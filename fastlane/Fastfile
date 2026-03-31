@@ -136,9 +136,18 @@ lane :run_maestro_e2e_tests_ios do
     UI.important("Running Gradle pod install tasks to generate CocoaPods projects...")
     sh("cd ../.. && ./gradlew :revenuecatui:podInstallSyntheticIos :models:podInstallSyntheticIos :mappings:podInstallSyntheticIos :core:podInstallSyntheticIos #{gradle_opts}")
 
-    UI.important("Patching CocoaPods AppIcon build setting...")
-    sh(%q(find ../.. -path '*/build/cocoapods/*' -name '*.xcconfig' -exec sh -c 'if grep -q ASSETCATALOG_COMPILER_APPICON_NAME "$1"; then sed -i "" "s/ASSETCATALOG_COMPILER_APPICON_NAME = .*/ASSETCATALOG_COMPILER_APPICON_NAME = /" "$1"; else echo "ASSETCATALOG_COMPILER_APPICON_NAME = " >> "$1"; fi' _ {} \;))
-    sh(%q(find ../.. -path '*/build/cocoapods/*' -name 'project.pbxproj' -exec sh -c 'sed -i "" "s/ASSETCATALOG_COMPILER_APPICON_NAME = [^;]*/ASSETCATALOG_COMPILER_APPICON_NAME = \\\"\\\"/" "$1"' _ {} \;))
+    UI.important("Patching CocoaPods AppIcon build setting via xcodeproj gem...")
+    require 'xcodeproj'
+    Dir.glob("../../**/build/cocoapods/**/Pods.xcodeproj").each do |path|
+      UI.message("Patching: #{path}")
+      project = Xcodeproj::Project.open(path)
+      project.targets.each do |target|
+        target.build_configurations.each do |config|
+          config.build_settings['ASSETCATALOG_COMPILER_APPICON_NAME'] = ''
+        end
+      end
+      project.save
+    end
     sh("find ../.. -path '*/build/cocoapods/*' -name 'XCBuildData' -type d -exec rm -rf {} + 2>/dev/null || true")
 
     UI.important("Building with xcodebuild (pod install will be UP-TO-DATE, using patched files)...")
