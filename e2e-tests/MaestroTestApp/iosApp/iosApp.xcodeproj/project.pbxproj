@@ -140,7 +140,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/../..\"\n../../gradlew :e2e-tests:MaestroTestApp:embedAndSignAppleFrameworkForXcode\n";
+			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\nexport ARCHS=arm64\nexport ONLY_ACTIVE_ARCH=YES\nexport EXCLUDED_ARCHS=x86_64\nexport ENABLE_DEBUG_DYLIB=NO\ncd \"$SRCROOT/../../..\"\n./gradlew :e2e-tests:MaestroTestApp:embedAndSignAppleFrameworkForXcode --init-script e2e-tests/MaestroTestApp/disable-x64.init.gradle.kts --no-parallel --max-workers=1 --no-daemon --no-configuration-cache\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -275,7 +275,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../../build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"$(inherited)",
+					"$(SRCROOT)/../build/bin/iosSimulatorArm64/debugFramework",
 				);
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = iosApp/Info.plist;
@@ -288,7 +289,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
-					MaestroTestApp,
+					ComposeApp,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.revenuecat.automatedsdktests;
 				PRODUCT_NAME = MaestroTestApp;
@@ -307,7 +308,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../../build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+					"$(inherited)",
+					"$(SRCROOT)/../build/bin/iosSimulatorArm64/debugFramework",
 				);
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = iosApp/Info.plist;
@@ -320,7 +322,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
-					MaestroTestApp,
+					ComposeApp,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.revenuecat.automatedsdktests;
 				PRODUCT_NAME = MaestroTestApp;
