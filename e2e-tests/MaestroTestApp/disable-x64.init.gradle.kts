@@ -7,10 +7,9 @@ allprojects {
             enabled = false
         }
 
-        // Inject ENABLE_DEBUG_DYLIB=NO into CocoaPods Podfiles to prevent Xcode 26.3
-        // from creating debug dylibs for framework targets (which lack _main).
         val buildDirPath = layout.buildDirectory.get().asFile.absolutePath
 
+        // Inject build settings into CocoaPods Podfiles via post_install hook
         tasks.matching {
             it.name.lowercase().contains("podinstall")
         }.configureEach {
@@ -21,7 +20,7 @@ allprojects {
       config.build_settings['ENABLE_DEBUG_DYLIB'] = 'NO'
       config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'dwarf'
       config.build_settings['ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS'] = 'NO'
-      config.build_settings['ASSETCATALOG_COMPILER_APPICON_NAME'] = ''
+      config.build_settings.delete('ASSETCATALOG_COMPILER_APPICON_NAME')
       config.build_settings['ARCHS'] = 'arm64'
       config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
     end
@@ -45,6 +44,33 @@ allprojects {
                             )
                         }
                     }
+                }
+            }
+        }
+
+        // Remove ASSETCATALOG_COMPILER_APPICON_NAME from Pods.xcodeproj before xcodebuild.
+        // Resource bundle targets inherit AppIcon but their xcassets don't contain one,
+        // causing actool to fail with "None of the input catalogs contained a matching
+        // app icon set named AppIcon".
+        tasks.matching {
+            it.name.lowercase().contains("podbuild")
+        }.configureEach {
+            doFirst {
+                val cocoaDir = File(buildDirPath, "cocoapods")
+                if (cocoaDir.exists()) {
+                    cocoaDir.walk()
+                        .filter { it.name == "project.pbxproj" && it.path.contains("Pods.xcodeproj") }
+                        .forEach { pbxproj ->
+                            val content = pbxproj.readText()
+                            val modified = content.replace(
+                                Regex("""^\s*ASSETCATALOG_COMPILER_APPICON_NAME\s*=\s*[^;]*;\s*$""", RegexOption.MULTILINE),
+                                ""
+                            )
+                            if (modified != content) {
+                                pbxproj.writeText(modified)
+                                println("Removed ASSETCATALOG_COMPILER_APPICON_NAME from ${pbxproj.path}")
+                            }
+                        }
                 }
             }
         }
