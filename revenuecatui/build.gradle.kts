@@ -19,7 +19,7 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
         }
         androidMain.dependencies {
-            implementation(libs.revenuecat.commonUi)
+            implementation(libs.revenuecatUi.android)
             implementation(projects.mappings)
         }
         iosMain.dependencies {

@@ -8,14 +8,10 @@ kotlin {
             api(projects.models)
         }
         androidMain.dependencies {
-            api(libs.revenuecat.common)
+            api(libs.revenuecat.android)
         }
         iosMain.dependencies {
             implementation(projects.knCore)
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test.annotations)
-            implementation(libs.kotlin.test.assertions)
         }
         androidUnitTest.dependencies {
             implementation(libs.kotlin.test.junit)

@@ -9,6 +9,15 @@
     {
       "matchManagers": ["git-submodules"],
       "enabled": true
+    },
+    {
+      "matchPackageNames": [
+        "com.revenuecat.purchases:purchases",
+        "com.revenuecat.purchases:purchases-ui"
+      ],
+      "matchManagers": ["gradle"],
+      "enabled": true,
+      "groupName": "purchases-android"
     }
   ]
 }

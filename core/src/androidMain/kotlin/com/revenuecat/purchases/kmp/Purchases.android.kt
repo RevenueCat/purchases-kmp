@@ -3,8 +3,6 @@ package com.revenuecat.purchases.kmp
 import android.content.Intent
 import android.net.Uri
 import com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI
-import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams as KmpCustomPaywallImpressionParams
-import com.revenuecat.purchases.paywalls.events.CustomPaywallImpressionParams as AndroidCustomPaywallImpressionParams
 import com.revenuecat.purchases.PurchaseParams
 import com.revenuecat.purchases.common.PlatformInfo
 import com.revenuecat.purchases.getCustomerInfoWith
@@ -12,20 +10,19 @@ import com.revenuecat.purchases.getOfferingsWith
 import com.revenuecat.purchases.getProductsWith
 import com.revenuecat.purchases.getStorefrontCountryCodeWith
 import com.revenuecat.purchases.getVirtualCurrenciesWith
-import com.revenuecat.purchases.hybridcommon.isWebPurchaseRedemptionURL
 import com.revenuecat.purchases.kmp.di.AndroidProvider
 import com.revenuecat.purchases.kmp.di.requireActivity
 import com.revenuecat.purchases.kmp.di.requireApplication
-import com.revenuecat.purchases.kmp.mappings.toAndroid
 import com.revenuecat.purchases.kmp.mappings.toAndroidBillingFeature
 import com.revenuecat.purchases.kmp.mappings.toAndroidCacheFetchPolicy
+import com.revenuecat.purchases.kmp.mappings.toAndroidEntitlementVerificationMode
 import com.revenuecat.purchases.kmp.mappings.toAndroidGoogleReplacementMode
 import com.revenuecat.purchases.kmp.mappings.toAndroidPackage
+import com.revenuecat.purchases.kmp.mappings.toAndroidPurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.mappings.toAndroidStore
 import com.revenuecat.purchases.kmp.mappings.toAndroidStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toAndroidSubscriptionOption
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
-import com.revenuecat.purchases.kmp.mappings.toHybridString
 import com.revenuecat.purchases.kmp.mappings.toOfferings
 import com.revenuecat.purchases.kmp.mappings.toPurchasesError
 import com.revenuecat.purchases.kmp.mappings.toStore
@@ -33,11 +30,6 @@ import com.revenuecat.purchases.kmp.mappings.toStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toVirtualCurrencies
 import com.revenuecat.purchases.kmp.mappings.toWebPurchaseResult
-import com.revenuecat.purchases.kmp.models.AdDisplayedData
-import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
-import com.revenuecat.purchases.kmp.models.AdLoadedData
-import com.revenuecat.purchases.kmp.models.AdOpenedData
-import com.revenuecat.purchases.kmp.models.AdRevenueData
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomerInfo
@@ -59,7 +51,6 @@ import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.Storefront
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.VirtualCurrencies
-import com.revenuecat.purchases.kmp.models.VirtualCurrency
 import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
 import com.revenuecat.purchases.kmp.models.WinBackOffer
 import com.revenuecat.purchases.kmp.strings.ConfigureStrings
@@ -73,7 +64,9 @@ import com.revenuecat.purchases.syncPurchasesWith
 import java.net.URL
 import com.revenuecat.purchases.DangerousSettings as AndroidDangerousSettings
 import com.revenuecat.purchases.Purchases as AndroidPurchases
-import com.revenuecat.purchases.hybridcommon.configure as commonConfigure
+import com.revenuecat.purchases.PurchasesConfiguration as AndroidPurchasesConfiguration
+import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams as KmpCustomPaywallImpressionParams
+import com.revenuecat.purchases.paywalls.events.CustomPaywallImpressionParams as AndroidCustomPaywallImpressionParams
 import com.revenuecat.purchases.virtualcurrencies.VirtualCurrencies as AndroidVirtualCurrencies
 
 public actual class Purchases private constructor(private val androidPurchases: AndroidPurchases) {
@@ -120,21 +113,24 @@ public actual class Purchases private constructor(private val androidPurchases: 
         @JvmStatic
         public actual fun configure(configuration: PurchasesConfiguration): Purchases {
             with(configuration) {
-                // Using the common configure() call allows us to pass PlatformInfo.
-                commonConfigure(
-                    context = AndroidProvider.requireApplication(),
-                    apiKey = apiKey,
-                    appUserID = appUserId,
-                    purchasesAreCompletedBy = purchasesAreCompletedBy.toHybridString(),
-                    platformInfo = PlatformInfo(
-                        flavor = BuildKonfig.platformFlavor,
-                        version = frameworkVersion,
-                    ),
-                    store = (store ?: Store.PLAY_STORE).toAndroidStore(),
-                    dangerousSettings = dangerousSettings.toAndroidDangerousSettings(),
-                    shouldShowInAppMessagesAutomatically = showInAppMessagesAutomatically,
-                    verificationMode = verificationMode.name,
-                    pendingTransactionsForPrepaidPlansEnabled = pendingTransactionsForPrepaidPlansEnabled
+                AndroidPurchases.platformInfo = PlatformInfo(
+                    flavor = BuildKonfig.platformFlavor,
+                    version = frameworkVersion,
+                )
+                AndroidPurchases.configure(
+                    AndroidPurchasesConfiguration.Builder(
+                        context = AndroidProvider.requireApplication(),
+                        apiKey = apiKey,
+                    ).appUserID(appUserId)
+                        .purchasesAreCompletedBy(purchasesAreCompletedBy.toAndroidPurchasesAreCompletedBy())
+                        .store((store ?: Store.PLAY_STORE).toAndroidStore())
+                        .dangerousSettings(dangerousSettings.toAndroidDangerousSettings())
+                        .showInAppMessagesAutomatically(showInAppMessagesAutomatically)
+                        .entitlementVerificationMode(verificationMode.toAndroidEntitlementVerificationMode())
+                        .pendingTransactionsForPrepaidPlansEnabled(
+                            pendingTransactionsForPrepaidPlansEnabled ?: false
+                        )
+                        .build()
                 )
             }
 
@@ -154,7 +150,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
             AndroidDangerousSettings(autoSyncPurchases)
 
         public actual fun parseAsWebPurchaseRedemption(url: String): WebPurchaseRedemption? {
-            return if (isWebPurchaseRedemptionURL(url)) {
+            return if (AndroidPurchases.parseAsWebPurchaseRedemption(url) != null) {
                 WebPurchaseRedemption(url)
             } else {
                 null

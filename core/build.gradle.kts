@@ -16,7 +16,7 @@ kotlin {
         }
         androidMain.dependencies {
             api(libs.androidx.startup)
-            implementation(libs.revenuecat.common)
+            implementation(libs.revenuecat.android)
             implementation(projects.mappings)
         }
         iosMain.dependencies {
@@ -43,7 +43,6 @@ buildkonfig {
 
     defaultConfigs {
         buildConfigField(STRING, "platformFlavor", "kmp")
-        buildConfigField(STRING, "revenuecatCommonVersion", libs.versions.revenuecat.common.get())
         buildConfigField(STRING, "revenuecatKmpVersion", libs.versions.revenuecat.kmp.get())
     }
 }
