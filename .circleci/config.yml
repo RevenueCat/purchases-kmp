@@ -407,7 +407,7 @@ jobs:
 
   run-maestro-e2e-tests-ios:
     macos:
-      xcode: 26.3.0
+      xcode: 16.4.0
     resource_class: m4pro.medium
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
@@ -428,8 +428,8 @@ jobs:
       - run:
           name: Boot iOS Simulator
           command: |
-            xcrun simctl boot "iPhone 17" || true
-            xcrun simctl bootstatus "iPhone 17" -b
+            xcrun simctl boot "iPhone 16 Pro" || true
+            xcrun simctl bootstatus "iPhone 16 Pro" -b
       - run:
           name: Run Maestro E2E Tests (iOS)
           command: bundle exec fastlane run_maestro_e2e_tests_ios
