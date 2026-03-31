@@ -9,7 +9,7 @@ revenueCat {
 kotlin {
     sourceSets {
         androidMain.dependencies {
-            implementation(libs.revenuecat.common)
+            implementation(libs.revenuecat.android)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test.annotations)
