@@ -136,8 +136,11 @@ lane :run_maestro_e2e_tests_ios do
     UI.important("Running Gradle pod install tasks (init script patches AppIcon settings in doLast)...")
     sh("cd ../.. && ./gradlew :revenuecatui:podInstallSyntheticIos :models:podInstallSyntheticIos :mappings:podInstallSyntheticIos :core:podInstallSyntheticIos #{gradle_opts}")
 
-    UI.important("Building with xcodebuild...")
-    sh("xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro' -derivedDataPath build CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=YES ARCHS=arm64 ENABLE_DEBUG_DYLIB=NO ASSETCATALOG_COMPILER_APPICON_NAME=")
+    UI.important("Installing CocoaPods for iosApp...")
+    sh("cd iosApp && pod install --repo-update")
+
+    UI.important("Building with xcodebuild (using workspace)...")
+    sh("xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme iosApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro' -derivedDataPath build CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=YES ARCHS=arm64 ENABLE_DEBUG_DYLIB=NO ASSETCATALOG_COMPILER_APPICON_NAME=")
 
     sh("xcrun simctl install booted build/Build/Products/Debug-iphonesimulator/MaestroTestApp.app")
   end
