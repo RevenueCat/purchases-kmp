@@ -131,19 +131,7 @@ lane :run_maestro_e2e_tests_ios do
     sh("pod cache clean --all")
     sh("rm -rf ~/Library/Caches/CocoaPods/Pods")
 
-    xcodebuild_cmd = [
-      "xcodebuild",
-      "-project", "iosApp/iosApp.xcodeproj",
-      "-scheme", "iosApp",
-      "-configuration", "Debug",
-      "-sdk", "iphonesimulator",
-      "-destination", "platform=iOS Simulator,name=iPhone 16 Pro",
-      "-derivedDataPath", "build",
-      "CODE_SIGNING_ALLOWED=NO",
-      "ONLY_ACTIVE_ARCH=YES",
-      "ARCHS=arm64",
-      "ENABLE_DEBUG_DYLIB=NO",
-    ].join(" ")
+    xcodebuild_cmd = "xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro' -derivedDataPath build CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=YES ARCHS=arm64 ENABLE_DEBUG_DYLIB=NO"
 
     begin
       sh(xcodebuild_cmd)
