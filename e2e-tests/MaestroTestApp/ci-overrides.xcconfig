@@ -1,4 +1,0 @@
-// Disable Xcode 26.3 debug dylib creation for synthetic CocoaPods projects
-// The debug dylib requires a _main symbol that doesn't exist in framework targets
-ENABLE_DEBUG_DYLIB = NO
-DEBUG_INFORMATION_FORMAT = dwarf
