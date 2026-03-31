@@ -131,12 +131,15 @@ lane :run_maestro_e2e_tests_ios do
     sh("pod cache clean --all")
     sh("rm -rf ~/Library/Caches/CocoaPods/Pods")
 
+    UI.important("Pre-warming CocoaPods cache to avoid Errno::ENOENT during Gradle pod install...")
+    sh("mkdir -p /tmp/pod-warmup")
+    sh("cd /tmp/pod-warmup && cat > Podfile << 'PODEOF'\nsource 'https://cdn.cocoapods.org'\nplatform :ios, '13.0'\ntarget 'Warmup' do\n  use_frameworks!\n  pod 'PurchasesHybridCommon', '~> 17.0'\n  pod 'PurchasesHybridCommonUI', '~> 17.0'\nend\nPODEOF")
+    sh("cd /tmp/pod-warmup && pod install --no-integrate 2>&1 || true")
+
     gradle_opts = "--init-script e2e-tests/MaestroTestApp/disable-x64.init.gradle.kts --no-parallel --max-workers=1 --no-daemon --no-configuration-cache"
 
-    UI.important("Running Gradle pod install tasks one at a time to avoid CocoaPods cache races...")
-    %w[core models mappings revenuecatui].each do |mod|
-      sh("cd ../.. && ./gradlew :#{mod}:podInstallSyntheticIos #{gradle_opts}")
-    end
+    UI.important("Running Gradle pod install tasks (init script patches AppIcon settings in doLast)...")
+    sh("cd ../.. && ./gradlew :revenuecatui:podInstallSyntheticIos :models:podInstallSyntheticIos :mappings:podInstallSyntheticIos :core:podInstallSyntheticIos #{gradle_opts}")
 
     UI.important("Installing CocoaPods for iosApp...")
     sh("cd iosApp && pod install --repo-update")
