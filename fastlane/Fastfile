@@ -142,6 +142,8 @@ lane :run_maestro_e2e_tests_ios do
       rescue => e
         if attempt < max_attempts
           UI.important("xcodebuild attempt #{attempt} failed, retrying in 5s...")
+          sh("rm -rf build")
+          sh("pod cache clean --all")
           sleep 5
         else
           UI.error("xcodebuild failed after #{max_attempts} attempts")
