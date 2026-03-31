@@ -10,7 +10,7 @@ ios-deploymentTarget-core = "13.0"
 ios-deploymentTarget-ui = "15.0"
 java = "1.8"
 junit = "5.10.0"
-kotlin = "2.1.21"
+kotlin = "2.3.20"
 mavenPublish = "0.33.0"
 revenuecat-android = "9.26.1"
 revenuecat-kmp = "2.11.0-SNAPSHOT"
@@ -33,7 +33,6 @@ kotlin-test-assertions = { module = "org.jetbrains.kotlin:kotlin-test-common", v
 kotlin-test-annotations = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "kotlin" }
 kotlin-test-core = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.0" }
 revenuecat-android = { module = "com.revenuecat.purchases:purchases", version.ref = "revenuecat-android" }
 revenuecatUi-android =  { module = "com.revenuecat.purchases:purchases-ui", version.ref = "revenuecat-android" }
 
