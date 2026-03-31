@@ -1,14 +1,13 @@
 package com.revenuecat.maestro.e2e
 
 import androidx.compose.ui.window.ComposeUIViewController
-import androidx.compose.ui.uikit.AccessibilitySyncOptions
 import com.revenuecat.purchases.kmp.LogLevel
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import platform.Foundation.NSLog
 
 @Suppress("unused", "FunctionName")
-fun MainViewController() = run {
+fun MainViewController(): platform.UIKit.UIViewController {
     try {
         NSLog("MaestroTestApp: Configuring Purchases with API key length: ${API_KEY.length}")
         Purchases.logLevel = LogLevel.DEBUG
@@ -17,9 +16,5 @@ fun MainViewController() = run {
     } catch (e: Exception) {
         NSLog("MaestroTestApp: Error configuring Purchases: ${e.message}")
     }
-    ComposeUIViewController(
-        configure = {
-            accessibilitySyncOptions = AccessibilitySyncOptions.Always(null)
-        }
-    ) { App() }
+    return ComposeUIViewController { App() }
 }
