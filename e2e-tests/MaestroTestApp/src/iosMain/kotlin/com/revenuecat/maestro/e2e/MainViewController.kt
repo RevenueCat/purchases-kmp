@@ -1,6 +1,7 @@
 package com.revenuecat.maestro.e2e
 
 import androidx.compose.ui.window.ComposeUIViewController
+import androidx.compose.ui.uikit.AccessibilitySyncOptions
 import com.revenuecat.purchases.kmp.LogLevel
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
@@ -16,5 +17,9 @@ fun MainViewController() = run {
     } catch (e: Exception) {
         NSLog("MaestroTestApp: Error configuring Purchases: ${e.message}")
     }
-    ComposeUIViewController { App() }
+    ComposeUIViewController(
+        configure = {
+            accessibilitySyncOptions = AccessibilitySyncOptions.Always(null)
+        }
+    ) { App() }
 }
