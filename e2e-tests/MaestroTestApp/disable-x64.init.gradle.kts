@@ -48,10 +48,10 @@ allprojects {
             }
         }
 
-        // Remove ASSETCATALOG_COMPILER_APPICON_NAME from Pods.xcodeproj before xcodebuild.
+        // Remove ASSETCATALOG_COMPILER_APPICON_NAME from ALL config files before xcodebuild.
         // Resource bundle targets inherit AppIcon but their xcassets don't contain one,
         // causing actool to fail with "None of the input catalogs contained a matching
-        // app icon set named AppIcon".
+        // app icon set named AppIcon". The setting can be in .xcconfig or project.pbxproj.
         tasks.matching {
             it.name.lowercase().contains("podbuild")
         }.configureEach {
@@ -59,18 +59,20 @@ allprojects {
                 val cocoaDir = File(buildDirPath, "cocoapods")
                 if (cocoaDir.exists()) {
                     cocoaDir.walk()
-                        .filter { it.name == "project.pbxproj" && it.path.contains("Pods.xcodeproj") }
-                        .forEach { pbxproj ->
-                            val content = pbxproj.readText()
-                            val modified = content.replace(
-                                Regex("""^\s*ASSETCATALOG_COMPILER_APPICON_NAME\s*=\s*[^;]*;\s*$""", RegexOption.MULTILINE),
-                                ""
-                            )
-                            if (modified != content) {
-                                pbxproj.writeText(modified)
-                                println("Removed ASSETCATALOG_COMPILER_APPICON_NAME from ${pbxproj.path}")
+                        .filter { it.isFile && (it.extension == "xcconfig" || it.name == "project.pbxproj") }
+                        .forEach { file ->
+                            val content = file.readText()
+                            if (content.contains("ASSETCATALOG_COMPILER_APPICON_NAME")) {
+                                val modified = content.replace(
+                                    Regex("""^.*ASSETCATALOG_COMPILER_APPICON_NAME.*$""", RegexOption.MULTILINE),
+                                    ""
+                                )
+                                file.writeText(modified)
+                                println("Removed ASSETCATALOG_COMPILER_APPICON_NAME from ${file.path}")
                             }
                         }
+                } else {
+                    println("WARNING: cocoapods dir does not exist at $buildDirPath/cocoapods")
                 }
             }
         }
