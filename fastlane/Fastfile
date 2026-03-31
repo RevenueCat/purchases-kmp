@@ -133,34 +133,11 @@ lane :run_maestro_e2e_tests_ios do
 
     gradle_opts = "--init-script e2e-tests/MaestroTestApp/disable-x64.init.gradle.kts --no-parallel --max-workers=1 --no-daemon --no-configuration-cache"
 
-    UI.important("Running Gradle pod install tasks to generate CocoaPods projects...")
+    UI.important("Running Gradle pod install tasks (init script patches AppIcon settings in doLast)...")
     sh("cd ../.. && ./gradlew :revenuecatui:podInstallSyntheticIos :models:podInstallSyntheticIos :mappings:podInstallSyntheticIos :core:podInstallSyntheticIos #{gradle_opts}")
 
-    UI.important("Patching CocoaPods AppIcon build setting...")
-    require 'xcodeproj'
-    pods_projects = `find ../.. -path '*/build/cocoapods/*/Pods/Pods.xcodeproj' -type d 2>/dev/null`.strip.split("\n").reject(&:empty?)
-    UI.important("Found #{pods_projects.length} Pods.xcodeproj files to patch")
-    pods_projects.each do |path|
-      UI.important("Patching: #{path}")
-      begin
-        project = Xcodeproj::Project.open(path)
-        project.targets.each do |target|
-          target.build_configurations.each do |config|
-            old_val = config.build_settings['ASSETCATALOG_COMPILER_APPICON_NAME']
-            config.build_settings['ASSETCATALOG_COMPILER_APPICON_NAME'] = ''
-            UI.message("  #{target.name}/#{config.name}: '#{old_val}' -> ''")
-          end
-        end
-        project.save
-        UI.important("Saved: #{path}")
-      rescue => e
-        UI.error("Failed to patch #{path}: #{e.message}")
-      end
-    end
-    sh("find ../.. -path '*/build/cocoapods/*' -name 'XCBuildData' -type d -exec rm -rf {} + 2>/dev/null || true")
-
-    UI.important("Building with xcodebuild (pod install will be UP-TO-DATE, using patched files)...")
-    sh("xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro' -derivedDataPath build CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=YES ARCHS=arm64 ENABLE_DEBUG_DYLIB=NO")
+    UI.important("Building with xcodebuild...")
+    sh("xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro' -derivedDataPath build CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=YES ARCHS=arm64 ENABLE_DEBUG_DYLIB=NO ASSETCATALOG_COMPILER_APPICON_NAME=")
 
     sh("xcrun simctl install booted build/Build/Products/Debug-iphonesimulator/MaestroTestApp.app")
   end
