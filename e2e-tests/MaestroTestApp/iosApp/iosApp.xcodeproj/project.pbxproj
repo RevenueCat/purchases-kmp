@@ -288,7 +288,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
-					MaestroTestApp,
+					ComposeApp,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.revenuecat.automatedsdktests;
 				PRODUCT_NAME = MaestroTestApp;
@@ -320,7 +320,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
-					MaestroTestApp,
+					ComposeApp,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.revenuecat.automatedsdktests;
 				PRODUCT_NAME = MaestroTestApp;
