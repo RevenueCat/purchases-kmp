@@ -133,8 +133,10 @@ lane :run_maestro_e2e_tests_ios do
 
     gradle_opts = "--init-script e2e-tests/MaestroTestApp/disable-x64.init.gradle.kts --no-parallel --max-workers=1 --no-daemon --no-configuration-cache"
 
-    UI.important("Running Gradle pod install tasks (init script patches AppIcon settings in doLast)...")
-    sh("cd ../.. && ./gradlew :revenuecatui:podInstallSyntheticIos :models:podInstallSyntheticIos :mappings:podInstallSyntheticIos :core:podInstallSyntheticIos #{gradle_opts}")
+    UI.important("Running Gradle pod install tasks one at a time to avoid CocoaPods cache races...")
+    %w[core models mappings revenuecatui].each do |mod|
+      sh("cd ../.. && ./gradlew :#{mod}:podInstallSyntheticIos #{gradle_opts}")
+    end
 
     UI.important("Installing CocoaPods for iosApp...")
     sh("cd iosApp && pod install --repo-update")
