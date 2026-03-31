@@ -21,6 +21,7 @@ allprojects {
       config.build_settings['ENABLE_DEBUG_DYLIB'] = 'NO'
       config.build_settings['DEBUG_INFORMATION_FORMAT'] = 'dwarf'
       config.build_settings['ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS'] = 'NO'
+      config.build_settings['ASSETCATALOG_COMPILER_APPICON_NAME'] = ''
       config.build_settings['ARCHS'] = 'arm64'
       config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
     end

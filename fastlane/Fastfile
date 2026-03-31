@@ -129,7 +129,7 @@ lane :run_maestro_e2e_tests_ios do
   Dir.chdir("../e2e-tests/MaestroTestApp") do
     sh("sed -i '' 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE\"'/g' src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt")
     sh("pod cache clean --all")
-    xcodebuild_cmd = "xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17' -derivedDataPath build CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=YES ARCHS=arm64 ENABLE_DEBUG_DYLIB=NO ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS=NO"
+    xcodebuild_cmd = "xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17' -derivedDataPath build CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=YES ARCHS=arm64 ENABLE_DEBUG_DYLIB=NO ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS=NO ASSETCATALOG_COMPILER_APPICON_NAME="
     max_attempts = 3
     attempt = 0
     success = false
