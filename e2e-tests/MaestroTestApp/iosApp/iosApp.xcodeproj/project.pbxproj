@@ -140,7 +140,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\nexport ARCHS=arm64\nexport ONLY_ACTIVE_ARCH=YES\nexport EXCLUDED_ARCHS=x86_64\nmkdir -p /tmp/xcode-wrapper\nprintf '#!/bin/bash\\nexec /usr/bin/xcodebuild \"$@\" ENABLE_DEBUG_DYLIB=NO\\n' > /tmp/xcode-wrapper/xcodebuild\nchmod +x /tmp/xcode-wrapper/xcodebuild\nexport PATH=\"/tmp/xcode-wrapper:$PATH\"\ncd \"$SRCROOT/../../..\"\n./gradlew :e2e-tests:MaestroTestApp:embedAndSignAppleFrameworkForXcode --init-script e2e-tests/MaestroTestApp/disable-x64.init.gradle.kts\n";
+			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\nexport ARCHS=arm64\nexport ONLY_ACTIVE_ARCH=YES\nexport EXCLUDED_ARCHS=x86_64\nmkdir -p /tmp/xcode-wrapper\nprintf '#!/bin/bash\\nexec /usr/bin/xcodebuild \"$@\" ENABLE_DEBUG_DYLIB=NO\\n' > /tmp/xcode-wrapper/xcodebuild\nchmod +x /tmp/xcode-wrapper/xcodebuild\nexport PATH=\"/tmp/xcode-wrapper:$PATH\"\ncd \"$SRCROOT/../../..\"\n./gradlew :e2e-tests:MaestroTestApp:embedAndSignAppleFrameworkForXcode --init-script e2e-tests/MaestroTestApp/disable-x64.init.gradle.kts --no-parallel\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
