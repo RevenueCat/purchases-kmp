@@ -21,7 +21,6 @@ rootProject.name = "purchases-kmp"
 include(":apiTester")
 include(":composeApp")
 include(":core")
-include(":datetime")
 include(":either")
 include(":kn-core")
 include(":kn-ui")

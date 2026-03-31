@@ -218,7 +218,7 @@ jobs:
           name: Build libraries for Android
           command: |
             tasks=()
-            for module in core revenuecatui datetime either result; do
+            for module in core revenuecatui either result; do
               for buildType in Debug Release; do
                 tasks+=(":$module:compile${buildType}KotlinAndroid")
               done
@@ -242,7 +242,7 @@ jobs:
           name: Build libraries for iOS
           command: |
             tasks=()
-            for module in core revenuecatui datetime either result; do
+            for module in core revenuecatui either result; do
               for arch in Arm64 SimulatorArm64 X64; do
                 tasks+=(":$module:compileKotlinIos$arch")
               done

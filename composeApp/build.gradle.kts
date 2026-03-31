@@ -48,7 +48,6 @@ kotlin {
             implementation(projects.core)
             implementation(projects.result)
             implementation(projects.either)
-            implementation(projects.datetime)
             implementation(projects.revenuecatui)
         }
         androidMain.dependencies {
