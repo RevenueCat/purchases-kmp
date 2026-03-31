@@ -27,11 +27,19 @@ gradle.taskGraph.whenReady {
                     var modified = false
 
                     if (text.contains("ASSETCATALOG_COMPILER_APPICON_NAME")) {
-                        text = text.lines()
-                            .filter { !it.contains("ASSETCATALOG_COMPILER_APPICON_NAME") }
-                            .joinToString("\n")
+                        if (file.extension == "xcconfig") {
+                            text = text.replace(
+                                Regex("""ASSETCATALOG_COMPILER_APPICON_NAME = .*"""),
+                                "ASSETCATALOG_COMPILER_APPICON_NAME = "
+                            )
+                        } else {
+                            text = text.replace(
+                                Regex("""ASSETCATALOG_COMPILER_APPICON_NAME = [^;]*"""),
+                                "ASSETCATALOG_COMPILER_APPICON_NAME = \"\""
+                            )
+                        }
                         modified = true
-                        println("CI-PATCH: removed ASSETCATALOG_COMPILER_APPICON_NAME from ${file.path}")
+                        println("CI-PATCH: set ASSETCATALOG_COMPILER_APPICON_NAME to empty in ${file.path}")
                     }
 
                     if (file.extension == "xcconfig" && !text.contains("ENABLE_DEBUG_DYLIB")) {
