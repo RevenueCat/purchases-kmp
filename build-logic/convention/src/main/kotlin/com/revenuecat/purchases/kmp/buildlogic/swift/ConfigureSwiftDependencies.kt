@@ -318,7 +318,7 @@ private fun Project.getSwiftConfiguration(): String {
     return "debug"
 }
 
-private fun Project.getToolchainPath(): Provider<String?> =
+private fun Project.getToolchainPath(): Provider<String> =
     providers.exec {
         commandLine("xcrun", "--find", "swift")
     }.standardOutput.asText.map { swiftPath ->
