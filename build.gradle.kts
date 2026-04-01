@@ -5,7 +5,6 @@ import com.vanniktech.maven.publish.MavenPublishPlugin
 import com.vanniktech.maven.publish.SonatypeHost
 import dev.iurysouza.modulegraph.Orientation
 import io.gitlab.arturbosch.detekt.Detekt
-import org.gradle.configurationcache.extensions.capitalized
 
 plugins {
     //trick: for the same plugin versions in all sub-modules
@@ -159,3 +158,6 @@ private fun TaskContainer.registerDetektTask(
             xml.outputLocation = file("build/reports/detekt/$reportName.xml")
         }
     }
+
+private fun CharSequence.capitalized(): String =
+    toString().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }

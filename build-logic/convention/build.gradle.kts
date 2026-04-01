@@ -32,6 +32,7 @@ dependencies {
     testImplementation(libs.kotlin.test.junit)
 
     testRuntimeOnly(libs.junit.engine)
+    testRuntimeOnly(libs.junit.platformLauncher)
 }
 
 tasks.test {

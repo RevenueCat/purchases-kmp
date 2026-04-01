@@ -10,7 +10,7 @@ ios-deploymentTarget-core = "13.0"
 ios-deploymentTarget-ui = "15.0"
 java = "1.8"
 junit = "5.10.0"
-kotlin = "2.1.21"
+kotlin = "2.3.20"
 mavenPublish = "0.33.0"
 revenuecat-android = "9.26.1"
 revenuecat-kmp = "2.11.0-SNAPSHOT"
@@ -28,6 +28,7 @@ arrow-core = { module = "io.arrow-kt:arrow-core", version = "1.2.4" }
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-core = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+junit-platformLauncher = { module = "org.junit.platform:junit-platform-launcher" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-test-assertions = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }
 kotlin-test-annotations = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "kotlin" }
