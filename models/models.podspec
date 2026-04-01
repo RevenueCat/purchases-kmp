@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'models'
-    spec.version                  = '2.10.0-SNAPSHOT'
+    spec.version                  = '2.11.0-SNAPSHOT'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = ''

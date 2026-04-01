@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.revenuecat.purchases.kmp.models.Offering
 import com.revenuecat.purchases.kmp.models.Offerings
+import com.revenuecat.purchases.kmp.ui.revenuecatui.CustomVariableValue
 import com.revenuecat.purchases.kmp.sample.AsyncState
 import com.revenuecat.purchases.kmp.sample.DefaultPaddingHorizontal
 import com.revenuecat.purchases.kmp.sample.DefaultSpacingVertical
@@ -26,6 +27,7 @@ import com.revenuecat.purchases.kmp.sample.Screen
 internal fun OfferingsSection(
     state: AsyncState<Offerings>,
     navigateTo: (Screen) -> Unit,
+    customVariables: Map<String, CustomVariableValue> = emptyMap(),
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -49,13 +51,13 @@ internal fun OfferingsSection(
                         isCurrent = isCurrent,
                         onShowPaywallClick = { footer ->
                             if (footer) {
-                                navigateTo(Screen.PaywallFooter(offering = offering))
+                                navigateTo(Screen.PaywallFooter(offering = offering, customVariables = customVariables))
                             } else {
-                                navigateTo(Screen.Paywall(offering = offering))
+                                navigateTo(Screen.Paywall(offering = offering, customVariables = customVariables))
                             }
                         },
                         onShowPaywallWithPurchaseLogicClick = {
-                            navigateTo(Screen.PaywallWithPurchaseLogic(offering = offering))
+                            navigateTo(Screen.PaywallWithPurchaseLogic(offering = offering, customVariables = customVariables))
                         },
                         modifier = Modifier.fillMaxWidth(),
                     )

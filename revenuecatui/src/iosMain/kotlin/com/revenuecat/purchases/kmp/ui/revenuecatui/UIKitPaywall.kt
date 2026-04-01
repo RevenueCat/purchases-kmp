@@ -96,6 +96,9 @@ internal fun UIKitPaywall(
                     setDisplayCloseButton(
                         platform.Foundation.NSNumber(bool = options.shouldDisplayDismissButton)
                     )
+                    if (options.customVariables.isNotEmpty()) {
+                        setCustomVariables(options.customVariables.toIosCustomVariables())
+                    }
                 }
                 val offering = options.offering?.toIosOffering()
                 if (offering != null) {
@@ -272,3 +275,13 @@ private fun Map<Any?, *>.toPurchasesError(): PurchasesError = PurchasesError(
 
 private fun CValue<CGSize>.heightInt(): Int =
     memScoped { ptr.pointed.height.toInt() }
+
+private fun Map<String, CustomVariableValue>.toIosCustomVariables(): Map<Any?, Any> =
+    entries.associate { (key, value) ->
+        key to when (value) {
+            is CustomVariableValue.String -> value.value as Any
+            is CustomVariableValue.Number -> value.value as Any
+            is CustomVariableValue.Boolean -> value.value as Any
+            else -> error("Unknown CustomVariableValue type: ${value::class.simpleName}")
+        }
+    }

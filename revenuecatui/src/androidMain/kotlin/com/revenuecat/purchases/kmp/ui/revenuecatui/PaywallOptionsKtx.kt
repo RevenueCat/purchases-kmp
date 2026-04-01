@@ -16,6 +16,7 @@ import com.revenuecat.purchases.ui.revenuecatui.PaywallPurchaseLogic as AndroidP
 import com.revenuecat.purchases.ui.revenuecatui.PaywallPurchaseLogicParams as AndroidPaywallPurchaseLogicParams
 import com.revenuecat.purchases.ui.revenuecatui.PurchaseLogicResult as AndroidPurchaseLogicResult
 import com.revenuecat.purchases.ui.revenuecatui.PaywallListener as AndroidPaywallListener
+import com.revenuecat.purchases.ui.revenuecatui.CustomVariableValue as AndroidCustomVariableValue
 import com.revenuecat.purchases.ui.revenuecatui.PaywallOptions as AndroidPaywallOptions
 
 internal fun PaywallOptions.toAndroidPaywallOptions(): AndroidPaywallOptions =
@@ -24,7 +25,22 @@ internal fun PaywallOptions.toAndroidPaywallOptions(): AndroidPaywallOptions =
         .setShouldDisplayDismissButton(shouldDisplayDismissButton)
         .setListener(listener?.toAndroidPaywallListener())
         .setPurchaseLogic(purchaseLogic?.toAndroidPurchaseLogic())
+        .setCustomVariables(customVariables.toAndroidCustomVariables())
         .build()
+
+private fun Map<String, CustomVariableValue>.toAndroidCustomVariables():
+        Map<String, AndroidCustomVariableValue> =
+    mapValues { (_, value) ->
+        when (value) {
+            is CustomVariableValue.String ->
+                AndroidCustomVariableValue.String(value.value)
+            is CustomVariableValue.Number ->
+                AndroidCustomVariableValue.Number(value.value)
+            is CustomVariableValue.Boolean ->
+                AndroidCustomVariableValue.Boolean(value.value)
+            else -> error("Unknown CustomVariableValue type: ${value::class.simpleName}")
+        }
+    }
 
 private fun PaywallPurchaseLogic.toAndroidPurchaseLogic(): AndroidPaywallPurchaseLogic =
     PurchaseLogicWrapper(this)

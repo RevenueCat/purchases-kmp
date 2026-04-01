@@ -46,6 +46,7 @@ import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreTransaction
+import com.revenuecat.purchases.kmp.ui.revenuecatui.CustomVariableValue
 import com.revenuecat.purchases.kmp.sample.components.CustomerInfoSection
 import com.revenuecat.purchases.kmp.sample.components.OfferingsSection
 import kotlinx.coroutines.channels.awaitClose
@@ -57,6 +58,7 @@ import kotlinx.coroutines.flow.onStart
 @Composable
 fun MainScreen(
     navigateTo: (Screen) -> Unit,
+    customVariables: Map<String, CustomVariableValue> = emptyMap(),
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -166,8 +168,21 @@ fun MainScreen(
                 OfferingsSection(
                     state = offeringsState,
                     navigateTo = navigateTo,
+                    customVariables = customVariables,
                     modifier = Modifier.fillMaxWidth(),
                 )
+
+                Spacer(modifier = Modifier.size(16.dp))
+                TextButton(
+                    onClick = { navigateTo(Screen.CustomVariablesEditor) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    val count = customVariables.size
+                    Text(
+                        if (count > 0) "Custom Variables ($count)"
+                        else "Custom Variables"
+                    )
+                }
 
                 Spacer(modifier = Modifier.size(16.dp))
                 TextButton(
