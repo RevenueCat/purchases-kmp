@@ -51,7 +51,7 @@ private fun Project.configureAllSwiftDependencies(dependencies: List<SwiftDepend
         val targetSourceDir = packageInfo.getTargetSourceDir(dependency.target, dependency.packageDir)
         val swiftDependencies = packageInfo.getTargetDependencies(dependency.target)
         
-        configureSwiftDependency(kotlin, dependency, targetSourceDir, swiftDependencies)
+        configureSwiftDependency(kotlin, dependency, targetSourceDir, swiftDependencies, packageInfos)
         
         if (dependency.target !in resourcesConfigured) {
             configureSwiftResources(dependency, packageInfo)
@@ -112,7 +112,8 @@ private fun Project.configureSwiftDependency(
     kotlin: KotlinMultiplatformExtension,
     dependency: SwiftDependency,
     targetSourceDir: File,
-    swiftDependencies: List<String>
+    swiftDependencies: List<String>,
+    packageInfos: Map<File, SwiftPackageInfo>,
 ) {
     // Register a task to generate the cinterop .def file
     val defFile = layout.buildDirectory.file("generated/cinterop/${dependency.target}.def")
@@ -135,6 +136,15 @@ private fun Project.configureSwiftDependency(
             ?.takeIf { it.project != this  }
     }
 
+    // Add cross-project dependency source directories so the build cache is invalidated when a
+    // dependency target's source changes.
+    val transitiveDepSourceDirs = moduleDependencies.mapNotNull { dep ->
+        packageInfos[dep.dependency.packageDir]?.getTargetSourceDir(
+            targetName = dep.dependency.target,
+            packageDir = dep.dependency.packageDir
+        )
+    }
+
     kotlin.targets.withType<KotlinNativeTarget> {
         // Skip this target if it doesn't include the source set this dependency is added to.
         if (!includesSourceSet(dependency.sourceSetName)) return@withType
@@ -145,7 +155,13 @@ private fun Project.configureSwiftDependency(
         )
 
         val mainCompilation = compilations.getByName("main")
-        val swiftBuildTask = registerSwiftBuildTask(this, dependency, targetSourceDir)
+        val swiftBuildTask = registerSwiftBuildTask(
+            kotlinTarget = this,
+            dependency = dependency,
+            targetSourceDir = targetSourceDir,
+            transitiveDepSourceDirs = transitiveDepSourceDirs
+        )
+
         val swiftOutputDir = layout.buildDirectory
             .dir("swift-packages/${dependency.target}/${konanTarget.name}")
             .get().asFile
@@ -239,7 +255,8 @@ private fun KotlinNativeTarget.includesSourceSet(sourceSetName: String): Boolean
 private fun Project.registerSwiftBuildTask(
     kotlinTarget: KotlinNativeTarget,
     dependency: SwiftDependency,
-    targetSourceDir: File
+    targetSourceDir: File,
+    transitiveDepSourceDirs: List<File>,
 ): TaskProvider<SwiftBuildTask> {
     val taskSuffix = getTaskSuffix(kotlinTarget.konanTarget)
     val taskName = "compileSwift${dependency.target}$taskSuffix"
@@ -253,11 +270,13 @@ private fun Project.registerSwiftBuildTask(
         moduleName.set(dependency.moduleName)
         configuration.set(getSwiftConfiguration())
         packageDir.set(dependency.packageDir)
+        packageSwiftFile.set(dependency.packageDir.resolve("Package.swift"))
         this.targetSourceDir.set(targetSourceDir)
         outputDir.set(layout.buildDirectory.dir("swift-packages/${dependency.target}/${kotlinTarget.konanTarget.name}"))
         // Use a shared scratch directory at root project level for SPM build cache sharing
         scratchDir.set(rootProject.layout.buildDirectory.dir("swift-packages/.build"))
         swiftSettingsArgs.set(dependency.swiftSettings?.toCommandLineArgs() ?: emptyList())
+        this.transitiveDepSourceDirs.from(transitiveDepSourceDirs)
     }
 }
 

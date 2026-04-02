@@ -7,6 +7,8 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.IgnoreEmptyDirectories
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputDirectory
@@ -20,6 +22,7 @@ import javax.inject.Inject
 /**
  * Processes Swift package resources to include in the .klib via Compose Resources.
  */
+@CacheableTask
 abstract class ProcessSwiftResourcesTask @Inject constructor(
     private val execOperations: ExecOperations
 ) : DefaultTask() {
@@ -41,6 +44,7 @@ abstract class ProcessSwiftResourcesTask @Inject constructor(
      */
     @get:InputFiles
     @get:PathSensitive(PathSensitivity.RELATIVE)
+    @get:IgnoreEmptyDirectories
     abstract val resourceFiles: ConfigurableFileCollection
 
     /**
