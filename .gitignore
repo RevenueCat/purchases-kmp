@@ -1,6 +1,6 @@
 *.iml
 .gradle
-.idea
+**/.idea/*
 .DS_Store
 build
 captures
@@ -21,4 +21,8 @@ vendor/
 .bundle/
 
 # Share IssueNavigationConfiguration
-!.idea/vcs.xml
+!/.idea/vcs.xml
+# Ensure iosApp run configuration works
+!/.idea/xcode.xml
+!/.idea/purchases-kmp.iosApp.iml
+!/.idea/modules.xml
