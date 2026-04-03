@@ -4,6 +4,8 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.IgnoreEmptyDirectories
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.Optional
@@ -19,6 +21,7 @@ import java.security.MessageDigest
  * The .def file tells Kotlin/Native cinterop how to process the Swift-generated
  * Objective-C header and link against the static library.
  */
+@CacheableTask
 abstract class GenerateDefFileTask : DefaultTask() {
 
     /** The Kotlin package name for the generated bindings */
@@ -45,6 +48,7 @@ abstract class GenerateDefFileTask : DefaultTask() {
     /** The Swift source directory - used to compute a hash for cache invalidation */
     @get:InputDirectory
     @get:PathSensitive(PathSensitivity.RELATIVE)
+    @get:IgnoreEmptyDirectories
     abstract val swiftSourceDir: DirectoryProperty
 
     /** The output .def file */
