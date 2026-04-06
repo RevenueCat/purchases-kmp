@@ -26,6 +26,7 @@ import com.revenuecat.purchases.kmp.models.CustomerInfo
 @Composable
 fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
     var hasPro by remember { mutableStateOf(false) }
+    var showPaywall by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
@@ -56,42 +57,46 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Text(
-            text = if (hasPro) "Entitlements: pro" else "Entitlements: none",
-            fontSize = 16.sp,
+    if (showPaywall) {
+        PaywallPresenter(onDismiss = { showPaywall = false })
+    } else {
+        Column(
             modifier = Modifier
-                .padding(bottom = 16.dp)
-                .testTag("entitlements-label")
-        )
-        if (errorMessage != null) {
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
             Text(
-                text = "Error: $errorMessage",
-                fontSize = 14.sp,
-                color = Color.Red,
+                text = if (hasPro) "Entitlements: pro" else "Entitlements: none",
+                fontSize = 16.sp,
                 modifier = Modifier
                     .padding(bottom = 16.dp)
-                    .testTag("error-message")
+                    .testTag("entitlements-label")
             )
-        }
-        Button(
-            onClick = { presentPaywallNatively(onDismiss = {}) },
-            modifier = Modifier
-                .fillMaxWidth()
-                .testTag("present-paywall-button")
-        ) {
-            Text("Present Paywall")
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Button(
-            onClick = onBack,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Back")
+            if (errorMessage != null) {
+                Text(
+                    text = "Error: $errorMessage",
+                    fontSize = 14.sp,
+                    color = Color.Red,
+                    modifier = Modifier
+                        .padding(bottom = 16.dp)
+                        .testTag("error-message")
+                )
+            }
+            Button(
+                onClick = { showPaywall = true },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .testTag("present-paywall-button")
+            ) {
+                Text("Present Paywall")
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            Button(
+                onClick = onBack,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Back")
+            }
         }
     }
 }
