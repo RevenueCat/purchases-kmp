@@ -6,7 +6,7 @@ import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import platform.Foundation.NSLog
 
-@OptIn(ExperimentalStdlibApi::class)
+@OptIn(kotlin.experimental.ExperimentalNativeApi::class)
 @Suppress("unused", "FunctionName")
 fun MainViewController(): platform.UIKit.UIViewController {
     kotlin.native.setUnhandledExceptionHook { throwable ->
