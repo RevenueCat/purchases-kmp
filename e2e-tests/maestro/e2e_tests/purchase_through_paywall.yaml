@@ -20,11 +20,13 @@ name: Purchase through paywall
 - extendedWaitUntil:
     visible: "Entitlements: none"
     timeout: 15000
+- takeScreenshot: purchase_through_paywall - Purchase screen
 - assertVisible: "Entitlements: none"
 - assertVisible: "Present Paywall"
 - tapOn:
     text: "Present Paywall"
 - assertVisible: "Paywall V2"
+- takeScreenshot: purchase_through_paywall - Paywall
 - tapOn:
     text: "Yearly"
 - tapOn:
@@ -34,4 +36,5 @@ name: Purchase through paywall
 - extendedWaitUntil:
     visible: "Entitlements: pro"
     timeout: 15000
+- takeScreenshot: purchase_through_paywall - Entitlements unlocked
 - assertVisible: "Entitlements: pro"
