@@ -151,15 +151,7 @@ lane :run_maestro_e2e_tests_ios do
     sh("xcrun simctl install booted build/Build/Products/Debug-iphonesimulator/MaestroTestApp.app")
   end
   sh("mkdir -p test_output")
-  begin
-    sh("maestro test --format junit --output test_output/report.xml --test-output-dir test_output ../e2e-tests/maestro/")
-  ensure
-    UI.important("Capturing simulator logs for diagnostics...")
-    sh("xcrun simctl spawn booted log show --predicate 'process == \"MaestroTestApp\"' --last 5m --style compact 2>/dev/null | tail -500 || echo 'No simulator logs found'")
-    UI.important("Checking for crash reports...")
-    sh("ls -la ~/Library/Logs/DiagnosticReports/MaestroTestApp* 2>/dev/null || echo 'No crash reports found'")
-    sh("cat ~/Library/Logs/DiagnosticReports/MaestroTestApp*.ips 2>/dev/null | head -200 || echo 'No crash report content'")
-  end
+  sh("maestro test --format junit --output test_output/report.xml --test-output-dir test_output ../e2e-tests/maestro/")
 end
 
 desc "Build maestro E2E test app for Android"
