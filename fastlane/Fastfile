@@ -155,7 +155,10 @@ lane :run_maestro_e2e_tests_ios do
     sh("maestro test --format junit --output test_output/report.xml --test-output-dir test_output ../e2e-tests/maestro/")
   ensure
     UI.important("Capturing simulator logs for diagnostics...")
-    sh("xcrun simctl spawn booted log show --predicate 'processImagePath CONTAINS \"MaestroTestApp\" OR eventMessage CONTAINS \"MaestroTestApp\"' --last 5m --style compact 2>/dev/null | tail -300 || echo 'No simulator logs found'")
+    sh("xcrun simctl spawn booted log show --predicate 'process == \"MaestroTestApp\"' --last 5m --style compact 2>/dev/null | tail -500 || echo 'No simulator logs found'")
+    UI.important("Checking for crash reports...")
+    sh("ls -la ~/Library/Logs/DiagnosticReports/MaestroTestApp* 2>/dev/null || echo 'No crash reports found'")
+    sh("cat ~/Library/Logs/DiagnosticReports/MaestroTestApp*.ips 2>/dev/null | head -200 || echo 'No crash report content'")
   end
 end
 
