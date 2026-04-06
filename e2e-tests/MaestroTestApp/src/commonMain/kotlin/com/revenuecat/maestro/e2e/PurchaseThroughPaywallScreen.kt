@@ -32,13 +32,24 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
+        println("MaestroTestApp: PurchaseThroughPaywallScreen entered composition")
         Purchases.sharedInstance.getCustomerInfo(
             onError = { error ->
-                println("Failed to get customer info: ${error.message}")
+                println("MaestroTestApp: Failed to get customer info: ${error.message}")
                 errorMessage = error.message
             },
             onSuccess = { info ->
+                println("MaestroTestApp: Got customer info, pro=${info.entitlements.active.containsKey("pro")}")
                 hasPro = info.entitlements.active.containsKey("pro")
+            }
+        )
+        println("MaestroTestApp: Pre-fetching offerings...")
+        Purchases.sharedInstance.getOfferings(
+            onError = { error ->
+                println("MaestroTestApp: Failed to pre-fetch offerings: ${error.message}")
+            },
+            onSuccess = { offerings ->
+                println("MaestroTestApp: Offerings pre-fetched, current=${offerings.current?.identifier}")
             }
         )
     }
@@ -63,11 +74,16 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
     }
 
     if (showPaywall) {
+        println("MaestroTestApp: showPaywall=true, creating PaywallOptions")
         val options = remember {
-            PaywallOptions(dismissRequest = { showPaywall = false }) {
+            PaywallOptions(dismissRequest = {
+                println("MaestroTestApp: Paywall dismiss requested")
+                showPaywall = false
+            }) {
                 shouldDisplayDismissButton = true
             }
         }
+        println("MaestroTestApp: Rendering Paywall composable")
         Paywall(options)
     } else {
         Column(
@@ -93,7 +109,10 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
                 )
             }
             Button(
-                onClick = { showPaywall = true },
+                onClick = {
+                    println("MaestroTestApp: Present Paywall button tapped")
+                    showPaywall = true
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag("present-paywall-button")
