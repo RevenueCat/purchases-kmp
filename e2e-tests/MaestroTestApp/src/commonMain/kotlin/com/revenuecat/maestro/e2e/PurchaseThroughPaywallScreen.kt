@@ -22,13 +22,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.CustomerInfo
-import com.revenuecat.purchases.kmp.ui.revenuecatui.Paywall
-import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallOptions
 
 @Composable
 fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
     var hasPro by remember { mutableStateOf(false) }
-    var showPaywall by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
@@ -59,51 +56,42 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
         }
     }
 
-    if (showPaywall) {
-        val options = remember {
-            PaywallOptions(dismissRequest = { showPaywall = false }) {
-                shouldDisplayDismissButton = true
-            }
-        }
-        Paywall(options)
-    } else {
-        Column(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Text(
+            text = if (hasPro) "Entitlements: pro" else "Entitlements: none",
+            fontSize = 16.sp,
             modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
+                .padding(bottom = 16.dp)
+                .testTag("entitlements-label")
+        )
+        if (errorMessage != null) {
             Text(
-                text = if (hasPro) "Entitlements: pro" else "Entitlements: none",
-                fontSize = 16.sp,
+                text = "Error: $errorMessage",
+                fontSize = 14.sp,
+                color = Color.Red,
                 modifier = Modifier
                     .padding(bottom = 16.dp)
-                    .testTag("entitlements-label")
+                    .testTag("error-message")
             )
-            if (errorMessage != null) {
-                Text(
-                    text = "Error: $errorMessage",
-                    fontSize = 14.sp,
-                    color = Color.Red,
-                    modifier = Modifier
-                        .padding(bottom = 16.dp)
-                        .testTag("error-message")
-                )
-            }
-            Button(
-                onClick = { showPaywall = true },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .testTag("present-paywall-button")
-            ) {
-                Text("Present Paywall")
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            Button(
-                onClick = onBack,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Back")
-            }
+        }
+        Button(
+            onClick = { presentPaywallNatively(onDismiss = {}) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .testTag("present-paywall-button")
+        ) {
+            Text("Present Paywall")
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = onBack,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Back")
         }
     }
 }
