@@ -128,6 +128,15 @@ desc "Run maestro E2E tests on iOS"
 lane :run_maestro_e2e_tests_ios do
   Dir.chdir("../e2e-tests/MaestroTestApp") do
     sh("sed -i '' 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE\"'/g' src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt")
+
+    phc_version = File.read("../../gradle/libs.versions.toml")
+      .match(/revenuecat-common = "(.*)"/)[1]
+    UI.important("Syncing Podfile to PHC version #{phc_version}...")
+    podfile_content = File.read("iosApp/Podfile")
+    podfile_content.gsub!(/pod 'PurchasesHybridCommon',\s*'[^']*'/, "pod 'PurchasesHybridCommon', '#{phc_version}'")
+    podfile_content.gsub!(/pod 'PurchasesHybridCommonUI',\s*'[^']*'/, "pod 'PurchasesHybridCommonUI', '#{phc_version}'")
+    File.write("iosApp/Podfile", podfile_content)
+
     sh("pod cache clean --all")
     sh("rm -rf ~/Library/Caches/CocoaPods/Pods")
 
