@@ -32,24 +32,24 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
-        println("MaestroTestApp: PurchaseThroughPaywallScreen entered composition")
+        logDebug("PurchaseThroughPaywallScreen entered composition")
         Purchases.sharedInstance.getCustomerInfo(
             onError = { error ->
-                println("MaestroTestApp: Failed to get customer info: ${error.message}")
+                logDebug("Failed to get customer info: ${error.message}")
                 errorMessage = error.message
             },
             onSuccess = { info ->
-                println("MaestroTestApp: Got customer info, pro=${info.entitlements.active.containsKey("pro")}")
+                logDebug("Got customer info, pro=${info.entitlements.active.containsKey("pro")}")
                 hasPro = info.entitlements.active.containsKey("pro")
             }
         )
-        println("MaestroTestApp: Pre-fetching offerings...")
+        logDebug("Pre-fetching offerings...")
         Purchases.sharedInstance.getOfferings(
             onError = { error ->
-                println("MaestroTestApp: Failed to pre-fetch offerings: ${error.message}")
+                logDebug("Failed to pre-fetch offerings: ${error.message}")
             },
             onSuccess = { offerings ->
-                println("MaestroTestApp: Offerings pre-fetched, current=${offerings.current?.identifier}")
+                logDebug("Offerings pre-fetched, current=${offerings.current?.identifier}")
             }
         )
     }
@@ -74,16 +74,16 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
     }
 
     if (showPaywall) {
-        println("MaestroTestApp: showPaywall=true, creating PaywallOptions")
+        logDebug("showPaywall=true, creating PaywallOptions")
         val options = remember {
             PaywallOptions(dismissRequest = {
-                println("MaestroTestApp: Paywall dismiss requested")
+                logDebug("Paywall dismiss requested")
                 showPaywall = false
             }) {
                 shouldDisplayDismissButton = true
             }
         }
-        println("MaestroTestApp: Rendering Paywall composable")
+        logDebug("Rendering Paywall composable")
         Paywall(options)
     } else {
         Column(
@@ -110,7 +110,7 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
             }
             Button(
                 onClick = {
-                    println("MaestroTestApp: Present Paywall button tapped")
+                    logDebug("Present Paywall button tapped")
                     showPaywall = true
                 },
                 modifier = Modifier
