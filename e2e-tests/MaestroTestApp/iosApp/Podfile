@@ -3,6 +3,6 @@ platform :ios, '15.0'
 target 'iosApp' do
   use_frameworks! :linkage => :static
 
-  pod 'PurchasesHybridCommon', '~> 17.41'
-  pod 'PurchasesHybridCommonUI', '~> 17.41'
+  pod 'PurchasesHybridCommon', '17.55.0'
+  pod 'PurchasesHybridCommonUI', '17.55.0'
 end
