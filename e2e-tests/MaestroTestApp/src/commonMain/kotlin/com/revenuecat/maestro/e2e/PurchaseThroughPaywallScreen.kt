@@ -32,24 +32,10 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
-        logDebug("PurchaseThroughPaywallScreen entered composition")
         Purchases.sharedInstance.getCustomerInfo(
-            onError = { error ->
-                logDebug("Failed to get customer info: ${error.message}")
-                errorMessage = error.message
-            },
+            onError = { error -> errorMessage = error.message },
             onSuccess = { info ->
-                logDebug("Got customer info, pro=${info.entitlements.active.containsKey("pro")}")
                 hasPro = info.entitlements.active.containsKey("pro")
-            }
-        )
-        logDebug("Pre-fetching offerings...")
-        Purchases.sharedInstance.getOfferings(
-            onError = { error ->
-                logDebug("Failed to pre-fetch offerings: ${error.message}")
-            },
-            onSuccess = { offerings ->
-                logDebug("Offerings pre-fetched, current=${offerings.current?.identifier}")
             }
         )
     }
@@ -74,16 +60,11 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
     }
 
     if (showPaywall) {
-        logDebug("showPaywall=true, creating PaywallOptions")
         val options = remember {
-            PaywallOptions(dismissRequest = {
-                logDebug("Paywall dismiss requested")
-                showPaywall = false
-            }) {
+            PaywallOptions(dismissRequest = { showPaywall = false }) {
                 shouldDisplayDismissButton = true
             }
         }
-        logDebug("Rendering Paywall composable")
         Paywall(options)
     } else {
         Column(
@@ -109,10 +90,7 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
                 )
             }
             Button(
-                onClick = {
-                    logDebug("Present Paywall button tapped")
-                    showPaywall = true
-                },
+                onClick = { showPaywall = true },
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag("present-paywall-button")
