@@ -24,7 +24,7 @@ name: Purchase through paywall
     text: "Present Paywall"
 - extendedWaitUntil:
     visible: "Paywall V2"
-    timeout: 30000
+    timeout: 15000
 - assertVisible: "Paywall V2"
 - tapOn:
     text: "Yearly"
