@@ -231,6 +231,15 @@ jobs:
           cache-version: v1
       - install-cocoapods-on-macos
       - run:
+          name: Pre-install CocoaPods for Kotlin modules
+          command: |
+            ./gradlew \
+              :models:podInstallSyntheticIos \
+              :mappings:podInstallSyntheticIos \
+              :core:podInstallSyntheticIos \
+              :revenuecatui:podInstallSyntheticIos \
+              --no-parallel
+      - run:
           name: Build libraries for iOS
           command: |
             tasks=()
