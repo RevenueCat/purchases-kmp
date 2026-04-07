@@ -55,6 +55,23 @@ commands:
           command: bundle exec pod install --repo-update
           working_directory: iosApp
 
+  pre-install-pods-for-kotlin-modules:
+    description: >
+      Run podInstallSyntheticIos for all Kotlin modules sequentially.
+      Parallel pod installs race on the shared CocoaPods cache, causing
+      Errno::ENOENT failures. Running them first with --max-workers=1
+      lets the subsequent compile step skip them (UP-TO-DATE).
+    steps:
+      - run:
+          name: Pre-install CocoaPods for Kotlin modules
+          command: |
+            ./gradlew \
+              :models:podInstallSyntheticIos \
+              :mappings:podInstallSyntheticIos \
+              :core:podInstallSyntheticIos \
+              :revenuecatui:podInstallSyntheticIos \
+              --no-parallel --max-workers=1
+
   save-kotlin-native-compiler-to-cache:
     steps:
       - run:
@@ -230,6 +247,7 @@ jobs:
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - install-cocoapods-on-macos
+      - pre-install-pods-for-kotlin-modules
       - run:
           name: Build libraries for iOS
           command: |
