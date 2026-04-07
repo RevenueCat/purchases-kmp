@@ -127,6 +127,7 @@ end
 
 desc "Run maestro E2E tests on iOS"
 lane :run_maestro_e2e_tests_ios do |options|
+  UI.user_error!("RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE is not set") if ENV["RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE"].to_s.empty?
   simulator_name = options[:simulator_name] || "iPhone 16 Pro"
 
   Dir.chdir("../e2e-tests/MaestroTestApp") do
@@ -168,6 +169,7 @@ end
 
 desc "Build maestro E2E test app for Android"
 lane :build_maestro_app_android do
+  UI.user_error!("RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE is not set") if ENV["RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE"].to_s.empty?
   app_kt = "../e2e-tests/MaestroTestApp/src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt"
   sh("sed -i 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE\"'/g' #{app_kt}")
   sh("grep -q MAESTRO_TESTS_REVENUECAT_API_KEY #{app_kt} && echo 'ERROR: API key placeholder was not replaced' && exit 1 || true")
