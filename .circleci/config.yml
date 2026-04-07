@@ -125,7 +125,7 @@ commands:
 parameters:
   action:
     type: enum
-    enum: [ build, upgrade-hybrid-common, bump ]
+    enum: [ build, upgrade-hybrid-common, bump, stress-test-ios ]
     default: build
   automatic:
     type: boolean
@@ -436,6 +436,32 @@ jobs:
           command: bundle exec fastlane github_release_current_version
 
 workflows:
+  # TEMP: Stress test for pod install fix. Remove before merging.
+  stress-test-build-libraries-ios:
+    when:
+      equal: [ stress-test-ios, << pipeline.parameters.action >> ]
+    jobs:
+      - build-libraries-ios:
+          name: build-libraries-ios-1
+      - build-libraries-ios:
+          name: build-libraries-ios-2
+      - build-libraries-ios:
+          name: build-libraries-ios-3
+      - build-libraries-ios:
+          name: build-libraries-ios-4
+      - build-libraries-ios:
+          name: build-libraries-ios-5
+      - build-libraries-ios:
+          name: build-libraries-ios-6
+      - build-libraries-ios:
+          name: build-libraries-ios-7
+      - build-libraries-ios:
+          name: build-libraries-ios-8
+      - build-libraries-ios:
+          name: build-libraries-ios-9
+      - build-libraries-ios:
+          name: build-libraries-ios-10
+
   on-action-upgrade-hybrid-common:
     when:
       equal: [ upgrade-hybrid-common, << pipeline.parameters.action >> ]
