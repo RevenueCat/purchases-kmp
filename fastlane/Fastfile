@@ -126,13 +126,25 @@ lane :update_hybrid_common do |options|
 end
 
 desc "Run maestro E2E tests on iOS"
-lane :run_maestro_e2e_tests_ios do
+lane :run_maestro_e2e_tests_ios do |options|
+  simulator_name = options[:simulator_name] || "iPhone 16 Pro"
+
   Dir.chdir("../e2e-tests/MaestroTestApp") do
-    sh("sed -i '' 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE\"'/g' src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt")
+    app_kt = "src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt"
+    sh("sed -i '' 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE\"'/g' #{app_kt}")
+    sh("grep -q MAESTRO_TESTS_REVENUECAT_API_KEY #{app_kt} && echo 'ERROR: API key placeholder was not replaced' && exit 1 || true")
+
+    # Workaround for CocoaPods Errno::ENOENT bug during Gradle's podInstall tasks.
+    # When the CocoaPods CDN cache is empty, Gradle's pod install can fail with
+    # `Errno::ENOENT - No such file or directory @ rb_sysopen` because the cache
+    # directory structure doesn't exist yet. Pre-warming with a throwaway pod install
+    # populates the CDN index and cache directories so the real install succeeds.
+    # Observed with CocoaPods 1.16.x on macOS CI runners.
+    # See: https://github.com/CocoaPods/CocoaPods/issues/9226
+    # This can likely be removed if CocoaPods fixes the cache initialization or if
+    # we move away from CocoaPods for dependency management.
     sh("pod cache clean --all")
     sh("rm -rf ~/Library/Caches/CocoaPods/Pods")
-
-    UI.important("Pre-warming CocoaPods cache to avoid Errno::ENOENT during Gradle pod install...")
     sh("mkdir -p /tmp/pod-warmup")
     sh("cd /tmp/pod-warmup && cat > Podfile << 'PODEOF'\nsource 'https://cdn.cocoapods.org'\nplatform :ios, '13.0'\ntarget 'Warmup' do\n  use_frameworks!\n  pod 'PurchasesHybridCommon', '~> 17.0'\n  pod 'PurchasesHybridCommonUI', '~> 17.0'\nend\nPODEOF")
     sh("cd /tmp/pod-warmup && pod install --no-integrate 2>&1 || true")
@@ -146,7 +158,7 @@ lane :run_maestro_e2e_tests_ios do
     sh("cd iosApp && pod install --repo-update")
 
     UI.important("Building with xcodebuild (using workspace)...")
-    sh("xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme iosApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro' -derivedDataPath build CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=YES ARCHS=arm64 ENABLE_DEBUG_DYLIB=NO ASSETCATALOG_COMPILER_APPICON_NAME=")
+    sh("xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme iosApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=#{simulator_name}' -derivedDataPath build CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=YES ARCHS=arm64 ENABLE_DEBUG_DYLIB=NO ASSETCATALOG_COMPILER_APPICON_NAME=")
 
     sh("xcrun simctl install booted build/Build/Products/Debug-iphonesimulator/MaestroTestApp.app")
   end
@@ -156,7 +168,9 @@ end
 
 desc "Build maestro E2E test app for Android"
 lane :build_maestro_app_android do
-  sh("sed -i 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE\"'/g' ../e2e-tests/MaestroTestApp/src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt")
+  app_kt = "../e2e-tests/MaestroTestApp/src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt"
+  sh("sed -i 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE\"'/g' #{app_kt}")
+  sh("grep -q MAESTRO_TESTS_REVENUECAT_API_KEY #{app_kt} && echo 'ERROR: API key placeholder was not replaced' && exit 1 || true")
   sh("cd .. && ./gradlew :e2e-tests:MaestroTestApp:assembleDebug")
 end
 

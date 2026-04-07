@@ -409,6 +409,10 @@ jobs:
     macos:
       xcode: 16.4.0
     resource_class: m4pro.medium
+    parameters:
+      simulator-name:
+        type: string
+        default: "iPhone 16 Pro"
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
     steps:
@@ -428,11 +432,11 @@ jobs:
       - run:
           name: Boot iOS Simulator
           command: |
-            xcrun simctl boot "iPhone 16 Pro" || true
-            xcrun simctl bootstatus "iPhone 16 Pro" -b
+            xcrun simctl boot "<< parameters.simulator-name >>" || true
+            xcrun simctl bootstatus "<< parameters.simulator-name >>" -b
       - run:
           name: Run Maestro E2E Tests (iOS)
-          command: bundle exec fastlane run_maestro_e2e_tests_ios
+          command: bundle exec fastlane run_maestro_e2e_tests_ios simulator_name:"<< parameters.simulator-name >>"
           no_output_timeout: 15m
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
@@ -452,10 +456,12 @@ jobs:
           command: |
             gem install bundler
             bundle install
+      - restore-gradle-user-home-directory-from-cache
       - run:
           name: Build Maestro app (Android)
           command: bundle exec fastlane build_maestro_app_android
           no_output_timeout: 15m
+      - save-gradle-user-home-directory-to-cache
       - android/create-avd:
           avd-name: test-e2e
           system-image: system-images;android-34;google_apis;x86_64
@@ -486,7 +492,7 @@ jobs:
           command: bundle exec fastlane github_release_current_version
 
 workflows:
-  maestro-e2e-tests-ios:
+  maestro-e2e-tests:
     when:
       or:
         - and:
@@ -497,14 +503,6 @@ workflows:
           context:
             - maestro-e2e-tests
             - e2e-tests
-
-  maestro-e2e-tests-android:
-    when:
-      or:
-        - and:
-            - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-            - equal: [ "maestro_e2e_tests", << pipeline.schedule.name >> ]
-    jobs:
       - run-maestro-e2e-tests-android:
           context:
             - maestro-e2e-tests
