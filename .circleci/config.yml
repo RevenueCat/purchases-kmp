@@ -59,7 +59,7 @@ commands:
     description: >
       Run podInstallSyntheticIos for all Kotlin modules sequentially.
       Parallel pod installs race on the shared CocoaPods cache, causing
-      Errno::ENOENT failures. Running them first with --no-parallel
+      Errno::ENOENT failures. Running them first with --max-workers=1
       lets the subsequent compile step skip them (UP-TO-DATE).
     steps:
       - run:
@@ -70,7 +70,7 @@ commands:
               :mappings:podInstallSyntheticIos \
               :core:podInstallSyntheticIos \
               :revenuecatui:podInstallSyntheticIos \
-              --no-parallel
+              --no-parallel --max-workers=1
 
   save-kotlin-native-compiler-to-cache:
     steps:
