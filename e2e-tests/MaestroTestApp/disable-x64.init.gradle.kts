@@ -1,3 +1,30 @@
+// Gradle init script applied via --init-script on CI to work around build issues when building
+// the MaestroTestApp for the iOS Simulator on Apple Silicon (arm64) CI runners.
+//
+// It applies three patches:
+//
+// 1. Disables all iosX64 Gradle tasks.
+//    The CI macOS runners are Apple Silicon (arm64), so iosX64 targets are not needed.
+//    Building them wastes time and can fail if the x64 simulator SDK is not installed.
+//
+// 2. Patches ASSETCATALOG_COMPILER_APPICON_NAME in CocoaPods-generated Xcode projects.
+//    CocoaPods sets ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon" in the synthetic Xcode
+//    project it generates for pod dependencies. When the pod target has no asset catalog
+//    containing an "AppIcon" image set, Xcode fails with:
+//      "None of the input catalogs contained a matching app icon set named 'AppIcon'."
+//    This patches it to an empty string in both .pbxproj and .xcconfig files.
+//    See: https://stackoverflow.com/questions/27966247
+//
+// 3. Adds ENABLE_DEBUG_DYLIB = NO to CocoaPods-generated .xcconfig files.
+//    Xcode 16+ defaults ENABLE_DEBUG_DYLIB to YES for debug builds, which creates a
+//    separate .debug.dylib alongside the main binary. This can cause "symbol not found"
+//    errors at runtime when the CocoaPods framework is built as a static library but the
+//    debug dylib references aren't resolved correctly.
+//    See: https://developer.apple.com/documentation/xcode/understanding-build-product-layout-changes
+//
+// If CocoaPods or Xcode is upgraded, re-test without this script to check if the
+// workarounds are still necessary.
+
 println("CI-INIT-SCRIPT: loaded")
 
 allprojects {
