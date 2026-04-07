@@ -1,3 +1,8 @@
+## 2.10.3+17.55.1
+## RevenueCat SDK
+### 🐞 Bugfixes
+* Fix flaky build-libraries-ios by serializing pod installs (#792) via Antonio Pallares (@ajpallares)
+
 ## 2.10.2+17.55.1
 ## RevenueCat SDK
 ### 📦 Dependency Updates
