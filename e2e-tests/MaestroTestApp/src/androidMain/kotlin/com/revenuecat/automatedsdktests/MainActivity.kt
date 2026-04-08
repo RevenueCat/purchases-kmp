@@ -15,8 +15,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         Purchases.logLevel = LogLevel.DEBUG
         Purchases.configure(PurchasesConfiguration(API_KEY))
+        val testFlow = intent.getStringExtra("e2e_test_flow")
         setContent {
-            App()
+            App(initialTestFlow = testFlow)
         }
     }
 }

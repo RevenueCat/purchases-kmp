@@ -6,8 +6,8 @@ import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
 
 @Suppress("unused", "FunctionName")
-fun MainViewController(): platform.UIKit.UIViewController {
+fun MainViewController(testFlow: String? = null): platform.UIKit.UIViewController {
     Purchases.logLevel = LogLevel.DEBUG
     Purchases.configure(PurchasesConfiguration(API_KEY))
-    return ComposeUIViewController { App() }
+    return ComposeUIViewController { App(initialTestFlow = testFlow) }
 }
