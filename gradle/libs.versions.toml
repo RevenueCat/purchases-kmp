@@ -12,7 +12,7 @@ java = "1.8"
 junit = "5.10.0"
 kotlin = "2.3.20"
 mavenPublish = "0.33.0"
-revenuecat-android = "9.26.1"
+revenuecat-android = "10.0.0"
 revenuecat-kmp = "2.11.0-SNAPSHOT"
 
 [libraries]
