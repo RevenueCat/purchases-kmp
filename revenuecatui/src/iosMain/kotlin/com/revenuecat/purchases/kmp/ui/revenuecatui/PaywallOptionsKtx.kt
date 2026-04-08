@@ -42,9 +42,10 @@ internal class IosPaywallDelegate(
         didFinishPurchasingWithCustomerInfo: RCCustomerInfo,
         transaction: RCStoreTransaction?
     ) {
+        val storeTransaction = (transaction as? PhcStoreTransaction)?.toStoreTransaction() ?: return
         listener?.onPurchaseCompleted(
             (didFinishPurchasingWithCustomerInfo as PhcCustomerInfo).toCustomerInfo(),
-            (transaction as PhcStoreTransaction).toStoreTransaction()
+            storeTransaction
         )
     }
 
