@@ -29,14 +29,6 @@ Bumps version, edits changelog, and creates pull request
 
 Automatically determines next version, bumps it, edits changelog, and creates pull request
 
-### update_hybrid_common
-
-```sh
-[bundle exec] fastlane update_hybrid_common
-```
-
-Update purchases-hybrid-common dependency
-
 ### prepare_next_snapshot_version
 
 ```sh
