@@ -5,7 +5,6 @@ import com.vanniktech.maven.publish.MavenPublishPlugin
 import com.vanniktech.maven.publish.SonatypeHost
 import dev.iurysouza.modulegraph.Orientation
 import io.gitlab.arturbosch.detekt.Detekt
-import org.gradle.configurationcache.extensions.capitalized
 
 plugins {
     //trick: for the same plugin versions in all sub-modules
@@ -14,7 +13,6 @@ plugins {
     alias(libs.plugins.jetbrains.compose).apply(false)
     alias(libs.plugins.compose.compiler).apply(false)
     alias(libs.plugins.kotlin.multiplatform).apply(false)
-    alias(libs.plugins.kotlin.cocoapods).apply(false)
     alias(libs.plugins.kotlinx.binaryCompatibilityValidator)
     alias(libs.plugins.adamko.dokkatoo.html)
     alias(libs.plugins.arturbosch.detekt).apply(false)
@@ -110,7 +108,6 @@ apiValidation {
 
 dependencies {
     dokkatoo(projects.core)
-    dokkatoo(projects.datetime)
     dokkatoo(projects.either)
     dokkatoo(projects.models)
     dokkatoo(projects.result)
@@ -161,3 +158,6 @@ private fun TaskContainer.registerDetektTask(
             xml.outputLocation = file("build/reports/detekt/$reportName.xml")
         }
     }
+
+private fun CharSequence.capitalized(): String =
+    toString().replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }

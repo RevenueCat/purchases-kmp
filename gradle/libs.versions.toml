@@ -3,17 +3,17 @@ agp = "8.13.2"
 android-compileSdk = "35"
 android-minSdk = "21"
 android-targetSdk = "35"
-compose = "1.8.0"
+compose = "1.9.3"
 detekt = "1.23.6"
 dokkatoo = "2.3.1"
 ios-deploymentTarget-core = "13.0"
 ios-deploymentTarget-ui = "15.0"
 java = "1.8"
 junit = "5.10.0"
-kotlin = "2.1.21"
+kotlin = "2.3.20"
 mavenPublish = "0.33.0"
-revenuecat-common = "17.55.1"
-revenuecat-kmp = "2.11.0-SNAPSHOT"
+revenuecat-android = "10.0.2"
+revenuecat-kmp = "3.0.0-beta.1"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -28,14 +28,14 @@ arrow-core = { module = "io.arrow-kt:arrow-core", version = "1.2.4" }
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-core = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+junit-platformLauncher = { module = "org.junit.platform:junit-platform-launcher" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-test-assertions = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }
 kotlin-test-annotations = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "kotlin" }
 kotlin-test-core = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.0" }
-revenuecat-common = { module = "com.revenuecat.purchases:purchases-hybrid-common", version.ref = "revenuecat-common" }
-revenuecat-commonUi = { module = "com.revenuecat.purchases:purchases-hybrid-common-ui", version.ref = "revenuecat-common" }
+revenuecat-android = { module = "com.revenuecat.purchases:purchases", version.ref = "revenuecat-android" }
+revenuecatUi-android =  { module = "com.revenuecat.purchases:purchases-ui", version.ref = "revenuecat-android" }
 
 [plugins]
 adamko-dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version.ref = "dokkatoo" }
@@ -46,7 +46,6 @@ codingfeline-buildkonfig = { id = "com.codingfeline.buildkonfig", version = "0.1
 iurysouza-modulegraph = { id = "dev.iurysouza.modulegraph", version = "0.10.0" }
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.17.0" }
 vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }

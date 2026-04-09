@@ -35,7 +35,8 @@ import com.revenuecat.purchases.kmp.models.AdMediatorName
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
 import com.revenuecat.purchases.kmp.models.AdRevenuePrecision
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 enum class AdTrackingFunction(val displayName: String) {
     TRACK_AD_DISPLAYED("trackAdDisplayed()"),
@@ -45,7 +46,7 @@ enum class AdTrackingFunction(val displayName: String) {
     TRACK_AD_FAILED_TO_LOAD("trackAdFailedToLoad()")
 }
 
-@OptIn(ExperimentalRevenueCatApi::class)
+@OptIn(ExperimentalRevenueCatApi::class, ExperimentalTime::class)
 @Composable
 fun AdTrackingTestingScreen(
     navigateTo: (Screen) -> Unit
