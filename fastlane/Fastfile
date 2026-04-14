@@ -15,16 +15,11 @@ PATH_CHANGELOG_LATEST = './CHANGELOG-LATEST.md'
 PATH_CHANGELOG = './CHANGELOG.md'
 PATH_VERSIONS = './VERSIONS.md'
 FILES_WITH_SDK_VERSION = {
-  './gradle/libs.versions.toml' => ["revenuecat-kmp = \"{x}\""],
-  './core/core.podspec' => ["spec.version                  = '{x}'"],
-  './mappings/mappings.podspec' => ["spec.version                  = '{x}'"],
-  './models/models.podspec' => ["spec.version                  = '{x}'"],
-  './revenuecatui/revenuecatui.podspec' => ["spec.version                  = '{x}'"]
+  './gradle/libs.versions.toml' => ["revenuecat-kmp = \"{x}\""]
 }
 
 desc "Bumps version, edits changelog, and creates pull request"
 lane :bump do |options|
-  phc_version = get_phc_version
   bump_version_update_changelog_create_pr(
     current_version: current_version_number,
     changelog_latest_path: PATH_CHANGELOG_LATEST,
@@ -36,16 +31,10 @@ lane :bump do |options|
     editor: options[:editor],
     next_version: options[:next_version],
     automatic_release: options[:automatic_release],
-    hybrid_common_version: phc_version,
     versions_file_path: PATH_VERSIONS,
-    is_prerelease: options[:is_prerelease],
-    append_phc_version_if_next_version_is_not_prerelease: true
+    is_prerelease: options[:is_prerelease]
   )
-  update_hybrids_versions_file(
-    versions_file_path: PATH_VERSIONS,
-    new_sdk_version: current_version_number,
-    hybrid_common_version: phc_version
-  )
+  update_versions_file(current_version_number)
   commit_current_changes(commit_message: 'Updates VERSIONS.md')
   push_to_git_remote(set_upstream: true)
 end
@@ -66,62 +55,6 @@ lane :automatic_bump do |options|
     next
   end
   bump(options)
-end
-
-desc "Update purchases-hybrid-common dependency"
-lane :update_hybrid_common do |options|
-  if options[:dry_run]
-    dry_run = true
-  end
-  if options[:version]
-    new_phc_version = options[:version]
-  else
-    UI.user_error!("Missing `version` argument")
-  end
-
-  current_phc_version = get_phc_version
-
-  UI.message("ℹ️  Current Purchases Hybrid Common version: #{current_phc_version}")
-  UI.message("ℹ️  Setting Purchases Hybrid Common version: #{new_phc_version}")
-  files_to_update = {
-    "gradle/libs.versions.toml" => ["revenuecat-common = \"{x}\""],
-    "core/core.podspec" => ["spec.dependency 'PurchasesHybridCommon', '{x}'"],
-    "mappings/mappings.podspec" => ["spec.dependency 'PurchasesHybridCommon', '{x}'"],
-    "models/models.podspec" => ["spec.dependency 'PurchasesHybridCommon', '{x}'"],
-    "revenuecatui/revenuecatui.podspec" => ["spec.dependency 'PurchasesHybridCommonUI', '{x}'"],
-    "iosApp/Podfile" => ["  pod 'PurchasesHybridCommon', '{x}'", "  pod 'PurchasesHybridCommonUI', '{x}'"],
-  }
-
-  if dry_run
-    UI.message("ℹ️  Nothing more to do, dry_run: true")
-    next
-  end
-
-  bump_phc_version(
-    repo_name: REPO_NAME,
-    files_to_update: files_to_update,
-    current_version: current_phc_version,
-    next_version: new_phc_version,
-    open_pr: options[:open_pr] || false,
-    automatic_release: options[:automatic_release] || false
-  )
-  # Making sure Podfile.lock is updated.
-  podfile = "iosApp/Podfile"
-  cocoapods(
-    podfile: podfile,
-    repo_update: true
-  )
-  if options[:open_pr]
-    git_commit(
-      path: ["#{podfile}.lock"],
-      message: "Updates Podfile.lock",
-      skip_git_hooks: true
-    )
-    push_to_git_remote(
-      tags: false,
-      no_verify: true
-    )
-  end
 end
 
 desc "Opens a PR updating the SDK version to the next minor, appending -SNAPSHOT."
@@ -179,40 +112,67 @@ lane :github_release do |options|
   )
 end
 
-def get_phc_version
-  android_phc_version = File.read("../gradle/libs.versions.toml")
-    .match("revenuecat-common = \"(.*)\"")
+def current_version_number
+  File.read("../gradle/libs.versions.toml")
+    .match('revenuecat-kmp = "(.*)"')
     .captures[0]
-  UI.user_error!("Android PHC version not found.") if android_phc_version.nil?
-  
-  ios_phc_version = File.read("../core/core.podspec")
-    .match("spec.dependency 'PurchasesHybridCommon', '(.*)'")
+end
+
+def get_android_version
+  version = File.read("../gradle/libs.versions.toml")
+    .match('revenuecat-android = "(.*)"')
     .captures[0]
-  UI.user_error!("iOS PHC version not found.") if ios_phc_version.nil?
+  UI.user_error!("Android version not found in libs.versions.toml") if version.nil?
+  version
+end
 
-  ios_phc_ui_version = File.read("../revenuecatui/revenuecatui.podspec")
-    .match("spec.dependency 'PurchasesHybridCommonUI', '(.*)'")
-    .captures[0]
-  UI.user_error!("iOS PHC UI version not found.") if ios_phc_ui_version.nil?
-  
-  versions_mismatch_error = "Found multiple PHC (UI) versions. Please make sure to use only 1."
-  versions_match = android_phc_version == ios_phc_version && ios_phc_version == ios_phc_ui_version
-  UI.user_error!(versions_mismatch_error) unless versions_match
-  
-  android_phc_version
-  end
+def get_ios_version
+  version = File.read("../upstream/purchases-ios/.version").strip
+  UI.user_error!("iOS version not found in upstream/purchases-ios/.version") if version.nil? || version.empty?
+  version
+end
 
-  def current_version_number
-    File.read("../gradle/libs.versions.toml")
-      .match("revenuecat-kmp = \"(.*)\"")
-      .captures[0]
-  end
+def get_billing_client_version(android_version)
+  require 'base64'
+  response = github_api(
+    server_url: 'https://api.github.com',
+    api_token: ENV["GITHUB_TOKEN"],
+    http_method: 'GET',
+    path: "/repos/RevenueCat/purchases-android/contents/gradle/libs.versions.toml?ref=#{android_version}"
+  )
+  contents = Base64.decode64(response[:json]['content'])
+  matches = contents.match('bc8 = "(.*)"')
+  UI.user_error!("Could not find Play Billing Library version for purchases-android #{android_version}") unless matches
+  matches.captures[0]
+end
 
-  def check_no_git_tag_exists(version_number)
-    if git_tag_exists(tag: version_number, remote: true, remote_name: 'origin')
-      raise "git tag with version #{version_number} already exists!"
-    end
+def update_versions_file(sdk_version)
+  android_version = get_android_version
+  ios_version = get_ios_version
+  billing_version = get_billing_client_version(android_version)
+
+  UI.message("Android version: #{android_version}")
+  UI.message("iOS version: #{ios_version}")
+  UI.message("Play Billing Library version: #{billing_version}")
+
+  versions_path = File.join('..', PATH_VERSIONS)
+  lines = File.readlines(versions_path)
+  new_line = [
+    sdk_version,
+    "[#{ios_version}](https://github.com/RevenueCat/purchases-ios/releases/tag/#{ios_version})",
+    "[#{android_version}](https://github.com/RevenueCat/purchases-android/releases/tag/#{android_version})",
+    "N/A",
+    "[#{billing_version}](https://developer.android.com/google/play/billing/release-notes)"
+  ].join(' | ')
+  lines.insert(2, "| #{new_line} |\n")
+  File.write(versions_path, lines.join)
+end
+
+def check_no_git_tag_exists(version_number)
+  if git_tag_exists(tag: version_number, remote: true, remote_name: 'origin')
+    raise "git tag with version #{version_number} already exists!"
   end
+end
 
 # Publishes the SDK. If the current version is a SNAPSHOT version, it will be published
 # to Sonatype's snapshots repository, otherwise it will be published to Maven Central.

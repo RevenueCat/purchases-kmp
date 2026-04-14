@@ -1,11 +1,17 @@
 package com.revenuecat.purchases.kmp.buildlogic.swift.task
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.IgnoreEmptyDirectories
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
@@ -22,6 +28,7 @@ import javax.inject.Inject
  * - An Objective-C header (-Swift.h)
  * - A module.modulemap for cinterop
  */
+@CacheableTask
 abstract class SwiftBuildTask @Inject constructor(
     private val execOperations: ExecOperations
 ) : DefaultTask() {
@@ -58,10 +65,26 @@ abstract class SwiftBuildTask @Inject constructor(
     @get:Internal
     abstract val packageDir: DirectoryProperty
 
+    /** The Package.swift file. Tracked for cache invalidation on package structure changes. */
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
+    abstract val packageSwiftFile: RegularFileProperty
+
     /** The Swift target's source directory (for tracking incremental builds) */
     @get:InputDirectory
     @get:PathSensitive(PathSensitivity.RELATIVE)
+    @get:IgnoreEmptyDirectories
     abstract val targetSourceDir: DirectoryProperty
+
+    /**
+     * Source directories of cross-project Swift target dependencies. Ensures the build cache
+     * is invalidated when a dependency target's source changes (e.g. RevenueCat sources
+     * affecting RevenueCatUI compilation).
+     */
+    @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    @get:IgnoreEmptyDirectories
+    abstract val transitiveDepSourceDirs: ConfigurableFileCollection
 
     /** The output directory for built artifacts */
     @get:OutputDirectory
