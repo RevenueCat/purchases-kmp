@@ -171,7 +171,6 @@ jobs:
           command: ./gradlew apiCheck
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   build-libraries-android:
     executor: android202409
@@ -231,7 +230,6 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   build-sample-ios:
     executor: xcode16
@@ -262,7 +260,6 @@ jobs:
               build;
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   public-api-tests-android:
     executor: android202409
@@ -279,7 +276,6 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   public-api-tests-ios:
     executor: xcode16
@@ -301,7 +297,6 @@ jobs:
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   unit-tests-android:
     executor: android202409
@@ -318,7 +313,6 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   unit-tests-ios:
     executor: xcode16
@@ -338,7 +332,6 @@ jobs:
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   unit-tests-build-logic:
     executor: xcode16
