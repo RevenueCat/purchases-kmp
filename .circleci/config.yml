@@ -21,17 +21,6 @@ orbs:
   revenuecat: revenuecat/sdks-common-config@3.16.0
 
 commands:
-  pin-ruby-version:
-    steps:
-      - run:
-          name: Set Ruby 3.2.0
-          command: |
-            eval "$(rbenv init -)"
-            rbenv install -s 3.2.0
-            rbenv global 3.2.0
-            rbenv rehash
-            gem install cocoapods
-
   install-android-sdk-on-macos:
     description: Install the Android SDK on macOS
     steps:
@@ -211,7 +200,6 @@ jobs:
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
-      - pin-ruby-version
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - run:
@@ -253,7 +241,6 @@ jobs:
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
-      - pin-ruby-version
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - run:
@@ -302,7 +289,6 @@ jobs:
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
-      - pin-ruby-version
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - run:
@@ -380,7 +366,6 @@ jobs:
       - checkout
       - checkout-submodule
       - install-android-sdk-on-macos
-      - pin-ruby-version
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - restore-gradle-user-home-directory-from-cache
