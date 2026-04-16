@@ -11,9 +11,14 @@ const val API_KEY = "MAESTRO_TESTS_REVENUECAT_API_KEY"
 
 enum class Screen { TestCases, PurchaseThroughPaywall }
 
+private val testFlowScreenMap = mapOf(
+    "purchase_through_paywall" to Screen.PurchaseThroughPaywall,
+)
+
 @Composable
-fun App() {
-    var currentScreen by remember { mutableStateOf(Screen.TestCases) }
+fun App(initialTestFlow: String? = null) {
+    val initialScreen = initialTestFlow?.let { testFlowScreenMap[it] } ?: Screen.TestCases
+    var currentScreen by remember { mutableStateOf(initialScreen) }
 
     MaterialTheme {
         when (currentScreen) {
