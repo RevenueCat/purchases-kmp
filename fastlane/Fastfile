@@ -163,8 +163,7 @@ lane :run_maestro_e2e_tests_ios do |options|
 
     sh("xcrun simctl install booted build/Build/Products/Debug-iphonesimulator/MaestroTestApp.app")
   end
-  sh("mkdir -p test_output")
-  sh("maestro test --format junit --output test_output/report.xml --test-output-dir test_output ../e2e-tests/maestro/")
+  run_maestro_e2e_tests(flow_dir: "../e2e-tests/maestro/", output_dir: "test_output")
 end
 
 desc "Build maestro E2E test app for Android"
@@ -179,8 +178,7 @@ end
 desc "Run maestro E2E tests on Android (emulator must be running)"
 lane :run_maestro_e2e_tests_android do
   sh("adb install ../e2e-tests/MaestroTestApp/build/outputs/apk/debug/MaestroTestApp-debug.apk")
-  sh("mkdir -p test_output")
-  sh("maestro test --format junit --output test_output/report.xml --test-output-dir test_output ../e2e-tests/maestro/")
+  run_maestro_e2e_tests(flow_dir: "../e2e-tests/maestro/", output_dir: "test_output")
 end
 
 desc "Opens a PR updating the SDK version to the next minor, appending -SNAPSHOT."
