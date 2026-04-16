@@ -405,6 +405,80 @@ jobs:
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
 
+  run-maestro-e2e-tests-ios:
+    macos:
+      xcode: 16.4.0
+    resource_class: m4pro.medium
+    parameters:
+      simulator-name:
+        type: string
+        default: "iPhone 16 Pro"
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+    steps:
+      - checkout
+      - run:
+          name: Install JDK 21 for Gradle
+          command: |
+            brew install openjdk@21
+            sudo ln -sfn "$(brew --prefix openjdk@21)/libexec/openjdk.jdk" /Library/Java/JavaVirtualMachines/openjdk-21.jdk
+            echo 'export JAVA_HOME=$(/usr/libexec/java_home -v 21)' >> "$BASH_ENV"
+      - install-android-sdk-on-macos
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - revenuecat/install-maestro
+      - run:
+          name: Boot iOS Simulator
+          command: |
+            xcrun simctl boot "<< parameters.simulator-name >>" || true
+            xcrun simctl bootstatus "<< parameters.simulator-name >>" -b
+      - run:
+          name: Run Maestro E2E Tests (iOS)
+          command: bundle exec fastlane run_maestro_e2e_tests_ios simulator_name:"<< parameters.simulator-name >>"
+          no_output_timeout: 15m
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
+      - store_test_results:
+          path: fastlane/test_output
+      - store_artifacts:
+          path: fastlane/test_output
+
+  run-maestro-e2e-tests-android:
+    machine:
+      image: android:2024.11.1
+    resource_class: xlarge
+    steps:
+      - checkout
+      - run:
+          name: Install Ruby and Bundler
+          command: |
+            gem install bundler
+            bundle install
+      - restore-gradle-user-home-directory-from-cache
+      - run:
+          name: Build Maestro app (Android)
+          command: bundle exec fastlane build_maestro_app_android
+          no_output_timeout: 15m
+      - save-gradle-user-home-directory-to-cache
+      - android/create-avd:
+          avd-name: test-e2e
+          system-image: system-images;android-34;google_apis;x86_64
+          install: true
+      - android/start-emulator:
+          avd-name: test-e2e
+          post-emulator-launch-assemble-command: ""
+      - revenuecat/install-maestro
+      - run:
+          name: Run Maestro E2E Tests (Android)
+          command: bundle exec fastlane run_maestro_e2e_tests_android
+          no_output_timeout: 15m
+      - store_test_results:
+          path: fastlane/test_output
+      - store_artifacts:
+          path: fastlane/test_output
+
   create-github-release:
     description: "Creates a GitHub release for the current version"
     executor: ruby3
@@ -418,6 +492,22 @@ jobs:
           command: bundle exec fastlane github_release_current_version
 
 workflows:
+  maestro-e2e-tests:
+    when:
+      or:
+        - and:
+            - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+            - equal: [ "maestro_e2e_tests", << pipeline.schedule.name >> ]
+    jobs:
+      - run-maestro-e2e-tests-ios:
+          context:
+            - maestro-e2e-tests
+            - e2e-tests
+      - run-maestro-e2e-tests-android:
+          context:
+            - maestro-e2e-tests
+            - e2e-tests
+
   on-action-upgrade-hybrid-common:
     when:
       equal: [ upgrade-hybrid-common, << pipeline.parameters.action >> ]
@@ -460,6 +550,14 @@ workflows:
           # This would benefit from the incremental build output of build-libraries-android
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
+      - run-maestro-e2e-tests-ios:
+          context:
+            - maestro-e2e-tests
+            - e2e-tests
+      - run-maestro-e2e-tests-android:
+          context:
+            - maestro-e2e-tests
+            - e2e-tests
 
   on-main-branch:
     when:

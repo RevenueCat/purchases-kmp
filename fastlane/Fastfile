@@ -90,6 +90,7 @@ lane :update_hybrid_common do |options|
     "models/models.podspec" => ["spec.dependency 'PurchasesHybridCommon', '{x}'"],
     "revenuecatui/revenuecatui.podspec" => ["spec.dependency 'PurchasesHybridCommonUI', '{x}'"],
     "iosApp/Podfile" => ["  pod 'PurchasesHybridCommon', '{x}'", "  pod 'PurchasesHybridCommonUI', '{x}'"],
+    "e2e-tests/MaestroTestApp/iosApp/Podfile" => ["  pod 'PurchasesHybridCommon', '{x}'", "  pod 'PurchasesHybridCommonUI', '{x}'"],
   }
 
   if dry_run
@@ -122,6 +123,64 @@ lane :update_hybrid_common do |options|
       no_verify: true
     )
   end
+end
+
+desc "Run maestro E2E tests on iOS"
+lane :run_maestro_e2e_tests_ios do |options|
+  UI.user_error!("RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE is not set") if ENV["RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE"].to_s.empty?
+  simulator_name = options[:simulator_name] || "iPhone 16 Pro"
+
+  Dir.chdir("../e2e-tests/MaestroTestApp") do
+    app_kt = "src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt"
+    sh("sed -i '' 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE\"'/g' #{app_kt}")
+    UI.user_error!("API key placeholder was not replaced in #{app_kt}") if File.read(app_kt).include?("MAESTRO_TESTS_REVENUECAT_API_KEY")
+
+    # Workaround for CocoaPods Errno::ENOENT bug during Gradle's podInstall tasks.
+    # When the CocoaPods CDN cache is empty, Gradle's pod install can fail with
+    # `Errno::ENOENT - No such file or directory @ rb_sysopen` because the cache
+    # directory structure doesn't exist yet. Pre-warming with a throwaway pod install
+    # populates the CDN index and cache directories so the real install succeeds.
+    # Observed with CocoaPods 1.16.x on macOS CI runners.
+    # See: https://github.com/CocoaPods/CocoaPods/issues/9226
+    # This can likely be removed if CocoaPods fixes the cache initialization or if
+    # we move away from CocoaPods for dependency management.
+    sh("pod cache clean --all")
+    sh("rm -rf ~/Library/Caches/CocoaPods/Pods")
+    sh("mkdir -p /tmp/pod-warmup")
+    sh("cd /tmp/pod-warmup && cat > Podfile << 'PODEOF'\nsource 'https://cdn.cocoapods.org'\nplatform :ios, '13.0'\ntarget 'Warmup' do\n  use_frameworks!\n  pod 'PurchasesHybridCommon', '~> 17.0'\n  pod 'PurchasesHybridCommonUI', '~> 17.0'\nend\nPODEOF")
+    sh("cd /tmp/pod-warmup && pod install --no-integrate 2>&1 || true")
+
+    gradle_opts = "--init-script e2e-tests/MaestroTestApp/disable-x64.init.gradle.kts --no-parallel --max-workers=1 --no-daemon --no-configuration-cache"
+
+    UI.important("Running Gradle pod install tasks (init script patches AppIcon settings in doLast)...")
+    sh("cd ../.. && ./gradlew :revenuecatui:podInstallSyntheticIos :models:podInstallSyntheticIos :mappings:podInstallSyntheticIos :core:podInstallSyntheticIos #{gradle_opts}")
+
+    UI.important("Installing CocoaPods for iosApp...")
+    sh("cd iosApp && pod install --repo-update")
+
+    UI.important("Building with xcodebuild (using workspace)...")
+    sh("xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme iosApp -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=#{simulator_name}' -derivedDataPath build CODE_SIGNING_ALLOWED=NO ONLY_ACTIVE_ARCH=YES ARCHS=arm64 ENABLE_DEBUG_DYLIB=NO ASSETCATALOG_COMPILER_APPICON_NAME=")
+
+    sh("xcrun simctl install booted build/Build/Products/Debug-iphonesimulator/MaestroTestApp.app")
+  end
+  sh("mkdir -p test_output")
+  sh("maestro test --format junit --output test_output/report.xml --test-output-dir test_output ../e2e-tests/maestro/")
+end
+
+desc "Build maestro E2E test app for Android"
+lane :build_maestro_app_android do
+  UI.user_error!("RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE is not set") if ENV["RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE"].to_s.empty?
+  app_kt = "../e2e-tests/MaestroTestApp/src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt"
+  sh("sed -i 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE\"'/g' #{app_kt}")
+  UI.user_error!("API key placeholder was not replaced in #{app_kt}") if File.read(app_kt).include?("MAESTRO_TESTS_REVENUECAT_API_KEY")
+  sh("cd .. && ./gradlew :e2e-tests:MaestroTestApp:assembleDebug")
+end
+
+desc "Run maestro E2E tests on Android (emulator must be running)"
+lane :run_maestro_e2e_tests_android do
+  sh("adb install ../e2e-tests/MaestroTestApp/build/outputs/apk/debug/MaestroTestApp-debug.apk")
+  sh("mkdir -p test_output")
+  sh("maestro test --format junit --output test_output/report.xml --test-output-dir test_output ../e2e-tests/maestro/")
 end
 
 desc "Opens a PR updating the SDK version to the next minor, appending -SNAPSHOT."
