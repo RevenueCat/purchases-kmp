@@ -133,7 +133,7 @@ lane :run_maestro_e2e_tests_ios do |options|
   Dir.chdir("../e2e-tests/MaestroTestApp") do
     app_kt = "src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt"
     sh("sed -i '' 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE\"'/g' #{app_kt}")
-    sh("grep -q MAESTRO_TESTS_REVENUECAT_API_KEY #{app_kt} && echo 'ERROR: API key placeholder was not replaced' && exit 1 || true")
+    UI.user_error!("API key placeholder was not replaced in #{app_kt}") if File.read(app_kt).include?("MAESTRO_TESTS_REVENUECAT_API_KEY")
 
     # Workaround for CocoaPods Errno::ENOENT bug during Gradle's podInstall tasks.
     # When the CocoaPods CDN cache is empty, Gradle's pod install can fail with
@@ -171,7 +171,7 @@ lane :build_maestro_app_android do
   UI.user_error!("RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE is not set") if ENV["RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE"].to_s.empty?
   app_kt = "../e2e-tests/MaestroTestApp/src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt"
   sh("sed -i 's/MAESTRO_TESTS_REVENUECAT_API_KEY/'\"$RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE\"'/g' #{app_kt}")
-  sh("grep -q MAESTRO_TESTS_REVENUECAT_API_KEY #{app_kt} && echo 'ERROR: API key placeholder was not replaced' && exit 1 || true")
+  UI.user_error!("API key placeholder was not replaced in #{app_kt}") if File.read(app_kt).include?("MAESTRO_TESTS_REVENUECAT_API_KEY")
   sh("cd .. && ./gradlew :e2e-tests:MaestroTestApp:assembleDebug")
 end
 
