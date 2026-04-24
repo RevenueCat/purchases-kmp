@@ -1,0 +1,17 @@
+plugins {
+    id 'org.jetbrains.kotlin.multiplatform' version '2.1.21'
+}
+
+def purchasesKmpVersion = project.findProperty('purchasesKmpVersion')
+    ?: { throw new GradleException('purchasesKmpVersion property not set') }()
+
+kotlin {
+    iosSimulatorArm64()
+    sourceSets {
+        iosMain {
+            dependencies {
+                implementation "com.revenuecat.purchases:purchases-kmp-core:${purchasesKmpVersion}"
+            }
+        }
+    }
+}

@@ -45,8 +45,14 @@ commands:
             echo 'export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"' >> "$BASH_ENV"
       - android/accept-licenses
       - run:
-          name: Install Android SDK platform tools
-          command: sdkmanager "platform-tools"
+          name: Install Android SDK components
+          command: sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+
+  clean-cocoapods-cache:
+    steps:
+      - run:
+          name: Clean CocoaPods cache
+          command: rm -rf ~/Library/Caches/CocoaPods
 
   install-cocoapods-on-macos:
     steps:
@@ -109,12 +115,26 @@ commands:
       - persist_to_workspace:
           name: Save incremental Gradle build to workspace
           root: ./
-          paths: 
+          paths:
             - .gradle
             # This doesn't support directory glob patterns (**), unfortunately.
             - build
             - ./*/build
             - ./*/*/build
+
+  save-maven-local-to-workspace:
+    steps:
+      - persist_to_workspace:
+          name: Save mavenLocal purchases-kmp artifacts to workspace
+          root: ~/
+          paths:
+            - .m2/repository/com/revenuecat
+
+  attach-home-directory-from-workspace:
+    steps:
+      - attach_workspace:
+          name: Attach home directory from workspace
+          at: ~/
 
   attach-workspace-at-working-directory:
     steps:
@@ -152,6 +172,16 @@ executors:
     environment:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
       # freshly installed.
+      HOMEBREW_NO_AUTO_UPDATE: 1
+  xcode-versioned:
+    parameters:
+      xcode_version:
+        type: string
+    macos:
+      # circleci-lint: disable=unknown-xcode-version
+      xcode: << parameters.xcode_version >>
+    resource_class: m4pro.medium
+    environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
 
 jobs:
@@ -246,8 +276,17 @@ jobs:
       - pin-ruby-version
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
+      - clean-cocoapods-cache
       - install-cocoapods-on-macos
       - pre-install-pods-for-kotlin-modules
+      - run:
+          name: Install synthetic pods for iOS (sequential to avoid CocoaPods cache race)
+          command: |
+            ./gradlew --no-parallel \
+              :core:podInstallSyntheticIos \
+              :mappings:podInstallSyntheticIos \
+              :models:podInstallSyntheticIos \
+              :revenuecatui:podInstallSyntheticIos
       - run:
           name: Build libraries for iOS
           command: |
@@ -258,9 +297,22 @@ jobs:
               done
             done
             ./gradlew "${tasks[@]}"
+      - run:
+          name: Publish iOS libraries to mavenLocal
+          # Scoped to iOS publications only — avoids triggering Android SDK
+          # resolution (which isn't available on the macOS executor).
+          command: |
+            tasks=()
+            for module in core revenuecatui datetime either result mappings models; do
+              for pub in IosArm64 IosSimulatorArm64 IosX64 KotlinMultiplatform; do
+                tasks+=(":$module:publish${pub}PublicationToMavenLocal")
+              done
+            done
+            ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
       - save-incremental-gradle-build-to-workspace
+      - save-maven-local-to-workspace
 
   build-sample-android:
     executor: android202409
@@ -301,6 +353,33 @@ jobs:
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
       - save-incremental-gradle-build-to-workspace
+
+  build-ios-app-xcode26:
+    executor:
+      name: xcode-versioned
+      xcode_version: "26.3"
+    steps:
+      - checkout
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - attach-workspace-at-working-directory
+      - attach-home-directory-from-workspace
+      - pin-ruby-version
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - run:
+          name: Compile ciIntegrationTests against purchases-kmp-core (Xcode 26.3)
+          # Verifies issue #759: the KMP library was compiled with Xcode 16 (by
+          # build-libraries-ios) and published to mavenLocal. Here we resolve and
+          # compile against that pre-built klib on Xcode 26.3, exercising the same
+          # toolchain path that triggers the linker error for end-users.
+          command: |
+            KMP_VERSION=$(sed -nE 's/^revenuecat-kmp = "([^"]+)".*/\1/p' gradle/libs.versions.toml)
+            cd ciIntegrationTests
+            ../gradlew compileKotlinIosSimulatorArm64 \
+              -PpurchasesKmpVersion="$KMP_VERSION"
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
 
   public-api-tests-android:
     executor: android202409
@@ -466,6 +545,8 @@ workflows:
           requires: [build-libraries-android]
       - build-sample-ios:
           requires: [build-libraries-ios]
+      - build-ios-app-xcode26:
+          requires: [build-libraries-ios]
       - public-api-tests-android:
           requires: [build-libraries-android]
       - public-api-tests-ios:
@@ -532,6 +613,8 @@ workflows:
           requires: [build-libraries-android]
       - build-sample-ios:
           requires: [build-libraries-ios]
+      - build-ios-app-xcode26:
+          requires: [build-libraries-ios]
       - public-api-tests-android:
           requires: [build-libraries-android]
       - public-api-tests-ios:
@@ -551,6 +634,7 @@ workflows:
             - unit-tests-build-logic
             - build-sample-android
             - build-sample-ios
+            - build-ios-app-xcode26
             - public-api-tests-android
             - public-api-tests-ios
             - unit-tests-android
