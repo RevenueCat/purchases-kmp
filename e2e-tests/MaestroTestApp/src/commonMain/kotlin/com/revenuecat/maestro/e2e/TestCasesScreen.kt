@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun TestCasesScreen(onNavigate: () -> Unit) {
+fun TestCasesScreen(onNavigate: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -25,11 +25,13 @@ fun TestCasesScreen(onNavigate: () -> Unit) {
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
         )
-        Button(
-            onClick = onNavigate,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Purchase through paywall")
+        TEST_CASES.forEach { (key, testCase) ->
+            Button(
+                onClick = { onNavigate(key) },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(testCase.title)
+            }
         }
     }
 }

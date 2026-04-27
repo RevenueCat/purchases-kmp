@@ -9,25 +9,16 @@ import androidx.compose.material.MaterialTheme
 
 const val API_KEY = "MAESTRO_TESTS_REVENUECAT_API_KEY"
 
-enum class Screen { TestCases, PurchaseThroughPaywall }
-
-private val testFlowScreenMap = mapOf(
-    "purchase_through_paywall" to Screen.PurchaseThroughPaywall,
-)
-
 @Composable
 fun App(initialTestFlow: String? = null) {
-    val initialScreen = initialTestFlow?.let { testFlowScreenMap[it] } ?: Screen.TestCases
-    var currentScreen by remember { mutableStateOf(initialScreen) }
+    var currentFlow by remember { mutableStateOf(initialTestFlow) }
 
     MaterialTheme {
-        when (currentScreen) {
-            Screen.TestCases -> TestCasesScreen(
-                onNavigate = { currentScreen = Screen.PurchaseThroughPaywall }
-            )
-            Screen.PurchaseThroughPaywall -> PurchaseThroughPaywallScreen(
-                onBack = { currentScreen = Screen.TestCases }
-            )
+        val testCase = currentFlow?.let { TEST_CASES[it] }
+        if (testCase != null) {
+            testCase.screen { currentFlow = null }
+        } else {
+            TestCasesScreen(onNavigate = { key -> currentFlow = key })
         }
     }
 }
