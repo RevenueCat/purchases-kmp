@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,7 +20,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.revenuecat.purchases.kmp.Purchases
-import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.ui.revenuecatui.Paywall
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallOptions
 
@@ -31,7 +29,7 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
     var showPaywall by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
 
-    LaunchedEffect(Unit) {
+    fun fetchCustomerInfo() {
         Purchases.sharedInstance.getCustomerInfo(
             onError = { error -> errorMessage = error.message },
             onSuccess = { info ->
@@ -40,22 +38,9 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
         )
     }
 
-    DisposableEffect(Unit) {
-        Purchases.sharedInstance.delegate = object : com.revenuecat.purchases.kmp.PurchasesDelegate {
-            override fun onPurchasePromoProduct(
-                product: com.revenuecat.purchases.kmp.models.StoreProduct,
-                startPurchase: (
-                    onError: (error: com.revenuecat.purchases.kmp.models.PurchasesError, userCancelled: Boolean) -> Unit,
-                    onSuccess: (storeTransaction: com.revenuecat.purchases.kmp.models.StoreTransaction, customerInfo: CustomerInfo) -> Unit
-                ) -> Unit
-            ) { /* no-op */ }
-
-            override fun onCustomerInfoUpdated(customerInfo: CustomerInfo) {
-                hasPro = customerInfo.entitlements.active.containsKey("pro")
-            }
-        }
-        onDispose {
-            Purchases.sharedInstance.delegate = null
+    LaunchedEffect(showPaywall) {
+        if (!showPaywall) {
+            fetchCustomerInfo()
         }
     }
 
