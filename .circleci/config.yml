@@ -435,7 +435,9 @@ jobs:
           destination: maestro-results
 
   run-maestro-e2e-tests-android:
-    executor: android202409
+    machine:
+      image: android:2025.10.1
+    resource_class: large
     steps:
       - checkout
       - restore-gradle-user-home-directory-from-cache
