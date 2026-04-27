@@ -122,10 +122,7 @@ lane :build_maestro_test_app do |options|
   if platform == "ios"
     simulator_name = options[:simulator_name] || "iPhone 16 Pro"
 
-    UI.important("Building Kotlin framework for iOS Simulator...")
-    sh("cd .. && ./gradlew :e2e-tests:MaestroTestApp:linkDebugFrameworkIosSimulatorArm64")
-
-    UI.important("Building with xcodebuild...")
+    UI.important("Building with xcodebuild (Kotlin framework built via Xcode build phase)...")
     Dir.chdir("../e2e-tests/MaestroTestApp") do
       sh(
         "xcodebuild",

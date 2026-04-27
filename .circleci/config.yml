@@ -403,6 +403,7 @@ jobs:
     steps:
       - checkout
       - checkout-submodule
+      # KMP builds need Android SDK even on macOS (Gradle resolves Android targets)
       - install-android-sdk-on-macos
       - run:
           name: Start booting iOS Simulator
@@ -426,6 +427,18 @@ jobs:
           name: Run Maestro E2E Tests (iOS)
           command: bundle exec fastlane run_maestro_e2e_tests_ios
           no_output_timeout: 15m
+      - run:
+          name: Collect iOS simulator crash logs
+          command: |
+            mkdir -p /tmp/crash-logs
+            # Crash reports
+            find ~/Library/Logs/DiagnosticReports -name "MaestroTestApp*" -exec cp {} /tmp/crash-logs/ \; 2>/dev/null || true
+            # Recent device logs for the app process
+            xcrun simctl spawn booted log show \
+              --predicate 'process == "MaestroTestApp" OR (eventMessage CONTAINS "MaestroTestApp")' \
+              --last 5m \
+              --style compact > /tmp/crash-logs/simulator.log 2>/dev/null || true
+          when: on_fail
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
       - store_test_results:
@@ -433,6 +446,9 @@ jobs:
       - store_artifacts:
           path: fastlane/test_output
           destination: maestro-results
+      - store_artifacts:
+          path: /tmp/crash-logs
+          destination: crash-logs
 
   run-maestro-e2e-tests-android:
     machine:
