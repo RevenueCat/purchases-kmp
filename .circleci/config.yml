@@ -390,6 +390,82 @@ jobs:
           name: "Create a GitHub release for the current version"
           command: bundle exec fastlane github_release_current_version
 
+  run-maestro-e2e-tests-ios:
+    macos:
+      xcode: 16.4.0
+    parameters:
+      simulator-name:
+        type: string
+        default: "iPhone 16 Pro"
+    resource_class: m4pro.medium
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+    steps:
+      - checkout
+      - checkout-submodule
+      - install-android-sdk-on-macos
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - run:
+          name: Install Maestro
+          command: |
+            curl -Ls "https://get.maestro.mobile.dev" | bash
+            echo 'export PATH="$HOME/.maestro/bin:$PATH"' >> "$BASH_ENV"
+      - run:
+          name: Boot iOS Simulator
+          command: |
+            xcrun simctl boot "<< parameters.simulator-name >>" || true
+            xcrun simctl bootstatus "<< parameters.simulator-name >>" -b
+      - run:
+          name: Run Maestro E2E Tests (iOS)
+          command: bundle exec fastlane run_maestro_e2e_tests_ios simulator_name:"<< parameters.simulator-name >>"
+          no_output_timeout: 15m
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
+      - store_test_results:
+          path: fastlane/test_output
+      - store_artifacts:
+          path: fastlane/test_output
+          destination: maestro-results
+
+  run-maestro-e2e-tests-android:
+    executor: android202409
+    steps:
+      - checkout
+      - restore-gradle-user-home-directory-from-cache
+      - revenuecat/install-gem-unix-dependencies:
+          cache-version: v1
+      - run:
+          name: Install Maestro
+          command: |
+            curl -Ls "https://get.maestro.mobile.dev" | bash
+            echo 'export PATH="$HOME/.maestro/bin:$PATH"' >> "$BASH_ENV"
+      - run:
+          name: Build Maestro app (Android)
+          command: bundle exec fastlane build_maestro_app_android
+          no_output_timeout: 15m
+      - save-gradle-user-home-directory-to-cache
+      - android/create-avd:
+          avd-name: test-e2e
+          system-image: system-images;android-34;google_apis;x86_64
+          install: true
+      - android/start-emulator:
+          avd-name: test-e2e
+          no-window: true
+          restore-gradle-cache-prefix: ""
+          post-emulator-launch-assemble-command: ""
+      - run:
+          name: Run Maestro E2E Tests (Android)
+          command: bundle exec fastlane run_maestro_e2e_tests_android
+          no_output_timeout: 10m
+      - store_test_results:
+          path: fastlane/test_output
+      - store_artifacts:
+          path: fastlane/test_output
+          destination: maestro-results
+
 workflows:
   # This workflow runs for any commit to main, as well as for any other
   # branch with an open PR, except for release branches. This is controlled 
@@ -424,6 +500,23 @@ workflows:
           # This would benefit from the incremental build output of build-libraries-android
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
+
+  maestro-e2e-tests:
+    when:
+      or:
+        - and:
+            - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+            - equal: [ "maestro_e2e_tests", << pipeline.schedule.name >> ]
+    jobs:
+      - run-maestro-e2e-tests-ios:
+          context:
+            - maestro-e2e-tests
+            - e2e-tests
+          simulator-name: "iPhone 16 Pro"
+      - run-maestro-e2e-tests-android:
+          context:
+            - maestro-e2e-tests
+            - e2e-tests
 
   on-main-branch:
     when:
