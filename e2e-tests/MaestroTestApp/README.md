@@ -43,4 +43,3 @@ The test uses a RevenueCat project configured with:
 
 `projects.core` and `projects.revenuecatui` are referenced as Gradle project
 dependencies, so the E2E tests always exercise the code on the current branch.
-On iOS, `projects.knUi` is also used for the native modal paywall presentation.

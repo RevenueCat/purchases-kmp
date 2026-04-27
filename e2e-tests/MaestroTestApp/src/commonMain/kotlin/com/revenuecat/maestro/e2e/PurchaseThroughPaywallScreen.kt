@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.CustomerInfo
+import com.revenuecat.purchases.kmp.ui.revenuecatui.Paywall
+import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallOptions
 
 @Composable
 fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
@@ -58,7 +60,12 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
     }
 
     if (showPaywall) {
-        PaywallPresenter(onDismiss = { showPaywall = false })
+        val options = remember {
+            PaywallOptions(dismissRequest = { showPaywall = false }) {
+                shouldDisplayDismissButton = true
+            }
+        }
+        Paywall(options)
     } else {
         Column(
             modifier = Modifier

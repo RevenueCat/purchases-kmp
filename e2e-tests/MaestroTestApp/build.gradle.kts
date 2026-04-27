@@ -37,9 +37,6 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
         }
-        iosMain.dependencies {
-            implementation(projects.knUi)
-        }
     }
 }
 
