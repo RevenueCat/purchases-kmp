@@ -404,23 +404,27 @@ jobs:
       - checkout
       - checkout-submodule
       - install-android-sdk-on-macos
+      - run:
+          name: Start booting iOS Simulator
+          command: xcrun simctl boot "<< parameters.simulator-name >>" || true
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
+      - revenuecat/install-maestro
       - run:
-          name: Install Maestro
-          command: |
-            curl -Ls "https://get.maestro.mobile.dev" | bash
-            echo 'export PATH="$HOME/.maestro/bin:$PATH"' >> "$BASH_ENV"
+          name: Replace Maestro test app API key
+          command: bundle exec fastlane change_maestro_test_app_api_key
       - run:
-          name: Boot iOS Simulator
-          command: |
-            xcrun simctl boot "<< parameters.simulator-name >>" || true
-            xcrun simctl bootstatus "<< parameters.simulator-name >>" -b
+          name: Build Maestro test app (iOS)
+          command: bundle exec fastlane build_maestro_test_app platform:ios simulator_name:"<< parameters.simulator-name >>"
+          no_output_timeout: 15m
+      - run:
+          name: Wait for iOS Simulator boot to finish
+          command: xcrun simctl bootstatus "<< parameters.simulator-name >>" -b
       - run:
           name: Run Maestro E2E Tests (iOS)
-          command: bundle exec fastlane run_maestro_e2e_tests_ios simulator_name:"<< parameters.simulator-name >>"
+          command: bundle exec fastlane run_maestro_e2e_tests_ios
           no_output_timeout: 15m
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
@@ -438,15 +442,8 @@ jobs:
       - revenuecat/install-gem-unix-dependencies:
           cache-version: v1
       - run:
-          name: Install Maestro
-          command: |
-            curl -Ls "https://get.maestro.mobile.dev" | bash
-            echo 'export PATH="$HOME/.maestro/bin:$PATH"' >> "$BASH_ENV"
-      - run:
-          name: Build Maestro app (Android)
-          command: bundle exec fastlane build_maestro_app_android
-          no_output_timeout: 15m
-      - save-gradle-user-home-directory-to-cache
+          name: Replace Maestro test app API key
+          command: bundle exec fastlane change_maestro_test_app_api_key
       - android/create-avd:
           avd-name: test-e2e
           system-image: system-images;android-34;google_apis;x86_64
@@ -455,11 +452,13 @@ jobs:
           avd-name: test-e2e
           no-window: true
           restore-gradle-cache-prefix: ""
-          post-emulator-launch-assemble-command: ""
+          post-emulator-launch-assemble-command: bundle exec fastlane build_maestro_test_app platform:android
+      - save-gradle-user-home-directory-to-cache
+      - revenuecat/install-maestro
       - run:
           name: Run Maestro E2E Tests (Android)
           command: bundle exec fastlane run_maestro_e2e_tests_android
-          no_output_timeout: 10m
+          no_output_timeout: 15m
       - store_test_results:
           path: fastlane/test_output
       - store_artifacts:
