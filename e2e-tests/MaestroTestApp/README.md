@@ -15,10 +15,14 @@ tests to verify RevenueCat SDK integration.
 # Android — build the debug APK
 ./gradlew :e2e-tests:MaestroTestApp:assembleDebug
 
-# iOS — build Kotlin framework, then open in Xcode
-./gradlew :e2e-tests:MaestroTestApp:linkDebugFrameworkIosSimulatorArm64
+# iOS — open in Xcode (Xcode builds the Kotlin framework automatically via the
+# "Compile Kotlin Framework" build phase, which runs embedAndSignAppleFrameworkForXcode)
 open e2e-tests/MaestroTestApp/iosApp/iosApp.xcodeproj
 ```
+
+> **Note:** CI builds iOS via `xcodebuild` directly (see `Fastfile`). The Xcode build
+> phase handles both the Kotlin framework compilation and embedding Compose Resources
+> into the app bundle.
 
 ## API Key
 
