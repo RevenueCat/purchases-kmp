@@ -39,6 +39,25 @@ The test uses a RevenueCat project configured with:
 - A `pro` entitlement (the test checks entitlement status after purchase)
 - The **Test Store** environment for purchase confirmation
 
+## Launch Arguments
+
+Maestro passes `e2e_test_flow` as a `launchApp` argument to navigate directly to a
+specific test case screen, bypassing the Test Cases list. On Android this is read from
+intent extras; on iOS from `UserDefaults`.
+
+When no argument is set (e.g. running locally without Maestro), the app shows the
+manual Test Cases list.
+
+## Adding a New Test Case
+
+1. Create a screen composable in `src/commonMain/kotlin/.../` (e.g. `YourTestScreen.kt`).
+2. Add an entry to `TEST_CASES` in `TestCases.kt`, keyed by the Maestro `e2e_test_flow`
+   argument value.
+3. Create a Maestro YAML in `e2e-tests/maestro/e2e_tests/` with
+   `launchApp.arguments.e2e_test_flow` matching the key from step 2.
+
+This mirrors the pattern used by `purchases-capacitor` and `purchases-flutter`.
+
 ## Dependencies
 
 `projects.core` and `projects.revenuecatui` are referenced as Gradle project
