@@ -119,14 +119,14 @@ lane :build_maestro_test_app do |options|
   platform = options[:platform].to_s.downcase
   UI.user_error!("Missing or invalid `platform` option (use ios or android)") unless %w[ios android].include?(platform)
 
-  simulator_name = options[:simulator_name] || "iPhone 16 Pro"
-
   if platform == "ios"
-    Dir.chdir("../e2e-tests/MaestroTestApp") do
-      UI.important("Building Kotlin framework for iOS Simulator...")
-      sh("cd ../.. && ./gradlew :e2e-tests:MaestroTestApp:linkDebugFrameworkIosSimulatorArm64")
+    simulator_name = options[:simulator_name] || "iPhone 16 Pro"
 
-      UI.important("Building with xcodebuild...")
+    UI.important("Building Kotlin framework for iOS Simulator...")
+    sh("cd .. && ./gradlew :e2e-tests:MaestroTestApp:linkDebugFrameworkIosSimulatorArm64")
+
+    UI.important("Building with xcodebuild...")
+    Dir.chdir("../e2e-tests/MaestroTestApp") do
       sh(
         "xcodebuild",
         "-project", "iosApp/iosApp.xcodeproj",

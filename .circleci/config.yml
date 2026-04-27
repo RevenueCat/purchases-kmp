@@ -439,6 +439,7 @@ jobs:
     steps:
       - checkout
       - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
       - revenuecat/install-gem-unix-dependencies:
           cache-version: v1
       - run:
@@ -454,6 +455,7 @@ jobs:
           restore-gradle-cache-prefix: ""
           post-emulator-launch-assemble-command: bundle exec fastlane build_maestro_test_app platform:android
       - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
       - revenuecat/install-maestro
       - run:
           name: Run Maestro E2E Tests (Android)
@@ -499,22 +501,12 @@ workflows:
           # This would benefit from the incremental build output of build-libraries-android
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
-
-  maestro-e2e-tests:
-    when:
-      or:
-        - and:
-            - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-            - equal: [ "maestro_e2e_tests", << pipeline.schedule.name >> ]
-    jobs:
       - run-maestro-e2e-tests-ios:
           context:
-            - maestro-e2e-tests
             - e2e-tests
           simulator-name: "iPhone 16 Pro"
       - run-maestro-e2e-tests-android:
           context:
-            - maestro-e2e-tests
             - e2e-tests
 
   on-main-branch:
