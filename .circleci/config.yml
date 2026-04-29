@@ -403,7 +403,6 @@ jobs:
     steps:
       - checkout
       - checkout-submodule
-      # KMP builds need Android SDK even on macOS (Gradle resolves Android targets)
       - install-android-sdk-on-macos
       - run:
           name: Start booting iOS Simulator
