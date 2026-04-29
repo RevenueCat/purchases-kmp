@@ -26,15 +26,15 @@ open e2e-tests/MaestroTestApp/iosApp/iosApp.xcodeproj
 
 ## API Key
 
-The app initialises RevenueCat with the placeholder `MAESTRO_TESTS_REVENUECAT_API_KEY`.
-In CI, the Fastlane lane replaces this placeholder with the real key from the
-`RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE` environment variable (provided by the
-CircleCI `e2e-tests` context) before building.
+The app uses the placeholder `MAESTRO_TESTS_REVENUECAT_API_KEY` as the RevenueCat API key.
+In CI, the `change_maestro_test_app_api_key` Fastlane lane replaces this placeholder with
+the real key from the `RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE` environment variable
+(provided by the CircleCI `e2e-tests` context) before building.
 
 To run locally, either:
 - Replace the placeholder in `src/commonMain/kotlin/.../App.kt` with a valid API key
   (do **not** commit it), or
-- Export the env var and run the same `sed` command the Fastlane lane uses.
+- Set the env var and run `bundle exec fastlane change_maestro_test_app_api_key`.
 
 ## RevenueCat Project
 
