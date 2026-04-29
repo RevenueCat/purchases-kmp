@@ -114,35 +114,38 @@ lane :change_maestro_test_app_api_key do
   UI.user_error!("API key placeholder was not replaced in #{app_kt}") if File.read(app_kt).include?("MAESTRO_TESTS_REVENUECAT_API_KEY")
 end
 
-desc "Build the Maestro E2E test app for iOS"
-lane :build_maestro_test_app_ios do |options|
-  simulator_name = options[:simulator_name] || "iPhone 16 Pro"
+desc "Build the Maestro E2E test app for the given platform (platform:ios or platform:android)"
+lane :build_maestro_test_app do |options|
+  platform = options[:platform].to_s.downcase
+  UI.user_error!("Missing or invalid `platform` option (use ios or android)") unless %w[ios android].include?(platform)
 
-  Dir.chdir("../e2e-tests/MaestroTestApp") do
-    sh(
-      "xcodebuild",
-      "-project", "iosApp/iosApp.xcodeproj",
-      "-scheme", "iosApp",
-      "-configuration", "Debug",
-      "-sdk", "iphonesimulator",
-      "-destination", "platform=iOS Simulator,name=#{simulator_name}",
-      "-derivedDataPath", "build",
-      "CODE_SIGNING_ALLOWED=NO",
-      "ONLY_ACTIVE_ARCH=YES",
-      "ARCHS=arm64",
-    )
+  if platform == "ios"
+    simulator_name = options[:simulator_name] || "iPhone 16 Pro"
+
+    UI.important("Building with xcodebuild (Kotlin framework built via Xcode build phase)...")
+    Dir.chdir("../e2e-tests/MaestroTestApp") do
+      sh(
+        "xcodebuild",
+        "-project", "iosApp/iosApp.xcodeproj",
+        "-scheme", "iosApp",
+        "-configuration", "Debug",
+        "-sdk", "iphonesimulator",
+        "-destination", "platform=iOS Simulator,name=#{simulator_name}",
+        "-derivedDataPath", "build",
+        "CODE_SIGNING_ALLOWED=NO",
+        "ONLY_ACTIVE_ARCH=YES",
+        "ARCHS=arm64",
+      )
+    end
+  else
+    sh("cd .. && ./gradlew :e2e-tests:MaestroTestApp:assembleDebug")
   end
-end
-
-desc "Build the Maestro E2E test app for Android"
-lane :build_maestro_test_app_android do
-  sh("cd .. && ./gradlew :e2e-tests:MaestroTestApp:assembleDebug")
 end
 
 desc "Run maestro E2E tests on iOS (booted simulator required)"
 lane :run_maestro_e2e_tests_ios do
   app_path = File.expand_path("../e2e-tests/MaestroTestApp/build/Build/Products/Debug-iphonesimulator/MaestroTestApp.app")
-  UI.user_error!("iOS app not found at #{app_path} — run build_maestro_test_app_ios first") unless File.directory?(app_path)
+  UI.user_error!("iOS app not found at #{app_path} — run build_maestro_test_app first") unless File.directory?(app_path)
   sh("xcrun simctl install booted #{app_path}")
   run_maestro_e2e_tests(flow_dir: "../e2e-tests/maestro/", output_dir: "test_output")
 end
@@ -150,7 +153,7 @@ end
 desc "Run maestro E2E tests on Android (running emulator required)"
 lane :run_maestro_e2e_tests_android do
   apk_path = File.expand_path("../e2e-tests/MaestroTestApp/build/outputs/apk/debug/MaestroTestApp-debug.apk")
-  UI.user_error!("Android APK not found at #{apk_path} — run build_maestro_test_app_android first") unless File.exist?(apk_path)
+  UI.user_error!("Android APK not found at #{apk_path} — run build_maestro_test_app first") unless File.exist?(apk_path)
   sh("adb install #{apk_path}")
   run_maestro_e2e_tests(flow_dir: "../e2e-tests/maestro/", output_dir: "test_output")
 end
