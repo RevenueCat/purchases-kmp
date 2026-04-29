@@ -1,10 +1,14 @@
 @file:Suppress("UnstableApiUsage")
 
+pluginManagement {
+    includeBuild("../build-settings")
+}
+
+plugins {
+    id("revenuecat-repositories")
+}
+
 dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-    }
     versionCatalogs {
         create("libs") {
             from(files("../gradle/libs.versions.toml"))

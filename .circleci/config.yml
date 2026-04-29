@@ -69,6 +69,23 @@ commands:
       - android/restore-gradle-cache:
           find-args: . -name "*.gradle.kts" -o -name "*.versions.toml" -o -name "gradle-wrapper.properties"
 
+  save-gradle-build-cache:
+    steps:
+      - save_cache:
+          name: Save Gradle build cache
+          paths: [~/.gradle/caches/build-cache-1]
+          key: gradle-build-cache-{{ .Branch }}-{{ .Revision }}-{{ epoch }}
+
+  restore-gradle-build-cache:
+    steps:
+      - restore_cache:
+          name: Restore Gradle build cache
+          keys:
+            - gradle-build-cache-{{ .Branch }}-{{ .Revision }}-
+            - gradle-build-cache-{{ .Branch }}-
+            - gradle-build-cache-main-
+            - gradle-build-cache-
+
   save-incremental-gradle-build-to-workspace:
     steps:
       - persist_to_workspace:
@@ -117,6 +134,10 @@ executors:
   ruby3:
     docker:
       - image: cimg/ruby:3.3.0
+  android-machine202411:
+    machine:
+      image: android:2024.11.1
+    resource_class: large
   xcode16:
     macos:
       xcode: 16.4.0
@@ -146,10 +167,12 @@ jobs:
       - checkout
       - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
       - run:
           name: Run Detekt on commonMain
-          command: ./gradlew detektCommonMain
+          command: ./gradlew --build-cache detektCommonMain
       - save-gradle-user-home-directory-to-cache
+      - save-gradle-build-cache
       - run:
           name: Collect Detekt HTML reports
           command: mkdir -p artifacts/detekt && mv build/reports/detekt/*.html artifacts/detekt/
@@ -164,12 +187,14 @@ jobs:
       - checkout
       - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
       - run:
           name: Validate binary compatibility
-          command: ./gradlew apiCheck
+          command: ./gradlew --build-cache apiCheck
       - save-gradle-user-home-directory-to-cache
+      - save-gradle-build-cache
       - save-kotlin-native-compiler-to-cache
 
   build-libraries-android:
@@ -177,6 +202,7 @@ jobs:
     steps:
       - checkout
       - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
       - attach-workspace-at-working-directory
       - run:
           name: Build libraries for Android
@@ -187,8 +213,9 @@ jobs:
                 tasks+=(":$module:compile${buildType}KotlinAndroid")
               done
             done
-            ./gradlew "${tasks[@]}"
+            ./gradlew --build-cache "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
+      - save-gradle-build-cache
       - save-incremental-gradle-build-to-workspace
 
   build-libraries-ios:
@@ -197,6 +224,7 @@ jobs:
       - checkout
       - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
       - revenuecat/install-gem-mac-dependencies:
@@ -210,8 +238,9 @@ jobs:
                 tasks+=(":$module:compileKotlinIos$arch")
               done
             done
-            ./gradlew "${tasks[@]}"
+            ./gradlew --build-cache "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
+      - save-gradle-build-cache
       - save-kotlin-native-compiler-to-cache
       - save-incremental-gradle-build-to-workspace
 
@@ -220,6 +249,7 @@ jobs:
     steps:
       - checkout
       - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
       - attach-workspace-at-working-directory
       - run:
           name: Build sample app for Android
@@ -228,8 +258,9 @@ jobs:
             for buildType in Debug Release; do
               tasks+=(":composeApp:compile${buildType}KotlinAndroid")
             done
-            ./gradlew "${tasks[@]}"
+            ./gradlew --build-cache "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
+      - save-gradle-build-cache
 
   build-sample-ios:
     executor: xcode16
@@ -237,6 +268,7 @@ jobs:
       - checkout
       - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
       - revenuecat/install-gem-mac-dependencies:
@@ -248,7 +280,7 @@ jobs:
             for arch in Arm64 SimulatorArm64 X64; do
               tasks+=(":composeApp:compileKotlinIos$arch")
             done
-            ./gradlew "${tasks[@]}"
+            ./gradlew --build-cache "${tasks[@]}"
       - run:
           name: Build iOS sample app
           command: |
@@ -259,6 +291,7 @@ jobs:
               -sdk iphonesimulator \
               build;
       - save-gradle-user-home-directory-to-cache
+      - save-gradle-build-cache
       - save-kotlin-native-compiler-to-cache
 
   public-api-tests-android:
@@ -266,6 +299,7 @@ jobs:
     steps:
       - checkout
       - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
       - attach-workspace-at-working-directory
       - run:
           name: Test public API for Android
@@ -274,8 +308,9 @@ jobs:
             for buildType in Debug Release; do
               tasks+=(":apiTester:compile${buildType}KotlinAndroid")
             done
-            ./gradlew "${tasks[@]}"
+            ./gradlew --build-cache "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
+      - save-gradle-build-cache
 
   public-api-tests-ios:
     executor: xcode16
@@ -283,6 +318,7 @@ jobs:
       - checkout
       - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
       - revenuecat/install-gem-mac-dependencies:
@@ -294,8 +330,9 @@ jobs:
             for arch in Arm64 SimulatorArm64 X64; do
               tasks+=(":apiTester:compileKotlinIos$arch")
             done
-            ./gradlew "${tasks[@]}"
+            ./gradlew --build-cache "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
+      - save-gradle-build-cache
       - save-kotlin-native-compiler-to-cache
 
   unit-tests-android:
@@ -303,6 +340,7 @@ jobs:
     steps:
       - checkout
       - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
       - attach-workspace-at-working-directory
       - run:
           name: Execute unit tests for Android
@@ -311,8 +349,9 @@ jobs:
             for buildType in Debug Release; do
               tasks+=("test${buildType}UnitTest")
             done
-            ./gradlew "${tasks[@]}"
+            ./gradlew --build-cache "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
+      - save-gradle-build-cache
 
   unit-tests-ios:
     executor: xcode16
@@ -320,6 +359,7 @@ jobs:
       - checkout
       - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
       - run:
@@ -329,8 +369,9 @@ jobs:
             for arch in SimulatorArm64 X64; do
               tasks+=("ios${arch}Test")
             done
-            ./gradlew "${tasks[@]}"
+            ./gradlew --build-cache "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
+      - save-gradle-build-cache
       - save-kotlin-native-compiler-to-cache
 
   unit-tests-build-logic:
@@ -339,13 +380,15 @@ jobs:
       - checkout
       - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
       - attach-workspace-at-working-directory
       - run:
           name: Execute unit tests for build-logic
-          command: ./gradlew :build-logic:convention:test
+          command: ./gradlew --build-cache :build-logic:convention:test
       - store_test_results:
           path: build-logic/convention/build/test-results
       - save-gradle-user-home-directory-to-cache
+      - save-gradle-build-cache
       - save-incremental-gradle-build-to-workspace
 
   publish:
@@ -362,6 +405,7 @@ jobs:
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
       - restore-kotlin-native-compiler-from-cache
       - when:
           condition: << parameters.snapshot >>
@@ -376,6 +420,7 @@ jobs:
                 name: "Publish release to Maven Central"
                 command: bundle exec fastlane publish_if_release
       - save-gradle-user-home-directory-to-cache
+      - save-gradle-build-cache
       - save-kotlin-native-compiler-to-cache
 
   create-github-release:
@@ -389,6 +434,227 @@ jobs:
       - run:
           name: "Create a GitHub release for the current version"
           command: bundle exec fastlane github_release_current_version
+
+  publish-to-maven-local:
+    executor: xcode16
+    steps:
+      - checkout
+      - checkout-submodule
+      - install-android-sdk-on-macos
+      - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
+      - restore-kotlin-native-compiler-from-cache
+      - run:
+          name: Publish to mavenLocal
+          command: ./gradlew --build-cache publishToMavenLocal
+      - persist_to_workspace:
+          root: ~/.m2
+          paths:
+            - repository/com/revenuecat
+      - save-gradle-user-home-directory-to-cache
+      - save-gradle-build-cache
+      - save-kotlin-native-compiler-to-cache
+
+  paywall-screenshots-ios:
+    executor: xcode16
+    steps:
+      - checkout
+      - checkout-submodule
+      - attach_workspace:
+          at: ~/.m2
+      - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
+      - restore-kotlin-native-compiler-from-cache
+      - run:
+          name: Write local.properties for e2etests
+          command: |
+            echo "revenuecat.apiKey.apple=${RC_PUBLIC_API_KEY_APP_STORE}" > test-apps/e2etests/local.properties
+            echo "revenuecat.apiKey.google=${RC_PUBLIC_API_KEY_TEST_STORE}" >> test-apps/e2etests/local.properties
+      - run:
+          name: Build e2etests iOS app
+          working_directory: test-apps/e2etests
+          command: |
+            ./gradlew --build-cache :composeApp:compileKotlinIosSimulatorArm64
+            xcodebuild -project iosApp/iosApp.xcodeproj \
+              -scheme iosApp \
+              -configuration Debug \
+              -sdk iphonesimulator \
+              -destination 'platform=iOS Simulator,name=iPhone 16' \
+              -derivedDataPath iosApp/build \
+              build
+      - revenuecat/install-maestro
+      - run:
+          name: Boot iOS Simulator
+          command: xcrun simctl boot "iPhone 16" || true
+      - run:
+          name: Install app on simulator
+          command: |
+            xcrun simctl install booted test-apps/e2etests/iosApp/build/Build/Products/Debug-iphonesimulator/e2etests.app
+      - run:
+          name: Start StoreKit config file watcher
+          background: true
+          command: |
+            ruby upstream/purchases-ios/fastlane/storekit_config_file_watcher.rb \
+              com.revenuecat.automatedsdktests \
+              upstream/purchases-ios/Examples/rc-maestro/rc-maestro/Resources/StoreKit/app787ddb07e6.storekit
+      - run:
+          name: Prime StoreKit config
+          command: |
+            xcrun simctl launch booted com.revenuecat.automatedsdktests || true
+            sleep 5
+            xcrun simctl terminate booted com.revenuecat.automatedsdktests || true
+            sleep 2
+      - run:
+          name: Run Maestro screenshot tests
+          command: |
+            maestro test \
+              -e APP_ID=com.revenuecat.automatedsdktests \
+              maestro/paywall-rendering/
+      - run:
+          name: Dump UI hierarchy
+          when: always
+          command: |
+            echo "=== iOS Accessibility hierarchy ==="
+            xcrun simctl spawn booted defaults read com.apple.Accessibility 2>/dev/null || true
+            echo ""
+            maestro hierarchy 2>/dev/null || true
+      - run:
+          name: Dump simulator logs
+          when: always
+          command: |
+            echo "=== Crash reports ==="
+            find ~/Library/Logs/DiagnosticReports -name "*.ips" -o -name "*.crash" 2>/dev/null | head -5
+            for f in $(find ~/Library/Logs/DiagnosticReports -name "*.ips" -o -name "*.crash" 2>/dev/null | head -3); do
+              echo "--- $f ---"
+              head -80 "$f"
+              echo ""
+            done
+            echo "=== Simulator system log (last 200 lines) ==="
+            xcrun simctl spawn booted log show --last 2m --predicate 'processImagePath contains "e2etests" or processImagePath contains "automatedsdktests"' 2>/dev/null | tail -200 || true
+            echo ""
+            echo "=== App launch test ==="
+            xcrun simctl launch booted com.revenuecat.automatedsdktests 2>&1 || true
+            sleep 5
+            xcrun simctl spawn booted log show --last 30s --predicate 'processImagePath contains "e2etests" or processImagePath contains "automatedsdktests"' 2>/dev/null | tail -100 || true
+      - run:
+          name: Collect screenshots
+          when: always
+          command: |
+            mkdir -p /tmp/paywall-screenshots
+            cp *.png /tmp/paywall-screenshots/ 2>/dev/null || true
+            echo "Collected screenshots:"
+            ls -la /tmp/paywall-screenshots/
+      - save-gradle-build-cache
+      - save-kotlin-native-compiler-to-cache
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - paywall-screenshots
+      - store_artifacts:
+          path: /tmp/paywall-screenshots
+          destination: paywall-screenshots-ios
+
+  paywall-screenshots-android:
+    executor: android-machine202411
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/.m2
+      - restore-gradle-user-home-directory-from-cache
+      - restore-gradle-build-cache
+      - android/create-avd:
+          avd-name: test-avd
+          install: true
+          system-image: system-images;android-34;google_apis;x86_64
+      - android/start-emulator:
+          avd-name: test-avd
+          post-emulator-launch-assemble-command: ""
+      - run:
+          name: Prepare emulator for screenshots
+          command: |
+            adb shell settings put global window_animation_scale 0.0
+            adb shell settings put global transition_animation_scale 0.0
+            adb shell settings put global animator_duration_scale 0.0
+            sleep 10
+            adb shell input keyevent KEYCODE_HOME
+            sleep 5
+            echo "Emulator ready"
+      - run:
+          name: Write local.properties for e2etests
+          command: |
+            echo "revenuecat.apiKey.apple=${RC_PUBLIC_API_KEY_APP_STORE}" > test-apps/e2etests/local.properties
+            echo "revenuecat.apiKey.google=${RC_PUBLIC_API_KEY_TEST_STORE}" >> test-apps/e2etests/local.properties
+      - run:
+          name: Build e2etests Android app
+          working_directory: test-apps/e2etests
+          command: ./gradlew --build-cache :composeApp:assembleDebug
+      - revenuecat/install-maestro
+      - run:
+          name: Install app on emulator
+          command: |
+            adb install test-apps/e2etests/composeApp/build/outputs/apk/debug/composeApp-debug.apk
+      - run:
+          name: Dismiss system dialogs
+          command: |
+            adb shell input keyevent KEYCODE_ENTER 2>/dev/null || true
+            adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS 2>/dev/null || true
+            sleep 3
+      - run:
+          name: Run Maestro screenshot tests
+          command: |
+            maestro test \
+              -e APP_ID=com.revenuecat.automatedsdktests \
+              maestro/paywall-rendering/
+      - run:
+          name: Dump UI hierarchy
+          when: always
+          command: |
+            adb shell uiautomator dump /sdcard/ui_dump.xml 2>/dev/null || true
+            adb pull /sdcard/ui_dump.xml /tmp/ui_dump.xml 2>/dev/null || true
+            echo "=== Android UI hierarchy ==="
+            cat /tmp/ui_dump.xml 2>/dev/null || echo "Failed to dump UI"
+      - run:
+          name: Dump logcat
+          when: always
+          command: |
+            adb logcat -d > /tmp/logcat.txt 2>&1 || true
+            echo "=== Last 100 lines of logcat ==="
+            tail -100 /tmp/logcat.txt
+      - run:
+          name: Collect screenshots
+          when: always
+          command: |
+            mkdir -p /tmp/paywall-screenshots
+            cp *.png /tmp/paywall-screenshots/ 2>/dev/null || true
+            echo "Collected screenshots:"
+            ls -la /tmp/paywall-screenshots/
+      - save-gradle-build-cache
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - paywall-screenshots
+      - store_artifacts:
+          path: /tmp/logcat.txt
+          destination: logcat.txt
+      - store_artifacts:
+          path: /tmp/paywall-screenshots
+          destination: paywall-screenshots-android
+
+  upload-screenshots-to-emerge:
+    executor: jdk17
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp
+      - run:
+          name: Upload screenshots to EmergeTools
+          command: |
+            pip install emerge-upload
+            emerge upload snapshots \
+              --name "purchases-kmp-paywalls" \
+              --id "com.revenuecat.purchases-kmp.paywall-screenshots" \
+              --repo-name "RevenueCat/purchases-kmp" \
+              /tmp/paywall-screenshots
 
 workflows:
   # This workflow runs for any commit to main, as well as for any other
@@ -424,6 +690,14 @@ workflows:
           # This would benefit from the incremental build output of build-libraries-android
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
+      - publish-to-maven-local:
+          requires: [build-libraries-ios]
+      - paywall-screenshots-ios:
+          requires: [publish-to-maven-local]
+          context: rc-project-automated-sdk-tests
+      - paywall-screenshots-android:
+          requires: [publish-to-maven-local]
+          context: rc-project-automated-sdk-tests
 
   on-main-branch:
     when:
@@ -490,6 +764,14 @@ workflows:
           # This would benefit from the incremental build output of build-libraries-android
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
+      - publish-to-maven-local:
+          requires: [build-libraries-ios]
+      - paywall-screenshots-ios:
+          requires: [publish-to-maven-local]
+          context: rc-project-automated-sdk-tests
+      - paywall-screenshots-android:
+          requires: [publish-to-maven-local]
+          context: rc-project-automated-sdk-tests
       - hold:
           type: approval
           requires:
@@ -502,6 +784,8 @@ workflows:
             - unit-tests-android
             - unit-tests-ios
             - validate-binary-compatibility
+            - paywall-screenshots-ios
+            - paywall-screenshots-android
       - revenuecat/tag-current-branch:
           requires:
             - hold
