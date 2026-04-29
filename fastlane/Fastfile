@@ -111,7 +111,7 @@ lane :change_maestro_test_app_api_key do
     new_text: new_api_key,
     paths_of_files_to_update: [app_kt]
   )
-  UI.user_error!("API key placeholder was not replaced in #{app_kt}") if File.read(app_kt).include?("MAESTRO_TESTS_REVENUECAT_API_KEY")
+  UI.user_error!("API key was not found in #{app_kt} after replacement") unless File.read(app_kt).include?(new_api_key)
 end
 
 desc "Build the Maestro E2E test app for the given platform (platform:ios or platform:android)"
