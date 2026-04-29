@@ -392,11 +392,11 @@ jobs:
 
   run-maestro-e2e-tests-ios:
     macos:
-      xcode: 16.4.0
+      xcode: 26.4.1
     parameters:
       simulator-name:
         type: string
-        default: "iPhone 16 Pro"
+        default: "iPhone 17"
     resource_class: m4pro.medium
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
@@ -522,7 +522,7 @@ workflows:
       - run-maestro-e2e-tests-ios:
           context:
             - e2e-tests
-          simulator-name: "iPhone 16 Pro"
+          simulator-name: "iPhone 17"
       - run-maestro-e2e-tests-android:
           context:
             - e2e-tests
