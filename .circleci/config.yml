@@ -117,9 +117,9 @@ executors:
   ruby3:
     docker:
       - image: cimg/ruby:3.3.0
-  xcode16:
+  xcode26:
     macos:
-      xcode: 16.4.0
+      xcode: 26.4.1
     resource_class: m4pro.medium
     environment:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
@@ -141,7 +141,7 @@ jobs:
           command: bundle exec fastlane prepare_next_snapshot_version
 
   detekt:
-    executor: xcode16
+    executor: xcode26
     steps:
       - checkout
       - checkout-submodule
@@ -158,7 +158,7 @@ jobs:
           destination: detekt
 
   validate-binary-compatibility:
-    executor: xcode16
+    executor: xcode26
     steps:
       - install-android-sdk-on-macos
       - checkout
@@ -192,7 +192,7 @@ jobs:
       - save-incremental-gradle-build-to-workspace
 
   build-libraries-ios:
-    executor: xcode16
+    executor: xcode26
     steps:
       - checkout
       - checkout-submodule
@@ -232,7 +232,7 @@ jobs:
       - save-gradle-user-home-directory-to-cache
 
   build-sample-ios:
-    executor: xcode16
+    executor: xcode26
     steps:
       - checkout
       - checkout-submodule
@@ -278,7 +278,7 @@ jobs:
       - save-gradle-user-home-directory-to-cache
 
   public-api-tests-ios:
-    executor: xcode16
+    executor: xcode26
     steps:
       - checkout
       - checkout-submodule
@@ -315,7 +315,7 @@ jobs:
       - save-gradle-user-home-directory-to-cache
 
   unit-tests-ios:
-    executor: xcode16
+    executor: xcode26
     steps:
       - checkout
       - checkout-submodule
@@ -334,7 +334,7 @@ jobs:
       - save-kotlin-native-compiler-to-cache
 
   unit-tests-build-logic:
-    executor: xcode16
+    executor: xcode26
     steps:
       - checkout
       - checkout-submodule
@@ -350,7 +350,7 @@ jobs:
 
   publish:
     description: "Publishes the SDK, either a SNAPSHOT or release version."
-    executor: xcode16
+    executor: xcode26
     parameters:
       snapshot:
         description: Whether to publish a SNAPSHOT version. Will publish a final release if set to false.
