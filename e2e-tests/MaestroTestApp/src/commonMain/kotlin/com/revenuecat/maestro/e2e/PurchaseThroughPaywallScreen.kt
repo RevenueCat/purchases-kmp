@@ -16,7 +16,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.revenuecat.purchases.kmp.Purchases
@@ -60,25 +59,19 @@ fun PurchaseThroughPaywallScreen(onBack: () -> Unit) {
             Text(
                 text = if (hasPro) "Entitlements: pro" else "Entitlements: none",
                 fontSize = 16.sp,
-                modifier = Modifier
-                    .padding(bottom = 16.dp)
-                    .testTag("entitlements-label")
+                modifier = Modifier.padding(bottom = 16.dp)
             )
             if (errorMessage != null) {
                 Text(
                     text = "Error: $errorMessage",
                     fontSize = 14.sp,
                     color = Color.Red,
-                    modifier = Modifier
-                        .padding(bottom = 16.dp)
-                        .testTag("error-message")
+                    modifier = Modifier.padding(bottom = 16.dp)
                 )
             }
             Button(
                 onClick = { showPaywall = true },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .testTag("present-paywall-button")
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Present Paywall")
             }
