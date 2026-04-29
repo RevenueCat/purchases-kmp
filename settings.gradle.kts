@@ -1,21 +1,15 @@
 @file:Suppress("UnstableApiUsage")
 
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 pluginManagement {
+    includeBuild("build-settings")
     includeBuild("build-logic")
-    repositories {
-        google()
-        gradlePluginPortal()
-        mavenCentral()
-    }
 }
 
-dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-    }
+plugins {
+    id("revenuecat-repositories")
 }
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "purchases-kmp"
 include(":apiTester")
