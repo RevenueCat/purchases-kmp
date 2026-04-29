@@ -418,7 +418,7 @@ jobs:
           command: bundle exec fastlane change_maestro_test_app_api_key
       - run:
           name: Build Maestro test app (iOS)
-          command: bundle exec fastlane build_maestro_test_app platform:ios simulator_name:"<< parameters.simulator-name >>"
+          command: bundle exec fastlane build_maestro_test_app_ios simulator_name:"<< parameters.simulator-name >>"
           no_output_timeout: 15m
       - run:
           name: Wait for iOS Simulator boot to finish
@@ -471,7 +471,7 @@ jobs:
           avd-name: test-e2e
           no-window: true
           restore-gradle-cache-prefix: ""
-          post-emulator-launch-assemble-command: bundle exec fastlane build_maestro_test_app platform:android
+          post-emulator-launch-assemble-command: bundle exec fastlane build_maestro_test_app_android
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
       - revenuecat/install-maestro
