@@ -32,9 +32,10 @@ the real key from the `RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE` environment va
 (provided by the CircleCI `e2e-tests` context) before building.
 
 To run locally, either:
-- Replace the placeholder in `src/commonMain/kotlin/.../App.kt` with a valid API key
-  (do **not** commit it), or
+- Replace the placeholder in `src/commonMain/kotlin/.../App.kt` with a valid API key, or
 - Set the env var and run `bundle exec fastlane change_maestro_test_app_api_key`.
+
+Do **not** commit the real API key.
 
 ## RevenueCat Project
 
