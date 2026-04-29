@@ -169,18 +169,21 @@ private fun Project.configureSwiftDependency(
 
         val sdkPath = getSdkPath(konanTarget)
 
+        val dependencyModulePaths = moduleDependencies.map { dep ->
+            dep.project.layout.buildDirectory
+                .dir("swift-packages/${dep.dependency.target}/${konanTarget.name}")
+                .get().asFile
+        }
+        val allModulePaths = listOf(swiftOutputDir) + dependencyModulePaths
+
         mainCompilation.cinterops.create(dependency.target) {
             defFile(defFile)
             extraOpts("-libraryPath", swiftOutputDir.absolutePath)
 
-            // Only include the target's own module path; dependency module paths are excluded
-            // so that cinterop generates full bindings for dependency types that appear in the
-            // target's header rather than treating them as forward declarations from another
-            // module (which would make them unresolvable in Kotlin).
             compilerOpts(
                 "-fmodules",
                 "-isysroot", sdkPath,
-                "-I", swiftOutputDir.absolutePath,
+                *allModulePaths.flatMap { listOf("-I", it.absolutePath) }.toTypedArray()
             )
 
             tasks.named(interopProcessingTaskName).configure {
