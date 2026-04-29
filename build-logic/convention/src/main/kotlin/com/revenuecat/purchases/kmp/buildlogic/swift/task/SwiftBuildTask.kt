@@ -99,6 +99,16 @@ abstract class SwiftBuildTask @Inject constructor(
     @get:Optional
     abstract val swiftSettingsArgs: ListProperty<String>
 
+    /**
+     * Header files from dependency modules. When present, these are included in the generated
+     * header via `#include` so that forward-declared dependency types get full definitions,
+     * allowing cinterop to generate proper bindings.
+     */
+    @get:InputFiles
+    @get:Optional
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val dependencyHeaders: ConfigurableFileCollection
+
     @TaskAction
     fun build() {
         val targetOutputDir = outputDir.get().asFile
@@ -155,13 +165,22 @@ abstract class SwiftBuildTask @Inject constructor(
             )
         }
 
-        // Create module.modulemap to wrap the Swift header as a Clang module
-        val modulemapContent = """
-            module ${moduleName.get()} {
-                header "${headerName.get()}"
-                export *
+        // Copy dependency headers and build a modulemap that includes them before the
+        // target header. This ensures that @class forward declarations for dependency types
+        // are resolved with full @interface definitions from the dependency headers, which
+        // is required for cinterop to generate usable Kotlin bindings.
+        val depHeaderNames = mutableListOf<String>()
+        for (depHeader in dependencyHeaders.files) {
+            if (depHeader.exists()) {
+                val destName = depHeader.name
+                depHeader.copyTo(targetOutputDir.resolve(destName), overwrite = true)
+                depHeaderNames.add(destName)
             }
-        """.trimIndent()
+        }
+
+        val allHeaders = depHeaderNames + headerName.get()
+        val headerDirectives = allHeaders.joinToString("\n") { """    header "$it"""" }
+        val modulemapContent = "module ${moduleName.get()} {\n$headerDirectives\n    export *\n}"
         targetOutputDir.resolve("module.modulemap").writeText(modulemapContent)
     }
 

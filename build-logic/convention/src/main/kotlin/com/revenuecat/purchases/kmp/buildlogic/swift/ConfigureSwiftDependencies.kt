@@ -159,7 +159,8 @@ private fun Project.configureSwiftDependency(
             kotlinTarget = this,
             dependency = dependency,
             targetSourceDir = targetSourceDir,
-            transitiveDepSourceDirs = transitiveDepSourceDirs
+            transitiveDepSourceDirs = transitiveDepSourceDirs,
+            moduleDependencies = moduleDependencies,
         )
 
         val swiftOutputDir = layout.buildDirectory
@@ -168,23 +169,18 @@ private fun Project.configureSwiftDependency(
 
         val sdkPath = getSdkPath(konanTarget)
 
-        // Collect module paths: our own output + outputs from Swift dependencies in other projects
-        val dependencyModulePaths = moduleDependencies.map { dep ->
-            dep.project.layout.buildDirectory
-                .dir("swift-packages/${dep.dependency.target}/${konanTarget.name}")
-                .get().asFile
-        }
-        val allModulePaths = listOf(swiftOutputDir) + dependencyModulePaths
-
         mainCompilation.cinterops.create(dependency.target) {
             defFile(defFile)
             extraOpts("-libraryPath", swiftOutputDir.absolutePath)
 
-            // Add -I flags for all module paths (own + dependencies)
+            // Only include the target's own module path; dependency module paths are excluded
+            // so that cinterop generates full bindings for dependency types that appear in the
+            // target's header rather than treating them as forward declarations from another
+            // module (which would make them unresolvable in Kotlin).
             compilerOpts(
                 "-fmodules",
                 "-isysroot", sdkPath,
-                *allModulePaths.flatMap { listOf("-I", it.absolutePath) }.toTypedArray()
+                "-I", swiftOutputDir.absolutePath,
             )
 
             tasks.named(interopProcessingTaskName).configure {
@@ -257,6 +253,7 @@ private fun Project.registerSwiftBuildTask(
     dependency: SwiftDependency,
     targetSourceDir: File,
     transitiveDepSourceDirs: List<File>,
+    moduleDependencies: List<GlobalSwiftPackageRegistry.RegisteredSwiftTarget>,
 ): TaskProvider<SwiftBuildTask> {
     val taskSuffix = getTaskSuffix(kotlinTarget.konanTarget)
     val taskName = "compileSwift${dependency.target}$taskSuffix"
@@ -273,10 +270,25 @@ private fun Project.registerSwiftBuildTask(
         packageSwiftFile.set(dependency.packageDir.resolve("Package.swift"))
         this.targetSourceDir.set(targetSourceDir)
         outputDir.set(layout.buildDirectory.dir("swift-packages/${dependency.target}/${kotlinTarget.konanTarget.name}"))
-        // Use a shared scratch directory at root project level for SPM build cache sharing
-        scratchDir.set(rootProject.layout.buildDirectory.dir("swift-packages/.build"))
+        // Use a per-target scratch directory to avoid header conflicts: when multiple
+        // targets share a scratch directory, -Xswiftc -emit-objc-header-path applies to
+        // ALL swiftc invocations during `swift build`, causing a dependency's header to
+        // overwrite the target's header.
+        scratchDir.set(layout.buildDirectory.dir("swift-packages/${dependency.target}/.build"))
         swiftSettingsArgs.set(dependency.swiftSettings?.toCommandLineArgs() ?: emptyList())
         this.transitiveDepSourceDirs.from(transitiveDepSourceDirs)
+
+        // Wire dependency headers so the target's modulemap includes them, resolving
+        // @class forward declarations into full @interface definitions for cinterop.
+        moduleDependencies.forEach { dep ->
+            val depTaskSuffix = getTaskSuffix(kotlinTarget.konanTarget)
+            val depTaskName = "compileSwift${dep.dependency.target}$depTaskSuffix"
+            dependsOn(dep.project.tasks.named(depTaskName))
+
+            val depOutputDir = dep.project.layout.buildDirectory
+                .dir("swift-packages/${dep.dependency.target}/${kotlinTarget.konanTarget.name}")
+            dependencyHeaders.from(depOutputDir.map { it.file(dep.dependency.headerName) })
+        }
     }
 }
 
