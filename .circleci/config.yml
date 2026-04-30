@@ -105,6 +105,9 @@ parameters:
     type: enum
     enum: [ build, bump ]
     default: build
+  stress-test-android-e2e:
+    type: boolean
+    default: false
 
 executors:
   android202409:
@@ -390,6 +393,131 @@ jobs:
           name: "Create a GitHub release for the current version"
           command: bundle exec fastlane github_release_current_version
 
+  run-maestro-e2e-tests-ios:
+    macos:
+      xcode: 16.4.0
+    parameters:
+      simulator-name:
+        type: string
+        default: "iPhone 16 Pro"
+    resource_class: m4pro.medium
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+    steps:
+      - checkout
+      - checkout-submodule
+      - install-android-sdk-on-macos
+      - run:
+          name: Start booting iOS Simulator
+          command: xcrun simctl boot "<< parameters.simulator-name >>" || true
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - revenuecat/install-maestro
+      - run:
+          name: Replace Maestro test app API key
+          command: bundle exec fastlane change_maestro_test_app_api_key
+      - run:
+          name: Build Maestro test app (iOS)
+          command: bundle exec fastlane build_maestro_test_app_ios simulator_name:"<< parameters.simulator-name >>"
+          no_output_timeout: 15m
+      - run:
+          name: Wait for iOS Simulator boot to finish
+          command: xcrun simctl bootstatus "<< parameters.simulator-name >>" -b
+      - run:
+          name: Run Maestro E2E Tests (iOS)
+          command: bundle exec fastlane run_maestro_e2e_tests_ios
+          no_output_timeout: 15m
+      - run:
+          name: Collect iOS simulator crash logs
+          command: |
+            mkdir -p /tmp/crash-logs
+            # Crash reports
+            find ~/Library/Logs/DiagnosticReports -name "MaestroTestApp*" -exec cp {} /tmp/crash-logs/ \; 2>/dev/null || true
+            # Recent device logs for the app process
+            xcrun simctl spawn booted log show \
+              --predicate 'process == "MaestroTestApp" OR (eventMessage CONTAINS "MaestroTestApp")' \
+              --last 5m \
+              --style compact > /tmp/crash-logs/simulator.log 2>/dev/null || true
+          when: on_fail
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
+      - store_test_results:
+          path: fastlane/test_output
+      - store_artifacts:
+          path: fastlane/test_output
+          destination: maestro-results
+      - store_artifacts:
+          path: /tmp/crash-logs
+          destination: crash-logs
+
+  run-maestro-e2e-tests-android:
+    machine:
+      image: android:2025.10.1
+    resource_class: large
+    parameters:
+      run:
+        type: string
+        default: "1"
+    steps:
+      - checkout
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - revenuecat/install-gem-unix-dependencies:
+          cache-version: v1
+      - run:
+          name: Replace Maestro test app API key
+          command: bundle exec fastlane change_maestro_test_app_api_key
+      - android/create-avd:
+          avd-name: test-e2e
+          system-image: system-images;android-34;google_apis;x86_64
+          install: true
+      - android/start-emulator:
+          avd-name: test-e2e
+          restore-gradle-cache-prefix: ""
+          post-emulator-launch-assemble-command: bundle exec fastlane build_maestro_test_app_android
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
+      - run:
+          name: Wait for emulator boot and prepare display
+          command: |
+            adb wait-for-device
+            # Poll until the system reports boot completed
+            while [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" != "1" ]; do
+              sleep 2
+            done
+            # Extra settle time for the launcher to render
+            sleep 5
+            # Prevent display from sleeping (cache-save steps give it time to time out)
+            adb shell svc power stayon true
+            # Dismiss the lock screen
+            adb shell input keyevent 82
+            # Disable animations for faster, deterministic Maestro assertions
+            adb shell settings put global window_animation_scale 0
+            adb shell settings put global transition_animation_scale 0
+            adb shell settings put global animator_duration_scale 0
+      - revenuecat/install-maestro
+      - run:
+          name: Run Maestro E2E Tests (Android)
+          command: bundle exec fastlane run_maestro_e2e_tests_android
+          no_output_timeout: 15m
+      - run:
+          name: Collect Android emulator logs
+          command: |
+            mkdir -p /tmp/android-logs
+            adb logcat -d > /tmp/android-logs/logcat.txt 2>&1 || true
+            adb shell dumpsys activity activities > /tmp/android-logs/activities.txt 2>&1 || true
+          when: on_fail
+      - store_test_results:
+          path: fastlane/test_output
+      - store_artifacts:
+          path: fastlane/test_output
+          destination: maestro-results
+      - store_artifacts:
+          path: /tmp/android-logs
+          destination: android-logs
+
 workflows:
   # This workflow runs for any commit to main, as well as for any other
   # branch with an open PR, except for release branches. This is controlled 
@@ -424,6 +552,13 @@ workflows:
           # This would benefit from the incremental build output of build-libraries-android
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
+      - run-maestro-e2e-tests-ios:
+          context:
+            - e2e-tests
+          simulator-name: "iPhone 16 Pro"
+      - run-maestro-e2e-tests-android:
+          context:
+            - e2e-tests
 
   on-main-branch:
     when:
@@ -528,3 +663,14 @@ workflows:
             - create-github-release
           context: github-bot-public
           <<: *release-tags-job
+
+  stress-test-android-e2e:
+    when: << pipeline.parameters.stress-test-android-e2e >>
+    jobs:
+      - run-maestro-e2e-tests-android:
+          name: android-e2e-stress-<< matrix.run >>
+          context:
+            - e2e-tests
+          matrix:
+            parameters:
+              run: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]

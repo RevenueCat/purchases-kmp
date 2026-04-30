@@ -101,6 +101,60 @@ lane :github_release_current_version do |options|
   github_release(version: current_version_number)
 end
 
+desc "Replace the Maestro test app API key placeholder"
+lane :change_maestro_test_app_api_key do
+  new_api_key = ENV["RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE"]
+  UI.user_error!("RC_E2E_TEST_API_KEY_PRODUCTION_TEST_STORE is not set") if new_api_key.to_s.empty?
+  app_kt = File.expand_path("../e2e-tests/MaestroTestApp/src/commonMain/kotlin/com/revenuecat/maestro/e2e/App.kt")
+  replace_text_in_files(
+    previous_text: "MAESTRO_TESTS_REVENUECAT_API_KEY",
+    new_text: new_api_key,
+    paths_of_files_to_update: [app_kt]
+  )
+  UI.user_error!("API key was not found in #{app_kt} after replacement") unless File.read(app_kt).include?(new_api_key)
+end
+
+desc "Build the Maestro E2E test app for iOS"
+lane :build_maestro_test_app_ios do |options|
+  simulator_name = options[:simulator_name] || "iPhone 16 Pro"
+
+  Dir.chdir("../e2e-tests/MaestroTestApp") do
+    sh(
+      "xcodebuild",
+      "-project", "iosApp/iosApp.xcodeproj",
+      "-scheme", "iosApp",
+      "-configuration", "Debug",
+      "-sdk", "iphonesimulator",
+      "-destination", "platform=iOS Simulator,name=#{simulator_name}",
+      "-derivedDataPath", "build",
+      "CODE_SIGNING_ALLOWED=NO",
+      "ONLY_ACTIVE_ARCH=YES",
+      "ARCHS=arm64",
+    )
+  end
+end
+
+desc "Build the Maestro E2E test app for Android"
+lane :build_maestro_test_app_android do
+  sh("cd .. && ./gradlew :e2e-tests:MaestroTestApp:assembleDebug")
+end
+
+desc "Run maestro E2E tests on iOS (booted simulator required)"
+lane :run_maestro_e2e_tests_ios do
+  app_path = File.expand_path("../e2e-tests/MaestroTestApp/build/Build/Products/Debug-iphonesimulator/MaestroTestApp.app")
+  UI.user_error!("iOS app not found at #{app_path} — run build_maestro_test_app_ios first") unless File.directory?(app_path)
+  sh("xcrun simctl install booted #{app_path}")
+  run_maestro_e2e_tests(flow_dir: "../e2e-tests/maestro/", output_dir: "test_output")
+end
+
+desc "Run maestro E2E tests on Android (running emulator required)"
+lane :run_maestro_e2e_tests_android do
+  apk_path = File.expand_path("../e2e-tests/MaestroTestApp/build/outputs/apk/debug/MaestroTestApp-debug.apk")
+  UI.user_error!("Android APK not found at #{apk_path} — run build_maestro_test_app_android first") unless File.exist?(apk_path)
+  sh("adb install #{apk_path}")
+  run_maestro_e2e_tests(flow_dir: "../e2e-tests/maestro/", output_dir: "test_output")
+end
+
 desc "Creates a GitHub release"
 lane :github_release do |options|
   create_github_release(
