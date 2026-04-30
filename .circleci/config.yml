@@ -105,6 +105,9 @@ parameters:
     type: enum
     enum: [ build, bump ]
     default: build
+  stress-test-android-e2e:
+    type: boolean
+    default: false
 
 executors:
   android202409:
@@ -453,6 +456,10 @@ jobs:
     machine:
       image: android:2025.10.1
     resource_class: large
+    parameters:
+      run:
+        type: string
+        default: "1"
     steps:
       - checkout
       - restore-gradle-user-home-directory-from-cache
@@ -649,3 +656,14 @@ workflows:
             - create-github-release
           context: github-bot-public
           <<: *release-tags-job
+
+  stress-test-android-e2e:
+    when: << pipeline.parameters.stress-test-android-e2e >>
+    jobs:
+      - run-maestro-e2e-tests-android:
+          name: android-e2e-stress-<< matrix.run >>
+          context:
+            - e2e-tests
+          matrix:
+            parameters:
+              run: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
