@@ -475,8 +475,11 @@ jobs:
       - run:
           name: Wake emulator and disable lock screen
           command: |
+            # Prevent display from sleeping (cache-save steps give it time to time out)
             adb shell svc power stayon true
+            # Dismiss the lock screen
             adb shell input keyevent 82
+            # Disable animations for faster, deterministic Maestro assertions
             adb shell settings put global window_animation_scale 0
             adb shell settings put global transition_animation_scale 0
             adb shell settings put global animator_duration_scale 0
