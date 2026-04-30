@@ -472,6 +472,14 @@ jobs:
           post-emulator-launch-assemble-command: bundle exec fastlane build_maestro_test_app_android
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
+      - run:
+          name: Wake emulator and disable lock screen
+          command: |
+            adb shell svc power stayon true
+            adb shell input keyevent 82
+            adb shell settings put global window_animation_scale 0
+            adb shell settings put global transition_animation_scale 0
+            adb shell settings put global animator_duration_scale 0
       - revenuecat/install-maestro
       - run:
           name: Run Maestro E2E Tests (Android)
