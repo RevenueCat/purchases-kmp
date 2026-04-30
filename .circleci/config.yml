@@ -480,8 +480,15 @@ jobs:
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
       - run:
-          name: Wake emulator and disable lock screen
+          name: Wait for emulator boot and prepare display
           command: |
+            adb wait-for-device
+            # Poll until the system reports boot completed
+            while [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" != "1" ]; do
+              sleep 2
+            done
+            # Extra settle time for the launcher to render
+            sleep 5
             # Prevent display from sleeping (cache-save steps give it time to time out)
             adb shell svc power stayon true
             # Dismiss the lock screen
