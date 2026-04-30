@@ -477,11 +477,21 @@ jobs:
           name: Run Maestro E2E Tests (Android)
           command: bundle exec fastlane run_maestro_e2e_tests_android
           no_output_timeout: 15m
+      - run:
+          name: Collect Android emulator logs
+          command: |
+            mkdir -p /tmp/android-logs
+            adb logcat -d > /tmp/android-logs/logcat.txt 2>&1 || true
+            adb shell dumpsys activity activities > /tmp/android-logs/activities.txt 2>&1 || true
+          when: on_fail
       - store_test_results:
           path: fastlane/test_output
       - store_artifacts:
           path: fastlane/test_output
           destination: maestro-results
+      - store_artifacts:
+          path: /tmp/android-logs
+          destination: android-logs
 
 workflows:
   # This workflow runs for any commit to main, as well as for any other
