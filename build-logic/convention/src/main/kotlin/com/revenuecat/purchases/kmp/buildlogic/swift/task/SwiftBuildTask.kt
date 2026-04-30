@@ -100,9 +100,12 @@ abstract class SwiftBuildTask @Inject constructor(
     abstract val swiftSettingsArgs: ListProperty<String>
 
     /**
-     * Header files from dependency modules. When present, these are included in the generated
-     * header via `#include` so that forward-declared dependency types get full definitions,
-     * allowing cinterop to generate proper bindings.
+     * Header files from cross-project Swift target dependencies. When present, each header is
+     * copied into [outputDir] and listed alongside the target's own header in the generated
+     * `module.modulemap`. This merges the dependency types into this target's Clang module so
+     * that `@class` forward declarations in the target header are resolved with full
+     * `@interface` definitions, which is required for cinterop to generate usable Kotlin
+     * bindings.
      */
     @get:InputFiles
     @get:Optional

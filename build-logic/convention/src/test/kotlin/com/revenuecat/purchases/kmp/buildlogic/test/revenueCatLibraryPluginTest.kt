@@ -31,7 +31,8 @@ class RevenueCatLibraryPluginTestContext(
 ) {
     private val swiftPackages = mutableMapOf<String, SwiftPackageHandle>()
     private val swiftPackageConfigs = mutableListOf<SwiftPackageConfig>()
-    private var buildFileWritten = false
+    private val subprojects = mutableMapOf<String, SubprojectContext>()
+    private var buildFilesWritten = false
 
     fun addSwiftPackage(
         kotlinSourceSet: String,
@@ -61,10 +62,34 @@ class RevenueCatLibraryPluginTestContext(
         return handle
     }
 
+    /**
+     * Creates a Swift package with multiple targets (and optional dependencies between them) in
+     * [relativePath] under [projectDir]. This is used by cross-project tests where a single
+     * shared `Package.swift` is referenced from multiple Gradle subprojects.
+     */
+    fun addMultiTargetSwiftPackage(
+        relativePath: String = "swift-package",
+        configure: MultiTargetPackageBuilder.() -> Unit
+    ): MultiTargetPackageHandle {
+        val packageDir = projectDir.resolve(relativePath).also { it.mkdirs() }
+        val builder = MultiTargetPackageBuilder(packageDir)
+        builder.configure()
+        return builder.build()
+    }
+
+    /**
+     * Adds (or returns) a Gradle subproject named [name]. Use [SubprojectContext.useSwiftPackage]
+     * to register a Swift package target within the subproject.
+     */
+    fun addSubproject(name: String): SubprojectContext =
+        subprojects.getOrPut(name) {
+            SubprojectContext(name = name, dir = projectDir.resolve(name))
+        }
+
     fun runBuild(vararg tasks: String): BuildResult {
-        if (!buildFileWritten) {
-            writeBuildFile()
-            buildFileWritten = true
+        if (!buildFilesWritten) {
+            writeBuildFiles()
+            buildFilesWritten = true
         }
         return GradleRunner.create()
             .withProjectDir(projectDir)
@@ -74,7 +99,23 @@ class RevenueCatLibraryPluginTestContext(
             .build()
     }
 
-    private fun writeBuildFile() {
+    private fun writeBuildFiles() {
+        if (subprojects.isNotEmpty()) {
+            appendSubprojectsToSettings()
+        }
+        writeRootBuildFile()
+        for (subproject in subprojects.values) {
+            writeSubprojectBuildFile(subproject)
+        }
+    }
+
+    private fun appendSubprojectsToSettings() {
+        val settingsFile = projectDir.resolve("settings.gradle.kts")
+        val includes = subprojects.keys.joinToString("\n") { """include(":$it")""" }
+        settingsFile.appendText("\n\n$includes\n")
+    }
+
+    private fun writeRootBuildFile() {
         val bySourceSet = swiftPackageConfigs.groupBy { it.kotlinSourceSet }
 
         val sourceSetBlocks = bySourceSet.entries.joinToString("\n\n                ") { (sourceSet, configs) ->
@@ -100,6 +141,13 @@ class RevenueCatLibraryPluginTestContext(
                 id("org.jetbrains.kotlin.plugin.compose")"""
         } else ""
 
+        // When the root project has no swiftPackages but does have subprojects, we still need a
+        // root build file so the test project is well-formed; in that case we keep it empty.
+        if (swiftPackageConfigs.isEmpty() && subprojects.isNotEmpty()) {
+            projectDir.resolve("build.gradle.kts").writeText("")
+            return
+        }
+
         projectDir.resolve("build.gradle.kts").writeText(
             // language=kotlin
             """
@@ -123,7 +171,122 @@ class RevenueCatLibraryPluginTestContext(
             """.trimIndent()
         )
     }
+
+    private fun writeSubprojectBuildFile(subproject: SubprojectContext) {
+        subproject.dir.mkdirs()
+
+        val sourceSetBlocks = subproject.swiftPackageConfigs
+            .groupBy { it.kotlinSourceSet }
+            .entries
+            .joinToString("\n\n                ") { (sourceSet, configs) ->
+                val swiftPackageCalls = configs.joinToString("\n                        ") { config ->
+                    """swiftPackage(
+                            path = rootProject.file("${config.packageRelPath}"),
+                            target = "${config.targetName}",
+                            packageName = "${config.kotlinPackageName}"
+                        )"""
+                }
+                """$sourceSet {
+                    dependencies {
+                        $swiftPackageCalls
+                    }
+                }
+                """
+            }
+
+        val evaluationDependsOnLines = subproject.evaluationDependencies
+            .distinct()
+            .joinToString("\n") { """evaluationDependsOn(":$it")""" }
+
+        subproject.dir.resolve("build.gradle.kts").writeText(
+            // language=kotlin
+            """
+            import com.revenuecat.purchases.kmp.buildlogic.swift.swiftPackage
+            
+            plugins {
+                id("revenuecat-library")
+            }
+            
+            $evaluationDependsOnLines
+            
+            kotlin {
+                iosSimulatorArm64()
+                
+                sourceSets {
+                    $sourceSetBlocks
+                }
+            }
+            
+            android {
+                namespace = "com.test.${subproject.name}"
+            }
+            """.trimIndent()
+        )
+    }
 }
+
+/**
+ * Represents a single Gradle subproject in the test setup. Each subproject gets its own
+ * `build.gradle.kts` that applies the `revenuecat-library` plugin and registers Swift package
+ * targets via [useSwiftPackage].
+ */
+class SubprojectContext internal constructor(
+    val name: String,
+    val dir: File,
+) {
+    internal val swiftPackageConfigs = mutableListOf<SubprojectSwiftPackageConfig>()
+    internal val evaluationDependencies = mutableListOf<String>()
+
+    /**
+     * Registers a `swiftPackage()` call in this subproject's `build.gradle.kts` pointing to an
+     * existing Swift package directory (typically created by
+     * [RevenueCatLibraryPluginTestContext.addMultiTargetSwiftPackage]).
+     *
+     * @param dependsOnSubprojects names of other subprojects that must be evaluated before this
+     *   one. Useful when this subproject's swift package target depends on a target registered
+     *   in another subproject: the cross-project wiring done in `afterEvaluate` only finds the
+     *   dependency in the global registry if the dep subproject was evaluated first. Each name
+     *   becomes an `evaluationDependsOn(":...")` call at the top of the subproject's build file.
+     */
+    fun useSwiftPackage(
+        kotlinSourceSet: String,
+        packageDir: File,
+        targetName: String,
+        kotlinPackageName: String = "test.swift",
+        dependsOnSubprojects: List<String> = emptyList(),
+    ): SwiftPackageHandle {
+        // Path passed to `rootProject.file(...)` – relative to the project root.
+        val packageRelPath = packageDir.relativeTo(dir.parentFile).path
+
+        swiftPackageConfigs.add(
+            SubprojectSwiftPackageConfig(
+                packageRelPath = packageRelPath,
+                targetName = targetName,
+                kotlinPackageName = kotlinPackageName,
+                kotlinSourceSet = kotlinSourceSet,
+            )
+        )
+        evaluationDependencies.addAll(dependsOnSubprojects)
+
+        val sourcesDir = packageDir.resolve("Sources/$targetName")
+        return SwiftPackageHandle(
+            target = SwiftTargetHandle(
+                sourcesDir = sourcesDir,
+                name = targetName,
+                resources = SwiftResourcesHandle(packageDir.resolve("Sources/$targetName/Resources"))
+            ),
+            hasResources = false,
+            gradlePath = ":$name",
+        )
+    }
+}
+
+internal data class SubprojectSwiftPackageConfig(
+    val packageRelPath: String,
+    val targetName: String,
+    val kotlinPackageName: String,
+    val kotlinSourceSet: String,
+)
 
 class SwiftTargetHandle(
     private val sourcesDir: File,
@@ -281,17 +444,131 @@ class AssetCatalogBuilder(private val xcassetsDir: File) {
 
 class SwiftPackageHandle(
     val target: SwiftTargetHandle,
-    internal val hasResources: Boolean
+    internal val hasResources: Boolean,
+    /** Gradle path prefix for the project that owns this package (e.g. ":consumer"). Empty for root. */
+    internal val gradlePath: String = ""
 ) {
-    val cinteropTaskName: String get() = ":cinterop${target.name}IosSimulatorArm64"
-    val processResourcesTaskName: String get() = ":processSwiftResources${target.name}"
-    
+    val cinteropTaskName: String get() = "$gradlePath:cinterop${target.name}IosSimulatorArm64"
+    val processResourcesTaskName: String get() = "$gradlePath:processSwiftResources${target.name}"
+    val compileSwiftTaskName: String get() = "$gradlePath:compileSwift${target.name}IosSimulatorArm64"
+
+    /**
+     * Returns the output directory where the Swift build artifacts (header, library, modulemap)
+     * are placed for the iosSimulatorArm64 target.
+     */
+    fun getSwiftOutputDir(projectDir: File): File {
+        val moduleDir = if (gradlePath.isEmpty()) projectDir else projectDir.resolve(gradlePath.removePrefix(":"))
+        return moduleDir.resolve("build/swift-packages/${target.name}/ios_simulator_arm64")
+    }
+
+    /**
+     * Returns the scratch directory used by `swift build` for this target.
+     */
+    fun getScratchDir(projectDir: File): File {
+        val moduleDir = if (gradlePath.isEmpty()) projectDir else projectDir.resolve(gradlePath.removePrefix(":"))
+        return moduleDir.resolve("build/swift-packages/${target.name}/.build")
+    }
+
     /**
      * Returns the output directory where processed resources are placed.
      */
-    fun getResourceOutputDir(projectDir: File): File =
-        projectDir.resolve("build/swift-resources/${target.name}/files")
+    fun getResourceOutputDir(projectDir: File): File {
+        val moduleDir = if (gradlePath.isEmpty()) projectDir else projectDir.resolve(gradlePath.removePrefix(":"))
+        return moduleDir.resolve("build/swift-resources/${target.name}/files")
+    }
 }
+
+/**
+ * Builds a Swift package with multiple targets, optionally with target-to-target dependencies.
+ * The generated `Package.swift` declares each target as both a library product and a target.
+ */
+class MultiTargetPackageBuilder internal constructor(
+    private val packageDir: File
+) {
+    private val targetSpecs = mutableListOf<MultiTargetSpec>()
+
+    /**
+     * Declares a target named [name] in this package. [dependencies] are names of other targets
+     * (declared in the same package) that this target depends on.
+     */
+    fun target(
+        name: String,
+        dependencies: List<String> = emptyList(),
+        configure: SwiftSourcesBuilder.() -> Unit,
+    ) {
+        val sourcesDir = packageDir.resolve("Sources/$name").also { it.mkdirs() }
+        SwiftSourcesBuilder(sourcesDir).apply(configure)
+        targetSpecs.add(MultiTargetSpec(name = name, dependencies = dependencies, sourcesDir = sourcesDir))
+    }
+
+    internal fun build(): MultiTargetPackageHandle {
+        require(targetSpecs.isNotEmpty()) { "At least one target must be declared" }
+
+        val productDecls = targetSpecs.joinToString(",\n        ") { spec ->
+            """.library(name: "${spec.name}", targets: ["${spec.name}"])"""
+        }
+        val targetDecls = targetSpecs.joinToString(",\n        ") { spec ->
+            val depsClause = if (spec.dependencies.isEmpty()) ""
+            else ", dependencies: [${spec.dependencies.joinToString(", ") { "\"$it\"" }}]"
+            """.target(name: "${spec.name}"$depsClause, path: "Sources/${spec.name}")"""
+        }
+
+        packageDir.resolve("Package.swift").writeText(
+            // language=swift
+            """
+            // swift-tools-version:5.9
+            import PackageDescription
+            
+            let package = Package(
+                name: "${packageDir.name}",
+                platforms: [.iOS(.v14)],
+                products: [
+                    $productDecls
+                ],
+                targets: [
+                    $targetDecls
+                ]
+            )
+            """.trimIndent()
+        )
+
+        val targetHandles = targetSpecs.associate { spec ->
+            spec.name to SwiftTargetHandle(
+                sourcesDir = spec.sourcesDir,
+                name = spec.name,
+                resources = SwiftResourcesHandle(spec.sourcesDir.resolve("Resources"))
+            )
+        }
+        return MultiTargetPackageHandle(packageDir = packageDir, targets = targetHandles)
+    }
+}
+
+/**
+ * Source-only DSL builder used inside [MultiTargetPackageBuilder.target]. Mirrors the source
+ * file helpers on [SwiftPackageBuilder] but doesn't write a `Package.swift` of its own (the
+ * surrounding [MultiTargetPackageBuilder] does that).
+ */
+class SwiftSourcesBuilder internal constructor(
+    private val sourcesDir: File
+) {
+    fun writeSourceFile(relativePath: String, @Language("swift") contents: String) {
+        sourcesDir.resolve(relativePath).apply {
+            parentFile.mkdirs()
+            writeText(contents)
+        }
+    }
+}
+
+private data class MultiTargetSpec(
+    val name: String,
+    val dependencies: List<String>,
+    val sourcesDir: File,
+)
+
+class MultiTargetPackageHandle internal constructor(
+    val packageDir: File,
+    val targets: Map<String, SwiftTargetHandle>,
+)
 
 private data class SwiftPackageConfig(
     val relativePath: String,
