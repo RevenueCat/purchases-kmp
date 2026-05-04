@@ -33,24 +33,21 @@ class SwiftCrossProjectDependencyTests {
     fun `cinterop succeeds when consumer references a type from a cross-project Swift dependency`() =
         revenueCatLibraryPluginTest {
             // Arrange
-            val consumer = setUpCrossProjectScenario()
+            val (dep, consumer) = setUpCrossProjectScenario()
 
             // Act
             val result = runBuild(consumer.cinteropTaskName)
 
             // Assert: consumer cinterop succeeds and the dep's compileSwift task ran transitively.
             assertEquals(TaskOutcome.SUCCESS, result.task(consumer.cinteropTaskName)?.outcome)
-            assertEquals(
-                TaskOutcome.SUCCESS,
-                result.task(":dep:compileSwift${DEP_TARGET}IosSimulatorArm64")?.outcome,
-            )
+            assertEquals(TaskOutcome.SUCCESS, result.task(dep.compileSwiftTaskName)?.outcome)
         }
 
     @Test
     fun `consumer modulemap lists the dependency header before the target header`() =
         revenueCatLibraryPluginTest {
             // Arrange
-            val consumer = setUpCrossProjectScenario()
+            val (_, consumer) = setUpCrossProjectScenario()
 
             // Act
             runBuild(consumer.compileSwiftTaskName)
@@ -82,7 +79,7 @@ class SwiftCrossProjectDependencyTests {
     fun `dependency header is copied into consumer outputDir`() =
         revenueCatLibraryPluginTest {
             // Arrange
-            val consumer = setUpCrossProjectScenario()
+            val (_, consumer) = setUpCrossProjectScenario()
 
             // Act
             runBuild(consumer.compileSwiftTaskName)
@@ -99,7 +96,7 @@ class SwiftCrossProjectDependencyTests {
     fun `each target uses its own scratch directory`() =
         revenueCatLibraryPluginTest {
             // Arrange
-            val consumer = setUpCrossProjectScenario()
+            val (dep, consumer) = setUpCrossProjectScenario()
 
             // Act
             runBuild(consumer.compileSwiftTaskName)
@@ -107,7 +104,7 @@ class SwiftCrossProjectDependencyTests {
             // Assert: per-target scratch dirs exist, and there's no shared scratch dir at the
             // root project level (which used to be the case before the Xcode 26 fix).
             assertTrue(
-                projectDir.resolve("dep/build/swift-packages/${DEP_TARGET}/.build").exists(),
+                dep.getScratchDir(projectDir).exists(),
                 "Expected per-target scratch dir for dep target",
             )
             assertTrue(
@@ -123,12 +120,12 @@ class SwiftCrossProjectDependencyTests {
     /**
      * Sets up a Package.swift with two targets where [CONSUMER_TARGET] depends on [DEP_TARGET]
      * and exposes a [DEP_TARGET] type in its public Obj-C API. Each target is registered in its
-     * own Gradle subproject. Returns the consumer's [SwiftPackageHandle].
+     * own Gradle subproject. Returns both handles as a [Pair] (dep, consumer).
      *
      * The signature `func makeFoo() -> Foo` forces `${CONSUMER_TARGET}-Swift.h` to contain a
      * `@class` forward declaration for the dep type, which is the failure mode these tests guard.
      */
-    private fun RevenueCatLibraryPluginTestContext.setUpCrossProjectScenario(): SwiftPackageHandle {
+    private fun RevenueCatLibraryPluginTestContext.setUpCrossProjectScenario(): Pair<SwiftPackageHandle, SwiftPackageHandle> {
         val pkg = addMultiTargetSwiftPackage {
             target(DEP_TARGET) {
                 writeSourceFile(
@@ -158,18 +155,19 @@ class SwiftCrossProjectDependencyTests {
             }
         }
 
-        addSubproject("dep").useSwiftPackage(
+        val dep = addSubproject("dep").useSwiftPackage(
             kotlinSourceSet = "iosMain",
             packageDir = pkg.packageDir,
             targetName = DEP_TARGET,
             kotlinPackageName = "test.swift.dep",
         )
-        return addSubproject("consumer").useSwiftPackage(
+        val consumer = addSubproject("consumer").useSwiftPackage(
             kotlinSourceSet = "iosMain",
             packageDir = pkg.packageDir,
             targetName = CONSUMER_TARGET,
             kotlinPackageName = "test.swift.consumer",
         )
+        return dep to consumer
     }
 
     private companion object {
