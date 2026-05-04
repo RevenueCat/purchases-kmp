@@ -174,11 +174,13 @@ abstract class SwiftBuildTask @Inject constructor(
         // is required for cinterop to generate usable Kotlin bindings.
         val depHeaderNames = mutableListOf<String>()
         for (depHeader in dependencyHeaders.files) {
-            if (depHeader.exists()) {
-                val destName = depHeader.name
-                depHeader.copyTo(targetOutputDir.resolve(destName), overwrite = true)
-                depHeaderNames.add(destName)
+            check(depHeader.exists()) {
+                "Expected dependency header at ${depHeader.absolutePath} but it was not produced. " +
+                    "This usually means the dependency's compileSwift task didn't emit '${depHeader.name}'."
             }
+            val destName = depHeader.name
+            depHeader.copyTo(targetOutputDir.resolve(destName), overwrite = true)
+            depHeaderNames.add(destName)
         }
 
         val allHeaders = depHeaderNames + headerName.get()
