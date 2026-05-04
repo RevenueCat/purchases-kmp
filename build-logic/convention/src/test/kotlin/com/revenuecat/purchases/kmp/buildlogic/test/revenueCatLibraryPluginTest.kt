@@ -145,10 +145,7 @@ class RevenueCatLibraryPluginTestContext(
                 id("org.jetbrains.kotlin.plugin.compose")"""
         } else ""
 
-        // When the root project has no swiftPackages but does have subprojects, we still need a
-        // root build file so the test project is well-formed; in that case we keep it empty.
         if (swiftPackageConfigs.isEmpty() && subprojects.isNotEmpty()) {
-            projectDir.resolve("build.gradle.kts").writeText("")
             return
         }
 
