@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.condition.EnabledOnOs
 import org.junit.jupiter.api.condition.OS
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
@@ -113,6 +114,33 @@ class SwiftCrossProjectDependencyTests {
             assertTrue(
                 consumerScratch.startsWith(projectDir.resolve("consumer/build")),
                 "Expected consumer scratch dir under consumer/build, got: $consumerScratch",
+            )
+        }
+
+    @Test
+    fun `registering the same target name in two subprojects throws`() =
+        revenueCatLibraryPluginTest {
+            val pkg = addMultiTargetSwiftPackage {
+                target(DEP_TARGET) {
+                    writeSourceFile("Foo.swift", "import Foundation\n@objc public class Foo: NSObject {}")
+                }
+            }
+
+            addSubproject("first").useSwiftPackage(
+                kotlinSourceSet = "iosMain",
+                packageDir = pkg.packageDir,
+                targetName = DEP_TARGET,
+            )
+            val error = assertFailsWith<IllegalArgumentException> {
+                addSubproject("second").useSwiftPackage(
+                    kotlinSourceSet = "iosMain",
+                    packageDir = pkg.packageDir,
+                    targetName = DEP_TARGET,
+                )
+            }
+            assertTrue(
+                error.message!!.contains("already registered in subproject 'first'"),
+                "Expected message about duplicate registration, got: ${error.message}",
             )
         }
 

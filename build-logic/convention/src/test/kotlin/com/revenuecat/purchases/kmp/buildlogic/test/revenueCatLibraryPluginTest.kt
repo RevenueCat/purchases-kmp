@@ -575,7 +575,7 @@ private data class MultiTargetSpec(
 
 class MultiTargetPackageHandle internal constructor(
     val packageDir: File,
-    val targets: Map<String, SwiftTargetHandle>,
+    internal val targets: Map<String, SwiftTargetHandle>,
     /** Maps each target name to the names of targets it depends on. */
     internal val dependencyGraph: Map<String, List<String>>,
 )
