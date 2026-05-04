@@ -169,6 +169,7 @@ private fun Project.configureSwiftDependency(
 
         val sdkPath = getSdkPath(konanTarget)
 
+        // Collect module paths: our own output + outputs from Swift dependencies in other projects
         val dependencyModulePaths = moduleDependencies.map { dep ->
             dep.project.layout.buildDirectory
                 .dir("swift-packages/${dep.dependency.target}/${konanTarget.name}")
@@ -180,6 +181,7 @@ private fun Project.configureSwiftDependency(
             defFile(defFile)
             extraOpts("-libraryPath", swiftOutputDir.absolutePath)
 
+            // Add -I flags for all module paths (own + dependencies)
             compilerOpts(
                 "-fmodules",
                 "-isysroot", sdkPath,
