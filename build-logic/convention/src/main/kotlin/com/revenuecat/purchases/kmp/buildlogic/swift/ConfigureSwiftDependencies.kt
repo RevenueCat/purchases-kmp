@@ -279,8 +279,7 @@ private fun Project.registerSwiftBuildTask(
         // Wire dependency headers so the target's modulemap includes them, resolving
         // @class forward declarations into full @interface definitions for cinterop.
         moduleDependencies.forEach { dep ->
-            val depTaskSuffix = getTaskSuffix(kotlinTarget.konanTarget)
-            val depTaskName = "compileSwift${dep.dependency.target}$depTaskSuffix"
+            val depTaskName = "compileSwift${dep.dependency.target}$taskSuffix"
             dependsOn(dep.project.tasks.named(depTaskName))
 
             val depOutputDir = dep.project.layout.buildDirectory
