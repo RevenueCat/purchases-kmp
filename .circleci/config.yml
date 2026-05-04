@@ -395,7 +395,7 @@ jobs:
     parameters:
       simulator-name:
         type: string
-        default: "iPhone 16 Pro"
+        default: "iPhone 17"
     steps:
       - checkout
       - checkout-submodule
@@ -526,7 +526,7 @@ workflows:
       - run-maestro-e2e-tests-ios:
           context:
             - e2e-tests
-          simulator-name: "iPhone 16 Pro"
+          simulator-name: "iPhone 17"
       - run-maestro-e2e-tests-android:
           context:
             - e2e-tests

@@ -116,7 +116,7 @@ end
 
 desc "Build the Maestro E2E test app for iOS"
 lane :build_maestro_test_app_ios do |options|
-  simulator_name = options[:simulator_name] || "iPhone 16 Pro"
+  simulator_name = options[:simulator_name] || "iPhone 17"
 
   Dir.chdir("../e2e-tests/MaestroTestApp") do
     sh(
