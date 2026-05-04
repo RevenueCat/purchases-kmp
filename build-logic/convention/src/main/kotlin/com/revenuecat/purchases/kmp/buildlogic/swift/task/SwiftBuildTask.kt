@@ -178,7 +178,7 @@ abstract class SwiftBuildTask @Inject constructor(
                     "This usually means the dependency's compileSwift task didn't emit '${depHeader.name}'."
             }
             val destName = depHeader.name
-            require(destName !in depHeaderNames) {
+            check(destName !in depHeaderNames) {
                 "Duplicate dependency header name '$destName' — two dependencies produce the same header file."
             }
             depHeader.copyTo(targetOutputDir.resolve(destName), overwrite = true)
