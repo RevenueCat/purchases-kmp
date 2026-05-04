@@ -276,8 +276,12 @@ private fun Project.registerSwiftBuildTask(
         swiftSettingsArgs.set(dependency.swiftSettings?.toCommandLineArgs() ?: emptyList())
         this.transitiveDepSourceDirs.from(transitiveDepSourceDirs)
 
-        // Wire dependency headers so the target's modulemap includes them, resolving
-        // @class forward declarations into full @interface definitions for cinterop.
+        // Wire DIRECT dependency headers so the target's modulemap includes them, resolving
+        // the @class forward declarations in this target's -Swift.h into full @interface
+        // definitions for cinterop. Transitive dep headers aren't collected — sufficient
+        // today because no direct dep's -Swift.h itself forward-declares types from its
+        // own Swift dependencies. If that ever changes, this loop will need to walk the
+        // dep graph recursively.
         moduleDependencies.forEach { dep ->
             val depTaskName = "compileSwift${dep.dependency.target}$taskSuffix"
             dependsOn(dep.project.tasks.named(depTaskName))
