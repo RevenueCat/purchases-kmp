@@ -11,7 +11,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
-
 /**
  * Tests that exercise the cross-project Swift target dependency path: a single shared
  * `Package.swift` declares two targets (one depending on the other), and each target is
@@ -24,7 +23,7 @@ import kotlin.test.assertTrue
  * - cinterop runs end-to-end and the dep's `compileSwift` task is wired as a transitive dep,
  * - the dep's `-Swift.h` is copied next to the consumer's header and listed in the consumer's
  *   `module.modulemap`,
- * - each target uses its own scratch directory (no shared scratch at the root level).
+ * - each target's scratch directory is scoped to its owning subproject's build dir.
  */
 @EnabledOnOs(OS.MAC)
 class SwiftCrossProjectDependencyTests {

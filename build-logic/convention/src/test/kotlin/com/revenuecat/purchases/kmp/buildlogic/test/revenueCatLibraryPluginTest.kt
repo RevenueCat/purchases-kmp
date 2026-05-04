@@ -6,7 +6,6 @@ import org.intellij.lang.annotations.Language
 import java.io.File
 import kotlin.io.path.createTempDirectory
 
-
 /**
  * Run an end-to-end test of the RevenueCatLibraryConvention plugin.
  */
@@ -273,6 +272,9 @@ class SubprojectContext internal constructor(
                 kotlinSourceSet = kotlinSourceSet,
             )
         )
+        require(targetName !in context.targetToSubproject) {
+            "Target '$targetName' is already registered in subproject '${context.targetToSubproject[targetName]}'."
+        }
         context.targetToSubproject[targetName] = name
 
         val sourcesDir = packageDir.resolve("Sources/$targetName")

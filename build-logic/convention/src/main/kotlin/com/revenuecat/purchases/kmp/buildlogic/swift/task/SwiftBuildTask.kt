@@ -108,7 +108,6 @@ abstract class SwiftBuildTask @Inject constructor(
      * bindings.
      */
     @get:InputFiles
-    @get:Optional
     @get:PathSensitive(PathSensitivity.NONE)
     abstract val dependencyHeaders: ConfigurableFileCollection
 

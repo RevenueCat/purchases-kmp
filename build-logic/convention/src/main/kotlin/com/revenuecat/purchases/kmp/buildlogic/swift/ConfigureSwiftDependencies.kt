@@ -253,8 +253,7 @@ private fun Project.registerSwiftBuildTask(
     transitiveDepSourceDirs: List<File>,
     moduleDependencies: List<GlobalSwiftPackageRegistry.RegisteredSwiftTarget>,
 ): TaskProvider<SwiftBuildTask> {
-    val taskSuffix = getTaskSuffix(kotlinTarget.konanTarget)
-    val taskName = "compileSwift${dependency.target}$taskSuffix"
+    val taskName = compileSwiftTaskName(dependency.target, kotlinTarget.konanTarget)
 
     return tasks.register(taskName, SwiftBuildTask::class.java) {
         swiftTarget.set(dependency.target)
@@ -283,7 +282,7 @@ private fun Project.registerSwiftBuildTask(
         // own Swift dependencies. If that ever changes, this loop will need to walk the
         // dep graph recursively.
         moduleDependencies.forEach { dep ->
-            val depTaskName = "compileSwift${dep.dependency.target}$taskSuffix"
+            val depTaskName = compileSwiftTaskName(dep.dependency.target, kotlinTarget.konanTarget)
             dependsOn(dep.project.tasks.named(depTaskName))
 
             val depOutputDir = dep.project.layout.buildDirectory
@@ -293,9 +292,9 @@ private fun Project.registerSwiftBuildTask(
     }
 }
 
-/**
- * Get the task name suffix for a given Konan target.
- */
+private fun compileSwiftTaskName(target: String, konanTarget: KonanTarget): String =
+    "compileSwift${target}${getTaskSuffix(konanTarget)}"
+
 private fun getTaskSuffix(konanTarget: KonanTarget): String = when (konanTarget) {
     // iOS
     KonanTarget.IOS_ARM64 -> "IosArm64"
