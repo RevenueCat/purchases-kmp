@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.condition.EnabledOnOs
 import org.junit.jupiter.api.condition.OS
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
+import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
 
@@ -93,7 +93,7 @@ class SwiftCrossProjectDependencyTests {
         }
 
     @Test
-    fun `each target uses its own scratch directory`() =
+    fun `each target uses its own scratch directory under its subproject build dir`() =
         revenueCatLibraryPluginTest {
             // Arrange
             val (dep, consumer) = setUpCrossProjectScenario()
@@ -101,19 +101,19 @@ class SwiftCrossProjectDependencyTests {
             // Act
             runBuild(consumer.compileSwiftTaskName)
 
-            // Assert: per-target scratch dirs exist, and there's no shared scratch dir at the
-            // root project level (which used to be the case before the Xcode 26 fix).
+            // Assert: scratch dirs are per-target and scoped to their own subproject.
+            val depScratch = dep.getScratchDir(projectDir)
+            val consumerScratch = consumer.getScratchDir(projectDir)
+            assertTrue(depScratch.exists(), "Expected scratch dir for dep target to exist")
+            assertTrue(consumerScratch.exists(), "Expected scratch dir for consumer target to exist")
+            assertNotEquals(depScratch, consumerScratch)
             assertTrue(
-                dep.getScratchDir(projectDir).exists(),
-                "Expected per-target scratch dir for dep target",
+                depScratch.startsWith(projectDir.resolve("dep/build")),
+                "Expected dep scratch dir under dep/build, got: $depScratch",
             )
             assertTrue(
-                consumer.getScratchDir(projectDir).exists(),
-                "Expected per-target scratch dir for consumer target",
-            )
-            assertFalse(
-                projectDir.resolve("build/swift-packages/.build").exists(),
-                "Expected no shared scratch dir at the root project level",
+                consumerScratch.startsWith(projectDir.resolve("consumer/build")),
+                "Expected consumer scratch dir under consumer/build, got: $consumerScratch",
             )
         }
 
