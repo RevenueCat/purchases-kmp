@@ -242,14 +242,14 @@ class SubprojectContext internal constructor(
      * targets the registered Swift targets depend on, and finding which other subprojects own
      * those dependency targets.
      */
-    internal fun deriveEvaluationDependencies(): List<String> {
+    internal fun deriveEvaluationDependencies(): Set<String> {
         val targetNames = swiftPackageConfigs.map { it.targetName }
         return targetNames.flatMap { target ->
             context.multiTargetPackages
                 .flatMap { pkg -> pkg.dependencyGraph[target].orEmpty() }
                 .mapNotNull { depTarget -> context.targetToSubproject[depTarget] }
                 .filter { it != name }
-        }.distinct()
+        }.toSet()
     }
 
     /**
@@ -463,26 +463,24 @@ class SwiftPackageHandle(
      * Returns the output directory where the Swift build artifacts (header, library, modulemap)
      * are placed for the iosSimulatorArm64 target.
      */
-    fun getSwiftOutputDir(projectDir: File): File {
-        val moduleDir = if (gradlePath.isEmpty()) projectDir else projectDir.resolve(gradlePath.removePrefix(":"))
-        return moduleDir.resolve("build/swift-packages/${target.name}/ios_simulator_arm64")
-    }
+    fun getSwiftOutputDir(projectDir: File): File =
+        moduleDir(projectDir).resolve("build/swift-packages/${target.name}/ios_simulator_arm64")
 
     /**
      * Returns the scratch directory used by `swift build` for this target.
      */
-    fun getScratchDir(projectDir: File): File {
-        val moduleDir = if (gradlePath.isEmpty()) projectDir else projectDir.resolve(gradlePath.removePrefix(":"))
-        return moduleDir.resolve("build/swift-packages/${target.name}/.build")
-    }
+    fun getScratchDir(projectDir: File): File =
+        moduleDir(projectDir).resolve("build/swift-packages/${target.name}/.build")
 
     /**
      * Returns the output directory where processed resources are placed.
      */
-    fun getResourceOutputDir(projectDir: File): File {
-        val moduleDir = if (gradlePath.isEmpty()) projectDir else projectDir.resolve(gradlePath.removePrefix(":"))
-        return moduleDir.resolve("build/swift-resources/${target.name}/files")
-    }
+    fun getResourceOutputDir(projectDir: File): File =
+        moduleDir(projectDir).resolve("build/swift-resources/${target.name}/files")
+
+    private fun moduleDir(projectDir: File): File =
+        if (gradlePath.isEmpty()) projectDir
+        else projectDir.resolve(gradlePath.removePrefix(":"))
 }
 
 /**
