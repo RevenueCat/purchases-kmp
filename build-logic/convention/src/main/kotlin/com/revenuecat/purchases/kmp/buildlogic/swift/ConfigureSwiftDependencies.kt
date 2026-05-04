@@ -198,13 +198,6 @@ private fun Project.configureSwiftDependency(
                 // have something to do with the cinterop commonizer.
                 // As a workaround we're adding the static library's checksum to the def file in GenerateDefFileTask.
                 // This has the same effect of picking up any changes in Swift regardless of whether they're public.
-
-                // Add task dependencies for Swift builds from other projects
-                moduleDependencies.forEach { dep ->
-                    val taskSuffix = getTaskSuffix(konanTarget)
-                    val depTaskName = "compileSwift${dep.dependency.target}$taskSuffix"
-                    dependsOn(dep.project.tasks.named(depTaskName))
-                }
             }
         }
     }
