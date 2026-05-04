@@ -17,8 +17,9 @@ import kotlin.test.assertTrue
  * `Package.swift` declares two targets (one depending on the other), and each target is
  * registered as a `swiftPackage()` in a different Gradle subproject.
  *
- * Without this PR's fix, cinterop fails for the consumer target because `@class` forward
- * declarations from the dependency target can't be resolved. These tests verify that:
+ * Without per-target scratch directories and dependency header inclusion in the modulemap,
+ * cinterop fails for the consumer target because `@class` forward declarations from the
+ * dependency target can't be resolved. These tests verify that:
  *
  * - cinterop runs end-to-end and the dep's `compileSwift` task is wired as a transitive dep,
  * - the dep's `-Swift.h` is copied next to the consumer's header and listed in the consumer's
