@@ -159,7 +159,8 @@ private fun Project.configureSwiftDependency(
             kotlinTarget = this,
             dependency = dependency,
             targetSourceDir = targetSourceDir,
-            transitiveDepSourceDirs = transitiveDepSourceDirs
+            transitiveDepSourceDirs = transitiveDepSourceDirs,
+            moduleDependencies = moduleDependencies,
         )
 
         val swiftOutputDir = layout.buildDirectory
@@ -197,13 +198,6 @@ private fun Project.configureSwiftDependency(
                 // have something to do with the cinterop commonizer.
                 // As a workaround we're adding the static library's checksum to the def file in GenerateDefFileTask.
                 // This has the same effect of picking up any changes in Swift regardless of whether they're public.
-
-                // Add task dependencies for Swift builds from other projects
-                moduleDependencies.forEach { dep ->
-                    val taskSuffix = getTaskSuffix(konanTarget)
-                    val depTaskName = "compileSwift${dep.dependency.target}$taskSuffix"
-                    dependsOn(dep.project.tasks.named(depTaskName))
-                }
             }
         }
     }
@@ -257,9 +251,9 @@ private fun Project.registerSwiftBuildTask(
     dependency: SwiftDependency,
     targetSourceDir: File,
     transitiveDepSourceDirs: List<File>,
+    moduleDependencies: List<GlobalSwiftPackageRegistry.RegisteredSwiftTarget>,
 ): TaskProvider<SwiftBuildTask> {
-    val taskSuffix = getTaskSuffix(kotlinTarget.konanTarget)
-    val taskName = "compileSwift${dependency.target}$taskSuffix"
+    val taskName = compileSwiftTaskName(dependency.target, kotlinTarget.konanTarget)
 
     return tasks.register(taskName, SwiftBuildTask::class.java) {
         swiftTarget.set(dependency.target)
@@ -273,16 +267,34 @@ private fun Project.registerSwiftBuildTask(
         packageSwiftFile.set(dependency.packageDir.resolve("Package.swift"))
         this.targetSourceDir.set(targetSourceDir)
         outputDir.set(layout.buildDirectory.dir("swift-packages/${dependency.target}/${kotlinTarget.konanTarget.name}"))
-        // Use a shared scratch directory at root project level for SPM build cache sharing
-        scratchDir.set(rootProject.layout.buildDirectory.dir("swift-packages/.build"))
+        // Use a per-target scratch directory to avoid header conflicts: when multiple
+        // targets share a scratch directory, -Xswiftc -emit-objc-header-path applies to
+        // ALL swiftc invocations during `swift build`, causing a dependency's header to
+        // overwrite the target's header.
+        scratchDir.set(layout.buildDirectory.dir("swift-packages/${dependency.target}/.build"))
         swiftSettingsArgs.set(dependency.swiftSettings?.toCommandLineArgs() ?: emptyList())
         this.transitiveDepSourceDirs.from(transitiveDepSourceDirs)
+
+        // Wire DIRECT dependency headers so the target's modulemap includes them, resolving
+        // the @class forward declarations in this target's -Swift.h into full @interface
+        // definitions for cinterop. Transitive dep headers aren't collected — sufficient
+        // today because no direct dep's -Swift.h itself forward-declares types from its
+        // own Swift dependencies. If that ever changes, this loop will need to walk the
+        // dep graph recursively.
+        moduleDependencies.forEach { dep ->
+            val depTaskName = compileSwiftTaskName(dep.dependency.target, kotlinTarget.konanTarget)
+            dependsOn(dep.project.tasks.named(depTaskName))
+
+            val depOutputDir = dep.project.layout.buildDirectory
+                .dir("swift-packages/${dep.dependency.target}/${kotlinTarget.konanTarget.name}")
+            dependencyHeaders.from(depOutputDir.map { it.file(dep.dependency.headerName) })
+        }
     }
 }
 
-/**
- * Get the task name suffix for a given Konan target.
- */
+private fun compileSwiftTaskName(target: String, konanTarget: KonanTarget): String =
+    "compileSwift${target}${getTaskSuffix(konanTarget)}"
+
 private fun getTaskSuffix(konanTarget: KonanTarget): String = when (konanTarget) {
     // iOS
     KonanTarget.IOS_ARM64 -> "IosArm64"
