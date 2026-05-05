@@ -77,6 +77,8 @@ private class PurchasesCommonAPI {
 
         val appUserID: String = purchases.appUserID
 
+        purchases.setPostHogUserID("posthog-user-id")
+
         purchases.close()
 
         val updatedCustomerInfoListener: PurchasesDelegate? = purchases.delegate

@@ -16,6 +16,7 @@ import swiftPMImport.com.revenuecat.purchases.kn.core.recordPurchaseForProductID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setAirbridgeDeviceID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setAirshipChannelID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setOnesignalUserID
+import swiftPMImport.com.revenuecat.purchases.kn.core.setPostHogUserID
 import swiftPMImport.com.revenuecat.purchases.kn.core.showStoreMessagesForTypes
 import swiftPMImport.com.revenuecat.purchases.kn.core.trackCustomPaywallImpression
 import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
@@ -676,6 +677,9 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
     public actual fun setOnesignalUserID(onesignalUserID: String?): Unit =
         RCCommonFunctionality.setOnesignalUserID(onesignalUserID)
+
+    public actual fun setPostHogUserID(postHogUserID: String?): Unit =
+        RCCommonFunctionality.setPostHogUserID(postHogUserID)
 
     public actual fun setAirshipChannelID(airshipChannelID: String?): Unit =
         RCCommonFunctionality.setAirshipChannelID(airshipChannelID)

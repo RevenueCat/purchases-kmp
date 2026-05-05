@@ -98,6 +98,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun setMparticleID (Ljava/lang/String;)V
 	public final fun setOnesignalID (Ljava/lang/String;)V
 	public final fun setOnesignalUserID (Ljava/lang/String;)V
+	public final fun setPostHogUserID (Ljava/lang/String;)V
 	public final fun setPhoneNumber (Ljava/lang/String;)V
 	public static final fun setProxyURL (Ljava/lang/String;)V
 	public final fun setPushToken (Ljava/lang/String;)V
