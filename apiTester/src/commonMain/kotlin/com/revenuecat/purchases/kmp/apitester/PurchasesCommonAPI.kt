@@ -78,6 +78,7 @@ private class PurchasesCommonAPI {
         val appUserID: String = purchases.appUserID
 
         purchases.setPostHogUserID("posthog-user-id")
+        purchases.setPostHogUserID(null)
 
         purchases.close()
 
