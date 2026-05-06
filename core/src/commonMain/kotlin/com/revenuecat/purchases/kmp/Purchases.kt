@@ -666,6 +666,14 @@ public expect class Purchases {
     public fun setOnesignalUserID(onesignalUserID: String?)
 
     /**
+     * Subscriber attribute associated with the PostHog User ID for the user
+     * Required for the RevenueCat PostHog integration.
+     *
+     * @param postHogUserID null or an empty string will delete the subscriber attribute
+     */
+    public fun setPostHogUserID(postHogUserID: String?)
+
+    /**
      * Subscriber attribute associated with the Airship Channel ID
      * Required for the RevenueCat Airship integration
      *
