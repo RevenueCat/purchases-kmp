@@ -67,6 +67,7 @@ import swiftPMImport.com.revenuecat.purchases.kn.core.recordPurchaseForProductID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setAirbridgeDeviceID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setAirshipChannelID
 import swiftPMImport.com.revenuecat.purchases.kn.core.setOnesignalUserID
+import swiftPMImport.com.revenuecat.purchases.kn.core.setPostHogUserID
 import swiftPMImport.com.revenuecat.purchases.kn.core.showStoreMessagesForTypes
 import swiftPMImport.com.revenuecat.purchases.kn.core.trackCustomPaywallImpression
 import swiftPMImport.com.revenuecat.purchases.kn.core.RCDangerousSettings as IosDangerousSettings
@@ -652,7 +653,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         iosPurchases.attribution().setOnesignalUserID(onesignalUserID)
 
     public actual fun setPostHogUserID(postHogUserID: String?): Unit =
-        RCCommonFunctionality.setPostHogUserID(postHogUserID)
+        iosPurchases.attribution().setPostHogUserID(postHogUserID)
 
     public actual fun setAirshipChannelID(airshipChannelID: String?): Unit =
         iosPurchases.attribution().setAirshipChannelID(airshipChannelID)
