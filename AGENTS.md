@@ -129,8 +129,8 @@ module/src/
 
 | Platform | Minimum Version |
 |----------|-----------------|
-| Kotlin | 2.1.21 |
-| Android | minSdk 21, compileSdk 35 |
+| Kotlin | 2.3.20 |
+| Android | minSdk 23, compileSdk 35 |
 | iOS (Core) | 13.0+ |
 | iOS (UI) | 15.0+ |
 | Java | 8+ |
