@@ -43,6 +43,31 @@ fun SubscriberAttributesTestingScreen(
         lastCalledFunction = functionName
     }
 
+    var emailValue by remember { mutableStateOf("") }
+    var phoneValue by remember { mutableStateOf("") }
+    var displayNameValue by remember { mutableStateOf("") }
+    var pushTokenValue by remember { mutableStateOf("") }
+    var mixpanelValue by remember { mutableStateOf("") }
+    var onesignalIdValue by remember { mutableStateOf("") }
+    var onesignalUserIdValue by remember { mutableStateOf("") }
+    var postHogValue by remember { mutableStateOf("") }
+    var airshipValue by remember { mutableStateOf("") }
+    var firebaseValue by remember { mutableStateOf("") }
+    var adjustValue by remember { mutableStateOf("") }
+    var airbridgeValue by remember { mutableStateOf("") }
+    var appsflyerValue by remember { mutableStateOf("") }
+    var fbAnonValue by remember { mutableStateOf("") }
+    var mparticleValue by remember { mutableStateOf("") }
+    var cleverTapValue by remember { mutableStateOf("") }
+    var mediaSourceValue by remember { mutableStateOf("") }
+    var campaignValue by remember { mutableStateOf("") }
+    var adGroupValue by remember { mutableStateOf("") }
+    var adValue by remember { mutableStateOf("") }
+    var keywordValue by remember { mutableStateOf("") }
+    var creativeValue by remember { mutableStateOf("") }
+    var customKey by remember { mutableStateOf("") }
+    var customValue by remember { mutableStateOf("") }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -68,7 +93,6 @@ fun SubscriberAttributesTestingScreen(
         // ── USER PROFILE ──────────────────────────────────────
         SectionHeader("User Profile")
 
-        var emailValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Email",
             value = emailValue,
@@ -83,7 +107,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var phoneValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Phone Number",
             value = phoneValue,
@@ -98,7 +121,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var displayNameValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Display Name",
             value = displayNameValue,
@@ -113,7 +135,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var pushTokenValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Push Token",
             value = pushTokenValue,
@@ -131,7 +152,6 @@ fun SubscriberAttributesTestingScreen(
         // ── THIRD-PARTY INTEGRATIONS ──────────────────────────
         SectionHeader("Third-party Integrations")
 
-        var mixpanelValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Mixpanel Distinct ID",
             value = mixpanelValue,
@@ -146,7 +166,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var onesignalIdValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "OneSignal ID (legacy)",
             value = onesignalIdValue,
@@ -161,7 +180,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var onesignalUserIdValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "OneSignal User ID",
             value = onesignalUserIdValue,
@@ -176,7 +194,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var postHogValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "PostHog User ID",
             value = postHogValue,
@@ -191,7 +208,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var airshipValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Airship Channel ID",
             value = airshipValue,
@@ -206,7 +222,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var firebaseValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Firebase App Instance ID",
             value = firebaseValue,
@@ -221,7 +236,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var adjustValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Adjust ID",
             value = adjustValue,
@@ -236,7 +250,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var airbridgeValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Airbridge Device ID",
             value = airbridgeValue,
@@ -251,7 +264,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var appsflyerValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Appsflyer ID",
             value = appsflyerValue,
@@ -266,7 +278,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var fbAnonValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "FB Anonymous ID",
             value = fbAnonValue,
@@ -281,7 +292,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var mparticleValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Mparticle ID",
             value = mparticleValue,
@@ -296,7 +306,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var cleverTapValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "CleverTap ID",
             value = cleverTapValue,
@@ -314,7 +323,6 @@ fun SubscriberAttributesTestingScreen(
         // ── AD ATTRIBUTION ────────────────────────────────────
         SectionHeader("Ad Attribution")
 
-        var mediaSourceValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Media Source",
             value = mediaSourceValue,
@@ -329,7 +337,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var campaignValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Campaign",
             value = campaignValue,
@@ -344,7 +351,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var adGroupValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Ad Group",
             value = adGroupValue,
@@ -359,7 +365,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var adValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Ad",
             value = adValue,
@@ -374,7 +379,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var keywordValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Keyword",
             value = keywordValue,
@@ -389,7 +393,6 @@ fun SubscriberAttributesTestingScreen(
             }
         )
 
-        var creativeValue by remember { mutableStateOf("") }
         AttributeRow(
             label = "Creative",
             value = creativeValue,
@@ -421,9 +424,6 @@ fun SubscriberAttributesTestingScreen(
 
         // ── CUSTOM ATTRIBUTES ─────────────────────────────────
         SectionHeader("Custom Attributes")
-
-        var customKey by remember { mutableStateOf("") }
-        var customValue by remember { mutableStateOf("") }
 
         OutlinedTextField(
             value = customKey,
