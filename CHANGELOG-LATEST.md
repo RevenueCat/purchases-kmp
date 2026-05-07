@@ -1,3 +1,4 @@
+## RevenueCat SDK
 ### 💥 Breaking Changes
 * This release updates to Billing Library 8.3.0 with min SDK supported of Android 6 (API 23), previously min was 21. It also removes a previous workaround used to be able to restore consumed one time products which is not available anymore.
 * This release removes the need to specify a version of purchases-hybrid-common. See our [migration guide](migrations/3.0.0-MIGRATION.md) for how to do this.
