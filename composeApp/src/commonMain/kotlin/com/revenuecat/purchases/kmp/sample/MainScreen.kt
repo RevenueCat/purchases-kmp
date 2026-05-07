@@ -226,6 +226,14 @@ fun MainScreen(
 
                 Spacer(modifier = Modifier.size(16.dp))
                 TextButton(
+                    onClick = { navigateTo(Screen.SubscriberAttributesTesting) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Subscriber Attributes Testing")
+                }
+
+                Spacer(modifier = Modifier.size(16.dp))
+                TextButton(
                     onClick = { Purchases.sharedInstance.presentCodeRedemptionSheet() },
                     enabled = isCodeRedemptionSheetAvailable,
                     modifier = Modifier.fillMaxWidth()

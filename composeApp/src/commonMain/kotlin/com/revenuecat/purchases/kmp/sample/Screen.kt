@@ -15,5 +15,6 @@ sealed interface Screen {
     data object AdTracking : Screen
     data object CustomVariablesEditor : Screen
     data object CustomPaywallTracking : Screen
+    data object SubscriberAttributesTesting : Screen
 
 }
