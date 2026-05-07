@@ -136,6 +136,10 @@ fun App() {
                 is Screen.CustomPaywallTracking -> CustomPaywallTrackingScreen(
                     navigateTo = navigateTo
                 )
+
+                is Screen.SubscriberAttributesTesting -> SubscriberAttributesTestingScreen(
+                    navigateTo = navigateTo
+                )
             }
         }
     }
