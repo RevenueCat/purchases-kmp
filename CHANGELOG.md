@@ -15,8 +15,6 @@ For more information, please check our [migration guide](migrations/3.0.0-MIGRAT
 * [RENOVATE] Update dependency gradle to v9.5.0 (#842) via Toni Rico (@tonidero)
 * [RENOVATE] Update purchases-android to v10.4.0 (#843) via Toni Rico (@tonidero)
 * [RENOVATE] Update dependency upstream/purchases-ios to v5.71.0 (#813) via RevenueCat Git Bot (@RCGitBot)
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 18.3.0 (#834) via RevenueCat Git Bot (@RCGitBot)
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 18.2.0 (#831) via RevenueCat Git Bot (@RCGitBot)
 * [RENOVATE] Update dependency upstream/purchases-ios to v5.67.2 (#805) via RevenueCat Git Bot (@RCGitBot)
 
 ### 🔄 Other Changes
