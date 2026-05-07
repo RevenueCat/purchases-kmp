@@ -27,7 +27,7 @@ More information on triggering pipelines can be found in the [CircleCI docs](htt
 1. Create a `fastlane/.env` file with your GitHub API token (see `fastlane/.env.SAMPLE`). This will be used to create the PR, so you should use your own token so the PR gets assigned to you.
 2. Run `bundle exec fastlane bump github_rate_limit:10`. The `github_rate_limit` argument is optional, but recommended, to avoid hitting the GitHub API rate limit while generating the changelog. 
     1. Confirm base branch is correct.
-    2. Input the new version number. You can omit the build metadata containing the purchases-hybrid-common version (e.g. `+13.2.0`). This will be added automatically for stable releases. 
+    2. Input the new version number.
     3. Optionally update `CHANGELOG.latest.md` when the auto-generated one is not sufficient. Call out public API changes (if any).
     4. A new branch and PR will automatically be created.
 3. Review the PR and approve it if it's okay.
