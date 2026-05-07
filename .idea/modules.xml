@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.revenuecat.purchases.purchases-kmp.iml" filepath="$PROJECT_DIR$/.idea/modules/com.revenuecat.purchases.purchases-kmp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/apiTester/purchases-kmp.apiTester.iml" filepath="$PROJECT_DIR$/.idea/modules/apiTester/purchases-kmp.apiTester.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/composeApp/purchases-kmp.composeApp.main.iml" filepath="$PROJECT_DIR$/.idea/modules/composeApp/purchases-kmp.composeApp.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/purchases-kmp.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/purchases-kmp.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/purchases-kmp.iosApp.iml" filepath="$PROJECT_DIR$/.idea/purchases-kmp.iosApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kn-core/purchases-kmp.kn-core.iml" filepath="$PROJECT_DIR$/.idea/modules/kn-core/purchases-kmp.kn-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/mappings/purchases-kmp.mappings.main.iml" filepath="$PROJECT_DIR$/.idea/modules/mappings/purchases-kmp.mappings.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/models/purchases-kmp.models.iml" filepath="$PROJECT_DIR$/.idea/modules/models/purchases-kmp.models.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/result/purchases-kmp.result.main.iml" filepath="$PROJECT_DIR$/.idea/modules/result/purchases-kmp.result.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/revenuecatui/purchases-kmp.revenuecatui.main.iml" filepath="$PROJECT_DIR$/.idea/modules/revenuecatui/purchases-kmp.revenuecatui.main.iml" />
+    </modules>
+  </component>
+</project>

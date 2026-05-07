@@ -1,11 +1,17 @@
 package com.revenuecat.purchases.kmp.buildlogic.swift.task
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.IgnoreEmptyDirectories
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.InputFile
+import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
@@ -22,6 +28,7 @@ import javax.inject.Inject
  * - An Objective-C header (-Swift.h)
  * - A module.modulemap for cinterop
  */
+@CacheableTask
 abstract class SwiftBuildTask @Inject constructor(
     private val execOperations: ExecOperations
 ) : DefaultTask() {
@@ -58,10 +65,26 @@ abstract class SwiftBuildTask @Inject constructor(
     @get:Internal
     abstract val packageDir: DirectoryProperty
 
+    /** The Package.swift file. Tracked for cache invalidation on package structure changes. */
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
+    abstract val packageSwiftFile: RegularFileProperty
+
     /** The Swift target's source directory (for tracking incremental builds) */
     @get:InputDirectory
     @get:PathSensitive(PathSensitivity.RELATIVE)
+    @get:IgnoreEmptyDirectories
     abstract val targetSourceDir: DirectoryProperty
+
+    /**
+     * Source directories of cross-project Swift target dependencies. Ensures the build cache
+     * is invalidated when a dependency target's source changes (e.g. RevenueCat sources
+     * affecting RevenueCatUI compilation).
+     */
+    @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    @get:IgnoreEmptyDirectories
+    abstract val transitiveDepSourceDirs: ConfigurableFileCollection
 
     /** The output directory for built artifacts */
     @get:OutputDirectory
@@ -75,6 +98,18 @@ abstract class SwiftBuildTask @Inject constructor(
     @get:Input
     @get:Optional
     abstract val swiftSettingsArgs: ListProperty<String>
+
+    /**
+     * Header files from cross-project Swift target dependencies. When present, each header is
+     * copied into [outputDir] and listed alongside the target's own header in the generated
+     * `module.modulemap`. This merges the dependency types into this target's Clang module so
+     * that `@class` forward declarations in the target header are resolved with full
+     * `@interface` definitions, which is required for cinterop to generate usable Kotlin
+     * bindings.
+     */
+    @get:InputFiles
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val dependencyHeaders: ConfigurableFileCollection
 
     @TaskAction
     fun build() {
@@ -132,13 +167,27 @@ abstract class SwiftBuildTask @Inject constructor(
             )
         }
 
-        // Create module.modulemap to wrap the Swift header as a Clang module
-        val modulemapContent = """
-            module ${moduleName.get()} {
-                header "${headerName.get()}"
-                export *
+        // Copy dependency headers and build a modulemap that includes them before the
+        // target header. This ensures that @class forward declarations for dependency types
+        // are resolved with full @interface definitions from the dependency headers, which
+        // is required for cinterop to generate usable Kotlin bindings.
+        val depHeaderNames = mutableListOf<String>()
+        for (depHeader in dependencyHeaders.files) {
+            check(depHeader.exists()) {
+                "Expected dependency header at ${depHeader.absolutePath} but it was not produced. " +
+                    "This usually means the dependency's compileSwift task didn't emit '${depHeader.name}'."
             }
-        """.trimIndent()
+            val destName = depHeader.name
+            check(destName !in depHeaderNames) {
+                "Duplicate dependency header name '$destName' — two dependencies produce the same header file."
+            }
+            depHeader.copyTo(targetOutputDir.resolve(destName), overwrite = true)
+            depHeaderNames.add(destName)
+        }
+
+        val allHeaders = depHeaderNames + headerName.get()
+        val headerDirectives = allHeaders.joinToString("\n") { """    header "$it"""" }
+        val modulemapContent = "module ${moduleName.get()} {\n$headerDirectives\n    export *\n}"
         targetOutputDir.resolve("module.modulemap").writeText(modulemapContent)
     }
 

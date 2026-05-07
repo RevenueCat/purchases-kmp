@@ -21,17 +21,6 @@ orbs:
   revenuecat: revenuecat/sdks-common-config@3.16.0
 
 commands:
-  pin-ruby-version:
-    steps:
-      - run:
-          name: Set Ruby 3.2.0
-          command: |
-            eval "$(rbenv init -)"
-            rbenv install -s 3.2.0
-            rbenv global 3.2.0
-            rbenv rehash
-            gem install cocoapods
-
   install-android-sdk-on-macos:
     description: Install the Android SDK on macOS
     steps:
@@ -47,30 +36,6 @@ commands:
       - run:
           name: Install Android SDK platform tools
           command: sdkmanager "platform-tools"
-
-  install-cocoapods-on-macos:
-    steps:
-      - run:
-          name: Install CocoaPods
-          command: bundle exec pod install --repo-update
-          working_directory: iosApp
-
-  pre-install-pods-for-kotlin-modules:
-    description: >
-      Run podInstallSyntheticIos for all Kotlin modules sequentially.
-      Parallel pod installs race on the shared CocoaPods cache, causing
-      Errno::ENOENT failures. Running them first with --max-workers=1
-      lets the subsequent compile step skip them (UP-TO-DATE).
-    steps:
-      - run:
-          name: Pre-install CocoaPods for Kotlin modules
-          command: |
-            ./gradlew \
-              :models:podInstallSyntheticIos \
-              :mappings:podInstallSyntheticIos \
-              :core:podInstallSyntheticIos \
-              :revenuecatui:podInstallSyntheticIos \
-              --no-parallel --max-workers=1
 
   save-kotlin-native-compiler-to-cache:
     steps:
@@ -109,7 +74,7 @@ commands:
       - persist_to_workspace:
           name: Save incremental Gradle build to workspace
           root: ./
-          paths: 
+          paths:
             - .gradle
             # This doesn't support directory glob patterns (**), unfortunately.
             - build
@@ -122,17 +87,24 @@ commands:
           name: Attach workspace at working directory
           at: ./
 
+  checkout-submodule:
+    description: "Checks out a git submodule."
+    parameters:
+      path:
+        type: string
+        default: ""
+    steps:
+      - run:
+          name: Check out submodule << parameters.path >>
+          command: |
+            git submodule init << parameters.path >>
+            git submodule update << parameters.path >>
+
 parameters:
   action:
     type: enum
-    enum: [ build, upgrade-hybrid-common, bump ]
+    enum: [ build, bump ]
     default: build
-  automatic:
-    type: boolean
-    default: false
-  version:
-    type: string
-    default: ''
 
 executors:
   android202409:
@@ -145,9 +117,9 @@ executors:
   ruby3:
     docker:
       - image: cimg/ruby:3.3.0
-  xcode16:
+  xcode26:
     macos:
-      xcode: 16.4.0
+      xcode: 26.4.1
     resource_class: m4pro.medium
     environment:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
@@ -155,24 +127,6 @@ executors:
       HOMEBREW_NO_AUTO_UPDATE: 1
 
 jobs:
-  update-purchases-hybrid-common-version:
-    description: "Opens a PR updating the purchases-hybrid-common dependency to the latest version."
-    executor: xcode16
-    steps:
-      - checkout
-      - pin-ruby-version
-      - revenuecat/install-gem-mac-dependencies:
-          cache-version: v1
-      - revenuecat/trust-github-key
-      - revenuecat/setup-git-credentials
-      - run:
-          name: Update purchases-hybrid-common to << pipeline.parameters.version >>
-          command: |
-            bundle exec fastlane update_hybrid_common \
-            version:<< pipeline.parameters.version >> \
-            open_pr:true \
-            automatic_release:<< pipeline.parameters.automatic >>
-
   prepare-next-snapshot-version:
     description: "Opens a PR updating the SDK version to the next minor, appending -SNAPSHOT."
     executor: ruby3
@@ -187,9 +141,10 @@ jobs:
           command: bundle exec fastlane prepare_next_snapshot_version
 
   detekt:
-    executor: jdk17
+    executor: xcode26
     steps:
       - checkout
+      - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
       - run:
           name: Run Detekt on commonMain
@@ -203,10 +158,11 @@ jobs:
           destination: detekt
 
   validate-binary-compatibility:
-    executor: xcode16
+    executor: xcode26
     steps:
       - install-android-sdk-on-macos
       - checkout
+      - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -215,7 +171,6 @@ jobs:
           command: ./gradlew apiCheck
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   build-libraries-android:
     executor: android202409
@@ -227,7 +182,7 @@ jobs:
           name: Build libraries for Android
           command: |
             tasks=()
-            for module in core revenuecatui datetime either result; do
+            for module in core revenuecatui either result; do
               for buildType in Debug Release; do
                 tasks+=(":$module:compile${buildType}KotlinAndroid")
               done
@@ -237,22 +192,20 @@ jobs:
       - save-incremental-gradle-build-to-workspace
 
   build-libraries-ios:
-    executor: xcode16
+    executor: xcode26
     steps:
       - checkout
+      - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
-      - pin-ruby-version
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
-      - install-cocoapods-on-macos
-      - pre-install-pods-for-kotlin-modules
       - run:
           name: Build libraries for iOS
           command: |
             tasks=()
-            for module in core revenuecatui datetime either result; do
+            for module in core revenuecatui either result; do
               for arch in Arm64 SimulatorArm64 X64; do
                 tasks+=(":$module:compileKotlinIos$arch")
               done
@@ -277,30 +230,36 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   build-sample-ios:
-    executor: xcode16
+    executor: xcode26
     steps:
       - checkout
+      - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
-      - pin-ruby-version
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
-      - install-cocoapods-on-macos
       - run:
-          name: Build sample app for iOS
+          name: Build Kotlin code for iOS sample app for every architecture
           command: |
             tasks=()
             for arch in Arm64 SimulatorArm64 X64; do
               tasks+=(":composeApp:compileKotlinIos$arch")
             done
             ./gradlew "${tasks[@]}"
+      - run:
+          name: Build iOS sample app
+          command: |
+            xcodebuild \
+              -project iosApp/iosApp.xcodeproj \
+              -scheme iosApp \
+              -configuration Debug \
+              -sdk iphonesimulator \
+              build;
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   public-api-tests-android:
     executor: android202409
@@ -317,19 +276,17 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   public-api-tests-ios:
-    executor: xcode16
+    executor: xcode26
     steps:
       - checkout
+      - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
-      - pin-ruby-version
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
-      - install-cocoapods-on-macos
       - run:
           name: Test public API for iOS
           command: |
@@ -340,7 +297,6 @@ jobs:
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   unit-tests-android:
     executor: android202409
@@ -357,12 +313,12 @@ jobs:
             done
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   unit-tests-ios:
-    executor: xcode16
+    executor: xcode26
     steps:
       - checkout
+      - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -376,12 +332,12 @@ jobs:
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   unit-tests-build-logic:
-    executor: xcode16
+    executor: xcode26
     steps:
       - checkout
+      - checkout-submodule
       - restore-gradle-user-home-directory-from-cache
       - attach-workspace-at-working-directory
       - run:
@@ -394,18 +350,17 @@ jobs:
 
   publish:
     description: "Publishes the SDK, either a SNAPSHOT or release version."
-    executor: xcode16
+    executor: xcode26
     parameters:
       snapshot:
         description: Whether to publish a SNAPSHOT version. Will publish a final release if set to false.
         type: boolean
     steps:
       - checkout
+      - checkout-submodule
       - install-android-sdk-on-macos
-      - pin-ruby-version
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
-      - install-cocoapods-on-macos
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - when:
@@ -436,15 +391,6 @@ jobs:
           command: bundle exec fastlane github_release_current_version
 
 workflows:
-  on-action-upgrade-hybrid-common:
-    when:
-      equal: [ upgrade-hybrid-common, << pipeline.parameters.action >> ]
-    jobs:
-      - update-purchases-hybrid-common-version:
-          context:
-            - git-user-ops
-            - github-bot-public
-
   # This workflow runs for any commit to main, as well as for any other
   # branch with an open PR, except for release branches. This is controlled 
   # by the "Only build pull requests" setting on CircleCI. 

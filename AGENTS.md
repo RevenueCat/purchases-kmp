@@ -43,7 +43,6 @@ purchases-kmp/
 ├── models/                   # Shared data models and domain objects
 ├── mappings/                 # Platform-specific mappings
 ├── revenuecatui/             # Jetpack Compose UI components for paywalls
-├── datetime/                 # KMP datetime utilities
 ├── either/                   # Either/Result type implementations
 ├── result/                   # Result wrapper types
 ├── build-logic/              # Custom Gradle build convention plugins

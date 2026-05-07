@@ -1,11 +1,21 @@
 ## RevenueCat SDK
-### 📦 Dependency Updates
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.55.1 (#789) via RevenueCat Git Bot (@RCGitBot)
-  * [Android 9.29.0](https://github.com/RevenueCat/purchases-android/releases/tag/9.29.0)
-  * [iOS 5.67.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.67.1)
-* [AUTOMATIC BUMP] Updates purchases-hybrid-common to 17.55.0 (#788) via RevenueCat Git Bot (@RCGitBot)
-* [RENOVATE] Update dependency upstream/purchases-ios to v5.67.1 (#787) via RevenueCat Git Bot (@RCGitBot)
+### 💥 Breaking Changes
+* Updates purchases-android to 10.0.0 (#797) via JayShortway (@JayShortway)
+* Deletes the deprecated datetime module (#769) via JayShortway
+* Migrates more iOS features from PHC to kn-core and kn-ui (#767) via JayShortway
+* Migrates iOS from PHC to kn-core and kn-ui (#723) via JayShortway
 
 ### 🔄 Other Changes
-* Bump fastlane-plugin-revenuecat_internal from `5d6e93f` to `6289be1` (#786) via dependabot[bot] (@dependabot[bot])
-* Bump fastlane-plugin-revenuecat_internal from `f11fe40` to `5d6e93f` (#783) via dependabot[bot] (@dependabot[bot])
+* No longer tries to update `podspec` files during release (#799) via JayShortway (@JayShortway)
+* Updates Fastlane `README.md` (#798) via JayShortway (@JayShortway)
+* Adds 3.0.0 migration guide (#793) via JayShortway
+* Adds iosApp run config (#785) via JayShortway
+* Fixes caching of the Swift build tasks (#780) via JayShortway
+* Removes dead code (#779) via JayShortway
+* Updates Compose Multiplatform to 1.9.3 (#778) via JayShortway
+* Updates Kotlin to 2.3.20 and Gradle to 9.4.1 (#771) via JayShortway
+* Fixes release automations (#770) via JayShortway
+* Migrates Android from PHC to purchases-android (#768) via JayShortway
+* Adds facade Gradle modules for Swift packages (#714) via JayShortway
+* Bump fastlane-plugin-revenuecat_internal from `6289be1` to `ceecf91` (#795)
+
