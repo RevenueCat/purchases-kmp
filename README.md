@@ -48,14 +48,14 @@ Please follow the [Quickstart Guide](https://docs.revenuecat.com/docs/) for more
 
 This codelab is a step-by-step tutorial designed to help you learn and master the [RevenueCat SDK](https://www.revenuecat.com/docs/welcome/overview) taking you from the absolute basics to more advanced implementation. Whether you're just getting started or looking to deepen your understanding, this guide walks you through everything you need to go from zero to hero with RevenueCat.
 
-1. [RevenueCat Google Play Integration](https://revenuecat.github.io/codelab/google-play/codelab-1-google-play-integration/index.html#0): In this codelab, you'll learn how to:
+1. [RevenueCat Google Play Integration](https://revenuecat.github.io/codelabs/google-play.html#0): In this codelab, you'll learn how to:
 
    - Properly configure products on Google Play.
    - Set up the RevenueCat dashboard and connect it to your Google Play products.
    - Understanding Product, Offering, Package, and Entitlement.
    - Create paywalls using the [Paywall Editor](https://www.revenuecat.com/docs/tools/paywalls/creating-paywalls#using-the-editor).
 
-2. [Kotlin Multiplatform Purchases & Paywalls Overview](https://revenuecat.github.io/codelab/kmp/codelab-3-kmp-sdk/index.html#0): In this codelab, you will:
+2. [Kotlin Multiplatform Purchases & Paywalls Overview](https://revenuecat.github.io/codelabs/kmp.html#0): In this codelab, you will:
 
    - Integrate the RevenueCat SDK into your Kotlin Multiplatform project
    - Implement in-app purchases in your KMP application
