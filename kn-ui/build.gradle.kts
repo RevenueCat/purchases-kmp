@@ -18,7 +18,7 @@ kotlin {
             swiftPackage(
                 path = rootProject.file("upstream/purchases-ios"),
                 target = "RevenueCatUI",
-                packageName = "swiftPMImport.com.revenuecat.purchases.kn.ui",
+                packageName = "com.revenuecat.purchases.kn.ui",
                 swiftSettings = SwiftSettings {
                     define("COMPOSE_RESOURCES")
                 }

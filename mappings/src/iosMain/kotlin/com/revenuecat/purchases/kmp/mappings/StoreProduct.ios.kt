@@ -10,14 +10,14 @@ import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.SubscriptionOption
 import com.revenuecat.purchases.kmp.models.SubscriptionOptions
-import swiftPMImport.com.revenuecat.purchases.kn.core.localizedPricePerMonth
-import swiftPMImport.com.revenuecat.purchases.kn.core.localizedPricePerWeek
-import swiftPMImport.com.revenuecat.purchases.kn.core.localizedPricePerYear
-import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerMonth
-import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerWeek
-import swiftPMImport.com.revenuecat.purchases.kn.core.pricePerYear
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProduct as NativeIosStoreProduct
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProductDiscount as IosStoreProductDiscount
+import com.revenuecat.purchases.kn.core.localizedPricePerMonth
+import com.revenuecat.purchases.kn.core.localizedPricePerWeek
+import com.revenuecat.purchases.kn.core.localizedPricePerYear
+import com.revenuecat.purchases.kn.core.pricePerMonth
+import com.revenuecat.purchases.kn.core.pricePerWeek
+import com.revenuecat.purchases.kn.core.pricePerYear
+import com.revenuecat.purchases.kn.core.RCStoreProduct as NativeIosStoreProduct
+import com.revenuecat.purchases.kn.core.RCStoreProductDiscount as IosStoreProductDiscount
 
 public fun NativeIosStoreProduct.toStoreProduct(): StoreProduct =
     IosStoreProduct(this)

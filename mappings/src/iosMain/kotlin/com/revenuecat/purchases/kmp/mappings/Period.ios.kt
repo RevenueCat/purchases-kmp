@@ -2,12 +2,12 @@ package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.models.Period
 import com.revenuecat.purchases.kmp.models.PeriodUnit
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCSubscriptionPeriodUnitDay
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCSubscriptionPeriodUnitMonth
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCSubscriptionPeriodUnitWeek
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCSubscriptionPeriodUnitYear
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCSubscriptionPeriod as IosPeriod
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCSubscriptionPeriodUnit as IosPeriodUnit
+import com.revenuecat.purchases.kn.core.RCSubscriptionPeriodUnitDay
+import com.revenuecat.purchases.kn.core.RCSubscriptionPeriodUnitMonth
+import com.revenuecat.purchases.kn.core.RCSubscriptionPeriodUnitWeek
+import com.revenuecat.purchases.kn.core.RCSubscriptionPeriodUnitYear
+import com.revenuecat.purchases.kn.core.RCSubscriptionPeriod as IosPeriod
+import com.revenuecat.purchases.kn.core.RCSubscriptionPeriodUnit as IosPeriodUnit
 
 internal fun IosPeriod.toPeriod(): Period = Period(value().toInt(), unit().toPeriodUnit())
 

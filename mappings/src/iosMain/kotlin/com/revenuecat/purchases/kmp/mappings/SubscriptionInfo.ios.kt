@@ -7,9 +7,9 @@ import platform.Foundation.NSDate
 import platform.Foundation.NSURL
 import platform.Foundation.valueForKey
 import platform.darwin.NSObject
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPeriodType
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchaseOwnershipType
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStore
+import com.revenuecat.purchases.kn.core.RCPeriodType
+import com.revenuecat.purchases.kn.core.RCPurchaseOwnershipType
+import com.revenuecat.purchases.kn.core.RCStore
 
 internal fun Any.toSubscriptionInfo(): SubscriptionInfo {
     val obj = this as NSObject
