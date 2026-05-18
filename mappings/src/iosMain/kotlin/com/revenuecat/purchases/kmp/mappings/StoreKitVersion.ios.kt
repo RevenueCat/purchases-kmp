@@ -1,9 +1,9 @@
 package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.models.StoreKitVersion
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreKitVersion
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreKitVersion1
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreKitVersion2
+import com.revenuecat.purchases.kn.core.RCStoreKitVersion
+import com.revenuecat.purchases.kn.core.RCStoreKitVersion1
+import com.revenuecat.purchases.kn.core.RCStoreKitVersion2
 
 public fun StoreKitVersion.toIosStoreKitVersion(): RCStoreKitVersion =
     when (this) {

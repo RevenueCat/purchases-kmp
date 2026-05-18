@@ -7,8 +7,8 @@ import com.revenuecat.purchases.kmp.models.AdLoadedData
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
 import kotlinx.cinterop.ExperimentalForeignApi
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCAdTracker
-import swiftPMImport.com.revenuecat.purchases.kn.core.additional.AppleApiAvailability
+import com.revenuecat.purchases.kn.core.RCAdTracker
+import com.revenuecat.purchases.kn.core.additional.AppleApiAvailability
 
 @ExperimentalRevenueCatApi
 @OptIn(ExperimentalForeignApi::class)

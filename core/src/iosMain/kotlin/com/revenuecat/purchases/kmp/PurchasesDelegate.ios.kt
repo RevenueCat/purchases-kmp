@@ -1,10 +1,10 @@
 package com.revenuecat.purchases.kmp
 
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomerInfo
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchases
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchasesDelegateProtocol
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProduct
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreTransaction
+import com.revenuecat.purchases.kn.core.RCCustomerInfo
+import com.revenuecat.purchases.kn.core.RCPurchases
+import com.revenuecat.purchases.kn.core.RCPurchasesDelegateProtocol
+import com.revenuecat.purchases.kn.core.RCStoreProduct
+import com.revenuecat.purchases.kn.core.RCStoreTransaction
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
 import com.revenuecat.purchases.kmp.mappings.toStoreProduct

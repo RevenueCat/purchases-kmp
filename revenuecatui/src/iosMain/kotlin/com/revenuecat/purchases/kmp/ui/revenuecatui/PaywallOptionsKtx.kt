@@ -11,14 +11,14 @@ import kotlinx.cinterop.pointed
 import platform.CoreGraphics.CGSize
 import platform.Foundation.NSError
 import platform.darwin.NSObject
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomerInfo
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPackage
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreTransaction
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallViewController
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallViewControllerDelegateProtocol
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCCustomerInfo as RCCustomerInfoFromKnUi
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPackage as RCPackageFromKnUi
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCStoreTransaction as RCStoreTransactionFromKnUi
+import com.revenuecat.purchases.kn.core.RCCustomerInfo
+import com.revenuecat.purchases.kn.core.RCPackage
+import com.revenuecat.purchases.kn.core.RCStoreTransaction
+import com.revenuecat.purchases.kn.ui.RCPaywallViewController
+import com.revenuecat.purchases.kn.ui.RCPaywallViewControllerDelegateProtocol
+import com.revenuecat.purchases.kn.ui.RCCustomerInfo as RCCustomerInfoFromKnUi
+import com.revenuecat.purchases.kn.ui.RCPackage as RCPackageFromKnUi
+import com.revenuecat.purchases.kn.ui.RCStoreTransaction as RCStoreTransactionFromKnUi
 
 internal class IosPaywallDelegate(
     private val listener: PaywallListener?,
