@@ -189,6 +189,7 @@ jobs:
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
 
+  # Xcode 16.4 matches purchases-ios XCFramework releases so Swift artifacts link on Xcode 26.0.1+.
   build-swift-artifacts:
     executor: xcode16
     steps:
