@@ -3,6 +3,7 @@ package com.revenuecat.purchases.kmp.buildlogic
 import com.revenuecat.purchases.kmp.buildlogic.test.RevenueCatLibraryPluginTestContext
 import com.revenuecat.purchases.kmp.buildlogic.test.SwiftPackageHandle
 import com.revenuecat.purchases.kmp.buildlogic.test.revenueCatLibraryPluginTest
+import org.gradle.testkit.runner.TaskOutcome
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.condition.EnabledOnOs
 import org.junit.jupiter.api.condition.OS
@@ -32,14 +33,18 @@ class SwiftPrecompiledArtifactsTests {
     @Test
     fun `compileSwiftIosArtifacts is registered on consecutive Gradle invocations`() =
         revenueCatLibraryPluginTest {
-            setUpTwoSubprojectScenario()
+            val (dep, _) = setUpTwoSubprojectScenario()
 
             runGradle("--dry-run", "compileSwiftIosArtifacts")
             val result = runGradle("--dry-run", "compileSwiftIosArtifacts")
 
             assertTrue(
-                result.output.contains("compileSwiftIosArtifacts"),
-                "Expected aggregate task on second invocation. Output:\n${result.output}",
+                result.output.contains(":compileSwiftIosArtifacts"),
+                "Aggregate task missing on second invocation. Output:\n${result.output}",
+            )
+            assertTrue(
+                result.output.contains(dep.compileSwiftTaskName),
+                "Per-target compileSwift dep missing on second invocation. Output:\n${result.output}",
             )
         }
 
@@ -72,7 +77,7 @@ class SwiftPrecompiledArtifactsTests {
             val result = runGradle("-PskipSwiftBuild=true", dep.compileSwiftTaskName)
 
             assertEquals(
-                org.gradle.testkit.runner.TaskOutcome.SUCCESS,
+                TaskOutcome.SUCCESS,
                 result.task(dep.compileSwiftTaskName)?.outcome,
             )
         }

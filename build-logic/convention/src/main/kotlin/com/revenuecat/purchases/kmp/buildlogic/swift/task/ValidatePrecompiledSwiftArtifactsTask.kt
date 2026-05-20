@@ -7,14 +7,14 @@ import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 /**
- * Verifies that precompiled Swift artifacts exist in [outputDir].
+ * Verifies that precompiled Swift artifacts exist in [outputDirectory].
  *
  * Used when [skipSwiftBuild][com.revenuecat.purchases.kmp.buildlogic.swift.shouldSkipSwiftBuild]
  * is enabled so Kotlin/Native compilation can consume artifacts produced on a separate CI job
  * or machine.
  *
- * This task has no outputs; [outputs.upToDateWhen] keeps Gradle from re-running it once the
- * first validation in a build has succeeded.
+ * This task has no outputs; `outputs.upToDateWhen { true }` keeps Gradle from re-running it
+ * once the first validation in a build has succeeded.
  */
 abstract class ValidatePrecompiledSwiftArtifactsTask : DefaultTask() {
 

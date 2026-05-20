@@ -32,12 +32,12 @@ internal fun Project.ensureCompileSwiftIosArtifactsAggregateTask() {
             description = "Compiles Swift static libraries for all iOS Kotlin/Native targets."
             val iosSwiftTaskSuffixes = listOf("IosArm64", "IosSimulatorArm64", "IosX64")
             rootProject.subprojects.forEach { subproject ->
-                subproject.tasks.names
-                    .filter { taskName ->
-                        taskName.startsWith("compileSwift") &&
-                            iosSwiftTaskSuffixes.any { suffix -> taskName.endsWith(suffix) }
-                    }
-                    .forEach { taskName -> aggregate.dependsOn(subproject.tasks.named(taskName)) }
+                aggregate.dependsOn(
+                    subproject.tasks.matching { task ->
+                        task.name.startsWith("compileSwift") &&
+                            iosSwiftTaskSuffixes.any { suffix -> task.name.endsWith(suffix) }
+                    },
+                )
             }
         }
     }
