@@ -119,7 +119,7 @@ executors:
       - image: cimg/ruby:3.3.0
   xcode26:
     macos:
-      xcode: 26.4.1
+      xcode: 26.0.1
     resource_class: m4pro.medium
     environment:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
