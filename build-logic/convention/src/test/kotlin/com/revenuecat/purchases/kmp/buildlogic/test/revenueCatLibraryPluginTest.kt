@@ -89,32 +89,17 @@ class RevenueCatLibraryPluginTestContext(
             SubprojectContext(name = name, dir = projectDir.resolve(name), context = this)
         }
 
-    fun runBuild(vararg tasks: String): BuildResult = runGradle(*tasks)
-
-    fun runGradleAndFail(vararg arguments: String): BuildResult {
+    fun runBuild(vararg arguments: String, expectFailure: Boolean = false): BuildResult {
         if (!buildFilesWritten) {
             writeBuildFiles()
             buildFilesWritten = true
         }
-        return GradleRunner.create()
+        val runner = GradleRunner.create()
             .withProjectDir(projectDir)
             .withArguments(*arguments)
             .withPluginClasspath()
             .forwardOutput()
-            .buildAndFail()
-    }
-
-    fun runGradle(vararg arguments: String): BuildResult {
-        if (!buildFilesWritten) {
-            writeBuildFiles()
-            buildFilesWritten = true
-        }
-        return GradleRunner.create()
-            .withProjectDir(projectDir)
-            .withArguments(*arguments)
-            .withPluginClasspath()
-            .forwardOutput()
-            .build()
+        return if (expectFailure) runner.buildAndFail() else runner.build()
     }
 
     private fun writeBuildFiles() {

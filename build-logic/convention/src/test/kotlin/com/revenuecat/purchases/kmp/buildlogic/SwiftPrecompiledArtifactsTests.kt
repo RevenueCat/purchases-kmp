@@ -18,7 +18,7 @@ class SwiftPrecompiledArtifactsTests {
         revenueCatLibraryPluginTest {
             val (dep, consumer) = setUpTwoSubprojectScenario()
 
-            val result = runGradle("--dry-run", "compileSwiftIosArtifacts")
+            val result = runBuild("--dry-run", "compileSwiftIosArtifacts")
 
             assertTrue(
                 result.output.contains(dep.compileSwiftTaskName),
@@ -35,8 +35,8 @@ class SwiftPrecompiledArtifactsTests {
         revenueCatLibraryPluginTest {
             val (dep, _) = setUpTwoSubprojectScenario()
 
-            runGradle("--dry-run", "compileSwiftIosArtifacts")
-            val result = runGradle("--dry-run", "compileSwiftIosArtifacts")
+            runBuild("--dry-run", "compileSwiftIosArtifacts")
+            val result = runBuild("--dry-run", "compileSwiftIosArtifacts")
 
             assertTrue(
                 result.output.contains(":compileSwiftIosArtifacts"),
@@ -53,9 +53,10 @@ class SwiftPrecompiledArtifactsTests {
         revenueCatLibraryPluginTest {
             val dep = setUpSingleSubprojectScenario()
 
-            val result = runGradleAndFail(
+            val result = runBuild(
                 "-PskipSwiftBuild=true",
                 dep.compileSwiftTaskName,
+                expectFailure = true,
             )
 
             assertTrue(
@@ -74,7 +75,7 @@ class SwiftPrecompiledArtifactsTests {
             outputDir.resolve("$TARGET-Swift.h").writeText("")
             outputDir.resolve("module.modulemap").writeText("module $TARGET { export * }")
 
-            val result = runGradle("-PskipSwiftBuild=true", dep.compileSwiftTaskName)
+            val result = runBuild("-PskipSwiftBuild=true", dep.compileSwiftTaskName)
 
             assertEquals(
                 TaskOutcome.SUCCESS,
