@@ -1,13 +1,10 @@
 package com.revenuecat.purchases.kmp.buildlogic.swift.task
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.PathSensitive
-import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
+import java.io.File
 
 /**
  * Verifies that precompiled Swift artifacts exist in [outputDir].
@@ -15,8 +12,15 @@ import org.gradle.api.tasks.TaskAction
  * Used when [skipSwiftBuild][com.revenuecat.purchases.kmp.buildlogic.swift.shouldSkipSwiftBuild]
  * is enabled so Kotlin/Native compilation can consume artifacts produced on a separate CI job
  * or machine.
+ *
+ * This task has no outputs; [outputs.upToDateWhen] keeps Gradle from re-running it once the
+ * first validation in a build has succeeded.
  */
 abstract class ValidatePrecompiledSwiftArtifactsTask : DefaultTask() {
+
+    init {
+        outputs.upToDateWhen { true }
+    }
 
     @get:Input
     abstract val libraryName: Property<String>
@@ -24,20 +28,19 @@ abstract class ValidatePrecompiledSwiftArtifactsTask : DefaultTask() {
     @get:Input
     abstract val headerName: Property<String>
 
-    @get:InputDirectory
-    @get:PathSensitive(PathSensitivity.RELATIVE)
-    abstract val outputDir: DirectoryProperty
+    @get:Input
+    abstract val outputDirectory: Property<String>
 
     @TaskAction
     fun validate() {
-        val directory = outputDir.get().asFile
+        val directory = File(outputDirectory.get())
         val library = directory.resolve(libraryName.get())
         val header = directory.resolve(headerName.get())
         val moduleMap = directory.resolve("module.modulemap")
 
         check(library.isFile) {
             "Missing precompiled Swift library at ${library.absolutePath}. " +
-                "Build Swift artifacts first (e.g. ./gradlew compilePrecompiledSwiftIosArtifacts " +
+                "Build Swift artifacts first (e.g. ./gradlew compileSwiftIosArtifacts " +
                 "with -PswiftConfiguration=release) or disable -PskipSwiftBuild."
         }
         check(header.isFile) {

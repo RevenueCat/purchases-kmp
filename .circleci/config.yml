@@ -198,7 +198,7 @@ jobs:
       - restore-gradle-user-home-directory-from-cache
       - run:
           name: Compile Swift static libraries for iOS
-          command: ./gradlew compilePrecompiledSwiftIosArtifacts -PswiftConfiguration=release
+          command: ./gradlew compileSwiftIosArtifacts -PswiftConfiguration=release
       - save-gradle-user-home-directory-to-cache
       - save-swift-artifacts-to-workspace
 

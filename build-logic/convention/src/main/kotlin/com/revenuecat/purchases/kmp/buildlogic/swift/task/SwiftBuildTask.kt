@@ -101,7 +101,7 @@ abstract class SwiftBuildTask @Inject constructor(
 
     /**
      * Optional Xcode developer directory passed to `DEVELOPER_DIR` when compiling Swift.
-     * Allows CI to compile Swift artifacts with a different Xcode than Kotlin/Native.
+     * Local-dev escape hatch when multiple Xcodes are installed; CI uses separate executors.
      */
     @get:Input
     @get:Optional
@@ -141,7 +141,7 @@ abstract class SwiftBuildTask @Inject constructor(
             developerDirValue?.let { environment("DEVELOPER_DIR", it) }
             commandLine(
                 buildSwiftCommand(
-                    sdkPath = getSdkPath(sdk.get(), developerDirValue),
+                    sdkPath = sdkPath,
                     tripleValue = tripleValue,
                     targetName = targetName,
                     configValue = configValue,

@@ -8,6 +8,7 @@ import com.revenuecat.purchases.kmp.buildlogic.swift.task.ProcessSwiftResourcesT
 import com.revenuecat.purchases.kmp.buildlogic.swift.task.SwiftBuildTask
 import com.revenuecat.purchases.kmp.buildlogic.swift.task.ValidatePrecompiledSwiftArtifactsTask
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.file.Directory
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.provider.Provider
@@ -34,7 +35,7 @@ fun Project.configureSwiftDependencies() {
                 return@afterEvaluate
             }
             configureAllSwiftDependencies(registry.packages)
-            ensurePrecompiledSwiftIosArtifactsAggregateTask()
+            ensureCompileSwiftIosArtifactsAggregateTask()
         }
     }
 }
@@ -258,14 +259,14 @@ private fun Project.registerSwiftBuildTask(
     transitiveDepSourceDirs: List<File>,
     moduleDependencies: List<GlobalSwiftPackageRegistry.RegisteredSwiftTarget>,
     swiftOutputDir: Provider<Directory>,
-): TaskProvider<out org.gradle.api.Task> {
+): TaskProvider<out Task> {
     val taskName = compileSwiftTaskName(dependency.target, kotlinTarget.konanTarget)
 
     if (shouldSkipSwiftBuild()) {
         return tasks.register(taskName, ValidatePrecompiledSwiftArtifactsTask::class.java) {
             libraryName.set(dependency.libraryName)
             headerName.set(dependency.headerName)
-            outputDir.set(swiftOutputDir)
+            outputDirectory.set(swiftOutputDir.map { it.asFile.absolutePath })
 
             moduleDependencies.forEach { dep ->
                 val depTaskName = compileSwiftTaskName(dep.dependency.target, kotlinTarget.konanTarget)
