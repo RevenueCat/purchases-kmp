@@ -195,8 +195,12 @@ def publish
   # Sonatype has a tendency to timeout. Default is 1 minute. This sets it to 5.
   # https://vanniktech.github.io/gradle-maven-publish-plugin/central/#timeouts
   ENV["SONATYPE_CONNECT_TIMEOUT_SECONDS"] = "300"
+  gradle_flags = "--no-configuration-cache"
+  if ENV["GRADLE_SKIP_SWIFT_BUILD_ARGS"]
+    gradle_flags += " #{ENV['GRADLE_SKIP_SWIFT_BUILD_ARGS']}"
+  end
   gradle(
     task: "publishAllPublicationsToMavenCentralRepository",
-    flags: "--no-configuration-cache"
+    flags: gradle_flags
   )
 end

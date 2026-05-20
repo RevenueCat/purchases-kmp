@@ -100,6 +100,14 @@ abstract class SwiftBuildTask @Inject constructor(
     abstract val swiftSettingsArgs: ListProperty<String>
 
     /**
+     * Optional Xcode developer directory passed to `DEVELOPER_DIR` when compiling Swift.
+     * Allows CI to compile Swift artifacts with a different Xcode than Kotlin/Native.
+     */
+    @get:Input
+    @get:Optional
+    abstract val developerDir: Property<String>
+
+    /**
      * Header files from cross-project Swift target dependencies. When present, each header is
      * copied into [outputDir] and listed alongside the target's own header in the generated
      * `module.modulemap`. This merges the dependency types into this target's Clang module so
@@ -117,11 +125,12 @@ abstract class SwiftBuildTask @Inject constructor(
         targetOutputDir.mkdirs()
 
         val scratchPath = scratchDir.get().asFile
-        val sdkPath = getSdkPath(sdk.get())
+        val sdkPath = getSdkPath(sdk.get(), developerDir.orNull)
         val tripleValue = triple.get()
         val targetName = swiftTarget.get()
         val configValue = configuration.get()
         val extraSwiftArgs = swiftSettingsArgs.getOrElse(emptyList())
+        val developerDirValue = developerDir.orNull
 
         execOperations.exec {
             workingDir = packageDir.get().asFile
@@ -129,21 +138,17 @@ abstract class SwiftBuildTask @Inject constructor(
             // Swift compilation still uses the correct SDK because of the -Xswiftc -sdk arguments.
             // This environment change is only scoped to this subprocess.
             environment("SDKROOT", "")
+            developerDirValue?.let { environment("DEVELOPER_DIR", it) }
             commandLine(
-                listOf(
-                    "xcrun", "swift", "build",
-                    "--target", targetName,
-                    "--configuration", configValue,
-                    "--triple", tripleValue,
-                    "--scratch-path", scratchPath.absolutePath,
-                    "-Xswiftc", "-sdk",
-                    "-Xswiftc", sdkPath,
-                    "-Xcc", "-isysroot",
-                    "-Xcc", sdkPath,
-                    "-Xswiftc", "-emit-objc-header",
-                    "-Xswiftc", "-emit-objc-header-path",
-                    "-Xswiftc", targetOutputDir.resolve(headerName.get()).absolutePath
-                ) + extraSwiftArgs
+                buildSwiftCommand(
+                    sdkPath = getSdkPath(sdk.get(), developerDirValue),
+                    tripleValue = tripleValue,
+                    targetName = targetName,
+                    configValue = configValue,
+                    scratchPath = scratchPath,
+                    targetOutputDir = targetOutputDir,
+                    extraSwiftArgs = extraSwiftArgs,
+                )
             )
         }
 
@@ -191,9 +196,34 @@ abstract class SwiftBuildTask @Inject constructor(
         targetOutputDir.resolve("module.modulemap").writeText(modulemapContent)
     }
 
-    private fun getSdkPath(sdk: String): String {
+    private fun buildSwiftCommand(
+        sdkPath: String,
+        tripleValue: String,
+        targetName: String,
+        configValue: String,
+        scratchPath: java.io.File,
+        targetOutputDir: java.io.File,
+        extraSwiftArgs: List<String>,
+    ): List<String> =
+        listOf(
+            "xcrun", "swift", "build",
+            "--target", targetName,
+            "--configuration", configValue,
+            "--triple", tripleValue,
+            "--scratch-path", scratchPath.absolutePath,
+            "-Xswiftc", "-sdk",
+            "-Xswiftc", sdkPath,
+            "-Xcc", "-isysroot",
+            "-Xcc", sdkPath,
+            "-Xswiftc", "-emit-objc-header",
+            "-Xswiftc", "-emit-objc-header-path",
+            "-Xswiftc", targetOutputDir.resolve(headerName.get()).absolutePath,
+        ) + extraSwiftArgs
+
+    private fun getSdkPath(sdk: String, developerDir: String?): String {
         val output = ByteArrayOutputStream()
         execOperations.exec {
+            developerDir?.let { environment("DEVELOPER_DIR", it) }
             commandLine("xcrun", "--sdk", sdk, "--show-sdk-path")
             standardOutput = output
         }

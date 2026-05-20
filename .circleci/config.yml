@@ -87,6 +87,15 @@ commands:
           name: Attach workspace at working directory
           at: ./
 
+  save-swift-artifacts-to-workspace:
+    steps:
+      - persist_to_workspace:
+          name: Save precompiled Swift artifacts to workspace
+          root: ./
+          paths:
+            - kn-core/build/swift-packages
+            - kn-ui/build/swift-packages
+
   checkout-submodule:
     description: "Checks out a git submodule."
     parameters:
@@ -117,6 +126,12 @@ executors:
   ruby3:
     docker:
       - image: cimg/ruby:3.3.0
+  xcode16:
+    macos:
+      xcode: 16.4.0
+    resource_class: m4pro.medium
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
   xcode26:
     macos:
       xcode: 26.4.1
@@ -125,6 +140,8 @@ executors:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
       # freshly installed.
       HOMEBREW_NO_AUTO_UPDATE: 1
+      # Precompiled Swift static libraries are built on Xcode 16.4 and consumed by Kotlin/Native.
+      GRADLE_SKIP_SWIFT_BUILD_ARGS: "-PskipSwiftBuild=true -PswiftConfiguration=release"
 
 jobs:
   prepare-next-snapshot-version:
@@ -172,6 +189,18 @@ jobs:
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
 
+  build-swift-artifacts:
+    executor: xcode16
+    steps:
+      - checkout
+      - checkout-submodule
+      - restore-gradle-user-home-directory-from-cache
+      - run:
+          name: Compile Swift static libraries for iOS
+          command: ./gradlew compilePrecompiledSwiftIosArtifacts -PswiftConfiguration=release
+      - save-gradle-user-home-directory-to-cache
+      - save-swift-artifacts-to-workspace
+
   build-libraries-android:
     executor: android202409
     steps:
@@ -210,7 +239,7 @@ jobs:
                 tasks+=(":$module:compileKotlinIos$arch")
               done
             done
-            ./gradlew "${tasks[@]}"
+            ./gradlew ${GRADLE_SKIP_SWIFT_BUILD_ARGS} "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
       - save-incremental-gradle-build-to-workspace
@@ -248,7 +277,7 @@ jobs:
             for arch in Arm64 SimulatorArm64 X64; do
               tasks+=(":composeApp:compileKotlinIos$arch")
             done
-            ./gradlew "${tasks[@]}"
+            ./gradlew ${GRADLE_SKIP_SWIFT_BUILD_ARGS} "${tasks[@]}"
       - run:
           name: Build iOS sample app
           command: |
@@ -294,7 +323,7 @@ jobs:
             for arch in Arm64 SimulatorArm64 X64; do
               tasks+=(":apiTester:compileKotlinIos$arch")
             done
-            ./gradlew "${tasks[@]}"
+            ./gradlew ${GRADLE_SKIP_SWIFT_BUILD_ARGS} "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
 
@@ -329,7 +358,7 @@ jobs:
             for arch in SimulatorArm64 X64; do
               tasks+=("ios${arch}Test")
             done
-            ./gradlew "${tasks[@]}"
+            ./gradlew ${GRADLE_SKIP_SWIFT_BUILD_ARGS} "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
 
@@ -363,6 +392,7 @@ jobs:
           cache-version: v1
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
+      - attach-workspace-at-working-directory
       - when:
           condition: << parameters.snapshot >>
           steps:
@@ -404,10 +434,12 @@ workflows:
     jobs:
       - revenuecat/danger:
           context: danger-bot
+      - build-swift-artifacts
       - detekt
       - unit-tests-build-logic
       - build-libraries-android
-      - build-libraries-ios
+      - build-libraries-ios:
+          requires: [build-swift-artifacts]
       - build-sample-android:
           requires: [build-libraries-android]
       - build-sample-ios:
@@ -436,9 +468,11 @@ workflows:
           context:
             - git-user-ops
             - github-bot-public
+      - build-swift-artifacts
       - publish:
           snapshot: true
           context: maven-central-publishing
+          requires: [build-swift-artifacts]
 
   # The release train starts with the release-train workflow, which is automatically 
   # triggered every week, but can also be triggered manually by passing the "action" 
@@ -471,9 +505,11 @@ workflows:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
       - detekt
+      - build-swift-artifacts
       - unit-tests-build-logic
       - build-libraries-android
-      - build-libraries-ios
+      - build-libraries-ios:
+          requires: [build-swift-artifacts]
       - build-sample-android:
           requires: [build-libraries-android]
       - build-sample-ios:
@@ -513,9 +549,11 @@ workflows:
   on-release-tag:
     <<: *release-tags-workflow
     jobs:
+      - build-swift-artifacts
       - publish:
           snapshot: false
           context: maven-central-publishing
+          requires: [build-swift-artifacts]
           <<: *release-tags-job
       - create-github-release:
           context: github-bot-public

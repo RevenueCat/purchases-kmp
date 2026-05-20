@@ -6,7 +6,9 @@ import com.revenuecat.purchases.kmp.buildlogic.swift.model.getSwiftPackageInfo
 import com.revenuecat.purchases.kmp.buildlogic.swift.task.GenerateDefFileTask
 import com.revenuecat.purchases.kmp.buildlogic.swift.task.ProcessSwiftResourcesTask
 import com.revenuecat.purchases.kmp.buildlogic.swift.task.SwiftBuildTask
+import com.revenuecat.purchases.kmp.buildlogic.swift.task.ValidatePrecompiledSwiftArtifactsTask
 import org.gradle.api.Project
+import org.gradle.api.file.Directory
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.TaskProvider
@@ -32,6 +34,7 @@ fun Project.configureSwiftDependencies() {
                 return@afterEvaluate
             }
             configureAllSwiftDependencies(registry.packages)
+            ensurePrecompiledSwiftIosArtifactsAggregateTask()
         }
     }
 }
@@ -161,6 +164,8 @@ private fun Project.configureSwiftDependency(
             targetSourceDir = targetSourceDir,
             transitiveDepSourceDirs = transitiveDepSourceDirs,
             moduleDependencies = moduleDependencies,
+            swiftOutputDir = layout.buildDirectory
+                .dir("swift-packages/${dependency.target}/${konanTarget.name}"),
         )
 
         val swiftOutputDir = layout.buildDirectory
@@ -252,8 +257,22 @@ private fun Project.registerSwiftBuildTask(
     targetSourceDir: File,
     transitiveDepSourceDirs: List<File>,
     moduleDependencies: List<GlobalSwiftPackageRegistry.RegisteredSwiftTarget>,
-): TaskProvider<SwiftBuildTask> {
+    swiftOutputDir: Provider<Directory>,
+): TaskProvider<out org.gradle.api.Task> {
     val taskName = compileSwiftTaskName(dependency.target, kotlinTarget.konanTarget)
+
+    if (shouldSkipSwiftBuild()) {
+        return tasks.register(taskName, ValidatePrecompiledSwiftArtifactsTask::class.java) {
+            libraryName.set(dependency.libraryName)
+            headerName.set(dependency.headerName)
+            outputDir.set(swiftOutputDir)
+
+            moduleDependencies.forEach { dep ->
+                val depTaskName = compileSwiftTaskName(dep.dependency.target, kotlinTarget.konanTarget)
+                dependsOn(dep.project.tasks.named(depTaskName))
+            }
+        }
+    }
 
     return tasks.register(taskName, SwiftBuildTask::class.java) {
         swiftTarget.set(dependency.target)
@@ -266,7 +285,8 @@ private fun Project.registerSwiftBuildTask(
         packageDir.set(dependency.packageDir)
         packageSwiftFile.set(dependency.packageDir.resolve("Package.swift"))
         this.targetSourceDir.set(targetSourceDir)
-        outputDir.set(layout.buildDirectory.dir("swift-packages/${dependency.target}/${kotlinTarget.konanTarget.name}"))
+        outputDir.set(swiftOutputDir)
+        getSwiftDeveloperDir()?.let { developerDir.set(it) }
         // Use a per-target scratch directory to avoid header conflicts: when multiple
         // targets share a scratch directory, -Xswiftc -emit-objc-header-path applies to
         // ALL swiftc invocations during `swift build`, causing a dependency's header to
