@@ -5,29 +5,29 @@ import com.revenuecat.purchases.kmp.models.EntitlementInfo
 import com.revenuecat.purchases.kmp.models.OwnershipType
 import com.revenuecat.purchases.kmp.models.PeriodType
 import com.revenuecat.purchases.kmp.models.Store
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCAmazon
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCAppStore
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCBilling
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCEntitlementInfo
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCExternal
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCGalaxy
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCIntro
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCMacAppStore
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCNormal
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPaddle
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPlayStore
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPrepaid
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPromotional
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchaseOwnershipTypeFamilyShared
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchaseOwnershipTypePurchased
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchaseOwnershipTypeUnknown
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStripe
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCTestStore
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCTrial
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCUnknownStore
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPeriodType as IosPeriodType
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchaseOwnershipType as IosOwnershipType
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStore as IosStore
+import com.revenuecat.purchases.kn.core.RCAmazon
+import com.revenuecat.purchases.kn.core.RCAppStore
+import com.revenuecat.purchases.kn.core.RCBilling
+import com.revenuecat.purchases.kn.core.RCEntitlementInfo
+import com.revenuecat.purchases.kn.core.RCExternal
+import com.revenuecat.purchases.kn.core.RCGalaxy
+import com.revenuecat.purchases.kn.core.RCIntro
+import com.revenuecat.purchases.kn.core.RCMacAppStore
+import com.revenuecat.purchases.kn.core.RCNormal
+import com.revenuecat.purchases.kn.core.RCPaddle
+import com.revenuecat.purchases.kn.core.RCPlayStore
+import com.revenuecat.purchases.kn.core.RCPrepaid
+import com.revenuecat.purchases.kn.core.RCPromotional
+import com.revenuecat.purchases.kn.core.RCPurchaseOwnershipTypeFamilyShared
+import com.revenuecat.purchases.kn.core.RCPurchaseOwnershipTypePurchased
+import com.revenuecat.purchases.kn.core.RCPurchaseOwnershipTypeUnknown
+import com.revenuecat.purchases.kn.core.RCStripe
+import com.revenuecat.purchases.kn.core.RCTestStore
+import com.revenuecat.purchases.kn.core.RCTrial
+import com.revenuecat.purchases.kn.core.RCUnknownStore
+import com.revenuecat.purchases.kn.core.RCPeriodType as IosPeriodType
+import com.revenuecat.purchases.kn.core.RCPurchaseOwnershipType as IosOwnershipType
+import com.revenuecat.purchases.kn.core.RCStore as IosStore
 
 internal fun RCEntitlementInfo.toEntitlementInfo(): EntitlementInfo {
     return EntitlementInfo(

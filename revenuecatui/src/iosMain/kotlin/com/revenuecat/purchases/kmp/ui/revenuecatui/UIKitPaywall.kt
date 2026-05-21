@@ -19,13 +19,13 @@ import kotlinx.coroutines.launch
 import platform.Foundation.NSError
 import platform.Foundation.NSLocalizedDescriptionKey
 import platform.darwin.NSObject
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPackage
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallFooterViewController
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallPurchaseHandlerProtocol
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPaywallViewController
+import com.revenuecat.purchases.kn.core.RCPackage
+import com.revenuecat.purchases.kn.ui.RCPaywallFooterViewController
+import com.revenuecat.purchases.kn.ui.RCPaywallPurchaseHandlerProtocol
+import com.revenuecat.purchases.kn.ui.RCPaywallViewController
 import kotlin.coroutines.cancellation.CancellationException
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCOffering as RCOfferingFromKnUi
-import swiftPMImport.com.revenuecat.purchases.kn.ui.RCPackage as RCPackageFromKnUi
+import com.revenuecat.purchases.kn.ui.RCOffering as RCOfferingFromKnUi
+import com.revenuecat.purchases.kn.ui.RCPackage as RCPackageFromKnUi
 
 @Composable
 internal fun UIKitPaywall(

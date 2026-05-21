@@ -3,8 +3,8 @@ package com.revenuecat.purchases.kmp.mappings
 import com.revenuecat.purchases.kmp.mappings.ktx.mapEntries
 import com.revenuecat.purchases.kmp.models.Offering
 import com.revenuecat.purchases.kmp.models.Package
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCOffering as NativeIosOffering
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPackage as NativeIosPackage
+import com.revenuecat.purchases.kn.core.RCOffering as NativeIosOffering
+import com.revenuecat.purchases.kn.core.RCPackage as NativeIosPackage
 
 public fun NativeIosOffering.toOffering(): Offering =
     IosOffering(this)

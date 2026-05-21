@@ -1,11 +1,11 @@
 package com.revenuecat.purchases.kmp
 
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCLogLevelDebug
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCLogLevelError
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCLogLevelInfo
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCLogLevelVerbose
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCLogLevelWarn
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCLogLevel as IosLogLevel
+import com.revenuecat.purchases.kn.core.RCLogLevelDebug
+import com.revenuecat.purchases.kn.core.RCLogLevelError
+import com.revenuecat.purchases.kn.core.RCLogLevelInfo
+import com.revenuecat.purchases.kn.core.RCLogLevelVerbose
+import com.revenuecat.purchases.kn.core.RCLogLevelWarn
+import com.revenuecat.purchases.kn.core.RCLogLevel as IosLogLevel
 
 internal fun IosLogLevel.toLogLevel(): LogLevel =
     when (this) {
