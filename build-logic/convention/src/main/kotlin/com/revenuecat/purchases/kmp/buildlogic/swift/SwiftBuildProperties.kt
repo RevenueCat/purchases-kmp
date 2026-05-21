@@ -8,18 +8,7 @@ private const val COMPILE_SWIFT_IOS_ARTIFACTS_REGISTERED_KEY =
 internal fun Project.shouldSkipSwiftBuild(): Boolean =
     findProperty("skipSwiftBuild")?.toString()?.toBooleanStrictOrNull() == true
 
-/**
- * Optional override for the Xcode used to compile Swift static libraries.
- *
- * Intended for local development when multiple Xcode versions are installed (e.g.
- * `xcode-select` points at 26.x but Swift artifacts should be built with 16.4).
- * CI uses dedicated executors instead (`xcode16` vs `xcode26`).
- */
-internal fun Project.getSwiftDeveloperDir(): String? =
-    findProperty("swiftDeveloperDir")?.toString()?.takeIf { it.isNotBlank() }
-        ?: providers.environmentVariable("SWIFT_DEVELOPER_DIR").orNull?.takeIf { it.isNotBlank() }
-
-internal fun Project.ensureCompileSwiftIosArtifactsAggregateTask() {
+internal fun Project.ensureAggregateCompileSwiftIosArtifactsTaskRegistered() {
     if (rootProject.extensions.extraProperties.has(COMPILE_SWIFT_IOS_ARTIFACTS_REGISTERED_KEY)) {
         return
     }
