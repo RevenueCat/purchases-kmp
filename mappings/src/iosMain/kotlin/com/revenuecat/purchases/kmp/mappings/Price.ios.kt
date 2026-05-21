@@ -2,9 +2,9 @@ package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.models.Price
 import platform.Foundation.NSDecimalNumber
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProduct
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProductDiscount
-import swiftPMImport.com.revenuecat.purchases.kn.core.price
+import com.revenuecat.purchases.kn.core.RCStoreProduct
+import com.revenuecat.purchases.kn.core.RCStoreProductDiscount
+import com.revenuecat.purchases.kn.core.price
 
 internal fun RCStoreProduct.toPrice(): Price =
     Price(

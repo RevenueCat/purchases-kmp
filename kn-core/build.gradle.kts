@@ -11,7 +11,7 @@ kotlin {
             swiftPackage(
                 path = rootProject.file("upstream/purchases-ios"),
                 target = "RevenueCat",
-                packageName = "swiftPMImport.com.revenuecat.purchases.kn.core",
+                packageName = "com.revenuecat.purchases.kn.core",
                 customDeclarations = """
                     // Force cinterop binding generation for types otherwise not in the public API
                     static inline int __forceBindings(
@@ -30,7 +30,7 @@ kotlin {
             swiftPackage(
                 path = file("src/swift"),
                 target = "AdditionalSwift",
-                packageName = "swiftPMImport.com.revenuecat.purchases.kn.core.additional"
+                packageName = "com.revenuecat.purchases.kn.core.additional"
             )
         }
     }

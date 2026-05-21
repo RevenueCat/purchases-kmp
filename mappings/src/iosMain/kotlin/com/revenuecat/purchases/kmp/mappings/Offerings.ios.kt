@@ -2,9 +2,9 @@ package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.mappings.ktx.mapEntries
 import com.revenuecat.purchases.kmp.models.Offerings
-import swiftPMImport.com.revenuecat.purchases.kn.core.currentOfferingForPlacement
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCOffering as IosOffering
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCOfferings as IosOfferings
+import com.revenuecat.purchases.kn.core.currentOfferingForPlacement
+import com.revenuecat.purchases.kn.core.RCOffering as IosOffering
+import com.revenuecat.purchases.kn.core.RCOfferings as IosOfferings
 
 public fun IosOfferings.toOfferings(): Offerings =
     Offerings(

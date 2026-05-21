@@ -1,9 +1,9 @@
 package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.models.ProductCategory
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProductCategory
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProductCategoryNonSubscription
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProductCategorySubscription
+import com.revenuecat.purchases.kn.core.RCStoreProductCategory
+import com.revenuecat.purchases.kn.core.RCStoreProductCategoryNonSubscription
+import com.revenuecat.purchases.kn.core.RCStoreProductCategorySubscription
 
 internal fun RCStoreProductCategory.toProductCategory(): ProductCategory =
     when (this) {
