@@ -10,14 +10,14 @@ import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
 import com.revenuecat.purchases.kmp.models.AdRevenuePrecision
 import platform.Foundation.NSNumber
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCAdDisplayed
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCAdFailedToLoad
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCAdFormat
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCAdLoaded
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCAdOpened
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCAdRevenue
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCAdRevenuePrecision
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCMediatorName
+import com.revenuecat.purchases.kn.core.RCAdDisplayed
+import com.revenuecat.purchases.kn.core.RCAdFailedToLoad
+import com.revenuecat.purchases.kn.core.RCAdFormat
+import com.revenuecat.purchases.kn.core.RCAdLoaded
+import com.revenuecat.purchases.kn.core.RCAdOpened
+import com.revenuecat.purchases.kn.core.RCAdRevenue
+import com.revenuecat.purchases.kn.core.RCAdRevenuePrecision
+import com.revenuecat.purchases.kn.core.RCMediatorName
 
 @ExperimentalRevenueCatApi
 public fun AdMediatorName.toIos(): RCMediatorName =

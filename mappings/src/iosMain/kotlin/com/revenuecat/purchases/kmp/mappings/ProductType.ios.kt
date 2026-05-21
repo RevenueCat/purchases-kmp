@@ -1,11 +1,11 @@
 package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.models.ProductType
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProductTypeAutoRenewableSubscription
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProductTypeConsumable
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProductTypeNonConsumable
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProductTypeNonRenewableSubscription
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProductType as IosStoreProductType
+import com.revenuecat.purchases.kn.core.RCStoreProductTypeAutoRenewableSubscription
+import com.revenuecat.purchases.kn.core.RCStoreProductTypeConsumable
+import com.revenuecat.purchases.kn.core.RCStoreProductTypeNonConsumable
+import com.revenuecat.purchases.kn.core.RCStoreProductTypeNonRenewableSubscription
+import com.revenuecat.purchases.kn.core.RCStoreProductType as IosStoreProductType
 
 internal fun IosStoreProductType.toProductType(): ProductType =
     when (this) {

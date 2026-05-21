@@ -122,6 +122,7 @@ final class com.revenuecat.purchases.kmp/Purchases { // com.revenuecat.purchases
     final fun setOnesignalID(kotlin/String?) // com.revenuecat.purchases.kmp/Purchases.setOnesignalID|setOnesignalID(kotlin.String?){}[0]
     final fun setOnesignalUserID(kotlin/String?) // com.revenuecat.purchases.kmp/Purchases.setOnesignalUserID|setOnesignalUserID(kotlin.String?){}[0]
     final fun setPhoneNumber(kotlin/String?) // com.revenuecat.purchases.kmp/Purchases.setPhoneNumber|setPhoneNumber(kotlin.String?){}[0]
+    final fun setPostHogUserID(kotlin/String?) // com.revenuecat.purchases.kmp/Purchases.setPostHogUserID|setPostHogUserID(kotlin.String?){}[0]
     final fun setPushToken(kotlin/String?) // com.revenuecat.purchases.kmp/Purchases.setPushToken|setPushToken(kotlin.String?){}[0]
     final fun showInAppMessagesIfNeeded(kotlin.collections/List<com.revenuecat.purchases.kmp.models/StoreMessageType> = ...) // com.revenuecat.purchases.kmp/Purchases.showInAppMessagesIfNeeded|showInAppMessagesIfNeeded(kotlin.collections.List<com.revenuecat.purchases.kmp.models.StoreMessageType>){}[0]
     final fun syncAmazonPurchase(kotlin/String, kotlin/String, kotlin/String, kotlin/String?, kotlin/Double?) // com.revenuecat.purchases.kmp/Purchases.syncAmazonPurchase|syncAmazonPurchase(kotlin.String;kotlin.String;kotlin.String;kotlin.String?;kotlin.Double?){}[0]

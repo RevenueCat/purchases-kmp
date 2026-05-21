@@ -2,7 +2,7 @@ package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCPromotionalOffer as NativeIosPromotionalOffer
+import com.revenuecat.purchases.kn.core.RCPromotionalOffer as NativeIosPromotionalOffer
 
 public fun NativeIosPromotionalOffer.toPromotionalOffer(): PromotionalOffer =
     IosPromotionalOffer(this)

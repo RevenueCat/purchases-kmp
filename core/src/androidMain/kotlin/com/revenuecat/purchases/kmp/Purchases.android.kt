@@ -486,6 +486,9 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual fun setOnesignalUserID(onesignalUserID: String?): Unit =
         androidPurchases.setOnesignalUserID(onesignalUserID)
 
+    public actual fun setPostHogUserID(postHogUserID: String?): Unit =
+        androidPurchases.setPostHogUserId(postHogUserID)
+
     public actual fun setAirshipChannelID(airshipChannelID: String?): Unit =
         androidPurchases.setAirshipChannelID(airshipChannelID)
 

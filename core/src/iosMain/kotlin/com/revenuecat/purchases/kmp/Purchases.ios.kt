@@ -1,76 +1,78 @@
 package com.revenuecat.purchases.kmp
 
- import com.revenuecat.purchases.kmp.ktx.mapEntriesNotNull
- import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
- import com.revenuecat.purchases.kmp.mappings.toIntroEligibilityStatus
- import com.revenuecat.purchases.kmp.mappings.toIosCacheFetchPolicy
- import com.revenuecat.purchases.kmp.mappings.toIosEntitlementVerificationMode
- import com.revenuecat.purchases.kmp.mappings.toIosPackage
- import com.revenuecat.purchases.kmp.mappings.toIosPromotionalOffer
- import com.revenuecat.purchases.kmp.mappings.toIosPurchasesAreCompletedBy
- import com.revenuecat.purchases.kmp.mappings.toIosStoreKitVersion
- import com.revenuecat.purchases.kmp.mappings.toIosStoreMessageTypes
- import com.revenuecat.purchases.kmp.mappings.toIosStoreProduct
- import com.revenuecat.purchases.kmp.mappings.toIosStoreProductDiscount
- import com.revenuecat.purchases.kmp.mappings.toIosWinBackOffer
- import com.revenuecat.purchases.kmp.mappings.toOfferings
- import com.revenuecat.purchases.kmp.mappings.toPromotionalOffer
- import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
- import com.revenuecat.purchases.kmp.mappings.toStoreProduct
- import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
- import com.revenuecat.purchases.kmp.mappings.toStorefront
- import com.revenuecat.purchases.kmp.mappings.toVirtualCurrencies
- import com.revenuecat.purchases.kmp.mappings.toWinBackOffer
- import com.revenuecat.purchases.kmp.models.BillingFeature
- import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
- import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
- import com.revenuecat.purchases.kmp.models.CustomerInfo
- import com.revenuecat.purchases.kmp.models.DangerousSettings
- import com.revenuecat.purchases.kmp.models.IntroEligibilityStatus
- import com.revenuecat.purchases.kmp.models.Offerings
- import com.revenuecat.purchases.kmp.models.Package
- import com.revenuecat.purchases.kmp.models.PromotionalOffer
- import com.revenuecat.purchases.kmp.models.PurchasesError
- import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
- import com.revenuecat.purchases.kmp.models.RedeemWebPurchaseListener
- import com.revenuecat.purchases.kmp.models.ReplacementMode
- import com.revenuecat.purchases.kmp.models.Store
- import com.revenuecat.purchases.kmp.models.StoreMessageType
- import com.revenuecat.purchases.kmp.models.StoreProduct
- import com.revenuecat.purchases.kmp.models.StoreProductDiscount
- import com.revenuecat.purchases.kmp.models.StoreTransaction
- import com.revenuecat.purchases.kmp.models.Storefront
- import com.revenuecat.purchases.kmp.models.SubscriptionOption
- import com.revenuecat.purchases.kmp.models.VirtualCurrencies
- import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
- import com.revenuecat.purchases.kmp.models.WinBackOffer
- import com.revenuecat.purchases.kmp.strings.ConfigureStrings
- import platform.Foundation.NSError
- import platform.Foundation.NSURL
- import platform.Foundation.NSUserDefaults
- import swiftPMImport.com.revenuecat.purchases.kn.core.RCConfiguration
- import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomPaywallImpressionParams
- import swiftPMImport.com.revenuecat.purchases.kn.core.RCCustomerInfo
- import swiftPMImport.com.revenuecat.purchases.kn.core.RCIntroEligibility
- import swiftPMImport.com.revenuecat.purchases.kn.core.RCPlatformInfo
- import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchaseParamsBuilder
- import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchasesDelegateProtocol
- import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreProduct
- import swiftPMImport.com.revenuecat.purchases.kn.core.RCStoreTransaction
- import swiftPMImport.com.revenuecat.purchases.kn.core.RCVirtualCurrencies
- import swiftPMImport.com.revenuecat.purchases.kn.core.additional.AppleApiAvailability
- import swiftPMImport.com.revenuecat.purchases.kn.core.configureWithConfiguration
- import swiftPMImport.com.revenuecat.purchases.kn.core.enableAdServicesAttributionTokenCollection
- import swiftPMImport.com.revenuecat.purchases.kn.core.parseAsWebPurchaseRedemption
- import swiftPMImport.com.revenuecat.purchases.kn.core.recordPurchaseForProductID
- import swiftPMImport.com.revenuecat.purchases.kn.core.setAirbridgeDeviceID
- import swiftPMImport.com.revenuecat.purchases.kn.core.setAirshipChannelID
- import swiftPMImport.com.revenuecat.purchases.kn.core.setOnesignalUserID
- import swiftPMImport.com.revenuecat.purchases.kn.core.showStoreMessagesForTypes
- import swiftPMImport.com.revenuecat.purchases.kn.core.trackCustomPaywallImpression
- import swiftPMImport.com.revenuecat.purchases.kn.core.RCDangerousSettings as IosDangerousSettings
- import swiftPMImport.com.revenuecat.purchases.kn.core.RCPurchases as IosPurchases
- import swiftPMImport.com.revenuecat.purchases.kn.core.RCWinBackOffer as NativeIosWinBackOffer
+
+import com.revenuecat.purchases.kmp.ktx.mapEntriesNotNull
+import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
+import com.revenuecat.purchases.kmp.mappings.toIntroEligibilityStatus
+import com.revenuecat.purchases.kmp.mappings.toIosCacheFetchPolicy
+import com.revenuecat.purchases.kmp.mappings.toIosEntitlementVerificationMode
+import com.revenuecat.purchases.kmp.mappings.toIosPackage
+import com.revenuecat.purchases.kmp.mappings.toIosPromotionalOffer
+import com.revenuecat.purchases.kmp.mappings.toIosPurchasesAreCompletedBy
+import com.revenuecat.purchases.kmp.mappings.toIosStoreKitVersion
+import com.revenuecat.purchases.kmp.mappings.toIosStoreMessageTypes
+import com.revenuecat.purchases.kmp.mappings.toIosStoreProduct
+import com.revenuecat.purchases.kmp.mappings.toIosStoreProductDiscount
+import com.revenuecat.purchases.kmp.mappings.toIosWinBackOffer
+import com.revenuecat.purchases.kmp.mappings.toOfferings
+import com.revenuecat.purchases.kmp.mappings.toPromotionalOffer
+import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
+import com.revenuecat.purchases.kmp.mappings.toStoreProduct
+import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
+import com.revenuecat.purchases.kmp.mappings.toStorefront
+import com.revenuecat.purchases.kmp.mappings.toVirtualCurrencies
+import com.revenuecat.purchases.kmp.mappings.toWinBackOffer
+import com.revenuecat.purchases.kmp.models.BillingFeature
+import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
+import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
+import com.revenuecat.purchases.kmp.models.CustomerInfo
+import com.revenuecat.purchases.kmp.models.DangerousSettings
+import com.revenuecat.purchases.kmp.models.IntroEligibilityStatus
+import com.revenuecat.purchases.kmp.models.Offerings
+import com.revenuecat.purchases.kmp.models.Package
+import com.revenuecat.purchases.kmp.models.PromotionalOffer
+import com.revenuecat.purchases.kmp.models.PurchasesError
+import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
+import com.revenuecat.purchases.kmp.models.RedeemWebPurchaseListener
+import com.revenuecat.purchases.kmp.models.ReplacementMode
+import com.revenuecat.purchases.kmp.models.Store
+import com.revenuecat.purchases.kmp.models.StoreMessageType
+import com.revenuecat.purchases.kmp.models.StoreProduct
+import com.revenuecat.purchases.kmp.models.StoreProductDiscount
+import com.revenuecat.purchases.kmp.models.StoreTransaction
+import com.revenuecat.purchases.kmp.models.Storefront
+import com.revenuecat.purchases.kmp.models.SubscriptionOption
+import com.revenuecat.purchases.kmp.models.VirtualCurrencies
+import com.revenuecat.purchases.kmp.models.WebPurchaseRedemption
+import com.revenuecat.purchases.kmp.models.WinBackOffer
+import com.revenuecat.purchases.kmp.strings.ConfigureStrings
+import platform.Foundation.NSError
+import platform.Foundation.NSURL
+import platform.Foundation.NSUserDefaults
+import com.revenuecat.purchases.kn.core.RCConfiguration
+import com.revenuecat.purchases.kn.core.RCCustomPaywallImpressionParams
+import com.revenuecat.purchases.kn.core.RCCustomerInfo
+import com.revenuecat.purchases.kn.core.RCIntroEligibility
+import com.revenuecat.purchases.kn.core.RCPlatformInfo
+import com.revenuecat.purchases.kn.core.RCPurchaseParamsBuilder
+import com.revenuecat.purchases.kn.core.RCPurchasesDelegateProtocol
+import com.revenuecat.purchases.kn.core.RCStoreProduct
+import com.revenuecat.purchases.kn.core.RCStoreTransaction
+import com.revenuecat.purchases.kn.core.RCVirtualCurrencies
+import com.revenuecat.purchases.kn.core.additional.AppleApiAvailability
+import com.revenuecat.purchases.kn.core.configureWithConfiguration
+import com.revenuecat.purchases.kn.core.enableAdServicesAttributionTokenCollection
+import com.revenuecat.purchases.kn.core.parseAsWebPurchaseRedemption
+import com.revenuecat.purchases.kn.core.recordPurchaseForProductID
+import com.revenuecat.purchases.kn.core.setAirbridgeDeviceID
+import com.revenuecat.purchases.kn.core.setAirshipChannelID
+import com.revenuecat.purchases.kn.core.setOnesignalUserID
+import com.revenuecat.purchases.kn.core.setPostHogUserID
+import com.revenuecat.purchases.kn.core.showStoreMessagesForTypes
+import com.revenuecat.purchases.kn.core.trackCustomPaywallImpression
+import com.revenuecat.purchases.kn.core.RCDangerousSettings as IosDangerousSettings
+import com.revenuecat.purchases.kn.core.RCPurchases as IosPurchases
+import com.revenuecat.purchases.kn.core.RCWinBackOffer as NativeIosWinBackOffer
 
 public actual class Purchases private constructor(private val iosPurchases: IosPurchases) {
     public actual companion object {
@@ -649,6 +651,9 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
     public actual fun setOnesignalUserID(onesignalUserID: String?): Unit =
         iosPurchases.attribution().setOnesignalUserID(onesignalUserID)
+
+    public actual fun setPostHogUserID(postHogUserID: String?): Unit =
+        iosPurchases.attribution().setPostHogUserID(postHogUserID)
 
     public actual fun setAirshipChannelID(airshipChannelID: String?): Unit =
         iosPurchases.attribution().setAirshipChannelID(airshipChannelID)
