@@ -127,8 +127,17 @@ def get_android_version
 end
 
 def get_ios_version
-  version = File.read("../upstream/purchases-ios/.version").strip
-  UI.user_error!("iOS version not found in upstream/purchases-ios/.version") if version.nil? || version.empty?
+  require 'base64'
+  submodule_sha = `git ls-tree HEAD upstream/purchases-ios`.split[2]
+  UI.user_error!("Could not read upstream/purchases-ios submodule commit from the parent tree") if submodule_sha.nil? || submodule_sha.empty?
+  response = github_api(
+    server_url: 'https://api.github.com',
+    api_token: ENV["GITHUB_TOKEN"],
+    http_method: 'GET',
+    path: "/repos/RevenueCat/purchases-ios/contents/.version?ref=#{submodule_sha}"
+  )
+  version = Base64.decode64(response[:json]['content']).strip
+  UI.user_error!("iOS version not found in upstream/purchases-ios/.version at #{submodule_sha}") if version.nil? || version.empty?
   version
 end
 
