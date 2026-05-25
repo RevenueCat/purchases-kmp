@@ -89,17 +89,30 @@ commands:
 
   save-maven-local-artifacts-to-workspace:
     steps:
+      - run:
+          name: Stage Maven Local artifacts for workspace
+          command: |
+            mkdir -p maven-local-artifacts
+            cp -R ~/.m2/repository/com/revenuecat maven-local-artifacts/
+            find maven-local-artifacts -maxdepth 4 -type f | head -50
       - persist_to_workspace:
           name: Save Maven Local artifacts to workspace
-          root: ~/
+          root: ./
           paths:
-            - .m2/repository/com/revenuecat
+            - maven-local-artifacts/com/revenuecat
 
   attach-maven-local-artifacts-from-workspace:
     steps:
       - attach_workspace:
           name: Attach Maven Local artifacts from workspace
-          at: ~/
+          at: ./
+      - run:
+          name: Restore Maven Local artifacts from workspace
+          command: |
+            test -d maven-local-artifacts/com/revenuecat/purchases
+            mkdir -p ~/.m2/repository/com/revenuecat
+            cp -R maven-local-artifacts/com/revenuecat/* ~/.m2/repository/com/revenuecat/
+            find ~/.m2/repository/com/revenuecat/purchases -maxdepth 3 -type d
 
   checkout-submodule:
     description: "Checks out a git submodule."
@@ -398,20 +411,37 @@ jobs:
       - run:
           name: Verify Maven Local SDK artifacts are present
           command: |
-            test -d ~/.m2/repository/com/revenuecat/purchases
+            test -d ~/.m2/repository/com/revenuecat/purchases/purchases-kmp-core
             ls ~/.m2/repository/com/revenuecat/purchases
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - run:
+          name: Build ComposeApp framework from Maven Local artifacts
+          command: |
+            printf '\nusePublishedMavenLocalArtifacts=true\norg.gradle.configuration-cache=false\n' >> gradle.properties
+            export CONFIGURATION=Debug
+            export SDK_NAME=iphonesimulator26.0
+            export ARCHS=arm64
+            export ONLY_ACTIVE_ARCH=YES
+            export PLATFORM_NAME=iphonesimulator
+            export TARGET_BUILD_DIR="$PWD/build/ci/Products/Debug-iphonesimulator"
+            export FRAMEWORKS_FOLDER_PATH="$TARGET_BUILD_DIR"
+            mkdir -p "$TARGET_BUILD_DIR"
+            ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode \
+              -PusePublishedMavenLocalArtifacts=true \
+              --no-configuration-cache
+      - run:
           name: Build iOS sample app against Maven Local artifacts
           command: |
-            xcodebuild \
+            OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED=YES xcodebuild \
               -project iosApp/iosApp.xcodeproj \
               -scheme iosApp \
               -configuration Debug \
               -sdk iphonesimulator \
+              -arch arm64 \
+              ONLY_ACTIVE_ARCH=YES \
               build
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
