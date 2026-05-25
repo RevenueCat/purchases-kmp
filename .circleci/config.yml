@@ -350,6 +350,21 @@ jobs:
       - save-gradle-user-home-directory-to-cache
       - save-incremental-gradle-build-to-workspace
 
+  validate-publish:
+    description: "Builds release publish artifacts locally without uploading to Maven Central."
+    executor: xcode16
+    steps:
+      - checkout
+      - checkout-submodule
+      - install-android-sdk-on-macos
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - run:
+          name: Build publish artifacts (Maven Local only)
+          command: ./gradlew publishToMavenLocal --no-configuration-cache
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
+
   publish:
     description: "Publishes the SDK, either a SNAPSHOT or release version."
     executor: xcode16
@@ -426,6 +441,7 @@ workflows:
           # This would benefit from the incremental build output of build-libraries-android
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
+      - validate-publish
 
   on-main-branch:
     when:

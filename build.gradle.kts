@@ -27,7 +27,12 @@ allprojects {
     plugins.withType<MavenPublishPlugin> {
         configure<MavenPublishBaseExtension> {
             publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
-            signAllPublications()
+            val publishingToMavenLocal = gradle.startParameter.taskNames.any {
+                it.contains("publishToMavenLocal", ignoreCase = true)
+            }
+            if (!publishingToMavenLocal) {
+                signAllPublications()
+            }
 
             // We override the artifact ID of :revenuecatui for consistency with the other SDKs. We
             // could not name our Gradle module :ui, because this somehow conflicts with compose.ui
