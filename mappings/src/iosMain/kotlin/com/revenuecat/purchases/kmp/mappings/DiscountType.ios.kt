@@ -1,10 +1,10 @@
 package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.models.DiscountType
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCDiscountTypeIntroductory
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCDiscountTypePromotional
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCDiscountTypeWinBack
-import swiftPMImport.com.revenuecat.purchases.kn.core.RCDiscountType as IosDiscountType
+import com.revenuecat.purchases.kn.core.RCDiscountTypeIntroductory
+import com.revenuecat.purchases.kn.core.RCDiscountTypePromotional
+import com.revenuecat.purchases.kn.core.RCDiscountTypeWinBack
+import com.revenuecat.purchases.kn.core.RCDiscountType as IosDiscountType
 
 internal fun IosDiscountType.toDiscountType(): DiscountType =
     when(this) {

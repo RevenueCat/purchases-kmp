@@ -134,7 +134,7 @@ def get_ios_version
   end
 
   require 'base64'
-  submodule_sha = `git ls-tree HEAD upstream/purchases-ios`.split[2]
+  submodule_sha = `git -C .. ls-tree HEAD upstream/purchases-ios`.split[2]
   UI.user_error!("Could not read upstream/purchases-ios submodule commit from the parent tree") if submodule_sha.nil? || submodule_sha.empty?
   response = github_api(
     server_url: 'https://api.github.com',
