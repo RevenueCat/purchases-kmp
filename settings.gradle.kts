@@ -12,6 +12,9 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
+        if (startParameter.projectProperties["usePublishedMavenLocalArtifacts"] == "true") {
+            mavenLocal()
+        }
         google()
         mavenCentral()
     }

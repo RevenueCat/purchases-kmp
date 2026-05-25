@@ -87,6 +87,20 @@ commands:
           name: Attach workspace at working directory
           at: ./
 
+  save-maven-local-artifacts-to-workspace:
+    steps:
+      - persist_to_workspace:
+          name: Save Maven Local artifacts to workspace
+          root: ~/
+          paths:
+            - .m2/repository/com/revenuecat
+
+  attach-maven-local-artifacts-from-workspace:
+    steps:
+      - attach_workspace:
+          name: Attach Maven Local artifacts from workspace
+          at: ~/
+
   checkout-submodule:
     description: "Checks out a git submodule."
     parameters:
@@ -127,6 +141,14 @@ executors:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
       # freshly installed.
       HOMEBREW_NO_AUTO_UPDATE: 1
+  # Reproduces the Xcode 26.0.1 consumer link scenario from #859.
+  xcode2601:
+    macos:
+      xcode: 26.0.1
+    resource_class: m4pro.medium
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      ORG_GRADLE_PROJECT_usePublishedMavenLocalArtifacts: "true"
 
 jobs:
   prepare-next-snapshot-version:
@@ -364,6 +386,34 @@ jobs:
           command: ./gradlew publishToMavenLocal --no-configuration-cache
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
+      - save-maven-local-artifacts-to-workspace
+
+  validate-ios-consumer-link:
+    description: "Links the sample app against Maven Local SDK artifacts using Xcode 26.0.1."
+    executor: xcode2601
+    steps:
+      - checkout
+      - attach-maven-local-artifacts-from-workspace
+      - run:
+          name: Verify Maven Local SDK artifacts are present
+          command: |
+            test -d ~/.m2/repository/com/revenuecat/purchases
+            ls ~/.m2/repository/com/revenuecat/purchases
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - run:
+          name: Build iOS sample app against Maven Local artifacts
+          command: |
+            xcodebuild \
+              -project iosApp/iosApp.xcodeproj \
+              -scheme iosApp \
+              -configuration Debug \
+              -sdk iphonesimulator \
+              build
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
 
   publish:
     description: "Publishes the SDK, either a SNAPSHOT or release version."
@@ -442,6 +492,8 @@ workflows:
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
       - validate-publish
+      - validate-ios-consumer-link:
+          requires: [validate-publish]
 
   on-main-branch:
     when:
