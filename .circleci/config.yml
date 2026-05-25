@@ -393,6 +393,7 @@ jobs:
     executor: xcode2601
     steps:
       - checkout
+      - checkout-submodule
       - attach-maven-local-artifacts-from-workspace
       - run:
           name: Verify Maven Local SDK artifacts are present
