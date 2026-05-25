@@ -419,24 +419,10 @@ jobs:
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - run:
-          name: Build ComposeApp framework from Maven Local artifacts
-          command: |
-            printf '\nusePublishedMavenLocalArtifacts=true\norg.gradle.configuration-cache=false\n' >> gradle.properties
-            export CONFIGURATION=Debug
-            export SDK_NAME=iphonesimulator26.0
-            export ARCHS=arm64
-            export ONLY_ACTIVE_ARCH=YES
-            export PLATFORM_NAME=iphonesimulator
-            export TARGET_BUILD_DIR="$PWD/build/ci/Products/Debug-iphonesimulator"
-            export FRAMEWORKS_FOLDER_PATH="$TARGET_BUILD_DIR"
-            mkdir -p "$TARGET_BUILD_DIR"
-            ./gradlew :composeApp:embedAndSignAppleFrameworkForXcode \
-              -PusePublishedMavenLocalArtifacts=true \
-              --no-configuration-cache
-      - run:
           name: Build iOS sample app against Maven Local artifacts
           command: |
-            OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED=YES xcodebuild \
+            printf '\nusePublishedMavenLocalArtifacts=true\norg.gradle.configuration-cache=false\n' >> gradle.properties
+            xcodebuild \
               -project iosApp/iosApp.xcodeproj \
               -scheme iosApp \
               -configuration Debug \
