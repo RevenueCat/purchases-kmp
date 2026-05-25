@@ -155,10 +155,10 @@ executors:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
       # freshly installed.
       HOMEBREW_NO_AUTO_UPDATE: 1
-  # Reproduces the Xcode 26.0.1 consumer link scenario from #859.
-  xcode2601:
+  # Reproduces the Xcode 26.x consumer link scenario from #859.
+  xcode26:
     macos:
-      xcode: 26.0.1
+      xcode: 26.5.0
     resource_class: m4pro.medium
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
@@ -403,8 +403,8 @@ jobs:
       - save-maven-local-artifacts-to-workspace
 
   validate-ios-consumer-link:
-    description: "Links the sample app against Maven Local SDK artifacts using Xcode 26.0.1."
-    executor: xcode2601
+    description: "Links the sample app against Maven Local SDK artifacts using Xcode 26.5."
+    executor: xcode26
     steps:
       - checkout
       - checkout-submodule
