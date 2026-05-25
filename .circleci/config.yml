@@ -92,9 +92,10 @@ commands:
       - run:
           name: Stage Maven Local artifacts for workspace
           command: |
-            mkdir -p maven-local-artifacts
-            cp -R ~/.m2/repository/com/revenuecat maven-local-artifacts/
-            find maven-local-artifacts -maxdepth 4 -type f | head -50
+            test -d "$HOME/.m2/repository/com/revenuecat/purchases"
+            mkdir -p maven-local-artifacts/com
+            cp -R "$HOME/.m2/repository/com/revenuecat" maven-local-artifacts/com/
+            find maven-local-artifacts/com/revenuecat/purchases -maxdepth 3 -type d
       - persist_to_workspace:
           name: Save Maven Local artifacts to workspace
           root: ./
@@ -110,9 +111,9 @@ commands:
           name: Restore Maven Local artifacts from workspace
           command: |
             test -d maven-local-artifacts/com/revenuecat/purchases
-            mkdir -p ~/.m2/repository/com/revenuecat
-            cp -R maven-local-artifacts/com/revenuecat/* ~/.m2/repository/com/revenuecat/
-            find ~/.m2/repository/com/revenuecat/purchases -maxdepth 3 -type d
+            mkdir -p "$HOME/.m2/repository/com/revenuecat"
+            cp -R maven-local-artifacts/com/revenuecat/purchases "$HOME/.m2/repository/com/revenuecat/"
+            find "$HOME/.m2/repository/com/revenuecat/purchases" -maxdepth 3 -type d
 
   checkout-submodule:
     description: "Checks out a git submodule."
