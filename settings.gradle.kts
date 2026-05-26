@@ -12,21 +12,23 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
-        val gradleProperties = java.util.Properties()
-        val gradlePropertiesFile = File(settingsDir, "gradle.properties")
-        if (gradlePropertiesFile.exists()) {
-            gradlePropertiesFile.inputStream().use { gradleProperties.load(it) }
-        }
-        val usePublishedMavenLocalArtifacts =
-            gradleProperties.getProperty("usePublishedMavenLocalArtifacts") == "true" ||
-                startParameter.projectProperties["usePublishedMavenLocalArtifacts"] == "true" ||
-                System.getenv("ORG_GRADLE_PROJECT_usePublishedMavenLocalArtifacts") == "true"
-        if (usePublishedMavenLocalArtifacts) {
+        if (usePublishedMavenLocalArtifacts()) {
             mavenLocal()
         }
         google()
         mavenCentral()
     }
+}
+
+fun usePublishedMavenLocalArtifacts(): Boolean {
+    val gradleProperties = java.util.Properties()
+    val gradlePropertiesFile = File(settingsDir, "gradle.properties")
+    if (gradlePropertiesFile.exists()) {
+        gradlePropertiesFile.inputStream().use { gradleProperties.load(it) }
+    }
+    return gradleProperties.getProperty("usePublishedMavenLocalArtifacts") == "true" ||
+        startParameter.projectProperties["usePublishedMavenLocalArtifacts"] == "true" ||
+        System.getenv("ORG_GRADLE_PROJECT_usePublishedMavenLocalArtifacts") == "true"
 }
 
 rootProject.name = "purchases-kmp"
@@ -41,4 +43,6 @@ include(":models")
 include(":result")
 include(":revenuecatui")
 include(":e2e-tests:MaestroTestApp")
-include(":installationTestApp")
+if (usePublishedMavenLocalArtifacts()) {
+    include(":installationTestApp")
+}
