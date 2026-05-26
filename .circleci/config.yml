@@ -118,7 +118,7 @@ executors:
     docker:
       - image: cimg/ruby:3.3.0
   # All macOS CI uses Xcode 16.4 so published Swift artifacts link on Xcode 26.0.1+ (#859).
-  # Xcode 16 images also stay available on CircleCI much longer than specific Xcode 26 point releases.
+  # Xcode 16.4.0 images will stay available on CircleCI much longer than specific Xcode 26 point releases.
   xcode16:
     macos:
       xcode: 16.4.0
