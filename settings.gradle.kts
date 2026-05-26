@@ -43,6 +43,4 @@ include(":models")
 include(":result")
 include(":revenuecatui")
 include(":e2e-tests:MaestroTestApp")
-if (usePublishedMavenLocalArtifacts()) {
-    include(":installationTestApp")
-}
+include(":installationTestApp")

@@ -2,7 +2,7 @@
 
 Minimal Android and iOS consumer app used by release CI to verify Maven-published SDK artifacts compile and link like external integrators.
 
-Generated from the [Kotlin Multiplatform Wizard](https://kmp.new/) mobile-shared template, then wired to resolve `purchases-kmp` from Maven Local. Kotlin is pinned to the minimum supported version via the root version catalog (`2.3.20`).
+Generated from the [Kotlin Multiplatform Wizard](https://kmp.new/) mobile-shared template. Uses project dependencies locally; consumer CI resolves from Maven Local via `-PusePublishedMavenLocalArtifacts=true`.
 
 ## CI usage
 

@@ -27,10 +27,10 @@ allprojects {
     plugins.withType<MavenPublishPlugin> {
         configure<MavenPublishBaseExtension> {
             publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
-            val publishingToMavenLocal = gradle.startParameter.taskNames.any {
-                it.contains("publishToMavenLocal", ignoreCase = true)
-            }
-            if (!publishingToMavenLocal) {
+            val skipSigningForMavenLocal = providers.gradleProperty("skipSigningForMavenLocal")
+                .map { it.equals("true", ignoreCase = true) }
+                .orElse(false)
+            if (!skipSigningForMavenLocal.get()) {
                 signAllPublications()
             }
 

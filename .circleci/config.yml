@@ -415,7 +415,7 @@ jobs:
       - restore-kotlin-native-compiler-from-cache
       - run:
           name: Build publish artifacts (Maven Local only)
-          command: ./gradlew publishToMavenLocal --no-configuration-cache
+          command: ./gradlew publishToMavenLocal --no-configuration-cache -PskipSigningForMavenLocal=true
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
       - save-maven-local-artifacts-to-workspace
@@ -444,7 +444,6 @@ jobs:
     executor: xcode26-consumer
     steps:
       - checkout
-      - checkout-submodule
       - attach-maven-local-artifacts-from-workspace
       - run:
           name: Verify Maven Local SDK artifacts are present

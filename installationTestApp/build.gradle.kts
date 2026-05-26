@@ -5,8 +5,12 @@ plugins {
     alias(libs.plugins.compose.compiler)
 }
 
+val usePublishedMavenLocalArtifacts = providers.gradleProperty("usePublishedMavenLocalArtifacts")
+    .map { it.equals("true", ignoreCase = true) }
+    .orElse(false)
+
 // Minimal consumer app for release CI. Uses the minimum supported Kotlin version from the root
-// catalog and Maven Local SDK artifacts (see validate-*-consumer-link in .circleci/config.yml).
+// catalog. Resolves SDK from project dependencies locally; Maven Local in consumer CI jobs.
 kotlin {
     androidTarget()
 
@@ -34,11 +38,18 @@ kotlin {
             implementation(compose.material)
             implementation(compose.ui)
 
-            val version = libs.versions.revenuecat.kmp.get()
-            implementation("com.revenuecat.purchases:purchases-kmp-core:$version")
-            implementation("com.revenuecat.purchases:purchases-kmp-result:$version")
-            implementation("com.revenuecat.purchases:purchases-kmp-either:$version")
-            implementation("com.revenuecat.purchases:purchases-kmp-ui:$version")
+            if (usePublishedMavenLocalArtifacts.get()) {
+                val version = libs.versions.revenuecat.kmp.get()
+                implementation("com.revenuecat.purchases:purchases-kmp-core:$version")
+                implementation("com.revenuecat.purchases:purchases-kmp-result:$version")
+                implementation("com.revenuecat.purchases:purchases-kmp-either:$version")
+                implementation("com.revenuecat.purchases:purchases-kmp-ui:$version")
+            } else {
+                implementation(projects.core)
+                implementation(projects.result)
+                implementation(projects.either)
+                implementation(projects.revenuecatui)
+            }
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
