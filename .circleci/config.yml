@@ -173,13 +173,6 @@ executors:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
       # freshly installed.
       HOMEBREW_NO_AUTO_UPDATE: 1
-  # Builds release publish artifacts the way Maven Central consumers receive them (#859).
-  xcode16:
-    macos:
-      xcode: 16.4.0
-    resource_class: m4pro.medium
-    environment:
-      HOMEBREW_NO_AUTO_UPDATE: 1
   # Links the installation test app against Maven Local artifacts on a current Xcode 26 image.
   xcode26-consumer:
     macos:
