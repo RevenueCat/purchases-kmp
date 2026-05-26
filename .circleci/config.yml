@@ -117,8 +117,20 @@ executors:
   ruby3:
     docker:
       - image: cimg/ruby:3.3.0
-  # All macOS CI uses Xcode 16.4 so published Swift artifacts link on Xcode 26.0.1+ (#859).
-  # Xcode 16.4.0 images will stay available on CircleCI much longer than specific Xcode 26 point releases.
+  # The Xcode version we use to build the static Swift library embedded in our Kotlin Native 
+  # artifacts will influence the minimum Xcode version of the consuming app: 
+  # https://github.com/RevenueCat/purchases-kmp/issues/859
+  # 
+  # We should support at least Xcode 26.0, as that is the latest Xcode version supported by
+  # Kotlin Native at time of writing:
+  # https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html
+  # 
+  # The CircleCI Xcode image retention policy means that Xcode 16.4.0 is going to be supported
+  # longer than Xcode 26.0 is:
+  # https://circleci.com/docs/guides/execution-managed/xcode-policy/#xcode-image-retention-and-deprecation
+  # 
+  # So for that reason we use Xcode 16.4.0 to build our Kotlin Native artifacts (including the 
+  # static Swift library) in CI. 
   xcode16:
     macos:
       xcode: 16.4.0
