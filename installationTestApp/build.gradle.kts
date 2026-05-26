@@ -1,12 +1,15 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.compose.compiler)
 }
 
 // Minimal consumer app for release CI. Uses the minimum supported Kotlin version from the root
-// catalog and Maven Local SDK artifacts (see validate-ios-consumer-link in .circleci/config.yml).
+// catalog and Maven Local SDK artifacts (see validate-*-consumer-link in .circleci/config.yml).
 kotlin {
+    androidTarget()
+
     listOf(
         iosArm64(),
         iosSimulatorArm64(),
@@ -37,5 +40,27 @@ kotlin {
             implementation("com.revenuecat.purchases:purchases-kmp-either:$version")
             implementation("com.revenuecat.purchases:purchases-kmp-ui:$version")
         }
+        androidMain.dependencies {
+            implementation(libs.androidx.activity.compose)
+        }
+    }
+}
+
+android {
+    namespace = "com.revenuecat.purchases.kmp.installationtest"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+
+    defaultConfig {
+        applicationId = "com.revenuecat.purchases.kmp.installationtest"
+        minSdk = 24 // revenuecatui requires minSdk 24
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        versionCode = 1
+        versionName = "1.0"
+    }
+    compileOptions {
+        sourceCompatibility(libs.versions.java.get())
+        targetCompatibility(libs.versions.java.get())
     }
 }

@@ -139,6 +139,12 @@ executors:
     docker:
       - image: cimg/android:2024.09.1
     resource_class: large
+  android-consumer:
+    docker:
+      - image: cimg/android:2024.09.1
+    resource_class: large
+    environment:
+      ORG_GRADLE_PROJECT_usePublishedMavenLocalArtifacts: "true"
   jdk17:
     docker:
       - image: cimg/openjdk:17.0
@@ -407,6 +413,25 @@ jobs:
       - save-kotlin-native-compiler-to-cache
       - save-maven-local-artifacts-to-workspace
 
+  validate-android-consumer-link:
+    description: "Builds the installation test app against Maven Local SDK artifacts."
+    executor: android-consumer
+    steps:
+      - checkout
+      - attach-maven-local-artifacts-from-workspace
+      - run:
+          name: Verify Maven Local SDK artifacts are present
+          command: |
+            test -d ~/.m2/repository/com/revenuecat/purchases/purchases-kmp-core
+            ls ~/.m2/repository/com/revenuecat/purchases
+      - restore-gradle-user-home-directory-from-cache
+      - run:
+          name: Build Android installation test app against Maven Local artifacts
+          command: |
+            printf '\nusePublishedMavenLocalArtifacts=true\norg.gradle.configuration-cache=false\n' >> gradle.properties
+            ./gradlew :installationTestApp:assembleDebug
+      - save-gradle-user-home-directory-to-cache
+
   validate-ios-consumer-link:
     description: "Links the installation test app against Maven Local SDK artifacts."
     executor: xcode26-consumer
@@ -581,6 +606,8 @@ workflows:
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
       - validate-publish
+      - validate-android-consumer-link:
+          requires: [validate-publish]
       - validate-ios-consumer-link:
           requires: [validate-publish]
       - hold:
@@ -595,6 +622,7 @@ workflows:
             - unit-tests-android
             - unit-tests-ios
             - validate-binary-compatibility
+            - validate-android-consumer-link
             - validate-ios-consumer-link
       - revenuecat/tag-current-branch:
           requires:
