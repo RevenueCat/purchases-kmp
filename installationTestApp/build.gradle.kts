@@ -45,10 +45,10 @@ kotlin {
                 implementation("com.revenuecat.purchases:purchases-kmp-either:$version")
                 implementation("com.revenuecat.purchases:purchases-kmp-ui:$version")
             } else {
-                implementation(projects.core)
-                implementation(projects.result)
-                implementation(projects.either)
-                implementation(projects.revenuecatui)
+                implementation(project(":core"))
+                implementation(project(":result"))
+                implementation(project(":either"))
+                implementation(project(":revenuecatui"))
             }
         }
         androidMain.dependencies {

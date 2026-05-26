@@ -2,7 +2,7 @@
 
 Minimal Android and iOS consumer app used by release CI to verify Maven-published SDK artifacts compile and link like external integrators.
 
-Generated from the [Kotlin Multiplatform Wizard](https://kmp.new/) mobile-shared template. Uses project dependencies locally; consumer CI resolves from Maven Local via `-PusePublishedMavenLocalArtifacts=true`.
+Generated from the [Kotlin Multiplatform Wizard](https://kmp.new/) mobile-shared template. Uses project dependencies locally; consumer CI resolves from Maven Local via `-PusePublishedMavenLocalArtifacts=true` and limits the Gradle build to this module via `-PinstallationTestAppOnlyBuild=true`.
 
 ## CI usage
 
@@ -14,7 +14,7 @@ Generated from the [Kotlin Multiplatform Wizard](https://kmp.new/) mobile-shared
 
 ```bash
 ./gradlew publishToMavenLocal
-printf '\nusePublishedMavenLocalArtifacts=true\n' >> gradle.properties
+printf '\nusePublishedMavenLocalArtifacts=true\ninstallationTestAppOnlyBuild=true\n' >> gradle.properties
 ./gradlew :installationTestApp:assembleDebug
 xcodebuild -project installationTestApp/iosApp/iosApp.xcodeproj -scheme iosApp -sdk iphonesimulator -arch arm64 build
 ```

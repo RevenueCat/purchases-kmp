@@ -145,6 +145,7 @@ executors:
     resource_class: large
     environment:
       ORG_GRADLE_PROJECT_usePublishedMavenLocalArtifacts: "true"
+      ORG_GRADLE_PROJECT_installationTestAppOnlyBuild: "true"
   jdk17:
     docker:
       - image: cimg/openjdk:17.0
@@ -181,6 +182,7 @@ executors:
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
       ORG_GRADLE_PROJECT_usePublishedMavenLocalArtifacts: "true"
+      ORG_GRADLE_PROJECT_installationTestAppOnlyBuild: "true"
 
 jobs:
   prepare-next-snapshot-version:
@@ -435,7 +437,7 @@ jobs:
       - run:
           name: Build Android installation test app against Maven Local artifacts
           command: |
-            printf '\nusePublishedMavenLocalArtifacts=true\norg.gradle.configuration-cache=false\n' >> gradle.properties
+            printf '\nusePublishedMavenLocalArtifacts=true\ninstallationTestAppOnlyBuild=true\norg.gradle.configuration-cache=false\n' >> gradle.properties
             ./gradlew :installationTestApp:assembleDebug
       - save-gradle-user-home-directory-to-cache
 
@@ -444,7 +446,6 @@ jobs:
     executor: xcode26-consumer
     steps:
       - checkout
-      - checkout-submodule
       - attach-maven-local-artifacts-from-workspace
       - run:
           name: Verify Maven Local SDK artifacts are present
@@ -458,7 +459,7 @@ jobs:
       - run:
           name: Build iOS installation test app against Maven Local artifacts
           command: |
-            printf '\nusePublishedMavenLocalArtifacts=true\norg.gradle.configuration-cache=false\n' >> gradle.properties
+            printf '\nusePublishedMavenLocalArtifacts=true\ninstallationTestAppOnlyBuild=true\norg.gradle.configuration-cache=false\n' >> gradle.properties
             xcodebuild \
               -project installationTestApp/iosApp/iosApp.xcodeproj \
               -scheme iosApp \
