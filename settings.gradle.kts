@@ -12,6 +12,12 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
+        val usePublishedMavenLocalArtifacts =
+            startParameter.projectProperties["usePublishedMavenLocalArtifacts"] == "true" ||
+                System.getenv("ORG_GRADLE_PROJECT_usePublishedMavenLocalArtifacts") == "true"
+        if (usePublishedMavenLocalArtifacts) {
+            mavenLocal()
+        }
         google()
         mavenCentral()
     }
