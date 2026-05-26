@@ -151,9 +151,23 @@ executors:
   ruby3:
     docker:
       - image: cimg/ruby:3.3.0
-  xcode26:
+  # The Xcode version we use to build the static Swift library embedded in our Kotlin Native 
+  # artifacts will influence the minimum Xcode version of the consuming app: 
+  # https://github.com/RevenueCat/purchases-kmp/issues/859
+  # 
+  # We should support at least Xcode 26.0, as that is the latest Xcode version supported by
+  # Kotlin Native at time of writing:
+  # https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html
+  # 
+  # The CircleCI Xcode image retention policy means that Xcode 16.4.0 is going to be supported
+  # longer than Xcode 26.0 is:
+  # https://circleci.com/docs/guides/execution-managed/xcode-policy/#xcode-image-retention-and-deprecation
+  # 
+  # So for that reason we use Xcode 16.4.0 to build our Kotlin Native artifacts (including the 
+  # static Swift library) in CI. 
+  xcode16:
     macos:
-      xcode: 26.4.1
+      xcode: 16.4.0
     resource_class: m4pro.medium
     environment:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
@@ -190,7 +204,7 @@ jobs:
           command: bundle exec fastlane prepare_next_snapshot_version
 
   detekt:
-    executor: xcode26
+    executor: xcode16
     steps:
       - checkout
       - checkout-submodule
@@ -207,7 +221,7 @@ jobs:
           destination: detekt
 
   validate-binary-compatibility:
-    executor: xcode26
+    executor: xcode16
     steps:
       - install-android-sdk-on-macos
       - checkout
@@ -241,7 +255,7 @@ jobs:
       - save-incremental-gradle-build-to-workspace
 
   build-libraries-ios:
-    executor: xcode26
+    executor: xcode16
     steps:
       - checkout
       - checkout-submodule
@@ -281,7 +295,7 @@ jobs:
       - save-gradle-user-home-directory-to-cache
 
   build-sample-ios:
-    executor: xcode26
+    executor: xcode16
     steps:
       - checkout
       - checkout-submodule
@@ -327,7 +341,7 @@ jobs:
       - save-gradle-user-home-directory-to-cache
 
   public-api-tests-ios:
-    executor: xcode26
+    executor: xcode16
     steps:
       - checkout
       - checkout-submodule
@@ -364,7 +378,7 @@ jobs:
       - save-gradle-user-home-directory-to-cache
 
   unit-tests-ios:
-    executor: xcode26
+    executor: xcode16
     steps:
       - checkout
       - checkout-submodule
@@ -383,7 +397,7 @@ jobs:
       - save-kotlin-native-compiler-to-cache
 
   unit-tests-build-logic:
-    executor: xcode26
+    executor: xcode16
     steps:
       - checkout
       - checkout-submodule
@@ -465,7 +479,7 @@ jobs:
 
   publish:
     description: "Publishes the SDK, either a SNAPSHOT or release version."
-    executor: xcode26
+    executor: xcode16
     parameters:
       snapshot:
         description: Whether to publish a SNAPSHOT version. Will publish a final release if set to false.
