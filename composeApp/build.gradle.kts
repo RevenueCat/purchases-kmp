@@ -9,10 +9,6 @@ plugins {
     alias(libs.plugins.codingfeline.buildkonfig)
 }
 
-val usePublishedMavenLocalArtifacts = providers.gradleProperty("usePublishedMavenLocalArtifacts")
-    .map { it.equals("true", ignoreCase = true) }
-    .orElse(false)
-
 kotlin {
     androidTarget {
         compilations.all {
@@ -49,18 +45,10 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
-            if (usePublishedMavenLocalArtifacts.get()) {
-                val version = libs.versions.revenuecat.kmp.get()
-                implementation("com.revenuecat.purchases:purchases-kmp-core:$version")
-                implementation("com.revenuecat.purchases:purchases-kmp-result:$version")
-                implementation("com.revenuecat.purchases:purchases-kmp-either:$version")
-                implementation("com.revenuecat.purchases:purchases-kmp-ui:$version")
-            } else {
-                implementation(projects.core)
-                implementation(projects.result)
-                implementation(projects.either)
-                implementation(projects.revenuecatui)
-            }
+            implementation(projects.core)
+            implementation(projects.result)
+            implementation(projects.either)
+            implementation(projects.revenuecatui)
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)

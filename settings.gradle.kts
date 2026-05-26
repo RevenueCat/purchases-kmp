@@ -12,8 +12,14 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
+        val gradleProperties = java.util.Properties()
+        val gradlePropertiesFile = File(settingsDir, "gradle.properties")
+        if (gradlePropertiesFile.exists()) {
+            gradlePropertiesFile.inputStream().use { gradleProperties.load(it) }
+        }
         val usePublishedMavenLocalArtifacts =
-            startParameter.projectProperties["usePublishedMavenLocalArtifacts"] == "true" ||
+            gradleProperties.getProperty("usePublishedMavenLocalArtifacts") == "true" ||
+                startParameter.projectProperties["usePublishedMavenLocalArtifacts"] == "true" ||
                 System.getenv("ORG_GRADLE_PROJECT_usePublishedMavenLocalArtifacts") == "true"
         if (usePublishedMavenLocalArtifacts) {
             mavenLocal()
@@ -35,3 +41,4 @@ include(":models")
 include(":result")
 include(":revenuecatui")
 include(":e2e-tests:MaestroTestApp")
+include(":installationTestApp")

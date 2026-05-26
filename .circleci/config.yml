@@ -160,7 +160,7 @@ executors:
     resource_class: m4pro.medium
     environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
-  # Links the sample app against Maven Local artifacts on a current Xcode 26 image.
+  # Links the installation test app against Maven Local artifacts on a current Xcode 26 image.
   xcode26-consumer:
     macos:
       xcode: 26.5.0
@@ -408,7 +408,7 @@ jobs:
       - save-maven-local-artifacts-to-workspace
 
   validate-ios-consumer-link:
-    description: "Links the sample app against Maven Local SDK artifacts using Xcode 26.5."
+    description: "Links the installation test app against Maven Local SDK artifacts."
     executor: xcode26-consumer
     steps:
       - checkout
@@ -424,11 +424,11 @@ jobs:
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - run:
-          name: Build iOS sample app against Maven Local artifacts
+          name: Build iOS installation test app against Maven Local artifacts
           command: |
             printf '\nusePublishedMavenLocalArtifacts=true\norg.gradle.configuration-cache=false\n' >> gradle.properties
             xcodebuild \
-              -project iosApp/iosApp.xcodeproj \
+              -project installationTestApp/iosApp/iosApp.xcodeproj \
               -scheme iosApp \
               -configuration Debug \
               -sdk iphonesimulator \
