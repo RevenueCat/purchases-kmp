@@ -547,12 +547,6 @@ workflows:
           # This would benefit from the incremental build output of build-libraries-android
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
-      # TEMP: validate Maven consumer checks on PRs before moving them to release-only.
-      - validate-publish
-      - validate-android-consumer-link:
-          requires: [validate-publish]
-      - validate-ios-consumer-link:
-          requires: [validate-publish]
 
   on-main-branch:
     when:
