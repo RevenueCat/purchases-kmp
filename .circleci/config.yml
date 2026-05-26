@@ -117,7 +117,7 @@ executors:
   ruby3:
     docker:
       - image: cimg/ruby:3.3.0
-  # All macOS CI uses Xcode 16.4 so published Swift artifacts link on Xcode 26.0.1+ (#859).
+  # Most macOS CI uses Xcode 16.4 so published Swift artifacts link on Xcode 26.0.1+ (#859).
   # Xcode 16 images also stay available on CircleCI much longer than specific Xcode 26 point releases.
   xcode16:
     macos:
@@ -126,6 +126,13 @@ executors:
     environment:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
       # freshly installed.
+      HOMEBREW_NO_AUTO_UPDATE: 1
+  # build-sample-ios runs here to catch Xcode 26 consumer-side linking on every PR.
+  xcode26:
+    macos:
+      xcode: 26.5.0
+    resource_class: m4pro.medium
+    environment:
       HOMEBREW_NO_AUTO_UPDATE: 1
 
 jobs:
@@ -234,7 +241,7 @@ jobs:
       - save-gradle-user-home-directory-to-cache
 
   build-sample-ios:
-    executor: xcode16
+    executor: xcode26
     steps:
       - checkout
       - checkout-submodule
