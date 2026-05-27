@@ -1,11 +1,7 @@
 ## RevenueCat SDK
 ### 📦 Dependency Updates
-* [RENOVATE] Update purchases-android to v10.6.1 (#868) via RevenueCat Git Bot (@RCGitBot)
-* [RENOVATE] Update dependency upstream/purchases-ios to v5.73.1 (#867) via RevenueCat Git Bot (@RCGitBot)
-* [RENOVATE] Update dependency gradle to v9.5.1 (#857) via RevenueCat Git Bot (@RCGitBot)
-* [RENOVATE] Update dependency upstream/purchases-ios to v5.73.0 (#858) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.74.0 (#871) via RevenueCat Git Bot (@RCGitBot)
 
 ### 🔄 Other Changes
-* Removes `swiftPMImport` from cinterop package name (#854) via JayShortway (@JayShortway)
-* Fix git ls-tree path in get_ios_version (#865) via Antonio Pallares (@ajpallares)
-* Fix VERSIONS.md not updating on automatic releases (#863) via Antonio Pallares (@ajpallares)
+* Bump fastlane from 2.234.0 to 2.235.0 (#874) via dependabot[bot] (@dependabot[bot])
+* Pin macOS CI to Xcode 16.4 to fix Xcode 26.0.1 compatibility (#872) via Antonio Pallares (@ajpallares)
