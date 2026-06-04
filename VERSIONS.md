@@ -1,5 +1,6 @@
 | Version | iOS version | Android version | Common files version | Play Billing Library version |
 |---------|-------------|-----------------|----------------------|------------------------------|
+| 3.0.5 | [5.76.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.76.0) | [10.8.0](https://github.com/RevenueCat/purchases-android/releases/tag/10.8.0) | N/A | [8.3.0](https://developer.android.com/google/play/billing/release-notes) |
 | 3.0.4 | [5.75.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.75.0) | [10.7.0](https://github.com/RevenueCat/purchases-android/releases/tag/10.7.0) | N/A | [8.3.0](https://developer.android.com/google/play/billing/release-notes) |
 | 3.0.3 | [5.74.0](https://github.com/RevenueCat/purchases-ios/releases/tag/5.74.0) | [10.6.1](https://github.com/RevenueCat/purchases-android/releases/tag/10.6.1) | N/A | [8.3.0](https://developer.android.com/google/play/billing/release-notes) |
 | 3.0.2 | [5.73.1](https://github.com/RevenueCat/purchases-ios/releases/tag/5.73.1) | [10.6.1](https://github.com/RevenueCat/purchases-android/releases/tag/10.6.1) | N/A | [8.3.0](https://developer.android.com/google/play/billing/release-notes) |
