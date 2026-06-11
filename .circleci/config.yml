@@ -1,12 +1,16 @@
 aliases:
-  # Uses the same regex as release-tags-job
+  # Matches the same tags as release-tags-job, but without lookaheads,
+  # which are unsupported in `when: matches:` conditions:
+  # https://circleci.com/changelog/breaking-change-regex-engine-update-for-config-compilation/
   release-tags-workflow: &release-tags-workflow
     when:
       and:
-        - matches: { pattern: "^[0-9]+\\.[0-9]+\\.[0-9]+(?!.*-SNAPSHOT).*$", value: << pipeline.git.tag >> }
+        - matches: { pattern: "^[0-9]+\\.[0-9]+\\.[0-9]+.*$", value: << pipeline.git.tag >> }
+        - not:
+            matches: { pattern: ".*-SNAPSHOT.*", value: << pipeline.git.tag >> }
         - not:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-  # Uses the same regex as release-tags-workflow
+  # Matches the same tags as release-tags-workflow
   release-tags-job: &release-tags-job
     filters:
       tags:
