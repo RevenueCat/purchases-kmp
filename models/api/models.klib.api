@@ -681,8 +681,14 @@ final class com.revenuecat.purchases.kmp.models/AdRevenuePrecision { // com.reve
 }
 
 final class com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams { // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams|null[0]
-    constructor <init>(kotlin/String? = ..., kotlin/String? = ...) // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.<init>|<init>(kotlin.String?;kotlin.String?){}[0]
+    constructor <init>() // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.<init>|<init>(){}[0]
+    constructor <init>(com.revenuecat.purchases.kmp.models/Offering, kotlin/String? = ...) // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.<init>|<init>(com.revenuecat.purchases.kmp.models.Offering;kotlin.String?){}[0]
+    constructor <init>(kotlin/String? = ..., com.revenuecat.purchases.kmp.models/Offering, kotlin/String?) // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.<init>|<init>(kotlin.String?;com.revenuecat.purchases.kmp.models.Offering;kotlin.String?){}[0]
+    constructor <init>(kotlin/String? = ..., kotlin/String?) // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.<init>|<init>(kotlin.String?;kotlin.String?){}[0]
+    constructor <init>(kotlin/String?) // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.<init>|<init>(kotlin.String?){}[0]
 
+    final val offering // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.offering|{}offering[0]
+        final fun <get-offering>(): com.revenuecat.purchases.kmp.models/Offering? // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.offering.<get-offering>|<get-offering>(){}[0]
     final val offeringId // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.offeringId|{}offeringId[0]
         final fun <get-offeringId>(): kotlin/String? // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.offeringId.<get-offeringId>|<get-offeringId>(){}[0]
     final val paywallId // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.paywallId|{}paywallId[0]

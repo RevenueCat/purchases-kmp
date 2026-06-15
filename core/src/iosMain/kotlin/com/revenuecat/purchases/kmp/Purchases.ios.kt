@@ -6,6 +6,7 @@ import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toIntroEligibilityStatus
 import com.revenuecat.purchases.kmp.mappings.toIosCacheFetchPolicy
 import com.revenuecat.purchases.kmp.mappings.toIosEntitlementVerificationMode
+import com.revenuecat.purchases.kmp.mappings.toIosOffering
 import com.revenuecat.purchases.kmp.mappings.toIosPackage
 import com.revenuecat.purchases.kmp.mappings.toIosPromotionalOffer
 import com.revenuecat.purchases.kmp.mappings.toIosPurchasesAreCompletedBy
@@ -799,12 +800,23 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             )
             return
         }
-        iosPurchases.trackCustomPaywallImpression(
+        val paywallId = params.paywallId
+        @Suppress("DEPRECATION")
+        val offeringId = params.offeringId
+        val iosParams = params.offering?.let { offering ->
             RCCustomPaywallImpressionParams(
-                paywallId = params.paywallId,
-                offeringId = params.offeringId
+                paywallId = paywallId,
+                offering = offering.toIosOffering(),
             )
-        )
+        } ?: run {
+            @Suppress("DEPRECATION")
+            RCCustomPaywallImpressionParams(
+                paywallId = paywallId,
+                offeringId = offeringId
+            )
+        }
+
+        iosPurchases.trackCustomPaywallImpression(iosParams)
     }
 
     @ExperimentalRevenueCatApi
