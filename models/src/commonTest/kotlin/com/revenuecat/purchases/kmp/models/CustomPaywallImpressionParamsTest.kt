@@ -33,6 +33,14 @@ class CustomPaywallImpressionParamsTest {
     }
 
     @Test
+    fun `constructor with null offeringId`() {
+        val params = CustomPaywallImpressionParams(offeringId = null)
+        assertNotNull(params)
+        assertNull(params.paywallId)
+        assertNull(params.offeringId)
+    }
+
+    @Test
     fun `constructor with offeringId only`() {
         val params = CustomPaywallImpressionParams(offeringId = "my-offering")
         assertNotNull(params)

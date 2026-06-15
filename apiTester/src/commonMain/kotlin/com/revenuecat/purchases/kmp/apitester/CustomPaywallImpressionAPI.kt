@@ -12,6 +12,8 @@ private class CustomPaywallImpressionAPI {
             CustomPaywallImpressionParams(paywallId = "my-paywall")
         val paramsWithNullPaywallId: CustomPaywallImpressionParams =
             CustomPaywallImpressionParams(paywallId = null)
+        val paramsWithNullOfferingId: CustomPaywallImpressionParams =
+            CustomPaywallImpressionParams(offeringId = null)
         val paramsWithOfferingId: CustomPaywallImpressionParams =
             CustomPaywallImpressionParams(offeringId = "my-offering")
         val paramsWithBoth: CustomPaywallImpressionParams =
