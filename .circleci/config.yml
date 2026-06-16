@@ -460,9 +460,6 @@ workflows:
           snapshot: true
           context: maven-central-publishing
 
-  # Triggered by purchases-error-codes (the error-code SSOT) on merge to its main, via the
-  # update_error_codes pipeline parameter. Copies the generated PurchasesErrorCode enum and
-  # opens/updates a PR.
   update-error-codes:
     when:
       equal: [ update_error_codes, << pipeline.parameters.action >> ]
@@ -470,8 +467,8 @@ workflows:
       - revenuecat/update-error-codes:
           executor: xcode16
           platform: kmp
-          output: models/src/commonMain/kotlin/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt
-          commit_paths: "models/src/commonMain/kotlin/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt,models/api/models.api,models/api/models.klib.api"
+          output: models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt
+          commit_paths: "models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt,models/api/models.api,models/api/models.klib.api"
           context:
             - git-user-ops
             - github-bot-public
