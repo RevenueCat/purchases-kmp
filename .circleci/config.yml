@@ -22,7 +22,7 @@ version: 2.1
 
 orbs:
   android: circleci/android@2.5.0
-  revenuecat: revenuecat/sdks-common-config@3.16.0
+  revenuecat: revenuecat/sdks-common-config@3.21.1
 
 commands:
   install-android-sdk-on-macos:
@@ -107,7 +107,7 @@ commands:
 parameters:
   action:
     type: enum
-    enum: [ build, bump ]
+    enum: [ build, bump, update_error_codes ]
     default: build
 
 executors:
@@ -419,6 +419,7 @@ workflows:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
         - not:
             matches: { pattern: "^release/.+$", value: << pipeline.git.branch >> }
+        - equal: [ build, << pipeline.parameters.action >> ]
     jobs:
       - revenuecat/danger:
           context: danger-bot
@@ -449,6 +450,7 @@ workflows:
         - equal: [ main, << pipeline.git.branch >> ]
         - not:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - equal: [ build, << pipeline.parameters.action >> ]
     jobs:
       - prepare-next-snapshot-version:
           context:
@@ -457,6 +459,31 @@ workflows:
       - publish:
           snapshot: true
           context: maven-central-publishing
+
+  update-error-codes:
+    when:
+      equal: [ update_error_codes, << pipeline.parameters.action >> ]
+    jobs:
+      - revenuecat/update-error-codes:
+          executor: xcode16
+          platform: kmp
+          output: models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt
+          commit_paths: "models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt,models/api/models.api,models/api/models.klib.api"
+          context:
+            - git-user-ops
+            - github-bot-public
+          update_api_steps:
+            - install-android-sdk-on-macos
+            - checkout-submodule
+            - restore-gradle-user-home-directory-from-cache
+            - restore-kotlin-native-compiler-from-cache
+            - revenuecat/install-gem-mac-dependencies:
+                cache-version: v1
+            - run:
+                name: Regenerate API dumps
+                command: ./gradlew apiDump
+            - save-gradle-user-home-directory-to-cache
+            - save-kotlin-native-compiler-to-cache
 
   # The release train starts with the release-train workflow, which is automatically 
   # triggered every week, but can also be triggered manually by passing the "action" 
