@@ -53,6 +53,7 @@ public class CustomPaywallImpressionParams private constructor(
     @Deprecated(
         message = "Pass an Offering object instead. Using an offering identifier string prevents " +
             "the SDK from deriving placement and targeting context automatically.",
+        replaceWith = ReplaceWith("CustomPaywallImpressionParams(paywallId, offering)"),
     )
     public constructor(
         paywallId: String? = null,
@@ -74,27 +75,7 @@ public class CustomPaywallImpressionParams private constructor(
      * @param offering The [Offering] associated with the custom paywall.
      */
     public constructor(
-        offering: Offering,
-        paywallId: String? = null,
-    ) : this(paywallId, offering.identifier, offering)
-
-    /**
-     * Creates parameters from the offering the custom paywall was obtained from.
-     *
-     * When both [offering] and [offeringId] are provided, [offering] wins.
-     *
-     * @param paywallId An optional identifier for the custom paywall being shown.
-     * @param offering The [Offering] associated with the custom paywall.
-     * @param offeringId [Deprecated] Use [offering] instead. Ignored when [offering] is provided.
-     */
-    @Deprecated(
-        message = "Pass only an Offering object instead. The offeringId is ignored when Offering is provided.",
-        replaceWith = ReplaceWith("CustomPaywallImpressionParams(offering, paywallId)"),
-    )
-    public constructor(
         paywallId: String? = null,
         offering: Offering,
-        @Suppress("UNUSED_PARAMETER")
-        offeringId: String?,
     ) : this(paywallId, offering.identifier, offering)
 }

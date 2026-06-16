@@ -28,12 +28,6 @@ private class CustomPaywallImpressionAPI {
         // CustomPaywallImpressionParams constructors
         val paramsWithOffering: CustomPaywallImpressionParams =
             CustomPaywallImpressionParams(offering = offering)
-        val paramsWithOfferingAndLegacyId: CustomPaywallImpressionParams =
-            CustomPaywallImpressionParams(
-                paywallId = "my-paywall",
-                offering = offering,
-                offeringId = "legacy-offering",
-            )
 
         // CustomPaywallImpressionParams properties
         val offeringProperty: Offering? = paramsWithOffering.offering

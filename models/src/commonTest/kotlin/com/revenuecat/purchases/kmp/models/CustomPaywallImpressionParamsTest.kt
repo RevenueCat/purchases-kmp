@@ -96,21 +96,6 @@ class CustomPaywallImpressionParamsTest {
         assertEquals(offering, params.offering)
     }
 
-    @Test
-    fun `constructor with offering and legacy offeringId uses offering`() {
-        val offering = FakeOffering(identifier = "my-offering")
-        val params = CustomPaywallImpressionParams(
-            paywallId = "my-paywall",
-            offering = offering,
-            offeringId = "legacy-offering",
-        )
-
-        assertNotNull(params)
-        assertEquals("my-paywall", params.paywallId)
-        assertEquals("my-offering", params.offeringId)
-        assertEquals(offering, params.offering)
-    }
-
     private class FakeOffering(
         override val identifier: String,
     ) : Offering {
