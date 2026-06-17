@@ -17,6 +17,7 @@ import com.revenuecat.purchases.kmp.mappings.toAndroidBillingFeature
 import com.revenuecat.purchases.kmp.mappings.toAndroidCacheFetchPolicy
 import com.revenuecat.purchases.kmp.mappings.toAndroidEntitlementVerificationMode
 import com.revenuecat.purchases.kmp.mappings.toAndroidGoogleReplacementMode
+import com.revenuecat.purchases.kmp.mappings.toAndroidOffering
 import com.revenuecat.purchases.kmp.mappings.toAndroidPackage
 import com.revenuecat.purchases.kmp.mappings.toAndroidPurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.mappings.toAndroidStore
@@ -598,12 +599,23 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual fun trackCustomPaywallImpression(
         params: KmpCustomPaywallImpressionParams,
     ) {
-        androidPurchases.trackCustomPaywallImpression(
+        val paywallId = params.paywallId
+        @Suppress("DEPRECATION")
+        val offeringId = params.offeringId
+        val androidParams = params.offering?.let { offering ->
             AndroidCustomPaywallImpressionParams(
-                paywallId = params.paywallId,
-                offeringId = params.offeringId,
+                paywallId = paywallId,
+                offering = offering.toAndroidOffering(),
             )
-        )
+        } ?: run {
+            @Suppress("DEPRECATION")
+            AndroidCustomPaywallImpressionParams(
+                paywallId = paywallId,
+                offeringId = offeringId,
+            )
+        }
+
+        androidPurchases.trackCustomPaywallImpression(androidParams)
     }
 
     @ExperimentalRevenueCatApi
