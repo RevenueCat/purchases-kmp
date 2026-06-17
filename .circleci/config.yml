@@ -22,7 +22,9 @@ version: 2.1
 
 orbs:
   android: circleci/android@2.5.0
-  revenuecat: revenuecat/sdks-common-config@3.21.2
+  # TODO: pin to the sdks-circleci-orb release that adds the `outputs` parameter
+  # (unreleased; see https://github.com/RevenueCat/sdks-circleci-orb/pull/70).
+  revenuecat: revenuecat/sdks-common-config@3.22.0
 
 commands:
   install-android-sdk-on-macos:
@@ -467,8 +469,11 @@ workflows:
       - revenuecat/update-error-codes:
           executor: xcode16
           platform: kmp
-          output: models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt
-          commit_paths: "models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt,models/api/models.api,models/api/models.klib.api"
+          outputs: |
+            PurchasesErrorCode.kt:models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt
+            errors.android.kt:mappings/src/androidMain/kotlin/com/revenuecat/purchases/kmp/mappings/errors.android.kt
+            errors.ios.kt:mappings/src/iosMain/kotlin/com/revenuecat/purchases/kmp/mappings/errors.ios.kt
+          commit_paths: "models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt,mappings/src/androidMain/kotlin/com/revenuecat/purchases/kmp/mappings/errors.android.kt,mappings/src/iosMain/kotlin/com/revenuecat/purchases/kmp/mappings/errors.ios.kt,models/api/models.api,models/api/models.klib.api"
           context:
             - git-user-ops
             - github-bot-public
