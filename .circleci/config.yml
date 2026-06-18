@@ -22,9 +22,7 @@ version: 2.1
 
 orbs:
   android: circleci/android@2.5.0
-  # TODO: pin to the sdks-circleci-orb release that adds the `outputs` parameter
-  # (unreleased; see https://github.com/RevenueCat/sdks-circleci-orb/pull/70).
-  revenuecat: revenuecat/sdks-common-config@3.22.0
+  revenuecat: revenuecat/sdks-common-config@4.0.0
 
 commands:
   install-android-sdk-on-macos:
