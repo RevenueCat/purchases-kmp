@@ -469,9 +469,9 @@ workflows:
           platform: kmp
           outputs: |
             PurchasesErrorCode.kt:models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt
-            errors.android.kt:mappings/src/androidMain/kotlin/com/revenuecat/purchases/kmp/mappings/errors.android.kt
-            errors.ios.kt:mappings/src/iosMain/kotlin/com/revenuecat/purchases/kmp/mappings/errors.ios.kt
-          commit_paths: "models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt,mappings/src/androidMain/kotlin/com/revenuecat/purchases/kmp/mappings/errors.android.kt,mappings/src/iosMain/kotlin/com/revenuecat/purchases/kmp/mappings/errors.ios.kt,models/api/models.api,models/api/models.klib.api"
+            errors.android.kt:mappings/src/androidMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.android.kt
+            errors.ios.kt:mappings/src/iosMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.ios.kt
+          commit_paths: "models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt,mappings/src/androidMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.android.kt,mappings/src/iosMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.ios.kt,models/api/models.api,models/api/models.klib.api"
           context:
             - git-user-ops
             - github-bot-public
