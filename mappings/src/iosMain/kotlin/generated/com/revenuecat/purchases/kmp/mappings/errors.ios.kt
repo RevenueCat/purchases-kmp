@@ -58,4 +58,4 @@ private fun Long.toPurchasesErrorCode(): PurchasesErrorCode =
         41L -> PurchasesErrorCode.ExpiredWebPurchaseToken
         42L -> PurchasesErrorCode.TestStoreSimulatedPurchaseError
         else -> error("Unexpected ErrorCode: $this")
-}
+    }
