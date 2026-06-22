@@ -152,7 +152,7 @@ Don't raise minimum versions unless explicitly required and justified.
 
 ## Development Workflow
 
-1. Install sdkman and run `sdk env install` in project root
+1. Install [mise](https://mise.jdx.dev/) and run `mise install` in project root to install the pinned JDK
 2. Build: `./gradlew build`
 3. Make changes following KMP source set conventions
 4. Run tests: `./gradlew test`
