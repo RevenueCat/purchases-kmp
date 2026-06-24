@@ -10,7 +10,6 @@ aliases:
             matches: { pattern: ".*-SNAPSHOT.*", value: << pipeline.git.tag >> }
         - not:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-  # Matches the same tags as release-tags-workflow
   release-tags-job: &release-tags-job
     filters:
       tags:
