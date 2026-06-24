@@ -91,6 +91,34 @@ commands:
           name: Attach workspace at working directory
           at: ./
 
+  save-maven-local-artifacts-to-workspace:
+    steps:
+      - run:
+          name: Stage Maven Local artifacts for workspace
+          command: |
+            test -d "$HOME/.m2/repository/com/revenuecat/purchases"
+            mkdir -p maven-local-artifacts/com
+            cp -R "$HOME/.m2/repository/com/revenuecat" maven-local-artifacts/com/
+            find maven-local-artifacts/com/revenuecat/purchases -maxdepth 3 -type d
+      - persist_to_workspace:
+          name: Save Maven Local artifacts to workspace
+          root: ./
+          paths:
+            - maven-local-artifacts/com/revenuecat
+
+  attach-maven-local-artifacts-from-workspace:
+    steps:
+      - attach_workspace:
+          name: Attach Maven Local artifacts from workspace
+          at: ./
+      - run:
+          name: Restore Maven Local artifacts from workspace
+          command: |
+            test -d maven-local-artifacts/com/revenuecat/purchases
+            mkdir -p "$HOME/.m2/repository/com/revenuecat"
+            cp -R maven-local-artifacts/com/revenuecat/purchases "$HOME/.m2/repository/com/revenuecat/"
+            find "$HOME/.m2/repository/com/revenuecat/purchases" -maxdepth 3 -type d
+
   checkout-submodule:
     description: "Checks out a git submodule."
     parameters:
@@ -115,6 +143,13 @@ executors:
     docker:
       - image: cimg/android:2024.09.1
     resource_class: large
+  android-consumer:
+    docker:
+      - image: cimg/android:2024.09.1
+    resource_class: large
+    environment:
+      ORG_GRADLE_PROJECT_usePublishedMavenLocalArtifacts: "true"
+      ORG_GRADLE_PROJECT_installationTestAppOnlyBuild: "true"
   jdk17:
     docker:
       - image: cimg/openjdk:17.0
@@ -143,6 +178,15 @@ executors:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
       # freshly installed.
       HOMEBREW_NO_AUTO_UPDATE: 1
+  # Links the installation test app against Maven Local artifacts on a current Xcode 26 image.
+  xcode26-consumer:
+    macos:
+      xcode: 26.5.0
+    resource_class: m4pro.medium
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      ORG_GRADLE_PROJECT_usePublishedMavenLocalArtifacts: "true"
+      ORG_GRADLE_PROJECT_installationTestAppOnlyBuild: "true"
 
 jobs:
   prepare-next-snapshot-version:
@@ -366,6 +410,71 @@ jobs:
       - save-gradle-user-home-directory-to-cache
       - save-incremental-gradle-build-to-workspace
 
+  validate-publish:
+    description: "Builds release publish artifacts locally without uploading to Maven Central."
+    executor: xcode16
+    steps:
+      - checkout
+      - checkout-submodule
+      - install-android-sdk-on-macos
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - run:
+          name: Build publish artifacts (Maven Local only)
+          command: ./gradlew publishToMavenLocal --no-configuration-cache -PskipSigningForMavenLocal=true
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
+      - save-maven-local-artifacts-to-workspace
+
+  validate-android-consumer-link:
+    description: "Builds the installation test app against Maven Local SDK artifacts."
+    executor: android-consumer
+    steps:
+      - checkout
+      - attach-maven-local-artifacts-from-workspace
+      - run:
+          name: Verify Maven Local SDK artifacts are present
+          command: |
+            test -d ~/.m2/repository/com/revenuecat/purchases/purchases-kmp-core
+            ls ~/.m2/repository/com/revenuecat/purchases
+      - restore-gradle-user-home-directory-from-cache
+      - run:
+          name: Build Android installation test app against Maven Local artifacts
+          command: |
+            printf '\nusePublishedMavenLocalArtifacts=true\ninstallationTestAppOnlyBuild=true\norg.gradle.configuration-cache=false\n' >> gradle.properties
+            ./gradlew :installationTestApp:assembleDebug
+      - save-gradle-user-home-directory-to-cache
+
+  validate-ios-consumer-link:
+    description: "Links the installation test app against Maven Local SDK artifacts."
+    executor: xcode26-consumer
+    steps:
+      - checkout
+      - attach-maven-local-artifacts-from-workspace
+      - run:
+          name: Verify Maven Local SDK artifacts are present
+          command: |
+            test -d ~/.m2/repository/com/revenuecat/purchases/purchases-kmp-core
+            ls ~/.m2/repository/com/revenuecat/purchases
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - run:
+          name: Build iOS installation test app against Maven Local artifacts
+          command: |
+            printf '\nusePublishedMavenLocalArtifacts=true\ninstallationTestAppOnlyBuild=true\norg.gradle.configuration-cache=false\n' >> gradle.properties
+            xcodebuild \
+              -project installationTestApp/iosApp/iosApp.xcodeproj \
+              -scheme iosApp \
+              -configuration Debug \
+              -sdk iphonesimulator \
+              -arch arm64 \
+              ONLY_ACTIVE_ARCH=YES \
+              build
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
+
   publish:
     description: "Publishes the SDK, either a SNAPSHOT or release version."
     executor: xcode16
@@ -538,6 +647,11 @@ workflows:
           # This would benefit from the incremental build output of build-libraries-android
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
+      - validate-publish
+      - validate-android-consumer-link:
+          requires: [validate-publish]
+      - validate-ios-consumer-link:
+          requires: [validate-publish]
       - hold:
           type: approval
           requires:
@@ -550,6 +664,8 @@ workflows:
             - unit-tests-android
             - unit-tests-ios
             - validate-binary-compatibility
+            - validate-android-consumer-link
+            - validate-ios-consumer-link
       - revenuecat/tag-current-branch:
           requires:
             - hold
