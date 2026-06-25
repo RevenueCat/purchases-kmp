@@ -636,11 +636,12 @@ public final class com/revenuecat/purchases/kmp/models/Storefront {
 }
 
 public final class com/revenuecat/purchases/kmp/models/SubscriptionInfo {
-	public fun <init> (Ljava/lang/String;JLjava/lang/Long;Ljava/lang/Long;Lcom/revenuecat/purchases/kmp/models/Store;ZLjava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;Lcom/revenuecat/purchases/kmp/models/OwnershipType;Lcom/revenuecat/purchases/kmp/models/PeriodType;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Long;Lcom/revenuecat/purchases/kmp/models/Price;Ljava/lang/String;Ljava/lang/String;ZZ)V
+	public fun <init> (Ljava/lang/String;JLjava/lang/Long;Ljava/lang/Long;Lcom/revenuecat/purchases/kmp/models/Store;ZLjava/lang/Long;Ljava/lang/Long;Ljava/lang/Long;Lcom/revenuecat/purchases/kmp/models/OwnershipType;Lcom/revenuecat/purchases/kmp/models/PeriodType;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Long;Lcom/revenuecat/purchases/kmp/models/Price;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ZZ)V
 	public final fun getAutoResumeDate ()Lkotlin/time/Instant;
 	public final fun getAutoResumeDateMillis ()Ljava/lang/Long;
 	public final fun getBillingIssuesDetectedAt ()Lkotlin/time/Instant;
 	public final fun getBillingIssuesDetectedAtMillis ()Ljava/lang/Long;
+	public final fun getDisplayName ()Ljava/lang/String;
 	public final fun getExpiresDate ()Lkotlin/time/Instant;
 	public final fun getExpiresDateMillis ()Ljava/lang/Long;
 	public final fun getGracePeriodExpiresDate ()Lkotlin/time/Instant;

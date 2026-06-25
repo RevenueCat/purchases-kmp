@@ -48,6 +48,7 @@ internal fun Any.toSubscriptionInfo(): SubscriptionInfo {
         price = subscriptionPrice,
         productPlanIdentifier = null, // Not available on iOS
         managementUrlString = (obj.valueForKey("managementURL") as? NSURL)?.absoluteString,
+        displayName = obj.valueForKey("displayName") as? String,
         isActive = obj.valueForKey("isActive") as Boolean,
         willRenew = obj.valueForKey("willRenew") as Boolean
     )
