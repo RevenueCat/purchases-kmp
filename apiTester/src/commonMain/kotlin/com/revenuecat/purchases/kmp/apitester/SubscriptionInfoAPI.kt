@@ -31,6 +31,7 @@ private class SubscriptionInfoAPI {
             val pr: Price? = price
             val ppi: String? = productPlanIdentifier
             val mus: String? = managementUrlString
+            val dn: String? = displayName
             val ia: Boolean = isActive
             val wr: Boolean = willRenew
             val opd: Instant? = originalPurchaseDate

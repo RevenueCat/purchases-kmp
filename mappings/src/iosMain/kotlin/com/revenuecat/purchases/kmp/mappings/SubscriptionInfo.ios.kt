@@ -44,10 +44,11 @@ internal fun Any.toSubscriptionInfo(): SubscriptionInfo {
         periodType = (obj.valueForKey("periodType") as RCPeriodType).toPeriodType(),
         refundedAtMillis = (obj.valueForKey("refundedAt") as? NSDate)?.toEpochMilliseconds(),
         storeTransactionId = obj.valueForKey("storeTransactionId") as? String,
-        autoResumeDateMillis = null, // Not available on iOS
+        autoResumeDateMillis = (obj.valueForKey("autoResumeDate") as? NSDate)?.toEpochMilliseconds(),
         price = subscriptionPrice,
-        productPlanIdentifier = null, // Not available on iOS
+        productPlanIdentifier = obj.valueForKey("productPlanIdentifier") as? String,
         managementUrlString = (obj.valueForKey("managementURL") as? NSURL)?.absoluteString,
+        displayName = obj.valueForKey("displayName") as? String,
         isActive = obj.valueForKey("isActive") as Boolean,
         willRenew = obj.valueForKey("willRenew") as Boolean
     )

@@ -114,6 +114,11 @@ public class SubscriptionInfo(
     public val managementUrlString: String?,
 
     /**
+     * The name of the subscription product in the stores.
+     */
+    public val displayName: String?,
+
+    /**
      * Whether the subscription is currently active.
      */
     public val isActive: Boolean,
