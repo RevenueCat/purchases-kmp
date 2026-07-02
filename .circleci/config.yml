@@ -409,6 +409,16 @@ jobs:
           command: bundle exec fastlane github_release_current_version
 
 workflows:
+  danger:
+    when:
+      and:
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - equal: [ build, << pipeline.parameters.action >> ]
+    jobs:
+      - revenuecat/danger:
+          context: danger-bot
+
   # This workflow runs for any commit to main, as well as for any other
   # branch with an open PR, except for release branches. This is controlled 
   # by the "Only build pull requests" setting on CircleCI. 
@@ -421,8 +431,6 @@ workflows:
             matches: { pattern: "^release/.+$", value: << pipeline.git.branch >> }
         - equal: [ build, << pipeline.parameters.action >> ]
     jobs:
-      - revenuecat/danger:
-          context: danger-bot
       - detekt
       - unit-tests-build-logic
       - build-libraries-android
