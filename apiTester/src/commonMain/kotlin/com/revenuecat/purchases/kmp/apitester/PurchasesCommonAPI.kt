@@ -80,6 +80,9 @@ private class PurchasesCommonAPI {
         purchases.setPostHogUserID("posthog-user-id")
         purchases.setPostHogUserID(null)
 
+        purchases.overridePreferredUILocale("de_DE")
+        purchases.overridePreferredUILocale(null)
+
         purchases.close()
 
         val updatedCustomerInfoListener: PurchasesDelegate? = purchases.delegate
@@ -353,6 +356,7 @@ private class PurchasesCommonAPI {
             dangerousSettings = DangerousSettings(autoSyncPurchases = true)
             verificationMode = EntitlementVerificationMode.INFORMATIONAL
             pendingTransactionsForPrepaidPlansEnabled = true
+            preferredUILocaleOverride = "de_DE"
         }
 
         val config2: PurchasesConfiguration = PurchasesConfiguration(apiKey = "") {

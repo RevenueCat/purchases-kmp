@@ -58,6 +58,7 @@ import com.revenuecat.purchases.kn.core.RCPlatformInfo
 import com.revenuecat.purchases.kn.core.RCPurchaseParamsBuilder
 import com.revenuecat.purchases.kn.core.RCPurchasesDelegateProtocol
 import com.revenuecat.purchases.kn.core.RCStoreProduct
+import com.revenuecat.purchases.kn.core.overridePreferredUILocale
 import com.revenuecat.purchases.kn.core.RCStoreTransaction
 import com.revenuecat.purchases.kn.core.RCVirtualCurrencies
 import com.revenuecat.purchases.kn.core.additional.AppleApiAvailability
@@ -131,6 +132,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                     .withDangerousSettings(dangerousSettings.toIosDangerousSettings())
                     .withShowStoreMessagesAutomatically(showInAppMessagesAutomatically)
                     .withEntitlementVerificationMode(verificationMode.toIosEntitlementVerificationMode())
+                    .apply { preferredUILocaleOverride?.let { withPreferredUILocaleOverride(it) } }
                     .build()
             )
         }.let { Purchases(it) }
@@ -628,6 +630,9 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
     public actual fun invalidateCustomerInfoCache(): Unit =
         iosPurchases.invalidateCustomerInfoCache()
+
+    public actual fun overridePreferredUILocale(locale: String?): Unit =
+        iosPurchases.overridePreferredUILocale(locale)
 
     public actual fun setAttributes(attributes: Map<String, String?>): Unit =
         iosPurchases.setAttributes(attributes.mapKeys { (key, _) -> key })

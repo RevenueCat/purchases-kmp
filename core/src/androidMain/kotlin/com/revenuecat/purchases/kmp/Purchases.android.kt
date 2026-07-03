@@ -131,6 +131,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
                         .pendingTransactionsForPrepaidPlansEnabled(
                             pendingTransactionsForPrepaidPlansEnabled ?: false
                         )
+                        .apply { preferredUILocaleOverride?.let { preferredUILocaleOverride(it) } }
                         .build()
                 )
             }
@@ -462,6 +463,10 @@ public actual class Purchases private constructor(private val androidPurchases: 
 
     public actual fun invalidateCustomerInfoCache(): Unit =
         androidPurchases.invalidateCustomerInfoCache()
+
+    public actual fun overridePreferredUILocale(locale: String?) {
+        androidPurchases.overridePreferredUILocale(locale)
+    }
 
     public actual fun setAttributes(attributes: Map<String, String?>): Unit =
         androidPurchases.setAttributes(attributes)
