@@ -132,7 +132,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                     .withDangerousSettings(dangerousSettings.toIosDangerousSettings())
                     .withShowStoreMessagesAutomatically(showInAppMessagesAutomatically)
                     .withEntitlementVerificationMode(verificationMode.toIosEntitlementVerificationMode())
-                    .apply { preferredUILocaleOverride?.let { withPreferredUILocaleOverride(it) } }
+                    .withPreferredUILocaleOverride(preferredUILocaleOverride)
                     .build()
             )
         }.let { Purchases(it) }
