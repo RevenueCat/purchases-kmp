@@ -24,7 +24,8 @@ public class PurchasesConfiguration private constructor(
     public val diagnosticsEnabled: Boolean,
     public val dangerousSettings: DangerousSettings,
     public val verificationMode: EntitlementVerificationMode,
-    public val pendingTransactionsForPrepaidPlansEnabled: Boolean?
+    public val pendingTransactionsForPrepaidPlansEnabled: Boolean?,
+    public val preferredUILocaleOverride: String?
 ) {
     public val storeKitVersion: StoreKitVersion = storeKitVersionToUse(
         purchasesAreCompletedBy,
@@ -43,7 +44,8 @@ public class PurchasesConfiguration private constructor(
                 "diagnosticsEnabled=$diagnosticsEnabled, " +
                 "dangerousSettings=$dangerousSettings, " +
                 "verificationMode=$verificationMode," +
-                "pendingTransactionsForPrepaidPlansEnabled=$pendingTransactionsForPrepaidPlansEnabled" +
+                "pendingTransactionsForPrepaidPlansEnabled=$pendingTransactionsForPrepaidPlansEnabled, " +
+                "preferredUILocaleOverride=$preferredUILocaleOverride" +
                 ")"
 
     private fun storeKitVersionToUse(
@@ -113,6 +115,9 @@ public class PurchasesConfiguration private constructor(
 
         @set:JvmSynthetic
         public var pendingTransactionsForPrepaidPlansEnabled: Boolean? = null
+
+        @set:JvmSynthetic
+        public var preferredUILocaleOverride: String? = null
 
         /**
          * Your RevenueCat API Key.
@@ -230,6 +235,14 @@ public class PurchasesConfiguration private constructor(
         }
 
         /**
+         * Sets a preferred UI locale override (e.g. "de_DE") used by RevenueCat UI components like
+         * Paywalls, instead of the device locale.
+         * Default is null, which means using the device locale.
+         */
+        public fun preferredUILocaleOverride(preferredUILocaleOverride: String?): Builder =
+            apply { this.preferredUILocaleOverride = preferredUILocaleOverride }
+
+        /**
          * Creates a [PurchasesConfiguration] instance with the specified properties.
          */
         public fun build(): PurchasesConfiguration = PurchasesConfiguration(
@@ -243,7 +256,8 @@ public class PurchasesConfiguration private constructor(
             diagnosticsEnabled = diagnosticsEnabled,
             dangerousSettings = dangerousSettings,
             verificationMode = verificationMode,
-            pendingTransactionsForPrepaidPlansEnabled = pendingTransactionsForPrepaidPlansEnabled
+            pendingTransactionsForPrepaidPlansEnabled = pendingTransactionsForPrepaidPlansEnabled,
+            preferredUILocaleOverride = preferredUILocaleOverride
         )
     }
 }

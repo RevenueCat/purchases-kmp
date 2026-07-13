@@ -602,6 +602,14 @@ public expect class Purchases {
     public fun invalidateCustomerInfoCache()
 
     /**
+     * Overrides the preferred UI locale (e.g. "de_DE") used by RevenueCat UI components like
+     * Paywalls, instead of the device locale. Pass null to clear the override.
+     *
+     * This method only takes effect after [configure] has been called.
+     */
+    public fun overridePreferredUILocale(locale: String?)
+
+    /**
      * Subscriber attributes are useful for storing additional, structured information on a user.
      * Since attributes are writable using a public key they should not be used for
      * managing secure or sensitive information such as subscription status, coins, etc.

@@ -53,4 +53,20 @@ class PurchasesConfigurationTests {
 
         assertEquals(StoreKitVersion.STOREKIT_2, config.storeKitVersion)
     }
+
+    @Test
+    fun `preferredUILocaleOverride is null by default`() {
+        val config = PurchasesConfiguration(apiKey = "abc123")
+
+        assertEquals(null, config.preferredUILocaleOverride)
+    }
+
+    @Test
+    fun `preferredUILocaleOverride provides the configured value`() {
+        val config = PurchasesConfiguration(apiKey = "abc123") {
+            preferredUILocaleOverride = "de_DE"
+        }
+
+        assertEquals("de_DE", config.preferredUILocaleOverride)
+    }
 }
