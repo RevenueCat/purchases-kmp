@@ -27,7 +27,12 @@ allprojects {
     plugins.withType<MavenPublishPlugin> {
         configure<MavenPublishBaseExtension> {
             publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
-            signAllPublications()
+            val skipSigningForMavenLocal = providers.gradleProperty("skipSigningForMavenLocal")
+                .map { it.equals("true", ignoreCase = true) }
+                .orElse(false)
+            if (!skipSigningForMavenLocal.get()) {
+                signAllPublications()
+            }
 
             // We override the artifact ID of :revenuecatui for consistency with the other SDKs. We
             // could not name our Gradle module :ui, because this somehow conflicts with compose.ui
@@ -97,8 +102,16 @@ allprojects {
     }
 }
 
+val installationTestAppOnlyBuild = providers.gradleProperty("installationTestAppOnlyBuild")
+    .map { it.equals("true", ignoreCase = true) }
+    .orElse(false)
+
 apiValidation {
-    ignoredProjects.addAll(listOf("apiTester", "composeApp", "MaestroTestApp", "mappings"))
+    if (installationTestAppOnlyBuild.get()) {
+        ignoredProjects.addAll(listOf("installationTestApp"))
+    } else {
+        ignoredProjects.addAll(listOf("apiTester", "composeApp", "MaestroTestApp", "installationTestApp", "mappings"))
+    }
 
     @OptIn(kotlinx.validation.ExperimentalBCVApi::class)
     klib {
@@ -106,39 +119,41 @@ apiValidation {
     }
 }
 
-dependencies {
-    dokkatoo(projects.core)
-    dokkatoo(projects.either)
-    dokkatoo(projects.models)
-    dokkatoo(projects.result)
-    dokkatoo(projects.revenuecatui)
-}
+if (!installationTestAppOnlyBuild.get()) {
+    dependencies {
+        dokkatoo(project(":core"))
+        dokkatoo(project(":either"))
+        dokkatoo(project(":models"))
+        dokkatoo(project(":result"))
+        dokkatoo(project(":revenuecatui"))
+    }
 
-moduleGraphConfig {
-    fun Dependency.readmePath() = "./$name/README.md"
-    fun Dependency.heading() = "## :${name} module dependency graph"
-    val topToBottom = Orientation.TOP_TO_BOTTOM
-    // Intentional root for all modules, so we always show the entire graph.
-    val rootModuleRegex = ".*revenuecatui.*"
+    moduleGraphConfig {
+        fun Project.readmePath() = "./$name/README.md"
+        fun Project.heading() = "## :${name} module dependency graph"
+        val topToBottom = Orientation.TOP_TO_BOTTOM
+        // Intentional root for all modules, so we always show the entire graph.
+        val rootModuleRegex = ".*revenuecatui.*"
 
-    listOf(
-        projects.core,
-        projects.mappings,
-        projects.models,
-        projects.revenuecatui,
-    ).forEach { project ->
-        // All graphs are equal, but we need to specify 1 main graph. So :core it is.
-        if (project == projects.core) {
-            readmePath.set(project.readmePath())
-            heading = project.heading()
-            orientation.set(topToBottom)
-            rootModulesRegex.set(rootModuleRegex)
-        } else graph(
-            readmePath = project.readmePath(),
-            heading = project.heading(),
-        ) {
-            orientation = topToBottom
-            rootModulesRegex = rootModuleRegex
+        listOf(
+            project(":core"),
+            project(":mappings"),
+            project(":models"),
+            project(":revenuecatui"),
+        ).forEach { moduleProject ->
+            // All graphs are equal, but we need to specify 1 main graph. So :core it is.
+            if (moduleProject == project(":core")) {
+                readmePath.set(moduleProject.readmePath())
+                heading = moduleProject.heading()
+                orientation.set(topToBottom)
+                rootModulesRegex.set(rootModuleRegex)
+            } else graph(
+                readmePath = moduleProject.readmePath(),
+                heading = moduleProject.heading(),
+            ) {
+                orientation = topToBottom
+                rootModulesRegex = rootModuleRegex
+            }
         }
     }
 }
