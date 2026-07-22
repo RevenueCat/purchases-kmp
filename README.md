@@ -67,7 +67,7 @@ This codelab is a step-by-step tutorial designed to help you learn and master th
 - Kotlin 2.3.20+
 - Android 6.0+ (API level 23+)
 - iOS 13.0+
-- watchOS 7.0+ (9.0+ on `watchosDeviceArm64`). Note: Paywalls and Customer Center (the `-ui` artifact) are iOS only.
+- watchOS 7.0+ (9.0+ on `watchosDeviceArm64`). Notes: Paywalls and Customer Center (the `-ui` artifact) are iOS only, and the optional `-either` artifact has no `watchosDeviceArm64` variant.
 
 ## SDK Reference
 Our full SDK reference [can be found here](https://revenuecat.github.io/purchases-kmp/).

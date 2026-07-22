@@ -65,9 +65,12 @@ public fun AdRevenueData.toIos(): RCAdRevenue {
         placement = placement,
         adUnitId = adUnitId,
         impressionId = impressionId,
-        // convert() because the native type is NSInteger, which is 32 bits on watchosArm64
-        // (arm64_32).
-        revenueMicros = revenueMicros.convert(),
+        // The native type is NSInteger, which is 32 bits on watchosArm64 (arm64_32). Clamping
+        // before convert() turns a silent sign-wrap into a bounded value there; it is a no-op
+        // on 64-bit targets for realistic per-impression revenues.
+        revenueMicros = revenueMicros
+            .coerceIn(Int.MIN_VALUE.toLong(), Int.MAX_VALUE.toLong())
+            .convert(),
         currency = currency,
         precision = precision.toIos(),
     )

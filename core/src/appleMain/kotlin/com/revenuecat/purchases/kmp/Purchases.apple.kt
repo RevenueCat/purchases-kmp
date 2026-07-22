@@ -387,11 +387,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
         // interoperability drops the @available(osVersion) requirements, and you can technically
         // call functions with an @available from any OS version in KMP
-        if (!AppleApiAvailability().isWinBackOfferAPIAvailable()) {
+        if (!appleApiAvailability.isWinBackOfferAPIAvailable()) {
             onError(
                 PurchasesError(
                     PurchasesErrorCode.UnsupportedError,
-                    underlyingErrorMessage = "getEligibleWinBackOffersForProduct is only available on iOS 18.0+ and watchOS 11.0+"
+                    underlyingErrorMessage = "getEligibleWinBackOffersForProduct $WIN_BACK_UNAVAILABLE_SUFFIX"
                 )
             )
             return
@@ -433,11 +433,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
         // interoperability drops the @available(osVersion) requirements, and you can technically
         // call functions with an @available from any OS version in KMP
-        if (!AppleApiAvailability().isWinBackOfferAPIAvailable()) {
+        if (!appleApiAvailability.isWinBackOfferAPIAvailable()) {
             onError(
                 PurchasesError(
                     PurchasesErrorCode.UnsupportedError,
-                    underlyingErrorMessage = "getEligibleWinBackOffersForPackage is only available on iOS 18.0+ and watchOS 11.0+"
+                    underlyingErrorMessage = "getEligibleWinBackOffersForPackage $WIN_BACK_UNAVAILABLE_SUFFIX"
                 )
             )
             return
@@ -480,11 +480,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
         // interoperability drops the @available(osVersion) requirements, and you can technically
         // call functions with an @available from any OS version in KMP
-        if (!AppleApiAvailability().isWinBackOfferAPIAvailable()) {
+        if (!appleApiAvailability.isWinBackOfferAPIAvailable()) {
             onError(
                 PurchasesError(
                     PurchasesErrorCode.UnsupportedError,
-                    underlyingErrorMessage = "purchase(product:winBackOffer:onError:onSuccess:) is only available on iOS 18.0+ and watchOS 11.0+"
+                    underlyingErrorMessage = "purchase(product:winBackOffer:onError:onSuccess:) $WIN_BACK_UNAVAILABLE_SUFFIX"
                 ),
                 false
             )
@@ -537,11 +537,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         // API availability checks must be performed here at the KMP level, since the KMP/ObjC/Swift
         // interoperability drops the @available(osVersion) requirements, and you can technically
         // call functions with an @available from any OS version in KMP
-        if (!AppleApiAvailability().isWinBackOfferAPIAvailable()) {
+        if (!appleApiAvailability.isWinBackOfferAPIAvailable()) {
             onError(
                 PurchasesError(
                     PurchasesErrorCode.UnsupportedError,
-                    underlyingErrorMessage = "purchase(packageToPurchase:winBackOffer:onError:onSuccess:) is only available on iOS 18.0+ and watchOS 11.0+"
+                    underlyingErrorMessage = "purchase(packageToPurchase:winBackOffer:onError:onSuccess:) $WIN_BACK_UNAVAILABLE_SUFFIX"
                 ),
                 false
             )
@@ -709,7 +709,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     }
 
     public actual fun enableAdServicesAttributionTokenCollection() {
-        if (AppleApiAvailability().isEnableAdServicesAttributionTokenCollectionAPIAvailable())
+        if (appleApiAvailability.isEnableAdServicesAttributionTokenCollectionAPIAvailable())
             iosPurchases.attribution().enableAdServicesAttributionTokenCollection()
         else logHandler.d(
             tag = "Purchases",
@@ -791,7 +791,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun trackCustomPaywallImpression(
         params: CustomPaywallImpressionParams,
     ) {
-        if (!AppleApiAvailability().isCustomPaywallTrackingAPIAvailable()) {
+        if (!appleApiAvailability.isCustomPaywallTrackingAPIAvailable()) {
             logHandler.w(
                 "Purchases",
                 "Custom paywall tracking requires iOS 15.0+ or watchOS 8.0+. Current API is unavailable."
@@ -829,8 +829,13 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 internal expect fun IosPurchases.presentCodeRedemptionSheetIfAvailable()
 
 /**
- * Shows store messages of the given types where available (iOS 16.0+), or logs otherwise. The
- * native API does not exist on watchOS, so the iOS call must live in an iOS-only source set:
- * cinterop bindings shared across Apple targets only contain APIs available on all of them.
+ * iOS: shows store messages of the given types (native API, iOS 16.0+). watchOS: logs and does
+ * nothing, the native API does not exist there, which is why the iOS call must live in an
+ * iOS-only source set: cinterop bindings shared across Apple targets only contain APIs
+ * available on all of them.
  */
 internal expect fun IosPurchases.showStoreMessagesIfAvailable(messageTypes: List<StoreMessageType>)
+
+private val appleApiAvailability = AppleApiAvailability()
+
+private const val WIN_BACK_UNAVAILABLE_SUFFIX = "is only available on iOS 18.0+ or watchOS 11.0+"
