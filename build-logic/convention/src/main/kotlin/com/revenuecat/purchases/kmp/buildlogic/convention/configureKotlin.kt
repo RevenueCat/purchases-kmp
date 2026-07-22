@@ -38,6 +38,9 @@ internal fun Project.configureKotlin() {
                 val appleSourceSetPrefixes = listOf("apple", "ios", "watchos", "tvos", "macos")
                 if (appleSourceSetPrefixes.any { name.lowercase().startsWith(it) }) {
                     optIn("kotlinx.cinterop.ExperimentalForeignApi")
+                    // NSInteger and friends commonize to variable-width types (32 bits on
+                    // watchosArm64), which require this opt-in in shared Apple code.
+                    optIn("kotlinx.cinterop.UnsafeNumber")
                 }
             }
         }

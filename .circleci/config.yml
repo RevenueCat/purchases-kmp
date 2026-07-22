@@ -236,6 +236,8 @@ jobs:
             for arch in Arm64 SimulatorArm64; do
               tasks+=(":either:compileKotlinWatchos$arch")
             done
+            # The commonized (metadata) compilation only runs at publish time otherwise.
+            tasks+=("compileAppleMainKotlinMetadata")
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
