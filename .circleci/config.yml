@@ -220,13 +220,21 @@ jobs:
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - run:
-          name: Build libraries for iOS
+          name: Build libraries for iOS and watchOS
           command: |
             tasks=()
             for module in core revenuecatui either result; do
               for arch in Arm64 SimulatorArm64 X64; do
                 tasks+=(":$module:compileKotlinIos$arch")
               done
+            done
+            for module in core result; do
+              for arch in Arm64 DeviceArm64 SimulatorArm64; do
+                tasks+=(":$module:compileKotlinWatchos$arch")
+              done
+            done
+            for arch in Arm64 SimulatorArm64; do
+              tasks+=(":either:compileKotlinWatchos$arch")
             done
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
@@ -341,12 +349,13 @@ jobs:
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
       - run:
-          name: Execute unit tests for iOS
+          name: Execute unit tests for iOS and watchOS
           command: |
             tasks=()
             for arch in SimulatorArm64 X64; do
               tasks+=("ios${arch}Test")
             done
+            tasks+=("watchosSimulatorArm64Test")
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
@@ -478,8 +487,8 @@ workflows:
           outputs: |
             PurchasesErrorCode.kt:models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt
             errors.android.kt:mappings/src/androidMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.android.kt
-            errors.ios.kt:mappings/src/iosMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.ios.kt
-          commit_paths: "models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt,mappings/src/androidMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.android.kt,mappings/src/iosMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.ios.kt,models/api/models.api,models/api/models.klib.api"
+            errors.ios.kt:mappings/src/appleMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.apple.kt
+          commit_paths: "models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt,mappings/src/androidMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.android.kt,mappings/src/appleMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.apple.kt,models/api/models.api,models/api/models.klib.api"
           context:
             - git-user-ops
             - github-bot-public
