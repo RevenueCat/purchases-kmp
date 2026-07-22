@@ -78,6 +78,9 @@ abstract class GenerateDefFileTask : DefaultTask() {
             linkerOpts.ios_x64 = -L$toolchain/lib/swift/iphonesimulator/
             linkerOpts.ios_arm64 = -L$toolchain/lib/swift/iphoneos/
             linkerOpts.ios_simulator_arm64 = -L$toolchain/lib/swift/iphonesimulator/
+            linkerOpts.watchos_arm64 = -L$toolchain/lib/swift/watchos/
+            linkerOpts.watchos_device_arm64 = -L$toolchain/lib/swift/watchos/
+            linkerOpts.watchos_simulator_arm64 = -L$toolchain/lib/swift/watchsimulator/
         """.trimIndent()
 
         val content = if (customDeclarations.isPresent) {

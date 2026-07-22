@@ -396,6 +396,9 @@ private fun KonanTarget.getTriple(): String = when (this) {
     // watchOS
     KonanTarget.WATCHOS_X64 -> "x86_64-apple-watchos-simulator"
     KonanTarget.WATCHOS_SIMULATOR_ARM64 -> "arm64-apple-watchos-simulator"
-    KonanTarget.WATCHOS_ARM64, KonanTarget.WATCHOS_DEVICE_ARM64 -> "arm64-apple-watchos"
+    // Note: Kotlin/Native's watchosArm64 is arm64_32 (see targetTriple.watchos_arm64 in
+    // konan.properties), while watchosDeviceArm64 is arm64.
+    KonanTarget.WATCHOS_ARM64 -> "arm64_32-apple-watchos"
+    KonanTarget.WATCHOS_DEVICE_ARM64 -> "arm64-apple-watchos"
     else -> error("Unsupported target: $this")
 }

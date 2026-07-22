@@ -35,7 +35,8 @@ internal fun Project.configureKotlin() {
         }
         sourceSets.all {
             languageSettings.apply {
-                if (name.lowercase().startsWith("ios")) {
+                val appleSourceSetPrefixes = listOf("apple", "ios", "watchos", "tvos", "macos")
+                if (appleSourceSetPrefixes.any { name.lowercase().startsWith(it) }) {
                     optIn("kotlinx.cinterop.ExperimentalForeignApi")
                 }
             }
