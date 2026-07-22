@@ -220,7 +220,7 @@ jobs:
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - run:
-          name: Build libraries for iOS and watchOS
+          name: Build libraries for iOS
           command: |
             tasks=()
             for module in core revenuecatui either result; do
@@ -228,20 +228,39 @@ jobs:
                 tasks+=(":$module:compileKotlinIos$arch")
               done
             done
+            ./gradlew "${tasks[@]}"
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
+      - save-incremental-gradle-build-to-workspace
+
+  # Self-contained on purpose: no workspace persistence or attachment, so it can run in
+  # parallel to the iOS chain without workspace conflicts.
+  build-and-test-watchos:
+    executor: xcode16
+    steps:
+      - checkout
+      - checkout-submodule
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - run:
+          name: Build libraries and run tests for watchOS
+          command: |
+            tasks=()
             for module in core result; do
               for arch in Arm64 DeviceArm64 SimulatorArm64; do
                 tasks+=(":$module:compileKotlinWatchos$arch")
               done
             done
+            # either skips DeviceArm64: arrow-core doesn't publish it.
             for arch in Arm64 SimulatorArm64; do
               tasks+=(":either:compileKotlinWatchos$arch")
             done
             # The commonized (metadata) compilation only runs at publish time otherwise.
             tasks+=("compileAppleMainKotlinMetadata")
+            tasks+=("watchosSimulatorArm64Test")
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
-      - save-incremental-gradle-build-to-workspace
 
   build-sample-android:
     executor: android202409
@@ -351,13 +370,12 @@ jobs:
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
       - run:
-          name: Execute unit tests for iOS and watchOS
+          name: Execute unit tests for iOS
           command: |
             tasks=()
             for arch in SimulatorArm64 X64; do
               tasks+=("ios${arch}Test")
             done
-            tasks+=("watchosSimulatorArm64Test")
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
@@ -446,6 +464,7 @@ workflows:
       - unit-tests-build-logic
       - build-libraries-android
       - build-libraries-ios
+      - build-and-test-watchos
       - build-sample-android:
           requires: [build-libraries-android]
       - build-sample-ios:
@@ -541,6 +560,7 @@ workflows:
       - unit-tests-build-logic
       - build-libraries-android
       - build-libraries-ios
+      - build-and-test-watchos
       - build-sample-android:
           requires: [build-libraries-android]
       - build-sample-ios:
@@ -562,6 +582,7 @@ workflows:
           requires:
             - detekt
             - unit-tests-build-logic
+            - build-and-test-watchos
             - build-sample-android
             - build-sample-ios
             - public-api-tests-android
