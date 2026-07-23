@@ -62,6 +62,7 @@ import com.revenuecat.purchases.kn.core.overridePreferredUILocale
 import com.revenuecat.purchases.kn.core.RCStoreTransaction
 import com.revenuecat.purchases.kn.core.RCVirtualCurrencies
 import com.revenuecat.purchases.kn.core.additional.AppleApiAvailability
+import com.revenuecat.purchases.kn.core.additional.DangerousSettingsFactory
 import com.revenuecat.purchases.kn.core.configureWithConfiguration
 import com.revenuecat.purchases.kn.core.enableAdServicesAttributionTokenCollection
 import com.revenuecat.purchases.kn.core.parseAsWebPurchaseRedemption
@@ -146,7 +147,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         }
 
         private fun DangerousSettings.toIosDangerousSettings(): IosDangerousSettings =
-            IosDangerousSettings(autoSyncPurchases)
+            DangerousSettingsFactory.makeWithAutoSyncPurchases(autoSyncPurchases, useWorkflows)
+                as IosDangerousSettings
 
         public actual fun parseAsWebPurchaseRedemption(url: String): WebPurchaseRedemption? {
             return if (IosPurchases.parseAsWebPurchaseRedemption(NSURL(string = url)) != null) {

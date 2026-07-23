@@ -64,6 +64,7 @@ import com.revenuecat.purchases.syncAttributesAndOfferingsIfNeededWith
 import com.revenuecat.purchases.syncPurchasesWith
 import java.net.URL
 import com.revenuecat.purchases.DangerousSettings as AndroidDangerousSettings
+import com.revenuecat.purchases.InternalRevenueCatAPI
 import com.revenuecat.purchases.Purchases as AndroidPurchases
 import com.revenuecat.purchases.PurchasesConfiguration as AndroidPurchasesConfiguration
 import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams as KmpCustomPaywallImpressionParams
@@ -148,8 +149,13 @@ public actual class Purchases private constructor(private val androidPurchases: 
             features = features.map { it.toAndroidBillingFeature() },
         ) { result -> callback(result) }
 
+        @OptIn(InternalRevenueCatAPI::class)
         private fun DangerousSettings.toAndroidDangerousSettings(): AndroidDangerousSettings =
-            AndroidDangerousSettings(autoSyncPurchases)
+            if (useWorkflows) {
+                AndroidDangerousSettings.forWorkflows(autoSyncPurchases)
+            } else {
+                AndroidDangerousSettings(autoSyncPurchases)
+            }
 
         public actual fun parseAsWebPurchaseRedemption(url: String): WebPurchaseRedemption? {
             return if (AndroidPurchases.parseAsWebPurchaseRedemption(url) != null) {
