@@ -9,7 +9,7 @@ import com.revenuecat.purchases.kn.core.price
 internal fun RCStoreProduct.toPrice(): Price =
     Price(
         formatted = localizedPriceString(),
-        amountMicros = price().decimalNumberByMultiplyingByPowerOf10(6).longValue,
+        amountMicros = price().decimalNumberByMultiplyingByPowerOf10(6).longLongValue,
         currencyCode = currencyCodeOrUsd(),
     )
 
@@ -19,7 +19,7 @@ internal fun RCStoreProduct.currencyCodeOrUsd(): String =
 internal fun RCStoreProductDiscount.toPrice(): Price =
     Price(
         formatted = localizedPriceString(),
-        amountMicros = price().decimalNumberByMultiplyingByPowerOf10(6).longValue,
+        amountMicros = price().decimalNumberByMultiplyingByPowerOf10(6).longLongValue,
         currencyCode = currencyCodeOrUsd(),
     )
 
@@ -37,7 +37,7 @@ internal fun priceOrNull(
 ): Price? = priceOrNull(
     currencyCode = currencyCode,
     formatted = formatted,
-    amountMicros = amountDecimal?.decimalNumberByMultiplyingByPowerOf10(6)?.longValue
+    amountMicros = amountDecimal?.decimalNumberByMultiplyingByPowerOf10(6)?.longLongValue
 )
 
 /**

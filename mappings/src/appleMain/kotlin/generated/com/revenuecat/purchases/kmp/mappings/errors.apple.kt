@@ -9,7 +9,7 @@ import platform.Foundation.NSError
 
 public fun NSError.toPurchasesErrorOrThrow(): PurchasesError =
     PurchasesError(
-        code = code().toPurchasesErrorCode(),
+        code = code().toLong().toPurchasesErrorCode(),
         underlyingErrorMessage = localizedDescription(),
     )
 

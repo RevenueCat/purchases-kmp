@@ -219,7 +219,6 @@ private fun KonanTarget.isAppleTarget(): Boolean =
         // watchOS
         KonanTarget.WATCHOS_ARM64,
         KonanTarget.WATCHOS_SIMULATOR_ARM64,
-        KonanTarget.WATCHOS_X64,
         KonanTarget.WATCHOS_DEVICE_ARM64,
     )
 
@@ -310,7 +309,6 @@ private fun getTaskSuffix(konanTarget: KonanTarget): String = when (konanTarget)
     // watchOS
     KonanTarget.WATCHOS_ARM64 -> "WatchosArm64"
     KonanTarget.WATCHOS_SIMULATOR_ARM64 -> "WatchosSimulatorArm64"
-    KonanTarget.WATCHOS_X64 -> "WatchosX64"
     KonanTarget.WATCHOS_DEVICE_ARM64 -> "WatchosDeviceArm64"
     else -> error("Unexpected target: $konanTarget")
 }
@@ -376,7 +374,7 @@ private fun KonanTarget.getSdkName(): String = when (this) {
     KonanTarget.TVOS_X64, KonanTarget.TVOS_SIMULATOR_ARM64 -> "appletvsimulator"
     KonanTarget.TVOS_ARM64 -> "appletvos"
     // watchOS
-    KonanTarget.WATCHOS_X64, KonanTarget.WATCHOS_SIMULATOR_ARM64 -> "watchsimulator"
+    KonanTarget.WATCHOS_SIMULATOR_ARM64 -> "watchsimulator"
     KonanTarget.WATCHOS_ARM64, KonanTarget.WATCHOS_DEVICE_ARM64 -> "watchos"
     else -> error("Unsupported target: ${this}")
 }
@@ -394,8 +392,10 @@ private fun KonanTarget.getTriple(): String = when (this) {
     KonanTarget.TVOS_SIMULATOR_ARM64 -> "arm64-apple-tvos-simulator"
     KonanTarget.TVOS_ARM64 -> "arm64-apple-tvos"
     // watchOS
-    KonanTarget.WATCHOS_X64 -> "x86_64-apple-watchos-simulator"
     KonanTarget.WATCHOS_SIMULATOR_ARM64 -> "arm64-apple-watchos-simulator"
-    KonanTarget.WATCHOS_ARM64, KonanTarget.WATCHOS_DEVICE_ARM64 -> "arm64-apple-watchos"
+    // Note: Kotlin/Native's watchosArm64 is arm64_32 (see targetTriple.watchos_arm64 in
+    // konan.properties), while watchosDeviceArm64 is arm64.
+    KonanTarget.WATCHOS_ARM64 -> "arm64_32-apple-watchos"
+    KonanTarget.WATCHOS_DEVICE_ARM64 -> "arm64-apple-watchos"
     else -> error("Unsupported target: $this")
 }

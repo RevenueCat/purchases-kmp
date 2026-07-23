@@ -39,7 +39,7 @@ purchases-kmp/
 │   └── src/
 │       ├── commonMain/       # Shared Kotlin code
 │       ├── androidMain/      # Android-specific implementations
-│       └── iosMain/          # iOS-specific implementations (Swift interop)
+│       └── appleMain/        # Apple-specific implementations (Swift interop), split further into iosMain/watchosMain where needed
 ├── models/                   # Shared data models and domain objects
 ├── mappings/                 # Platform-specific mappings
 ├── revenuecatui/             # Jetpack Compose UI components for paywalls
@@ -121,8 +121,8 @@ module/src/
 ├── commonTest/       # Shared tests
 ├── androidMain/      # Android-specific implementations
 ├── androidUnitTest/  # Android unit tests
-├── iosMain/          # iOS-specific implementations
-└── iosTest/          # iOS tests
+├── appleMain/        # Apple-specific implementations (iOS + watchOS)
+└── appleTest/        # Apple platform tests
 ```
 
 ## Constraints / Support Policy
@@ -184,7 +184,7 @@ When creating a pull request, **always add one of these labels** to categorize t
 - **Don't make large refactors** unless explicitly requested
 - **Keep diffs minimal** — only touch what's necessary, preserve existing formatting
 - **Don't break the public API** — binary compatibility validator will catch issues
-- **Follow KMP conventions** — put shared code in `commonMain`, platform-specific in `androidMain`/`iosMain`
+- **Follow KMP conventions** — put shared code in `commonMain`, platform-specific in `androidMain`/`appleMain`
 - **Run Detekt** before committing (`./gradlew detektAll`)
 - **Check both platforms** — changes in `commonMain` affect both iOS and Android
 - **Never commit API keys or secrets** — do not stage or commit credentials or sensitive data
