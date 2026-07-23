@@ -1,10 +1,9 @@
 ## RevenueCat SDK
-### ✨ New Features
-* Add preferred UI locale override support (#922) via Álvaro Brey (@AlvaroBrey)
 ### 📦 Dependency Updates
-* [RENOVATE] Update dependency upstream/purchases-ios to v5.80.3 (#930) via RevenueCat Git Bot (@RCGitBot)
-* [RENOVATE] Update dependency revenuecat to v4.4.0 (#931) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update purchases-android to v10.14.1 (#937) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.81.1 (#936) via RevenueCat Git Bot (@RCGitBot)
 
 ### 🔄 Other Changes
-* Bump cocoapods from 1.16.2 to 1.17.0 (#928) via dependabot[bot] (@dependabot[bot])
-* Bump fastlane from 2.236.1 to 2.237.0 (#927) via dependabot[bot] (@dependabot[bot])
+* Bump fastlane-plugin-revenuecat_internal from `9b928b6` to `b52fca5` (#939) via dependabot[bot] (@dependabot[bot])
+* Bump fastlane-plugin-revenuecat_internal from `dab6765` to `9b928b6` (#938) via dependabot[bot] (@dependabot[bot])
+* ci: bump sdks-common-config orb to 4.5.0 (#935) via Antonio Pallares (@ajpallares)
