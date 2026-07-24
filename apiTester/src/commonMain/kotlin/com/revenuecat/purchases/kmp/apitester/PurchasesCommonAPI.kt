@@ -1,6 +1,7 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import arrow.core.Either
+import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.LogHandler
 import com.revenuecat.purchases.kmp.LogLevel
 import com.revenuecat.purchases.kmp.Purchases
@@ -333,6 +334,7 @@ private class PurchasesCommonAPI {
     }
 
     @Suppress("ForbiddenComment")
+    @OptIn(ExperimentalRevenueCatApi::class)
     fun checkConfiguration() {
         val features: List<BillingFeature> = ArrayList()
         val configured: Boolean = Purchases.isConfigured
@@ -353,7 +355,7 @@ private class PurchasesCommonAPI {
             showInAppMessagesAutomatically = true
             store = Store.PLAY_STORE
             diagnosticsEnabled = true
-            dangerousSettings = DangerousSettings(autoSyncPurchases = true)
+            dangerousSettings = DangerousSettings(autoSyncPurchases = true, useWorkflows = true)
             verificationMode = EntitlementVerificationMode.INFORMATIONAL
             pendingTransactionsForPrepaidPlansEnabled = true
             preferredUILocaleOverride = "de_DE"

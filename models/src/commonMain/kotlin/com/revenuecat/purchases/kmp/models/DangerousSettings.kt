@@ -1,5 +1,7 @@
 package com.revenuecat.purchases.kmp.models
 
+import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
+
 /**
  * Only use a Dangerous Setting if suggested by RevenueCat support team.
  */
@@ -11,4 +13,8 @@ public class DangerousSettings(
      * purchases is enabled by default.
      */
     public val autoSyncPurchases: Boolean = true,
+    /**
+     * Enables RevenueCat Workflows (multipage paywalls). Internal RevenueCat use only.
+     */
+    @ExperimentalRevenueCatApi public val useWorkflows: Boolean = false,
 )
