@@ -163,6 +163,8 @@ jobs:
     steps:
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - run:
           name: Run Detekt on commonMain
@@ -181,6 +183,8 @@ jobs:
       - install-android-sdk-on-macos
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -194,6 +198,8 @@ jobs:
     executor: android202409
     steps:
       - checkout
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - attach-workspace-at-working-directory
       - run:
@@ -214,6 +220,8 @@ jobs:
     steps:
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java,ruby
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -237,6 +245,8 @@ jobs:
     executor: android202409
     steps:
       - checkout
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - attach-workspace-at-working-directory
       - run:
@@ -254,6 +264,8 @@ jobs:
     steps:
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java,ruby
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -283,6 +295,8 @@ jobs:
     executor: android202409
     steps:
       - checkout
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - attach-workspace-at-working-directory
       - run:
@@ -300,6 +314,8 @@ jobs:
     steps:
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java,ruby
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -320,6 +336,8 @@ jobs:
     executor: android202409
     steps:
       - checkout
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - attach-workspace-at-working-directory
       - run:
@@ -337,6 +355,8 @@ jobs:
     steps:
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -356,6 +376,8 @@ jobs:
     steps:
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - attach-workspace-at-working-directory
       - run:
@@ -376,6 +398,8 @@ jobs:
     steps:
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java,ruby
       - install-android-sdk-on-macos
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
@@ -486,6 +510,8 @@ workflows:
           update_api_steps:
             - install-android-sdk-on-macos
             - checkout-submodule
+            - revenuecat/install-mise-tools:
+                tools: java,ruby
             - restore-gradle-user-home-directory-from-cache
             - restore-kotlin-native-compiler-from-cache
             - revenuecat/install-gem-mac-dependencies:
