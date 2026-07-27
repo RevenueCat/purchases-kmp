@@ -65,6 +65,10 @@ internal class IosPaywallDelegate(
         listener?.onRestoreStarted()
     }
 
+    override fun paywallViewControllerDidOpenWebCheckout(controller: RCPaywallViewController) {
+        listener?.onWebCheckoutOpened()
+    }
+
     @Suppress("CAST_NEVER_SUCCEEDS")
     override fun paywallViewController(
         controller: RCPaywallViewController,

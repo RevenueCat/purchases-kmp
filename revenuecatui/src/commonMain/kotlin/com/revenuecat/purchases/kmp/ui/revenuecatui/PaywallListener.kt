@@ -51,4 +51,10 @@ public interface PaywallListener {
      * Callback that gets called when a restore fails.
      */
     public fun onRestoreError(error: PurchasesError) {}
+
+    /**
+     * Callback that gets called when the user taps a web checkout CTA and leaves the app to
+     * complete payment externally.
+     */
+    public fun onWebCheckoutOpened() {}
 }
