@@ -10,6 +10,7 @@ import kotlinx.cinterop.memScoped
 import kotlinx.cinterop.pointed
 import platform.CoreGraphics.CGSize
 import platform.Foundation.NSError
+import platform.Foundation.NSURL
 import platform.darwin.NSObject
 import com.revenuecat.purchases.kn.core.RCCustomerInfo
 import com.revenuecat.purchases.kn.core.RCPackage
@@ -82,6 +83,17 @@ internal class IosPaywallDelegate(
         didFailRestoringWithError: NSError
     ) {
         listener?.onRestoreError(didFailRestoringWithError.toPurchasesErrorOrThrow())
+    }
+
+    override fun paywallViewControllerDidOpenWebCheckout(controller: RCPaywallViewController) {
+        listener?.onWebCheckoutOpened()
+    }
+
+    override fun paywallViewController(
+        controller: RCPaywallViewController,
+        didOpenURL: NSURL
+    ) {
+        listener?.onUrlOpened(didOpenURL.absoluteString ?: "")
     }
 
     override fun paywallViewController(

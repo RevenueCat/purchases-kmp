@@ -14,6 +14,8 @@ abstract interface com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallListener 
     open fun onRestoreCompleted(com.revenuecat.purchases.kmp.models/CustomerInfo) // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallListener.onRestoreCompleted|onRestoreCompleted(com.revenuecat.purchases.kmp.models.CustomerInfo){}[0]
     open fun onRestoreError(com.revenuecat.purchases.kmp.models/PurchasesError) // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallListener.onRestoreError|onRestoreError(com.revenuecat.purchases.kmp.models.PurchasesError){}[0]
     open fun onRestoreStarted() // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallListener.onRestoreStarted|onRestoreStarted(){}[0]
+    open fun onUrlOpened(kotlin/String) // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallListener.onUrlOpened|onUrlOpened(kotlin.String){}[0]
+    open fun onWebCheckoutOpened() // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallListener.onWebCheckoutOpened|onWebCheckoutOpened(){}[0]
 }
 
 abstract interface com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallPurchaseLogic { // com.revenuecat.purchases.kmp.ui.revenuecatui/PaywallPurchaseLogic|null[0]
