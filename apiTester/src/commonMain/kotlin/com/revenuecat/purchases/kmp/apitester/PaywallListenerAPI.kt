@@ -45,6 +45,10 @@ private class PaywallListenerAPI {
             override fun onWebCheckoutOpened() {
                 super.onWebCheckoutOpened()
             }
+
+            override fun onUrlOpened(url: String) {
+                super.onUrlOpened(url)
+            }
         }
     }
 }

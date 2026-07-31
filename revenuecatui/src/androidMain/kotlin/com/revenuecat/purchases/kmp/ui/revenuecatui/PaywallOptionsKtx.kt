@@ -113,4 +113,6 @@ private class PaywallListenerWrapper(private val listener: PaywallListener) :
     override fun onRestoreStarted() = listener.onRestoreStarted()
 
     override fun onWebCheckoutOpened() = listener.onWebCheckoutOpened()
+
+    override fun onUrlOpened(url: String) = listener.onUrlOpened(url)
 }
