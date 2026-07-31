@@ -64,6 +64,8 @@ public abstract interface class com/revenuecat/purchases/kmp/ui/revenuecatui/Pay
 	public fun onRestoreCompleted (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)V
 	public fun onRestoreError (Lcom/revenuecat/purchases/kmp/models/PurchasesError;)V
 	public fun onRestoreStarted ()V
+	public fun onUrlOpened (Ljava/lang/String;)V
+	public fun onWebCheckoutOpened ()V
 }
 
 public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener$DefaultImpls {
@@ -74,6 +76,8 @@ public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener$
 	public static fun onRestoreCompleted (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/kmp/models/CustomerInfo;)V
 	public static fun onRestoreError (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/kmp/models/PurchasesError;)V
 	public static fun onRestoreStarted (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;)V
+	public static fun onUrlOpened (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Ljava/lang/String;)V
+	public static fun onWebCheckoutOpened (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;)V
 }
 
 public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallOptions {
