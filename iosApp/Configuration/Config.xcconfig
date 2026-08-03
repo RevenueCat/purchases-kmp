@@ -1,3 +1,11 @@
 TEAM_ID=
 BUNDLE_ID=com.revenuecat.sampleapp
 APP_NAME=purchases-kmp Sample
+
+// GoogleMobileAds is only bound via cinterop inside ComposeApp.framework; the app target's own
+// link step also needs the framework search path + link flag, since Kotlin/Native's static
+// framework doesn't re-export external ObjC framework dependencies to its consumer.
+GOOGLE_MOBILE_ADS_XCFRAMEWORK_DIR = $(PROJECT_DIR)/../composeApp/build/swift-vendor/GoogleMobileAdsVendor/artifacts/swift-package-manager-google-mobile-ads/GoogleMobileAds/GoogleMobileAds.xcframework
+FRAMEWORK_SEARCH_PATHS[sdk=iphonesimulator*] = $(GOOGLE_MOBILE_ADS_XCFRAMEWORK_DIR)/ios-arm64_x86_64-simulator
+FRAMEWORK_SEARCH_PATHS[sdk=iphoneos*] = $(GOOGLE_MOBILE_ADS_XCFRAMEWORK_DIR)/ios-arm64
+OTHER_LDFLAGS = $(inherited) -framework GoogleMobileAds -framework AdSupport -framework AudioToolbox -framework AVFoundation -framework CFNetwork -framework CoreGraphics -framework CoreMedia -framework CoreTelephony -framework CoreVideo -framework JavaScriptCore -framework MediaPlayer -framework MessageUI -framework Network -framework QuartzCore -framework SafariServices -framework Security -framework StoreKit -framework SystemConfiguration -framework WebKit -lsqlite3 -lz

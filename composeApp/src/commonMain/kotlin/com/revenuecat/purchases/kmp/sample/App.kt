@@ -133,6 +133,10 @@ fun App() {
                     navigateTo = navigateTo
                 )
 
+                is Screen.RewardVerificationTesting -> RewardVerificationTestingScreen(
+                    navigateTo = navigateTo
+                )
+
                 is Screen.CustomPaywallTracking -> CustomPaywallTrackingScreen(
                     navigateTo = navigateTo
                 )
