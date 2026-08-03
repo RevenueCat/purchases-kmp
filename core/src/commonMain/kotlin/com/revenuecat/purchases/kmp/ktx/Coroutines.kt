@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.ktx
 
+import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
@@ -11,6 +12,7 @@ import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.PurchasesException
 import com.revenuecat.purchases.kmp.models.PurchasesTransactionException
+import com.revenuecat.purchases.kmp.models.RewardVerificationResult
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
 import com.revenuecat.purchases.kmp.models.StoreTransaction
@@ -626,5 +628,20 @@ public suspend fun Purchases.Companion.awaitCanMakePayments(
     canMakePayments(
         features = features,
         callback = { continuation.resume(it) }
+    )
+}
+
+/**
+ * Polls the backend until reward verification completes or the attempt budget is exhausted.
+ *
+ * @see Purchases.pollRewardVerification
+ */
+@ExperimentalRevenueCatApi
+public suspend fun Purchases.awaitPollRewardVerification(
+    clientTransactionId: String,
+): RewardVerificationResult = suspendCoroutine { continuation ->
+    pollRewardVerification(
+        clientTransactionId = clientTransactionId,
+        onCompleted = { continuation.resume(it) }
     )
 }
