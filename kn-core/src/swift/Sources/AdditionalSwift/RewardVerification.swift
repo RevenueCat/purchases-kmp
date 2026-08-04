@@ -21,7 +21,7 @@ public class RewardVerification: NSObject {
         clientTransactionId: String,
         completion: @escaping (RewardVerificationResult) -> Void
     ) {
-        Task {
+        Task { @MainActor in
             let result = await Purchases.shared.pollRewardVerification(clientTransactionID: clientTransactionId)
             completion(RewardVerificationResult(result))
         }
