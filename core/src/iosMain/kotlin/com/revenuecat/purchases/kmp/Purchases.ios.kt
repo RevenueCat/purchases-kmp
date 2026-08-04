@@ -4,6 +4,7 @@ package com.revenuecat.purchases.kmp
 import com.revenuecat.purchases.kmp.ktx.mapEntriesNotNull
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toIntroEligibilityStatus
+import com.revenuecat.purchases.kmp.mappings.toIos
 import com.revenuecat.purchases.kmp.mappings.toKmp
 import com.revenuecat.purchases.kmp.mappings.toIosCacheFetchPolicy
 import com.revenuecat.purchases.kmp.mappings.toIosEntitlementVerificationMode
@@ -37,6 +38,7 @@ import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
 import com.revenuecat.purchases.kmp.models.RedeemWebPurchaseListener
 import com.revenuecat.purchases.kmp.models.ReplacementMode
+import com.revenuecat.purchases.kmp.models.RewardedAdTrackingMetadata
 import com.revenuecat.purchases.kmp.models.RewardVerificationResult
 import com.revenuecat.purchases.kmp.models.RewardVerificationToken
 import com.revenuecat.purchases.kmp.models.Store
@@ -841,9 +843,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     public actual fun pollRewardVerification(
         clientTransactionId: String,
         onCompleted: (result: RewardVerificationResult) -> Unit,
+        trackingMetadata: RewardedAdTrackingMetadata?,
     ) {
         RewardVerification.pollRewardVerificationWithClientTransactionId(
             clientTransactionId = clientTransactionId,
+            trackingMetadata = trackingMetadata?.toIos(),
             completion = { result -> onCompleted(result!!.toKmp()) }
         )
     }
