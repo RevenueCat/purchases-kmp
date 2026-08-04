@@ -19,10 +19,14 @@ public class RewardVerification: NSObject {
     @objc
     public static func pollRewardVerification(
         clientTransactionId: String,
+        trackingMetadata: RewardedAdTrackingMetadata?,
         completion: @escaping (RewardVerificationResult) -> Void
     ) {
         Task { @MainActor in
-            let result = await Purchases.shared.pollRewardVerification(clientTransactionID: clientTransactionId)
+            let result = await Purchases.shared.pollRewardVerification(
+                clientTransactionID: clientTransactionId,
+                trackingMetadata: trackingMetadata?.toRevenueCat()
+            )
             completion(RewardVerificationResult(result))
         }
     }
@@ -38,6 +42,46 @@ public class RewardVerificationToken: NSObject {
         self.customData = customData
         self.clientTransactionId = clientTransactionId
         self.appUserID = appUserID
+    }
+}
+
+/// Ad metadata for a rewarded ad, passed to `pollRewardVerification` to have the SDK automatically
+/// track reward-verification events for it.
+@objc
+public class RewardedAdTrackingMetadata: NSObject {
+    @objc public let networkName: String?
+    @objc public let mediatorName: MediatorName
+    @objc public let adFormat: AdFormat
+    @objc public let placement: String?
+    @objc public let adUnitId: String
+    @objc public let impressionId: String
+
+    @objc
+    public init(
+        networkName: String?,
+        mediatorName: MediatorName,
+        adFormat: AdFormat,
+        placement: String?,
+        adUnitId: String,
+        impressionId: String
+    ) {
+        self.networkName = networkName
+        self.mediatorName = mediatorName
+        self.adFormat = adFormat
+        self.placement = placement
+        self.adUnitId = adUnitId
+        self.impressionId = impressionId
+    }
+
+    func toRevenueCat() -> RevenueCat.RewardedAdTrackingMetadata {
+        RevenueCat.RewardedAdTrackingMetadata(
+            networkName: networkName,
+            mediatorName: mediatorName,
+            adFormat: adFormat,
+            placement: placement,
+            adUnitId: adUnitId,
+            impressionId: impressionId
+        )
     }
 }
 

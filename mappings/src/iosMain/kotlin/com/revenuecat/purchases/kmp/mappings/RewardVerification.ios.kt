@@ -1,9 +1,11 @@
 package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
+import com.revenuecat.purchases.kmp.models.RewardedAdTrackingMetadata
 import com.revenuecat.purchases.kmp.models.RewardVerificationResult
 import com.revenuecat.purchases.kmp.models.RewardVerificationToken
 import com.revenuecat.purchases.kmp.models.VerifiedReward
+import com.revenuecat.purchases.kn.core.additional.RewardedAdTrackingMetadata as IosRewardedAdTrackingMetadata
 import com.revenuecat.purchases.kn.core.additional.RewardVerificationResult as IosRewardVerificationResult
 import com.revenuecat.purchases.kn.core.additional.RewardVerificationToken as IosRewardVerificationToken
 import com.revenuecat.purchases.kn.core.additional.VerifiedReward as IosVerifiedReward
@@ -28,6 +30,17 @@ public fun IosRewardVerificationResult.toKmp(): RewardVerificationResult {
         failed = failed(),
     )
 }
+
+@ExperimentalRevenueCatApi
+public fun RewardedAdTrackingMetadata.toIos(): IosRewardedAdTrackingMetadata =
+    IosRewardedAdTrackingMetadata(
+        networkName = networkName,
+        mediatorName = mediatorName.toIos(),
+        adFormat = adFormat.toIos(),
+        placement = placement,
+        adUnitId = adUnitId,
+        impressionId = impressionId,
+    )
 
 @ExperimentalRevenueCatApi
 internal fun IosVerifiedReward.toKmp(): VerifiedReward =

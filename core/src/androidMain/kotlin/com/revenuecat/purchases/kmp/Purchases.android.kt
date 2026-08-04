@@ -23,6 +23,7 @@ import com.revenuecat.purchases.kmp.mappings.toAndroidPurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.mappings.toAndroidStore
 import com.revenuecat.purchases.kmp.mappings.toAndroidStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toAndroidSubscriptionOption
+import com.revenuecat.purchases.kmp.mappings.toAndroid
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toKmp
 import com.revenuecat.purchases.kmp.mappings.toOfferings
@@ -45,6 +46,7 @@ import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
 import com.revenuecat.purchases.kmp.models.RedeemWebPurchaseListener
 import com.revenuecat.purchases.kmp.models.ReplacementMode
+import com.revenuecat.purchases.kmp.models.RewardedAdTrackingMetadata
 import com.revenuecat.purchases.kmp.models.RewardVerificationResult
 import com.revenuecat.purchases.kmp.models.RewardVerificationToken
 import com.revenuecat.purchases.kmp.models.Store
@@ -643,10 +645,13 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual fun pollRewardVerification(
         clientTransactionId: String,
         onCompleted: (result: RewardVerificationResult) -> Unit,
+        trackingMetadata: RewardedAdTrackingMetadata?,
     ) {
-        androidPurchases.pollRewardVerification(clientTransactionId) { result ->
-            onCompleted(result.toKmp())
-        }
+        androidPurchases.pollRewardVerification(
+            clientTransactionId,
+            { result -> onCompleted(result.toKmp()) },
+            trackingMetadata?.toAndroid(),
+        )
     }
 
     private fun StoreMessageType.toInAppMessageTypeOrNull(): InAppMessageType? =
