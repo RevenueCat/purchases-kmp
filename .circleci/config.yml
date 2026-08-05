@@ -293,6 +293,24 @@ jobs:
       - save-kotlin-native-compiler-to-cache:
           key-suffix: -watchos
 
+  # Self-contained like build-and-test-watchos. Builds the watchos-tester dev tool (Kotlin
+  # framework plus Swift app) to catch API breakage. Restores the watchOS konan cache without
+  # saving it, keeping build-and-test-watchos the only writer of that key.
+  build-watchos-tester:
+    executor: xcode16
+    steps:
+      - checkout
+      - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache:
+          key-suffix: -watchos
+      - run:
+          name: Build the watchOS tester app
+          command: ./watchos-tester/app/build-app.sh
+      - save-gradle-user-home-directory-to-cache
+
   build-sample-android:
     executor: android202409
     steps:
@@ -515,6 +533,7 @@ workflows:
       - build-libraries-android
       - build-libraries-ios
       - build-and-test-watchos
+      - build-watchos-tester
       - build-sample-android:
           requires: [build-libraries-android]
       - build-sample-ios:
@@ -616,6 +635,7 @@ workflows:
       - build-libraries-android
       - build-libraries-ios
       - build-and-test-watchos
+      - build-watchos-tester
       - build-sample-android:
           requires: [build-libraries-android]
       - build-sample-ios:
@@ -638,6 +658,7 @@ workflows:
             - detekt
             - unit-tests-build-logic
             - build-and-test-watchos
+            - build-watchos-tester
             - build-sample-android
             - build-sample-ios
             - public-api-tests-android
