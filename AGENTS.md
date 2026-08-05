@@ -39,7 +39,7 @@ purchases-kmp/
 │   └── src/
 │       ├── commonMain/       # Shared Kotlin code
 │       ├── androidMain/      # Android-specific implementations
-│       └── appleMain/        # Apple-specific implementations (Swift interop)
+│       └── appleMain/        # Apple-specific implementations (Swift interop), split further into iosMain/watchosMain where needed
 ├── models/                   # Shared data models and domain objects
 ├── mappings/                 # Platform-specific mappings
 ├── revenuecatui/             # Jetpack Compose UI components for paywalls
@@ -121,7 +121,7 @@ module/src/
 ├── commonTest/       # Shared tests
 ├── androidMain/      # Android-specific implementations
 ├── androidUnitTest/  # Android unit tests
-├── appleMain/        # Apple-specific implementations
+├── appleMain/        # Apple-specific implementations (iOS + watchOS)
 └── appleTest/        # Apple platform tests
 ```
 
