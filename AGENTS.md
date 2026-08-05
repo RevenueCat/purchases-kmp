@@ -84,7 +84,7 @@ purchases-kmp/
 ./gradlew androidUnitTest
 
 # iOS tests (requires macOS)
-./gradlew iosTest
+./gradlew iosSimulatorArm64Test
 ```
 
 ## Project Architecture
