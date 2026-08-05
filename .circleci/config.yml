@@ -196,7 +196,8 @@ jobs:
       - revenuecat/install-mise-tools:
           tools: java
       - restore-gradle-user-home-directory-from-cache
-      - restore-kotlin-native-compiler-from-cache
+      - restore-kotlin-native-compiler-from-cache:
+          key-suffix: -watchos
       - attach-workspace-at-working-directory
       - run:
           name: Validate binary compatibility
@@ -280,8 +281,11 @@ jobs:
             # Qualified per module to keep the sample apps out of this job.
             for module in core mappings kn-core models result either; do
               tasks+=(":$module:compileAppleMainKotlinMetadata")
+              tasks+=(":$module:watchosSimulatorArm64Test")
             done
-            tasks+=("watchosSimulatorArm64Test")
+            # Links an arm64_32 binary: compile alone would miss bad Swift-runtime linker
+            # opts or missing symbols in the static libs, and no other job links for device.
+            tasks+=(":core:linkDebugTestWatchosArm64")
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache:
@@ -450,7 +454,8 @@ jobs:
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - restore-gradle-user-home-directory-from-cache
-      - restore-kotlin-native-compiler-from-cache
+      - restore-kotlin-native-compiler-from-cache:
+          key-suffix: -watchos
       - when:
           condition: << parameters.snapshot >>
           steps:
@@ -560,7 +565,8 @@ workflows:
             - revenuecat/install-mise-tools:
                 tools: java,ruby
             - restore-gradle-user-home-directory-from-cache
-            - restore-kotlin-native-compiler-from-cache
+            - restore-kotlin-native-compiler-from-cache:
+                key-suffix: -watchos
             - revenuecat/install-gem-mac-dependencies:
                 cache-version: v1
             - run:

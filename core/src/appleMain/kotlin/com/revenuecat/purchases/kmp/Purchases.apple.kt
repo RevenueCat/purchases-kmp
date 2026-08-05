@@ -714,7 +714,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         else logHandler.d(
             tag = "Purchases",
             msg = "`enableAdServicesAttributionTokenCollection()` is only available on iOS 14.3 " +
-                    "and up."
+                    "and up. It is not available on watchOS."
         )
     }
 
