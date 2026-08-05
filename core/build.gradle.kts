@@ -19,7 +19,7 @@ kotlin {
             implementation(libs.revenuecat.android)
             implementation(projects.mappings)
         }
-        iosMain.dependencies {
+        appleMain.dependencies {
             implementation(projects.knCore)
             implementation(projects.mappings)
         }
