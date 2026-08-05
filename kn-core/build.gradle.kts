@@ -1,11 +1,14 @@
 import com.revenuecat.purchases.kmp.buildlogic.swift.model.SwiftSettings
 import com.revenuecat.purchases.kmp.buildlogic.swift.swiftPackage
+import com.revenuecat.purchases.kmp.buildlogic.watchosTargets
 
 plugins {
     id("revenuecat-library")
 }
 
 kotlin {
+    watchosTargets()
+
     sourceSets {
         appleMain.dependencies {
             swiftPackage(

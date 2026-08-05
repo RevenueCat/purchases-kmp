@@ -9,7 +9,10 @@ import com.revenuecat.purchases.kmp.models.AdMediatorName
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
 import com.revenuecat.purchases.kmp.models.AdRevenuePrecision
+import kotlinx.cinterop.convert
 import platform.Foundation.NSNumber
+import platform.darwin.NSIntegerMax
+import platform.darwin.NSIntegerMin
 import com.revenuecat.purchases.kn.core.RCAdDisplayed
 import com.revenuecat.purchases.kn.core.RCAdFailedToLoad
 import com.revenuecat.purchases.kn.core.RCAdFormat
@@ -64,7 +67,12 @@ public fun AdRevenueData.toIos(): RCAdRevenue {
         placement = placement,
         adUnitId = adUnitId,
         impressionId = impressionId,
-        revenueMicros = revenueMicros,
+        // The native type is NSInteger, which is 32 bits on watchosArm64 (arm64_32). Clamping
+        // to the platform NSInteger range before convert() turns a silent sign-wrap into a
+        // bounded value there; it is a no-op on 64-bit targets.
+        revenueMicros = revenueMicros
+            .coerceIn(NSIntegerMin.toLong(), NSIntegerMax.toLong())
+            .convert(),
         currency = currency,
         precision = precision.toIos(),
     )
@@ -89,6 +97,6 @@ public fun AdFailedToLoadData.toIos(): RCAdFailedToLoad {
         adFormat = adFormat.toIos(),
         placement = placement,
         adUnitId = adUnitId,
-        mediatorErrorCode = mediatorErrorCode?.let { NSNumber(it) },
+        mediatorErrorCode = mediatorErrorCode?.let { NSNumber(int = it) },
     )
 }

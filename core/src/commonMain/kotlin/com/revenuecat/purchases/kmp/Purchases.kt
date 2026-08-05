@@ -460,7 +460,7 @@ public expect class Purchases {
     /**
      * Fetches the win-back offers that a subscriber is eligible for on a given product.
      *
-     * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
+     * Apple platforms only. Requires iOS 18.0+ or watchOS 11.0+ and StoreKit 2 and emits an error if these requirements aren't
      * met.
      *
      * @param storeProduct: The product to check for eligible win-back offers on.
@@ -478,7 +478,7 @@ public expect class Purchases {
     /**
      * Fetches the win-back offers that a subscriber is eligible for on a given package.
      *
-     * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
+     * Apple platforms only. Requires iOS 18.0+ or watchOS 11.0+ and StoreKit 2 and emits an error if these requirements aren't
      * met.
      *
      * @param packageToCheck: The package to check for eligible win-back offers on.
@@ -497,7 +497,7 @@ public expect class Purchases {
      * Purchases a product with a given win-back offer. If you are using the Offerings system, use the
      * overload with a [Package] parameter instead.
      *
-     * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
+     * Apple platforms only. Requires iOS 18.0+ or watchOS 11.0+ and StoreKit 2 and emits an error if these requirements aren't
      * met.
      *
      * @param storeProduct: The product to purchase
@@ -519,7 +519,7 @@ public expect class Purchases {
     /**
      * Purchases a package with a given win-back offer.
      *
-     * iOS only. Requires iOS 18.0+ and StoreKit 2 and emits an error if these requirements aren't
+     * Apple platforms only. Requires iOS 18.0+ or watchOS 11.0+ and StoreKit 2 and emits an error if these requirements aren't
      * met.
      *
      * @param packageToPurchase: The package to purchase
@@ -575,7 +575,7 @@ public expect class Purchases {
     )
 
     /**
-     * Google Play and App Store only, no-op for Amazon.
+     * Google Play and App Store only, no-op for Amazon and watchOS.
      * Displays the specified in-app message types to the user as a snackbar if there are any
      * available to be shown.
      * If [PurchasesConfiguration.showInAppMessagesAutomatically] is enabled, this will be done
@@ -806,7 +806,7 @@ public expect class Purchases {
      * Refer to https://docs.revenuecat.com/docs/ios-subscription-offers#offer-codes
      * for more information on how to configure and use offer codes.
      *
-     * On Android, this is a no-op.
+     * On Android and watchOS, this is a no-op.
      */
     public fun presentCodeRedemptionSheet()
 
