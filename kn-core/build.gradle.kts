@@ -7,7 +7,7 @@ plugins {
 
 kotlin {
     sourceSets {
-        iosMain.dependencies {
+        appleMain.dependencies {
             swiftPackage(
                 path = rootProject.file("upstream/purchases-ios"),
                 target = "RevenueCat",

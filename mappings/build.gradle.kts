@@ -10,7 +10,7 @@ kotlin {
         androidMain.dependencies {
             api(libs.revenuecat.android)
         }
-        iosMain.dependencies {
+        appleMain.dependencies {
             implementation(projects.knCore)
         }
         androidUnitTest.dependencies {
