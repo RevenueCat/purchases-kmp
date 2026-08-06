@@ -16,8 +16,8 @@ public actual class AdTracker internal constructor(
     private val iosAdTracker: RCAdTracker
 ) {
     public actual fun trackAdDisplayed(data: AdDisplayedData) {
-        if (!AppleApiAvailability().isAdTrackingAPIAvailable()) {
-            Purchases.logHandler.w("Purchases", "Ad tracking requires iOS 15.0+. Current API is unavailable.")
+        if (!appleApiAvailability.isAdTrackingAPIAvailable()) {
+            Purchases.logHandler.w("Purchases", AD_TRACKING_UNAVAILABLE_MESSAGE)
             return
         }
 
@@ -25,8 +25,8 @@ public actual class AdTracker internal constructor(
     }
 
     public actual fun trackAdOpened(data: AdOpenedData) {
-        if (!AppleApiAvailability().isAdTrackingAPIAvailable()) {
-            Purchases.logHandler.w("Purchases", "Ad tracking requires iOS 15.0+. Current API is unavailable.")
+        if (!appleApiAvailability.isAdTrackingAPIAvailable()) {
+            Purchases.logHandler.w("Purchases", AD_TRACKING_UNAVAILABLE_MESSAGE)
             return
         }
 
@@ -34,8 +34,8 @@ public actual class AdTracker internal constructor(
     }
 
     public actual fun trackAdRevenue(data: AdRevenueData) {
-        if (!AppleApiAvailability().isAdTrackingAPIAvailable()) {
-            Purchases.logHandler.w("Purchases", "Ad tracking requires iOS 15.0+. Current API is unavailable.")
+        if (!appleApiAvailability.isAdTrackingAPIAvailable()) {
+            Purchases.logHandler.w("Purchases", AD_TRACKING_UNAVAILABLE_MESSAGE)
             return
         }
 
@@ -43,8 +43,8 @@ public actual class AdTracker internal constructor(
     }
 
     public actual fun trackAdLoaded(data: AdLoadedData) {
-        if (!AppleApiAvailability().isAdTrackingAPIAvailable()) {
-            Purchases.logHandler.w("Purchases", "Ad tracking requires iOS 15.0+. Current API is unavailable.")
+        if (!appleApiAvailability.isAdTrackingAPIAvailable()) {
+            Purchases.logHandler.w("Purchases", AD_TRACKING_UNAVAILABLE_MESSAGE)
             return
         }
 
@@ -52,11 +52,16 @@ public actual class AdTracker internal constructor(
     }
 
     public actual fun trackAdFailedToLoad(data: AdFailedToLoadData) {
-        if (!AppleApiAvailability().isAdTrackingAPIAvailable()) {
-            Purchases.logHandler.w("Purchases", "Ad tracking requires iOS 15.0+. Current API is unavailable.")
+        if (!appleApiAvailability.isAdTrackingAPIAvailable()) {
+            Purchases.logHandler.w("Purchases", AD_TRACKING_UNAVAILABLE_MESSAGE)
             return
         }
 
         iosAdTracker.trackAdFailedToLoad(data.toIos())
     }
 }
+
+private val appleApiAvailability = AppleApiAvailability()
+
+private const val AD_TRACKING_UNAVAILABLE_MESSAGE =
+    "Ad tracking requires iOS 15.0+ or watchOS 8.0+. Current API is unavailable."

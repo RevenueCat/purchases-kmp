@@ -16,7 +16,8 @@ private class IosStoreProductDiscount(
     val wrapped: NativeIosStoreProductDiscount,
 ): StoreProductDiscount {
     override val price: Price = wrapped.toPrice()
-    override val numberOfPeriods: Long = wrapped.numberOfPeriods()
+    // toLong() because the native type is NSInteger, which is 32 bits on watchosArm64 (arm64_32).
+    override val numberOfPeriods: Long = wrapped.numberOfPeriods().toLong()
     override val offerIdentifier: String? = wrapped.offerIdentifier()
     override val paymentMode: DiscountPaymentMode = wrapped.paymentMode().toDiscountPaymentMode()
     override val subscriptionPeriod: Period = wrapped.subscriptionPeriod().toPeriod()
