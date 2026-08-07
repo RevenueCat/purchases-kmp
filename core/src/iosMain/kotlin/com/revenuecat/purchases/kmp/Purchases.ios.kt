@@ -4,6 +4,7 @@ package com.revenuecat.purchases.kmp
 import com.revenuecat.purchases.kmp.ktx.mapEntriesNotNull
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toIntroEligibilityStatus
+import com.revenuecat.purchases.kmp.mappings.toKmp
 import com.revenuecat.purchases.kmp.mappings.toIosCacheFetchPolicy
 import com.revenuecat.purchases.kmp.mappings.toIosEntitlementVerificationMode
 import com.revenuecat.purchases.kmp.mappings.toIosOffering
@@ -36,6 +37,8 @@ import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
 import com.revenuecat.purchases.kmp.models.RedeemWebPurchaseListener
 import com.revenuecat.purchases.kmp.models.ReplacementMode
+import com.revenuecat.purchases.kmp.models.RewardVerificationResult
+import com.revenuecat.purchases.kmp.models.RewardVerificationToken
 import com.revenuecat.purchases.kmp.models.Store
 import com.revenuecat.purchases.kmp.models.StoreMessageType
 import com.revenuecat.purchases.kmp.models.StoreProduct
@@ -50,6 +53,7 @@ import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import platform.Foundation.NSError
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDefaults
+import com.revenuecat.purchases.kn.core.additional.RewardVerification
 import com.revenuecat.purchases.kn.core.RCConfiguration
 import com.revenuecat.purchases.kn.core.RCCustomPaywallImpressionParams
 import com.revenuecat.purchases.kn.core.RCCustomerInfo
@@ -826,4 +830,21 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
     @ExperimentalRevenueCatApi
     public actual val adTracker: AdTracker by lazy { AdTracker(iosPurchases.adTracker()) }
+
+    @ExperimentalRevenueCatApi
+    public actual fun generateRewardVerificationToken(impressionId: String): RewardVerificationToken {
+        return RewardVerification.generateRewardVerificationTokenWithImpressionId(impressionId = impressionId)
+            .toKmp()
+    }
+
+    @ExperimentalRevenueCatApi
+    public actual fun pollRewardVerification(
+        clientTransactionId: String,
+        onCompleted: (result: RewardVerificationResult) -> Unit,
+    ) {
+        RewardVerification.pollRewardVerificationWithClientTransactionId(
+            clientTransactionId = clientTransactionId,
+            completion = { result -> onCompleted(result!!.toKmp()) }
+        )
+    }
 }

@@ -11,6 +11,8 @@ import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.RedeemWebPurchaseListener
 import com.revenuecat.purchases.kmp.models.ReplacementMode
+import com.revenuecat.purchases.kmp.models.RewardVerificationResult
+import com.revenuecat.purchases.kmp.models.RewardVerificationToken
 import com.revenuecat.purchases.kmp.models.Store
 import com.revenuecat.purchases.kmp.models.StoreMessageType
 import com.revenuecat.purchases.kmp.models.StoreProduct
@@ -870,6 +872,36 @@ public expect class Purchases {
      */
     @ExperimentalRevenueCatApi
     public val adTracker: AdTracker
+
+    /**
+     * Generates a reward verification token for a loaded rewarded ad.
+     *
+     * Call after the ad has loaded. Forward [RewardVerificationToken.customData] and
+     * [RewardVerificationToken.appUserID] to your ad network's server-side verification options, then keep
+     * [RewardVerificationToken.clientTransactionId] for use with [pollRewardVerification] when the reward
+     * callback fires.
+     *
+     * @param impressionId The ad network's impression identifier for the loaded ad.
+     */
+    @ExperimentalRevenueCatApi
+    public fun generateRewardVerificationToken(impressionId: String): RewardVerificationToken
+
+    /**
+     * Polls the backend until reward verification completes or the attempt budget is exhausted.
+     *
+     * Call when your ad network's reward callback fires, passing the [RewardVerificationToken.clientTransactionId]
+     * returned by [generateRewardVerificationToken]. Reflects any verified reward locally before returning.
+     * [onCompleted] is invoked on the main thread.
+     *
+     * For coroutines, use the `awaitPollRewardVerification` suspend extension instead.
+     *
+     * @param clientTransactionId Correlates this poll with the token from [generateRewardVerificationToken].
+     */
+    @ExperimentalRevenueCatApi
+    public fun pollRewardVerification(
+        clientTransactionId: String,
+        onCompleted: (result: RewardVerificationResult) -> Unit,
+    )
 }
 
 /**
