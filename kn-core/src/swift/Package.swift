@@ -13,8 +13,16 @@ let package = Package(
     products: [
         .library(name: "AdditionalSwift", targets: ["AdditionalSwift"])
     ],
+    dependencies: [
+        .package(path: "../../../upstream/purchases-ios")
+    ],
     targets: [
-        .target(name: "AdditionalSwift")
+        .target(
+            name: "AdditionalSwift",
+            dependencies: [
+                .product(name: "RevenueCat", package: "purchases-ios")
+            ]
+        )
     ]
 )
 

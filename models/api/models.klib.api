@@ -904,6 +904,28 @@ final class com.revenuecat.purchases.kmp.models/PurchasesTransactionException : 
         final fun <get-userCancelled>(): kotlin/Boolean // com.revenuecat.purchases.kmp.models/PurchasesTransactionException.userCancelled.<get-userCancelled>|<get-userCancelled>(){}[0]
 }
 
+final class com.revenuecat.purchases.kmp.models/RewardVerificationResult { // com.revenuecat.purchases.kmp.models/RewardVerificationResult|null[0]
+    constructor <init>(com.revenuecat.purchases.kmp.models/VerifiedReward?, kotlin.collections/List<com.revenuecat.purchases.kmp.models/VerifiedReward>, kotlin/Boolean) // com.revenuecat.purchases.kmp.models/RewardVerificationResult.<init>|<init>(com.revenuecat.purchases.kmp.models.VerifiedReward?;kotlin.collections.List<com.revenuecat.purchases.kmp.models.VerifiedReward>;kotlin.Boolean){}[0]
+
+    final val failed // com.revenuecat.purchases.kmp.models/RewardVerificationResult.failed|{}failed[0]
+        final fun <get-failed>(): kotlin/Boolean // com.revenuecat.purchases.kmp.models/RewardVerificationResult.failed.<get-failed>|<get-failed>(){}[0]
+    final val moreRewards // com.revenuecat.purchases.kmp.models/RewardVerificationResult.moreRewards|{}moreRewards[0]
+        final fun <get-moreRewards>(): kotlin.collections/List<com.revenuecat.purchases.kmp.models/VerifiedReward> // com.revenuecat.purchases.kmp.models/RewardVerificationResult.moreRewards.<get-moreRewards>|<get-moreRewards>(){}[0]
+    final val verifiedReward // com.revenuecat.purchases.kmp.models/RewardVerificationResult.verifiedReward|{}verifiedReward[0]
+        final fun <get-verifiedReward>(): com.revenuecat.purchases.kmp.models/VerifiedReward? // com.revenuecat.purchases.kmp.models/RewardVerificationResult.verifiedReward.<get-verifiedReward>|<get-verifiedReward>(){}[0]
+}
+
+final class com.revenuecat.purchases.kmp.models/RewardVerificationToken { // com.revenuecat.purchases.kmp.models/RewardVerificationToken|null[0]
+    constructor <init>(kotlin/String, kotlin/String, kotlin/String) // com.revenuecat.purchases.kmp.models/RewardVerificationToken.<init>|<init>(kotlin.String;kotlin.String;kotlin.String){}[0]
+
+    final val appUserID // com.revenuecat.purchases.kmp.models/RewardVerificationToken.appUserID|{}appUserID[0]
+        final fun <get-appUserID>(): kotlin/String // com.revenuecat.purchases.kmp.models/RewardVerificationToken.appUserID.<get-appUserID>|<get-appUserID>(){}[0]
+    final val clientTransactionId // com.revenuecat.purchases.kmp.models/RewardVerificationToken.clientTransactionId|{}clientTransactionId[0]
+        final fun <get-clientTransactionId>(): kotlin/String // com.revenuecat.purchases.kmp.models/RewardVerificationToken.clientTransactionId.<get-clientTransactionId>|<get-clientTransactionId>(){}[0]
+    final val customData // com.revenuecat.purchases.kmp.models/RewardVerificationToken.customData|{}customData[0]
+        final fun <get-customData>(): kotlin/String // com.revenuecat.purchases.kmp.models/RewardVerificationToken.customData.<get-customData>|<get-customData>(){}[0]
+}
+
 final class com.revenuecat.purchases.kmp.models/StoreTransaction { // com.revenuecat.purchases.kmp.models/StoreTransaction|null[0]
     constructor <init>(kotlin/String?, kotlin.collections/List<kotlin/String>, kotlin/Long) // com.revenuecat.purchases.kmp.models/StoreTransaction.<init>|<init>(kotlin.String?;kotlin.collections.List<kotlin.String>;kotlin.Long){}[0]
 
@@ -1036,6 +1058,32 @@ open class com.revenuecat.purchases.kmp.models/PurchasesException : kotlin/Excep
         final fun <get-underlyingErrorMessage>(): kotlin/String? // com.revenuecat.purchases.kmp.models/PurchasesException.underlyingErrorMessage.<get-underlyingErrorMessage>|<get-underlyingErrorMessage>(){}[0]
     open val message // com.revenuecat.purchases.kmp.models/PurchasesException.message|{}message[0]
         open fun <get-message>(): kotlin/String // com.revenuecat.purchases.kmp.models/PurchasesException.message.<get-message>|<get-message>(){}[0]
+}
+
+sealed class com.revenuecat.purchases.kmp.models/VerifiedReward { // com.revenuecat.purchases.kmp.models/VerifiedReward|null[0]
+    final class Entitlement : com.revenuecat.purchases.kmp.models/VerifiedReward { // com.revenuecat.purchases.kmp.models/VerifiedReward.Entitlement|null[0]
+        constructor <init>(kotlin/String, kotlin/Long) // com.revenuecat.purchases.kmp.models/VerifiedReward.Entitlement.<init>|<init>(kotlin.String;kotlin.Long){}[0]
+
+        final val expiresAt // com.revenuecat.purchases.kmp.models/VerifiedReward.Entitlement.expiresAt|{}expiresAt[0]
+            final fun <get-expiresAt>(): kotlin.time/Instant // com.revenuecat.purchases.kmp.models/VerifiedReward.Entitlement.expiresAt.<get-expiresAt>|<get-expiresAt>(){}[0]
+        final val expiresAtMillis // com.revenuecat.purchases.kmp.models/VerifiedReward.Entitlement.expiresAtMillis|{}expiresAtMillis[0]
+            final fun <get-expiresAtMillis>(): kotlin/Long // com.revenuecat.purchases.kmp.models/VerifiedReward.Entitlement.expiresAtMillis.<get-expiresAtMillis>|<get-expiresAtMillis>(){}[0]
+        final val identifier // com.revenuecat.purchases.kmp.models/VerifiedReward.Entitlement.identifier|{}identifier[0]
+            final fun <get-identifier>(): kotlin/String // com.revenuecat.purchases.kmp.models/VerifiedReward.Entitlement.identifier.<get-identifier>|<get-identifier>(){}[0]
+    }
+
+    final class VirtualCurrency : com.revenuecat.purchases.kmp.models/VerifiedReward { // com.revenuecat.purchases.kmp.models/VerifiedReward.VirtualCurrency|null[0]
+        constructor <init>(kotlin/String, kotlin/Int) // com.revenuecat.purchases.kmp.models/VerifiedReward.VirtualCurrency.<init>|<init>(kotlin.String;kotlin.Int){}[0]
+
+        final val amount // com.revenuecat.purchases.kmp.models/VerifiedReward.VirtualCurrency.amount|{}amount[0]
+            final fun <get-amount>(): kotlin/Int // com.revenuecat.purchases.kmp.models/VerifiedReward.VirtualCurrency.amount.<get-amount>|<get-amount>(){}[0]
+        final val code // com.revenuecat.purchases.kmp.models/VerifiedReward.VirtualCurrency.code|{}code[0]
+            final fun <get-code>(): kotlin/String // com.revenuecat.purchases.kmp.models/VerifiedReward.VirtualCurrency.code.<get-code>|<get-code>(){}[0]
+    }
+
+    final object NoReward : com.revenuecat.purchases.kmp.models/VerifiedReward // com.revenuecat.purchases.kmp.models/VerifiedReward.NoReward|null[0]
+
+    final object UnsupportedReward : com.revenuecat.purchases.kmp.models/VerifiedReward // com.revenuecat.purchases.kmp.models/VerifiedReward.UnsupportedReward|null[0]
 }
 
 final val com.revenuecat.purchases.kmp.models/billingPeriod // com.revenuecat.purchases.kmp.models/billingPeriod|@com.revenuecat.purchases.kmp.models.SubscriptionOption{}billingPeriod[0]

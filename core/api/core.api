@@ -34,6 +34,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun collectDeviceIdentifiers ()V
 	public static final fun configure (Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;)Lcom/revenuecat/purchases/kmp/Purchases;
 	public final fun enableAdServicesAttributionTokenCollection ()V
+	public final fun generateRewardVerificationToken (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/RewardVerificationToken;
 	public final fun getAdTracker ()Lcom/revenuecat/purchases/kmp/AdTracker;
 	public final fun getAppUserID ()Ljava/lang/String;
 	public final fun getCachedVirtualCurrencies ()Lcom/revenuecat/purchases/kmp/models/VirtualCurrencies;
@@ -61,6 +62,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun logIn (Ljava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
 	public final fun logOut (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun overridePreferredUILocale (Ljava/lang/String;)V
+	public final fun pollRewardVerification (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
 	public final fun presentCodeRedemptionSheet ()V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
 	public final fun purchase (Lcom/revenuecat/purchases/kmp/models/Package;Lcom/revenuecat/purchases/kmp/models/WinBackOffer;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)V
@@ -230,6 +232,7 @@ public final class com/revenuecat/purchases/kmp/ktx/CoroutinesKt {
 	public static final fun awaitLogIn (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitLogOut (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitOfferings (Lcom/revenuecat/purchases/kmp/Purchases;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun awaitPollRewardVerification (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPromotionalOffer (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;Lcom/revenuecat/purchases/kmp/models/StoreProduct;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/Package;Lcom/revenuecat/purchases/kmp/models/PromotionalOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitPurchase (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/Package;Lcom/revenuecat/purchases/kmp/models/WinBackOffer;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;

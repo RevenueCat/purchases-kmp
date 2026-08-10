@@ -558,6 +558,20 @@ public abstract interface class com/revenuecat/purchases/kmp/models/ReplacementM
 	public abstract fun getName ()Ljava/lang/String;
 }
 
+public final class com/revenuecat/purchases/kmp/models/RewardVerificationResult {
+	public fun <init> (Lcom/revenuecat/purchases/kmp/models/VerifiedReward;Ljava/util/List;Z)V
+	public final fun getFailed ()Z
+	public final fun getMoreRewards ()Ljava/util/List;
+	public final fun getVerifiedReward ()Lcom/revenuecat/purchases/kmp/models/VerifiedReward;
+}
+
+public final class com/revenuecat/purchases/kmp/models/RewardVerificationToken {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getAppUserID ()Ljava/lang/String;
+	public final fun getClientTransactionId ()Ljava/lang/String;
+	public final fun getCustomData ()Ljava/lang/String;
+}
+
 public final class com/revenuecat/purchases/kmp/models/Store : java/lang/Enum {
 	public static final field AMAZON Lcom/revenuecat/purchases/kmp/models/Store;
 	public static final field APP_STORE Lcom/revenuecat/purchases/kmp/models/Store;
@@ -711,6 +725,30 @@ public final class com/revenuecat/purchases/kmp/models/VerificationResult : java
 	public final fun isVerified ()Z
 	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/VerificationResult;
 	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/VerificationResult;
+}
+
+public abstract class com/revenuecat/purchases/kmp/models/VerifiedReward {
+}
+
+public final class com/revenuecat/purchases/kmp/models/VerifiedReward$Entitlement : com/revenuecat/purchases/kmp/models/VerifiedReward {
+	public fun <init> (Ljava/lang/String;J)V
+	public final fun getExpiresAt ()Lkotlin/time/Instant;
+	public final fun getExpiresAtMillis ()J
+	public final fun getIdentifier ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/models/VerifiedReward$NoReward : com/revenuecat/purchases/kmp/models/VerifiedReward {
+	public static final field INSTANCE Lcom/revenuecat/purchases/kmp/models/VerifiedReward$NoReward;
+}
+
+public final class com/revenuecat/purchases/kmp/models/VerifiedReward$UnsupportedReward : com/revenuecat/purchases/kmp/models/VerifiedReward {
+	public static final field INSTANCE Lcom/revenuecat/purchases/kmp/models/VerifiedReward$UnsupportedReward;
+}
+
+public final class com/revenuecat/purchases/kmp/models/VerifiedReward$VirtualCurrency : com/revenuecat/purchases/kmp/models/VerifiedReward {
+	public fun <init> (Ljava/lang/String;I)V
+	public final fun getAmount ()I
+	public final fun getCode ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/VirtualCurrencies {
