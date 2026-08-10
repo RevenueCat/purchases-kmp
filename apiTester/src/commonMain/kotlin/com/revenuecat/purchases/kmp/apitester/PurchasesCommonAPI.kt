@@ -1,6 +1,7 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import arrow.core.Either
+import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.LogHandler
 import com.revenuecat.purchases.kmp.LogLevel
 import com.revenuecat.purchases.kmp.Purchases
@@ -19,6 +20,7 @@ import com.revenuecat.purchases.kmp.ktx.awaitEligibleWinBackOffersForPackage
 import com.revenuecat.purchases.kmp.ktx.awaitEligibleWinBackOffersForProduct
 import com.revenuecat.purchases.kmp.ktx.awaitGetProducts
 import com.revenuecat.purchases.kmp.ktx.awaitOfferings
+import com.revenuecat.purchases.kmp.ktx.awaitPollRewardVerification
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
 import com.revenuecat.purchases.kmp.ktx.awaitTrialOrIntroPriceEligibility
 import com.revenuecat.purchases.kmp.ktx.awaitVirtualCurrencies
@@ -32,6 +34,8 @@ import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.models.PurchasesError
+import com.revenuecat.purchases.kmp.models.RewardVerificationResult
+import com.revenuecat.purchases.kmp.models.RewardVerificationToken
 import com.revenuecat.purchases.kmp.models.Store
 import com.revenuecat.purchases.kmp.models.StoreKitVersion
 import com.revenuecat.purchases.kmp.models.StoreProduct
@@ -213,6 +217,13 @@ private class PurchasesCommonAPI {
         val virtualCurrencies: VirtualCurrencies = purchases.awaitVirtualCurrencies()
     }
 
+    @OptIn(ExperimentalRevenueCatApi::class)
+    suspend fun checkCoroutinesRewardVerification(purchases: Purchases) {
+        val result: RewardVerificationResult = purchases.awaitPollRewardVerification(
+            clientTransactionId = "client-transaction-id",
+        )
+    }
+
     suspend fun checkCoroutinesResult(
         purchases: Purchases,
         storeProduct: StoreProduct,
@@ -389,6 +400,18 @@ private class PurchasesCommonAPI {
             productID = "myProductID",
             onError = { error ->  },
             onSuccess = { storeTransaction ->  }
+        )
+    }
+
+    @OptIn(ExperimentalRevenueCatApi::class)
+    fun checkRewardVerification(purchases: Purchases) {
+        val token: RewardVerificationToken = purchases.generateRewardVerificationToken(
+            impressionId = "impression-id",
+        )
+
+        purchases.pollRewardVerification(
+            clientTransactionId = token.clientTransactionId,
+            onCompleted = { result: RewardVerificationResult -> },
         )
     }
 
