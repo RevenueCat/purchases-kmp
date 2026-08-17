@@ -112,7 +112,6 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(projects.core)
             implementation(projects.result)
-            implementation(projects.either)
             implementation(projects.revenuecatui)
         }
         androidMain.dependencies {

@@ -33,17 +33,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import arrow.core.Either
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.models.StoreKitVersion
-import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
 import com.revenuecat.purchases.kmp.ktx.awaitCustomerInfo
+import com.revenuecat.purchases.kmp.ktx.awaitOfferings
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.PurchasesError
+import com.revenuecat.purchases.kmp.models.PurchasesException
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.ui.revenuecatui.CustomVariableValue
@@ -131,11 +131,11 @@ fun MainScreen(
                     mutableStateOf(AsyncState.Loading)
                 }
                 LaunchedEffect(Unit) {
-                    offeringsState =
-                        when (val offerings = Purchases.sharedInstance.awaitOfferingsEither()) {
-                            is Either.Left -> AsyncState.Error
-                            is Either.Right -> AsyncState.Loaded(offerings.value)
-                        }
+                    offeringsState = try {
+                        AsyncState.Loaded(Purchases.sharedInstance.awaitOfferings())
+                    } catch (e: PurchasesException) {
+                        AsyncState.Error
+                    }
                 }
                 val customerInfo by Purchases.sharedInstance.rememberCustomerInfoState()
                 val customerInfoState by remember {
