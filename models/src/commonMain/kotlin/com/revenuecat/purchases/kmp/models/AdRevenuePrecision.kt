@@ -1,6 +1,7 @@
 package com.revenuecat.purchases.kmp.models
 
 import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
+import com.revenuecat.purchases.kmp.InternalRevenueCatApi
 
 /**
  * Represents the precision level of ad revenue values reported by ad networks.
@@ -9,7 +10,7 @@ import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
  * This enum helps distinguish between exact reported values and estimates.
  */
 @ExperimentalRevenueCatApi
-public class AdRevenuePrecision(public val value: String) {
+public class AdRevenuePrecision internal constructor(@property:InternalRevenueCatApi public val value: String) {
     public companion object {
         /**
          * The revenue value is exact and confirmed by the ad network.
@@ -39,5 +40,15 @@ public class AdRevenuePrecision(public val value: String) {
          * accuracy of the revenue data, or when the precision cannot be determined.
          */
         public val UNKNOWN: AdRevenuePrecision = AdRevenuePrecision("unknown")
+
+        public fun fromString(value: String): AdRevenuePrecision {
+            return when (value.lowercase().trim()) {
+                "exact" -> EXACT
+                "publisher_defined" -> PUBLISHER_DEFINED
+                "estimated" -> ESTIMATED
+                "unknown" -> UNKNOWN
+                else -> AdRevenuePrecision(value)
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
+import com.revenuecat.purchases.kmp.InternalRevenueCatApi
 import com.revenuecat.purchases.kmp.models.AdDisplayedData
 import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
 import com.revenuecat.purchases.kmp.models.AdFormat
@@ -21,14 +22,17 @@ import com.revenuecat.purchases.kn.core.RCAdRevenuePrecision
 import com.revenuecat.purchases.kn.core.RCMediatorName
 
 @ExperimentalRevenueCatApi
+@OptIn(InternalRevenueCatApi::class)
 public fun AdMediatorName.toIos(): RCMediatorName =
     RCMediatorName(rawValue = value)
 
 @ExperimentalRevenueCatApi
+@OptIn(InternalRevenueCatApi::class)
 public fun AdRevenuePrecision.toIos(): RCAdRevenuePrecision =
     RCAdRevenuePrecision(rawValue = value)
 
 @ExperimentalRevenueCatApi
+@OptIn(InternalRevenueCatApi::class)
 public fun AdFormat.toIos(): RCAdFormat =
     RCAdFormat(rawValue = value)
 
