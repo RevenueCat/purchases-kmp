@@ -53,7 +53,7 @@ public class AdRevenuePrecision internal constructor(@property:InternalRevenueCa
          */
         public val UNKNOWN: AdRevenuePrecision = AdRevenuePrecision("unknown")
 
-        public fun fromString(value: String): AdRevenuePrecision {
+        internal fun fromString(value: String): AdRevenuePrecision {
             return when (value.lowercase().trim()) {
                 "exact" -> EXACT
                 "publisher_defined" -> PUBLISHER_DEFINED
