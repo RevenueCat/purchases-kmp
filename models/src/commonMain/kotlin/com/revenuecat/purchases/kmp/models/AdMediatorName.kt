@@ -24,7 +24,7 @@ public class AdMediatorName internal constructor(@property:InternalRevenueCatApi
         public val AD_MOB: AdMediatorName = AdMediatorName("AdMob")
         public val APP_LOVIN: AdMediatorName = AdMediatorName("AppLovin")
 
-        public fun fromString(value: String): AdMediatorName {
+        internal fun fromString(value: String): AdMediatorName {
             return when (value.trim()) {
                 "AdMob" -> AD_MOB
                 "AppLovin" -> APP_LOVIN

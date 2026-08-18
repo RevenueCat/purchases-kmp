@@ -29,7 +29,7 @@ public class AdFormat internal constructor(@property:InternalRevenueCatApi publi
         public val NATIVE: AdFormat = AdFormat("native")
         public val APP_OPEN: AdFormat = AdFormat("app_open")
 
-        public fun fromString(value: String): AdFormat {
+        internal fun fromString(value: String): AdFormat {
             return when (value.trim()) {
                 "other" -> OTHER
                 "banner" -> BANNER
