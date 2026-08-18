@@ -2,9 +2,11 @@ package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI
 import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
+import com.revenuecat.purchases.kmp.models.RewardedAdTrackingMetadata
 import com.revenuecat.purchases.kmp.models.RewardVerificationResult
 import com.revenuecat.purchases.kmp.models.RewardVerificationToken
 import com.revenuecat.purchases.kmp.models.VerifiedReward
+import com.revenuecat.purchases.ads.rewardverification.RewardedAdTrackingMetadata as AndroidRewardedAdTrackingMetadata
 import com.revenuecat.purchases.ads.rewardverification.RewardVerificationResult as AndroidRewardVerificationResult
 import com.revenuecat.purchases.ads.rewardverification.RewardVerificationToken as AndroidRewardVerificationToken
 import com.revenuecat.purchases.ads.rewardverification.VerifiedReward as AndroidVerifiedReward
@@ -25,6 +27,18 @@ public fun AndroidRewardVerificationResult.toKmp(): RewardVerificationResult =
         verifiedReward = verifiedReward?.toKmp(),
         moreRewards = moreRewards.map { it.toKmp() },
         failed = failed,
+    )
+
+@ExperimentalRevenueCatApi
+@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+public fun RewardedAdTrackingMetadata.toAndroid(): AndroidRewardedAdTrackingMetadata =
+    AndroidRewardedAdTrackingMetadata(
+        networkName = networkName,
+        mediatorName = mediatorName.toAndroid(),
+        adFormat = adFormat.toAndroid(),
+        placement = placement,
+        adUnitId = adUnitId,
+        impressionId = impressionId,
     )
 
 @ExperimentalRevenueCatApi

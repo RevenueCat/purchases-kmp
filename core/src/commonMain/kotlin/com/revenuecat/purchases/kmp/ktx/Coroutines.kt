@@ -12,6 +12,7 @@ import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.PurchasesException
 import com.revenuecat.purchases.kmp.models.PurchasesTransactionException
+import com.revenuecat.purchases.kmp.models.RewardedAdTrackingMetadata
 import com.revenuecat.purchases.kmp.models.RewardVerificationResult
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreProductDiscount
@@ -639,9 +640,11 @@ public suspend fun Purchases.Companion.awaitCanMakePayments(
 @ExperimentalRevenueCatApi
 public suspend fun Purchases.awaitPollRewardVerification(
     clientTransactionId: String,
+    trackingMetadata: RewardedAdTrackingMetadata? = null,
 ): RewardVerificationResult = suspendCoroutine { continuation ->
     pollRewardVerification(
         clientTransactionId = clientTransactionId,
-        onCompleted = { continuation.resume(it) }
+        onCompleted = { continuation.resume(it) },
+        trackingMetadata = trackingMetadata,
     )
 }
