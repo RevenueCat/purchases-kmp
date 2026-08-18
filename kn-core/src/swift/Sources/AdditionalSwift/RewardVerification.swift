@@ -50,8 +50,8 @@ public class RewardVerificationToken: NSObject {
 @objc
 public class RewardedAdTrackingMetadata: NSObject {
     @objc public let networkName: String?
-    @objc public let mediatorName: MediatorName
-    @objc public let adFormat: AdFormat
+    @objc public let mediatorName: String
+    @objc public let adFormat: String
     @objc public let placement: String?
     @objc public let adUnitId: String
     @objc public let impressionId: String
@@ -59,8 +59,8 @@ public class RewardedAdTrackingMetadata: NSObject {
     @objc
     public init(
         networkName: String?,
-        mediatorName: MediatorName,
-        adFormat: AdFormat,
+        mediatorName: String,
+        adFormat: String,
         placement: String?,
         adUnitId: String,
         impressionId: String
@@ -76,8 +76,8 @@ public class RewardedAdTrackingMetadata: NSObject {
     func toRevenueCat() -> RevenueCat.RewardedAdTrackingMetadata {
         RevenueCat.RewardedAdTrackingMetadata(
             networkName: networkName,
-            mediatorName: mediatorName,
-            adFormat: adFormat,
+            mediatorName: MediatorName(rawValue: mediatorName),
+            adFormat: AdFormat(rawValue: adFormat),
             placement: placement,
             adUnitId: adUnitId,
             impressionId: impressionId

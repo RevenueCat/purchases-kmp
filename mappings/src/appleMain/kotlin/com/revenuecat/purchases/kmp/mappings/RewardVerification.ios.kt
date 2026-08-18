@@ -35,8 +35,8 @@ public fun IosRewardVerificationResult.toKmp(): RewardVerificationResult {
 public fun RewardedAdTrackingMetadata.toIos(): IosRewardedAdTrackingMetadata =
     IosRewardedAdTrackingMetadata(
         networkName = networkName,
-        mediatorName = mediatorName.toIos(),
-        adFormat = adFormat.toIos(),
+        mediatorName = mediatorName.value,
+        adFormat = adFormat.value,
         placement = placement,
         adUnitId = adUnitId,
         impressionId = impressionId,
