@@ -25,6 +25,7 @@ mavenPublish-gradlePlugin = { module = "com.vanniktech:gradle-maven-publish-plug
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.9.0" }
 androidx-startup = { module = "androidx.startup:startup-runtime", version = "1.1.1" }
 arrow-core = { module = "io.arrow-kt:arrow-core", version = "1.2.4" }
+google-mobileAds = { module = "com.google.android.gms:play-services-ads", version = "23.6.0" }
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-core = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }

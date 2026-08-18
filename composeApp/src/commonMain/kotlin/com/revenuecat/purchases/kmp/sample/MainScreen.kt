@@ -218,6 +218,14 @@ fun MainScreen(
 
                 Spacer(modifier = Modifier.size(16.dp))
                 TextButton(
+                    onClick = { navigateTo(Screen.RewardVerificationTesting) },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Reward Verification Testing")
+                }
+
+                Spacer(modifier = Modifier.size(16.dp))
+                TextButton(
                     onClick = { navigateTo(Screen.CustomPaywallTracking) },
                     modifier = Modifier.fillMaxWidth()
                 ) {

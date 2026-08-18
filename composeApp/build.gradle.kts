@@ -1,5 +1,7 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 import org.jetbrains.compose.internal.utils.getLocalProperty
+import org.jetbrains.kotlin.gradle.tasks.CInteropProcess
+import org.jetbrains.kotlin.gradle.tasks.KotlinNativeLink
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -7,6 +9,56 @@ plugins {
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.codingfeline.buildkonfig)
+}
+
+// Local-only manual test of a real rewarded-ad SSV flow (see RewardVerificationTestingScreen).
+// GoogleMobileAds is vendored via Google's official SPM package
+// (github.com/googleads/swift-package-manager-google-mobile-ads) rather than committed, since
+// it's a ~37MB binary XCFramework. src/swift/GoogleMobileAdsVendor is a minimal wrapper package
+// that depends on it purely so `swift build` resolves and checksum-verifies the binary; we still
+// cinterop directly against the raw XCFramework below, since it's a prebuilt Objective-C binary
+// with no Swift source of ours to run through the swiftPackage() cinterop pipeline.
+val googleMobileAdsVendorDir = layout.projectDirectory.dir("src/swift/GoogleMobileAdsVendor").asFile
+val googleMobileAdsScratchDir = layout.buildDirectory.dir("swift-vendor/GoogleMobileAdsVendor").get().asFile
+val googleMobileAdsFrameworksDir = googleMobileAdsScratchDir.resolve(
+    "artifacts/swift-package-manager-google-mobile-ads/GoogleMobileAds/GoogleMobileAds.xcframework"
+)
+
+val resolveGoogleMobileAds by tasks.registering {
+    val vendorDir = googleMobileAdsVendorDir
+    val scratchDir = googleMobileAdsScratchDir
+    val markerFile = googleMobileAdsFrameworksDir.resolve("Info.plist")
+    outputs.dir(googleMobileAdsFrameworksDir)
+    doLast {
+        if (markerFile.exists()) return@doLast
+
+        // Plain ProcessBuilder (not providers.exec/project.exec) to avoid config-cache
+        // "script object reference" serialization failures from this ad-hoc task.
+        fun run(vararg command: String, workingDir: File? = null, extraEnv: Map<String, String> = emptyMap()): String {
+            val process = ProcessBuilder(*command)
+                .apply { workingDir?.let { directory(it) } }
+                .apply { environment().putAll(extraEnv) }
+                .start()
+            val stdout = process.inputStream.bufferedReader().readText()
+            val stderr = process.errorStream.bufferedReader().readText()
+            check(process.waitFor() == 0) { "Command failed: ${command.joinToString(" ")}\n$stderr" }
+            return stdout
+        }
+
+        val sdkPath = run("xcrun", "--sdk", "iphonesimulator", "--show-sdk-path").trim()
+        run(
+            "xcrun", "swift", "build",
+            "--target", "GoogleMobileAdsVendor",
+            "--configuration", "debug",
+            "--triple", "arm64-apple-ios-simulator",
+            "--scratch-path", scratchDir.absolutePath,
+            "-Xswiftc", "-sdk", "-Xswiftc", sdkPath,
+            "-Xcc", "-isysroot", "-Xcc", sdkPath,
+            // Avoids trying to use the iOS SDK to parse Package.swift when building from Xcode.
+            workingDir = vendorDir,
+            extraEnv = mapOf("SDKROOT" to ""),
+        )
+    }
 }
 
 kotlin {
@@ -23,9 +75,22 @@ kotlin {
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
+        val frameworkSlice = if (iosTarget.name == "iosArm64") "ios-arm64" else "ios-arm64_x86_64-simulator"
+        val frameworkSearchDir = googleMobileAdsFrameworksDir.resolve(frameworkSlice)
+
+        iosTarget.compilations.getByName("main") {
+            cinterops {
+                create("GoogleMobileAds") {
+                    defFile(project.file("src/iosMain/cinterop/GoogleMobileAds.def"))
+                    compilerOpts("-F${frameworkSearchDir.absolutePath}")
+                }
+            }
+        }
+
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
+            linkerOpts("-F${frameworkSearchDir.absolutePath}", "-framework", "GoogleMobileAds")
         }
     }
 
@@ -52,6 +117,7 @@ kotlin {
         }
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
+            implementation(libs.google.mobileAds)
         }
     }
 }
@@ -125,4 +191,14 @@ buildkonfig {
             }
         }
     }
+}
+
+tasks.withType<CInteropProcess>().configureEach {
+    if (name.contains("GoogleMobileAds")) {
+        dependsOn(resolveGoogleMobileAds)
+    }
+}
+
+tasks.withType<KotlinNativeLink>().configureEach {
+    dependsOn(resolveGoogleMobileAds)
 }
