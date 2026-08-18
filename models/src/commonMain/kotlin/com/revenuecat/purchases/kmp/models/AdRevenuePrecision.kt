@@ -11,6 +11,18 @@ import com.revenuecat.purchases.kmp.InternalRevenueCatApi
  */
 @ExperimentalRevenueCatApi
 public class AdRevenuePrecision internal constructor(@property:InternalRevenueCatApi public val value: String) {
+    @OptIn(InternalRevenueCatApi::class)
+    public override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is AdRevenuePrecision) return false
+        return value == other.value
+    }
+
+    @OptIn(InternalRevenueCatApi::class)
+    public override fun hashCode(): Int {
+        return value.hashCode()
+    }
+
     public companion object {
         /**
          * The revenue value is exact and confirmed by the ad network.
