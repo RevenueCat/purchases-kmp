@@ -25,6 +25,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -127,13 +128,10 @@ fun MainScreen(
                         navigateTo(Screen.PaywallFooter(offering = null))
                     }
                 }
-                var offeringsState: AsyncState<Offerings> by remember {
-                    mutableStateOf(AsyncState.Loading)
-                }
-                LaunchedEffect(Unit) {
-                    offeringsState = try {
+                val offeringsState by produceState<AsyncState<Offerings>>(AsyncState.Loading) {
+                    value = try {
                         AsyncState.Loaded(Purchases.sharedInstance.awaitOfferings())
-                    } catch (e: PurchasesException) {
+                    } catch (_: PurchasesException) {
                         AsyncState.Error
                     }
                 }
