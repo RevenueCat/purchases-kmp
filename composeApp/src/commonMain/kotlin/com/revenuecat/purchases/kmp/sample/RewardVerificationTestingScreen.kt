@@ -88,9 +88,11 @@ fun RewardVerificationTestingScreen(
     fun showAd() {
         val clientTransactionId = token?.clientTransactionId ?: return
         adReady = false
+        var rewardEarned = false
         controller.present(
             presentingHost = presentingHost,
             onUserEarnedReward = {
+                rewardEarned = true
                 status = "Verifying reward…"
                 messageColor = Color.Gray
                 Purchases.sharedInstance.pollRewardVerification(clientTransactionId) { result ->
@@ -98,7 +100,9 @@ fun RewardVerificationTestingScreen(
                     messageColor = if (result.failed) Color.Red else Color.Green
                 }
             },
-            onDismissed = { loadAd() }
+            onDismissed = {
+                if (!rewardEarned) loadAd()
+            }
         )
     }
 
