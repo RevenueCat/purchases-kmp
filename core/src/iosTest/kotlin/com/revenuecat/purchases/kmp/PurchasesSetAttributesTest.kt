@@ -94,7 +94,7 @@ class PurchasesSetAttributesTest {
     }
 
     @Test
-    fun `transformed map type is Map of String to String (non-nullable)`() {
+    fun `transformed map type is Map of String to String without nulls`() {
         val inputMap = mapOf(
             "key1" to "value1",
             "key2" to null
