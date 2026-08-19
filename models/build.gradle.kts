@@ -2,6 +2,7 @@ import com.revenuecat.purchases.kmp.buildlogic.watchosTargets
 
 plugins {
     id("revenuecat-library")
+    alias(libs.plugins.poko)
 }
 
 revenueCat {
