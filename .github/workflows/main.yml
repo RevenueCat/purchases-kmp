@@ -2,7 +2,7 @@ name: Main
 
 on:
   push:
-    branches: [ "main", "pallares/pin-dependency-submission-action" ]
+    branches: [ "main" ]
 
 jobs:
   dependency-submission:
