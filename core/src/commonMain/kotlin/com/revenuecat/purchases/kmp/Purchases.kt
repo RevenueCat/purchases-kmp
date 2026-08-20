@@ -620,6 +620,8 @@ public expect class Purchases {
      * restrictions refer to our [guide](https://docs.revenuecat.com/docs/subscriber-attributes).
      *
      * @param attributes Map of attributes by key. Set the value as null to delete an attribute.
+     * The delete payload differs by platform: iOS sends an empty string (the native SDK's
+     * documented delete representation), while Android sends JSON null.
      */
     public fun setAttributes(attributes: Map<String, String?>)
 

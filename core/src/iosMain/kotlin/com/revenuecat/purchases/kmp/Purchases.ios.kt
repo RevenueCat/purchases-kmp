@@ -639,7 +639,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         iosPurchases.overridePreferredUILocale(locale)
 
     public actual fun setAttributes(attributes: Map<String, String?>): Unit =
-        iosPurchases.setAttributes(attributes.mapValues { (_, value) -> value ?: "" })
+        iosPurchases.setAttributes(attributes.toIosSubscriberAttributes())
 
     public actual fun setEmail(email: String?): Unit =
         iosPurchases.setEmail(email)
