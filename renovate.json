@@ -18,6 +18,28 @@
       "matchManagers": ["gradle"],
       "enabled": true,
       "groupName": "purchases-android"
+    },
+    {
+      "description": "Force a patch release when the native SDKs get a patch update",
+      "matchManagers": ["gradle", "git-submodules"],
+      "matchPackageNames": [
+        "com.revenuecat.purchases:purchases",
+        "com.revenuecat.purchases:purchases-ui",
+        "upstream/purchases-ios"
+      ],
+      "matchUpdateTypes": ["patch"],
+      "addLabels": ["pr:force_patch"]
+    },
+    {
+      "description": "Force a minor release when the native SDKs get a minor update",
+      "matchManagers": ["gradle", "git-submodules"],
+      "matchPackageNames": [
+        "com.revenuecat.purchases:purchases",
+        "com.revenuecat.purchases:purchases-ui",
+        "upstream/purchases-ios"
+      ],
+      "matchUpdateTypes": ["minor"],
+      "addLabels": ["pr:force_minor"]
     }
   ]
 }
