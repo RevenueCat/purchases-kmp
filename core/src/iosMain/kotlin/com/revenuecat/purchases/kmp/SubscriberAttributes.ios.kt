@@ -7,9 +7,9 @@ package com.revenuecat.purchases.kmp
  * cast them to `NSString`. Empty string is the iOS SDK's documented representation for deleting
  * an attribute.
  *
- * The return type is `Map<Any?, *>` because that is what the ObjC interop for
- * `RCPurchases.setAttributes` expects. `Map<String, String>` is not a subtype, since [Map] is
- * invariant.
+ * The return type is declared as `Map<Any?, *>` because that is the ObjC interop parameter type
+ * for `RCPurchases.setAttributes`, and [Map] is invariant, so `Map<String, String>` is not a
+ * subtype of it.
  */
 internal fun Map<String, String?>.toIosSubscriberAttributes(): Map<Any?, *> =
-    mapValues { (_, value) -> value ?: "" }.mapKeys { (key, _) -> key }
+    mapValues { (_, value) -> value ?: "" }
