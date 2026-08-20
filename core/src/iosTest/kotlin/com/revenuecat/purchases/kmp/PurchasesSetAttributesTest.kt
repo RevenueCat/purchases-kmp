@@ -18,7 +18,7 @@ class PurchasesSetAttributesTest {
             "key1" to "value1",
             "key2" to null,
             "key3" to "value3"
-        ).toIosSubscriberAttributes()
+        ).toIosSubscriberAttributes().stringValues()
 
         assertEquals(
             mapOf(
@@ -36,7 +36,7 @@ class PurchasesSetAttributesTest {
             "email" to null,
             "displayName" to null,
             "customAttribute" to null
-        ).toIosSubscriberAttributes()
+        ).toIosSubscriberAttributes().stringValues()
 
         assertEquals(
             mapOf(
@@ -54,7 +54,7 @@ class PurchasesSetAttributesTest {
             "email" to "test@example.com",
             "displayName" to "Test User",
             "customAttribute" to "value123"
-        ).toIosSubscriberAttributes()
+        ).toIosSubscriberAttributes().stringValues()
 
         assertEquals(
             mapOf(
@@ -68,6 +68,12 @@ class PurchasesSetAttributesTest {
 
     @Test
     fun `toIosSubscriberAttributes leaves an empty map empty`() {
-        assertEquals(emptyMap(), emptyMap<String, String?>().toIosSubscriberAttributes())
+        assertEquals(
+            emptyMap<String, String>(),
+            emptyMap<String, String?>().toIosSubscriberAttributes().stringValues()
+        )
     }
 }
+
+private fun Map<Any?, *>.stringValues(): Map<String, String> =
+    entries.associate { (key, value) -> key as String to value as String }
