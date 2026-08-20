@@ -18,9 +18,9 @@ class PurchasesSetAttributesTest {
             "key1" to "value1",
             "key2" to null,
             "key3" to "value3"
-        ).toIosSubscriberAttributes().stringValues()
+        ).toIosSubscriberAttributes()
 
-        assertEquals(
+        assertEquals<Map<*, *>>(
             mapOf(
                 "key1" to "value1",
                 "key2" to "",
@@ -36,9 +36,9 @@ class PurchasesSetAttributesTest {
             "email" to null,
             "displayName" to null,
             "customAttribute" to null
-        ).toIosSubscriberAttributes().stringValues()
+        ).toIosSubscriberAttributes()
 
-        assertEquals(
+        assertEquals<Map<*, *>>(
             mapOf(
                 "email" to "",
                 "displayName" to "",
@@ -54,9 +54,9 @@ class PurchasesSetAttributesTest {
             "email" to "test@example.com",
             "displayName" to "Test User",
             "customAttribute" to "value123"
-        ).toIosSubscriberAttributes().stringValues()
+        ).toIosSubscriberAttributes()
 
-        assertEquals(
+        assertEquals<Map<*, *>>(
             mapOf(
                 "email" to "test@example.com",
                 "displayName" to "Test User",
@@ -68,12 +68,9 @@ class PurchasesSetAttributesTest {
 
     @Test
     fun `toIosSubscriberAttributes leaves an empty map empty`() {
-        assertEquals(
+        assertEquals<Map<*, *>>(
             emptyMap<String, String>(),
-            emptyMap<String, String?>().toIosSubscriberAttributes().stringValues()
+            emptyMap<String, String?>().toIosSubscriberAttributes()
         )
     }
 }
-
-private fun Map<Any?, *>.stringValues(): Map<String, String> =
-    entries.associate { (key, value) -> key as String to value as String }
