@@ -42,11 +42,6 @@ commands:
           command: sdkmanager "platform-tools"
 
   save-kotlin-native-compiler-to-cache:
-    parameters:
-      # CircleCI caches are write-once per key, so a different dependency set needs its own key.
-      key-suffix:
-        type: string
-        default: ""
     steps:
       - run:
           name: Get the Kotlin version
@@ -56,13 +51,9 @@ commands:
       - save_cache:
           name: Saving Kotlin/Native compiler to cache
           paths: [~/.konan]
-          key: konan<< parameters.key-suffix >>-{{ arch }}-{{ checksum "~/.kotlin_version" }}
+          key: konan-{{ arch }}-{{ checksum "~/.kotlin_version" }}
 
   restore-kotlin-native-compiler-from-cache:
-    parameters:
-      key-suffix:
-        type: string
-        default: ""
     steps:
       - run:
           name: Get the Kotlin version
@@ -71,7 +62,7 @@ commands:
       # containing it instead.
       - restore_cache:
           name: Restoring Kotlin/Native compiler from cache
-          key: konan<< parameters.key-suffix >>-{{ arch }}-{{ checksum "~/.kotlin_version" }}
+          key: konan-{{ arch }}-{{ checksum "~/.kotlin_version" }}
 
   save-gradle-user-home-directory-to-cache:
     steps:
@@ -195,16 +186,13 @@ jobs:
       - revenuecat/install-mise-tools:
           tools: java
       - restore-gradle-user-home-directory-from-cache
-      # Compiles both iOS and watchOS targets: restores both konan caches and saves neither,
-      # so each key keeps its single writer (the iOS jobs / build-and-test-watchos).
       - restore-kotlin-native-compiler-from-cache
-      - restore-kotlin-native-compiler-from-cache:
-          key-suffix: -watchos
       - attach-workspace-at-working-directory
       - run:
           name: Validate binary compatibility
           command: ./gradlew apiCheck
       - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
 
   build-libraries-android:
     executor: android202409
@@ -263,8 +251,7 @@ jobs:
       - revenuecat/install-mise-tools:
           tools: java
       - restore-gradle-user-home-directory-from-cache
-      - restore-kotlin-native-compiler-from-cache:
-          key-suffix: -watchos
+      - restore-kotlin-native-compiler-from-cache
       - run:
           name: Build libraries and run tests for watchOS
           command: |
@@ -279,7 +266,6 @@ jobs:
               tasks+=(":either:compileKotlinWatchos$arch")
             done
             # The commonized (metadata) compilation only runs at publish time otherwise.
-            # Qualified per module to keep the sample apps out of this job.
             for module in core mappings kn-core models result either; do
               tasks+=(":$module:compileAppleMainKotlinMetadata")
               tasks+=(":$module:watchosSimulatorArm64Test")
@@ -290,8 +276,7 @@ jobs:
             tasks+=(":core:linkDebugTestWatchosDeviceArm64")
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
-      - save-kotlin-native-compiler-to-cache:
-          key-suffix: -watchos
+      - save-kotlin-native-compiler-to-cache
 
   build-sample-android:
     executor: android202409
@@ -456,11 +441,7 @@ jobs:
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
       - restore-gradle-user-home-directory-from-cache
-      # Compiles both iOS and watchOS targets: restores both konan caches and saves neither,
-      # so each key keeps its single writer (the iOS jobs / build-and-test-watchos).
       - restore-kotlin-native-compiler-from-cache
-      - restore-kotlin-native-compiler-from-cache:
-          key-suffix: -watchos
       - when:
           condition: << parameters.snapshot >>
           steps:
@@ -474,6 +455,7 @@ jobs:
                 name: "Publish release to Maven Central"
                 command: bundle exec fastlane publish_if_release
       - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
 
   create-github-release:
     description: "Creates a GitHub release for the current version"
@@ -569,17 +551,14 @@ workflows:
             - revenuecat/install-mise-tools:
                 tools: java,ruby
             - restore-gradle-user-home-directory-from-cache
-            # Compiles both iOS and watchOS targets: restores both konan caches and saves
-            # neither, so each key keeps its single writer.
             - restore-kotlin-native-compiler-from-cache
-            - restore-kotlin-native-compiler-from-cache:
-                key-suffix: -watchos
             - revenuecat/install-gem-mac-dependencies:
                 cache-version: v1
             - run:
                 name: Regenerate API dumps
                 command: ./gradlew apiDump
             - save-gradle-user-home-directory-to-cache
+            - save-kotlin-native-compiler-to-cache
 
   # The release train starts with the release-train workflow, which is automatically 
   # triggered every week, but can also be triggered manually by passing the "action" 
