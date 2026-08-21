@@ -816,6 +816,8 @@ public expect class Purchases {
      * Enable automatic collection of Apple Search Ad attribution on iOS. Disabled by default.
      *
      * **Note:** this is only available on iOS 14.3 and up.
+     *
+     * On Android and watchOS, this is a no-op.
      */
     public fun enableAdServicesAttributionTokenCollection()
 

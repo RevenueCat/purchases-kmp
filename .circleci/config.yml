@@ -43,8 +43,7 @@ commands:
 
   save-kotlin-native-compiler-to-cache:
     parameters:
-      # Caches are write-once per key, so jobs downloading different K/N dependency sets (e.g.
-      # watchOS) must use their own key to avoid being shadowed by whichever job saves first.
+      # CircleCI caches are write-once per key, so a different dependency set needs its own key.
       key-suffix:
         type: string
         default: ""
@@ -285,9 +284,10 @@ jobs:
               tasks+=(":$module:compileAppleMainKotlinMetadata")
               tasks+=(":$module:watchosSimulatorArm64Test")
             done
-            # Links an arm64_32 binary: compile alone would miss bad Swift-runtime linker
+            # Links both device slices: compile alone would miss bad Swift-runtime linker
             # opts or missing symbols in the static libs, and no other job links for device.
             tasks+=(":core:linkDebugTestWatchosArm64")
+            tasks+=(":core:linkDebugTestWatchosDeviceArm64")
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache:
