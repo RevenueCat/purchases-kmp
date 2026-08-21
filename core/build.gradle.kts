@@ -1,4 +1,5 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+import com.revenuecat.purchases.kmp.buildlogic.watchosTargets
 
 plugins {
     id("revenuecat-library")
@@ -10,6 +11,8 @@ revenueCat {
 }
 
 kotlin {
+    watchosTargets()
+
     sourceSets {
         commonMain.dependencies {
             api(projects.models)
