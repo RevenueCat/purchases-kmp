@@ -278,6 +278,26 @@ jobs:
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
 
+  build-watchos-tester:
+    executor: xcode16
+    steps:
+      - checkout
+      - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - run:
+          name: Build the watchOS tester app
+          command: |
+            xcodebuild \
+              -project watchosTester/watchosApp/watchosApp.xcodeproj \
+              -scheme watchosApp \
+              -configuration Debug \
+              -destination 'generic/platform=watchOS Simulator' \
+              build
+      - save-gradle-user-home-directory-to-cache
+
   build-sample-android:
     executor: android202409
     steps:
@@ -497,6 +517,7 @@ workflows:
       - build-libraries-android
       - build-libraries-ios
       - build-and-test-watchos
+      - build-watchos-tester
       - build-sample-android:
           requires: [build-libraries-android]
       - build-sample-ios:
@@ -595,6 +616,7 @@ workflows:
       - build-libraries-android
       - build-libraries-ios
       - build-and-test-watchos
+      - build-watchos-tester
       - build-sample-android:
           requires: [build-libraries-android]
       - build-sample-ios:
@@ -617,6 +639,7 @@ workflows:
             - detekt
             - unit-tests-build-logic
             - build-and-test-watchos
+            - build-watchos-tester
             - build-sample-android
             - build-sample-ios
             - public-api-tests-android
