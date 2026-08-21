@@ -9,6 +9,7 @@ import com.revenuecat.purchases.kmp.models.AdMediatorName
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
 import com.revenuecat.purchases.kmp.models.AdRevenuePrecision
+import com.revenuecat.purchases.kmp.mappings.ktx.toNSInteger
 import platform.Foundation.NSNumber
 import com.revenuecat.purchases.kn.core.RCAdDisplayed
 import com.revenuecat.purchases.kn.core.RCAdFailedToLoad
@@ -64,7 +65,7 @@ public fun AdRevenueData.toIos(): RCAdRevenue {
         placement = placement,
         adUnitId = adUnitId,
         impressionId = impressionId,
-        revenueMicros = revenueMicros,
+        revenueMicros = revenueMicros.toNSInteger(),
         currency = currency,
         precision = precision.toIos(),
     )
@@ -89,6 +90,6 @@ public fun AdFailedToLoadData.toIos(): RCAdFailedToLoad {
         adFormat = adFormat.toIos(),
         placement = placement,
         adUnitId = adUnitId,
-        mediatorErrorCode = mediatorErrorCode?.let { NSNumber(it) },
+        mediatorErrorCode = mediatorErrorCode?.let { NSNumber(int = it) },
     )
 }
