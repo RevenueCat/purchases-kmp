@@ -25,6 +25,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -33,17 +34,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import arrow.core.Either
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.PurchasesConfiguration
 import com.revenuecat.purchases.kmp.PurchasesDelegate
 import com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.models.StoreKitVersion
-import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
 import com.revenuecat.purchases.kmp.ktx.awaitCustomerInfo
+import com.revenuecat.purchases.kmp.ktx.awaitOfferings
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.PurchasesError
+import com.revenuecat.purchases.kmp.models.PurchasesException
 import com.revenuecat.purchases.kmp.models.StoreProduct
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.ui.revenuecatui.CustomVariableValue
@@ -127,15 +128,12 @@ fun MainScreen(
                         navigateTo(Screen.PaywallFooter(offering = null))
                     }
                 }
-                var offeringsState: AsyncState<Offerings> by remember {
-                    mutableStateOf(AsyncState.Loading)
-                }
-                LaunchedEffect(Unit) {
-                    offeringsState =
-                        when (val offerings = Purchases.sharedInstance.awaitOfferingsEither()) {
-                            is Either.Left -> AsyncState.Error
-                            is Either.Right -> AsyncState.Loaded(offerings.value)
-                        }
+                val offeringsState by produceState<AsyncState<Offerings>>(AsyncState.Loading) {
+                    value = try {
+                        AsyncState.Loaded(Purchases.sharedInstance.awaitOfferings())
+                    } catch (_: PurchasesException) {
+                        AsyncState.Error
+                    }
                 }
                 val customerInfo by Purchases.sharedInstance.rememberCustomerInfoState()
                 val customerInfoState by remember {
