@@ -1,8 +1,12 @@
+import com.revenuecat.purchases.kmp.buildlogic.watchosTargets
+
 plugins {
     id("revenuecat-library")
 }
 
 kotlin {
+    watchosTargets()
+
     sourceSets {
         commonMain.dependencies {
             api(projects.models)
@@ -10,8 +14,12 @@ kotlin {
         androidMain.dependencies {
             api(libs.revenuecat.android)
         }
-        iosMain.dependencies {
+        appleMain.dependencies {
             implementation(projects.knCore)
+        }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test.annotations)
+            implementation(libs.kotlin.test.assertions)
         }
         androidUnitTest.dependencies {
             implementation(libs.kotlin.test.junit)
