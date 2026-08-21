@@ -1,18 +1,17 @@
 # watchosApp
 
-SwiftUI tester app for running the SDK on watchOS. Not published, not a sample: it exists to
-exercise the SDK on a real watch runtime, which no simulator can do for 32-bit devices.
+SwiftUI tester app for running the SDK on watchOS.
 
 The Kotlin side lives in the `:watchosTester` module, which exports `WatchosTester.framework`
-(`core` + `models`). A build phase runs `:watchosTester:embedAndSignAppleFrameworkForXcode`, so the
-framework is rebuilt along with the app. `User Script Sandboxing` must stay disabled for that phase
-to work; the project already sets it.
+(`core` + `models`). 
 
-Set `revenuecat.apiKey.apple` in the root `local.properties`, same as `composeApp`. buildkonfig
-bakes it into the framework, which the app reads via `WatchosTesterConfig`.
+## Running the sample
 
-Open `watchosApp.xcodeproj` and run the `watchosApp` scheme. The framework is arm64 only, since
-Kotlin 2.3.20 deprecated `watchosX64`, so the project excludes `x86_64` for the watch simulator:
+Set `revenuecat.apiKey.apple` in the root `local.properties`, same as `composeApp`.
+
+Open `watchosApp.xcodeproj` and run the `watchosApp` scheme.
+
+To build from commandline:
 
 ```sh
 xcodebuild -project watchosTester/watchosApp/watchosApp.xcodeproj -scheme watchosApp \
