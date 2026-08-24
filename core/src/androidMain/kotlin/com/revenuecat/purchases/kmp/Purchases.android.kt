@@ -644,8 +644,8 @@ public actual class Purchases private constructor(private val androidPurchases: 
     @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
     public actual fun pollRewardVerification(
         clientTransactionId: String,
-        onCompleted: (result: RewardVerificationResult) -> Unit,
         trackingMetadata: RewardedAdTrackingMetadata?,
+        onCompleted: (result: RewardVerificationResult) -> Unit,
     ) {
         androidPurchases.pollRewardVerification(
             clientTransactionId,

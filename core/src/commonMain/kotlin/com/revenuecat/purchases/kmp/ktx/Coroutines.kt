@@ -644,7 +644,7 @@ public suspend fun Purchases.awaitPollRewardVerification(
 ): RewardVerificationResult = suspendCoroutine { continuation ->
     pollRewardVerification(
         clientTransactionId = clientTransactionId,
-        onCompleted = { continuation.resume(it) },
         trackingMetadata = trackingMetadata,
+        onCompleted = { continuation.resume(it) },
     )
 }

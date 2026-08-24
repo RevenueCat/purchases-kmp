@@ -905,8 +905,8 @@ public expect class Purchases {
     @ExperimentalRevenueCatApi
     public fun pollRewardVerification(
         clientTransactionId: String,
-        onCompleted: (result: RewardVerificationResult) -> Unit,
         trackingMetadata: RewardedAdTrackingMetadata? = null,
+        onCompleted: (result: RewardVerificationResult) -> Unit,
     )
 }
 

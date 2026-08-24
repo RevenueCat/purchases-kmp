@@ -835,8 +835,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     @ExperimentalRevenueCatApi
     public actual fun pollRewardVerification(
         clientTransactionId: String,
-        onCompleted: (result: RewardVerificationResult) -> Unit,
         trackingMetadata: RewardedAdTrackingMetadata?,
+        onCompleted: (result: RewardVerificationResult) -> Unit,
     ) {
         RewardVerification.pollRewardVerificationWithClientTransactionId(
             clientTransactionId = clientTransactionId,
