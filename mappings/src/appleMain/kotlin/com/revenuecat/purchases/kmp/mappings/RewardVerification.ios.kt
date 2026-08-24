@@ -1,6 +1,7 @@
 package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
+import com.revenuecat.purchases.kmp.InternalRevenueCatApi
 import com.revenuecat.purchases.kmp.models.RewardedAdTrackingMetadata
 import com.revenuecat.purchases.kmp.models.RewardVerificationResult
 import com.revenuecat.purchases.kmp.models.RewardVerificationToken
@@ -32,6 +33,7 @@ public fun IosRewardVerificationResult.toKmp(): RewardVerificationResult {
 }
 
 @ExperimentalRevenueCatApi
+@OptIn(InternalRevenueCatApi::class)
 public fun RewardedAdTrackingMetadata.toIos(): IosRewardedAdTrackingMetadata =
     IosRewardedAdTrackingMetadata(
         networkName = networkName,
