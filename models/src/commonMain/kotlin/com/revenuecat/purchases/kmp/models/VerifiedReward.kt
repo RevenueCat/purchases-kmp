@@ -1,13 +1,11 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 /**
  * Reward payload delivered when server-side reward verification succeeds.
  */
-@ExperimentalRevenueCatApi
 public sealed class VerifiedReward {
 
     /**

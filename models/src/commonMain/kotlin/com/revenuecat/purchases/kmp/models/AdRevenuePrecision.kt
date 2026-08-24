@@ -1,6 +1,5 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.InternalRevenueCatApi
 import dev.drewhamilton.poko.Poko
 
@@ -10,7 +9,6 @@ import dev.drewhamilton.poko.Poko
  * Different ad networks provide revenue data with varying levels of accuracy.
  * This enum helps distinguish between exact reported values and estimates.
  */
-@ExperimentalRevenueCatApi
 @Poko
 public class AdRevenuePrecision internal constructor(@property:InternalRevenueCatApi public val value: String) {
     public companion object {

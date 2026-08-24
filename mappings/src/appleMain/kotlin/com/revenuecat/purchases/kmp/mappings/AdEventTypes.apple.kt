@@ -1,6 +1,5 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.InternalRevenueCatApi
 import com.revenuecat.purchases.kmp.models.AdDisplayedData
 import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
@@ -21,22 +20,17 @@ import com.revenuecat.purchases.kn.core.RCAdRevenue
 import com.revenuecat.purchases.kn.core.RCAdRevenuePrecision
 import com.revenuecat.purchases.kn.core.RCMediatorName
 
-@ExperimentalRevenueCatApi
 @OptIn(InternalRevenueCatApi::class)
 public fun AdMediatorName.toIos(): RCMediatorName =
     RCMediatorName(rawValue = value)
 
-@ExperimentalRevenueCatApi
 @OptIn(InternalRevenueCatApi::class)
 public fun AdRevenuePrecision.toIos(): RCAdRevenuePrecision =
     RCAdRevenuePrecision(rawValue = value)
 
-@ExperimentalRevenueCatApi
-@OptIn(InternalRevenueCatApi::class)
 public fun AdFormat.toIos(): RCAdFormat =
     RCAdFormat(rawValue = value)
 
-@ExperimentalRevenueCatApi
 public fun AdDisplayedData.toIos(): RCAdDisplayed {
     return RCAdDisplayed(
         networkName = networkName,
@@ -48,7 +42,6 @@ public fun AdDisplayedData.toIos(): RCAdDisplayed {
     )
 }
 
-@ExperimentalRevenueCatApi
 public fun AdOpenedData.toIos(): RCAdOpened {
     return RCAdOpened(
         networkName = networkName,
@@ -60,7 +53,6 @@ public fun AdOpenedData.toIos(): RCAdOpened {
     )
 }
 
-@ExperimentalRevenueCatApi
 public fun AdRevenueData.toIos(): RCAdRevenue {
     return RCAdRevenue(
         networkName = networkName,
@@ -75,7 +67,6 @@ public fun AdRevenueData.toIos(): RCAdRevenue {
     )
 }
 
-@ExperimentalRevenueCatApi
 public fun AdLoadedData.toIos(): RCAdLoaded {
     return RCAdLoaded(
         networkName = networkName,
@@ -87,7 +78,6 @@ public fun AdLoadedData.toIos(): RCAdLoaded {
     )
 }
 
-@ExperimentalRevenueCatApi
 public fun AdFailedToLoadData.toIos(): RCAdFailedToLoad {
     return RCAdFailedToLoad(
         mediatorName = mediatorName.toIos(),

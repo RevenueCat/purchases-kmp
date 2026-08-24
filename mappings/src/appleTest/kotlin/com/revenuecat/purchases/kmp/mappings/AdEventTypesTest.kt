@@ -1,6 +1,5 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.models.AdFormat
 import com.revenuecat.purchases.kmp.models.AdMediatorName
 import com.revenuecat.purchases.kmp.models.AdRevenueData
@@ -9,7 +8,6 @@ import platform.darwin.NSIntegerMax
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-@OptIn(ExperimentalRevenueCatApi::class)
 class AdEventTypesTest {
 
     // Regression test: revenueMicros used to be clamped to the 32-bit Int range on all Apple
