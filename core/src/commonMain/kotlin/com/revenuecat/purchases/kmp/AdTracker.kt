@@ -11,7 +11,6 @@ import com.revenuecat.purchases.kmp.models.AdRevenueData
  *
  * Access this via [Purchases.adTracker].
  */
-@ExperimentalRevenueCatApi
 public expect class AdTracker {
     /**
      * Tracks when an ad is displayed to the user.

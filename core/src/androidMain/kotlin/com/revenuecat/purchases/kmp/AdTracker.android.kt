@@ -12,7 +12,6 @@ import com.revenuecat.purchases.kmp.models.AdRevenueData
 /**
  * Android implementation of [AdTracker] that delegates to the native Android SDK.
  */
-@ExperimentalRevenueCatApi
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
 public actual class AdTracker internal constructor(
     private val androidAdTracker: AndroidAdTracker

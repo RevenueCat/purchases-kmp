@@ -1,6 +1,5 @@
 package com.revenuecat.purchases.kmp.mappings
 
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.InternalRevenueCatApi
 import com.revenuecat.purchases.kmp.models.RewardedAdTrackingMetadata
 import com.revenuecat.purchases.kmp.models.RewardVerificationResult
@@ -14,7 +13,6 @@ import com.revenuecat.purchases.kn.core.additional.VerifiedRewardKindEntitlement
 import com.revenuecat.purchases.kn.core.additional.VerifiedRewardKindNoReward
 import com.revenuecat.purchases.kn.core.additional.VerifiedRewardKindVirtualCurrency
 
-@ExperimentalRevenueCatApi
 public fun IosRewardVerificationToken.toKmp(): RewardVerificationToken =
     RewardVerificationToken(
         customData = customData(),
@@ -22,7 +20,6 @@ public fun IosRewardVerificationToken.toKmp(): RewardVerificationToken =
         appUserID = appUserID(),
     )
 
-@ExperimentalRevenueCatApi
 public fun IosRewardVerificationResult.toKmp(): RewardVerificationResult {
     @Suppress("UNCHECKED_CAST")
     return RewardVerificationResult(
@@ -32,7 +29,6 @@ public fun IosRewardVerificationResult.toKmp(): RewardVerificationResult {
     )
 }
 
-@ExperimentalRevenueCatApi
 @OptIn(InternalRevenueCatApi::class)
 public fun RewardedAdTrackingMetadata.toIos(): IosRewardedAdTrackingMetadata =
     IosRewardedAdTrackingMetadata(
@@ -44,7 +40,6 @@ public fun RewardedAdTrackingMetadata.toIos(): IosRewardedAdTrackingMetadata =
         impressionId = impressionId,
     )
 
-@ExperimentalRevenueCatApi
 internal fun IosVerifiedReward.toKmp(): VerifiedReward =
     when (kind()) {
         VerifiedRewardKindVirtualCurrency -> VerifiedReward.VirtualCurrency(
