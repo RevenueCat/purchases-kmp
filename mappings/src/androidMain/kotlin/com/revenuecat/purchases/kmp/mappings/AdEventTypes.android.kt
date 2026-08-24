@@ -2,6 +2,7 @@ package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI
 import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
+import com.revenuecat.purchases.kmp.InternalRevenueCatApi
 import com.revenuecat.purchases.kmp.models.AdDisplayedData
 import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
 import com.revenuecat.purchases.kmp.models.AdFormat
@@ -20,19 +21,19 @@ import com.revenuecat.purchases.ads.events.types.AdRevenueData as AndroidAdReven
 import com.revenuecat.purchases.ads.events.types.AdRevenuePrecision as AndroidAdRevenuePrecision
 
 @ExperimentalRevenueCatApi
-@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class, InternalRevenueCatApi::class)
 public fun AdMediatorName.toAndroid(): AndroidAdMediatorName {
     return AndroidAdMediatorName.fromString(this.value)
 }
 
 @ExperimentalRevenueCatApi
-@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class, InternalRevenueCatApi::class)
 public fun AdRevenuePrecision.toAndroid(): AndroidAdRevenuePrecision {
     return AndroidAdRevenuePrecision.fromString(this.value)
 }
 
 @ExperimentalRevenueCatApi
-@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class, InternalRevenueCatApi::class)
 public fun AdFormat.toAndroid(): AndroidAdFormat {
     return AndroidAdFormat.fromString(this.value)
 }
