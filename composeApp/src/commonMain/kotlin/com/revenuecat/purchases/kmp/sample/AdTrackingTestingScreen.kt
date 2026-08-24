@@ -25,7 +25,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.AdDisplayedData
 import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
@@ -46,7 +45,7 @@ enum class AdTrackingFunction(val displayName: String) {
     TRACK_AD_FAILED_TO_LOAD("trackAdFailedToLoad()")
 }
 
-@OptIn(ExperimentalRevenueCatApi::class, ExperimentalTime::class)
+@OptIn(ExperimentalTime::class)
 @Composable
 fun AdTrackingTestingScreen(
     navigateTo: (Screen) -> Unit
@@ -271,8 +270,7 @@ fun AdTrackingTestingScreen(
                 Text(
                     text = "• Each button tracks a different ad event type\n" +
                             "• Events use sample data with test values\n" +
-                            "• Check the RevenueCat dashboard to verify events\n" +
-                            "• Ad tracking is an experimental API",
+                            "• Check the RevenueCat dashboard to verify events",
                     style = MaterialTheme.typography.body2,
                     color = Color.Black.copy(alpha = 0.7f)
                 )

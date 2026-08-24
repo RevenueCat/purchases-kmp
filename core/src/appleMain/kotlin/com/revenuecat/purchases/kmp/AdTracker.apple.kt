@@ -10,7 +10,6 @@ import platform.Foundation.NSNumber
 import com.revenuecat.purchases.kn.core.additional.AdTracking
 import com.revenuecat.purchases.kn.core.additional.AppleApiAvailability
 
-@ExperimentalRevenueCatApi
 @OptIn(ExperimentalForeignApi::class, InternalRevenueCatApi::class)
 public actual class AdTracker internal constructor() {
     public actual fun trackAdDisplayed(data: AdDisplayedData) {

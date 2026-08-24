@@ -1,6 +1,5 @@
 package com.revenuecat.purchases.kmp.ktx
 
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
@@ -637,7 +636,6 @@ public suspend fun Purchases.Companion.awaitCanMakePayments(
  *
  * @see Purchases.pollRewardVerification
  */
-@ExperimentalRevenueCatApi
 public suspend fun Purchases.awaitPollRewardVerification(
     clientTransactionId: String,
     trackingMetadata: RewardedAdTrackingMetadata? = null,

@@ -1,7 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import arrow.core.Either
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.LogHandler
 import com.revenuecat.purchases.kmp.LogLevel
 import com.revenuecat.purchases.kmp.Purchases
@@ -223,7 +222,6 @@ private class PurchasesCommonAPI {
         val virtualCurrencies: VirtualCurrencies = purchases.awaitVirtualCurrencies()
     }
 
-    @OptIn(ExperimentalRevenueCatApi::class)
     suspend fun checkCoroutinesRewardVerification(purchases: Purchases) {
         val result: RewardVerificationResult = purchases.awaitPollRewardVerification(
             clientTransactionId = "client-transaction-id",
@@ -421,7 +419,6 @@ private class PurchasesCommonAPI {
         )
     }
 
-    @OptIn(ExperimentalRevenueCatApi::class)
     fun checkRewardVerification(purchases: Purchases) {
         val token: RewardVerificationToken = purchases.generateRewardVerificationToken(
             impressionId = "impression-id",

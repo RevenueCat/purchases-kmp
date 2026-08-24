@@ -1,7 +1,5 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
-
 /**
  * Data for tracking when an ad has failed to load.
  *
@@ -11,7 +9,6 @@ import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
  * @property adUnitId The ad unit ID.
  * @property mediatorErrorCode The mediator error code.
  */
-@ExperimentalRevenueCatApi
 public class AdFailedToLoadData(
     public val mediatorName: AdMediatorName,
     public val adFormat: AdFormat,
