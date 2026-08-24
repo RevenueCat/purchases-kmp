@@ -29,6 +29,7 @@ public final class com/revenuecat/purchases/kmp/models/AdFormat {
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getValue ()Ljava/lang/String;
 	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdFormat$Companion {
@@ -57,6 +58,7 @@ public final class com/revenuecat/purchases/kmp/models/AdMediatorName {
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getValue ()Ljava/lang/String;
 	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdMediatorName$Companion {
@@ -94,6 +96,7 @@ public final class com/revenuecat/purchases/kmp/models/AdRevenuePrecision {
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getValue ()Ljava/lang/String;
 	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/revenuecat/purchases/kmp/models/AdRevenuePrecision$Companion {

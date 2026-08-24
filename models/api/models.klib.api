@@ -577,6 +577,7 @@ final class com.revenuecat.purchases.kmp.models/AdFormat { // com.revenuecat.pur
 
     final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdFormat.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdFormat.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdFormat.toString|toString(){}[0]
 
     final object Companion { // com.revenuecat.purchases.kmp.models/AdFormat.Companion|null[0]
         final val APP_OPEN // com.revenuecat.purchases.kmp.models/AdFormat.Companion.APP_OPEN|{}APP_OPEN[0]
@@ -619,6 +620,7 @@ final class com.revenuecat.purchases.kmp.models/AdMediatorName { // com.revenuec
 
     final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdMediatorName.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdMediatorName.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdMediatorName.toString|toString(){}[0]
 
     final object Companion { // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion|null[0]
         final val AD_MOB // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion.AD_MOB|{}AD_MOB[0]
@@ -674,6 +676,7 @@ final class com.revenuecat.purchases.kmp.models/AdRevenuePrecision { // com.reve
 
     final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.toString|toString(){}[0]
 
     final object Companion { // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion|null[0]
         final val ESTIMATED // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.ESTIMATED|{}ESTIMATED[0]
