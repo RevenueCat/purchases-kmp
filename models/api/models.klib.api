@@ -10,6 +10,10 @@ open annotation class com.revenuecat.purchases.kmp/ExperimentalRevenueCatApi : k
     constructor <init>() // com.revenuecat.purchases.kmp/ExperimentalRevenueCatApi.<init>|<init>(){}[0]
 }
 
+open annotation class com.revenuecat.purchases.kmp/InternalRevenueCatApi : kotlin/Annotation { // com.revenuecat.purchases.kmp/InternalRevenueCatApi|null[0]
+    constructor <init>() // com.revenuecat.purchases.kmp/InternalRevenueCatApi.<init>|<init>(){}[0]
+}
+
 final enum class com.revenuecat.purchases.kmp.models/BillingFeature : kotlin/Enum<com.revenuecat.purchases.kmp.models/BillingFeature> { // com.revenuecat.purchases.kmp.models/BillingFeature|null[0]
     enum entry PRICE_CHANGE_CONFIRMATION // com.revenuecat.purchases.kmp.models/BillingFeature.PRICE_CHANGE_CONFIRMATION|null[0]
     enum entry SUBSCRIPTIONS // com.revenuecat.purchases.kmp.models/BillingFeature.SUBSCRIPTIONS|null[0]
@@ -568,10 +572,11 @@ final class com.revenuecat.purchases.kmp.models/AdFailedToLoadData { // com.reve
 }
 
 final class com.revenuecat.purchases.kmp.models/AdFormat { // com.revenuecat.purchases.kmp.models/AdFormat|null[0]
-    constructor <init>(kotlin/String) // com.revenuecat.purchases.kmp.models/AdFormat.<init>|<init>(kotlin.String){}[0]
-
     final val value // com.revenuecat.purchases.kmp.models/AdFormat.value|{}value[0]
         final fun <get-value>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdFormat.value.<get-value>|<get-value>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdFormat.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdFormat.hashCode|hashCode(){}[0]
 
     final object Companion { // com.revenuecat.purchases.kmp.models/AdFormat.Companion|null[0]
         final val APP_OPEN // com.revenuecat.purchases.kmp.models/AdFormat.Companion.APP_OPEN|{}APP_OPEN[0]
@@ -609,10 +614,11 @@ final class com.revenuecat.purchases.kmp.models/AdLoadedData { // com.revenuecat
 }
 
 final class com.revenuecat.purchases.kmp.models/AdMediatorName { // com.revenuecat.purchases.kmp.models/AdMediatorName|null[0]
-    constructor <init>(kotlin/String) // com.revenuecat.purchases.kmp.models/AdMediatorName.<init>|<init>(kotlin.String){}[0]
-
     final val value // com.revenuecat.purchases.kmp.models/AdMediatorName.value|{}value[0]
         final fun <get-value>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdMediatorName.value.<get-value>|<get-value>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdMediatorName.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdMediatorName.hashCode|hashCode(){}[0]
 
     final object Companion { // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion|null[0]
         final val AD_MOB // com.revenuecat.purchases.kmp.models/AdMediatorName.Companion.AD_MOB|{}AD_MOB[0]
@@ -663,10 +669,11 @@ final class com.revenuecat.purchases.kmp.models/AdRevenueData { // com.revenueca
 }
 
 final class com.revenuecat.purchases.kmp.models/AdRevenuePrecision { // com.revenuecat.purchases.kmp.models/AdRevenuePrecision|null[0]
-    constructor <init>(kotlin/String) // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.<init>|<init>(kotlin.String){}[0]
-
     final val value // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.value|{}value[0]
         final fun <get-value>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.value.<get-value>|<get-value>(){}[0]
+
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.hashCode|hashCode(){}[0]
 
     final object Companion { // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion|null[0]
         final val ESTIMATED // com.revenuecat.purchases.kmp.models/AdRevenuePrecision.Companion.ESTIMATED|{}ESTIMATED[0]
