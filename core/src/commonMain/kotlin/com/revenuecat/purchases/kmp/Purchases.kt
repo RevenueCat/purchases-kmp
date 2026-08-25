@@ -11,6 +11,7 @@ import com.revenuecat.purchases.kmp.models.PromotionalOffer
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.RedeemWebPurchaseListener
 import com.revenuecat.purchases.kmp.models.ReplacementMode
+import com.revenuecat.purchases.kmp.models.RewardedAdTrackingMetadata
 import com.revenuecat.purchases.kmp.models.RewardVerificationResult
 import com.revenuecat.purchases.kmp.models.RewardVerificationToken
 import com.revenuecat.purchases.kmp.models.Store
@@ -898,10 +899,13 @@ public expect class Purchases {
      * For coroutines, use the `awaitPollRewardVerification` suspend extension instead.
      *
      * @param clientTransactionId Correlates this poll with the token from [generateRewardVerificationToken].
+     * @param trackingMetadata Pass to have the SDK automatically track reward-verification events for the
+     * ad it belongs to; omit to poll without tracking.
      */
     @ExperimentalRevenueCatApi
     public fun pollRewardVerification(
         clientTransactionId: String,
+        trackingMetadata: RewardedAdTrackingMetadata? = null,
         onCompleted: (result: RewardVerificationResult) -> Unit,
     )
 }
