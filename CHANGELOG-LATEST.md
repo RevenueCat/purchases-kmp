@@ -1,10 +1,18 @@
 ## RevenueCat SDK
+### ✨ New Features
+* Add watchOS support (#964) via Álvaro Brey (@AlvaroBrey)
+### 🐞 Bugfixes
+* Fix iOS crash in setAttributes with null values (#980) via Josh Holtz (@joshdholtz)
 ### 📦 Dependency Updates
-* [RENOVATE] Update dependency upstream/purchases-ios to v5.83.2 (#972) via RevenueCat Git Bot (@RCGitBot)
-* [RENOVATE] Update purchases-android to v10.16.2 (#973) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.85.0 (#986) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency revenuecat to v4.6.1 (#985) via RevenueCat Git Bot (@RCGitBot)
 
 ### 🔄 Other Changes
-* ci: bump dependency-submission to v4.4.3 for SHA pinning (#978) via Antonio Pallares (@ajpallares)
-* Bump fastlane-plugin-revenuecat_internal from `7fbbe66` to `7dd9ab9` (#977) via dependabot[bot] (@dependabot[bot])
-* feat(ads): ad reward sample app (#969) via Peter Porfy (@peterporfy)
-* Bump fastlane from 2.237.0 to 2.238.0 (#974) via dependabot[bot] (@dependabot[bot])
+* chore: poko for data classes (#988) via Peter Porfy (@peterporfy)
+* chore(ads): align ad tracking class visibility (#976) via Peter Porfy (@peterporfy)
+* Add watchOS tester app (#960) via Álvaro Brey (@AlvaroBrey)
+* Update sdks-common-config orb to v4.6.1 (#984) via Antonio Pallares (@ajpallares)
+* Stop featuring either in the sample app (#975) via Álvaro Brey (@AlvaroBrey)
+* Rename iosMain/iosTest source sets to appleMain/appleTest (#963) via Álvaro Brey (@AlvaroBrey)
+* build-logic groundwork for watchOS targets (#962) via Álvaro Brey (@AlvaroBrey)
+* renovate: force a release when native SDKs are bumped (#981) via Antonio Pallares (@ajpallares)
