@@ -499,6 +499,9 @@ workflows:
     jobs:
       - revenuecat/danger:
           context: danger-bot
+          filters:
+            branches:
+              ignore: main
 
   # This workflow runs for any commit to main, as well as for any other
   # branch with an open PR, except for release branches. This is controlled 
