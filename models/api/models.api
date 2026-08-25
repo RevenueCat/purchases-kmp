@@ -581,6 +581,17 @@ public final class com/revenuecat/purchases/kmp/models/RewardVerificationToken {
 	public final fun getCustomData ()Ljava/lang/String;
 }
 
+public final class com/revenuecat/purchases/kmp/models/RewardedAdTrackingMetadata {
+	public fun <init> (Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/AdMediatorName;Lcom/revenuecat/purchases/kmp/models/AdFormat;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/AdMediatorName;Lcom/revenuecat/purchases/kmp/models/AdFormat;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getAdFormat ()Lcom/revenuecat/purchases/kmp/models/AdFormat;
+	public final fun getAdUnitId ()Ljava/lang/String;
+	public final fun getImpressionId ()Ljava/lang/String;
+	public final fun getMediatorName ()Lcom/revenuecat/purchases/kmp/models/AdMediatorName;
+	public final fun getNetworkName ()Ljava/lang/String;
+	public final fun getPlacement ()Ljava/lang/String;
+}
+
 public final class com/revenuecat/purchases/kmp/models/Store : java/lang/Enum {
 	public static final field AMAZON Lcom/revenuecat/purchases/kmp/models/Store;
 	public static final field APP_STORE Lcom/revenuecat/purchases/kmp/models/Store;

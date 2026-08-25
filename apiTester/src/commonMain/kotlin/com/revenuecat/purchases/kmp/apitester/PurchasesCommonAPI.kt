@@ -24,6 +24,8 @@ import com.revenuecat.purchases.kmp.ktx.awaitPollRewardVerification
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
 import com.revenuecat.purchases.kmp.ktx.awaitTrialOrIntroPriceEligibility
 import com.revenuecat.purchases.kmp.ktx.awaitVirtualCurrencies
+import com.revenuecat.purchases.kmp.models.AdFormat
+import com.revenuecat.purchases.kmp.models.AdMediatorName
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.DangerousSettings
@@ -36,6 +38,7 @@ import com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.RewardVerificationResult
 import com.revenuecat.purchases.kmp.models.RewardVerificationToken
+import com.revenuecat.purchases.kmp.models.RewardedAdTrackingMetadata
 import com.revenuecat.purchases.kmp.models.Store
 import com.revenuecat.purchases.kmp.models.StoreKitVersion
 import com.revenuecat.purchases.kmp.models.StoreProduct
@@ -221,6 +224,18 @@ private class PurchasesCommonAPI {
     suspend fun checkCoroutinesRewardVerification(purchases: Purchases) {
         val result: RewardVerificationResult = purchases.awaitPollRewardVerification(
             clientTransactionId = "client-transaction-id",
+        )
+
+        val resultWithTrackingMetadata: RewardVerificationResult = purchases.awaitPollRewardVerification(
+            clientTransactionId = "client-transaction-id",
+            trackingMetadata = RewardedAdTrackingMetadata(
+                networkName = "network-name",
+                mediatorName = AdMediatorName.AD_MOB,
+                adFormat = AdFormat.REWARDED,
+                placement = "placement",
+                adUnitId = "ad-unit-id",
+                impressionId = "impression-id",
+            ),
         )
     }
 
@@ -412,6 +427,19 @@ private class PurchasesCommonAPI {
         purchases.pollRewardVerification(
             clientTransactionId = token.clientTransactionId,
             onCompleted = { result: RewardVerificationResult -> },
+        )
+
+        purchases.pollRewardVerification(
+            clientTransactionId = token.clientTransactionId,
+            onCompleted = { result: RewardVerificationResult -> },
+            trackingMetadata = RewardedAdTrackingMetadata(
+                networkName = "network-name",
+                mediatorName = AdMediatorName.AD_MOB,
+                adFormat = AdFormat.REWARDED,
+                placement = "placement",
+                adUnitId = "ad-unit-id",
+                impressionId = "impression-id",
+            ),
         )
     }
 
