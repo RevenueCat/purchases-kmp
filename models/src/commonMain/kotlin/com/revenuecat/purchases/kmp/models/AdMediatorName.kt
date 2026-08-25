@@ -1,13 +1,11 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.InternalRevenueCatApi
 import dev.drewhamilton.poko.Poko
 
 /**
  * Common ad mediator names.
  */
-@ExperimentalRevenueCatApi
 @Poko
 public class AdMediatorName internal constructor(@property:InternalRevenueCatApi public val value: String) {
     public companion object {

@@ -823,16 +823,13 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         iosPurchases.trackCustomPaywallImpression(iosParams)
     }
 
-    @ExperimentalRevenueCatApi
     public actual val adTracker: AdTracker by lazy { AdTracker(iosPurchases.adTracker()) }
 
-    @ExperimentalRevenueCatApi
     public actual fun generateRewardVerificationToken(impressionId: String): RewardVerificationToken {
         return RewardVerification.generateRewardVerificationTokenWithImpressionId(impressionId = impressionId)
             .toKmp()
     }
 
-    @ExperimentalRevenueCatApi
     public actual fun pollRewardVerification(
         clientTransactionId: String,
         trackingMetadata: RewardedAdTrackingMetadata?,

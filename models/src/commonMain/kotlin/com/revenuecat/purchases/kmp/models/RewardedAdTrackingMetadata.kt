@@ -1,7 +1,5 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
-
 /**
  * Ad metadata for a rewarded ad, passed to `Purchases.pollRewardVerification` to have the SDK
  * automatically track reward-verification events for it.
@@ -13,7 +11,6 @@ import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
  * @property adUnitId The ad unit ID.
  * @property impressionId The impression ID.
  */
-@ExperimentalRevenueCatApi
 public class RewardedAdTrackingMetadata(
     public val networkName: String? = null,
     public val mediatorName: AdMediatorName,

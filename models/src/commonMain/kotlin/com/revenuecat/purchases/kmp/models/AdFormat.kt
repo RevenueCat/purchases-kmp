@@ -1,13 +1,11 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.InternalRevenueCatApi
 import dev.drewhamilton.poko.Poko
 
 /**
  * Common ad format types.
  */
-@ExperimentalRevenueCatApi
 @Poko
 public class AdFormat internal constructor(@property:InternalRevenueCatApi public val value: String) {
     public companion object {

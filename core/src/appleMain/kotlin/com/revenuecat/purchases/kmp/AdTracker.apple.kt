@@ -10,7 +10,6 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import com.revenuecat.purchases.kn.core.RCAdTracker
 import com.revenuecat.purchases.kn.core.additional.AppleApiAvailability
 
-@ExperimentalRevenueCatApi
 @OptIn(ExperimentalForeignApi::class)
 public actual class AdTracker internal constructor(
     private val iosAdTracker: RCAdTracker

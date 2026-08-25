@@ -628,19 +628,16 @@ public actual class Purchases private constructor(private val androidPurchases: 
         androidPurchases.trackCustomPaywallImpression(androidParams)
     }
 
-    @ExperimentalRevenueCatApi
     public actual val adTracker: AdTracker by lazy {
         @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
         AdTracker(androidPurchases.adTracker)
     }
 
-    @ExperimentalRevenueCatApi
     @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
     public actual fun generateRewardVerificationToken(impressionId: String): RewardVerificationToken {
         return androidPurchases.generateRewardVerificationToken(impressionId).toKmp()
     }
 
-    @ExperimentalRevenueCatApi
     @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
     public actual fun pollRewardVerification(
         clientTransactionId: String,
