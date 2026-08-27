@@ -506,6 +506,9 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual fun setAirbridgeDeviceID(airbridgeDeviceID: String?): Unit =
         androidPurchases.setAirbridgeDeviceID(airbridgeDeviceID)
 
+    public actual fun setSingularDeviceID(singularDeviceID: String?): Unit =
+        androidPurchases.setSingularDeviceID(singularDeviceID)
+
     public actual fun setFirebaseAppInstanceID(firebaseAppInstanceID: String?): Unit =
         androidPurchases.setFirebaseAppInstanceID(firebaseAppInstanceID)
 

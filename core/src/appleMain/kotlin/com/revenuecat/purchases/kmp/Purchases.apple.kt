@@ -72,6 +72,7 @@ import com.revenuecat.purchases.kn.core.enableAdServicesAttributionTokenCollecti
 import com.revenuecat.purchases.kn.core.parseAsWebPurchaseRedemption
 import com.revenuecat.purchases.kn.core.recordPurchaseForProductID
 import com.revenuecat.purchases.kn.core.setAirbridgeDeviceID
+import com.revenuecat.purchases.kn.core.setSingularDeviceID
 import com.revenuecat.purchases.kn.core.setAirshipChannelID
 import com.revenuecat.purchases.kn.core.setOnesignalUserID
 import com.revenuecat.purchases.kn.core.setPostHogUserID
@@ -682,6 +683,9 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
     public actual fun setAirbridgeDeviceID(airbridgeDeviceID: String?): Unit =
         iosPurchases.attribution().setAirbridgeDeviceID(airbridgeDeviceID)
+
+    public actual fun setSingularDeviceID(singularDeviceID: String?): Unit =
+        iosPurchases.attribution().setSingularDeviceID(singularDeviceID)
 
     public actual fun setFBAnonymousID(fbAnonymousID: String?): Unit =
         iosPurchases.setFBAnonymousID(fbAnonymousID)

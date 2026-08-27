@@ -106,6 +106,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public final fun setPostHogUserID (Ljava/lang/String;)V
 	public static final fun setProxyURL (Ljava/lang/String;)V
 	public final fun setPushToken (Ljava/lang/String;)V
+	public final fun setSingularDeviceID (Ljava/lang/String;)V
 	public static final fun setSimulatesAskToBuyInSandbox (Z)V
 	public final fun showInAppMessagesIfNeeded (Ljava/util/List;)V
 	public static synthetic fun showInAppMessagesIfNeeded$default (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/util/List;ILjava/lang/Object;)V
