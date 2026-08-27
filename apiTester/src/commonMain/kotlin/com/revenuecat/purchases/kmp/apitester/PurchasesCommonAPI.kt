@@ -87,6 +87,9 @@ private class PurchasesCommonAPI {
         purchases.setPostHogUserID("posthog-user-id")
         purchases.setPostHogUserID(null)
 
+        purchases.setSingularDeviceID("singular-device-id")
+        purchases.setSingularDeviceID(null)
+
         purchases.overridePreferredUILocale("de_DE")
         purchases.overridePreferredUILocale(null)
 
