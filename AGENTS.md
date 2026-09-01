@@ -39,7 +39,7 @@ purchases-kmp/
 │   └── src/
 │       ├── commonMain/       # Shared Kotlin code
 │       ├── androidMain/      # Android-specific implementations
-│       └── appleMain/        # Apple-specific implementations (Swift interop), split further into iosMain/watchosMain where needed
+│       └── appleMain/        # Apple-specific implementations (Swift interop), split further into iosMain/watchosMain/macosMain where needed
 ├── models/                   # Shared data models and domain objects
 ├── mappings/                 # Platform-specific mappings
 ├── revenuecatui/             # Jetpack Compose UI components for paywalls
@@ -121,7 +121,7 @@ module/src/
 ├── commonTest/       # Shared tests
 ├── androidMain/      # Android-specific implementations
 ├── androidUnitTest/  # Android unit tests
-├── appleMain/        # Apple-specific implementations (iOS + watchOS)
+├── appleMain/        # Apple-specific implementations (iOS + watchOS + macOS)
 └── appleTest/        # Apple platform tests
 ```
 
@@ -133,6 +133,8 @@ module/src/
 | Android | minSdk 23, compileSdk 35 |
 | iOS (Core) | 13.0+ |
 | iOS (UI) | 15.0+ |
+| watchOS | 7.0+ (9.0+ on `watchosDeviceArm64`) |
+| macOS | 10.15+ |
 | Java | 8+ |
 
 Don't raise minimum versions unless explicitly required and justified.

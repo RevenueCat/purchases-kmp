@@ -463,8 +463,8 @@ public expect class Purchases {
     /**
      * Fetches the win-back offers that a subscriber is eligible for on a given product.
      *
-     * Apple platforms only. Requires iOS 18.0+ or watchOS 11.0+ and StoreKit 2 and emits an error if these requirements aren't
-     * met.
+     * Apple platforms only. Requires iOS 18.0+, macOS 15.0+ or watchOS 11.0+ and StoreKit 2,
+     * and emits an error if these requirements aren't met.
      *
      * @param storeProduct: The product to check for eligible win-back offers on.
      * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
@@ -481,8 +481,8 @@ public expect class Purchases {
     /**
      * Fetches the win-back offers that a subscriber is eligible for on a given package.
      *
-     * Apple platforms only. Requires iOS 18.0+ or watchOS 11.0+ and StoreKit 2 and emits an error if these requirements aren't
-     * met.
+     * Apple platforms only. Requires iOS 18.0+, macOS 15.0+ or watchOS 11.0+ and StoreKit 2,
+     * and emits an error if these requirements aren't met.
      *
      * @param packageToCheck: The package to check for eligible win-back offers on.
      * @param onError Will be called if an error occurs, providing a [PurchasesError] describing
@@ -500,8 +500,8 @@ public expect class Purchases {
      * Purchases a product with a given win-back offer. If you are using the Offerings system, use the
      * overload with a [Package] parameter instead.
      *
-     * Apple platforms only. Requires iOS 18.0+ or watchOS 11.0+ and StoreKit 2 and emits an error if these requirements aren't
-     * met.
+     * Apple platforms only. Requires iOS 18.0+, macOS 15.0+ or watchOS 11.0+ and StoreKit 2,
+     * and emits an error if these requirements aren't met.
      *
      * @param storeProduct: The product to purchase
      * @param winBackOffer: The win-back offer to apply to the purchase
@@ -522,8 +522,8 @@ public expect class Purchases {
     /**
      * Purchases a package with a given win-back offer.
      *
-     * Apple platforms only. Requires iOS 18.0+ or watchOS 11.0+ and StoreKit 2 and emits an error if these requirements aren't
-     * met.
+     * Apple platforms only. Requires iOS 18.0+, macOS 15.0+ or watchOS 11.0+ and StoreKit 2,
+     * and emits an error if these requirements aren't met.
      *
      * @param packageToPurchase: The package to purchase
      * @param winBackOffer: The win-back offer to apply to the purchase
@@ -578,7 +578,7 @@ public expect class Purchases {
     )
 
     /**
-     * Google Play and App Store only, no-op for Amazon and watchOS.
+     * Google Play and App Store only, no-op for Amazon, watchOS and macOS.
      * Displays the specified in-app message types to the user as a snackbar if there are any
      * available to be shown.
      * If [PurchasesConfiguration.showInAppMessagesAutomatically] is enabled, this will be done
@@ -821,14 +821,14 @@ public expect class Purchases {
      * Refer to https://docs.revenuecat.com/docs/ios-subscription-offers#offer-codes
      * for more information on how to configure and use offer codes.
      *
-     * On Android and watchOS, this is a no-op.
+     * On Android, watchOS and macOS, this is a no-op.
      */
     public fun presentCodeRedemptionSheet()
 
     /**
      * Enable automatic collection of Apple Search Ad attribution on iOS. Disabled by default.
      *
-     * **Note:** this is only available on iOS 14.3 and up.
+     * **Note:** this is only available on iOS 14.3+ and macOS 11.1+.
      *
      * On Android and watchOS, this is a no-op.
      */

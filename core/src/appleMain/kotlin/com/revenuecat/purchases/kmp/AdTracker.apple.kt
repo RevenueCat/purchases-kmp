@@ -64,4 +64,4 @@ public actual class AdTracker internal constructor(
 private val appleApiAvailability = AppleApiAvailability()
 
 private const val AD_TRACKING_UNAVAILABLE_MESSAGE =
-    "Ad tracking requires iOS 15.0+ or watchOS 8.0+. Current API is unavailable."
+    "Ad tracking requires iOS 15.0+, macOS 12.0+ or watchOS 8.0+. Current API is unavailable."
