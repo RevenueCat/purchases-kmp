@@ -1,3 +1,4 @@
+import com.revenuecat.purchases.kmp.buildlogic.macosTargets
 import com.revenuecat.purchases.kmp.buildlogic.watchosTargets
 
 plugins {
@@ -6,6 +7,7 @@ plugins {
 
 kotlin {
     watchosTargets()
+    macosTargets()
 
     sourceSets {
         commonMain.dependencies {
