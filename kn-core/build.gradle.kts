@@ -1,3 +1,4 @@
+import com.revenuecat.purchases.kmp.buildlogic.macosTargets
 import com.revenuecat.purchases.kmp.buildlogic.swift.model.SwiftSettings
 import com.revenuecat.purchases.kmp.buildlogic.swift.swiftPackage
 import com.revenuecat.purchases.kmp.buildlogic.watchosTargets
@@ -8,6 +9,7 @@ plugins {
 
 kotlin {
     watchosTargets()
+    macosTargets()
 
     sourceSets {
         appleMain.dependencies {
