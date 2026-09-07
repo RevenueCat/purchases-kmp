@@ -723,8 +723,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             iosPurchases.attribution().enableAdServicesAttributionTokenCollection()
         else logHandler.d(
             tag = "Purchases",
-            msg = "`enableAdServicesAttributionTokenCollection()` is only available on iOS 14.3 " +
-                    "and up. It is not available on watchOS."
+            msg = "`enableAdServicesAttributionTokenCollection()` is only available on iOS 14.3+ " +
+                    "or macOS 11.1+. It is not available on watchOS."
         )
     }
 
@@ -804,7 +804,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         if (!appleApiAvailability.isCustomPaywallTrackingAPIAvailable()) {
             logHandler.w(
                 "Purchases",
-                "Custom paywall tracking requires iOS 15.0+ or watchOS 8.0+. Current API is unavailable."
+                "Custom paywall tracking requires iOS 15.0+, macOS 12.0+ or watchOS 8.0+. " +
+                    "Current API is unavailable."
             )
             return
         }
@@ -852,19 +853,20 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
 
 /**
  * Presents the code redemption sheet where available (iOS 14.0+), or logs otherwise. The native
- * API does not exist on watchOS, so the iOS call must live in an iOS-only source set: cinterop
- * bindings shared across Apple targets only contain APIs available on all of them.
+ * API does not exist on watchOS or macOS, so the iOS call must live in an iOS-only source set:
+ * cinterop bindings shared across Apple targets only contain APIs available on all of them.
  */
 internal expect fun IosPurchases.presentCodeRedemptionSheetIfAvailable()
 
 /**
- * iOS: shows store messages of the given types (native API, iOS 16.0+). watchOS: logs and does
- * nothing, the native API does not exist there, which is why the iOS call must live in an
- * iOS-only source set: cinterop bindings shared across Apple targets only contain APIs
+ * iOS: shows store messages of the given types (native API, iOS 16.0+). watchOS and macOS: logs
+ * and does nothing, the native API does not exist there, which is why the iOS call must live in
+ * an iOS-only source set: cinterop bindings shared across Apple targets only contain APIs
  * available on all of them.
  */
 internal expect fun IosPurchases.showStoreMessagesIfAvailable(messageTypes: List<StoreMessageType>)
 
 private val appleApiAvailability = AppleApiAvailability()
 
-private const val WIN_BACK_UNAVAILABLE_SUFFIX = "is only available on iOS 18.0+ or watchOS 11.0+"
+private const val WIN_BACK_UNAVAILABLE_SUFFIX =
+    "is only available on iOS 18.0+, macOS 15.0+ or watchOS 11.0+"

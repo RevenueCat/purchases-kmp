@@ -31,7 +31,7 @@ our [migration guide](./migrations/KobanKat-MIGRATION.md)
 | --- | --- |
 ✅ | Server-side receipt validation
 ➡️ | [Webhooks](https://docs.revenuecat.com/docs/webhooks) - enhanced server-to-server communication with events for purchases, renewals, cancellations, and more
-📱 | Android, iOS and watchOS support
+📱 | Android, iOS, watchOS and macOS support
 🎯 | Subscription status tracking - know whether a user is subscribed whether they're on iOS, Android or web
 📊 | Analytics - automatic calculation of metrics like conversion, mrr, and churn
 📝 | [Online documentation](https://docs.revenuecat.com/docs) and [SDK Reference](https://revenuecat.github.io/purchases-kmp/) up to date
@@ -67,7 +67,10 @@ This codelab is a step-by-step tutorial designed to help you learn and master th
 - Kotlin 2.3.20+
 - Android 6.0+ (API level 23+)
 - iOS 13.0+
-- watchOS 7.0+ (9.0+ on `watchosDeviceArm64`). Note: Paywalls and Customer Center (the `-ui` artifact) are iOS only.
+- watchOS 7.0+ (9.0+ on `watchosDeviceArm64`)
+- macOS 10.15+
+
+Note: Paywalls and Customer Center (the `-ui` artifact) are iOS only.
 
 ## SDK Reference
 Our full SDK reference [can be found here](https://revenuecat.github.io/purchases-kmp/).

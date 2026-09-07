@@ -126,6 +126,12 @@ private fun Project.configureSwiftDependency(
         this.toolchainPath.set(getToolchainPath())
         this.swiftSourceDir.set(targetSourceDir)
         this.defFile.set(defFile)
+        swiftRuntimeLibraryDirs.set(
+            kotlin.targets.withType<KotlinNativeTarget>()
+                .map { it.konanTarget }
+                .filter { it.isAppleTarget() }
+                .associate { it.name to it.getSdkName() }
+        )
     }
 
     // Find which Swift dependencies are owned by other projects

@@ -266,6 +266,7 @@ jobs:
               tasks+=(":either:compileKotlinWatchos$arch")
             done
             # The commonized (metadata) compilation only runs at publish time otherwise.
+            # It spans every Apple target, so it covers macOS too and is not repeated there.
             for module in core mappings kn-core models result either; do
               tasks+=(":$module:compileAppleMainKotlinMetadata")
               tasks+=(":$module:watchosSimulatorArm64Test")
@@ -274,6 +275,37 @@ jobs:
             # opts or missing symbols in the static libs, and no other job links for device.
             tasks+=(":core:linkDebugTestWatchosArm64")
             tasks+=(":core:linkDebugTestWatchosDeviceArm64")
+            ./gradlew "${tasks[@]}"
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
+
+  build-and-test-macos:
+    executor: xcode16
+    steps:
+      - checkout
+      - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - run:
+          name: Build libraries and run tests for macOS
+          command: |
+            tasks=()
+            # core, mappings and models are the only modules with test sources; the rest reach
+            # both macOS slices transitively through :core below.
+            for module in core mappings models; do
+              tasks+=(":$module:macosArm64Test")
+            done
+            # Nothing tests or links these two, so compile them explicitly.
+            for module in result either; do
+              for arch in Arm64 X64; do
+                tasks+=(":$module:compileKotlinMacos$arch")
+              done
+            done
+            # KGP skips macosX64 test runs off-host, so linking is what catches bad Swift-runtime
+            # linker opts and missing symbols in the static libs.
+            tasks+=(":core:linkDebugTestMacosX64")
             ./gradlew "${tasks[@]}"
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
@@ -520,6 +552,7 @@ workflows:
       - build-libraries-android
       - build-libraries-ios
       - build-and-test-watchos
+      - build-and-test-macos
       - build-watchos-tester
       - build-sample-android:
           requires: [build-libraries-android]
@@ -619,6 +652,7 @@ workflows:
       - build-libraries-android
       - build-libraries-ios
       - build-and-test-watchos
+      - build-and-test-macos
       - build-watchos-tester
       - build-sample-android:
           requires: [build-libraries-android]
@@ -642,6 +676,7 @@ workflows:
             - detekt
             - unit-tests-build-logic
             - build-and-test-watchos
+            - build-and-test-macos
             - build-watchos-tester
             - build-sample-android
             - build-sample-ios

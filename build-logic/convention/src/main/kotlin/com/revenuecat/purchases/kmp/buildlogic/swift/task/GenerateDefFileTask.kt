@@ -3,6 +3,7 @@ package com.revenuecat.purchases.kmp.buildlogic.swift.task
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.IgnoreEmptyDirectories
@@ -45,6 +46,15 @@ abstract class GenerateDefFileTask : DefaultTask() {
     @get:Input
     abstract val toolchainPath: Property<String>
 
+    /**
+     * `KonanTarget.name` to Xcode SDK directory, for each Apple target the module declares. The
+     * Swift compatibility shims (`libswiftCompatibility*.a`) live per-SDK under the toolchain, not
+     * in the OS at /usr/lib/swift, so a target missing here fails at link time with unresolved
+     * `__swift_FORCE_LOAD_$_swiftCompatibility*` symbols.
+     */
+    @get:Input
+    abstract val swiftRuntimeLibraryDirs: MapProperty<String, String>
+
     /** The Swift source directory - used to compute a hash for cache invalidation */
     @get:InputDirectory
     @get:PathSensitive(PathSensitivity.RELATIVE)
@@ -68,6 +78,10 @@ abstract class GenerateDefFileTask : DefaultTask() {
         // seems related to the cinterop commonizer.
         val sourceHash = computeSourceHash()
 
+        val targetLinkerOpts = swiftRuntimeLibraryDirs.get()
+            .toSortedMap()
+            .map { (konanTarget, sdkDir) -> "linkerOpts.$konanTarget = -L$toolchain/lib/swift/$sdkDir/" }
+
         val baseContent = """
             # sourceHash=$sourceHash
             language = Objective-C
@@ -75,13 +89,7 @@ abstract class GenerateDefFileTask : DefaultTask() {
             modules = ${moduleName.get()}
             staticLibraries = ${libraryName.get()}
             linkerOpts = -L/usr/lib/swift
-            linkerOpts.ios_x64 = -L$toolchain/lib/swift/iphonesimulator/
-            linkerOpts.ios_arm64 = -L$toolchain/lib/swift/iphoneos/
-            linkerOpts.ios_simulator_arm64 = -L$toolchain/lib/swift/iphonesimulator/
-            linkerOpts.watchos_arm64 = -L$toolchain/lib/swift/watchos/
-            linkerOpts.watchos_device_arm64 = -L$toolchain/lib/swift/watchos/
-            linkerOpts.watchos_simulator_arm64 = -L$toolchain/lib/swift/watchsimulator/
-        """.trimIndent()
+        """.trimIndent() + targetLinkerOpts.joinToString(separator = "\n", prefix = "\n")
 
         val content = if (customDeclarations.isPresent) {
             "$baseContent\n---\n\n${customDeclarations.get()}"
