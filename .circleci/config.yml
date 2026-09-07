@@ -330,6 +330,27 @@ jobs:
               build
       - save-gradle-user-home-directory-to-cache
 
+  build-macos-tester:
+    executor: xcode16
+    steps:
+      - checkout
+      - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - run:
+          name: Build the macOS tester app
+          command: |
+            xcodebuild \
+              -project macosTester/macosApp/macosApp.xcodeproj \
+              -scheme macosApp \
+              -configuration Debug \
+              -destination 'platform=macOS' \
+              CODE_SIGNING_ALLOWED=NO \
+              build
+      - save-gradle-user-home-directory-to-cache
+
   build-sample-android:
     executor: android202409
     steps:
@@ -554,6 +575,7 @@ workflows:
       - build-and-test-watchos
       - build-and-test-macos
       - build-watchos-tester
+      - build-macos-tester
       - build-sample-android:
           requires: [build-libraries-android]
       - build-sample-ios:
@@ -654,6 +676,7 @@ workflows:
       - build-and-test-watchos
       - build-and-test-macos
       - build-watchos-tester
+      - build-macos-tester
       - build-sample-android:
           requires: [build-libraries-android]
       - build-sample-ios:
@@ -678,6 +701,7 @@ workflows:
             - build-and-test-watchos
             - build-and-test-macos
             - build-watchos-tester
+            - build-macos-tester
             - build-sample-android
             - build-sample-ios
             - public-api-tests-android
