@@ -28,6 +28,7 @@ public fun AdMediatorName.toIos(): RCMediatorName =
 public fun AdRevenuePrecision.toIos(): RCAdRevenuePrecision =
     RCAdRevenuePrecision(rawValue = value)
 
+@OptIn(InternalRevenueCatApi::class)
 public fun AdFormat.toIos(): RCAdFormat =
     RCAdFormat(rawValue = value)
 
