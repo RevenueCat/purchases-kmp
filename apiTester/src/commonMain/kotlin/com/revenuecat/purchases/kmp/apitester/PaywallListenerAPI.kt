@@ -4,6 +4,7 @@ import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.StoreTransaction
+import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallInteractionEvent
 import com.revenuecat.purchases.kmp.ui.revenuecatui.PaywallListener
 
 
@@ -48,6 +49,16 @@ private class PaywallListenerAPI {
 
             override fun onUrlOpened(url: String) {
                 super.onUrlOpened(url)
+            }
+
+            override fun onInteraction(event: PaywallInteractionEvent) {
+                super.onInteraction(event)
+                val rawProperties: Map<String, Any> = event.rawProperties
+                val componentType: String? = event.getProperty(PaywallInteractionEvent.Keys.COMPONENT_TYPE)
+                val revision: Int? = event.getProperty(PaywallInteractionEvent.Keys.PAYWALL_REVISION)
+                val timestamp: Long? = event.getProperty(PaywallInteractionEvent.Keys.TIMESTAMP)
+                val darkMode: Boolean? = event.getProperty(PaywallInteractionEvent.Keys.DARK_MODE)
+                val tab: String = PaywallInteractionEvent.ComponentTypes.TAB
             }
         }
     }
