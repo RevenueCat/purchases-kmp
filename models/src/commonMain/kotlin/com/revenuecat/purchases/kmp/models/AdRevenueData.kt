@@ -1,7 +1,5 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
-
 /**
  * Data for tracking ad revenue events.
  *
@@ -15,7 +13,6 @@ import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
  * @property currency The currency code for the revenue (e.g., "USD").
  * @property precision The precision of the revenue value. See [AdRevenuePrecision].
  */
-@ExperimentalRevenueCatApi
 public class AdRevenueData(
     public val networkName: String? = null,
     public val mediatorName: AdMediatorName,

@@ -1,13 +1,12 @@
 package com.revenuecat.purchases.kmp.apitester
 
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.models.VerifiedReward
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 @Suppress("unused", "UNUSED_VARIABLE")
 private class VerifiedRewardAPI {
-    @OptIn(ExperimentalRevenueCatApi::class, ExperimentalTime::class)
+    @OptIn(ExperimentalTime::class)
     fun check(reward: VerifiedReward) {
         when (reward) {
             is VerifiedReward.VirtualCurrency -> {
