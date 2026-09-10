@@ -66,4 +66,11 @@ public interface PaywallListener {
      * @param url The URL that was opened.
      */
     public fun onUrlOpened(url: String) {}
+
+    /**
+     * Callback that gets called when the user interacts with a paywall control, such as a tab,
+     * a package or the purchase button. Route these to your analytics tools if you want to. See
+     * [PaywallInteractionEvent.Keys] for the available properties.
+     */
+    public fun onInteraction(event: PaywallInteractionEvent) {}
 }

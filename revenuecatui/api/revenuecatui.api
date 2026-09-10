@@ -52,11 +52,71 @@ public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallFooterKt 
 	public static final fun PaywallFooter (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallOptions;Lkotlin/jvm/functions/Function3;Landroidx/compose/runtime/Composer;II)V
 }
 
+public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent {
+	public static final field $stable I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getProperty (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;)Ljava/lang/Object;
+	public final fun getRawProperties ()Ljava/util/Map;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$ComponentTypes {
+	public static final field $stable I
+	public static final field BUTTON Ljava/lang/String;
+	public static final field CAROUSEL Ljava/lang/String;
+	public static final field INSTANCE Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$ComponentTypes;
+	public static final field PACKAGE Ljava/lang/String;
+	public static final field PACKAGE_SELECTION_SHEET Ljava/lang/String;
+	public static final field PURCHASE_BUTTON Ljava/lang/String;
+	public static final field SWITCH Ljava/lang/String;
+	public static final field TAB Ljava/lang/String;
+	public static final field TEXT Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key {
+	public static final field $stable I
+	public final fun getName ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Keys {
+	public static final field $stable I
+	public static final field INSTANCE Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Keys;
+	public final fun getCOMPONENT_NAME ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getCOMPONENT_TYPE ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getCOMPONENT_URL ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getCOMPONENT_VALUE ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getCURRENT_PACKAGE_ID ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getCURRENT_PRODUCT_ID ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getDARK_MODE ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getDEFAULT_INDEX ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getDEFAULT_PACKAGE_ID ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getDEFAULT_PRODUCT_ID ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getDESTINATION_CONTEXT_NAME ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getDESTINATION_INDEX ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getDESTINATION_PACKAGE_ID ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getDESTINATION_PRODUCT_ID ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getDISPLAY_MODE ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getLOCALE ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getOFFERING_ID ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getORIGIN_CONTEXT_NAME ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getORIGIN_INDEX ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getORIGIN_PACKAGE_ID ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getORIGIN_PRODUCT_ID ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getPAYWALL_ID ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getPAYWALL_REVISION ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getRESULTING_PACKAGE_ID ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getRESULTING_PRODUCT_ID ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getSESSION_ID ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+	public final fun getTIMESTAMP ()Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent$Key;
+}
+
 public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallKt {
 	public static final fun Paywall (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallOptions;Landroidx/compose/runtime/Composer;I)V
 }
 
 public abstract interface class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener {
+	public fun onInteraction (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent;)V
 	public fun onPurchaseCancelled ()V
 	public fun onPurchaseCompleted (Lcom/revenuecat/purchases/kmp/models/CustomerInfo;Lcom/revenuecat/purchases/kmp/models/StoreTransaction;)V
 	public fun onPurchaseError (Lcom/revenuecat/purchases/kmp/models/PurchasesError;)V
@@ -69,6 +129,7 @@ public abstract interface class com/revenuecat/purchases/kmp/ui/revenuecatui/Pay
 }
 
 public final class com/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener$DefaultImpls {
+	public static fun onInteraction (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallInteractionEvent;)V
 	public static fun onPurchaseCancelled (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;)V
 	public static fun onPurchaseCompleted (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/kmp/models/CustomerInfo;Lcom/revenuecat/purchases/kmp/models/StoreTransaction;)V
 	public static fun onPurchaseError (Lcom/revenuecat/purchases/kmp/ui/revenuecatui/PaywallListener;Lcom/revenuecat/purchases/kmp/models/PurchasesError;)V
