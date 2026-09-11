@@ -897,6 +897,8 @@ public expect class Purchases {
      * callback fires.
      *
      * @param impressionId The ad network's impression identifier for the loaded ad.
+     * @throws IllegalStateException on iOS below 15.0 and watchOS below 8.0, where the underlying API does
+     * not exist.
      */
     @ExperimentalRevenueCatApi
     public fun generateRewardVerificationToken(impressionId: String): RewardVerificationToken
