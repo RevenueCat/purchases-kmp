@@ -828,10 +828,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
     }
 
     @ExperimentalRevenueCatApi
-    public actual val adTracker: AdTracker by lazy { AdTracker(iosPurchases.adTracker()) }
+    public actual val adTracker: AdTracker by lazy { AdTracker() }
 
     @ExperimentalRevenueCatApi
     public actual fun generateRewardVerificationToken(impressionId: String): RewardVerificationToken {
+        check(appleApiAvailability.isAdTrackingAPIAvailable()) { AD_TRACKING_UNAVAILABLE_MESSAGE }
         return RewardVerification.generateRewardVerificationTokenWithImpressionId(impressionId = impressionId)
             .toKmp()
     }
@@ -842,6 +843,11 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         trackingMetadata: RewardedAdTrackingMetadata?,
         onCompleted: (result: RewardVerificationResult) -> Unit,
     ) {
+        if (!appleApiAvailability.isAdTrackingAPIAvailable()) {
+            logHandler.w("Purchases", AD_TRACKING_UNAVAILABLE_MESSAGE)
+            onCompleted(RewardVerificationResult(verifiedReward = null, moreRewards = emptyList(), failed = true))
+            return
+        }
         RewardVerification.pollRewardVerificationWithClientTransactionId(
             clientTransactionId = clientTransactionId,
             trackingMetadata = trackingMetadata?.toIos(),
