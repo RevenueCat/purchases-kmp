@@ -3,6 +3,7 @@ import Foundation
 
 /// Bridges the SPI-gated reward-verification API into `@objc`-visible types, since Kotlin/Native cinterop
 /// only sees declarations reachable from the generated Objective-C header.
+@available(iOS 15.0, tvOS 15.0, macOS 12.0, watchOS 8.0, *)
 @objc
 public class RewardVerification: NSObject {
 
