@@ -882,10 +882,7 @@ public expect class Purchases {
      * Provides access to ad tracking functionality.
      *
      * Use this to track ad impressions, clicks, revenue, and loading states.
-     * All ad tracking functionality is experimental and requires opt-in with
-     * [@ExperimentalRevenueCatApi].
      */
-    @ExperimentalRevenueCatApi
     public val adTracker: AdTracker
 
     /**
@@ -900,7 +897,6 @@ public expect class Purchases {
      * @throws IllegalStateException on iOS below 15.0 and watchOS below 8.0, where the underlying API does
      * not exist.
      */
-    @ExperimentalRevenueCatApi
     public fun generateRewardVerificationToken(impressionId: String): RewardVerificationToken
 
     /**
@@ -916,7 +912,6 @@ public expect class Purchases {
      * @param trackingMetadata Pass to have the SDK automatically track reward-verification events for the
      * ad it belongs to; omit to poll without tracking.
      */
-    @ExperimentalRevenueCatApi
     public fun pollRewardVerification(
         clientTransactionId: String,
         trackingMetadata: RewardedAdTrackingMetadata? = null,
