@@ -122,6 +122,11 @@ abstract class SwiftBuildTask @Inject constructor(
         val targetName = swiftTarget.get()
         val configValue = configuration.get()
         val extraSwiftArgs = swiftSettingsArgs.getOrElse(emptyList())
+        val buildSystemArgs = if (supportsBuildSystemOption()) {
+            listOf("--build-system", LEGACY_BUILD_SYSTEM)
+        } else {
+            emptyList()
+        }
 
         execOperations.exec {
             workingDir = packageDir.get().asFile
@@ -130,8 +135,7 @@ abstract class SwiftBuildTask @Inject constructor(
             // This environment change is only scoped to this subprocess.
             environment("SDKROOT", "")
             commandLine(
-                listOf(
-                    "xcrun", "swift", "build",
+                listOf("xcrun", "swift", "build") + buildSystemArgs + listOf(
                     "--target", targetName,
                     "--configuration", configValue,
                     "--triple", tripleValue,
@@ -191,6 +195,28 @@ abstract class SwiftBuildTask @Inject constructor(
         targetOutputDir.resolve("module.modulemap").writeText(modulemapContent)
     }
 
+    /**
+     * Whether the installed SwiftPM understands `--build-system`.
+     *
+     * Swift 6.4 (Xcode 27) made `swiftbuild` the default build system. That backend ignores
+     * `--triple`, so it compiles for the host (macOS) while the `-Xcc -isysroot` passed by
+     * [build] still points at the Apple target SDK, and the build dies with `could not build
+     * module 'Foundation'`. It also writes object files to `.build/out/Intermediates.noindex/...`
+     * instead of the `<scratch>/<triple>/<configuration>` layout [build] collects from.
+     * Pinning the `native` build system keeps both behaviours. Toolchains older than Swift 6.1
+     * don't know the option at all, so only pass it where it exists.
+     */
+    private fun supportsBuildSystemOption(): Boolean {
+        val output = ByteArrayOutputStream()
+        execOperations.exec {
+            commandLine("xcrun", "swift", "build", "--help")
+            standardOutput = output
+            errorOutput = ByteArrayOutputStream()
+            isIgnoreExitValue = true
+        }
+        return output.toString().contains("--build-system")
+    }
+
     private fun getSdkPath(sdk: String): String {
         val output = ByteArrayOutputStream()
         execOperations.exec {
@@ -198,5 +224,9 @@ abstract class SwiftBuildTask @Inject constructor(
             standardOutput = output
         }
         return output.toString().trim()
+    }
+
+    private companion object {
+        const val LEGACY_BUILD_SYSTEM = "native"
     }
 }
