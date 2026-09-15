@@ -119,9 +119,11 @@ internal class IosPaywallDelegate(
 }
 
 private fun Map<Any?, *>.toKotlinValues(): Map<String, Any> =
-    entries.associate { (key, value) ->
-        key as String to if (value is NSNumber) value.toKotlinValue() else value as Any
-    }
+    entries.mapNotNull { (key, value) ->
+        val name = key as? String ?: return@mapNotNull null
+        val kotlinValue = if (value is NSNumber) value.toKotlinValue() else value
+        kotlinValue?.let { name to it }
+    }.toMap()
 
 // Swift Bool crosses to Kotlin as an NSNumber whose objCType is "c"; the interaction contract has no
 // floating-point keys, so every other NSNumber is an integer.
