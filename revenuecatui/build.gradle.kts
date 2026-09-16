@@ -27,6 +27,13 @@ kotlin {
             implementation(projects.knUi)
             implementation(projects.mappings)
         }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test.annotations)
+            implementation(libs.kotlin.test.assertions)
+        }
+        androidUnitTest.dependencies {
+            implementation(libs.kotlin.test.junit)
+        }
     }
 }
 
