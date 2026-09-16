@@ -636,9 +636,11 @@ workflows:
           # This would benefit from the incremental build output of build-libraries-android
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
-      - hold:
+      - wait-for-pr-approval:
           type: approval
+      - revenuecat/tag-current-branch:
           requires:
+            - wait-for-pr-approval
             - detekt
             - unit-tests-build-logic
             - build-and-test-watchos
@@ -650,9 +652,6 @@ workflows:
             - unit-tests-android
             - unit-tests-ios
             - validate-binary-compatibility
-      - revenuecat/tag-current-branch:
-          requires:
-            - hold
           context: git-user-ops
 
   # The third and last stage of the release train actually publishes the release
