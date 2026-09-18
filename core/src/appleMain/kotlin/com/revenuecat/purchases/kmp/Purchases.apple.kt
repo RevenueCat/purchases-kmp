@@ -748,18 +748,18 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             nativeWebPurchaseRedemption,
         ) { rcCustomerInfo, nsError ->
             if (nsError != null) {
-                val errorCode = nsError.code.toInt()
-                val result = when (errorCode) {
-                    PurchasesErrorCode.InvalidWebPurchaseToken.code ->
+                val error = nsError.toPurchasesErrorOrThrow()
+                val result = when (error.code) {
+                    PurchasesErrorCode.InvalidWebPurchaseToken ->
                         RedeemWebPurchaseListener.Result.InvalidToken
-                    PurchasesErrorCode.PurchaseBelongsToOtherUser.code ->
+                    PurchasesErrorCode.PurchaseBelongsToOtherUser ->
                         RedeemWebPurchaseListener.Result.PurchaseBelongsToOtherUser
-                    PurchasesErrorCode.ExpiredWebPurchaseToken.code ->
+                    PurchasesErrorCode.ExpiredWebPurchaseToken ->
                         RedeemWebPurchaseListener.Result.Expired(
                             nsError.userInfo["rc_obfuscated_email"] as String? ?: ""
                         )
                     else ->
-                        RedeemWebPurchaseListener.Result.Error(nsError.toPurchasesErrorOrThrow())
+                        RedeemWebPurchaseListener.Result.Error(error)
                 }
                 listener.handleResult(result)
                 return@redeemWebPurchaseWithWebPurchaseRedemption

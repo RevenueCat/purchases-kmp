@@ -21,6 +21,14 @@ class ErrorsTest {
     }
 
     @Test
+    fun `iOS codes map to the KMP code with the same number`() {
+        for (nativeCode in listOf(28, 29, 36, 37)) {
+            val mapped = nsError(code = nativeCode).toPurchasesErrorOrThrow().code
+            assertEquals(nativeCode, mapped.code)
+        }
+    }
+
+    @Test
     fun `maps the localized description to the underlying error message`() {
         val error = nsError(code = 10, description = "network down").toPurchasesErrorOrThrow()
 
