@@ -115,6 +115,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         public actual fun configure(
             configuration: PurchasesConfiguration
         ): Purchases = with(configuration) {
+            LegacyUserDefaultsMigration.runIfNeeded(userDefaultsSuiteName)
             IosPurchases.configureWithConfiguration(
                 configuration = RCConfiguration.builderWithAPIKey(apiKey)
                     .withAppUserID(appUserId)
