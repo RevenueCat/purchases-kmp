@@ -1,6 +1,5 @@
 [versions]
 agp = "8.13.2"
-# https://github.com/arrow-kt/arrow/issues/3970
 android-compileSdk = "36"
 android-minSdk = "23"
 android-targetSdk = "35"
