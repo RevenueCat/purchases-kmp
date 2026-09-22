@@ -134,6 +134,10 @@ abstract class SwiftBuildTask @Inject constructor(
                     "xcrun", "swift", "build",
                     "--target", targetName,
                     "--configuration", configValue,
+                    // Xcode 27 (Swift 6.4) defaults to the swiftbuild engine, which lays out
+                    // objects and the ObjC header differently. Object and header lookup below
+                    // assumes the native layout.
+                    "--build-system", "native",
                     "--triple", tripleValue,
                     "--scratch-path", scratchPath.absolutePath,
                     "-Xswiftc", "-sdk",
