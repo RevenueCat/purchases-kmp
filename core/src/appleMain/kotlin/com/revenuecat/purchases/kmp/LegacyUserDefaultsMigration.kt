@@ -24,9 +24,10 @@ internal object LegacyUserDefaultsMigration {
     ) {
         if (userDefaultsSuiteName != null) return
         val standardId = standard.stringForKey(APP_USER_ID_KEY) ?: return
-        val suiteId = revenueCatSuite().stringForKey(APP_USER_ID_KEY) ?: return
-        if (suiteId == standardId || !standardId.startsWith(ANONYMOUS_ID_PREFIX)) return
+        if (!standardId.startsWith(ANONYMOUS_ID_PREFIX)) return
         if (standard.dataForKey(CUSTOMER_INFO_KEY_PREFIX + standardId).hasPurchases()) return
+        val suiteId = revenueCatSuite().stringForKey(APP_USER_ID_KEY) ?: return
+        if (suiteId == standardId) return
         standard.removeObjectForKey(APP_USER_ID_KEY)
     }
 
