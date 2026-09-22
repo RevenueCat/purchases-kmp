@@ -1,6 +1,7 @@
 [versions]
 agp = "8.13.2"
-android-compileSdk = "35"
+# https://github.com/arrow-kt/arrow/issues/3970
+android-compileSdk = "36"
 android-minSdk = "23"
 android-targetSdk = "35"
 compose = "1.9.3"
@@ -25,7 +26,7 @@ dokkatoo-gradlePlugin = { module = "dev.adamko.dokkatoo:dokkatoo-plugin", versio
 mavenPublish-gradlePlugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "mavenPublish" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.9.0" }
 androidx-startup = { module = "androidx.startup:startup-runtime", version = "1.1.1" }
-arrow-core = { module = "io.arrow-kt:arrow-core", version = "1.2.4" }
+arrow-core = { module = "io.arrow-kt:arrow-core", version = "2.2.2.1" }
 google-mobileAds = { module = "com.google.android.gms:play-services-ads", version = "23.6.0" }
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-core = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
