@@ -126,7 +126,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                             )
                         }
                     }
-                    .withUserDefaults(NSUserDefaults(suiteName = userDefaultsSuiteName))
+                    .apply { userDefaultsSuiteName.toUserDefaults()?.let { withUserDefaults(it) } }
                     .withPlatformInfo(
                         RCPlatformInfo(
                             flavor = BuildKonfig.platformFlavor,
@@ -871,3 +871,6 @@ internal expect fun IosPurchases.showStoreMessagesIfAvailable(messageTypes: List
 private val appleApiAvailability = AppleApiAvailability()
 
 private const val WIN_BACK_UNAVAILABLE_SUFFIX = "is only available on iOS 18.0+ or watchOS 11.0+"
+
+internal fun String?.toUserDefaults(): NSUserDefaults? =
+    this?.let { NSUserDefaults(suiteName = it) }
