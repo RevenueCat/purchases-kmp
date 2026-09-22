@@ -139,10 +139,6 @@ executors:
     macos:
       xcode: 16.4.0
     resource_class: m4pro.medium
-  xcode26:
-    macos:
-      xcode: 26.3.0
-    resource_class: m4pro.medium
     environment:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
       # freshly installed.
@@ -248,7 +244,7 @@ jobs:
   # Self-contained on purpose: no workspace persistence or attachment, so it can run in
   # parallel to the iOS chain without workspace conflicts.
   build-and-test-watchos:
-    executor: xcode26
+    executor: xcode16
     steps:
       - checkout
       - checkout-submodule
@@ -412,7 +408,7 @@ jobs:
       - save-gradle-user-home-directory-to-cache
 
   unit-tests-ios:
-    executor: xcode26
+    executor: xcode16
     steps:
       - checkout
       - checkout-submodule
