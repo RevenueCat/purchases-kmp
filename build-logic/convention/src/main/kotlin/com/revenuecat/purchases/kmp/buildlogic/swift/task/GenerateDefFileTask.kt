@@ -74,7 +74,7 @@ abstract class GenerateDefFileTask : DefaultTask() {
             package = ${packageName.get()}
             modules = ${moduleName.get()}
             staticLibraries = ${libraryName.get()}
-            linkerOpts = -L/usr/lib/swift -rpath /usr/lib/swift
+            linkerOpts = -L/usr/lib/swift
             linkerOpts.ios_x64 = -L$toolchain/lib/swift/iphonesimulator/
             linkerOpts.ios_arm64 = -L$toolchain/lib/swift/iphoneos/
             linkerOpts.ios_simulator_arm64 = -L$toolchain/lib/swift/iphonesimulator/

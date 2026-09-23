@@ -4,8 +4,11 @@ import com.revenuecat.purchases.kmp.buildlogic.ktx.getVersion
 import com.revenuecat.purchases.kmp.buildlogic.ktx.versionCatalog
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.TestExecutable
 
 internal fun Project.configureKotlin() {
     extensions.configure<KotlinMultiplatformExtension> {
@@ -30,6 +33,13 @@ internal fun Project.configureKotlin() {
                     freeCompilerArgs.apply {
                         add("-Xexpect-actual-classes")
                     }
+                }
+            }
+            // Kotlin/Native's linker adds no Swift runtime rpath, so `libswift_Concurrency`
+            // would not resolve. Xcode adds it when linking consumer apps.
+            if (this is KotlinNativeTarget) {
+                binaries.withType<TestExecutable>().configureEach {
+                    linkerOpts("-rpath", "/usr/lib/swift")
                 }
             }
         }
