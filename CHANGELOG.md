@@ -17,6 +17,8 @@
 * ci: approve the release hold automatically when the release PR is approved (#1021) via Álvaro Brey (@AlvaroBrey)
 
 ## 3.9.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### ✨ New Features
 * feat(ads): ad tracking and rewarded ad grants beta (#987) via Peter Porfy (@peterporfy)
@@ -29,6 +31,8 @@
 * feat(paywalls): Add onInteraction callback to PaywallListener (#1015) via Álvaro Brey (@AlvaroBrey)
 
 ## 3.8.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 📦 Dependency Updates
 * [RENOVATE] Update dependency upstream/purchases-ios to v5.88.0 (#1009) via RevenueCat Git Bot (@RCGitBot)
@@ -40,6 +44,8 @@
 * ci: notify external PRs feed on PRs from outside the org (#1007) via Álvaro Brey (@AlvaroBrey)
 
 ## 3.7.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### ✨ New Features
 * feat(singular): add setSingularDeviceID for Singular V2 (#996) via Guillem Corominas (@guillemcorominas)
@@ -54,6 +60,8 @@
 * chore: don't run danger on main (#989) via Cesar de la Vega (@vegaro)
 
 ## 3.6.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### ✨ New Features
 * feat(ads): ad reward tracking support (#959) via Peter Porfy (@peterporfy)
@@ -76,6 +84,8 @@
 * renovate: force a release when native SDKs are bumped (#981) via Antonio Pallares (@ajpallares)
 
 ## 3.5.1
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 📦 Dependency Updates
 * [RENOVATE] Update dependency upstream/purchases-ios to v5.83.2 (#972) via RevenueCat Git Bot (@RCGitBot)
@@ -88,6 +98,8 @@
 * Bump fastlane from 2.237.0 to 2.238.0 (#974) via dependabot[bot] (@dependabot[bot])
 
 ## 3.5.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### ✨ New Features
 * feat(ads): ad reward grants (#955) via Peter Porfy (@peterporfy)
@@ -102,6 +114,8 @@
 * Bump danger from 9.6.0 to 9.6.1 (#953) via dependabot[bot] (@dependabot[bot])
 
 ## 3.4.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 📦 Dependency Updates
 * Point the purchases-ios submodule branch at 5.83.0 (#950) via Facundo Menzella (@facumenzella)
@@ -119,6 +133,8 @@
 * Bump fastlane-plugin-revenuecat_internal from `b52fca5` to `d392939` (#944) via dependabot[bot] (@dependabot[bot])
 
 ## 3.3.1
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 📦 Dependency Updates
 * [RENOVATE] Update purchases-android to v10.14.1 (#937) via RevenueCat Git Bot (@RCGitBot)
@@ -130,6 +146,8 @@
 * ci: bump sdks-common-config orb to 4.5.0 (#935) via Antonio Pallares (@ajpallares)
 
 ## 3.3.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### ✨ New Features
 * Add preferred UI locale override support (#922) via Álvaro Brey (@AlvaroBrey)
@@ -142,12 +160,16 @@
 * Bump fastlane from 2.236.1 to 2.237.0 (#927) via dependabot[bot] (@dependabot[bot])
 
 ## 3.2.1
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 📦 Dependency Updates
 * [RENOVATE] Update dependency upstream/purchases-ios to v5.80.2 (#923) via RevenueCat Git Bot (@RCGitBot)
 * [RENOVATE] Update purchases-android to v10.12.0 (#924) via RevenueCat Git Bot (@RCGitBot)
 
 ## 3.2.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### ✨ New Features
 * Expose missing SubscriptionInfo fields (#915) via Álvaro Brey (@AlvaroBrey)
@@ -166,6 +188,8 @@
 * Update sdks-common-config orb to 3.21.2 (#907) via Antonio Pallares (@ajpallares)
 
 ## 3.1.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### ✨ New Features
 * Add presentedOfferingContext support to custom paywall impression events (#901) via Rick (@rickvdl)
@@ -181,6 +205,8 @@
 * Bump fastlane from 2.236.0 to 2.236.1 (#894) via dependabot[bot] (@dependabot[bot])
 
 ## 3.0.6
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 📦 Dependency Updates
 * [RENOVATE] Update dependency upstream/purchases-ios to v5.77.0 (#891) via RevenueCat Git Bot (@RCGitBot)
@@ -189,6 +215,8 @@
 * Bump fastlane from 2.235.0 to 2.236.0 (#892) via dependabot[bot] (@dependabot[bot])
 
 ## 3.0.5
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 📦 Dependency Updates
 * [RENOVATE] Update purchases-android to v10.8.0 (#886) via RevenueCat Git Bot (@RCGitBot)
@@ -198,12 +226,16 @@
 * Bump fastlane-plugin-revenuecat_internal from `af7bb5c` to `ce6a7ef` (#881) via dependabot[bot] (@dependabot[bot])
 
 ## 3.0.4
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 📦 Dependency Updates
 * [RENOVATE] Update dependency upstream/purchases-ios to v5.75.0 (#879) via RevenueCat Git Bot (@RCGitBot)
 * [RENOVATE] Update purchases-android to v10.7.0 (#880) via RevenueCat Git Bot (@RCGitBot)
 
 ## 3.0.3
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 🐞 Bugfixes
 * Pin macOS CI to Xcode 16.4 to fix Xcode 26.0.1 compatibility (#872) via Antonio Pallares (@ajpallares)
@@ -214,6 +246,8 @@
 * Bump fastlane from 2.234.0 to 2.235.0 (#874) via dependabot[bot] (@dependabot[bot])
 
 ## 3.0.2
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 📦 Dependency Updates
 * [RENOVATE] Update purchases-android to v10.6.1 (#868) via RevenueCat Git Bot (@RCGitBot)
@@ -227,6 +261,8 @@
 * Fix VERSIONS.md not updating on automatic releases (#863) via Antonio Pallares (@ajpallares)
 
 ## 3.0.1
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 📦 Dependency Updates
 * [RENOVATE] Update purchases-android to v10.5.0 (#851) via RevenueCat Git Bot (@RCGitBot)
@@ -239,6 +275,8 @@
 * Add subscriber attributes testing screen to tester app (#848) via Cesar de la Vega (@vegaro)
 
 ## 3.0.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 💥 Breaking Changes
 * This release updates to Billing Library 8.3.0 with min SDK supported of Android 6 (API 23), previously min was 21. It also removes a previous workaround used to be able to restore consumed one time products which is not available anymore.
