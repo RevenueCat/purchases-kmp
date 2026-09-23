@@ -5,6 +5,8 @@ import com.revenuecat.purchases.kmp.buildlogic.convention.configureKotlin
 import com.revenuecat.purchases.kmp.buildlogic.swift.configureSwiftDependencies
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.tasks.bundling.Jar
+import org.gradle.kotlin.dsl.named
 
 /**
  * A build convention plugin to be applied to all library modules, to reduce duplication in build
@@ -26,6 +28,12 @@ class RevenueCatLibraryConventionPlugin : Plugin<Project> {
         configureKotlin()
         configureAndroid()
         configureSwiftDependencies()
+
+        // Play SDK Console verification file for the target-less Maven coordinate; the
+        // -android coordinate's file ships in the AAR from androidMain/resources.
+        tasks.named<Jar>("allMetadataJar") {
+            from(file("src/sdkVerification"))
+        }
 
         // Disable dokka if needed.
         afterEvaluate {
