@@ -69,4 +69,32 @@ class PurchasesConfigurationTests {
 
         assertEquals("de_DE", config.preferredUILocaleOverride)
     }
+
+    @OptIn(ExperimentalRevenueCatApi::class)
+    @Test
+    fun `useExternalPurchaseCustomLinks is false by default`() {
+        val config = PurchasesConfiguration(apiKey = "abc123")
+
+        assertEquals(false, config.useExternalPurchaseCustomLinks)
+    }
+
+    @OptIn(ExperimentalRevenueCatApi::class)
+    @Test
+    fun `useExternalPurchaseCustomLinks provides the configured value`() {
+        val config = PurchasesConfiguration(apiKey = "abc123") {
+            useExternalPurchaseCustomLinks = true
+        }
+
+        assertEquals(true, config.useExternalPurchaseCustomLinks)
+    }
+
+    @OptIn(ExperimentalRevenueCatApi::class)
+    @Test
+    fun `useExternalPurchaseCustomLinks can be configured with the fluent builder`() {
+        val config = PurchasesConfiguration.Builder(apiKey = "abc123")
+            .useExternalPurchaseCustomLinks(true)
+            .build()
+
+        assertEquals(true, config.useExternalPurchaseCustomLinks)
+    }
 }
