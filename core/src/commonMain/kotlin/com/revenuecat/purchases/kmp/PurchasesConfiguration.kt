@@ -25,13 +25,21 @@ public class PurchasesConfiguration private constructor(
     public val dangerousSettings: DangerousSettings,
     public val verificationMode: EntitlementVerificationMode,
     public val pendingTransactionsForPrepaidPlansEnabled: Boolean?,
-    public val preferredUILocaleOverride: String?
+    public val preferredUILocaleOverride: String?,
+    /**
+     * Whether a web purchase button that opens its link in the external browser takes part in
+     * Apple's external purchase custom link programme. See
+     * [Builder.useExternalPurchaseCustomLinks].
+     */
+    @ExperimentalRevenueCatApi
+    public val useExternalPurchaseCustomLinks: Boolean,
 ) {
     public val storeKitVersion: StoreKitVersion = storeKitVersionToUse(
         purchasesAreCompletedBy,
         storeKitVersion,
     )
 
+    @OptIn(ExperimentalRevenueCatApi::class)
     override fun toString(): String =
         "PurchasesConfiguration(" +
                 "apiKey=$apiKey, " +
@@ -45,7 +53,8 @@ public class PurchasesConfiguration private constructor(
                 "dangerousSettings=$dangerousSettings, " +
                 "verificationMode=$verificationMode," +
                 "pendingTransactionsForPrepaidPlansEnabled=$pendingTransactionsForPrepaidPlansEnabled, " +
-                "preferredUILocaleOverride=$preferredUILocaleOverride" +
+                "preferredUILocaleOverride=$preferredUILocaleOverride, " +
+                "useExternalPurchaseCustomLinks=$useExternalPurchaseCustomLinks" +
                 ")"
 
     private fun storeKitVersionToUse(
@@ -118,6 +127,10 @@ public class PurchasesConfiguration private constructor(
 
         @set:JvmSynthetic
         public var preferredUILocaleOverride: String? = null
+
+        @ExperimentalRevenueCatApi
+        @set:JvmSynthetic
+        public var useExternalPurchaseCustomLinks: Boolean = false
 
         /**
          * Your RevenueCat API Key.
@@ -243,8 +256,22 @@ public class PurchasesConfiguration private constructor(
             apply { this.preferredUILocaleOverride = preferredUILocaleOverride }
 
         /**
+         * iOS-only, will be ignored for Android. Whether a web purchase button that opens its link
+         * in the external browser takes part in Apple's external purchase custom link programme:
+         * the customer is shown Apple's disclosure notice, and the purchase is reported to Apple.
+         *
+         * Disabled by default. Enabling it requires the app to be enrolled in the programme and to
+         * carry Apple's external purchase link entitlement, otherwise no purchase can be made
+         * outside the App Store.
+         */
+        @ExperimentalRevenueCatApi
+        public fun useExternalPurchaseCustomLinks(useExternalPurchaseCustomLinks: Boolean): Builder =
+            apply { this.useExternalPurchaseCustomLinks = useExternalPurchaseCustomLinks }
+
+        /**
          * Creates a [PurchasesConfiguration] instance with the specified properties.
          */
+        @OptIn(ExperimentalRevenueCatApi::class)
         public fun build(): PurchasesConfiguration = PurchasesConfiguration(
             apiKey = apiKey,
             appUserId = appUserId,
@@ -257,7 +284,8 @@ public class PurchasesConfiguration private constructor(
             dangerousSettings = dangerousSettings,
             verificationMode = verificationMode,
             pendingTransactionsForPrepaidPlansEnabled = pendingTransactionsForPrepaidPlansEnabled,
-            preferredUILocaleOverride = preferredUILocaleOverride
+            preferredUILocaleOverride = preferredUILocaleOverride,
+            useExternalPurchaseCustomLinks = useExternalPurchaseCustomLinks,
         )
     }
 }
