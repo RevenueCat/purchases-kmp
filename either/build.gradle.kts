@@ -1,3 +1,5 @@
+import com.revenuecat.purchases.kmp.buildlogic.watchosTargets
+
 plugins {
     id("revenuecat-library")
 }
@@ -7,9 +9,7 @@ revenueCat {
 }
 
 kotlin {
-    // Not using watchosTargets() because arrow-core does not publish watchosDeviceArm64.
-    watchosArm64()
-    watchosSimulatorArm64()
+    watchosTargets()
 
     sourceSets {
         commonMain.dependencies {
