@@ -33,6 +33,12 @@ public class PurchasesConfiguration private constructor(
      */
     @ExperimentalRevenueCatApi
     public val useExternalPurchaseCustomLinks: Boolean,
+    /**
+     * Whether the simulator offers external purchases in any storefront. See
+     * [Builder.enableExternalPurchasesInSimulator].
+     */
+    @ExperimentalRevenueCatApi
+    public val enableExternalPurchasesInSimulator: Boolean,
 ) {
     public val storeKitVersion: StoreKitVersion = storeKitVersionToUse(
         purchasesAreCompletedBy,
@@ -54,7 +60,8 @@ public class PurchasesConfiguration private constructor(
                 "verificationMode=$verificationMode," +
                 "pendingTransactionsForPrepaidPlansEnabled=$pendingTransactionsForPrepaidPlansEnabled, " +
                 "preferredUILocaleOverride=$preferredUILocaleOverride, " +
-                "useExternalPurchaseCustomLinks=$useExternalPurchaseCustomLinks" +
+                "useExternalPurchaseCustomLinks=$useExternalPurchaseCustomLinks, " +
+                "enableExternalPurchasesInSimulator=$enableExternalPurchasesInSimulator" +
                 ")"
 
     private fun storeKitVersionToUse(
@@ -131,6 +138,10 @@ public class PurchasesConfiguration private constructor(
         @ExperimentalRevenueCatApi
         @set:JvmSynthetic
         public var useExternalPurchaseCustomLinks: Boolean = false
+
+        @ExperimentalRevenueCatApi
+        @set:JvmSynthetic
+        public var enableExternalPurchasesInSimulator: Boolean = true
 
         /**
          * Your RevenueCat API Key.
@@ -269,6 +280,18 @@ public class PurchasesConfiguration private constructor(
             apply { this.useExternalPurchaseCustomLinks = useExternalPurchaseCustomLinks }
 
         /**
+         * iOS-only, will be ignored for Android. Whether the simulator offers external purchases in
+         * any storefront. When disabled, the simulator behaves as a device does for a customer who
+         * is not eligible.
+         *
+         * Enabled by default. Has no effect on a physical device, nor while
+         * [useExternalPurchaseCustomLinks] is disabled.
+         */
+        @ExperimentalRevenueCatApi
+        public fun enableExternalPurchasesInSimulator(enableExternalPurchasesInSimulator: Boolean): Builder =
+            apply { this.enableExternalPurchasesInSimulator = enableExternalPurchasesInSimulator }
+
+        /**
          * Creates a [PurchasesConfiguration] instance with the specified properties.
          */
         @OptIn(ExperimentalRevenueCatApi::class)
@@ -286,6 +309,7 @@ public class PurchasesConfiguration private constructor(
             pendingTransactionsForPrepaidPlansEnabled = pendingTransactionsForPrepaidPlansEnabled,
             preferredUILocaleOverride = preferredUILocaleOverride,
             useExternalPurchaseCustomLinks = useExternalPurchaseCustomLinks,
+            enableExternalPurchasesInSimulator = enableExternalPurchasesInSimulator,
         )
     }
 }

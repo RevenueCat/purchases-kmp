@@ -144,7 +144,8 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                     .apply {
                         ExternalPurchaseCustomLinks.configureWithBuilder(
                             builder = this,
-                            useExternalPurchaseCustomLinks = configuration.useExternalPurchaseCustomLinks
+                            useExternalPurchaseCustomLinks = configuration.useExternalPurchaseCustomLinks,
+                            enableExternalPurchasesInSimulator = configuration.enableExternalPurchasesInSimulator
                         )
                     }
                     .build()

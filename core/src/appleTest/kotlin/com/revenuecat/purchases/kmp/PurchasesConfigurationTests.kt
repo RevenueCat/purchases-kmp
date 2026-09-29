@@ -97,4 +97,32 @@ class PurchasesConfigurationTests {
 
         assertEquals(true, config.useExternalPurchaseCustomLinks)
     }
+
+    @OptIn(ExperimentalRevenueCatApi::class)
+    @Test
+    fun `enableExternalPurchasesInSimulator is true by default`() {
+        val config = PurchasesConfiguration(apiKey = "abc123")
+
+        assertEquals(true, config.enableExternalPurchasesInSimulator)
+    }
+
+    @OptIn(ExperimentalRevenueCatApi::class)
+    @Test
+    fun `enableExternalPurchasesInSimulator provides the configured value`() {
+        val config = PurchasesConfiguration(apiKey = "abc123") {
+            enableExternalPurchasesInSimulator = false
+        }
+
+        assertEquals(false, config.enableExternalPurchasesInSimulator)
+    }
+
+    @OptIn(ExperimentalRevenueCatApi::class)
+    @Test
+    fun `enableExternalPurchasesInSimulator can be configured with the fluent builder`() {
+        val config = PurchasesConfiguration.Builder(apiKey = "abc123")
+            .enableExternalPurchasesInSimulator(false)
+            .build()
+
+        assertEquals(false, config.enableExternalPurchasesInSimulator)
+    }
 }

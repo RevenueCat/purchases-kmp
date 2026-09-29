@@ -387,10 +387,13 @@ private class PurchasesCommonAPI {
             pendingTransactionsForPrepaidPlansEnabled = true
             preferredUILocaleOverride = "de_DE"
             useExternalPurchaseCustomLinks = true
+            enableExternalPurchasesInSimulator = false
         }
         val useExternalPurchaseCustomLinks: Boolean = config.useExternalPurchaseCustomLinks
+        val enableExternalPurchasesInSimulator: Boolean = config.enableExternalPurchasesInSimulator
         val config3: PurchasesConfiguration = PurchasesConfiguration.Builder(apiKey = "")
             .useExternalPurchaseCustomLinks(true)
+            .enableExternalPurchasesInSimulator(false)
             .build()
 
         val config2: PurchasesConfiguration = PurchasesConfiguration(apiKey = "") {

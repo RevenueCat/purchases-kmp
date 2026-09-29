@@ -144,11 +144,12 @@ public final class com/revenuecat/purchases/kmp/PurchasesApplicationProvider : a
 }
 
 public final class com/revenuecat/purchases/kmp/PurchasesConfiguration {
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/PurchasesAreCompletedBy;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/StoreKitVersion;ZLcom/revenuecat/purchases/kmp/models/Store;ZLcom/revenuecat/purchases/kmp/models/DangerousSettings;Lcom/revenuecat/purchases/kmp/models/EntitlementVerificationMode;Ljava/lang/Boolean;Ljava/lang/String;ZLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/PurchasesAreCompletedBy;Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/StoreKitVersion;ZLcom/revenuecat/purchases/kmp/models/Store;ZLcom/revenuecat/purchases/kmp/models/DangerousSettings;Lcom/revenuecat/purchases/kmp/models/EntitlementVerificationMode;Ljava/lang/Boolean;Ljava/lang/String;ZZLkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getApiKey ()Ljava/lang/String;
 	public final fun getAppUserId ()Ljava/lang/String;
 	public final fun getDangerousSettings ()Lcom/revenuecat/purchases/kmp/models/DangerousSettings;
 	public final fun getDiagnosticsEnabled ()Z
+	public final fun getEnableExternalPurchasesInSimulator ()Z
 	public final fun getPendingTransactionsForPrepaidPlansEnabled ()Ljava/lang/Boolean;
 	public final fun getPreferredUILocaleOverride ()Ljava/lang/String;
 	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/kmp/models/PurchasesAreCompletedBy;
@@ -168,10 +169,12 @@ public final class com/revenuecat/purchases/kmp/PurchasesConfiguration$Builder {
 	public final fun build ()Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;
 	public final fun dangerousSettings (Lcom/revenuecat/purchases/kmp/models/DangerousSettings;)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
 	public final fun diagnosticsEnabled (Z)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
+	public final fun enableExternalPurchasesInSimulator (Z)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
 	public final fun getApiKey ()Ljava/lang/String;
 	public final fun getAppUserId ()Ljava/lang/String;
 	public final fun getDangerousSettings ()Lcom/revenuecat/purchases/kmp/models/DangerousSettings;
 	public final fun getDiagnosticsEnabled ()Z
+	public final fun getEnableExternalPurchasesInSimulator ()Z
 	public final fun getPendingTransactionsForPrepaidPlansEnabled ()Ljava/lang/Boolean;
 	public final fun getPreferredUILocaleOverride ()Ljava/lang/String;
 	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/kmp/models/PurchasesAreCompletedBy;
@@ -188,6 +191,7 @@ public final class com/revenuecat/purchases/kmp/PurchasesConfiguration$Builder {
 	public final synthetic fun setAppUserId (Ljava/lang/String;)V
 	public final synthetic fun setDangerousSettings (Lcom/revenuecat/purchases/kmp/models/DangerousSettings;)V
 	public final synthetic fun setDiagnosticsEnabled (Z)V
+	public final synthetic fun setEnableExternalPurchasesInSimulator (Z)V
 	public final synthetic fun setPendingTransactionsForPrepaidPlansEnabled (Ljava/lang/Boolean;)V
 	public final synthetic fun setPreferredUILocaleOverride (Ljava/lang/String;)V
 	public final synthetic fun setPurchasesAreCompletedBy (Lcom/revenuecat/purchases/kmp/models/PurchasesAreCompletedBy;)V
