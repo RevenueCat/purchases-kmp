@@ -133,6 +133,7 @@ public actual class Purchases private constructor(private val androidPurchases: 
                         .dangerousSettings(dangerousSettings.toAndroidDangerousSettings())
                         .showInAppMessagesAutomatically(showInAppMessagesAutomatically)
                         .entitlementVerificationMode(verificationMode.toAndroidEntitlementVerificationMode())
+                        .diagnosticsEnabled(diagnosticsEnabled)
                         .pendingTransactionsForPrepaidPlansEnabled(
                             pendingTransactionsForPrepaidPlansEnabled ?: false
                         )
