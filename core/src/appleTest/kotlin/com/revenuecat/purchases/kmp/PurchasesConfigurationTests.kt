@@ -80,16 +80,6 @@ class PurchasesConfigurationTests {
 
     @OptIn(ExperimentalRevenueCatApi::class)
     @Test
-    fun `useExternalPurchaseCustomLinks provides the configured value`() {
-        val config = PurchasesConfiguration(apiKey = "abc123") {
-            useExternalPurchaseCustomLinks = true
-        }
-
-        assertEquals(true, config.useExternalPurchaseCustomLinks)
-    }
-
-    @OptIn(ExperimentalRevenueCatApi::class)
-    @Test
     fun `useExternalPurchaseCustomLinks can be configured with the fluent builder`() {
         val config = PurchasesConfiguration.Builder(apiKey = "abc123")
             .useExternalPurchaseCustomLinks(true)
@@ -104,16 +94,6 @@ class PurchasesConfigurationTests {
         val config = PurchasesConfiguration(apiKey = "abc123")
 
         assertEquals(true, config.enableExternalPurchasesInSimulator)
-    }
-
-    @OptIn(ExperimentalRevenueCatApi::class)
-    @Test
-    fun `enableExternalPurchasesInSimulator provides the configured value`() {
-        val config = PurchasesConfiguration(apiKey = "abc123") {
-            enableExternalPurchasesInSimulator = false
-        }
-
-        assertEquals(false, config.enableExternalPurchasesInSimulator)
     }
 
     @OptIn(ExperimentalRevenueCatApi::class)

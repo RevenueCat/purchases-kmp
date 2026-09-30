@@ -135,13 +135,9 @@ public class PurchasesConfiguration private constructor(
         @set:JvmSynthetic
         public var preferredUILocaleOverride: String? = null
 
-        @ExperimentalRevenueCatApi
-        @set:JvmSynthetic
-        public var useExternalPurchaseCustomLinks: Boolean = false
+        private var useExternalPurchaseCustomLinks: Boolean = false
 
-        @ExperimentalRevenueCatApi
-        @set:JvmSynthetic
-        public var enableExternalPurchasesInSimulator: Boolean = true
+        private var enableExternalPurchasesInSimulator: Boolean = true
 
         /**
          * Your RevenueCat API Key.

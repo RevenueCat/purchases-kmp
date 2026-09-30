@@ -386,8 +386,6 @@ private class PurchasesCommonAPI {
             verificationMode = EntitlementVerificationMode.INFORMATIONAL
             pendingTransactionsForPrepaidPlansEnabled = true
             preferredUILocaleOverride = "de_DE"
-            useExternalPurchaseCustomLinks = true
-            enableExternalPurchasesInSimulator = false
         }
         val useExternalPurchaseCustomLinks: Boolean = config.useExternalPurchaseCustomLinks
         val enableExternalPurchasesInSimulator: Boolean = config.enableExternalPurchasesInSimulator

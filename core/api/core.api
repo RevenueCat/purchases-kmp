@@ -174,14 +174,12 @@ public final class com/revenuecat/purchases/kmp/PurchasesConfiguration$Builder {
 	public final fun getAppUserId ()Ljava/lang/String;
 	public final fun getDangerousSettings ()Lcom/revenuecat/purchases/kmp/models/DangerousSettings;
 	public final fun getDiagnosticsEnabled ()Z
-	public final fun getEnableExternalPurchasesInSimulator ()Z
 	public final fun getPendingTransactionsForPrepaidPlansEnabled ()Ljava/lang/Boolean;
 	public final fun getPreferredUILocaleOverride ()Ljava/lang/String;
 	public final fun getPurchasesAreCompletedBy ()Lcom/revenuecat/purchases/kmp/models/PurchasesAreCompletedBy;
 	public final fun getShowInAppMessagesAutomatically ()Z
 	public final fun getStore ()Lcom/revenuecat/purchases/kmp/models/Store;
 	public final fun getStoreKitVersion ()Lcom/revenuecat/purchases/kmp/models/StoreKitVersion;
-	public final fun getUseExternalPurchaseCustomLinks ()Z
 	public final fun getUserDefaultsSuiteName ()Ljava/lang/String;
 	public final fun getVerificationMode ()Lcom/revenuecat/purchases/kmp/models/EntitlementVerificationMode;
 	public final fun pendingTransactionsForPrepaidPlansEnabled (Z)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
@@ -191,14 +189,12 @@ public final class com/revenuecat/purchases/kmp/PurchasesConfiguration$Builder {
 	public final synthetic fun setAppUserId (Ljava/lang/String;)V
 	public final synthetic fun setDangerousSettings (Lcom/revenuecat/purchases/kmp/models/DangerousSettings;)V
 	public final synthetic fun setDiagnosticsEnabled (Z)V
-	public final synthetic fun setEnableExternalPurchasesInSimulator (Z)V
 	public final synthetic fun setPendingTransactionsForPrepaidPlansEnabled (Ljava/lang/Boolean;)V
 	public final synthetic fun setPreferredUILocaleOverride (Ljava/lang/String;)V
 	public final synthetic fun setPurchasesAreCompletedBy (Lcom/revenuecat/purchases/kmp/models/PurchasesAreCompletedBy;)V
 	public final synthetic fun setShowInAppMessagesAutomatically (Z)V
 	public final synthetic fun setStore (Lcom/revenuecat/purchases/kmp/models/Store;)V
 	public final synthetic fun setStoreKitVersion (Lcom/revenuecat/purchases/kmp/models/StoreKitVersion;)V
-	public final synthetic fun setUseExternalPurchaseCustomLinks (Z)V
 	public final synthetic fun setUserDefaultsSuiteName (Ljava/lang/String;)V
 	public final synthetic fun setVerificationMode (Lcom/revenuecat/purchases/kmp/models/EntitlementVerificationMode;)V
 	public final fun showInAppMessagesAutomatically (Z)Lcom/revenuecat/purchases/kmp/PurchasesConfiguration$Builder;
