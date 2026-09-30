@@ -142,8 +142,9 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                     .withEntitlementVerificationMode(verificationMode.toIosEntitlementVerificationMode())
                     .withPreferredUILocaleOverride(preferredUILocaleOverride)
                     .apply {
+                        // The AdditionalSwift cinterop only sees RCConfigurationBuilder as a forward declaration.
                         ExternalPurchaseCustomLinks.configureWithBuilder(
-                            builder = this,
+                            builder = this as objcnames.classes.RCConfigurationBuilder,
                             useExternalPurchaseCustomLinks = configuration.useExternalPurchaseCustomLinks,
                             enableExternalPurchasesInSimulator = configuration.enableExternalPurchasesInSimulator
                         )

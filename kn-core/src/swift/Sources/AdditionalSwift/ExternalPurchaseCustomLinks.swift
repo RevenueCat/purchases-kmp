@@ -8,18 +8,12 @@ import Foundation
 @objc
 public class ExternalPurchaseCustomLinks: NSObject {
 
-    /// `builder` is typed as `NSObject` because `RevenueCat`'s types are bound in a separate cinterop package, so
-    /// Kotlin can't pass its `RCConfigurationBuilder` where this module's binding of it would be expected.
     @objc
     public static func configure(
-        builder: NSObject,
+        builder: Configuration.Builder,
         useExternalPurchaseCustomLinks: Bool,
         enableExternalPurchasesInSimulator: Bool
     ) {
-        guard let builder = builder as? Configuration.Builder else {
-            assertionFailure("Expected a Configuration.Builder, got \(type(of: builder))")
-            return
-        }
         _ = builder.with(
             useExternalPurchaseCustomLinks: useExternalPurchaseCustomLinks,
             enableExternalPurchasesInSimulator: enableExternalPurchasesInSimulator
