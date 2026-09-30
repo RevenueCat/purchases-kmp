@@ -10,6 +10,7 @@ import platform.darwin.NSObject
 import com.revenuecat.purchases.kn.core.RCPeriodType
 import com.revenuecat.purchases.kn.core.RCPurchaseOwnershipType
 import com.revenuecat.purchases.kn.core.RCStore
+import kotlin.math.roundToLong
 
 internal fun Any.toSubscriptionInfo(): SubscriptionInfo {
     val obj = this as NSObject
@@ -22,7 +23,7 @@ internal fun Any.toSubscriptionInfo(): SubscriptionInfo {
         if (currency != null && amount != null && formatted != null) {
             Price(
                 currencyCode = currency,
-                amountMicros = (amount * 1_000_000.0).toLong(),
+                amountMicros = (amount * 1_000_000.0).roundToLong(),
                 formatted = formatted
             )
         } else {
