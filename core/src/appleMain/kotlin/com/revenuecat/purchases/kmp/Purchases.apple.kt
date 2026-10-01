@@ -140,6 +140,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                     .withDangerousSettings(dangerousSettings.toIosDangerousSettings())
                     .withShowStoreMessagesAutomatically(showInAppMessagesAutomatically)
                     .withEntitlementVerificationMode(verificationMode.toIosEntitlementVerificationMode())
+                    .withDiagnosticsEnabled(diagnosticsEnabled)
                     .withPreferredUILocaleOverride(preferredUILocaleOverride)
                     .apply {
                         // The AdditionalSwift cinterop only sees RCConfigurationBuilder as a forward declaration.
