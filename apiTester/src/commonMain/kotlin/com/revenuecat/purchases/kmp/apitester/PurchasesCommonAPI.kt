@@ -1,6 +1,7 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import arrow.core.Either
+import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.LogHandler
 import com.revenuecat.purchases.kmp.LogLevel
 import com.revenuecat.purchases.kmp.Purchases
@@ -359,6 +360,7 @@ private class PurchasesCommonAPI {
         val virtualCurrenciesEither: Either<PurchasesError, VirtualCurrencies> = purchases.awaitVirtualCurrenciesEither()
     }
 
+    @OptIn(ExperimentalRevenueCatApi::class)
     @Suppress("ForbiddenComment")
     fun checkConfiguration() {
         val features: List<BillingFeature> = ArrayList()
@@ -385,6 +387,12 @@ private class PurchasesCommonAPI {
             pendingTransactionsForPrepaidPlansEnabled = true
             preferredUILocaleOverride = "de_DE"
         }
+        val useExternalPurchaseCustomLinks: Boolean = config.useExternalPurchaseCustomLinks
+        val enableExternalPurchasesInSimulator: Boolean = config.enableExternalPurchasesInSimulator
+        val config3: PurchasesConfiguration = PurchasesConfiguration.Builder(apiKey = "")
+            .useExternalPurchaseCustomLinks(true)
+            .enableExternalPurchasesInSimulator(false)
+            .build()
 
         val config2: PurchasesConfiguration = PurchasesConfiguration(apiKey = "") {
             appUserId = ""
