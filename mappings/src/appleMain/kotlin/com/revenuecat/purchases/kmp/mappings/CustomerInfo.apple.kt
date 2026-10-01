@@ -33,7 +33,7 @@ public fun IosCustomerInfo.toCustomerInfo(): CustomerInfo {
             map.toTransaction()
         },
         originalAppUserId = originalAppUserId(),
-        originalApplicationVersion = null,
+        originalApplicationVersion = originalApplicationVersion(),
         originalPurchaseDateMillis = originalPurchaseDate()?.toEpochMilliseconds(),
         requestDateMillis = requestDate().toEpochMilliseconds()
     )
