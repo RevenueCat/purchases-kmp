@@ -67,6 +67,7 @@ import com.revenuecat.purchases.kn.core.overridePreferredUILocale
 import com.revenuecat.purchases.kn.core.RCStoreTransaction
 import com.revenuecat.purchases.kn.core.RCVirtualCurrencies
 import com.revenuecat.purchases.kn.core.additional.AppleApiAvailability
+import com.revenuecat.purchases.kn.core.additional.ExternalPurchaseCustomLinks
 import com.revenuecat.purchases.kn.core.configureWithConfiguration
 import com.revenuecat.purchases.kn.core.enableAdServicesAttributionTokenCollection
 import com.revenuecat.purchases.kn.core.parseAsWebPurchaseRedemption
@@ -112,6 +113,7 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
             get() = IosPurchases.forceUniversalAppStore()
             set(value) = IosPurchases.setForceUniversalAppStore(value)
 
+        @OptIn(ExperimentalRevenueCatApi::class)
         public actual fun configure(
             configuration: PurchasesConfiguration
         ): Purchases = with(configuration) {
@@ -140,6 +142,14 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
                     .withEntitlementVerificationMode(verificationMode.toIosEntitlementVerificationMode())
                     .withDiagnosticsEnabled(diagnosticsEnabled)
                     .withPreferredUILocaleOverride(preferredUILocaleOverride)
+                    .apply {
+                        // The AdditionalSwift cinterop only sees RCConfigurationBuilder as a forward declaration.
+                        ExternalPurchaseCustomLinks.configureWithBuilder(
+                            builder = this as objcnames.classes.RCConfigurationBuilder,
+                            useExternalPurchaseCustomLinks = configuration.useExternalPurchaseCustomLinks,
+                            enableExternalPurchasesInSimulator = configuration.enableExternalPurchasesInSimulator
+                        )
+                    }
                     .build()
             )
         }.let { Purchases(it) }
