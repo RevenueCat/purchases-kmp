@@ -105,4 +105,30 @@ public class AdTracking: NSObject {
             mediatorErrorCode: mediatorErrorCode?.intValue
         ))
     }
+
+    @objc
+    public static func trackRewardedAdPromptShown(
+        mediatorName: String,
+        placement: String?,
+        adUnitId: String
+    ) {
+        Purchases.shared.adTracker.trackRewardedAdPromptShown(.init(
+            mediatorName: MediatorName(rawValue: mediatorName),
+            placement: placement,
+            adUnitId: adUnitId
+        ))
+    }
+
+    @objc
+    public static func trackRewardedAdPromptAccepted(
+        mediatorName: String,
+        placement: String?,
+        adUnitId: String
+    ) {
+        Purchases.shared.adTracker.trackRewardedAdPromptAccepted(.init(
+            mediatorName: MediatorName(rawValue: mediatorName),
+            placement: placement,
+            adUnitId: adUnitId
+        ))
+    }
 }

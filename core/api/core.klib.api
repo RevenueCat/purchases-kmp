@@ -57,6 +57,8 @@ final class com.revenuecat.purchases.kmp/AdTracker { // com.revenuecat.purchases
     final fun trackAdLoaded(com.revenuecat.purchases.kmp.models/AdLoadedData) // com.revenuecat.purchases.kmp/AdTracker.trackAdLoaded|trackAdLoaded(com.revenuecat.purchases.kmp.models.AdLoadedData){}[0]
     final fun trackAdOpened(com.revenuecat.purchases.kmp.models/AdOpenedData) // com.revenuecat.purchases.kmp/AdTracker.trackAdOpened|trackAdOpened(com.revenuecat.purchases.kmp.models.AdOpenedData){}[0]
     final fun trackAdRevenue(com.revenuecat.purchases.kmp.models/AdRevenueData) // com.revenuecat.purchases.kmp/AdTracker.trackAdRevenue|trackAdRevenue(com.revenuecat.purchases.kmp.models.AdRevenueData){}[0]
+    final fun trackRewardedAdPromptAccepted(com.revenuecat.purchases.kmp.models/AdRewardPromptAcceptedData) // com.revenuecat.purchases.kmp/AdTracker.trackRewardedAdPromptAccepted|trackRewardedAdPromptAccepted(com.revenuecat.purchases.kmp.models.AdRewardPromptAcceptedData){}[0]
+    final fun trackRewardedAdPromptShown(com.revenuecat.purchases.kmp.models/AdRewardPromptShownData) // com.revenuecat.purchases.kmp/AdTracker.trackRewardedAdPromptShown|trackRewardedAdPromptShown(com.revenuecat.purchases.kmp.models.AdRewardPromptShownData){}[0]
 }
 
 final class com.revenuecat.purchases.kmp/Purchases { // com.revenuecat.purchases.kmp/Purchases|null[0]

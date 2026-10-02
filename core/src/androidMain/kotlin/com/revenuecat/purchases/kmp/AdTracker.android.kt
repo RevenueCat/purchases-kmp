@@ -8,6 +8,8 @@ import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
 import com.revenuecat.purchases.kmp.models.AdLoadedData
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
+import com.revenuecat.purchases.kmp.models.AdRewardPromptAcceptedData
+import com.revenuecat.purchases.kmp.models.AdRewardPromptShownData
 
 /**
  * Android implementation of [AdTracker] that delegates to the native Android SDK.
@@ -34,5 +36,13 @@ public actual class AdTracker internal constructor(
 
     public actual fun trackAdFailedToLoad(data: AdFailedToLoadData) {
         androidAdTracker.trackAdFailedToLoad(data.toAndroid())
+    }
+
+    public actual fun trackRewardedAdPromptShown(data: AdRewardPromptShownData) {
+        androidAdTracker.trackRewardedAdPromptShown(data.toAndroid())
+    }
+
+    public actual fun trackRewardedAdPromptAccepted(data: AdRewardPromptAcceptedData) {
+        androidAdTracker.trackRewardedAdPromptAccepted(data.toAndroid())
     }
 }

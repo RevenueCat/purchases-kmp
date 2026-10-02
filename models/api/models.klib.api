@@ -690,6 +690,28 @@ final class com.revenuecat.purchases.kmp.models/AdRevenuePrecision { // com.reve
     }
 }
 
+final class com.revenuecat.purchases.kmp.models/AdRewardPromptAcceptedData { // com.revenuecat.purchases.kmp.models/AdRewardPromptAcceptedData|null[0]
+    constructor <init>(com.revenuecat.purchases.kmp.models/AdMediatorName, kotlin/String?, kotlin/String) // com.revenuecat.purchases.kmp.models/AdRewardPromptAcceptedData.<init>|<init>(com.revenuecat.purchases.kmp.models.AdMediatorName;kotlin.String?;kotlin.String){}[0]
+
+    final val adUnitId // com.revenuecat.purchases.kmp.models/AdRewardPromptAcceptedData.adUnitId|{}adUnitId[0]
+        final fun <get-adUnitId>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRewardPromptAcceptedData.adUnitId.<get-adUnitId>|<get-adUnitId>(){}[0]
+    final val mediatorName // com.revenuecat.purchases.kmp.models/AdRewardPromptAcceptedData.mediatorName|{}mediatorName[0]
+        final fun <get-mediatorName>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdRewardPromptAcceptedData.mediatorName.<get-mediatorName>|<get-mediatorName>(){}[0]
+    final val placement // com.revenuecat.purchases.kmp.models/AdRewardPromptAcceptedData.placement|{}placement[0]
+        final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdRewardPromptAcceptedData.placement.<get-placement>|<get-placement>(){}[0]
+}
+
+final class com.revenuecat.purchases.kmp.models/AdRewardPromptShownData { // com.revenuecat.purchases.kmp.models/AdRewardPromptShownData|null[0]
+    constructor <init>(com.revenuecat.purchases.kmp.models/AdMediatorName, kotlin/String?, kotlin/String) // com.revenuecat.purchases.kmp.models/AdRewardPromptShownData.<init>|<init>(com.revenuecat.purchases.kmp.models.AdMediatorName;kotlin.String?;kotlin.String){}[0]
+
+    final val adUnitId // com.revenuecat.purchases.kmp.models/AdRewardPromptShownData.adUnitId|{}adUnitId[0]
+        final fun <get-adUnitId>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRewardPromptShownData.adUnitId.<get-adUnitId>|<get-adUnitId>(){}[0]
+    final val mediatorName // com.revenuecat.purchases.kmp.models/AdRewardPromptShownData.mediatorName|{}mediatorName[0]
+        final fun <get-mediatorName>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdRewardPromptShownData.mediatorName.<get-mediatorName>|<get-mediatorName>(){}[0]
+    final val placement // com.revenuecat.purchases.kmp.models/AdRewardPromptShownData.placement|{}placement[0]
+        final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdRewardPromptShownData.placement.<get-placement>|<get-placement>(){}[0]
+}
+
 final class com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams { // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams|null[0]
     constructor <init>() // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.<init>|<init>(){}[0]
     constructor <init>(kotlin/String? = ..., com.revenuecat.purchases.kmp.models/Offering) // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams.<init>|<init>(kotlin.String?;com.revenuecat.purchases.kmp.models.Offering){}[0]
