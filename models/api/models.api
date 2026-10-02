@@ -106,6 +106,20 @@ public final class com/revenuecat/purchases/kmp/models/AdRevenuePrecision$Compan
 	public final fun getUNKNOWN ()Lcom/revenuecat/purchases/kmp/models/AdRevenuePrecision;
 }
 
+public final class com/revenuecat/purchases/kmp/models/AdRewardPromptAcceptedData {
+	public fun <init> (Lcom/revenuecat/purchases/kmp/models/AdMediatorName;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getAdUnitId ()Ljava/lang/String;
+	public final fun getMediatorName ()Lcom/revenuecat/purchases/kmp/models/AdMediatorName;
+	public final fun getPlacement ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/models/AdRewardPromptShownData {
+	public fun <init> (Lcom/revenuecat/purchases/kmp/models/AdMediatorName;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun getAdUnitId ()Ljava/lang/String;
+	public final fun getMediatorName ()Lcom/revenuecat/purchases/kmp/models/AdMediatorName;
+	public final fun getPlacement ()Ljava/lang/String;
+}
+
 public final class com/revenuecat/purchases/kmp/models/BillingFeature : java/lang/Enum {
 	public static final field PRICE_CHANGE_CONFIRMATION Lcom/revenuecat/purchases/kmp/models/BillingFeature;
 	public static final field SUBSCRIPTIONS Lcom/revenuecat/purchases/kmp/models/BillingFeature;

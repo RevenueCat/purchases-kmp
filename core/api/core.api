@@ -4,6 +4,8 @@ public final class com/revenuecat/purchases/kmp/AdTracker {
 	public final fun trackAdLoaded (Lcom/revenuecat/purchases/kmp/models/AdLoadedData;)V
 	public final fun trackAdOpened (Lcom/revenuecat/purchases/kmp/models/AdOpenedData;)V
 	public final fun trackAdRevenue (Lcom/revenuecat/purchases/kmp/models/AdRevenueData;)V
+	public final fun trackRewardedAdPromptAccepted (Lcom/revenuecat/purchases/kmp/models/AdRewardPromptAcceptedData;)V
+	public final fun trackRewardedAdPromptShown (Lcom/revenuecat/purchases/kmp/models/AdRewardPromptShownData;)V
 }
 
 public abstract interface class com/revenuecat/purchases/kmp/LogHandler {

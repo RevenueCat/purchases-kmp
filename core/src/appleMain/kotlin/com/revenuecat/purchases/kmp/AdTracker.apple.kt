@@ -5,6 +5,8 @@ import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
 import com.revenuecat.purchases.kmp.models.AdLoadedData
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
+import com.revenuecat.purchases.kmp.models.AdRewardPromptAcceptedData
+import com.revenuecat.purchases.kmp.models.AdRewardPromptShownData
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSNumber
 import com.revenuecat.purchases.kn.core.additional.AdTracking
@@ -71,6 +73,24 @@ public actual class AdTracker internal constructor() {
             placement = data.placement,
             adUnitId = data.adUnitId,
             mediatorErrorCode = data.mediatorErrorCode?.let { NSNumber(int = it) },
+        )
+    }
+
+    public actual fun trackRewardedAdPromptShown(data: AdRewardPromptShownData) {
+        if (!isAvailable()) return
+        AdTracking.trackRewardedAdPromptShownWithMediatorName(
+            mediatorName = data.mediatorName.value,
+            placement = data.placement,
+            adUnitId = data.adUnitId,
+        )
+    }
+
+    public actual fun trackRewardedAdPromptAccepted(data: AdRewardPromptAcceptedData) {
+        if (!isAvailable()) return
+        AdTracking.trackRewardedAdPromptAcceptedWithMediatorName(
+            mediatorName = data.mediatorName.value,
+            placement = data.placement,
+            adUnitId = data.adUnitId,
         )
     }
 
