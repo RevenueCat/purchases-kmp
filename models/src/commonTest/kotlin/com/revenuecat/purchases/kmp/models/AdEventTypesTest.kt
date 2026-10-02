@@ -137,4 +137,56 @@ class AdEventTypesTest {
         assertEquals(null, data.mediatorErrorCode)
         assertEquals(null, data.placement)
     }
+
+    @Test
+    fun `AdRewardPromptShownData can be constructed`() {
+        val data = AdRewardPromptShownData(
+            mediatorName = AdMediatorName.APP_LOVIN,
+            placement = "rewarded_video",
+            adUnitId = "ad-unit-123",
+        )
+
+        assertNotNull(data)
+        assertEquals(AdMediatorName.APP_LOVIN, data.mediatorName)
+        assertEquals("rewarded_video", data.placement)
+        assertEquals("ad-unit-123", data.adUnitId)
+    }
+
+    @Test
+    fun `AdRewardPromptShownData with null placement`() {
+        val data = AdRewardPromptShownData(
+            mediatorName = AdMediatorName.AD_MOB,
+            placement = null,
+            adUnitId = "ad-unit-123",
+        )
+
+        assertNotNull(data)
+        assertEquals(null, data.placement)
+    }
+
+    @Test
+    fun `AdRewardPromptAcceptedData can be constructed`() {
+        val data = AdRewardPromptAcceptedData(
+            mediatorName = AdMediatorName.APP_LOVIN,
+            placement = "rewarded_video",
+            adUnitId = "ad-unit-123",
+        )
+
+        assertNotNull(data)
+        assertEquals(AdMediatorName.APP_LOVIN, data.mediatorName)
+        assertEquals("rewarded_video", data.placement)
+        assertEquals("ad-unit-123", data.adUnitId)
+    }
+
+    @Test
+    fun `AdRewardPromptAcceptedData with null placement`() {
+        val data = AdRewardPromptAcceptedData(
+            mediatorName = AdMediatorName.AD_MOB,
+            placement = null,
+            adUnitId = "ad-unit-123",
+        )
+
+        assertNotNull(data)
+        assertEquals(null, data.placement)
+    }
 }
