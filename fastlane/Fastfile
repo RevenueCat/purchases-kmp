@@ -112,6 +112,95 @@ lane :github_release do |options|
   )
 end
 
+desc "Build released and local KMP SDK update test apps"
+lane :build_sdk_update_test_apps do |options|
+  platform = sdk_update_test_platform(options)
+  base_path = File.expand_path("..", Dir.pwd)
+  output_dir = File.expand_path(options[:output_dir] || "build/sdk_update_tests/#{platform}", base_path)
+  project_dir = "#{base_path}/e2e-tests/SDKUpdateTester"
+  local_version = current_version_number
+  release_version = options[:release_version] || get_latest_release_before_version(
+    repo_name: REPO_NAME,
+    version: local_version
+  )
+  api_key = ENV["MAESTRO_TEST_STORE_API_KEY"]
+  UI.user_error!("MAESTRO_TEST_STORE_API_KEY must contain a Test Store key") unless api_key&.start_with?("test_")
+
+  FileUtils.rm_rf(output_dir)
+  { "release" => release_version, "local" => local_version }.each do |name, sdk_version|
+    variant_dir = "#{output_dir}/#{name}"
+    FileUtils.mkdir_p(variant_dir)
+    platform_task = platform == "ios" ? "linkDebugFrameworkIosSimulatorArm64" : "assembleDebug"
+    dependency_task = platform == "ios" ? "verifySdkUpdateIosDependency" : "verifySdkUpdateAndroidDependency"
+    gradle(
+      tasks: [":e2e-tests:SDKUpdateTester:#{dependency_task}", ":e2e-tests:SDKUpdateTester:#{platform_task}"],
+      project_dir: base_path,
+      properties: name == "release" ? { "SDK_UPDATE_TESTER_RELEASE_VERSION" => sdk_version } : {},
+      flags: "--no-configuration-cache --max-workers=2"
+    )
+    report = "#{project_dir}/build/#{name}/reports/resolved-dependencies/#{platform == 'ios' ? 'Ios' : 'Android'}.txt"
+    FileUtils.cp(report, "#{variant_dir}/resolved-dependencies.txt")
+    if platform == "ios"
+      log_path = "#{variant_dir}/xcodebuild.log"
+      pid = Process.spawn(
+        "xcodebuild", "build",
+        "-project", "#{project_dir}/iosApp/SDKUpdateTester.xcodeproj",
+        "-scheme", "SDKUpdateTester",
+        "-configuration", "Debug",
+        "-destination", "generic/platform=iOS Simulator",
+        "-derivedDataPath", "#{variant_dir}/derived_data",
+        "SDK_UPDATE_TESTER_FRAMEWORK_DIR=#{project_dir}/build/#{name}/bin/iosSimulatorArm64/debugFramework",
+        "ARCHS=arm64", "CODE_SIGNING_ALLOWED=NO",
+        out: log_path, err: [:child, :out]
+      )
+      _, status = Process.wait2(pid)
+      unless status.success?
+        UI.error(File.readlines(log_path).last(50).join)
+        UI.user_error!("#{name} iOS build failed. See #{log_path}")
+      end
+      FileUtils.cp_r("#{variant_dir}/derived_data/Build/Products/Debug-iphonesimulator/SDKUpdateTester.app", variant_dir)
+    else
+      FileUtils.cp("#{project_dir}/build/#{name}/outputs/apk/debug/SDKUpdateTester-debug.apk", "#{variant_dir}/SDKUpdateTester.apk")
+    end
+    File.write("#{variant_dir}/version.txt", sdk_version)
+  end
+  UI.success("SDK update test apps available in #{output_dir}")
+end
+
+desc "Run a KMP SDK update Maestro test case"
+lane :run_sdk_update_test do |options|
+  platform = sdk_update_test_platform(options)
+  test_case = options[:test_case]
+  unless %w[anonymous_user logged_in_user].include?(test_case)
+    UI.user_error!("test_case must be anonymous_user or logged_in_user")
+  end
+  base_path = File.expand_path("..", Dir.pwd)
+  apps_dir = File.expand_path(options[:apps_dir] || "build/sdk_update_tests/#{platform}", base_path)
+  flows_dir = "#{base_path}/e2e-tests/maestro/sdk_update_tests/#{test_case}"
+  app = lambda do |name|
+    version_path = "#{apps_dir}/#{name}/version.txt"
+    UI.user_error!("#{version_path} not found. Run build_sdk_update_test_apps first.") unless File.exist?(version_path)
+    extension = platform == "ios" ? "app" : "apk"
+    { app_path: "#{apps_dir}/#{name}/SDKUpdateTester.#{extension}", sdk_version: File.read(version_path).strip }
+  end
+  run_sdk_update_maestro_test(
+    platform: platform,
+    app_id: "com.revenuecat.SDKUpdateTester",
+    steps: [
+      app.call("release").merge(flow: "#{flows_dir}/before_update.yaml"),
+      app.call("local").merge(flow: "#{flows_dir}/after_update.yaml")
+    ],
+    output_dir: File.expand_path(options[:output_dir] || "fastlane/test_output/sdk_update_tests/#{platform}/#{test_case}", base_path),
+    max_attempts: Integer(options.fetch(:max_attempts, 3))
+  )
+end
+
+def sdk_update_test_platform(options)
+  platform = options[:platform]
+  UI.user_error!("platform must be ios or android") unless %w[ios android].include?(platform)
+  platform
+end
+
 def current_version_number
   File.read("../gradle/libs.versions.toml")
     .match('revenuecat-kmp = "(.*)"')

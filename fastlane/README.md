@@ -77,6 +77,22 @@ Creates a GitHub release for the current version
 
 Creates a GitHub release
 
+### build_sdk_update_test_apps
+
+```sh
+[bundle exec] fastlane build_sdk_update_test_apps
+```
+
+Build released and local KMP SDK update test apps
+
+### run_sdk_update_test
+
+```sh
+[bundle exec] fastlane run_sdk_update_test
+```
+
+Run a KMP SDK update Maestro test case
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
