@@ -25,6 +25,38 @@ orbs:
   revenuecat: revenuecat/sdks-common-config@4.6.2
 
 commands:
+  run-sdk-update-test-cases:
+    parameters:
+      platform:
+        type: enum
+        enum: [ios, android]
+    steps:
+      - run:
+          name: Build SDK update test apps
+          command: MAESTRO_TEST_STORE_API_KEY="$WORKFLOWS_TEST_STORE_API_KEY" bundle exec fastlane build_sdk_update_test_apps platform:<< parameters.platform >>
+          no_output_timeout: 20m
+      - run:
+          name: Run SDK update test (anonymous_user)
+          command: bundle exec fastlane run_sdk_update_test platform:<< parameters.platform >> test_case:anonymous_user
+          no_output_timeout: 15m
+      - run:
+          name: Run SDK update test (logged_in_user)
+          command: bundle exec fastlane run_sdk_update_test platform:<< parameters.platform >> test_case:logged_in_user
+          no_output_timeout: 15m
+          when: always
+      - store_test_results:
+          path: fastlane/test_output/sdk_update_tests/<< parameters.platform >>/anonymous_user/junit
+      - store_test_results:
+          path: fastlane/test_output/sdk_update_tests/<< parameters.platform >>/logged_in_user/junit
+      - store_artifacts:
+          path: fastlane/test_output/sdk_update_tests/<< parameters.platform >>
+      - store_artifacts:
+          path: build/sdk_update_tests/<< parameters.platform >>/release/resolved-dependencies.txt
+          destination: release/resolved-dependencies.txt
+      - store_artifacts:
+          path: build/sdk_update_tests/<< parameters.platform >>/local/resolved-dependencies.txt
+          destination: local/resolved-dependencies.txt
+
   install-android-sdk-on-macos:
     description: Install the Android SDK on macOS
     steps:
@@ -145,6 +177,57 @@ executors:
       HOMEBREW_NO_AUTO_UPDATE: 1
 
 jobs:
+  run-sdk-update-test-android:
+    executor:
+      name: android/android-machine
+      resource-class: large
+      tag: 2024.11.1
+    steps:
+      - checkout
+      - revenuecat/install-mise-tools:
+          tools: java,ruby
+      - revenuecat/install-gem-unix-dependencies:
+          cache-version: v1
+      - restore-gradle-user-home-directory-from-cache
+      - android/create-avd:
+          avd-name: sdk-update-tester
+          system-image: system-images;android-32;google_apis;x86_64
+          install: true
+      - android/start-emulator:
+          avd-name: sdk-update-tester
+          post-emulator-launch-assemble-command: "true"
+      - revenuecat/install-maestro
+      - run-sdk-update-test-cases:
+          platform: android
+
+  run-sdk-update-test-ios:
+    executor: xcode16
+    steps:
+      - checkout
+      - checkout-submodule
+      - install-android-sdk-on-macos
+      - revenuecat/install-mise-tools:
+          tools: java,ruby
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - revenuecat/install-maestro
+      - run:
+          name: Boot SDK update test simulator
+          command: |
+            device_id=$(xcrun simctl create SDKUpdateTester com.apple.CoreSimulator.SimDeviceType.iPhone-16 com.apple.CoreSimulator.SimRuntime.iOS-18-5)
+            xcrun simctl boot "$device_id"
+            xcrun simctl bootstatus "$device_id" -b
+      - run-sdk-update-test-cases:
+          platform: ios
+      - store_artifacts:
+          path: build/sdk_update_tests/ios/release/xcodebuild.log
+          destination: release/xcodebuild.log
+      - store_artifacts:
+          path: build/sdk_update_tests/ios/local/xcodebuild.log
+          destination: local/xcodebuild.log
+
   prepare-next-snapshot-version:
     description: "Opens a PR updating the SDK version to the next minor, appending -SNAPSHOT."
     executor: ruby3
@@ -490,188 +573,9 @@ jobs:
           command: bundle exec fastlane github_release_current_version
 
 workflows:
-  danger:
-    when:
-      and:
-        - not:
-            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-        - equal: [ build, << pipeline.parameters.action >> ]
+  sdk-update-validation:
     jobs:
-      - revenuecat/danger:
-          context: danger-bot
-          filters:
-            branches:
-              ignore: main
-
-  # This workflow runs for any commit to main, as well as for any other
-  # branch with an open PR, except for release branches. This is controlled 
-  # by the "Only build pull requests" setting on CircleCI. 
-  on-non-release-branch:
-    when:
-      and:
-        - not:
-            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-        - not:
-            matches: { pattern: "^release/.+$", value: << pipeline.git.branch >> }
-        - equal: [ build, << pipeline.parameters.action >> ]
-    jobs:
-      - detekt
-      - unit-tests-build-logic
-      - build-libraries-android
-      - build-libraries-ios
-      - build-and-test-watchos
-      - build-watchos-tester
-      - build-sample-android:
-          requires: [build-libraries-android]
-      - build-sample-ios:
-          requires: [build-libraries-ios]
-      - public-api-tests-android:
-          requires: [build-libraries-android]
-      - public-api-tests-ios:
-          requires: [build-libraries-ios]
-      - unit-tests-android:
-          requires: [build-libraries-android]
-      - unit-tests-ios:
-          requires: [build-libraries-ios]
-      - validate-binary-compatibility:
-          # This would benefit from the incremental build output of build-libraries-android
-          # too, but merging 2 workspaces is not possible.
-          requires: [build-libraries-ios]
-
-  on-main-branch:
-    when:
-      and:
-        - equal: [ main, << pipeline.git.branch >> ]
-        - not:
-            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-        - equal: [ build, << pipeline.parameters.action >> ]
-    jobs:
-      - prepare-next-snapshot-version:
-          context:
-            - git-user-ops
-            - github-bot-public
-      - publish:
-          snapshot: true
-          context: maven-central-publishing
-
-  update-error-codes:
-    when:
-      equal: [ update_error_codes, << pipeline.parameters.action >> ]
-    jobs:
-      - revenuecat/update-error-codes:
-          executor: xcode16
-          platform: kmp
-          outputs: |
-            PurchasesErrorCode.kt:models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt
-            errors.android.kt:mappings/src/androidMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.android.kt
-            errors.apple.kt:mappings/src/appleMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.apple.kt
-          commit_paths: "models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt,mappings/src/androidMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.android.kt,mappings/src/appleMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.apple.kt,models/api/models.api,models/api/models.klib.api"
-          context:
-            - git-user-ops
-            - github-bot-public
-          update_api_steps:
-            - install-android-sdk-on-macos
-            - checkout-submodule
-            - revenuecat/install-mise-tools:
-                tools: java,ruby
-            - restore-gradle-user-home-directory-from-cache
-            - restore-kotlin-native-compiler-from-cache
-            - revenuecat/install-gem-mac-dependencies:
-                cache-version: v1
-            - run:
-                name: Regenerate API dumps
-                command: ./gradlew apiDump
-            - save-gradle-user-home-directory-to-cache
-            - save-kotlin-native-compiler-to-cache
-
-  # The release train starts with the release-train workflow, which is automatically 
-  # triggered every week, but can also be triggered manually by passing the "action" 
-  # parameter with a value of "bump".
-  # This workflow will create a new release branch and open a PR for it. This new 
-  # release branch triggers the next workflow: on-release-branch.
-  release-train:
-    when:
-      or:
-        - and:
-            - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-            - equal: [ "release-train", << pipeline.schedule.name >> ]
-        - equal: [ bump, << pipeline.parameters.action >> ]
-    jobs:
-      - revenuecat/automatic-bump:
-          context:
-            - git-user-ops
-            - github-bot-public
-
-  # The second stage of the release train starts a hold job, which is a job that
-  # needs to be manually approved on the CircleCI web app. This ensures there's 
-  # always a human in the loop. After the hold job is approved, the current release
-  # branch is tagged with the version number. This new release tag triggers the next
-  # workflow: on-release-tag.
-  on-release-branch:
-    when:
-      and:
-        - matches: { pattern: "^release/.+$", value: << pipeline.git.branch >> }
-        - not:
-            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-    jobs:
-      - detekt
-      - unit-tests-build-logic
-      - build-libraries-android
-      - build-libraries-ios
-      - build-and-test-watchos
-      - build-watchos-tester
-      - build-sample-android:
-          requires: [build-libraries-android]
-      - build-sample-ios:
-          requires: [build-libraries-ios]
-      - public-api-tests-android:
-          requires: [build-libraries-android]
-      - public-api-tests-ios:
-          requires: [build-libraries-ios]
-      - unit-tests-android:
-          requires: [build-libraries-android]
-      - unit-tests-ios:
-          requires: [build-libraries-ios]
-      - validate-binary-compatibility:
-          # This would benefit from the incremental build output of build-libraries-android
-          # too, but merging 2 workspaces is not possible.
-          requires: [build-libraries-ios]
-      - wait-for-pr-approval:
-          type: approval
-      - revenuecat/tag-current-branch:
-          requires:
-            - wait-for-pr-approval
-            - detekt
-            - unit-tests-build-logic
-            - build-and-test-watchos
-            - build-watchos-tester
-            - build-sample-android
-            - build-sample-ios
-            - public-api-tests-android
-            - public-api-tests-ios
-            - unit-tests-android
-            - unit-tests-ios
-            - validate-binary-compatibility
-          context: git-user-ops
-
-  # The third and last stage of the release train actually publishes the release
-  # to Maven Central and creates a GitHub release for it. The release train has
-  # now completed its journey.
-  on-release-tag:
-    <<: *release-tags-workflow
-    jobs:
-      - publish:
-          snapshot: false
-          context: maven-central-publishing
-          <<: *release-tags-job
-      - create-github-release:
-          context: github-bot-public
-          <<: *release-tags-job
-      - revenuecat/merge-release-pr:
-          repo_name: purchases-kmp
-          version: << pipeline.git.tag >>
-          requires:
-            - publish
-            - create-github-release
-          context: github-bot-public
-          <<: *release-tags-job
+      - run-sdk-update-test-android:
+          context: maestro
+      - run-sdk-update-test-ios:
+          context: maestro
