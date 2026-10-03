@@ -34,8 +34,8 @@ bundle exec fastlane run_sdk_update_test platform:android test_case:logged_in_us
 `release_version:3.11.0` overrides release discovery for reproduction. By default, the shared action
 selects the highest stable purchases-kmp release below the checkout's version. Apps are saved separately
 in `build/sdk_update_tests/<platform>/{release,local}`. Android debug builds use the same default signing
-key and version codes 1 and 2. The runner retries each case from a clean state, terminates the app before each install, installs
-the local app over the released app preserving data, and saves diagnostic output plus final-attempt JUnit reports in
+key and version codes 1 and 2. The runner retries each case from a clean state, installs the local app
+over the released app preserving data, and saves diagnostic output plus final-attempt JUnit reports in
 `fastlane/test_output/sdk_update_tests/<platform>/<case>`. iOS cleanup also resets the simulator keychain.
 
 ## Coverage limitation

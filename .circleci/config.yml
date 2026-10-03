@@ -573,9 +573,198 @@ jobs:
           command: bundle exec fastlane github_release_current_version
 
 workflows:
-  sdk-update-validation:
+  danger:
+    when:
+      and:
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - equal: [ build, << pipeline.parameters.action >> ]
+    jobs:
+      - revenuecat/danger:
+          context: danger-bot
+          filters:
+            branches:
+              ignore: main
+
+  # This workflow runs for any commit to main, as well as for any other
+  # branch with an open PR, except for release branches. This is controlled 
+  # by the "Only build pull requests" setting on CircleCI. 
+  on-non-release-branch:
+    when:
+      and:
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - not:
+            matches: { pattern: "^release/.+$", value: << pipeline.git.branch >> }
+        - equal: [ build, << pipeline.parameters.action >> ]
     jobs:
       - run-sdk-update-test-android:
           context: maestro
       - run-sdk-update-test-ios:
           context: maestro
+      - detekt
+      - unit-tests-build-logic
+      - build-libraries-android
+      - build-libraries-ios
+      - build-and-test-watchos
+      - build-watchos-tester
+      - build-sample-android:
+          requires: [build-libraries-android]
+      - build-sample-ios:
+          requires: [build-libraries-ios]
+      - public-api-tests-android:
+          requires: [build-libraries-android]
+      - public-api-tests-ios:
+          requires: [build-libraries-ios]
+      - unit-tests-android:
+          requires: [build-libraries-android]
+      - unit-tests-ios:
+          requires: [build-libraries-ios]
+      - validate-binary-compatibility:
+          # This would benefit from the incremental build output of build-libraries-android
+          # too, but merging 2 workspaces is not possible.
+          requires: [build-libraries-ios]
+
+  on-main-branch:
+    when:
+      and:
+        - equal: [ main, << pipeline.git.branch >> ]
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - equal: [ build, << pipeline.parameters.action >> ]
+    jobs:
+      - prepare-next-snapshot-version:
+          context:
+            - git-user-ops
+            - github-bot-public
+      - publish:
+          snapshot: true
+          context: maven-central-publishing
+
+  update-error-codes:
+    when:
+      equal: [ update_error_codes, << pipeline.parameters.action >> ]
+    jobs:
+      - revenuecat/update-error-codes:
+          executor: xcode16
+          platform: kmp
+          outputs: |
+            PurchasesErrorCode.kt:models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt
+            errors.android.kt:mappings/src/androidMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.android.kt
+            errors.apple.kt:mappings/src/appleMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.apple.kt
+          commit_paths: "models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt,mappings/src/androidMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.android.kt,mappings/src/appleMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.apple.kt,models/api/models.api,models/api/models.klib.api"
+          context:
+            - git-user-ops
+            - github-bot-public
+          update_api_steps:
+            - install-android-sdk-on-macos
+            - checkout-submodule
+            - revenuecat/install-mise-tools:
+                tools: java,ruby
+            - restore-gradle-user-home-directory-from-cache
+            - restore-kotlin-native-compiler-from-cache
+            - revenuecat/install-gem-mac-dependencies:
+                cache-version: v1
+            - run:
+                name: Regenerate API dumps
+                command: ./gradlew apiDump
+            - save-gradle-user-home-directory-to-cache
+            - save-kotlin-native-compiler-to-cache
+
+  # The release train starts with the release-train workflow, which is automatically 
+  # triggered every week, but can also be triggered manually by passing the "action" 
+  # parameter with a value of "bump".
+  # This workflow will create a new release branch and open a PR for it. This new 
+  # release branch triggers the next workflow: on-release-branch.
+  release-train:
+    when:
+      or:
+        - and:
+            - equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+            - equal: [ "release-train", << pipeline.schedule.name >> ]
+        - equal: [ bump, << pipeline.parameters.action >> ]
+    jobs:
+      - revenuecat/automatic-bump:
+          context:
+            - git-user-ops
+            - github-bot-public
+
+  # The second stage of the release train starts a hold job, which is a job that
+  # needs to be manually approved on the CircleCI web app. This ensures there's 
+  # always a human in the loop. After the hold job is approved, the current release
+  # branch is tagged with the version number. This new release tag triggers the next
+  # workflow: on-release-tag.
+  on-release-branch:
+    when:
+      and:
+        - matches: { pattern: "^release/.+$", value: << pipeline.git.branch >> }
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+    jobs:
+      - run-sdk-update-test-android:
+          context: maestro
+      - run-sdk-update-test-ios:
+          context: maestro
+      - detekt
+      - unit-tests-build-logic
+      - build-libraries-android
+      - build-libraries-ios
+      - build-and-test-watchos
+      - build-watchos-tester
+      - build-sample-android:
+          requires: [build-libraries-android]
+      - build-sample-ios:
+          requires: [build-libraries-ios]
+      - public-api-tests-android:
+          requires: [build-libraries-android]
+      - public-api-tests-ios:
+          requires: [build-libraries-ios]
+      - unit-tests-android:
+          requires: [build-libraries-android]
+      - unit-tests-ios:
+          requires: [build-libraries-ios]
+      - validate-binary-compatibility:
+          # This would benefit from the incremental build output of build-libraries-android
+          # too, but merging 2 workspaces is not possible.
+          requires: [build-libraries-ios]
+      - wait-for-pr-approval:
+          type: approval
+      - revenuecat/tag-current-branch:
+          requires:
+            - wait-for-pr-approval
+            - run-sdk-update-test-android
+            - run-sdk-update-test-ios
+            - detekt
+            - unit-tests-build-logic
+            - build-and-test-watchos
+            - build-watchos-tester
+            - build-sample-android
+            - build-sample-ios
+            - public-api-tests-android
+            - public-api-tests-ios
+            - unit-tests-android
+            - unit-tests-ios
+            - validate-binary-compatibility
+          context: git-user-ops
+
+  # The third and last stage of the release train actually publishes the release
+  # to Maven Central and creates a GitHub release for it. The release train has
+  # now completed its journey.
+  on-release-tag:
+    <<: *release-tags-workflow
+    jobs:
+      - publish:
+          snapshot: false
+          context: maven-central-publishing
+          <<: *release-tags-job
+      - create-github-release:
+          context: github-bot-public
+          <<: *release-tags-job
+      - revenuecat/merge-release-pr:
+          repo_name: purchases-kmp
+          version: << pipeline.git.tag >>
+          requires:
+            - publish
+            - create-github-release
+          context: github-bot-public
+          <<: *release-tags-job
