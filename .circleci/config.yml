@@ -180,8 +180,8 @@ jobs:
   run-sdk-update-test-android:
     executor:
       name: android/android-machine
-      resource-class: large
-      tag: 2024.11.1
+      resource-class: xlarge
+      tag: 2026.05.1
     steps:
       - checkout
       - revenuecat/install-mise-tools:
