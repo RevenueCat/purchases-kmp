@@ -17,8 +17,8 @@ Remove the temporary plugin pin after that PR merges.
 
 ## Run locally
 
-Set `MAESTRO_TEST_STORE_API_KEY` in the environment to the Workflows Test Store project's key.
-CI uses `WORKFLOWS_TEST_STORE_API_KEY` from the `maestro` context, as in purchases-android.
+Set `MAESTRO_TEST_STORE_API_KEY` in the environment to the `automated_sdk_tests` Test Store project's key.
+CI gets it from the `maestro` context, as in purchases-android.
 Its `no_paywall` offering's `$rc_monthly` package is `pro_monthly_subscription`, granting `pro`.
 Keys are injected into generated sources at build time. Do not upload APKs, apps, frameworks,
 Gradle build outputs, or Xcode derived data containing them.

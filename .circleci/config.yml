@@ -33,7 +33,7 @@ commands:
     steps:
       - run:
           name: Build SDK update test apps
-          command: MAESTRO_TEST_STORE_API_KEY="$WORKFLOWS_TEST_STORE_API_KEY" bundle exec fastlane build_sdk_update_test_apps platform:<< parameters.platform >>
+          command: bundle exec fastlane build_sdk_update_test_apps platform:<< parameters.platform >>
           no_output_timeout: 20m
       - run:
           name: Run SDK update test (anonymous_user)
