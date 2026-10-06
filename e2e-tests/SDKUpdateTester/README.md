@@ -8,13 +8,6 @@ the local variant depends on `:core`. Each retains its own native dependencies. 
 this selection and save the resolved RevenueCat dependencies next to `version.txt`. The on-screen
 version comes from KMP's `Purchases.frameworkVersion`.
 
-The seven flows in `../maestro/sdk_update_tests` are byte-for-byte copies of
-[purchases-ios#7900](https://github.com/RevenueCat/purchases-ios/pull/7900) and
-[purchases-android#4381](https://github.com/RevenueCat/purchases-android/pull/4381).
-The runner and release discovery come from
-[shared actions#161](https://github.com/RevenueCat/fastlane-plugin-revenuecat_internal/pull/161).
-Remove the temporary plugin pin after that PR merges.
-
 ## Run locally
 
 Set `MAESTRO_TEST_STORE_API_KEY` in the environment to the `automated_sdk_tests` Test Store project's key.
