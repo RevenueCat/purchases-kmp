@@ -107,7 +107,7 @@ commands:
 parameters:
   action:
     type: enum
-    enum: [ build, bump, update_error_codes, stress_e2e ]
+    enum: [ build, bump, update_error_codes ]
     default: build
 
 executors:
@@ -787,88 +787,3 @@ workflows:
           context: github-bot-public
           <<: *release-tags-job
 
-
-  stress-test-e2e:
-    when:
-      equal: [ stress_e2e, << pipeline.parameters.action >> ]
-    jobs:
-      - run-maestro-e2e-tests-ios:
-          name: ios-e2e-stress-1
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-ios:
-          name: ios-e2e-stress-2
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-ios:
-          name: ios-e2e-stress-3
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-ios:
-          name: ios-e2e-stress-4
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-ios:
-          name: ios-e2e-stress-5
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-ios:
-          name: ios-e2e-stress-6
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-ios:
-          name: ios-e2e-stress-7
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-ios:
-          name: ios-e2e-stress-8
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-ios:
-          name: ios-e2e-stress-9
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-ios:
-          name: ios-e2e-stress-10
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-android:
-          name: android-e2e-stress-1
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-android:
-          name: android-e2e-stress-2
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-android:
-          name: android-e2e-stress-3
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-android:
-          name: android-e2e-stress-4
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-android:
-          name: android-e2e-stress-5
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-android:
-          name: android-e2e-stress-6
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-android:
-          name: android-e2e-stress-7
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-android:
-          name: android-e2e-stress-8
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-android:
-          name: android-e2e-stress-9
-          context:
-            - e2e-tests
-      - run-maestro-e2e-tests-android:
-          name: android-e2e-stress-10
-          context:
-            - e2e-tests
