@@ -561,12 +561,6 @@ jobs:
       - run:
           name: Replace Maestro test app API key
           command: bundle exec fastlane change_maestro_test_app_api_key
-      - run:
-          name: Build Maestro test app (Android)
-          command: bundle exec fastlane build_maestro_test_app_android
-          no_output_timeout: 15m
-      - save-gradle-user-home-directory-to-cache
-      - save-kotlin-native-compiler-to-cache
       - android/create-avd:
           avd-name: test-e2e
           system-image: system-images;android-34;google_apis;x86_64
@@ -574,7 +568,9 @@ jobs:
       - android/start-emulator:
           avd-name: test-e2e
           restore-gradle-cache-prefix: ""
-          post-emulator-launch-assemble-command: ""
+          post-emulator-launch-assemble-command: bundle exec fastlane build_maestro_test_app_android
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
       - revenuecat/install-maestro
       - run:
           name: Run Maestro E2E Tests (Android)
