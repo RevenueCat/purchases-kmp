@@ -569,6 +569,14 @@ jobs:
       - save-kotlin-native-compiler-to-cache
       - revenuecat/install-maestro
       - run:
+          # The app is built while the emulator boots, so the display can time out and sleep
+          # before Maestro runs, leaving the app stopped behind a black screen.
+          name: Wake emulator display
+          command: |
+            adb shell svc power stayon true
+            adb shell input keyevent KEYCODE_WAKEUP
+            adb shell wm dismiss-keyguard
+      - run:
           name: Run Maestro E2E Tests (Android)
           command: bundle exec fastlane run_maestro_e2e_tests_android
           no_output_timeout: 15m
@@ -578,6 +586,7 @@ jobs:
             mkdir -p /tmp/android-logs
             adb logcat -d > /tmp/android-logs/logcat.txt 2>&1 || true
             adb shell dumpsys activity activities > /tmp/android-logs/activities.txt 2>&1 || true
+            adb shell dumpsys power > /tmp/android-logs/power.txt 2>&1 || true
           when: on_fail
       - store_test_results:
           path: fastlane/test_output
