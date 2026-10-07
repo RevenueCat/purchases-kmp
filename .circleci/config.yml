@@ -490,11 +490,11 @@ jobs:
           command: bundle exec fastlane github_release_current_version
 
   run-maestro-e2e-tests-ios:
-    executor: xcode26
+    executor: xcode16
     parameters:
       simulator-name:
         type: string
-        default: "iPhone 17"
+        default: "iPhone 16"
     steps:
       - checkout
       - checkout-submodule
@@ -639,7 +639,7 @@ workflows:
       - run-maestro-e2e-tests-ios:
           context:
             - e2e-tests
-          simulator-name: "iPhone 17"
+          simulator-name: "iPhone 16"
       - run-maestro-e2e-tests-android:
           context:
             - e2e-tests
