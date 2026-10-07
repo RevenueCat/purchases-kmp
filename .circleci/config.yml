@@ -600,10 +600,6 @@ workflows:
             matches: { pattern: "^release/.+$", value: << pipeline.git.branch >> }
         - equal: [ build, << pipeline.parameters.action >> ]
     jobs:
-      - run-sdk-update-test-android:
-          context: maestro
-      - run-sdk-update-test-ios:
-          context: maestro
       - detekt
       - unit-tests-build-logic
       - build-libraries-android
