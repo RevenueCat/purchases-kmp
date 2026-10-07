@@ -13,6 +13,7 @@ plugins {
     alias(libs.plugins.jetbrains.compose).apply(false)
     alias(libs.plugins.compose.compiler).apply(false)
     alias(libs.plugins.kotlin.multiplatform).apply(false)
+    alias(libs.plugins.poko).apply(false)
     alias(libs.plugins.kotlinx.binaryCompatibilityValidator)
     alias(libs.plugins.adamko.dokkatoo.html)
     alias(libs.plugins.arturbosch.detekt).apply(false)
@@ -98,7 +99,7 @@ allprojects {
 }
 
 apiValidation {
-    ignoredProjects.addAll(listOf("apiTester", "composeApp", "MaestroTestApp", "mappings"))
+    ignoredProjects.addAll(listOf("apiTester", "composeApp", "MaestroTestApp", "mappings", "watchosTester"))
 
     @OptIn(kotlinx.validation.ExperimentalBCVApi::class)
     klib {

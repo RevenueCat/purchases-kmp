@@ -57,6 +57,7 @@ internal fun SubscriptionInfoRow(
                 Text(text = "productPlanIdentifier: ${info.productPlanIdentifier}")
                 Text(text = "price: ${info.price?.formatted}")
                 Text(text = "managementUrlString: ${info.managementUrlString}")
+                Text(text = "displayName: ${info.displayName}")
                 Text(text = "unsubscribeDetectedAt: ${info.unsubscribeDetectedAt}")
                 Text(text = "billingIssuesDetectedAt: ${info.billingIssuesDetectedAt}")
                 Text(text = "gracePeriodExpiresDate: ${info.gracePeriodExpiresDate}")

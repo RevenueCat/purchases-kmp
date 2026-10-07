@@ -1,4 +1,273 @@
+## 3.11.0
+## RevenueCat SDK
+### ✨ New Features
+* Allow opting in to external purchase custom links on iOS (experimental) (#1048) via Antonio Pallares (@ajpallares)
+### 🐞 Bugfixes
+* [EXTERNAL] fix(ios): round subscription price when converting to micros (#1054) by @AndroidPoet (#1056) via Toni Rico (@tonidero)
+* [EXTERNAL] fix(ios): map originalApplicationVersion on CustomerInfo (#1051) by @AndroidPoet (#1052) via Toni Rico (@tonidero)
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.92.0 (#1058) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update purchases-android to v10.24.0 (#1059) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.91.0 (#1050) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* build: link the Swift concurrency runtime in Kotlin/Native test binaries and test the UserDefaults suite deferral end to end (#1037) via Álvaro Brey (@AlvaroBrey)
+
+## 3.10.1
+### 🔄 Other Changes
+* build: embed Play SDK Console verification files in published artifacts (#1045) via Álvaro Brey (@AlvaroBrey)
+* Add warning to ask devs to update to 3.10.0+ to CHANGELOG (#1044) via Toni Rico (@tonidero)
+
+## 3.10.0
+## RevenueCat SDK
+### 🐞 Bugfixes
+* fix(ios): recover the 2.x app user ID for installs that upgraded through 3.0 to 3.9 (#1040) via Álvaro Brey (@AlvaroBrey)
+* fix(ios): let purchases-ios pick its UserDefaults suite when none is configured (#1034) via Álvaro Brey (@AlvaroBrey)
+### 📦 Dependency Updates
+* Bump sdks-common-config orb to 4.6.2 (#1033) via Álvaro Brey (@AlvaroBrey)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.90.2 (#1026) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update purchases-android to v10.22.1 (#1027) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Bump fastlane-plugin-revenuecat_internal from `a65e499` to `9f7a03e` (#1032) via dependabot[bot] (@dependabot[bot])
+* Auto-approve the next-version SNAPSHOT PR (#1030) via Álvaro Brey (@AlvaroBrey)
+* Bump fastlane-plugin-revenuecat_internal from `6db1da0` to `fc64a1a` (#1028) via dependabot[bot] (@dependabot[bot])
+* Bump fastlane from 2.240.0 to 2.240.1 (#1029) via dependabot[bot] (@dependabot[bot])
+* Bump fastlane from 2.239.0 to 2.240.0 (#1023) via dependabot[bot] (@dependabot[bot])
+* ci: approve the release hold automatically when the release PR is approved (#1021) via Álvaro Brey (@AlvaroBrey)
+
+## 3.9.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### ✨ New Features
+* feat(ads): ad tracking and rewarded ad grants beta (#987) via Peter Porfy (@peterporfy)
+### 📦 Dependency Updates
+* Update purchases-ios to 5.89.0 + ads compatibility (#1016) via Álvaro Brey (@AlvaroBrey)
+* [RENOVATE] Update purchases-android to v10.21.1 (#1018) via RevenueCat Git Bot (@RCGitBot)
+
+## RevenueCatUI SDK
+### ✨ New Features
+* feat(paywalls): Add onInteraction callback to PaywallListener (#1015) via Álvaro Brey (@AlvaroBrey)
+
+## 3.8.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.88.0 (#1009) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update purchases-android to v10.20.0 (#1010) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Bump fastlane from 2.238.0 to 2.239.0 (#1011) via dependabot[bot] (@dependabot[bot])
+* ci: bump external PR notifications workflow to v8 (#1008) via Álvaro Brey (@AlvaroBrey)
+* ci: notify external PRs feed on PRs from outside the org (#1007) via Álvaro Brey (@AlvaroBrey)
+
+## 3.7.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### ✨ New Features
+* feat(singular): add setSingularDeviceID for Singular V2 (#996) via Guillem Corominas (@guillemcorominas)
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.87.1 (#999) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update purchases-android to v10.19.1 (#1000) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.87.0 (#997) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update purchases-android to v10.19.0 (#998) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Bump fastlane-plugin-revenuecat_internal from `7dd9ab9` to `6db1da0` (#1001) via dependabot[bot] (@dependabot[bot])
+* chore: don't run danger on main (#989) via Cesar de la Vega (@vegaro)
+
+## 3.6.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### ✨ New Features
+* feat(ads): ad reward tracking support (#959) via Peter Porfy (@peterporfy)
+* Add watchOS support (#964) via Álvaro Brey (@AlvaroBrey)
+### 🐞 Bugfixes
+* Fix iOS crash in setAttributes with null values (#980) via Josh Holtz (@joshdholtz)
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.86.0 (#991) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.85.0 (#986) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency revenuecat to v4.6.1 (#985) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* chore: poko for data classes (#988) via Peter Porfy (@peterporfy)
+* chore(ads): align ad tracking class visibility (#976) via Peter Porfy (@peterporfy)
+* Add watchOS tester app (#960) via Álvaro Brey (@AlvaroBrey)
+* Update sdks-common-config orb to v4.6.1 (#984) via Antonio Pallares (@ajpallares)
+* Stop featuring either in the sample app (#975) via Álvaro Brey (@AlvaroBrey)
+* Rename iosMain/iosTest source sets to appleMain/appleTest (#963) via Álvaro Brey (@AlvaroBrey)
+* build-logic groundwork for watchOS targets (#962) via Álvaro Brey (@AlvaroBrey)
+* renovate: force a release when native SDKs are bumped (#981) via Antonio Pallares (@ajpallares)
+
+## 3.5.1
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.83.2 (#972) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update purchases-android to v10.16.2 (#973) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* ci: bump dependency-submission to v4.4.3 for SHA pinning (#978) via Antonio Pallares (@ajpallares)
+* Bump fastlane-plugin-revenuecat_internal from `7fbbe66` to `7dd9ab9` (#977) via dependabot[bot] (@dependabot[bot])
+* feat(ads): ad reward sample app (#969) via Peter Porfy (@peterporfy)
+* Bump fastlane from 2.237.0 to 2.238.0 (#974) via dependabot[bot] (@dependabot[bot])
+
+## 3.5.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### ✨ New Features
+* feat(ads): ad reward grants (#955) via Peter Porfy (@peterporfy)
+### 📦 Dependency Updates
+* [RENOVATE] Update purchases-android to v10.16.1 (#968) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.83.1 (#967) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Bump fastlane-plugin-revenuecat_internal from `b4e1e7f` to `7fbbe66` (#966) via dependabot[bot] (@dependabot[bot])
+* Bump fastlane-plugin-revenuecat_internal from `dd577ee` to `b4e1e7f` (#957) via dependabot[bot] (@dependabot[bot])
+* Bump fastlane-plugin-revenuecat_internal from `3421c88` to `dd577ee` (#954) via dependabot[bot] (@dependabot[bot])
+* Bump danger from 9.6.0 to 9.6.1 (#953) via dependabot[bot] (@dependabot[bot])
+
+## 3.4.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### 📦 Dependency Updates
+* Point the purchases-ios submodule branch at 5.83.0 (#950) via Facundo Menzella (@facumenzella)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.81.2 (#946) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency revenuecat to v4.5.1 (#945) via RevenueCat Git Bot (@RCGitBot)
+
+## RevenueCatUI SDK
+### ✨ New Features
+* Enables support for multipage paywalls
+* Add onWebCheckoutOpened and onUrlOpened to PaywallListener (#948) via Álvaro Brey (@AlvaroBrey)
+
+### 🔄 Other Changes
+* Bump fastlane-plugin-revenuecat_internal from `d392939` to `3421c88` (#949) via dependabot[bot] (@dependabot[bot])
+* Wire mise into CI for JDK and Ruby (#947) via Álvaro Brey (@AlvaroBrey)
+* Bump fastlane-plugin-revenuecat_internal from `b52fca5` to `d392939` (#944) via dependabot[bot] (@dependabot[bot])
+
+## 3.3.1
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### 📦 Dependency Updates
+* [RENOVATE] Update purchases-android to v10.14.1 (#937) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.81.1 (#936) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Bump fastlane-plugin-revenuecat_internal from `9b928b6` to `b52fca5` (#939) via dependabot[bot] (@dependabot[bot])
+* Bump fastlane-plugin-revenuecat_internal from `dab6765` to `9b928b6` (#938) via dependabot[bot] (@dependabot[bot])
+* ci: bump sdks-common-config orb to 4.5.0 (#935) via Antonio Pallares (@ajpallares)
+
+## 3.3.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### ✨ New Features
+* Add preferred UI locale override support (#922) via Álvaro Brey (@AlvaroBrey)
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.80.3 (#930) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency revenuecat to v4.4.0 (#931) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Bump cocoapods from 1.16.2 to 1.17.0 (#928) via dependabot[bot] (@dependabot[bot])
+* Bump fastlane from 2.236.1 to 2.237.0 (#927) via dependabot[bot] (@dependabot[bot])
+
+## 3.2.1
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.80.2 (#923) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update purchases-android to v10.12.0 (#924) via RevenueCat Git Bot (@RCGitBot)
+
+## 3.2.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### ✨ New Features
+* Expose missing SubscriptionInfo fields (#915) via Álvaro Brey (@AlvaroBrey)
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.80.0 (#916) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update purchases-android to v10.11.0 (#917) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.79.0 (#910) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Bump fastlane-plugin-revenuecat_internal from `70bf5c7` to `dab6765` (#918) via dependabot[bot] (@dependabot[bot])
+* Fix CircleCI release tag regex for upcoming deprecation (#913) via Rick (@rickvdl)
+* Use mise for JDK management (#912) via Álvaro Brey (@AlvaroBrey)
+* Bump danger from 9.5.3 to 9.6.0 (#911) via dependabot[bot] (@dependabot[bot])
+* Bump sdks-common-config orb to 4.1.0 (#908) via Álvaro Brey (@AlvaroBrey)
+* Generate KMP native error-code mappings (#904) via Álvaro Brey (@AlvaroBrey)
+* Update sdks-common-config orb to 3.21.2 (#907) via Antonio Pallares (@ajpallares)
+
+## 3.1.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### ✨ New Features
+* Add presentedOfferingContext support to custom paywall impression events (#901) via Rick (@rickvdl)
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.78.0 (#898) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update purchases-android to v10.9.1 (#899) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Adopt generated PurchasesErrorCode (#903) via Álvaro Brey (@AlvaroBrey)
+* chore: Add 3-day Dependabot cooldown, excluding fastlane plugin (#902) via Toni Rico (@tonidero)
+* Bump fastlane-plugin-revenuecat_internal from `ce6a7ef` to `70bf5c7` (#900) via dependabot[bot] (@dependabot[bot])
+* Replace negative lookahead in CircleCI `when: matches:` condition (#896) via Antonio Pallares (@ajpallares)
+* Bump fastlane from 2.236.0 to 2.236.1 (#894) via dependabot[bot] (@dependabot[bot])
+
+## 3.0.6
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.77.0 (#891) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Bump fastlane from 2.235.0 to 2.236.0 (#892) via dependabot[bot] (@dependabot[bot])
+
+## 3.0.5
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### 📦 Dependency Updates
+* [RENOVATE] Update purchases-android to v10.8.0 (#886) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.76.0 (#885) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Bump fastlane-plugin-revenuecat_internal from `af7bb5c` to `ce6a7ef` (#881) via dependabot[bot] (@dependabot[bot])
+
+## 3.0.4
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.75.0 (#879) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update purchases-android to v10.7.0 (#880) via RevenueCat Git Bot (@RCGitBot)
+
+## 3.0.3
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
+## RevenueCat SDK
+### 🐞 Bugfixes
+* Pin macOS CI to Xcode 16.4 to fix Xcode 26.0.1 compatibility (#872) via Antonio Pallares (@ajpallares)
+### 📦 Dependency Updates
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.74.0 (#871) via RevenueCat Git Bot (@RCGitBot)
+
+### 🔄 Other Changes
+* Bump fastlane from 2.234.0 to 2.235.0 (#874) via dependabot[bot] (@dependabot[bot])
+
 ## 3.0.2
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 📦 Dependency Updates
 * [RENOVATE] Update purchases-android to v10.6.1 (#868) via RevenueCat Git Bot (@RCGitBot)
@@ -12,6 +281,8 @@
 * Fix VERSIONS.md not updating on automatic releases (#863) via Antonio Pallares (@ajpallares)
 
 ## 3.0.1
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 📦 Dependency Updates
 * [RENOVATE] Update purchases-android to v10.5.0 (#851) via RevenueCat Git Bot (@RCGitBot)
@@ -24,6 +295,8 @@
 * Add subscriber attributes testing screen to tester app (#848) via Cesar de la Vega (@vegaro)
 
 ## 3.0.0
+> [!WARNING]  
+> Please upgrade to 3.10.0+. This version is affected by a bug that may cause users to be logged out when updating from a version prior to 3.0.0. This means they’ll need to restore any purchases to regain access. Version 3.10.0+ recovers this situation automatically.
 ## RevenueCat SDK
 ### 💥 Breaking Changes
 * This release updates to Billing Library 8.3.0 with min SDK supported of Android 6 (API 23), previously min was 21. It also removes a previous workaround used to be able to restore consumed one time products which is not available anymore.

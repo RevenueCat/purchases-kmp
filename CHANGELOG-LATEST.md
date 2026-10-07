@@ -1,11 +1,13 @@
 ## RevenueCat SDK
+### ✨ New Features
+* Allow opting in to external purchase custom links on iOS (experimental) (#1048) via Antonio Pallares (@ajpallares)
+### 🐞 Bugfixes
+* [EXTERNAL] fix(ios): round subscription price when converting to micros (#1054) by @AndroidPoet (#1056) via Toni Rico (@tonidero)
+* [EXTERNAL] fix(ios): map originalApplicationVersion on CustomerInfo (#1051) by @AndroidPoet (#1052) via Toni Rico (@tonidero)
 ### 📦 Dependency Updates
-* [RENOVATE] Update purchases-android to v10.6.1 (#868) via RevenueCat Git Bot (@RCGitBot)
-* [RENOVATE] Update dependency upstream/purchases-ios to v5.73.1 (#867) via RevenueCat Git Bot (@RCGitBot)
-* [RENOVATE] Update dependency gradle to v9.5.1 (#857) via RevenueCat Git Bot (@RCGitBot)
-* [RENOVATE] Update dependency upstream/purchases-ios to v5.73.0 (#858) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.92.0 (#1058) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update purchases-android to v10.24.0 (#1059) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.91.0 (#1050) via RevenueCat Git Bot (@RCGitBot)
 
 ### 🔄 Other Changes
-* Removes `swiftPMImport` from cinterop package name (#854) via JayShortway (@JayShortway)
-* Fix git ls-tree path in get_ios_version (#865) via Antonio Pallares (@ajpallares)
-* Fix VERSIONS.md not updating on automatic releases (#863) via Antonio Pallares (@ajpallares)
+* build: link the Swift concurrency runtime in Kotlin/Native test binaries and test the UserDefaults suite deferral end to end (#1037) via Álvaro Brey (@AlvaroBrey)

@@ -22,6 +22,7 @@ public fun AndroidSubscriptionInfo.toSubscriptionInfo(): SubscriptionInfo {
         price = price?.toPrice(),
         productPlanIdentifier = productPlanIdentifier,
         managementUrlString = managementURL?.toString(),
+        displayName = displayName,
         isActive = isActive,
         willRenew = willRenew,
     )

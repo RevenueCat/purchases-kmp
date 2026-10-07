@@ -17,12 +17,15 @@ import com.revenuecat.purchases.kmp.mappings.toAndroidBillingFeature
 import com.revenuecat.purchases.kmp.mappings.toAndroidCacheFetchPolicy
 import com.revenuecat.purchases.kmp.mappings.toAndroidEntitlementVerificationMode
 import com.revenuecat.purchases.kmp.mappings.toAndroidGoogleReplacementMode
+import com.revenuecat.purchases.kmp.mappings.toAndroidOffering
 import com.revenuecat.purchases.kmp.mappings.toAndroidPackage
 import com.revenuecat.purchases.kmp.mappings.toAndroidPurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.mappings.toAndroidStore
 import com.revenuecat.purchases.kmp.mappings.toAndroidStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toAndroidSubscriptionOption
+import com.revenuecat.purchases.kmp.mappings.toAndroid
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
+import com.revenuecat.purchases.kmp.mappings.toKmp
 import com.revenuecat.purchases.kmp.mappings.toOfferings
 import com.revenuecat.purchases.kmp.mappings.toPurchasesError
 import com.revenuecat.purchases.kmp.mappings.toStore
@@ -43,6 +46,9 @@ import com.revenuecat.purchases.kmp.models.PurchasesError
 import com.revenuecat.purchases.kmp.models.PurchasesErrorCode
 import com.revenuecat.purchases.kmp.models.RedeemWebPurchaseListener
 import com.revenuecat.purchases.kmp.models.ReplacementMode
+import com.revenuecat.purchases.kmp.models.RewardedAdTrackingMetadata
+import com.revenuecat.purchases.kmp.models.RewardVerificationResult
+import com.revenuecat.purchases.kmp.models.RewardVerificationToken
 import com.revenuecat.purchases.kmp.models.Store
 import com.revenuecat.purchases.kmp.models.StoreMessageType
 import com.revenuecat.purchases.kmp.models.StoreProduct
@@ -127,9 +133,11 @@ public actual class Purchases private constructor(private val androidPurchases: 
                         .dangerousSettings(dangerousSettings.toAndroidDangerousSettings())
                         .showInAppMessagesAutomatically(showInAppMessagesAutomatically)
                         .entitlementVerificationMode(verificationMode.toAndroidEntitlementVerificationMode())
+                        .diagnosticsEnabled(diagnosticsEnabled)
                         .pendingTransactionsForPrepaidPlansEnabled(
                             pendingTransactionsForPrepaidPlansEnabled ?: false
                         )
+                        .preferredUILocaleOverride(preferredUILocaleOverride)
                         .build()
                 )
             }
@@ -462,6 +470,10 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual fun invalidateCustomerInfoCache(): Unit =
         androidPurchases.invalidateCustomerInfoCache()
 
+    public actual fun overridePreferredUILocale(locale: String?) {
+        androidPurchases.overridePreferredUILocale(locale)
+    }
+
     public actual fun setAttributes(attributes: Map<String, String?>): Unit =
         androidPurchases.setAttributes(attributes)
 
@@ -494,6 +506,9 @@ public actual class Purchases private constructor(private val androidPurchases: 
 
     public actual fun setAirbridgeDeviceID(airbridgeDeviceID: String?): Unit =
         androidPurchases.setAirbridgeDeviceID(airbridgeDeviceID)
+
+    public actual fun setSingularDeviceID(singularDeviceID: String?): Unit =
+        androidPurchases.setSingularDeviceID(singularDeviceID)
 
     public actual fun setFirebaseAppInstanceID(firebaseAppInstanceID: String?): Unit =
         androidPurchases.setFirebaseAppInstanceID(firebaseAppInstanceID)
@@ -598,18 +613,46 @@ public actual class Purchases private constructor(private val androidPurchases: 
     public actual fun trackCustomPaywallImpression(
         params: KmpCustomPaywallImpressionParams,
     ) {
-        androidPurchases.trackCustomPaywallImpression(
+        val paywallId = params.paywallId
+        @Suppress("DEPRECATION")
+        val offeringId = params.offeringId
+        val androidParams = params.offering?.let { offering ->
             AndroidCustomPaywallImpressionParams(
-                paywallId = params.paywallId,
-                offeringId = params.offeringId,
+                paywallId = paywallId,
+                offering = offering.toAndroidOffering(),
             )
-        )
+        } ?: run {
+            @Suppress("DEPRECATION")
+            AndroidCustomPaywallImpressionParams(
+                paywallId = paywallId,
+                offeringId = offeringId,
+            )
+        }
+
+        androidPurchases.trackCustomPaywallImpression(androidParams)
     }
 
-    @ExperimentalRevenueCatApi
     public actual val adTracker: AdTracker by lazy {
         @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
         AdTracker(androidPurchases.adTracker)
+    }
+
+    @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+    public actual fun generateRewardVerificationToken(impressionId: String): RewardVerificationToken {
+        return androidPurchases.generateRewardVerificationToken(impressionId).toKmp()
+    }
+
+    @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+    public actual fun pollRewardVerification(
+        clientTransactionId: String,
+        trackingMetadata: RewardedAdTrackingMetadata?,
+        onCompleted: (result: RewardVerificationResult) -> Unit,
+    ) {
+        androidPurchases.pollRewardVerification(
+            clientTransactionId,
+            { result -> onCompleted(result.toKmp()) },
+            trackingMetadata?.toAndroid(),
+        )
     }
 
     private fun StoreMessageType.toInAppMessageTypeOrNull(): InAppMessageType? =

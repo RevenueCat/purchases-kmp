@@ -1,7 +1,7 @@
 package com.revenuecat.purchases.kmp.mappings
 
 import com.revenuecat.purchases.ExperimentalPreviewRevenueCatPurchasesAPI
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
+import com.revenuecat.purchases.kmp.InternalRevenueCatApi
 import com.revenuecat.purchases.kmp.models.AdDisplayedData
 import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
 import com.revenuecat.purchases.kmp.models.AdFormat
@@ -9,6 +9,8 @@ import com.revenuecat.purchases.kmp.models.AdLoadedData
 import com.revenuecat.purchases.kmp.models.AdMediatorName
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
+import com.revenuecat.purchases.kmp.models.AdRewardPromptAcceptedData
+import com.revenuecat.purchases.kmp.models.AdRewardPromptShownData
 import com.revenuecat.purchases.kmp.models.AdRevenuePrecision
 import com.revenuecat.purchases.ads.events.types.AdDisplayedData as AndroidAdDisplayedData
 import com.revenuecat.purchases.ads.events.types.AdFailedToLoadData as AndroidAdFailedToLoadData
@@ -18,26 +20,24 @@ import com.revenuecat.purchases.ads.events.types.AdMediatorName as AndroidAdMedi
 import com.revenuecat.purchases.ads.events.types.AdOpenedData as AndroidAdOpenedData
 import com.revenuecat.purchases.ads.events.types.AdRevenueData as AndroidAdRevenueData
 import com.revenuecat.purchases.ads.events.types.AdRevenuePrecision as AndroidAdRevenuePrecision
+import com.revenuecat.purchases.ads.events.types.AdRewardPromptAcceptedData as AndroidAdRewardPromptAcceptedData
+import com.revenuecat.purchases.ads.events.types.AdRewardPromptShownData as AndroidAdRewardPromptShownData
 
-@ExperimentalRevenueCatApi
-@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class, InternalRevenueCatApi::class)
 public fun AdMediatorName.toAndroid(): AndroidAdMediatorName {
     return AndroidAdMediatorName.fromString(this.value)
 }
 
-@ExperimentalRevenueCatApi
-@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class, InternalRevenueCatApi::class)
 public fun AdRevenuePrecision.toAndroid(): AndroidAdRevenuePrecision {
     return AndroidAdRevenuePrecision.fromString(this.value)
 }
 
-@ExperimentalRevenueCatApi
-@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class, InternalRevenueCatApi::class)
 public fun AdFormat.toAndroid(): AndroidAdFormat {
     return AndroidAdFormat.fromString(this.value)
 }
 
-@ExperimentalRevenueCatApi
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
 public fun AdDisplayedData.toAndroid(): AndroidAdDisplayedData {
     return AndroidAdDisplayedData(
@@ -50,7 +50,6 @@ public fun AdDisplayedData.toAndroid(): AndroidAdDisplayedData {
     )
 }
 
-@ExperimentalRevenueCatApi
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
 public fun AdOpenedData.toAndroid(): AndroidAdOpenedData {
     return AndroidAdOpenedData(
@@ -63,7 +62,6 @@ public fun AdOpenedData.toAndroid(): AndroidAdOpenedData {
     )
 }
 
-@ExperimentalRevenueCatApi
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
 public fun AdRevenueData.toAndroid(): AndroidAdRevenueData {
     return AndroidAdRevenueData(
@@ -79,7 +77,6 @@ public fun AdRevenueData.toAndroid(): AndroidAdRevenueData {
     )
 }
 
-@ExperimentalRevenueCatApi
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
 public fun AdLoadedData.toAndroid(): AndroidAdLoadedData {
     return AndroidAdLoadedData(
@@ -92,7 +89,6 @@ public fun AdLoadedData.toAndroid(): AndroidAdLoadedData {
     )
 }
 
-@ExperimentalRevenueCatApi
 @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
 public fun AdFailedToLoadData.toAndroid(): AndroidAdFailedToLoadData {
     return AndroidAdFailedToLoadData(
@@ -101,5 +97,23 @@ public fun AdFailedToLoadData.toAndroid(): AndroidAdFailedToLoadData {
         placement = placement,
         adUnitId = adUnitId,
         mediatorErrorCode = mediatorErrorCode,
+    )
+}
+
+@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+public fun AdRewardPromptShownData.toAndroid(): AndroidAdRewardPromptShownData {
+    return AndroidAdRewardPromptShownData(
+        mediatorName = mediatorName.toAndroid(),
+        placement = placement,
+        adUnitId = adUnitId,
+    )
+}
+
+@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+public fun AdRewardPromptAcceptedData.toAndroid(): AndroidAdRewardPromptAcceptedData {
+    return AndroidAdRewardPromptAcceptedData(
+        mediatorName = mediatorName.toAndroid(),
+        placement = placement,
+        adUnitId = adUnitId,
     )
 }

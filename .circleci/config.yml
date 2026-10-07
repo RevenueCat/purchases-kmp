@@ -1,16 +1,20 @@
 aliases:
-  # Uses the same regex as release-tags-job
+  # Matches the same tags as release-tags-job, but without lookaheads,
+  # which are unsupported in `when: matches:` conditions:
+  # https://circleci.com/changelog/breaking-change-regex-engine-update-for-config-compilation/
   release-tags-workflow: &release-tags-workflow
     when:
       and:
-        - matches: { pattern: "^[0-9]+\\.[0-9]+\\.[0-9]+(?!.*-SNAPSHOT).*$", value: << pipeline.git.tag >> }
+        - matches: { pattern: "^[0-9]+\\.[0-9]+\\.[0-9]+.*$", value: << pipeline.git.tag >> }
+        - not:
+            matches: { pattern: ".*-SNAPSHOT.*", value: << pipeline.git.tag >> }
         - not:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
-  # Uses the same regex as release-tags-workflow
   release-tags-job: &release-tags-job
     filters:
       tags:
-        only: /^[0-9]+\.[0-9]+\.[0-9]+(?!.*-SNAPSHOT).*$/
+        only: /^[0-9]+\.[0-9]+\.[0-9]+.*$/
+        ignore: /^.*-SNAPSHOT/
       branches:
         ignore: /.*/
 
@@ -18,7 +22,7 @@ version: 2.1
 
 orbs:
   android: circleci/android@2.5.0
-  revenuecat: revenuecat/sdks-common-config@3.16.0
+  revenuecat: revenuecat/sdks-common-config@4.6.2
 
 commands:
   install-android-sdk-on-macos:
@@ -103,7 +107,7 @@ commands:
 parameters:
   action:
     type: enum
-    enum: [ build, bump ]
+    enum: [ build, bump, update_error_codes ]
     default: build
 
 executors:
@@ -117,9 +121,23 @@ executors:
   ruby3:
     docker:
       - image: cimg/ruby:3.3.0
-  xcode26:
+  # The Xcode version we use to build the static Swift library embedded in our Kotlin Native 
+  # artifacts will influence the minimum Xcode version of the consuming app: 
+  # https://github.com/RevenueCat/purchases-kmp/issues/859
+  # 
+  # We should support at least Xcode 26.0, as that is the latest Xcode version supported by
+  # Kotlin Native at time of writing:
+  # https://kotlinlang.org/docs/multiplatform/multiplatform-compatibility-guide.html
+  # 
+  # The CircleCI Xcode image retention policy means that Xcode 16.4.0 is going to be supported
+  # longer than Xcode 26.0 is:
+  # https://circleci.com/docs/guides/execution-managed/xcode-policy/#xcode-image-retention-and-deprecation
+  # 
+  # So for that reason we use Xcode 16.4.0 to build our Kotlin Native artifacts (including the 
+  # static Swift library) in CI. 
+  xcode16:
     macos:
-      xcode: 26.4.1
+      xcode: 16.4.0
     resource_class: m4pro.medium
     environment:
       # Avoid waiting for Homebrew to auto update existing packages, as everything we care about is
@@ -141,10 +159,12 @@ jobs:
           command: bundle exec fastlane prepare_next_snapshot_version
 
   detekt:
-    executor: xcode26
+    executor: xcode16
     steps:
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - run:
           name: Run Detekt on commonMain
@@ -158,11 +178,13 @@ jobs:
           destination: detekt
 
   validate-binary-compatibility:
-    executor: xcode26
+    executor: xcode16
     steps:
       - install-android-sdk-on-macos
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -176,6 +198,8 @@ jobs:
     executor: android202409
     steps:
       - checkout
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - attach-workspace-at-working-directory
       - run:
@@ -192,10 +216,12 @@ jobs:
       - save-incremental-gradle-build-to-workspace
 
   build-libraries-ios:
-    executor: xcode26
+    executor: xcode16
     steps:
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java,ruby
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -215,10 +241,69 @@ jobs:
       - save-kotlin-native-compiler-to-cache
       - save-incremental-gradle-build-to-workspace
 
+  # Self-contained on purpose: no workspace persistence or attachment, so it can run in
+  # parallel to the iOS chain without workspace conflicts.
+  build-and-test-watchos:
+    executor: xcode16
+    steps:
+      - checkout
+      - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - run:
+          name: Build libraries and run tests for watchOS
+          command: |
+            tasks=()
+            for module in core result; do
+              for arch in Arm64 DeviceArm64 SimulatorArm64; do
+                tasks+=(":$module:compileKotlinWatchos$arch")
+              done
+            done
+            # either skips DeviceArm64: arrow-core doesn't publish it.
+            for arch in Arm64 SimulatorArm64; do
+              tasks+=(":either:compileKotlinWatchos$arch")
+            done
+            # The commonized (metadata) compilation only runs at publish time otherwise.
+            for module in core mappings kn-core models result either; do
+              tasks+=(":$module:compileAppleMainKotlinMetadata")
+              tasks+=(":$module:watchosSimulatorArm64Test")
+            done
+            # Links both device slices: compile alone would miss bad Swift-runtime linker
+            # opts or missing symbols in the static libs, and no other job links for device.
+            tasks+=(":core:linkDebugTestWatchosArm64")
+            tasks+=(":core:linkDebugTestWatchosDeviceArm64")
+            ./gradlew "${tasks[@]}"
+      - save-gradle-user-home-directory-to-cache
+      - save-kotlin-native-compiler-to-cache
+
+  build-watchos-tester:
+    executor: xcode16
+    steps:
+      - checkout
+      - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - run:
+          name: Build the watchOS tester app
+          command: |
+            xcodebuild \
+              -project watchosTester/watchosApp/watchosApp.xcodeproj \
+              -scheme watchosApp \
+              -configuration Debug \
+              -destination 'generic/platform=watchOS Simulator' \
+              build
+      - save-gradle-user-home-directory-to-cache
+
   build-sample-android:
     executor: android202409
     steps:
       - checkout
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - attach-workspace-at-working-directory
       - run:
@@ -232,10 +317,12 @@ jobs:
       - save-gradle-user-home-directory-to-cache
 
   build-sample-ios:
-    executor: xcode26
+    executor: xcode16
     steps:
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java,ruby
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -265,6 +352,8 @@ jobs:
     executor: android202409
     steps:
       - checkout
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - attach-workspace-at-working-directory
       - run:
@@ -278,10 +367,12 @@ jobs:
       - save-gradle-user-home-directory-to-cache
 
   public-api-tests-ios:
-    executor: xcode26
+    executor: xcode16
     steps:
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java,ruby
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -302,6 +393,8 @@ jobs:
     executor: android202409
     steps:
       - checkout
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - attach-workspace-at-working-directory
       - run:
@@ -315,10 +408,12 @@ jobs:
       - save-gradle-user-home-directory-to-cache
 
   unit-tests-ios:
-    executor: xcode26
+    executor: xcode16
     steps:
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - restore-kotlin-native-compiler-from-cache
       - attach-workspace-at-working-directory
@@ -334,10 +429,12 @@ jobs:
       - save-kotlin-native-compiler-to-cache
 
   unit-tests-build-logic:
-    executor: xcode26
+    executor: xcode16
     steps:
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java
       - restore-gradle-user-home-directory-from-cache
       - attach-workspace-at-working-directory
       - run:
@@ -350,7 +447,7 @@ jobs:
 
   publish:
     description: "Publishes the SDK, either a SNAPSHOT or release version."
-    executor: xcode26
+    executor: xcode16
     parameters:
       snapshot:
         description: Whether to publish a SNAPSHOT version. Will publish a final release if set to false.
@@ -358,6 +455,8 @@ jobs:
     steps:
       - checkout
       - checkout-submodule
+      - revenuecat/install-mise-tools:
+          tools: java,ruby
       - install-android-sdk-on-macos
       - revenuecat/install-gem-mac-dependencies:
           cache-version: v1
@@ -490,6 +589,19 @@ jobs:
           destination: android-logs
 
 workflows:
+  danger:
+    when:
+      and:
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - equal: [ build, << pipeline.parameters.action >> ]
+    jobs:
+      - revenuecat/danger:
+          context: danger-bot
+          filters:
+            branches:
+              ignore: main
+
   # This workflow runs for any commit to main, as well as for any other
   # branch with an open PR, except for release branches. This is controlled 
   # by the "Only build pull requests" setting on CircleCI. 
@@ -500,13 +612,14 @@ workflows:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
         - not:
             matches: { pattern: "^release/.+$", value: << pipeline.git.branch >> }
+        - equal: [ build, << pipeline.parameters.action >> ]
     jobs:
-      - revenuecat/danger:
-          context: danger-bot
       - detekt
       - unit-tests-build-logic
       - build-libraries-android
       - build-libraries-ios
+      - build-and-test-watchos
+      - build-watchos-tester
       - build-sample-android:
           requires: [build-libraries-android]
       - build-sample-ios:
@@ -537,6 +650,7 @@ workflows:
         - equal: [ main, << pipeline.git.branch >> ]
         - not:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - equal: [ build, << pipeline.parameters.action >> ]
     jobs:
       - prepare-next-snapshot-version:
           context:
@@ -545,6 +659,36 @@ workflows:
       - publish:
           snapshot: true
           context: maven-central-publishing
+
+  update-error-codes:
+    when:
+      equal: [ update_error_codes, << pipeline.parameters.action >> ]
+    jobs:
+      - revenuecat/update-error-codes:
+          executor: xcode16
+          platform: kmp
+          outputs: |
+            PurchasesErrorCode.kt:models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt
+            errors.android.kt:mappings/src/androidMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.android.kt
+            errors.apple.kt:mappings/src/appleMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.apple.kt
+          commit_paths: "models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt,mappings/src/androidMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.android.kt,mappings/src/appleMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.apple.kt,models/api/models.api,models/api/models.klib.api"
+          context:
+            - git-user-ops
+            - github-bot-public
+          update_api_steps:
+            - install-android-sdk-on-macos
+            - checkout-submodule
+            - revenuecat/install-mise-tools:
+                tools: java,ruby
+            - restore-gradle-user-home-directory-from-cache
+            - restore-kotlin-native-compiler-from-cache
+            - revenuecat/install-gem-mac-dependencies:
+                cache-version: v1
+            - run:
+                name: Regenerate API dumps
+                command: ./gradlew apiDump
+            - save-gradle-user-home-directory-to-cache
+            - save-kotlin-native-compiler-to-cache
 
   # The release train starts with the release-train workflow, which is automatically 
   # triggered every week, but can also be triggered manually by passing the "action" 
@@ -580,6 +724,8 @@ workflows:
       - unit-tests-build-logic
       - build-libraries-android
       - build-libraries-ios
+      - build-and-test-watchos
+      - build-watchos-tester
       - build-sample-android:
           requires: [build-libraries-android]
       - build-sample-ios:
@@ -596,11 +742,15 @@ workflows:
           # This would benefit from the incremental build output of build-libraries-android
           # too, but merging 2 workspaces is not possible.
           requires: [build-libraries-ios]
-      - hold:
+      - wait-for-pr-approval:
           type: approval
+      - revenuecat/tag-current-branch:
           requires:
+            - wait-for-pr-approval
             - detekt
             - unit-tests-build-logic
+            - build-and-test-watchos
+            - build-watchos-tester
             - build-sample-android
             - build-sample-ios
             - public-api-tests-android
@@ -608,9 +758,6 @@ workflows:
             - unit-tests-android
             - unit-tests-ios
             - validate-binary-compatibility
-      - revenuecat/tag-current-branch:
-          requires:
-            - hold
           context: git-user-ops
 
   # The third and last stage of the release train actually publishes the release

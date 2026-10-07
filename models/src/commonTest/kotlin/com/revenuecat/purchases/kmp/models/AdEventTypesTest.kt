@@ -1,11 +1,11 @@
 package com.revenuecat.purchases.kmp.models
 
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
+import com.revenuecat.purchases.kmp.InternalRevenueCatApi
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
-@OptIn(ExperimentalRevenueCatApi::class)
+@OptIn(InternalRevenueCatApi::class)
 class AdEventTypesTest {
 
     @Test

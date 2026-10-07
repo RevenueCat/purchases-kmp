@@ -1,6 +1,7 @@
 package com.revenuecat.purchases.kmp.apitester
 
 import arrow.core.Either
+import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.LogHandler
 import com.revenuecat.purchases.kmp.LogLevel
 import com.revenuecat.purchases.kmp.Purchases
@@ -19,9 +20,12 @@ import com.revenuecat.purchases.kmp.ktx.awaitEligibleWinBackOffersForPackage
 import com.revenuecat.purchases.kmp.ktx.awaitEligibleWinBackOffersForProduct
 import com.revenuecat.purchases.kmp.ktx.awaitGetProducts
 import com.revenuecat.purchases.kmp.ktx.awaitOfferings
+import com.revenuecat.purchases.kmp.ktx.awaitPollRewardVerification
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
 import com.revenuecat.purchases.kmp.ktx.awaitTrialOrIntroPriceEligibility
 import com.revenuecat.purchases.kmp.ktx.awaitVirtualCurrencies
+import com.revenuecat.purchases.kmp.models.AdFormat
+import com.revenuecat.purchases.kmp.models.AdMediatorName
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.DangerousSettings
@@ -32,6 +36,9 @@ import com.revenuecat.purchases.kmp.models.Offerings
 import com.revenuecat.purchases.kmp.models.Package
 import com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.models.PurchasesError
+import com.revenuecat.purchases.kmp.models.RewardVerificationResult
+import com.revenuecat.purchases.kmp.models.RewardVerificationToken
+import com.revenuecat.purchases.kmp.models.RewardedAdTrackingMetadata
 import com.revenuecat.purchases.kmp.models.Store
 import com.revenuecat.purchases.kmp.models.StoreKitVersion
 import com.revenuecat.purchases.kmp.models.StoreProduct
@@ -79,6 +86,12 @@ private class PurchasesCommonAPI {
 
         purchases.setPostHogUserID("posthog-user-id")
         purchases.setPostHogUserID(null)
+
+        purchases.setSingularDeviceID("singular-device-id")
+        purchases.setSingularDeviceID(null)
+
+        purchases.overridePreferredUILocale("de_DE")
+        purchases.overridePreferredUILocale(null)
 
         purchases.close()
 
@@ -210,6 +223,24 @@ private class PurchasesCommonAPI {
         val virtualCurrencies: VirtualCurrencies = purchases.awaitVirtualCurrencies()
     }
 
+    suspend fun checkCoroutinesRewardVerification(purchases: Purchases) {
+        val result: RewardVerificationResult = purchases.awaitPollRewardVerification(
+            clientTransactionId = "client-transaction-id",
+        )
+
+        val resultWithTrackingMetadata: RewardVerificationResult = purchases.awaitPollRewardVerification(
+            clientTransactionId = "client-transaction-id",
+            trackingMetadata = RewardedAdTrackingMetadata(
+                networkName = "network-name",
+                mediatorName = AdMediatorName.AD_MOB,
+                adFormat = AdFormat.REWARDED,
+                placement = "placement",
+                adUnitId = "ad-unit-id",
+                impressionId = "impression-id",
+            ),
+        )
+    }
+
     suspend fun checkCoroutinesResult(
         purchases: Purchases,
         storeProduct: StoreProduct,
@@ -329,6 +360,7 @@ private class PurchasesCommonAPI {
         val virtualCurrenciesEither: Either<PurchasesError, VirtualCurrencies> = purchases.awaitVirtualCurrenciesEither()
     }
 
+    @OptIn(ExperimentalRevenueCatApi::class)
     @Suppress("ForbiddenComment")
     fun checkConfiguration() {
         val features: List<BillingFeature> = ArrayList()
@@ -353,7 +385,14 @@ private class PurchasesCommonAPI {
             dangerousSettings = DangerousSettings(autoSyncPurchases = true)
             verificationMode = EntitlementVerificationMode.INFORMATIONAL
             pendingTransactionsForPrepaidPlansEnabled = true
+            preferredUILocaleOverride = "de_DE"
         }
+        val useExternalPurchaseCustomLinks: Boolean = config.useExternalPurchaseCustomLinks
+        val enableExternalPurchasesInSimulator: Boolean = config.enableExternalPurchasesInSimulator
+        val config3: PurchasesConfiguration = PurchasesConfiguration.Builder(apiKey = "")
+            .useExternalPurchaseCustomLinks(true)
+            .enableExternalPurchasesInSimulator(false)
+            .build()
 
         val config2: PurchasesConfiguration = PurchasesConfiguration(apiKey = "") {
             appUserId = ""
@@ -385,6 +424,30 @@ private class PurchasesCommonAPI {
             productID = "myProductID",
             onError = { error ->  },
             onSuccess = { storeTransaction ->  }
+        )
+    }
+
+    fun checkRewardVerification(purchases: Purchases) {
+        val token: RewardVerificationToken = purchases.generateRewardVerificationToken(
+            impressionId = "impression-id",
+        )
+
+        purchases.pollRewardVerification(
+            clientTransactionId = token.clientTransactionId,
+            onCompleted = { result: RewardVerificationResult -> },
+        )
+
+        purchases.pollRewardVerification(
+            clientTransactionId = token.clientTransactionId,
+            onCompleted = { result: RewardVerificationResult -> },
+            trackingMetadata = RewardedAdTrackingMetadata(
+                networkName = "network-name",
+                mediatorName = AdMediatorName.AD_MOB,
+                adFormat = AdFormat.REWARDED,
+                placement = "placement",
+                adUnitId = "ad-unit-id",
+                impressionId = "impression-id",
+            ),
         )
     }
 

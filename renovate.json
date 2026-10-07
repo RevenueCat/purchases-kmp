@@ -18,6 +18,40 @@
       "matchManagers": ["gradle"],
       "enabled": true,
       "groupName": "purchases-android"
+    },
+    {
+      "description": "Force a patch release when purchases-android gets a patch update",
+      "matchManagers": ["gradle"],
+      "matchPackageNames": [
+        "com.revenuecat.purchases:purchases",
+        "com.revenuecat.purchases:purchases-ui"
+      ],
+      "matchUpdateTypes": ["patch"],
+      "addLabels": ["pr:force_patch"]
+    },
+    {
+      "description": "Force a minor release when purchases-android gets a minor update",
+      "matchManagers": ["gradle"],
+      "matchPackageNames": [
+        "com.revenuecat.purchases:purchases",
+        "com.revenuecat.purchases:purchases-ui"
+      ],
+      "matchUpdateTypes": ["minor"],
+      "addLabels": ["pr:force_minor"]
+    },
+    {
+      "description": "Force a patch release when purchases-ios gets a patch update",
+      "matchManagers": ["git-submodules"],
+      "matchDepNames": ["upstream/purchases-ios"],
+      "matchUpdateTypes": ["patch"],
+      "addLabels": ["pr:force_patch"]
+    },
+    {
+      "description": "Force a minor release when purchases-ios gets a minor update",
+      "matchManagers": ["git-submodules"],
+      "matchDepNames": ["upstream/purchases-ios"],
+      "matchUpdateTypes": ["minor"],
+      "addLabels": ["pr:force_minor"]
     }
   ]
 }

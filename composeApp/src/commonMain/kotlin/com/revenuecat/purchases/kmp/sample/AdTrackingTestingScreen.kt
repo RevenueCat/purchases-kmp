@@ -25,7 +25,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.AdDisplayedData
 import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
@@ -35,6 +34,8 @@ import com.revenuecat.purchases.kmp.models.AdMediatorName
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
 import com.revenuecat.purchases.kmp.models.AdRevenuePrecision
+import com.revenuecat.purchases.kmp.models.AdRewardPromptAcceptedData
+import com.revenuecat.purchases.kmp.models.AdRewardPromptShownData
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
@@ -43,10 +44,12 @@ enum class AdTrackingFunction(val displayName: String) {
     TRACK_AD_OPENED("trackAdOpened()"),
     TRACK_AD_REVENUE("trackAdRevenue()"),
     TRACK_AD_LOADED("trackAdLoaded()"),
-    TRACK_AD_FAILED_TO_LOAD("trackAdFailedToLoad()")
+    TRACK_AD_FAILED_TO_LOAD("trackAdFailedToLoad()"),
+    TRACK_REWARDED_AD_PROMPT_SHOWN("trackRewardedAdPromptShown()"),
+    TRACK_REWARDED_AD_PROMPT_ACCEPTED("trackRewardedAdPromptAccepted()")
 }
 
-@OptIn(ExperimentalRevenueCatApi::class, ExperimentalTime::class)
+@OptIn(ExperimentalTime::class)
 @Composable
 fun AdTrackingTestingScreen(
     navigateTo: (Screen) -> Unit
@@ -137,6 +140,30 @@ fun AdTrackingTestingScreen(
         messageColor = Color.Green
     }
 
+    fun trackRewardedAdPromptShown() {
+        val data = AdRewardPromptShownData(
+            mediatorName = AdMediatorName.APP_LOVIN,
+            placement = "rewarded_video",
+            adUnitId = "ca-app-pub-1234567890"
+        )
+        Purchases.sharedInstance.adTracker.trackRewardedAdPromptShown(data)
+        statusMessage = "Rewarded ad prompt shown event tracked successfully!"
+        lastTrackedFunction = AdTrackingFunction.TRACK_REWARDED_AD_PROMPT_SHOWN
+        messageColor = Color.Green
+    }
+
+    fun trackRewardedAdPromptAccepted() {
+        val data = AdRewardPromptAcceptedData(
+            mediatorName = AdMediatorName.APP_LOVIN,
+            placement = "rewarded_video",
+            adUnitId = "ca-app-pub-1234567890"
+        )
+        Purchases.sharedInstance.adTracker.trackRewardedAdPromptAccepted(data)
+        statusMessage = "Rewarded ad prompt accepted event tracked successfully!"
+        lastTrackedFunction = AdTrackingFunction.TRACK_REWARDED_AD_PROMPT_ACCEPTED
+        messageColor = Color.Green
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -210,6 +237,26 @@ fun AdTrackingTestingScreen(
             Text("Track Ad Failed to Load")
         }
 
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Rewarded Ad Prompt Shown
+        Button(
+            onClick = { trackRewardedAdPromptShown() },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Track Rewarded Ad Prompt Shown")
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Rewarded Ad Prompt Accepted
+        Button(
+            onClick = { trackRewardedAdPromptAccepted() },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Track Rewarded Ad Prompt Accepted")
+        }
+
         Spacer(modifier = Modifier.height(24.dp))
 
         // Status message display
@@ -271,8 +318,7 @@ fun AdTrackingTestingScreen(
                 Text(
                     text = "• Each button tracks a different ad event type\n" +
                             "• Events use sample data with test values\n" +
-                            "• Check the RevenueCat dashboard to verify events\n" +
-                            "• Ad tracking is an experimental API",
+                            "• Check the RevenueCat dashboard to verify events",
                     style = MaterialTheme.typography.body2,
                     color = Color.Black.copy(alpha = 0.7f)
                 )

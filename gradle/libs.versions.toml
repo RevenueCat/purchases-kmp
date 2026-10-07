@@ -12,8 +12,9 @@ java = "1.8"
 junit = "5.10.0"
 kotlin = "2.3.20"
 mavenPublish = "0.33.0"
-revenuecat-android = "10.6.1"
-revenuecat-kmp = "3.1.0-SNAPSHOT"
+poko = "0.22.0"
+revenuecat-android = "10.24.1"
+revenuecat-kmp = "3.12.0-SNAPSHOT"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -25,6 +26,7 @@ mavenPublish-gradlePlugin = { module = "com.vanniktech:gradle-maven-publish-plug
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.9.0" }
 androidx-startup = { module = "androidx.startup:startup-runtime", version = "1.1.1" }
 arrow-core = { module = "io.arrow-kt:arrow-core", version = "1.2.4" }
+google-mobileAds = { module = "com.google.android.gms:play-services-ads", version = "23.6.0" }
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-core = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
@@ -48,4 +50,5 @@ jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-binaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version = "0.17.0" }
+poko = { id = "dev.drewhamilton.poko", version.ref = "poko" }
 vanniktech-mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }

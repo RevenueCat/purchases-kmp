@@ -31,7 +31,7 @@ More information on triggering pipelines can be found in the [CircleCI docs](htt
     3. Optionally update `CHANGELOG.latest.md` when the auto-generated one is not sufficient. Call out public API changes (if any).
     4. A new branch and PR will automatically be created.
 3. Review the PR and approve it if it's okay.
-4. Then approve the hold job created in CircleCI. CircleCI will now create a tag for the version, and continue the release.
+4. The `wait-for-pr-approval` job in CircleCI is then approved automatically, and CircleCI tags the version and continues the release once the tests pass.
 5. The release will be published automatically by CircleCI.
-6. After that, you can merge the release PR to `main`, and merge the PR bumping to the next `-SNAPSHOT` version right after.
+6. The release PR is merged automatically once the release is published. Merge the PR bumping to the next `-SNAPSHOT` version right after.
 

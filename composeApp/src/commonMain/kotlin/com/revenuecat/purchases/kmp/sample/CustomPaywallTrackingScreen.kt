@@ -33,26 +33,54 @@ fun CustomPaywallTrackingScreen(
     navigateTo: (Screen) -> Unit
 ) {
     var paywallId by remember { mutableStateOf("") }
-    var offeringId by remember { mutableStateOf("") }
     var statusMessage by remember { mutableStateOf<String?>(null) }
     var messageColor by remember { mutableStateOf(Color.Gray) }
 
-    fun trackImpression() {
-        val trimmedPaywallId = paywallId.trim().ifEmpty { null }
-        val trimmedOfferingId = offeringId.trim().ifEmpty { null }
+    fun currentPaywallId(): String? {
+        return paywallId.trim().ifEmpty { null }
+    }
 
-        if (trimmedPaywallId == null && trimmedOfferingId == null) {
+    fun trackImpressionWithoutOffering() {
+        val trimmedPaywallId = currentPaywallId()
+
+        if (trimmedPaywallId == null) {
             Purchases.sharedInstance.trackCustomPaywallImpression()
         } else {
             Purchases.sharedInstance.trackCustomPaywallImpression(
-                CustomPaywallImpressionParams(
-                    paywallId = trimmedPaywallId,
-                    offeringId = trimmedOfferingId,
-                )
+                CustomPaywallImpressionParams(paywallId = trimmedPaywallId)
             )
         }
-        statusMessage = "Tracked (paywallId: ${trimmedPaywallId ?: "nil"}, offeringId: ${trimmedOfferingId ?: "nil"})"
+        statusMessage = "Tracked without offering (paywallId: ${trimmedPaywallId ?: "nil"})"
         messageColor = Color.Green
+    }
+
+    fun trackImpressionWithCurrentOffering() {
+        val trimmedPaywallId = paywallId.trim().ifEmpty { null }
+
+        Purchases.sharedInstance.getOfferings(
+            onError = { error ->
+                statusMessage = "Failed to get offerings: $error"
+                messageColor = Color.Red
+            },
+            onSuccess = { offerings ->
+                val currentOffering = offerings.current
+                if (currentOffering == null) {
+                    statusMessage = "No current offering configured"
+                    messageColor = Color.Red
+                    return@getOfferings
+                }
+
+                Purchases.sharedInstance.trackCustomPaywallImpression(
+                    CustomPaywallImpressionParams(
+                        paywallId = trimmedPaywallId,
+                        offering = currentOffering,
+                    )
+                )
+                statusMessage =
+                    "Tracked with offering: ${currentOffering.identifier} (paywallId: ${trimmedPaywallId ?: "nil"})"
+                messageColor = Color.Green
+            }
+        )
     }
 
     Column(
@@ -88,23 +116,22 @@ fun CustomPaywallTrackingScreen(
             singleLine = true,
         )
 
-        Spacer(modifier = Modifier.height(12.dp))
-
-        OutlinedTextField(
-            value = offeringId,
-            onValueChange = { offeringId = it },
-            label = { Text("Offering ID (optional)") },
-            modifier = Modifier.fillMaxWidth(),
-            singleLine = true,
-        )
-
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { trackImpression() },
+            onClick = { trackImpressionWithoutOffering() },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Track Custom Paywall Impression")
+            Text("Track Custom Paywall Impression Without Offering")
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Button(
+            onClick = { trackImpressionWithCurrentOffering() },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Track Custom Paywall Impression With Current Offering")
         }
 
         Spacer(modifier = Modifier.height(24.dp))

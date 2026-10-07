@@ -5,6 +5,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
+@Suppress("DEPRECATION")
 class CustomPaywallImpressionParamsTest {
 
     @Test
@@ -28,6 +29,15 @@ class CustomPaywallImpressionParamsTest {
         val params = CustomPaywallImpressionParams(paywallId = null)
         assertNotNull(params)
         assertNull(params.paywallId)
+        assertNull(params.offeringId)
+    }
+
+    @Test
+    fun `constructor with null offeringId`() {
+        val params = CustomPaywallImpressionParams(offeringId = null)
+        assertNotNull(params)
+        assertNull(params.paywallId)
+        assertNull(params.offeringId)
     }
 
     @Test
@@ -47,5 +57,58 @@ class CustomPaywallImpressionParamsTest {
         assertNotNull(params)
         assertEquals("my-paywall", params.paywallId)
         assertEquals("my-offering", params.offeringId)
+    }
+
+    @Test
+    fun `constructor preserves empty paywallId and offeringId`() {
+        val params = CustomPaywallImpressionParams(
+            paywallId = "",
+            offeringId = "",
+        )
+
+        assertNotNull(params)
+        assertEquals("", params.paywallId)
+        assertEquals("", params.offeringId)
+    }
+
+    @Test
+    fun `constructor with offering populates offeringId from offering`() {
+        val offering = FakeOffering(identifier = "my-offering")
+        val params = CustomPaywallImpressionParams(
+            paywallId = "my-paywall",
+            offering = offering,
+        )
+
+        assertNotNull(params)
+        assertEquals("my-paywall", params.paywallId)
+        assertEquals("my-offering", params.offeringId)
+        assertEquals(offering, params.offering)
+    }
+
+    @Test
+    fun `constructor with offering defaults paywallId to null`() {
+        val offering = FakeOffering(identifier = "my-offering")
+        val params = CustomPaywallImpressionParams(offering = offering)
+
+        assertNotNull(params)
+        assertNull(params.paywallId)
+        assertEquals("my-offering", params.offeringId)
+        assertEquals(offering, params.offering)
+    }
+
+    private class FakeOffering(
+        override val identifier: String,
+    ) : Offering {
+        override val serverDescription: String = "server description"
+        override val metadata: Map<String, Any> = emptyMap()
+        override val availablePackages: List<Package> = emptyList()
+        override val lifetime: Package? = null
+        override val annual: Package? = null
+        override val sixMonth: Package? = null
+        override val threeMonth: Package? = null
+        override val twoMonth: Package? = null
+        override val monthly: Package? = null
+        override val weekly: Package? = null
+        override val webCheckoutUrl: String? = null
     }
 }

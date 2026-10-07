@@ -16,6 +16,7 @@ import com.revenuecat.purchases.ui.revenuecatui.PaywallPurchaseLogic as AndroidP
 import com.revenuecat.purchases.ui.revenuecatui.PaywallPurchaseLogicParams as AndroidPaywallPurchaseLogicParams
 import com.revenuecat.purchases.ui.revenuecatui.PurchaseLogicResult as AndroidPurchaseLogicResult
 import com.revenuecat.purchases.ui.revenuecatui.PaywallListener as AndroidPaywallListener
+import com.revenuecat.purchases.ui.revenuecatui.PaywallInteractionEvent as AndroidPaywallInteractionEvent
 import com.revenuecat.purchases.ui.revenuecatui.CustomVariableValue as AndroidCustomVariableValue
 import com.revenuecat.purchases.ui.revenuecatui.PaywallOptions as AndroidPaywallOptions
 
@@ -111,4 +112,11 @@ private class PaywallListenerWrapper(private val listener: PaywallListener) :
         listener.onRestoreError(error.toPurchasesError())
 
     override fun onRestoreStarted() = listener.onRestoreStarted()
+
+    override fun onWebCheckoutOpened() = listener.onWebCheckoutOpened()
+
+    override fun onUrlOpened(url: String) = listener.onUrlOpened(url)
+
+    override fun onInteraction(event: AndroidPaywallInteractionEvent) =
+        listener.onInteraction(PaywallInteractionEvent(event.rawProperties))
 }

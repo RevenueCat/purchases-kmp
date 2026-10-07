@@ -51,4 +51,26 @@ public interface PaywallListener {
      * Callback that gets called when a restore fails.
      */
     public fun onRestoreError(error: PurchasesError) {}
+
+    /**
+     * Callback that gets called when the user taps a web checkout CTA and leaves the app to
+     * complete payment externally.
+     */
+    public fun onWebCheckoutOpened() {}
+
+    /**
+     * Callback that gets called when the paywall successfully opens a URL, either from a button
+     * with a URL destination or from a link inside a text component. Not called for web checkout
+     * URLs; use [onWebCheckoutOpened] for those.
+     *
+     * @param url The URL that was opened.
+     */
+    public fun onUrlOpened(url: String) {}
+
+    /**
+     * Callback that gets called when the user interacts with a paywall control, such as a tab,
+     * a package or the purchase button. Route these to your analytics tools if you want to. See
+     * [PaywallInteractionEvent.Keys] for the available properties.
+     */
+    public fun onInteraction(event: PaywallInteractionEvent) {}
 }

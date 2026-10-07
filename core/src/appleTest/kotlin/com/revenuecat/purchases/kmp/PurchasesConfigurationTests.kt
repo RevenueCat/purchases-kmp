@@ -1,0 +1,108 @@
+package com.revenuecat.purchases.kmp
+
+import com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
+import com.revenuecat.purchases.kmp.models.StoreKitVersion
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
+
+class PurchasesConfigurationTests {
+
+    @Test
+    fun `storeKitVersion provides the correct result if the provided values are matching`() {
+        val config = PurchasesConfiguration(apiKey = "abc123") {
+            purchasesAreCompletedBy = PurchasesAreCompletedBy.RevenueCat
+            storeKitVersion = StoreKitVersion.DEFAULT
+        }
+
+        assertEquals(StoreKitVersion.DEFAULT, config.storeKitVersion)
+    }
+
+    @Test
+    fun `storeKitVersion provides the correct result if storeKitVersion is missing`() {
+        val config = PurchasesConfiguration(apiKey = "abc123") {
+            purchasesAreCompletedBy = PurchasesAreCompletedBy.RevenueCat
+        }
+
+        assertEquals(StoreKitVersion.DEFAULT, config.storeKitVersion)
+    }
+
+    @Test
+    fun `storeKitVersion provides the correct result if PurchasesAreCompletedBy is missing`() {
+        val config = PurchasesConfiguration(apiKey = "abc123") {
+            storeKitVersion = StoreKitVersion.STOREKIT_1
+        }
+
+        assertEquals(StoreKitVersion.STOREKIT_1, config.storeKitVersion)
+    }
+
+    @Test
+    fun `storeKitVersion provides the DEFAULT value if StoreKitVersion is not provided`() {
+        val config = PurchasesConfiguration(apiKey = "abc123")
+
+        assertEquals(StoreKitVersion.DEFAULT, config.storeKitVersion)
+    }
+
+    @Test
+    fun `storeKitVersion provides the value from PurchasesAreCompletedBy if conflicting values are provided`() {
+        Purchases.logHandler = PrintLnLogHandler
+        val config = PurchasesConfiguration(apiKey = "abc123") {
+            purchasesAreCompletedBy = PurchasesAreCompletedBy.MyApp(StoreKitVersion.STOREKIT_2)
+            storeKitVersion = StoreKitVersion.STOREKIT_1
+        }
+
+        assertEquals(StoreKitVersion.STOREKIT_2, config.storeKitVersion)
+    }
+
+    @Test
+    fun `preferredUILocaleOverride is null by default`() {
+        val config = PurchasesConfiguration(apiKey = "abc123")
+
+        assertEquals(null, config.preferredUILocaleOverride)
+    }
+
+    @Test
+    fun `preferredUILocaleOverride provides the configured value`() {
+        val config = PurchasesConfiguration(apiKey = "abc123") {
+            preferredUILocaleOverride = "de_DE"
+        }
+
+        assertEquals("de_DE", config.preferredUILocaleOverride)
+    }
+
+    @OptIn(ExperimentalRevenueCatApi::class)
+    @Test
+    fun `useExternalPurchaseCustomLinks is false by default`() {
+        val config = PurchasesConfiguration(apiKey = "abc123")
+
+        assertEquals(false, config.useExternalPurchaseCustomLinks)
+    }
+
+    @OptIn(ExperimentalRevenueCatApi::class)
+    @Test
+    fun `useExternalPurchaseCustomLinks can be configured with the fluent builder`() {
+        val config = PurchasesConfiguration.Builder(apiKey = "abc123")
+            .useExternalPurchaseCustomLinks(true)
+            .build()
+
+        assertEquals(true, config.useExternalPurchaseCustomLinks)
+    }
+
+    @OptIn(ExperimentalRevenueCatApi::class)
+    @Test
+    fun `enableExternalPurchasesInSimulator is true by default`() {
+        val config = PurchasesConfiguration(apiKey = "abc123")
+
+        assertEquals(true, config.enableExternalPurchasesInSimulator)
+    }
+
+    @OptIn(ExperimentalRevenueCatApi::class)
+    @Test
+    fun `enableExternalPurchasesInSimulator can be configured with the fluent builder`() {
+        val config = PurchasesConfiguration.Builder(apiKey = "abc123")
+            .enableExternalPurchasesInSimulator(false)
+            .build()
+
+        assertEquals(false, config.enableExternalPurchasesInSimulator)
+    }
+}
