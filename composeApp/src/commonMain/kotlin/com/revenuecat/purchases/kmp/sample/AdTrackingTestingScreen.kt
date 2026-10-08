@@ -34,6 +34,7 @@ import com.revenuecat.purchases.kmp.models.AdMediatorName
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
 import com.revenuecat.purchases.kmp.models.AdRevenuePrecision
+import com.revenuecat.purchases.kmp.models.AdRewardEarnedUnverifiedData
 import com.revenuecat.purchases.kmp.models.AdRewardPromptAcceptedData
 import com.revenuecat.purchases.kmp.models.AdRewardPromptShownData
 import kotlin.time.Clock
@@ -45,6 +46,7 @@ enum class AdTrackingFunction(val displayName: String) {
     TRACK_AD_REVENUE("trackAdRevenue()"),
     TRACK_AD_LOADED("trackAdLoaded()"),
     TRACK_AD_FAILED_TO_LOAD("trackAdFailedToLoad()"),
+    TRACK_AD_REWARD_EARNED_UNVERIFIED("trackAdRewardEarnedUnverified()"),
     TRACK_REWARDED_AD_PROMPT_SHOWN("trackRewardedAdPromptShown()"),
     TRACK_REWARDED_AD_PROMPT_ACCEPTED("trackRewardedAdPromptAccepted()")
 }
@@ -137,6 +139,21 @@ fun AdTrackingTestingScreen(
         Purchases.sharedInstance.adTracker.trackAdFailedToLoad(data)
         statusMessage = "Ad failed to load event tracked successfully!\nError code: 404"
         lastTrackedFunction = AdTrackingFunction.TRACK_AD_FAILED_TO_LOAD
+        messageColor = Color.Green
+    }
+
+    fun trackAdRewardEarnedUnverified() {
+        val data = AdRewardEarnedUnverifiedData(
+            networkName = null,
+            mediatorName = AdMediatorName.APP_LOVIN,
+            adFormat = AdFormat.REWARDED,
+            placement = "rewarded_video",
+            adUnitId = "ca-app-pub-1234567890",
+            impressionId = "test-impression-${Clock.System.now().toEpochMilliseconds()}"
+        )
+        Purchases.sharedInstance.adTracker.trackAdRewardEarnedUnverified(data)
+        statusMessage = "Unverified ad reward earned event tracked successfully!"
+        lastTrackedFunction = AdTrackingFunction.TRACK_AD_REWARD_EARNED_UNVERIFIED
         messageColor = Color.Green
     }
 
@@ -235,6 +252,16 @@ fun AdTrackingTestingScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Track Ad Failed to Load")
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Ad Reward Earned Unverified
+        Button(
+            onClick = { trackAdRewardEarnedUnverified() },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Track Ad Reward Earned Unverified")
         }
 
         Spacer(modifier = Modifier.height(12.dp))

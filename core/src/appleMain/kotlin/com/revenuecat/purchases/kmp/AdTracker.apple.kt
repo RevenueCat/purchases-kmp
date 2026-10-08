@@ -5,6 +5,7 @@ import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
 import com.revenuecat.purchases.kmp.models.AdLoadedData
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
+import com.revenuecat.purchases.kmp.models.AdRewardEarnedUnverifiedData
 import com.revenuecat.purchases.kmp.models.AdRewardPromptAcceptedData
 import com.revenuecat.purchases.kmp.models.AdRewardPromptShownData
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -73,6 +74,18 @@ public actual class AdTracker internal constructor() {
             placement = data.placement,
             adUnitId = data.adUnitId,
             mediatorErrorCode = data.mediatorErrorCode?.let { NSNumber(int = it) },
+        )
+    }
+
+    public actual fun trackAdRewardEarnedUnverified(data: AdRewardEarnedUnverifiedData) {
+        if (!isAvailable()) return
+        AdTracking.trackAdRewardEarnedUnverifiedWithNetworkName(
+            networkName = data.networkName,
+            mediatorName = data.mediatorName.value,
+            adFormat = data.adFormat.value,
+            placement = data.placement,
+            adUnitId = data.adUnitId,
+            impressionId = data.impressionId,
         )
     }
 
