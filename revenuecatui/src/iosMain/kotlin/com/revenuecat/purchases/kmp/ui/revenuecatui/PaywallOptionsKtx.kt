@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.ui.revenuecatui
 
+import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toPackage
 import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
@@ -125,7 +126,14 @@ internal fun PaywallListener.notifyPurchaseCompleted(
     customerInfo: () -> CustomerInfo,
     storeTransaction: StoreTransaction?,
 ) {
-    if (storeTransaction != null) onPurchaseCompleted(customerInfo(), storeTransaction)
+    if (storeTransaction != null) {
+        onPurchaseCompleted(customerInfo(), storeTransaction)
+    } else {
+        Purchases.logHandler.d(
+            tag = "Purchases",
+            msg = "Not calling PaywallListener.onPurchaseCompleted: the purchase completed without a StoreTransaction.",
+        )
+    }
 }
 
 private fun Map<Any?, *>.toKotlinValues(): Map<String, Any> =

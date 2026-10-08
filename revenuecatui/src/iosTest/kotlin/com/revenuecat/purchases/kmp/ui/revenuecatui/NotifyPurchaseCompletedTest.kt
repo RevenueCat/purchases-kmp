@@ -1,9 +1,13 @@
 package com.revenuecat.purchases.kmp.ui.revenuecatui
 
+import com.revenuecat.purchases.kmp.LogHandler
+import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.EntitlementInfos
 import com.revenuecat.purchases.kmp.models.StoreTransaction
 import com.revenuecat.purchases.kmp.models.VerificationResult
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertSame
@@ -18,6 +22,28 @@ class NotifyPurchaseCompletedTest {
         }
     }
 
+    private val debugLogs = mutableListOf<String>()
+    private lateinit var originalLogHandler: LogHandler
+
+    @BeforeTest
+    fun captureLogs() {
+        originalLogHandler = Purchases.logHandler
+        Purchases.logHandler = object : LogHandler {
+            override fun v(tag: String, msg: String) {}
+            override fun d(tag: String, msg: String) {
+                debugLogs += msg
+            }
+            override fun i(tag: String, msg: String) {}
+            override fun w(tag: String, msg: String) {}
+            override fun e(tag: String, msg: String, throwable: Throwable?) {}
+        }
+    }
+
+    @AfterTest
+    fun restoreLogHandler() {
+        Purchases.logHandler = originalLogHandler
+    }
+
     @Test
     fun `purchase without a transaction does not call onPurchaseCompleted`() {
         listener.notifyPurchaseCompleted(
@@ -26,6 +52,11 @@ class NotifyPurchaseCompletedTest {
         )
 
         assertTrue(completions.isEmpty())
+        assertTrue(
+            debugLogs.single().endsWith(
+                "Not calling PaywallListener.onPurchaseCompleted: the purchase completed without a StoreTransaction.",
+            ),
+        )
     }
 
     @Test
@@ -42,6 +73,7 @@ class NotifyPurchaseCompletedTest {
         assertEquals(1, completions.size)
         assertSame(customerInfo, completions.single().first)
         assertSame(storeTransaction, completions.single().second)
+        assertTrue(debugLogs.isEmpty())
     }
 
     private fun customerInfo() = CustomerInfo(
