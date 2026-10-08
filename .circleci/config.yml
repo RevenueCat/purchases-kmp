@@ -22,9 +22,38 @@ version: 2.1
 
 orbs:
   android: circleci/android@2.5.0
+  macos: circleci/macos@2.5.1
   revenuecat: revenuecat/sdks-common-config@4.6.2
 
 commands:
+  run-sdk-update-test-cases:
+    parameters:
+      platform:
+        type: enum
+        enum: [ios, android]
+    steps:
+      - run:
+          name: Run SDK update test (anonymous_user)
+          command: bundle exec fastlane run_sdk_update_test platform:<< parameters.platform >> test_case:anonymous_user
+          no_output_timeout: 15m
+      - run:
+          name: Run SDK update test (logged_in_user)
+          command: bundle exec fastlane run_sdk_update_test platform:<< parameters.platform >> test_case:logged_in_user
+          no_output_timeout: 15m
+          when: always
+      - store_test_results:
+          path: fastlane/test_output/sdk_update_tests/<< parameters.platform >>/anonymous_user/junit
+      - store_test_results:
+          path: fastlane/test_output/sdk_update_tests/<< parameters.platform >>/logged_in_user/junit
+      - store_artifacts:
+          path: fastlane/test_output/sdk_update_tests/<< parameters.platform >>
+      - store_artifacts:
+          path: build/sdk_update_tests/<< parameters.platform >>/release/resolved-dependencies.txt
+          destination: release/resolved-dependencies.txt
+      - store_artifacts:
+          path: build/sdk_update_tests/<< parameters.platform >>/local/resolved-dependencies.txt
+          destination: local/resolved-dependencies.txt
+
   install-android-sdk-on-macos:
     description: Install the Android SDK on macOS
     steps:
@@ -145,6 +174,62 @@ executors:
       HOMEBREW_NO_AUTO_UPDATE: 1
 
 jobs:
+  run-sdk-update-test-android:
+    executor:
+      name: android/android-machine
+      resource-class: xlarge
+      tag: 2026.05.1
+    steps:
+      - checkout
+      - revenuecat/install-mise-tools:
+          tools: java,ruby
+      - revenuecat/install-gem-unix-dependencies:
+          cache-version: v1
+      - restore-gradle-user-home-directory-from-cache
+      - android/create-avd:
+          avd-name: sdk-update-tester
+          system-image: system-images;android-32;google_apis;x86_64
+          install: true
+      - android/start-emulator:
+          avd-name: sdk-update-tester
+          post-emulator-launch-assemble-command: bundle exec fastlane build_sdk_update_test_apps platform:android
+      - revenuecat/install-maestro
+      - run-sdk-update-test-cases:
+          platform: android
+
+  run-sdk-update-test-ios:
+    executor: xcode16
+    steps:
+      - macos/preboot-simulator:
+          version: "18.5"
+          platform: "iOS"
+          device: "iPhone 16"
+      - checkout
+      - checkout-submodule
+      - install-android-sdk-on-macos
+      - revenuecat/install-mise-tools:
+          tools: java,ruby
+      - revenuecat/install-gem-mac-dependencies:
+          cache-version: v1
+      - restore-gradle-user-home-directory-from-cache
+      - restore-kotlin-native-compiler-from-cache
+      - revenuecat/install-maestro
+      - run:
+          name: Build SDK update test apps
+          command: bundle exec fastlane build_sdk_update_test_apps platform:ios
+          no_output_timeout: 20m
+      - run:
+          name: Wait for SDK update test simulator
+          command: xcrun simctl bootstatus "$MACOS_ORB_DEVICE_UDID" -b
+      - run-sdk-update-test-cases:
+          platform: ios
+      - store_artifacts:
+          path: build/sdk_update_tests/ios/release/xcodebuild.log
+          destination: release/xcodebuild.log
+      - store_artifacts:
+          path: build/sdk_update_tests/ios/local/xcodebuild.log
+          destination: local/xcodebuild.log
+
   prepare-next-snapshot-version:
     description: "Opens a PR updating the SDK version to the next minor, appending -SNAPSHOT."
     executor: ruby3
@@ -725,6 +810,10 @@ workflows:
         - not:
             equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
     jobs:
+      - run-sdk-update-test-android:
+          context: maestro
+      - run-sdk-update-test-ios:
+          context: maestro
       - detekt
       - unit-tests-build-logic
       - build-libraries-android
@@ -752,6 +841,8 @@ workflows:
       - revenuecat/tag-current-branch:
           requires:
             - wait-for-pr-approval
+            - run-sdk-update-test-android
+            - run-sdk-update-test-ios
             - detekt
             - unit-tests-build-logic
             - build-and-test-watchos
