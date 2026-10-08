@@ -1,5 +1,6 @@
 ## RevenueCat SDK
 ### ✨ New Features
+* Add support for manually tracking unverified rewarded-ad rewards
 * Add rewarded ad prompt shown and accepted tracking (#1062) via Drago Crnjac (@popcorn)
 ### 🐞 Bugfixes
 * [EXTERNAL] fix: pass diagnosticsEnabled to the native SDKs (#1053) via @AndroidPoet (#1055) via Toni Rico (@tonidero)
