@@ -107,6 +107,25 @@ public class AdTracking: NSObject {
     }
 
     @objc
+    public static func trackAdRewardEarnedUnverified(
+        networkName: String?,
+        mediatorName: String,
+        adFormat: String,
+        placement: String?,
+        adUnitId: String,
+        impressionId: String
+    ) {
+        Purchases.shared.adTracker.trackAdRewardEarnedUnverified(.init(
+            networkName: networkName,
+            mediatorName: MediatorName(rawValue: mediatorName),
+            adFormat: AdFormat(rawValue: adFormat),
+            placement: placement,
+            adUnitId: adUnitId,
+            impressionId: impressionId
+        ))
+    }
+
+    @objc
     public static func trackRewardedAdPromptShown(
         mediatorName: String,
         placement: String?,

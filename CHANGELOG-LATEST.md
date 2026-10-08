@@ -1,4 +1,6 @@
 ## RevenueCat SDK
+### ✨ New Features
+* Add support for manually tracking unverified rewarded-ad rewards
 ### 📦 Dependency Updates
 * [RENOVATE] Update purchases-android to v10.26.0 (#1073) via RevenueCat Git Bot (@RCGitBot)
 * [RENOVATE] Update dependency upstream/purchases-ios to v5.94.0 (#1072) via RevenueCat Git Bot (@RCGitBot)
