@@ -1,11 +1,7 @@
 ## RevenueCat SDK
 ### 📦 Dependency Updates
-* [RENOVATE] Update purchases-android to v10.26.0 (#1073) via RevenueCat Git Bot (@RCGitBot)
-* [RENOVATE] Update dependency upstream/purchases-ios to v5.94.0 (#1072) via RevenueCat Git Bot (@RCGitBot)
-
-## RevenueCatUI SDK
-### 🐞 Bugfixes
-* fix(paywalls): Prevent crash on iOS when a purchase completes without a transaction (#1069) via Álvaro Brey (@AlvaroBrey)
+* [RENOVATE] Update dependency upstream/purchases-ios to v5.95.0 (#1078) via RevenueCat Git Bot (@RCGitBot)
+* [RENOVATE] Update purchases-android to v10.27.0 (#1079) via RevenueCat Git Bot (@RCGitBot)
 
 ### 🔄 Other Changes
-* Bump CI to Ruby 3.3 (#1071) via Josh Holtz (@joshdholtz)
+* Bump fastlane from 2.240.1 to 2.241.0 (#1081) via dependabot[bot] (@dependabot[bot])
