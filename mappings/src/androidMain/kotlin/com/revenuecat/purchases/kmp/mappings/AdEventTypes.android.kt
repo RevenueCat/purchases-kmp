@@ -9,9 +9,10 @@ import com.revenuecat.purchases.kmp.models.AdLoadedData
 import com.revenuecat.purchases.kmp.models.AdMediatorName
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
+import com.revenuecat.purchases.kmp.models.AdRevenuePrecision
+import com.revenuecat.purchases.kmp.models.AdRewardEarnedUnverifiedData
 import com.revenuecat.purchases.kmp.models.AdRewardPromptAcceptedData
 import com.revenuecat.purchases.kmp.models.AdRewardPromptShownData
-import com.revenuecat.purchases.kmp.models.AdRevenuePrecision
 import com.revenuecat.purchases.ads.events.types.AdDisplayedData as AndroidAdDisplayedData
 import com.revenuecat.purchases.ads.events.types.AdFailedToLoadData as AndroidAdFailedToLoadData
 import com.revenuecat.purchases.ads.events.types.AdFormat as AndroidAdFormat
@@ -20,6 +21,7 @@ import com.revenuecat.purchases.ads.events.types.AdMediatorName as AndroidAdMedi
 import com.revenuecat.purchases.ads.events.types.AdOpenedData as AndroidAdOpenedData
 import com.revenuecat.purchases.ads.events.types.AdRevenueData as AndroidAdRevenueData
 import com.revenuecat.purchases.ads.events.types.AdRevenuePrecision as AndroidAdRevenuePrecision
+import com.revenuecat.purchases.ads.events.types.AdRewardEarnedUnverifiedData as AndroidAdRewardEarnedUnverifiedData
 import com.revenuecat.purchases.ads.events.types.AdRewardPromptAcceptedData as AndroidAdRewardPromptAcceptedData
 import com.revenuecat.purchases.ads.events.types.AdRewardPromptShownData as AndroidAdRewardPromptShownData
 
@@ -97,6 +99,18 @@ public fun AdFailedToLoadData.toAndroid(): AndroidAdFailedToLoadData {
         placement = placement,
         adUnitId = adUnitId,
         mediatorErrorCode = mediatorErrorCode,
+    )
+}
+
+@OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+public fun AdRewardEarnedUnverifiedData.toAndroid(): AndroidAdRewardEarnedUnverifiedData {
+    return AndroidAdRewardEarnedUnverifiedData(
+        networkName = networkName,
+        mediatorName = mediatorName.toAndroid(),
+        adFormat = adFormat.toAndroid(),
+        placement = placement,
+        adUnitId = adUnitId,
+        impressionId = impressionId,
     )
 }
 

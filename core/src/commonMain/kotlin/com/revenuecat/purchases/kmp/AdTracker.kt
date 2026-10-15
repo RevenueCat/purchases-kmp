@@ -5,6 +5,7 @@ import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
 import com.revenuecat.purchases.kmp.models.AdLoadedData
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
+import com.revenuecat.purchases.kmp.models.AdRewardEarnedUnverifiedData
 import com.revenuecat.purchases.kmp.models.AdRewardPromptAcceptedData
 import com.revenuecat.purchases.kmp.models.AdRewardPromptShownData
 
@@ -48,6 +49,16 @@ public expect class AdTracker {
      * @param data The ad failed to load event data.
      */
     public fun trackAdFailedToLoad(data: AdFailedToLoadData)
+
+    /**
+     * Tracks when an ad SDK reports that the user earned a reward.
+     *
+     * Use this method for manual rewarded ad integrations that don't use RevenueCat reward verification.
+     * If you use RevenueCat reward verification, the SDK tracks this event automatically when reward verification starts.
+     *
+     * @param data The earned reward event data.
+     */
+    public fun trackAdRewardEarnedUnverified(data: AdRewardEarnedUnverifiedData)
 
     /**
      * Tracks when a rewarded ad prompt is shown to the user, such as a "Watch an ad to earn coins" button.
