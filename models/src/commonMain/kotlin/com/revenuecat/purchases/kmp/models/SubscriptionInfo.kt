@@ -66,6 +66,7 @@ public class SubscriptionInfo(
      * How the Customer received access to this subscription:
      * - [OwnershipType.PURCHASED]: The customer bought the subscription.
      * - [OwnershipType.FAMILY_SHARED]: The Customer has access to the product via their family.
+     * - [OwnershipType.ASSIGNED]: The Customer has access to the product through an organization.
      */
     public val ownershipType: OwnershipType,
 

@@ -118,6 +118,7 @@ final enum class com.revenuecat.purchases.kmp.models/OfferPaymentMode : kotlin/E
 }
 
 final enum class com.revenuecat.purchases.kmp.models/OwnershipType : kotlin/Enum<com.revenuecat.purchases.kmp.models/OwnershipType> { // com.revenuecat.purchases.kmp.models/OwnershipType|null[0]
+    enum entry ASSIGNED // com.revenuecat.purchases.kmp.models/OwnershipType.ASSIGNED|null[0]
     enum entry FAMILY_SHARED // com.revenuecat.purchases.kmp.models/OwnershipType.FAMILY_SHARED|null[0]
     enum entry PURCHASED // com.revenuecat.purchases.kmp.models/OwnershipType.PURCHASED|null[0]
     enum entry UNKNOWN // com.revenuecat.purchases.kmp.models/OwnershipType.UNKNOWN|null[0]
