@@ -18,6 +18,7 @@ import com.revenuecat.purchases.kn.core.RCPaddle
 import com.revenuecat.purchases.kn.core.RCPlayStore
 import com.revenuecat.purchases.kn.core.RCPrepaid
 import com.revenuecat.purchases.kn.core.RCPromotional
+import com.revenuecat.purchases.kn.core.RCPurchaseOwnershipTypeAssigned
 import com.revenuecat.purchases.kn.core.RCPurchaseOwnershipTypeFamilyShared
 import com.revenuecat.purchases.kn.core.RCPurchaseOwnershipTypePurchased
 import com.revenuecat.purchases.kn.core.RCPurchaseOwnershipTypeUnknown
@@ -80,5 +81,6 @@ internal fun IosOwnershipType.toOwnershipType(): OwnershipType =
         RCPurchaseOwnershipTypePurchased -> OwnershipType.PURCHASED
         RCPurchaseOwnershipTypeFamilyShared -> OwnershipType.FAMILY_SHARED
         RCPurchaseOwnershipTypeUnknown -> OwnershipType.UNKNOWN
+        RCPurchaseOwnershipTypeAssigned -> OwnershipType.ASSIGNED
         else -> error("Unknown IosOwnershipType: $this")
     }

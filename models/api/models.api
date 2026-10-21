@@ -328,6 +328,7 @@ public final class com/revenuecat/purchases/kmp/models/Offerings {
 }
 
 public final class com/revenuecat/purchases/kmp/models/OwnershipType : java/lang/Enum {
+	public static final field ASSIGNED Lcom/revenuecat/purchases/kmp/models/OwnershipType;
 	public static final field FAMILY_SHARED Lcom/revenuecat/purchases/kmp/models/OwnershipType;
 	public static final field PURCHASED Lcom/revenuecat/purchases/kmp/models/OwnershipType;
 	public static final field UNKNOWN Lcom/revenuecat/purchases/kmp/models/OwnershipType;

@@ -39,5 +39,5 @@ internal fun AndroidOwnershipType.toOwnershipType(): OwnershipType =
         AndroidOwnershipType.PURCHASED -> OwnershipType.PURCHASED
         AndroidOwnershipType.FAMILY_SHARED -> OwnershipType.FAMILY_SHARED
         AndroidOwnershipType.UNKNOWN -> OwnershipType.UNKNOWN
-
+        AndroidOwnershipType.ASSIGNED -> OwnershipType.ASSIGNED
     }
