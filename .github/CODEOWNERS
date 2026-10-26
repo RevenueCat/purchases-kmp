@@ -1,4 +1,41 @@
 # CODEOWNERS for purchases-kmp
+#
+# The last matching pattern takes precedence, so rules go from broadest to most specific.
+# Code owner review is not required to merge: these rules only decide who gets a review request.
 
-# Default owners
+# Fallback for anything not matched below (build config, samples, test apps, CI, release files, upstream bumps)
 * @RevenueCat/sdk
+
+# Core SDK
+/core/ @RevenueCat/coresdk
+/models/ @RevenueCat/coresdk
+/mappings/ @RevenueCat/coresdk
+/kn-core/ @RevenueCat/coresdk
+/either/ @RevenueCat/coresdk
+/result/ @RevenueCat/coresdk
+
+# Paywalls
+/revenuecatui/ @RevenueCat/paywalls
+/kn-ui/ @RevenueCat/paywalls
+/models/src/**/CustomPaywallImpressionParams*.kt @RevenueCat/paywalls
+
+# Ads (ad tracking and rewarded ad verification)
+/core/src/**/AdTracker*.kt @RevenueCat/ads
+/models/src/**/Ad*.kt @RevenueCat/ads
+/models/src/**/Reward*.kt @RevenueCat/ads
+/models/src/**/VerifiedReward.kt @RevenueCat/ads
+/mappings/src/**/Ad*.kt @RevenueCat/ads
+/mappings/src/**/Reward*.kt @RevenueCat/ads
+/kn-core/src/swift/Sources/AdditionalSwift/AdTracking.swift @RevenueCat/ads
+/kn-core/src/swift/Sources/AdditionalSwift/RewardVerification.swift @RevenueCat/ads
+/composeApp/src/**/AdTracking*.kt @RevenueCat/ads
+/composeApp/src/**/Reward*.kt @RevenueCat/ads
+/composeApp/src/iosMain/cinterop/GoogleMobileAds.def @RevenueCat/ads
+/composeApp/src/swift/GoogleMobileAdsVendor/ @RevenueCat/ads
+
+# Customer Center
+/revenuecatui/src/**/*CustomerCenter.kt @RevenueCat/customer-center
+
+# Public API surface: changes here should stay visible to the whole SDK team
+/**/api/*.api @RevenueCat/sdk
+/apiTester/ @RevenueCat/sdk

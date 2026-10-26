@@ -1,9 +1,12 @@
 package com.revenuecat.purchases.kmp.ui.revenuecatui
 
+import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toPackage
 import com.revenuecat.purchases.kmp.mappings.toPurchasesErrorOrThrow
 import com.revenuecat.purchases.kmp.mappings.toStoreTransaction
+import com.revenuecat.purchases.kmp.models.CustomerInfo
+import com.revenuecat.purchases.kmp.models.StoreTransaction
 import kotlinx.cinterop.CValue
 import kotlinx.cinterop.ObjCSignatureOverride
 import kotlinx.cinterop.memScoped
@@ -46,9 +49,9 @@ internal class IosPaywallDelegate(
         didFinishPurchasingWithCustomerInfo: RCCustomerInfoFromKnUi,
         transaction: RCStoreTransactionFromKnUi?,
     ) {
-        listener?.onPurchaseCompleted(
-            (didFinishPurchasingWithCustomerInfo as RCCustomerInfo).toCustomerInfo(),
-            (transaction as RCStoreTransaction).toStoreTransaction()
+        listener?.notifyPurchaseCompleted(
+            customerInfo = { (didFinishPurchasingWithCustomerInfo as RCCustomerInfo).toCustomerInfo() },
+            storeTransaction = (transaction as RCStoreTransaction?)?.toStoreTransaction(),
         )
     }
 
@@ -115,6 +118,21 @@ internal class IosPaywallDelegate(
         var height: Int? = null
         memScoped { height = didChangeSizeTo.ptr.pointed.height.toInt() }
         onHeightChange(height!!)
+    }
+}
+
+// RevenueCatUI on iOS reports purchases made by custom purchase logic without a transaction.
+internal fun PaywallListener.notifyPurchaseCompleted(
+    customerInfo: () -> CustomerInfo,
+    storeTransaction: StoreTransaction?,
+) {
+    if (storeTransaction != null) {
+        onPurchaseCompleted(customerInfo(), storeTransaction)
+    } else {
+        Purchases.logHandler.d(
+            tag = "Purchases",
+            msg = "Not calling PaywallListener.onPurchaseCompleted: the purchase completed without a StoreTransaction.",
+        )
     }
 }
 

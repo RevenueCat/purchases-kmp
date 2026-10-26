@@ -123,6 +123,39 @@ class AdEventTypesTest {
     }
 
     @Test
+    fun `AdRewardEarnedUnverifiedData can be constructed`() {
+        val data = AdRewardEarnedUnverifiedData(
+            networkName = "TestNetwork",
+            mediatorName = AdMediatorName.AD_MOB,
+            adFormat = AdFormat.REWARDED,
+            placement = "rewarded",
+            adUnitId = "ad-unit-123",
+            impressionId = "impression-456",
+        )
+
+        assertEquals("TestNetwork", data.networkName)
+        assertEquals(AdMediatorName.AD_MOB, data.mediatorName)
+        assertEquals(AdFormat.REWARDED, data.adFormat)
+        assertEquals("rewarded", data.placement)
+        assertEquals("ad-unit-123", data.adUnitId)
+        assertEquals("impression-456", data.impressionId)
+    }
+
+    @Test
+    fun `AdRewardEarnedUnverifiedData defaults networkName to null`() {
+        val data = AdRewardEarnedUnverifiedData(
+            mediatorName = AdMediatorName.AD_MOB,
+            adFormat = AdFormat.REWARDED,
+            placement = null,
+            adUnitId = "ad-unit-123",
+            impressionId = "impression-456",
+        )
+
+        assertEquals(null, data.networkName)
+        assertEquals(null, data.placement)
+    }
+
+    @Test
     fun `AdFailedToLoadData with null error code`() {
         val data = AdFailedToLoadData(
             mediatorName = AdMediatorName.AD_MOB,

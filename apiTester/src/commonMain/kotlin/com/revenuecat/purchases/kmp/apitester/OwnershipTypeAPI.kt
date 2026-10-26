@@ -9,6 +9,7 @@ private class OwnershipTypeAPI {
             OwnershipType.PURCHASED,
             OwnershipType.FAMILY_SHARED,
             OwnershipType.UNKNOWN,
+            OwnershipType.ASSIGNED,
             -> {
             }
         }.exhaustive

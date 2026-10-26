@@ -8,6 +8,7 @@ import com.revenuecat.purchases.kmp.models.AdFailedToLoadData
 import com.revenuecat.purchases.kmp.models.AdLoadedData
 import com.revenuecat.purchases.kmp.models.AdOpenedData
 import com.revenuecat.purchases.kmp.models.AdRevenueData
+import com.revenuecat.purchases.kmp.models.AdRewardEarnedUnverifiedData
 import com.revenuecat.purchases.kmp.models.AdRewardPromptAcceptedData
 import com.revenuecat.purchases.kmp.models.AdRewardPromptShownData
 
@@ -36,6 +37,10 @@ public actual class AdTracker internal constructor(
 
     public actual fun trackAdFailedToLoad(data: AdFailedToLoadData) {
         androidAdTracker.trackAdFailedToLoad(data.toAndroid())
+    }
+
+    public actual fun trackAdRewardEarnedUnverified(data: AdRewardEarnedUnverifiedData) {
+        androidAdTracker.trackAdRewardEarnedUnverified(data.toAndroid())
     }
 
     public actual fun trackRewardedAdPromptShown(data: AdRewardPromptShownData) {

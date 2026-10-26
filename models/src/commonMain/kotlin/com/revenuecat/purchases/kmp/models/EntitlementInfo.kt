@@ -249,4 +249,9 @@ public enum class OwnershipType {
      * The purchase has no or an unknown ownership type.
      */
     UNKNOWN,
+
+    /**
+     * The user has access to the purchase through an organization.
+     */
+    ASSIGNED,
 }
