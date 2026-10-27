@@ -27,3 +27,5 @@ vendor/
 !/.idea/xcode.xml
 !/.idea/purchases-kmp.iosApp.iml
 !/.idea/modules.xml
+
+fastlane/test_output/
