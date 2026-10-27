@@ -14,7 +14,7 @@ kotlin = "2.3.20"
 mavenPublish = "0.33.0"
 poko = "0.22.0"
 revenuecat-android = "11.0.0"
-revenuecat-kmp = "4.0.0"
+revenuecat-kmp = "4.1.0-SNAPSHOT"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
