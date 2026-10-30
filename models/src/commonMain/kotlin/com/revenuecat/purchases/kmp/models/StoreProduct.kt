@@ -11,6 +11,9 @@ public interface StoreProduct {
      * Google Sub: "<productId:basePlanID>"
      * Amazon INAPP: "<sku>"
      * Amazon Sub: "<termSku>"
+     * App Store: "<productId>"
+     * App Store with a billing plan (like monthly subscriptions with a 12-month commitment):
+     * "<productId:billingPlan>" (like "productId:monthly")
      */
     public val id: String
 
@@ -30,6 +33,9 @@ public interface StoreProduct {
      * Base plan price for a Google subscription.
      * Term price for an Amazon subscription.
      * For Google subscriptions, use SubscriptionOption's pricing phases for offer pricing.
+     *
+     * For monthly subscriptions with a 12-month commitment on the Apple App Store, the
+     * price will reflect the total amount paid across the commitment.
      */
     public val price: Price
 
@@ -121,4 +127,13 @@ public interface StoreProduct {
      * For Google subscriptions, this value will use the basePlan to calculate the value.
      */
     public val pricePerYear: Price?
+
+    /**
+     * For installment subscriptions, the details of the installment plan the customer commits to.
+     * Null for non-installment subscriptions.
+     * iOS only. Always null on Android, use the installmentsInfo of the [defaultOption] or
+     * [subscriptionOptions] instead.
+     */
+    public val installmentsInfo: InstallmentsInfo?
+        get() = null
 }

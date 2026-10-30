@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.apitester
 
+import com.revenuecat.purchases.kmp.models.InstallmentsInfo
 import com.revenuecat.purchases.kmp.models.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.models.Period
 import com.revenuecat.purchases.kmp.models.Price
@@ -31,6 +32,7 @@ private class StoreProductAPI {
             val pricePerWeek: Price? = pricePerWeek
             val pricePerMonth: Price? = pricePerMonth
             val pricePerYear: Price? = pricePerYear
+            val installmentsInfo: InstallmentsInfo? = installmentsInfo
         }
     }
 
