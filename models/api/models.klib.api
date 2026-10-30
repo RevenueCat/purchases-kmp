@@ -26,6 +26,18 @@ final enum class com.revenuecat.purchases.kmp.models/BillingFeature : kotlin/Enu
     final fun values(): kotlin/Array<com.revenuecat.purchases.kmp.models/BillingFeature> // com.revenuecat.purchases.kmp.models/BillingFeature.values|values#static(){}[0]
 }
 
+final enum class com.revenuecat.purchases.kmp.models/BillingPlanType : kotlin/Enum<com.revenuecat.purchases.kmp.models/BillingPlanType> { // com.revenuecat.purchases.kmp.models/BillingPlanType|null[0]
+    enum entry MONTHLY // com.revenuecat.purchases.kmp.models/BillingPlanType.MONTHLY|null[0]
+    enum entry UNKNOWN // com.revenuecat.purchases.kmp.models/BillingPlanType.UNKNOWN|null[0]
+    enum entry UP_FRONT // com.revenuecat.purchases.kmp.models/BillingPlanType.UP_FRONT|null[0]
+
+    final val entries // com.revenuecat.purchases.kmp.models/BillingPlanType.entries|#static{}entries[0]
+        final fun <get-entries>(): kotlin.enums/EnumEntries<com.revenuecat.purchases.kmp.models/BillingPlanType> // com.revenuecat.purchases.kmp.models/BillingPlanType.entries.<get-entries>|<get-entries>#static(){}[0]
+
+    final fun valueOf(kotlin/String): com.revenuecat.purchases.kmp.models/BillingPlanType // com.revenuecat.purchases.kmp.models/BillingPlanType.valueOf|valueOf#static(kotlin.String){}[0]
+    final fun values(): kotlin/Array<com.revenuecat.purchases.kmp.models/BillingPlanType> // com.revenuecat.purchases.kmp.models/BillingPlanType.values|values#static(){}[0]
+}
+
 final enum class com.revenuecat.purchases.kmp.models/CacheFetchPolicy : kotlin/Enum<com.revenuecat.purchases.kmp.models/CacheFetchPolicy> { // com.revenuecat.purchases.kmp.models/CacheFetchPolicy|null[0]
     enum entry CACHED_OR_FETCHED // com.revenuecat.purchases.kmp.models/CacheFetchPolicy.CACHED_OR_FETCHED|null[0]
     enum entry CACHE_ONLY // com.revenuecat.purchases.kmp.models/CacheFetchPolicy.CACHE_ONLY|null[0]
@@ -473,6 +485,8 @@ abstract interface com.revenuecat.purchases.kmp.models/StoreProduct { // com.rev
         abstract fun <get-title>(): kotlin/String // com.revenuecat.purchases.kmp.models/StoreProduct.title.<get-title>|<get-title>(){}[0]
     abstract val type // com.revenuecat.purchases.kmp.models/StoreProduct.type|{}type[0]
         abstract fun <get-type>(): com.revenuecat.purchases.kmp.models/ProductType // com.revenuecat.purchases.kmp.models/StoreProduct.type.<get-type>|<get-type>(){}[0]
+    open val installmentsInfo // com.revenuecat.purchases.kmp.models/StoreProduct.installmentsInfo|{}installmentsInfo[0]
+        open fun <get-installmentsInfo>(): com.revenuecat.purchases.kmp.models/InstallmentsInfo? // com.revenuecat.purchases.kmp.models/StoreProduct.installmentsInfo.<get-installmentsInfo>|<get-installmentsInfo>(){}[0]
 }
 
 abstract interface com.revenuecat.purchases.kmp.models/StoreProductDiscount { // com.revenuecat.purchases.kmp.models/StoreProductDiscount|null[0]
@@ -856,9 +870,20 @@ final class com.revenuecat.purchases.kmp.models/EntitlementInfos { // com.revenu
 
 final class com.revenuecat.purchases.kmp.models/InstallmentsInfo { // com.revenuecat.purchases.kmp.models/InstallmentsInfo|null[0]
     constructor <init>(kotlin/Int, kotlin/Int) // com.revenuecat.purchases.kmp.models/InstallmentsInfo.<init>|<init>(kotlin.Int;kotlin.Int){}[0]
+    constructor <init>(kotlin/Int, kotlin/Int, com.revenuecat.purchases.kmp.models/Period?, com.revenuecat.purchases.kmp.models/Price?, com.revenuecat.purchases.kmp.models/Period?, com.revenuecat.purchases.kmp.models/Price?, com.revenuecat.purchases.kmp.models/BillingPlanType?) // com.revenuecat.purchases.kmp.models/InstallmentsInfo.<init>|<init>(kotlin.Int;kotlin.Int;com.revenuecat.purchases.kmp.models.Period?;com.revenuecat.purchases.kmp.models.Price?;com.revenuecat.purchases.kmp.models.Period?;com.revenuecat.purchases.kmp.models.Price?;com.revenuecat.purchases.kmp.models.BillingPlanType?){}[0]
 
+    final val billingPlanType // com.revenuecat.purchases.kmp.models/InstallmentsInfo.billingPlanType|{}billingPlanType[0]
+        final fun <get-billingPlanType>(): com.revenuecat.purchases.kmp.models/BillingPlanType? // com.revenuecat.purchases.kmp.models/InstallmentsInfo.billingPlanType.<get-billingPlanType>|<get-billingPlanType>(){}[0]
+    final val commitmentInstallmentPeriod // com.revenuecat.purchases.kmp.models/InstallmentsInfo.commitmentInstallmentPeriod|{}commitmentInstallmentPeriod[0]
+        final fun <get-commitmentInstallmentPeriod>(): com.revenuecat.purchases.kmp.models/Period? // com.revenuecat.purchases.kmp.models/InstallmentsInfo.commitmentInstallmentPeriod.<get-commitmentInstallmentPeriod>|<get-commitmentInstallmentPeriod>(){}[0]
     final val commitmentPaymentsCount // com.revenuecat.purchases.kmp.models/InstallmentsInfo.commitmentPaymentsCount|{}commitmentPaymentsCount[0]
         final fun <get-commitmentPaymentsCount>(): kotlin/Int // com.revenuecat.purchases.kmp.models/InstallmentsInfo.commitmentPaymentsCount.<get-commitmentPaymentsCount>|<get-commitmentPaymentsCount>(){}[0]
+    final val commitmentTotalPeriod // com.revenuecat.purchases.kmp.models/InstallmentsInfo.commitmentTotalPeriod|{}commitmentTotalPeriod[0]
+        final fun <get-commitmentTotalPeriod>(): com.revenuecat.purchases.kmp.models/Period? // com.revenuecat.purchases.kmp.models/InstallmentsInfo.commitmentTotalPeriod.<get-commitmentTotalPeriod>|<get-commitmentTotalPeriod>(){}[0]
+    final val commitmentTotalPrice // com.revenuecat.purchases.kmp.models/InstallmentsInfo.commitmentTotalPrice|{}commitmentTotalPrice[0]
+        final fun <get-commitmentTotalPrice>(): com.revenuecat.purchases.kmp.models/Price? // com.revenuecat.purchases.kmp.models/InstallmentsInfo.commitmentTotalPrice.<get-commitmentTotalPrice>|<get-commitmentTotalPrice>(){}[0]
+    final val installmentBillingPrice // com.revenuecat.purchases.kmp.models/InstallmentsInfo.installmentBillingPrice|{}installmentBillingPrice[0]
+        final fun <get-installmentBillingPrice>(): com.revenuecat.purchases.kmp.models/Price? // com.revenuecat.purchases.kmp.models/InstallmentsInfo.installmentBillingPrice.<get-installmentBillingPrice>|<get-installmentBillingPrice>(){}[0]
     final val renewalCommitmentPaymentsCount // com.revenuecat.purchases.kmp.models/InstallmentsInfo.renewalCommitmentPaymentsCount|{}renewalCommitmentPaymentsCount[0]
         final fun <get-renewalCommitmentPaymentsCount>(): kotlin/Int // com.revenuecat.purchases.kmp.models/InstallmentsInfo.renewalCommitmentPaymentsCount.<get-renewalCommitmentPaymentsCount>|<get-renewalCommitmentPaymentsCount>(){}[0]
 }
