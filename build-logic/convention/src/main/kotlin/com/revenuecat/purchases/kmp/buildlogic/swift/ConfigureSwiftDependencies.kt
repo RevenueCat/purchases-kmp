@@ -154,7 +154,10 @@ private fun Project.configureSwiftDependency(
                     "but only Apple targets are supported."
         )
 
-        val mainCompilation = compilations.getByName("main")
+        // Swift packages declared from a test source set are only bound into the test compilation,
+        // so they never end up in the published klib.
+        val compilationName = if (dependency.sourceSetName.endsWith("Test")) "test" else "main"
+        val compilation = compilations.getByName(compilationName)
         val swiftBuildTask = registerSwiftBuildTask(
             kotlinTarget = this,
             dependency = dependency,
@@ -177,7 +180,7 @@ private fun Project.configureSwiftDependency(
         }
         val allModulePaths = listOf(swiftOutputDir) + dependencyModulePaths
 
-        mainCompilation.cinterops.create(dependency.target) {
+        compilation.cinterops.create(dependency.target) {
             defFile(defFile)
             extraOpts("-libraryPath", swiftOutputDir.absolutePath)
 
@@ -224,14 +227,17 @@ private fun KonanTarget.isAppleTarget(): Boolean =
 
 /**
  * Determines if a target should include a source set based on Kotlin Multiplatform naming
- * conventions.
+ * conventions. Test source sets (e.g. "appleTest") are included by the same targets as their
+ * main counterparts (e.g. "appleMain").
  */
 private fun KotlinNativeTarget.includesSourceSet(sourceSetName: String): Boolean {
     val targetName = this.name
+    val mainSourceSetName =
+        if (sourceSetName.endsWith("Test")) sourceSetName.removeSuffix("Test") + "Main" else sourceSetName
 
-    if (sourceSetName == "${targetName}Main") return true
+    if (mainSourceSetName == "${targetName}Main") return true
 
-    return when (sourceSetName) {
+    return when (mainSourceSetName) {
         "appleMain" -> targetName.startsWith("ios") ||
                 targetName.startsWith("macos") ||
                 targetName.startsWith("tvos") ||

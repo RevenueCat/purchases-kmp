@@ -1,3 +1,4 @@
+import com.revenuecat.purchases.kmp.buildlogic.swift.swiftPackage
 import com.revenuecat.purchases.kmp.buildlogic.watchosTargets
 
 plugins {
@@ -23,6 +24,13 @@ kotlin {
         }
         androidUnitTest.dependencies {
             implementation(libs.kotlin.test.junit)
+        }
+        appleTest.dependencies {
+            swiftPackage(
+                path = file("src/appleTest/swift"),
+                target = "MappingsTestSwift",
+                packageName = "com.revenuecat.purchases.kmp.mappings.testswift"
+            )
         }
     }
 }
