@@ -69,6 +69,9 @@ internal fun StoreProductRow(
                 PriceRow(price = product.pricePerWeek, label = "pricePerWeek")
                 PriceRow(price = product.pricePerMonth, label = "pricePerMonth")
                 PriceRow(price = product.pricePerYear, label = "pricePerYear")
+                product.installmentsInfo?.let {
+                    InstallmentsInfoRow(info = it)
+                } ?: Text(text = "installmentsInfo: null")
             }
         },
         modifier = modifier,

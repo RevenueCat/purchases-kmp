@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.mappings
 
+import com.revenuecat.purchases.kmp.models.InstallmentsInfo
 import com.revenuecat.purchases.kmp.models.Period
 import com.revenuecat.purchases.kmp.models.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.models.Price
@@ -16,8 +17,12 @@ import com.revenuecat.purchases.kn.core.localizedPricePerYear
 import com.revenuecat.purchases.kn.core.pricePerMonth
 import com.revenuecat.purchases.kn.core.pricePerWeek
 import com.revenuecat.purchases.kn.core.pricePerYear
+import com.revenuecat.purchases.kn.core.additional.AppleApiAvailability
+import com.revenuecat.purchases.kn.core.additional.StoreProductIdentifier
 import com.revenuecat.purchases.kn.core.RCStoreProduct as NativeIosStoreProduct
 import com.revenuecat.purchases.kn.core.RCStoreProductDiscount as IosStoreProductDiscount
+
+private val appleApiAvailability = AppleApiAvailability()
 
 public fun NativeIosStoreProduct.toStoreProduct(): StoreProduct =
     IosStoreProduct(this)
@@ -26,7 +31,8 @@ public fun StoreProduct.toIosStoreProduct(): NativeIosStoreProduct =
     (this as IosStoreProduct).wrapped
 
 private class IosStoreProduct(val wrapped: NativeIosStoreProduct): StoreProduct {
-    override val id: String = wrapped.productIdentifier()
+    override val id: String =
+        StoreProductIdentifier.identifier(wrapped) ?: wrapped.productIdentifier()
     override val type: ProductType = wrapped.productType().toProductType()
     override val category: ProductCategory = wrapped.productCategory().toProductCategory()
     override val price: Price = wrapped.toPrice()
@@ -63,5 +69,14 @@ private class IosStoreProduct(val wrapped: NativeIosStoreProduct): StoreProduct 
             formatted = wrapped.localizedPricePerYear(),
             amountDecimal = wrapped.pricePerYear(),
         )
+    }
+    override val installmentsInfo: InstallmentsInfo? by lazy {
+        // Kotlin/Native interoperability drops the @available(osVersion) requirements, so we
+        // check availability ourselves before calling into the API.
+        if (appleApiAvailability.isInstallmentsInfoAPIAvailable()) {
+            wrapped.installmentsInfo()?.toInstallmentsInfo(currencyCode = price.currencyCode)
+        } else {
+            null
+        }
     }
 }
