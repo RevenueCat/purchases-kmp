@@ -518,3 +518,29 @@ public suspend fun Purchases.awaitVirtualCurrenciesResult(): Result<VirtualCurre
             onSuccess = { continuation.resume(Result.success(it)) }
         )
     }
+
+/** Purchases with a server-signed eligibility JWS. Null preserves default store eligibility. */
+public suspend fun Purchases.awaitPurchaseWithIntroductoryOfferEligibilityJWSResult(
+    storeProduct: StoreProduct,
+    introductoryOfferEligibilityJWS: String?,
+): Result<SuccessfulPurchase> = suspendCoroutine { continuation ->
+    purchaseWithIntroductoryOfferEligibilityJWS(
+        storeProduct = storeProduct,
+        introductoryOfferEligibilityJWS = introductoryOfferEligibilityJWS,
+        onError = { error, userCancelled -> continuation.resume(Result.failure(PurchasesTransactionException(error, userCancelled))) },
+        onSuccess = { storeTransaction, customerInfo -> continuation.resume(Result.success(SuccessfulPurchase(storeTransaction, customerInfo))) },
+    )
+}
+
+/** Purchases with a server-signed eligibility JWS. Null preserves default store eligibility. */
+public suspend fun Purchases.awaitPurchaseWithIntroductoryOfferEligibilityJWSResult(
+    packageToPurchase: Package,
+    introductoryOfferEligibilityJWS: String?,
+): Result<SuccessfulPurchase> = suspendCoroutine { continuation ->
+    purchaseWithIntroductoryOfferEligibilityJWS(
+        packageToPurchase = packageToPurchase,
+        introductoryOfferEligibilityJWS = introductoryOfferEligibilityJWS,
+        onError = { error, userCancelled -> continuation.resume(Result.failure(PurchasesTransactionException(error, userCancelled))) },
+        onSuccess = { storeTransaction, customerInfo -> continuation.resume(Result.success(SuccessfulPurchase(storeTransaction, customerInfo))) },
+    )
+}

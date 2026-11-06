@@ -76,6 +76,37 @@ import com.revenuecat.purchases.paywalls.events.CustomPaywallImpressionParams as
 import com.revenuecat.purchases.virtualcurrencies.VirtualCurrencies as AndroidVirtualCurrencies
 
 public actual class Purchases private constructor(private val androidPurchases: AndroidPurchases) {
+
+    /** Rejects non-null Apple eligibility tokens; null preserves default Android purchase behavior. */
+    public actual fun purchaseWithIntroductoryOfferEligibilityJWS(
+        storeProduct: StoreProduct,
+        introductoryOfferEligibilityJWS: String?,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
+        onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
+    ) {
+        if (introductoryOfferEligibilityJWS == null) {
+            purchase(storeProduct = storeProduct, onError = onError, onSuccess = onSuccess)
+            return
+        }
+        val error = introductoryOfferEligibilityError(introductoryOfferEligibilityJWS, supported = false)
+        onError(requireNotNull(error), false)
+    }
+
+    /** Rejects non-null Apple eligibility tokens; null preserves default Android purchase behavior. */
+    public actual fun purchaseWithIntroductoryOfferEligibilityJWS(
+        packageToPurchase: Package,
+        introductoryOfferEligibilityJWS: String?,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
+        onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
+    ) {
+        if (introductoryOfferEligibilityJWS == null) {
+            purchase(packageToPurchase = packageToPurchase, onError = onError, onSuccess = onSuccess)
+            return
+        }
+        val error = introductoryOfferEligibilityError(introductoryOfferEligibilityJWS, supported = false)
+        onError(requireNotNull(error), false)
+    }
+
     public actual companion object {
 
         private var _sharedInstance: Purchases? = null
