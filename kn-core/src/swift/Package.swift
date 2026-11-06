@@ -22,6 +22,10 @@ let package = Package(
             dependencies: [
                 .product(name: "RevenueCat", package: "purchases-ios")
             ]
+        ),
+        .testTarget(
+            name: "AdditionalSwiftTests",
+            dependencies: ["AdditionalSwift", .product(name: "RevenueCat", package: "purchases-ios")]
         )
     ]
 )

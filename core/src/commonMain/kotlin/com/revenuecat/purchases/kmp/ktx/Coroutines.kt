@@ -646,3 +646,31 @@ public suspend fun Purchases.awaitPollRewardVerification(
         onCompleted = { continuation.resume(it) },
     )
 }
+
+/** Purchases with a server-signed eligibility JWS. Null preserves default store eligibility. */
+@Throws(PurchasesTransactionException::class, CancellationException::class)
+public suspend fun Purchases.awaitPurchaseWithIntroductoryOfferEligibilityJWS(
+    storeProduct: StoreProduct,
+    introductoryOfferEligibilityJWS: String?,
+): SuccessfulPurchase = suspendCoroutine { continuation ->
+    purchaseWithIntroductoryOfferEligibilityJWS(
+        storeProduct = storeProduct,
+        introductoryOfferEligibilityJWS = introductoryOfferEligibilityJWS,
+        onError = { error, userCancelled -> continuation.resumeWithException(PurchasesTransactionException(error, userCancelled)) },
+        onSuccess = { storeTransaction, customerInfo -> continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo)) },
+    )
+}
+
+/** Purchases with a server-signed eligibility JWS. Null preserves default store eligibility. */
+@Throws(PurchasesTransactionException::class, CancellationException::class)
+public suspend fun Purchases.awaitPurchaseWithIntroductoryOfferEligibilityJWS(
+    packageToPurchase: Package,
+    introductoryOfferEligibilityJWS: String?,
+): SuccessfulPurchase = suspendCoroutine { continuation ->
+    purchaseWithIntroductoryOfferEligibilityJWS(
+        packageToPurchase = packageToPurchase,
+        introductoryOfferEligibilityJWS = introductoryOfferEligibilityJWS,
+        onError = { error, userCancelled -> continuation.resumeWithException(PurchasesTransactionException(error, userCancelled)) },
+        onSuccess = { storeTransaction, customerInfo -> continuation.resume(SuccessfulPurchase(storeTransaction, customerInfo)) },
+    )
+}

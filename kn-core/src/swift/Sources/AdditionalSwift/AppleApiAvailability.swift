@@ -1,8 +1,22 @@
 import Foundation
+import RevenueCat
 
 /// Provides runtime availability checks for Apple platform APIs.
 @objc
 public class AppleApiAvailability: NSObject {
+    /// Checks the actual product path as well as OS/compiler support. Never discard a denial JWS.
+    @objc(isIntroductoryOfferEligibilityAvailableForProduct:)
+    public func isIntroductoryOfferEligibilityAvailableForProduct(_ value: AnyObject) -> Bool {
+        // Keep RevenueCat types out of this selector's cinterop signature.
+        guard let product = value as? StoreProduct else { return false }
+        #if compiler(>=6.1)
+        if #available(iOS 15.0, macOS 15.4, tvOS 18.4, watchOS 11.4, visionOS 2.4, *) {
+            return product.sk2Product != nil
+        }
+        #endif
+        return false
+    }
+
     /// Determines if the Win-Back Offer APIs are available on the current device.
     ///
     /// Note: This only checks if the APIs are available in the current OS version,
