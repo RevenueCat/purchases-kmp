@@ -23,7 +23,7 @@ public class PurchasesConfiguration private constructor(
     public val store: Store?,
     public val diagnosticsEnabled: Boolean,
     public val dangerousSettings: DangerousSettings,
-    public val verificationMode: EntitlementVerificationMode,
+    public val verificationMode: EntitlementVerificationMode?,
     public val pendingTransactionsForPrepaidPlansEnabled: Boolean?,
     public val preferredUILocaleOverride: String?,
     /**
@@ -126,8 +126,7 @@ public class PurchasesConfiguration private constructor(
         public var dangerousSettings: DangerousSettings = DangerousSettings()
 
         @set:JvmSynthetic
-        public var verificationMode: EntitlementVerificationMode =
-            EntitlementVerificationMode.DISABLED
+        public var verificationMode: EntitlementVerificationMode? = null
 
         @set:JvmSynthetic
         public var pendingTransactionsForPrepaidPlansEnabled: Boolean? = null
@@ -238,7 +237,8 @@ public class PurchasesConfiguration private constructor(
          * The result of the verification can be obtained from [EntitlementInfos.verification] or
          * [EntitlementInfo.verification].
          *
-         * Default mode is disabled. Please see https://rev.cat/trusted-entitlements for more info.
+         * When not set, the native SDK default applies ([EntitlementVerificationMode.INFORMATIONAL]).
+         * Please see https://rev.cat/trusted-entitlements for more info.
          */
         public fun verificationMode(verificationMode: EntitlementVerificationMode): Builder =
             apply { this.verificationMode = verificationMode }

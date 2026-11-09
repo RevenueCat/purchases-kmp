@@ -132,7 +132,11 @@ public actual class Purchases private constructor(private val androidPurchases: 
                         .store((store ?: Store.PLAY_STORE).toAndroidStore())
                         .dangerousSettings(dangerousSettings.toAndroidDangerousSettings())
                         .showInAppMessagesAutomatically(showInAppMessagesAutomatically)
-                        .entitlementVerificationMode(verificationMode.toAndroidEntitlementVerificationMode())
+                        .apply {
+                            configuration.verificationMode?.let {
+                                entitlementVerificationMode(it.toAndroidEntitlementVerificationMode())
+                            }
+                        }
                         .diagnosticsEnabled(diagnosticsEnabled)
                         .pendingTransactionsForPrepaidPlansEnabled(
                             pendingTransactionsForPrepaidPlansEnabled ?: false

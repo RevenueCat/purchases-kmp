@@ -193,7 +193,7 @@ final class com.revenuecat.purchases.kmp/PurchasesConfiguration { // com.revenue
     final val userDefaultsSuiteName // com.revenuecat.purchases.kmp/PurchasesConfiguration.userDefaultsSuiteName|{}userDefaultsSuiteName[0]
         final fun <get-userDefaultsSuiteName>(): kotlin/String? // com.revenuecat.purchases.kmp/PurchasesConfiguration.userDefaultsSuiteName.<get-userDefaultsSuiteName>|<get-userDefaultsSuiteName>(){}[0]
     final val verificationMode // com.revenuecat.purchases.kmp/PurchasesConfiguration.verificationMode|{}verificationMode[0]
-        final fun <get-verificationMode>(): com.revenuecat.purchases.kmp.models/EntitlementVerificationMode // com.revenuecat.purchases.kmp/PurchasesConfiguration.verificationMode.<get-verificationMode>|<get-verificationMode>(){}[0]
+        final fun <get-verificationMode>(): com.revenuecat.purchases.kmp.models/EntitlementVerificationMode? // com.revenuecat.purchases.kmp/PurchasesConfiguration.verificationMode.<get-verificationMode>|<get-verificationMode>(){}[0]
 
     final fun toString(): kotlin/String // com.revenuecat.purchases.kmp/PurchasesConfiguration.toString|toString(){}[0]
 
@@ -234,8 +234,8 @@ final class com.revenuecat.purchases.kmp/PurchasesConfiguration { // com.revenue
             final fun <get-userDefaultsSuiteName>(): kotlin/String? // com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder.userDefaultsSuiteName.<get-userDefaultsSuiteName>|<get-userDefaultsSuiteName>(){}[0]
             final fun <set-userDefaultsSuiteName>(kotlin/String?) // com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder.userDefaultsSuiteName.<set-userDefaultsSuiteName>|<set-userDefaultsSuiteName>(kotlin.String?){}[0]
         final var verificationMode // com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder.verificationMode|{}verificationMode[0]
-            final fun <get-verificationMode>(): com.revenuecat.purchases.kmp.models/EntitlementVerificationMode // com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder.verificationMode.<get-verificationMode>|<get-verificationMode>(){}[0]
-            final fun <set-verificationMode>(com.revenuecat.purchases.kmp.models/EntitlementVerificationMode) // com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder.verificationMode.<set-verificationMode>|<set-verificationMode>(com.revenuecat.purchases.kmp.models.EntitlementVerificationMode){}[0]
+            final fun <get-verificationMode>(): com.revenuecat.purchases.kmp.models/EntitlementVerificationMode? // com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder.verificationMode.<get-verificationMode>|<get-verificationMode>(){}[0]
+            final fun <set-verificationMode>(com.revenuecat.purchases.kmp.models/EntitlementVerificationMode?) // com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder.verificationMode.<set-verificationMode>|<set-verificationMode>(com.revenuecat.purchases.kmp.models.EntitlementVerificationMode?){}[0]
 
         final fun apiKey(kotlin/String): com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder // com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder.apiKey|apiKey(kotlin.String){}[0]
         final fun appUserId(kotlin/String): com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder // com.revenuecat.purchases.kmp/PurchasesConfiguration.Builder.appUserId|appUserId(kotlin.String){}[0]
