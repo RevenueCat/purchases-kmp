@@ -854,7 +854,9 @@ workflows:
             - unit-tests-android
             - unit-tests-ios
             - validate-binary-compatibility
-          context: git-user-ops
+          context:
+            - git-user-ops
+            - github-bot-public
 
   # The third and last stage of the release train actually publishes the release
   # to Maven Central and creates a GitHub release for it. The release train has
