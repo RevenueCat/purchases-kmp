@@ -2,6 +2,7 @@ package com.revenuecat.purchases.kmp
 
 
 import com.revenuecat.purchases.kmp.ktx.mapEntriesNotNull
+import com.revenuecat.purchases.kmp.mappings.toConfiguredAdRewards
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toIntroEligibilityStatus
 import com.revenuecat.purchases.kmp.mappings.toIos
@@ -27,6 +28,7 @@ import com.revenuecat.purchases.kmp.mappings.toWinBackOffer
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
 import com.revenuecat.purchases.kmp.models.CustomPaywallImpressionParams
+import com.revenuecat.purchases.kmp.models.ConfiguredAdRewards
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.DangerousSettings
 import com.revenuecat.purchases.kmp.models.IntroEligibilityStatus
@@ -54,6 +56,7 @@ import com.revenuecat.purchases.kmp.strings.ConfigureStrings
 import platform.Foundation.NSError
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDefaults
+import com.revenuecat.purchases.kn.core.additional.AdRewardConfigurationProvider
 import com.revenuecat.purchases.kn.core.additional.RewardVerification
 import com.revenuecat.purchases.kn.core.RCConfiguration
 import com.revenuecat.purchases.kn.core.RCCustomPaywallImpressionParams
@@ -837,6 +840,14 @@ public actual class Purchases private constructor(private val iosPurchases: IosP
         }
 
         iosPurchases.trackCustomPaywallImpression(iosParams)
+    }
+
+    /** Resolves configured rewards through the native SDK. See [Purchases.getAdRewards]. */
+    @ExperimentalRevenueCatApi
+    public actual fun getAdRewards(adUnitId: String, callback: (ConfiguredAdRewards?) -> Unit) {
+        AdRewardConfigurationProvider.getAdRewardsWithAdUnitId(adUnitId) { rewards ->
+            callback(rewards?.toConfiguredAdRewards())
+        }
     }
 
     public actual val adTracker: AdTracker by lazy { AdTracker() }

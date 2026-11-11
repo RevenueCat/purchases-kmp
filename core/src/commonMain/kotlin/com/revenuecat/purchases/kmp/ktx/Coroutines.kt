@@ -1,8 +1,10 @@
 package com.revenuecat.purchases.kmp.ktx
 
+import com.revenuecat.purchases.kmp.ExperimentalRevenueCatApi
 import com.revenuecat.purchases.kmp.Purchases
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
+import com.revenuecat.purchases.kmp.models.ConfiguredAdRewards
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
 import com.revenuecat.purchases.kmp.models.IntroEligibilityStatus
@@ -645,4 +647,16 @@ public suspend fun Purchases.awaitPollRewardVerification(
         trackingMetadata = trackingMetadata,
         onCompleted = { continuation.resume(it) },
     )
+}
+
+/**
+ * Resolves configured rewards for an exact, case-sensitive [adUnitId].
+ *
+ * Returns null when configuration is unavailable or malformed, or
+ * [ConfiguredAdRewards.NO_CONFIGURED_REWARD] when resolution succeeded with no configured reward.
+ * Uses cached native configuration when available and fetches it on demand otherwise.
+ */
+@ExperimentalRevenueCatApi
+public suspend fun Purchases.awaitAdRewards(adUnitId: String): ConfiguredAdRewards? = suspendCoroutine { continuation ->
+    getAdRewards(adUnitId) { continuation.resume(it) }
 }

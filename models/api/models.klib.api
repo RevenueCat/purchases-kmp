@@ -525,6 +525,44 @@ abstract interface com.revenuecat.purchases.kmp.models/WinBackOffer { // com.rev
         abstract fun <get-discount>(): com.revenuecat.purchases.kmp.models/StoreProductDiscount // com.revenuecat.purchases.kmp.models/WinBackOffer.discount.<get-discount>|<get-discount>(){}[0]
 }
 
+sealed interface com.revenuecat.purchases.kmp.models/AdRewardConfiguration { // com.revenuecat.purchases.kmp.models/AdRewardConfiguration|null[0]
+    final class Entitlement : com.revenuecat.purchases.kmp.models/AdRewardConfiguration { // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement|null[0]
+        constructor <init>(kotlin/String, kotlin.time/Duration) // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement.<init>|<init>(kotlin.String;kotlin.time.Duration){}[0]
+
+        final val duration // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement.duration|{}duration[0]
+            final fun <get-duration>(): kotlin.time/Duration // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement.duration.<get-duration>|<get-duration>(){}[0]
+        final val durationInSeconds // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement.durationInSeconds|{}durationInSeconds[0]
+            final fun <get-durationInSeconds>(): kotlin/Long // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement.durationInSeconds.<get-durationInSeconds>|<get-durationInSeconds>(){}[0]
+        final val identifier // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement.identifier|{}identifier[0]
+            final fun <get-identifier>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement.identifier.<get-identifier>|<get-identifier>(){}[0]
+
+        final fun component1(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement.component1|component1(){}[0]
+        final fun component2(): kotlin.time/Duration // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement.component2|component2(){}[0]
+        final fun copy(kotlin/String = ..., kotlin.time/Duration = ...): com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement.copy|copy(kotlin.String;kotlin.time.Duration){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.Entitlement.toString|toString(){}[0]
+    }
+
+    final class VirtualCurrency : com.revenuecat.purchases.kmp.models/AdRewardConfiguration { // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.VirtualCurrency|null[0]
+        constructor <init>(kotlin/String, kotlin/Int) // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.VirtualCurrency.<init>|<init>(kotlin.String;kotlin.Int){}[0]
+
+        final val amount // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.VirtualCurrency.amount|{}amount[0]
+            final fun <get-amount>(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.VirtualCurrency.amount.<get-amount>|<get-amount>(){}[0]
+        final val code // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.VirtualCurrency.code|{}code[0]
+            final fun <get-code>(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.VirtualCurrency.code.<get-code>|<get-code>(){}[0]
+
+        final fun component1(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.VirtualCurrency.component1|component1(){}[0]
+        final fun component2(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.VirtualCurrency.component2|component2(){}[0]
+        final fun copy(kotlin/String = ..., kotlin/Int = ...): com.revenuecat.purchases.kmp.models/AdRewardConfiguration.VirtualCurrency // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.VirtualCurrency.copy|copy(kotlin.String;kotlin.Int){}[0]
+        final fun equals(kotlin/Any?): kotlin/Boolean // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.VirtualCurrency.equals|equals(kotlin.Any?){}[0]
+        final fun hashCode(): kotlin/Int // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.VirtualCurrency.hashCode|hashCode(){}[0]
+        final fun toString(): kotlin/String // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.VirtualCurrency.toString|toString(){}[0]
+    }
+
+    final object UnsupportedReward : com.revenuecat.purchases.kmp.models/AdRewardConfiguration // com.revenuecat.purchases.kmp.models/AdRewardConfiguration.UnsupportedReward|null[0]
+}
+
 sealed interface com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy { // com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy|null[0]
     final class MyApp : com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy { // com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy.MyApp|null[0]
         constructor <init>(com.revenuecat.purchases.kmp.models/StoreKitVersion) // com.revenuecat.purchases.kmp.models/PurchasesAreCompletedBy.MyApp.<init>|<init>(com.revenuecat.purchases.kmp.models.StoreKitVersion){}[0]
@@ -728,6 +766,20 @@ final class com.revenuecat.purchases.kmp.models/AdRewardPromptShownData { // com
         final fun <get-mediatorName>(): com.revenuecat.purchases.kmp.models/AdMediatorName // com.revenuecat.purchases.kmp.models/AdRewardPromptShownData.mediatorName.<get-mediatorName>|<get-mediatorName>(){}[0]
     final val placement // com.revenuecat.purchases.kmp.models/AdRewardPromptShownData.placement|{}placement[0]
         final fun <get-placement>(): kotlin/String? // com.revenuecat.purchases.kmp.models/AdRewardPromptShownData.placement.<get-placement>|<get-placement>(){}[0]
+}
+
+final class com.revenuecat.purchases.kmp.models/ConfiguredAdRewards { // com.revenuecat.purchases.kmp.models/ConfiguredAdRewards|null[0]
+    constructor <init>(com.revenuecat.purchases.kmp.models/AdRewardConfiguration?, kotlin.collections/List<com.revenuecat.purchases.kmp.models/AdRewardConfiguration> = ...) // com.revenuecat.purchases.kmp.models/ConfiguredAdRewards.<init>|<init>(com.revenuecat.purchases.kmp.models.AdRewardConfiguration?;kotlin.collections.List<com.revenuecat.purchases.kmp.models.AdRewardConfiguration>){}[0]
+
+    final val moreRewards // com.revenuecat.purchases.kmp.models/ConfiguredAdRewards.moreRewards|{}moreRewards[0]
+        final fun <get-moreRewards>(): kotlin.collections/List<com.revenuecat.purchases.kmp.models/AdRewardConfiguration> // com.revenuecat.purchases.kmp.models/ConfiguredAdRewards.moreRewards.<get-moreRewards>|<get-moreRewards>(){}[0]
+    final val reward // com.revenuecat.purchases.kmp.models/ConfiguredAdRewards.reward|{}reward[0]
+        final fun <get-reward>(): com.revenuecat.purchases.kmp.models/AdRewardConfiguration? // com.revenuecat.purchases.kmp.models/ConfiguredAdRewards.reward.<get-reward>|<get-reward>(){}[0]
+
+    final object Companion { // com.revenuecat.purchases.kmp.models/ConfiguredAdRewards.Companion|null[0]
+        final val NO_CONFIGURED_REWARD // com.revenuecat.purchases.kmp.models/ConfiguredAdRewards.Companion.NO_CONFIGURED_REWARD|{}NO_CONFIGURED_REWARD[0]
+            final fun <get-NO_CONFIGURED_REWARD>(): com.revenuecat.purchases.kmp.models/ConfiguredAdRewards // com.revenuecat.purchases.kmp.models/ConfiguredAdRewards.Companion.NO_CONFIGURED_REWARD.<get-NO_CONFIGURED_REWARD>|<get-NO_CONFIGURED_REWARD>(){}[0]
+    }
 }
 
 final class com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams { // com.revenuecat.purchases.kmp.models/CustomPaywallImpressionParams|null[0]

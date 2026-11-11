@@ -38,6 +38,7 @@ public final class com/revenuecat/purchases/kmp/Purchases {
 	public static final fun configure (Lcom/revenuecat/purchases/kmp/PurchasesConfiguration;)Lcom/revenuecat/purchases/kmp/Purchases;
 	public final fun enableAdServicesAttributionTokenCollection ()V
 	public final fun generateRewardVerificationToken (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/RewardVerificationToken;
+	public final fun getAdRewards (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
 	public final fun getAdTracker ()Lcom/revenuecat/purchases/kmp/AdTracker;
 	public final fun getAppUserID ()Ljava/lang/String;
 	public final fun getCachedVirtualCurrencies ()Lcom/revenuecat/purchases/kmp/models/VirtualCurrencies;
@@ -231,6 +232,7 @@ public final class com/revenuecat/purchases/kmp/UpdatedCustomerInfoDelegate : co
 }
 
 public final class com/revenuecat/purchases/kmp/ktx/CoroutinesKt {
+	public static final fun awaitAdRewards (Lcom/revenuecat/purchases/kmp/Purchases;Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun awaitCanMakePayments (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/util/List;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static synthetic fun awaitCanMakePayments$default (Lcom/revenuecat/purchases/kmp/Purchases$Companion;Ljava/util/List;Lkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 	public static final fun awaitCustomerInfo (Lcom/revenuecat/purchases/kmp/Purchases;Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
