@@ -23,7 +23,7 @@ version: 2.1
 orbs:
   android: circleci/android@2.5.0
   macos: circleci/macos@2.5.1
-  revenuecat: revenuecat/sdks-common-config@4.7.1
+  revenuecat: revenuecat/sdks-common-config@4.8.0
 
 commands:
   run-sdk-update-test-cases:
