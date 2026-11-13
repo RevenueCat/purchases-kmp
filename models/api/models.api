@@ -106,6 +106,40 @@ public final class com/revenuecat/purchases/kmp/models/AdRevenuePrecision$Compan
 	public final fun getUNKNOWN ()Lcom/revenuecat/purchases/kmp/models/AdRevenuePrecision;
 }
 
+public abstract interface class com/revenuecat/purchases/kmp/models/AdRewardConfiguration {
+}
+
+public final class com/revenuecat/purchases/kmp/models/AdRewardConfiguration$Entitlement : com/revenuecat/purchases/kmp/models/AdRewardConfiguration {
+	public synthetic fun <init> (Ljava/lang/String;JLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2-UwyO8pc ()J
+	public final fun copy-HG0u8IE (Ljava/lang/String;J)Lcom/revenuecat/purchases/kmp/models/AdRewardConfiguration$Entitlement;
+	public static synthetic fun copy-HG0u8IE$default (Lcom/revenuecat/purchases/kmp/models/AdRewardConfiguration$Entitlement;Ljava/lang/String;JILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/models/AdRewardConfiguration$Entitlement;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDuration-UwyO8pc ()J
+	public final fun getDurationInSeconds ()J
+	public final fun getIdentifier ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/revenuecat/purchases/kmp/models/AdRewardConfiguration$UnsupportedReward : com/revenuecat/purchases/kmp/models/AdRewardConfiguration {
+	public static final field INSTANCE Lcom/revenuecat/purchases/kmp/models/AdRewardConfiguration$UnsupportedReward;
+}
+
+public final class com/revenuecat/purchases/kmp/models/AdRewardConfiguration$VirtualCurrency : com/revenuecat/purchases/kmp/models/AdRewardConfiguration {
+	public fun <init> (Ljava/lang/String;I)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()I
+	public final fun copy (Ljava/lang/String;I)Lcom/revenuecat/purchases/kmp/models/AdRewardConfiguration$VirtualCurrency;
+	public static synthetic fun copy$default (Lcom/revenuecat/purchases/kmp/models/AdRewardConfiguration$VirtualCurrency;Ljava/lang/String;IILjava/lang/Object;)Lcom/revenuecat/purchases/kmp/models/AdRewardConfiguration$VirtualCurrency;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAmount ()I
+	public final fun getCode ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/revenuecat/purchases/kmp/models/AdRewardEarnedUnverifiedData {
 	public fun <init> (Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/AdMediatorName;Lcom/revenuecat/purchases/kmp/models/AdFormat;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Lcom/revenuecat/purchases/kmp/models/AdMediatorName;Lcom/revenuecat/purchases/kmp/models/AdFormat;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
@@ -153,6 +187,18 @@ public final class com/revenuecat/purchases/kmp/models/CacheFetchPolicy : java/l
 
 public final class com/revenuecat/purchases/kmp/models/CacheFetchPolicy$Companion {
 	public final fun default ()Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;
+}
+
+public final class com/revenuecat/purchases/kmp/models/ConfiguredAdRewards {
+	public static final field Companion Lcom/revenuecat/purchases/kmp/models/ConfiguredAdRewards$Companion;
+	public fun <init> (Lcom/revenuecat/purchases/kmp/models/AdRewardConfiguration;Ljava/util/List;)V
+	public synthetic fun <init> (Lcom/revenuecat/purchases/kmp/models/AdRewardConfiguration;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getMoreRewards ()Ljava/util/List;
+	public final fun getReward ()Lcom/revenuecat/purchases/kmp/models/AdRewardConfiguration;
+}
+
+public final class com/revenuecat/purchases/kmp/models/ConfiguredAdRewards$Companion {
+	public final fun getNO_CONFIGURED_REWARD ()Lcom/revenuecat/purchases/kmp/models/ConfiguredAdRewards;
 }
 
 public final class com/revenuecat/purchases/kmp/models/CustomPaywallImpressionParams {

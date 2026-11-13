@@ -3,6 +3,7 @@ package com.revenuecat.purchases.kmp
 import com.revenuecat.purchases.kmp.PurchasesConfiguration.Builder
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
+import com.revenuecat.purchases.kmp.models.ConfiguredAdRewards
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.IntroEligibilityStatus
 import com.revenuecat.purchases.kmp.models.Offerings
@@ -877,6 +878,21 @@ public expect class Purchases {
     public fun trackCustomPaywallImpression(
         params: CustomPaywallImpressionParams = CustomPaywallImpressionParams(),
     )
+
+    /**
+     * Resolves rewards configured for the exact, case-sensitive [adUnitId], before watching an ad.
+     *
+     * Uses the native SDK's validated cached blob when available and loads configuration on demand
+     * otherwise. Returns null when configuration or the requested entry is unavailable or malformed,
+     * including on iOS versions earlier than 15 and watchOS versions earlier than 8.
+     * Returns [ConfiguredAdRewards.NO_CONFIGURED_REWARD] when configuration resolved successfully
+     * but no reward is configured for this ad unit.
+     *
+     * Configured rewards describe what the app can advertise; they do not establish that a reward
+     * was granted. The callback is invoked on the main thread.
+     */
+    @ExperimentalRevenueCatApi
+    public fun getAdRewards(adUnitId: String, callback: (ConfiguredAdRewards?) -> Unit)
 
     /**
      * Provides access to ad tracking functionality.

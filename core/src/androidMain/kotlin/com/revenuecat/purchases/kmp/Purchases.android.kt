@@ -24,6 +24,7 @@ import com.revenuecat.purchases.kmp.mappings.toAndroidStore
 import com.revenuecat.purchases.kmp.mappings.toAndroidStoreProduct
 import com.revenuecat.purchases.kmp.mappings.toAndroidSubscriptionOption
 import com.revenuecat.purchases.kmp.mappings.toAndroid
+import com.revenuecat.purchases.kmp.mappings.toConfiguredAdRewards
 import com.revenuecat.purchases.kmp.mappings.toCustomerInfo
 import com.revenuecat.purchases.kmp.mappings.toKmp
 import com.revenuecat.purchases.kmp.mappings.toOfferings
@@ -35,6 +36,7 @@ import com.revenuecat.purchases.kmp.mappings.toVirtualCurrencies
 import com.revenuecat.purchases.kmp.mappings.toWebPurchaseResult
 import com.revenuecat.purchases.kmp.models.BillingFeature
 import com.revenuecat.purchases.kmp.models.CacheFetchPolicy
+import com.revenuecat.purchases.kmp.models.ConfiguredAdRewards
 import com.revenuecat.purchases.kmp.models.CustomerInfo
 import com.revenuecat.purchases.kmp.models.DangerousSettings
 import com.revenuecat.purchases.kmp.models.GoogleReplacementMode
@@ -602,6 +604,13 @@ public actual class Purchases private constructor(private val androidPurchases: 
         onError = { onError(it.toPurchasesError()) },
         onSuccess = { onSuccess(it.toVirtualCurrencies()) }
     )
+
+    /** Resolves configured rewards through the native SDK. See [Purchases.getAdRewards]. */
+    @ExperimentalRevenueCatApi
+    @OptIn(ExperimentalPreviewRevenueCatPurchasesAPI::class)
+    public actual fun getAdRewards(adUnitId: String, callback: (ConfiguredAdRewards?) -> Unit) {
+        androidPurchases.getAdRewards(adUnitId) { rewards -> callback(rewards?.toConfiguredAdRewards()) }
+    }
 
     public actual fun invalidateVirtualCurrenciesCache(): Unit = androidPurchases.invalidateVirtualCurrenciesCache()
 
