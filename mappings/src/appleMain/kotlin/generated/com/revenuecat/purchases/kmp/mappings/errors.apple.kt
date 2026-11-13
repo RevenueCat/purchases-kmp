@@ -57,5 +57,5 @@ private fun Long.toPurchasesErrorCode(): PurchasesErrorCode =
         40L -> PurchasesErrorCode.PurchaseBelongsToOtherUser
         41L -> PurchasesErrorCode.ExpiredWebPurchaseToken
         42L -> PurchasesErrorCode.TestStoreSimulatedPurchaseError
-        else -> error("Unexpected ErrorCode: $this")
+        else -> PurchasesErrorCode.UnknownError
     }
