@@ -45,14 +45,6 @@ commands:
           path: fastlane/test_output/sdk_update_tests/<< parameters.platform >>/anonymous_user/junit
       - store_test_results:
           path: fastlane/test_output/sdk_update_tests/<< parameters.platform >>/logged_in_user/junit
-      - store_artifacts:
-          path: fastlane/test_output/sdk_update_tests/<< parameters.platform >>
-      - store_artifacts:
-          path: build/sdk_update_tests/<< parameters.platform >>/release/resolved-dependencies.txt
-          destination: release/resolved-dependencies.txt
-      - store_artifacts:
-          path: build/sdk_update_tests/<< parameters.platform >>/local/resolved-dependencies.txt
-          destination: local/resolved-dependencies.txt
 
   install-android-sdk-on-macos:
     description: Install the Android SDK on macOS
@@ -223,12 +215,6 @@ jobs:
           command: xcrun simctl bootstatus "$MACOS_ORB_DEVICE_UDID" -b
       - run-sdk-update-test-cases:
           platform: ios
-      - store_artifacts:
-          path: build/sdk_update_tests/ios/release/xcodebuild.log
-          destination: release/xcodebuild.log
-      - store_artifacts:
-          path: build/sdk_update_tests/ios/local/xcodebuild.log
-          destination: local/xcodebuild.log
 
   prepare-next-snapshot-version:
     description: "Opens a PR updating the SDK version to the next minor, appending -SNAPSHOT."
@@ -255,12 +241,6 @@ jobs:
           name: Run Detekt on commonMain
           command: ./gradlew detektCommonMain
       - save-gradle-user-home-directory-to-cache
-      - run:
-          name: Collect Detekt HTML reports
-          command: mkdir -p artifacts/detekt && mv build/reports/detekt/*.html artifacts/detekt/
-      - store_artifacts:
-          path: artifacts/detekt
-          destination: detekt
 
   validate-binary-compatibility:
     executor: xcode16
@@ -608,28 +588,10 @@ jobs:
           name: Run Maestro E2E Tests (iOS)
           command: bundle exec fastlane run_maestro_e2e_tests_ios
           no_output_timeout: 15m
-      - run:
-          name: Collect iOS simulator crash logs
-          command: |
-            mkdir -p /tmp/crash-logs
-            # Crash reports
-            find ~/Library/Logs/DiagnosticReports -name "MaestroTestApp*" -exec cp {} /tmp/crash-logs/ \; 2>/dev/null || true
-            # Recent device logs for the app process
-            xcrun simctl spawn booted log show \
-              --predicate 'process == "MaestroTestApp" OR (eventMessage CONTAINS "MaestroTestApp")' \
-              --last 5m \
-              --style compact > /tmp/crash-logs/simulator.log 2>/dev/null || true
-          when: on_fail
       - save-gradle-user-home-directory-to-cache
       - save-kotlin-native-compiler-to-cache
       - store_test_results:
           path: fastlane/test_output
-      - store_artifacts:
-          path: fastlane/test_output
-          destination: maestro-results
-      - store_artifacts:
-          path: /tmp/crash-logs
-          destination: crash-logs
 
   run-maestro-e2e-tests-android:
     machine:
@@ -661,22 +623,8 @@ jobs:
           name: Run Maestro E2E Tests (Android)
           command: bundle exec fastlane run_maestro_e2e_tests_android
           no_output_timeout: 15m
-      - run:
-          name: Collect Android emulator logs
-          command: |
-            mkdir -p /tmp/android-logs
-            adb logcat -d > /tmp/android-logs/logcat.txt 2>&1 || true
-            adb shell dumpsys activity activities > /tmp/android-logs/activities.txt 2>&1 || true
-            adb shell dumpsys power > /tmp/android-logs/power.txt 2>&1 || true
-          when: on_fail
       - store_test_results:
           path: fastlane/test_output
-      - store_artifacts:
-          path: fastlane/test_output
-          destination: maestro-results
-      - store_artifacts:
-          path: /tmp/android-logs
-          destination: android-logs
 
 workflows:
   danger:
