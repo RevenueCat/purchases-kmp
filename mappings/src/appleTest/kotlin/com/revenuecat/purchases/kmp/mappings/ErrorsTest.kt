@@ -6,7 +6,6 @@ import platform.Foundation.NSError
 import platform.Foundation.NSLocalizedDescriptionKey
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
 
 class ErrorsTest {
 
@@ -29,8 +28,8 @@ class ErrorsTest {
     }
 
     @Test
-    fun `throws on unknown error codes`() {
-        assertFailsWith<IllegalStateException> { nsError(code = 12345).toPurchasesErrorOrThrow() }
+    fun `maps unknown error codes to UnknownError`() {
+        assertEquals(PurchasesErrorCode.UnknownError, nsError(code = 12345).toPurchasesErrorOrThrow().code)
     }
 
     private fun nsError(code: Int, description: String? = null): NSError =
