@@ -7,6 +7,7 @@ on:
 
 jobs:
   generate-api-reference:
+    if: github.repository_visibility == 'public'
     runs-on: ubuntu-latest
     permissions:
       contents: read

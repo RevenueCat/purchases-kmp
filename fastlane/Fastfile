@@ -10,7 +10,8 @@
 #     https://docs.fastlane.tools/plugins/available-plugins
 #
 
-REPO_NAME = "purchases-kmp"
+INTERNAL_REPO_NAME = "purchases-kmp_internal"
+PUBLIC_REPO_NAME = "purchases-kmp"
 PATH_CHANGELOG_LATEST = './CHANGELOG-LATEST.md'
 PATH_CHANGELOG = './CHANGELOG.md'
 PATH_VERSIONS = './VERSIONS.md'
@@ -26,13 +27,14 @@ lane :bump do |options|
     changelog_path: PATH_CHANGELOG,
     files_to_update: FILES_WITH_SDK_VERSION,
     files_to_update_without_prerelease_modifiers: {},
-    repo_name: REPO_NAME,
+    repo_name: INTERNAL_REPO_NAME,
     github_rate_limit: options[:github_rate_limit],
     editor: options[:editor],
     next_version: options[:next_version],
     automatic_release: options[:automatic_release],
     versions_file_path: PATH_VERSIONS,
-    is_prerelease: options[:is_prerelease]
+    is_prerelease: options[:is_prerelease],
+    omit_pr_references_in_changelog_files: true
   )
   update_versions_file(current_version_number)
   commit_current_changes(commit_message: 'Updates VERSIONS.md')
@@ -42,7 +44,7 @@ end
 desc "Automatically determines next version, bumps it, edits changelog, and creates pull request"
 lane :automatic_bump do |options|
   next_version, type_of_bump = determine_next_version_using_labels(
-    repo_name: REPO_NAME,
+    repo_name: INTERNAL_REPO_NAME,
     github_rate_limit: options[:github_rate_limit]
   )
   options[:next_version] = next_version
@@ -61,7 +63,7 @@ desc "Opens a PR updating the SDK version to the next minor, appending -SNAPSHOT
 lane :prepare_next_snapshot_version do |options|
   create_next_snapshot_version(
     current_version: current_version_number,
-    repo_name: REPO_NAME,
+    repo_name: INTERNAL_REPO_NAME,
     github_pr_token: ENV["GITHUB_PULL_REQUEST_API_TOKEN"],
     files_to_update: FILES_WITH_SDK_VERSION
   )
@@ -159,7 +161,7 @@ desc "Creates a GitHub release"
 lane :github_release do |options|
   create_github_release(
     version: options[:version],
-    repo_name: REPO_NAME,
+    repo_name: PUBLIC_REPO_NAME,
     github_api_token: ENV["GITHUB_TOKEN"],
     changelog_latest_path: PATH_CHANGELOG_LATEST,
     upload_assets: []
@@ -174,7 +176,7 @@ lane :build_sdk_update_test_apps do |options|
   project_dir = "#{base_path}/e2e-tests/SDKUpdateTester"
   local_version = current_version_number
   release_version = options[:release_version] || get_latest_release_before_version(
-    repo_name: REPO_NAME,
+    repo_name: PUBLIC_REPO_NAME,
     version: local_version
   )
   api_key = ENV["MAESTRO_TEST_STORE_API_KEY"]

@@ -23,7 +23,7 @@ version: 2.1
 orbs:
   android: circleci/android@2.5.0
   macos: circleci/macos@2.5.1
-  revenuecat: revenuecat/sdks-common-config@4.8.0
+  revenuecat: revenuecat/sdks-common-config@4.9.0
 
 commands:
   run-sdk-update-test-cases:
@@ -682,6 +682,18 @@ workflows:
           context:
             - e2e-tests
 
+  mirror:
+    when:
+      and:
+        - equal: [ main, << pipeline.git.branch >> ]
+        - not:
+            equal: [ scheduled_pipeline, << pipeline.trigger_source >> ]
+        - equal: [ build, << pipeline.parameters.action >> ]
+    jobs:
+      - revenuecat/mirror-to-public:
+          public_repo_name: purchases-kmp
+          context: sdk-public-mirror
+
   on-main-branch:
     when:
       and:
@@ -693,7 +705,7 @@ workflows:
       - prepare-next-snapshot-version:
           context:
             - git-user-ops
-            - github-bot-public
+            - github-bot-internal
       - publish:
           snapshot: true
           context: maven-central-publishing
@@ -712,7 +724,7 @@ workflows:
           commit_paths: "models/src/commonMain/kotlin/generated/com/revenuecat/purchases/kmp/models/PurchasesErrorCode.kt,mappings/src/androidMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.android.kt,mappings/src/appleMain/kotlin/generated/com/revenuecat/purchases/kmp/mappings/errors.apple.kt,models/api/models.api,models/api/models.klib.api"
           context:
             - git-user-ops
-            - github-bot-public
+            - github-bot-internal
           update_api_steps:
             - install-android-sdk-on-macos
             - checkout-submodule
@@ -744,7 +756,7 @@ workflows:
       - revenuecat/automatic-bump:
           context:
             - git-user-ops
-            - github-bot-public
+            - github-bot-internal
 
   # The second stage of the release train starts a hold job, which is a job that
   # needs to be manually approved on the CircleCI web app. This ensures there's 
@@ -804,7 +816,7 @@ workflows:
             - validate-binary-compatibility
           context:
             - git-user-ops
-            - github-bot-public
+            - github-bot-internal
 
   # The third and last stage of the release train actually publishes the release
   # to Maven Central and creates a GitHub release for it. The release train has
@@ -812,19 +824,27 @@ workflows:
   on-release-tag:
     <<: *release-tags-workflow
     jobs:
+      - revenuecat/mirror-to-public:
+          public_repo_name: purchases-kmp
+          context: sdk-public-mirror
+          <<: *release-tags-job
       - publish:
           snapshot: false
           context: maven-central-publishing
+          requires:
+            - revenuecat/mirror-to-public
           <<: *release-tags-job
       - create-github-release:
-          context: github-bot-public
+          context: github-bot-public-release
+          requires:
+            - revenuecat/mirror-to-public
           <<: *release-tags-job
       - revenuecat/merge-release-pr:
-          repo_name: purchases-kmp
+          repo_name: purchases-kmp_internal
           version: << pipeline.git.tag >>
           requires:
             - publish
             - create-github-release
-          context: github-bot-public
+          context: github-bot-internal
           <<: *release-tags-job
 
