@@ -147,7 +147,7 @@ executors:
       - image: cimg/openjdk:17.0
   ruby3:
     docker:
-      - image: cimg/ruby:3.3.0
+      - image: cimg/ruby:3.3.14
   # The Xcode version we use to build the static Swift library embedded in our Kotlin Native 
   # artifacts will influence the minimum Xcode version of the consuming app: 
   # https://github.com/RevenueCat/purchases-kmp/issues/859
