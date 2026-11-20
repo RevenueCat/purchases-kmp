@@ -23,7 +23,7 @@ version: 2.1
 orbs:
   android: circleci/android@2.5.0
   macos: circleci/macos@2.5.1
-  revenuecat: revenuecat/sdks-common-config@4.9.0
+  revenuecat: revenuecat/sdks-common-config@4.12.0
 
 commands:
   run-sdk-update-test-cases:
@@ -128,8 +128,14 @@ commands:
 parameters:
   action:
     type: enum
-    enum: [ build, bump, update_error_codes ]
+    enum: [ build, bump, hotfix, update_error_codes ]
     default: build
+  hotfix_pr:
+    type: integer
+    default: 0
+  hotfix_version:
+    type: string
+    default: ''
 
 executors:
   android202409:
@@ -757,6 +763,17 @@ workflows:
           context:
             - git-user-ops
             - github-bot-internal
+
+  manual-trigger-hotfix:
+    when:
+      equal: [ hotfix, << pipeline.parameters.action >> ]
+    jobs:
+      - revenuecat/hotfix:
+          context:
+            - git-user-ops
+            - github-bot-internal
+          pr_number: << pipeline.parameters.hotfix_pr >>
+          version: << pipeline.parameters.hotfix_version >>
 
   # The second stage of the release train starts a hold job, which is a job that
   # needs to be manually approved on the CircleCI web app. This ensures there's 
