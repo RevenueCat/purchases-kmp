@@ -8,7 +8,7 @@ package com.revenuecat.purchases.kmp.models
  * modified by a third-party, and the response received is exactly what was sent.
  *
  * - Note: Verification is only performed if enabled using PurchasesConfiguration.Builder's
- * entitlementVerificationMode property. This is disabled by default.
+ * entitlementVerificationMode property. This is informational by default.
  */
 public enum class VerificationResult {
     /**

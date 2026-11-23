@@ -1,3 +1,8 @@
+## 3.16.1
+## RevenueCat SDK
+### 🐞 Bugfixes
+* fix: Default verificationMode to INFORMATIONAL via Álvaro Brey (@AlvaroBrey)
+
 ## 3.16.0
 ## RevenueCat SDK
 ### 📦 Dependency Updates
