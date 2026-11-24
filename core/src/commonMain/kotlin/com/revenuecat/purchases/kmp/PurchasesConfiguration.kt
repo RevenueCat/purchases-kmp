@@ -127,7 +127,7 @@ public class PurchasesConfiguration private constructor(
 
         @set:JvmSynthetic
         public var verificationMode: EntitlementVerificationMode =
-            EntitlementVerificationMode.DISABLED
+            EntitlementVerificationMode.INFORMATIONAL
 
         @set:JvmSynthetic
         public var pendingTransactionsForPrepaidPlansEnabled: Boolean? = null
@@ -238,7 +238,7 @@ public class PurchasesConfiguration private constructor(
          * The result of the verification can be obtained from [EntitlementInfos.verification] or
          * [EntitlementInfo.verification].
          *
-         * Default mode is disabled. Please see https://rev.cat/trusted-entitlements for more info.
+         * Default mode is informational. Please see https://rev.cat/trusted-entitlements for more info.
          */
         public fun verificationMode(verificationMode: EntitlementVerificationMode): Builder =
             apply { this.verificationMode = verificationMode }

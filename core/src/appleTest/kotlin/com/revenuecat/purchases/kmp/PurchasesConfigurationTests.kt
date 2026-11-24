@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp
 
+import com.revenuecat.purchases.kmp.models.EntitlementVerificationMode
 import com.revenuecat.purchases.kmp.models.PurchasesAreCompletedBy
 import com.revenuecat.purchases.kmp.models.StoreKitVersion
 import kotlin.test.Test
@@ -104,5 +105,12 @@ class PurchasesConfigurationTests {
             .build()
 
         assertEquals(false, config.enableExternalPurchasesInSimulator)
+    }
+
+    @Test
+    fun `verificationMode is INFORMATIONAL by default`() {
+        val config = PurchasesConfiguration(apiKey = "abc123")
+
+        assertEquals(EntitlementVerificationMode.INFORMATIONAL, config.verificationMode)
     }
 }
