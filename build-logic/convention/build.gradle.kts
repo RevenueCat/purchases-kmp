@@ -25,6 +25,13 @@ dependencies {
     implementation(libs.dokkatoo.gradlePlugin)
     implementation(libs.kotlin.gradlePlugin)
     implementation(libs.mavenPublish.gradlePlugin)
+
+    implementation(platform("io.netty:netty-bom:${libs.versions.netty.get()}"))
+    constraints {
+        listOf("bcprov", "bcpkix", "bcutil").forEach { artifact ->
+            implementation("org.bouncycastle:$artifact-jdk18on:${libs.versions.bouncycastle.get()}")
+        }
+    }
     
     testImplementation(gradleTestKit())
     testImplementation(libs.junit.api)

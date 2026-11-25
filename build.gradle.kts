@@ -6,6 +6,17 @@ import com.vanniktech.maven.publish.SonatypeHost
 import dev.iurysouza.modulegraph.Orientation
 import io.gitlab.arturbosch.detekt.Detekt
 
+buildscript {
+    dependencies {
+        classpath(platform("io.netty:netty-bom:${libs.versions.netty.get()}"))
+        constraints {
+            listOf("bcprov", "bcpkix", "bcutil").forEach { artifact ->
+                classpath("org.bouncycastle:$artifact-jdk18on:${libs.versions.bouncycastle.get()}")
+            }
+        }
+    }
+}
+
 plugins {
     //trick: for the same plugin versions in all sub-modules
     alias(libs.plugins.android.application).apply(false)
@@ -29,6 +40,12 @@ allprojects {
         resolutionStrategy.eachDependency {
             if (requested.group == "org.freemarker" && requested.name == "freemarker") {
                 useVersion(rootProject.libs.versions.freemarker.get())
+            }
+            if (requested.group == "io.netty" && requested.version?.startsWith("4.1.") == true) {
+                useVersion(rootProject.libs.versions.netty.get())
+            }
+            if (requested.group == "org.bouncycastle" && requested.name.endsWith("-jdk18on")) {
+                useVersion(rootProject.libs.versions.bouncycastle.get())
             }
         }
     }
