@@ -17,7 +17,7 @@ mavenPublish = "0.33.0"
 netty = "4.1.137.Final"
 poko = "0.22.0"
 revenuecat-android = "11.3.0"
-revenuecat-kmp = "4.2.1"
+revenuecat-kmp = "4.3.0-SNAPSHOT"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
