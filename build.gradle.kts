@@ -25,6 +25,14 @@ allprojects {
     group = "com.revenuecat.purchases"
     version = rootProject.libs.versions.revenuecat.kmp.get()
 
+    configurations.configureEach {
+        resolutionStrategy.eachDependency {
+            if (requested.group == "org.freemarker" && requested.name == "freemarker") {
+                useVersion(rootProject.libs.versions.freemarker.get())
+            }
+        }
+    }
+
     plugins.withType<MavenPublishPlugin> {
         configure<MavenPublishBaseExtension> {
             publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
