@@ -21,6 +21,8 @@ curl --location --request POST 'https://circleci.com/api/v2/project/github/Reven
             }'
 ```
 
+To release a specific version, also pass the `next_version` parameter, for example `"next_version": "10.0.0"`. This is needed for major versions, which the automatic bump skips.
+
 More information on triggering pipelines can be found in the [CircleCI docs](https://circleci.com/docs/triggers-overview).
 
 ## Locally using Fastlane
