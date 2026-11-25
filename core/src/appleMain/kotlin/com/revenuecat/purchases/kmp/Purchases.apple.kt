@@ -83,6 +83,79 @@ import com.revenuecat.purchases.kn.core.RCPurchases as IosPurchases
 import com.revenuecat.purchases.kn.core.RCWinBackOffer as NativeIosWinBackOffer
 
 public actual class Purchases private constructor(private val iosPurchases: IosPurchases) {
+
+    /** Purchases with a server-signed eligibility JWS on StoreKit 2; null preserves default purchase behavior. */
+    public actual fun purchaseWithIntroductoryOfferEligibilityJWS(
+        storeProduct: StoreProduct,
+        introductoryOfferEligibilityJWS: String?,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
+        onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
+    ) {
+        if (introductoryOfferEligibilityJWS == null) {
+            purchase(storeProduct = storeProduct, onError = onError, onSuccess = onSuccess)
+            return
+        }
+        introductoryOfferEligibilityError(introductoryOfferEligibilityJWS, supported = true)?.let {
+            onError(it, false)
+            return
+        }
+        val nativeItem = storeProduct.toIosStoreProduct()
+        val supported = appleApiAvailability.isIntroductoryOfferEligibilityAvailableForProduct(nativeItem)
+        introductoryOfferEligibilityError(introductoryOfferEligibilityJWS, supported)?.let {
+            onError(it, false)
+            return
+        }
+        val params = RCPurchaseParamsBuilder(product = nativeItem)
+            .withIntroductoryOfferEligibilityJWS(introductoryOfferEligibilityJWS)
+            .build()
+        iosPurchases.purchaseWithParams(params) { transaction, customerInfo, error, userCancelled ->
+            if (error != null) {
+                onError(error.toPurchasesErrorOrThrow(), userCancelled)
+            } else {
+                onSuccess(
+                    transaction?.toStoreTransaction() ?: error("Expected a non-null RCStoreTransaction"),
+                    customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
+                )
+            }
+        }
+    }
+
+    /** Purchases with a server-signed eligibility JWS on StoreKit 2; null preserves default purchase behavior. */
+    public actual fun purchaseWithIntroductoryOfferEligibilityJWS(
+        packageToPurchase: Package,
+        introductoryOfferEligibilityJWS: String?,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
+        onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
+    ) {
+        if (introductoryOfferEligibilityJWS == null) {
+            purchase(packageToPurchase = packageToPurchase, onError = onError, onSuccess = onSuccess)
+            return
+        }
+        introductoryOfferEligibilityError(introductoryOfferEligibilityJWS, supported = true)?.let {
+            onError(it, false)
+            return
+        }
+        val nativeItem = packageToPurchase.toIosPackage()
+        val supported = appleApiAvailability.isIntroductoryOfferEligibilityAvailableForProduct(nativeItem.storeProduct())
+        introductoryOfferEligibilityError(introductoryOfferEligibilityJWS, supported)?.let {
+            onError(it, false)
+            return
+        }
+        val params = RCPurchaseParamsBuilder(`package` = nativeItem)
+            .withIntroductoryOfferEligibilityJWS(introductoryOfferEligibilityJWS)
+            .build()
+        iosPurchases.purchaseWithParams(params) { transaction, customerInfo, error, userCancelled ->
+            if (error != null) {
+                onError(error.toPurchasesErrorOrThrow(), userCancelled)
+            } else {
+                onSuccess(
+                    transaction?.toStoreTransaction() ?: error("Expected a non-null RCStoreTransaction"),
+                    customerInfo?.toCustomerInfo() ?: error("Expected a non-null RCCustomerInfo")
+                )
+            }
+        }
+    }
+
     public actual companion object {
         private var _sharedInstance: Purchases? = null
         public actual val sharedInstance: Purchases

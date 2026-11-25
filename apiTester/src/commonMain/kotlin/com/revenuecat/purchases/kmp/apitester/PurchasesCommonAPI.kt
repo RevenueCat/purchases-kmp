@@ -14,6 +14,7 @@ import com.revenuecat.purchases.kmp.either.awaitEligibleWinBackOffersForProductE
 import com.revenuecat.purchases.kmp.either.awaitGetProductsEither
 import com.revenuecat.purchases.kmp.either.awaitOfferingsEither
 import com.revenuecat.purchases.kmp.either.awaitPurchaseEither
+import com.revenuecat.purchases.kmp.either.awaitPurchaseWithIntroductoryOfferEligibilityJWSEither
 import com.revenuecat.purchases.kmp.either.awaitVirtualCurrenciesEither
 import com.revenuecat.purchases.kmp.ktx.SuccessfulPurchase
 import com.revenuecat.purchases.kmp.ktx.awaitEligibleWinBackOffersForPackage
@@ -22,6 +23,7 @@ import com.revenuecat.purchases.kmp.ktx.awaitGetProducts
 import com.revenuecat.purchases.kmp.ktx.awaitOfferings
 import com.revenuecat.purchases.kmp.ktx.awaitPollRewardVerification
 import com.revenuecat.purchases.kmp.ktx.awaitPurchase
+import com.revenuecat.purchases.kmp.ktx.awaitPurchaseWithIntroductoryOfferEligibilityJWS
 import com.revenuecat.purchases.kmp.ktx.awaitTrialOrIntroPriceEligibility
 import com.revenuecat.purchases.kmp.ktx.awaitVirtualCurrencies
 import com.revenuecat.purchases.kmp.models.AdFormat
@@ -53,6 +55,7 @@ import com.revenuecat.purchases.kmp.result.awaitGetProductsResult
 import com.revenuecat.purchases.kmp.result.awaitVirtualCurrenciesResult
 import com.revenuecat.purchases.kmp.result.awaitOfferingsResult
 import com.revenuecat.purchases.kmp.result.awaitPurchaseResult
+import com.revenuecat.purchases.kmp.result.awaitPurchaseWithIntroductoryOfferEligibilityJWSResult
 
 @Suppress("unused", "UNUSED_VARIABLE", "UNUSED_ANONYMOUS_PARAMETER", "RedundantExplicitType")
 private class PurchasesCommonAPI {
@@ -496,4 +499,16 @@ private class PurchasesCommonAPI {
             onSuccess = { eligibleWinBackOffers: List<WinBackOffer> -> }
         )
     }
+}
+
+@Suppress("unused", "UNUSED_VARIABLE")
+private suspend fun checkIntroductoryOfferEligibilityApis(purchases: Purchases, product: StoreProduct, aPackage: Package) {
+    purchases.purchaseWithIntroductoryOfferEligibilityJWS(product, "header.deny.signature", { _, _ -> }, { _, _ -> })
+    purchases.purchaseWithIntroductoryOfferEligibilityJWS(aPackage, null, { _, _ -> }, { _, _ -> })
+    val productResult: SuccessfulPurchase = purchases.awaitPurchaseWithIntroductoryOfferEligibilityJWS(product, null)
+    val packageResult: SuccessfulPurchase = purchases.awaitPurchaseWithIntroductoryOfferEligibilityJWS(aPackage, "header.deny.signature")
+    val productResultWrapper: Result<SuccessfulPurchase> = purchases.awaitPurchaseWithIntroductoryOfferEligibilityJWSResult(product, null)
+    val packageResultWrapper: Result<SuccessfulPurchase> = purchases.awaitPurchaseWithIntroductoryOfferEligibilityJWSResult(aPackage, null)
+    val productEither: Either<FailedPurchase, SuccessfulPurchase> = purchases.awaitPurchaseWithIntroductoryOfferEligibilityJWSEither(product, null)
+    val packageEither: Either<FailedPurchase, SuccessfulPurchase> = purchases.awaitPurchaseWithIntroductoryOfferEligibilityJWSEither(aPackage, null)
 }

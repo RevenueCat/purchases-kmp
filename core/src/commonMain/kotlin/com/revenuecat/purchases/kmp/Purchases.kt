@@ -37,6 +37,33 @@ import kotlin.jvm.JvmSynthetic
  * instance with [Purchases.sharedInstance].
  */
 public expect class Purchases {
+
+    /**
+     * Purchases [storeProduct] with a server-signed introductory offer eligibility JWS on Apple StoreKit 2.
+     * Requires iOS 15+ or watchOS 11.4+ and a native SDK built with Xcode 16.3+.
+     * Unsupported paths fail before purchasing. Null delegates to the existing default purchase path.
+     * Sign on your server; never retry without a denial token automatically.
+     */
+    public fun purchaseWithIntroductoryOfferEligibilityJWS(
+        storeProduct: StoreProduct,
+        introductoryOfferEligibilityJWS: String?,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
+        onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
+    )
+
+    /**
+     * Purchases [packageToPurchase] with a server-signed introductory offer eligibility JWS on Apple StoreKit 2.
+     * Requires iOS 15+ or watchOS 11.4+ and a native SDK built with Xcode 16.3+.
+     * Unsupported paths fail before purchasing. Null delegates to the existing default purchase path.
+     * Sign on your server; never retry without a denial token automatically.
+     */
+    public fun purchaseWithIntroductoryOfferEligibilityJWS(
+        packageToPurchase: Package,
+        introductoryOfferEligibilityJWS: String?,
+        onError: (error: PurchasesError, userCancelled: Boolean) -> Unit,
+        onSuccess: (storeTransaction: StoreTransaction, customerInfo: CustomerInfo) -> Unit,
+    )
+
     public companion object {
         /**
          * Singleton instance of Purchases. [configure] will set this. Will throw an exception if
