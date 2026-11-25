@@ -72,4 +72,16 @@ public class AppleApiAvailability: NSObject {
             return false
         }
     }
+
+    /// Determines if the `StoreProduct.installmentsInfo` API is available on the current device.
+    ///
+    /// - Returns: `true` if `StoreProduct.installmentsInfo` is available, `false` otherwise.
+    @objc
+    public func isInstallmentsInfoAPIAvailable() -> Bool {
+        if #available(iOS 26.4, macOS 26.4, tvOS 26.4, watchOS 26.4, visionOS 26.4, *) {
+            return true
+        } else {
+            return false
+        }
+    }
 }

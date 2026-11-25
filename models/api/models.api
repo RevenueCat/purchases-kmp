@@ -140,6 +140,15 @@ public final class com/revenuecat/purchases/kmp/models/BillingFeature : java/lan
 	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/BillingFeature;
 }
 
+public final class com/revenuecat/purchases/kmp/models/BillingPlanType : java/lang/Enum {
+	public static final field MONTHLY Lcom/revenuecat/purchases/kmp/models/BillingPlanType;
+	public static final field UNKNOWN Lcom/revenuecat/purchases/kmp/models/BillingPlanType;
+	public static final field UP_FRONT Lcom/revenuecat/purchases/kmp/models/BillingPlanType;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/revenuecat/purchases/kmp/models/BillingPlanType;
+	public static fun values ()[Lcom/revenuecat/purchases/kmp/models/BillingPlanType;
+}
+
 public final class com/revenuecat/purchases/kmp/models/CacheFetchPolicy : java/lang/Enum {
 	public static final field CACHED_OR_FETCHED Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;
 	public static final field CACHE_ONLY Lcom/revenuecat/purchases/kmp/models/CacheFetchPolicy;
@@ -270,7 +279,13 @@ public final class com/revenuecat/purchases/kmp/models/GoogleReplacementMode : j
 
 public final class com/revenuecat/purchases/kmp/models/InstallmentsInfo {
 	public fun <init> (II)V
+	public fun <init> (IILcom/revenuecat/purchases/kmp/models/Period;Lcom/revenuecat/purchases/kmp/models/Price;Lcom/revenuecat/purchases/kmp/models/Period;Lcom/revenuecat/purchases/kmp/models/Price;Lcom/revenuecat/purchases/kmp/models/BillingPlanType;)V
+	public final fun getBillingPlanType ()Lcom/revenuecat/purchases/kmp/models/BillingPlanType;
+	public final fun getCommitmentInstallmentPeriod ()Lcom/revenuecat/purchases/kmp/models/Period;
 	public final fun getCommitmentPaymentsCount ()I
+	public final fun getCommitmentTotalPeriod ()Lcom/revenuecat/purchases/kmp/models/Period;
+	public final fun getCommitmentTotalPrice ()Lcom/revenuecat/purchases/kmp/models/Price;
+	public final fun getInstallmentBillingPrice ()Lcom/revenuecat/purchases/kmp/models/Price;
 	public final fun getRenewalCommitmentPaymentsCount ()I
 }
 
@@ -660,6 +675,7 @@ public abstract interface class com/revenuecat/purchases/kmp/models/StoreProduct
 	public abstract fun getDefaultOption ()Lcom/revenuecat/purchases/kmp/models/SubscriptionOption;
 	public abstract fun getDiscounts ()Ljava/util/List;
 	public abstract fun getId ()Ljava/lang/String;
+	public fun getInstallmentsInfo ()Lcom/revenuecat/purchases/kmp/models/InstallmentsInfo;
 	public abstract fun getIntroductoryDiscount ()Lcom/revenuecat/purchases/kmp/models/StoreProductDiscount;
 	public abstract fun getLocalizedDescription ()Ljava/lang/String;
 	public abstract fun getPeriod ()Lcom/revenuecat/purchases/kmp/models/Period;
@@ -672,6 +688,10 @@ public abstract interface class com/revenuecat/purchases/kmp/models/StoreProduct
 	public abstract fun getSubscriptionOptions ()Lcom/revenuecat/purchases/kmp/models/SubscriptionOptions;
 	public abstract fun getTitle ()Ljava/lang/String;
 	public abstract fun getType ()Lcom/revenuecat/purchases/kmp/models/ProductType;
+}
+
+public final class com/revenuecat/purchases/kmp/models/StoreProduct$DefaultImpls {
+	public static fun getInstallmentsInfo (Lcom/revenuecat/purchases/kmp/models/StoreProduct;)Lcom/revenuecat/purchases/kmp/models/InstallmentsInfo;
 }
 
 public abstract interface class com/revenuecat/purchases/kmp/models/StoreProductDiscount {

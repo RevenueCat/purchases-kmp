@@ -7,4 +7,9 @@ public fun AndroidInstallmentsInfo.toInstallmentsInfo(): InstallmentsInfo =
     InstallmentsInfo(
         commitmentPaymentsCount = this.commitmentPaymentsCount,
         renewalCommitmentPaymentsCount = this.renewalCommitmentPaymentsCount,
+        commitmentInstallmentPeriod = null,
+        installmentBillingPrice = null,
+        commitmentTotalPeriod = null,
+        commitmentTotalPrice = null,
+        billingPlanType = null,
     )

@@ -1,5 +1,6 @@
 package com.revenuecat.purchases.kmp.mappings
 
+import com.revenuecat.purchases.kmp.models.InstallmentsInfo
 import com.revenuecat.purchases.kmp.models.PresentedOfferingContext
 import com.revenuecat.purchases.kmp.models.Period
 import com.revenuecat.purchases.kmp.models.Price
@@ -35,4 +36,5 @@ private class AndroidStoreProduct(
     override val pricePerWeek: Price? by lazy { wrapped.pricePerWeek()?.toPrice() }
     override val pricePerMonth: Price? by lazy { wrapped.pricePerMonth()?.toPrice() }
     override val pricePerYear: Price? by lazy { wrapped.pricePerYear()?.toPrice() }
+    override val installmentsInfo: InstallmentsInfo? = null
 }
